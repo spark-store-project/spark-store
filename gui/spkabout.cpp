@@ -15,10 +15,8 @@ SpkAbout::SpkAbout(QWidget *parent) : SpkDialog(parent)
   mSpkVersion = new QLabel;
   mSpkVersion->setText(tr("<h1>Spark Store</h1>"
                           "<h3>Version <a href=\"https://www.spark-app.store\">%1</a></h3>"
-                          "<t>Code committed on (%2)</t><br>"
-                          "<t>Built on %3 %4</t>")
+                          "<t>Built on %2 %3</t>")
                            .arg(GitVer::DescribeTags(),
-                                GitVer::CommitDate(),
                                 __DATE__, __TIME__));
   connect(mSpkVersion, &QLabel::linkActivated,
           [](const QString &link){ QDesktopServices::openUrl(link); });
