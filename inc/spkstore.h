@@ -35,5 +35,5 @@ class SpkStore : public QObject
     SpkLogger *mLogger;
     SpkMainWindow *mMainWindow = nullptr;
     QNetworkAccessManager *mNetMgr = nullptr;
-    QString mDistroName, mApiRequestUrl, mUserAgentStr;
+    QString mDistroName, mApiRequestUrl, mUserAgentStr, mConfigPath;
 };

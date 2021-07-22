@@ -59,7 +59,15 @@ void SpkDialog::AddButton(QString text, SpkUi::SpkButtonStyle style)
 
 void SpkDialog::AddWidget(QWidget *w)
 {
+  // Adding a widget does not take the ownership.
   mWidgetsVLay->addWidget(w);
+  mWidgetsList << w;
+  mParentsList << w->parentWidget();
+}
+
+void SpkDialog::AddLayout(QLayout *w)
+{
+  mWidgetsVLay->addLayout(w);
   mWidgetsList << w;
   mParentsList << w->parentWidget();
 }
@@ -67,6 +75,11 @@ void SpkDialog::AddWidget(QWidget *w)
 void SpkDialog::AddSpacing(int a)
 {
   mWidgetsVLay->addSpacing(a);
+}
+
+void SpkDialog::SetMargin(int a)
+{
+  mWidgetsVLay->setMargin(a);
 }
 
 int SpkDialog::Exec()

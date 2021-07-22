@@ -59,7 +59,7 @@ class SpkWindow : public QMainWindow
     void SetMouseCursor(Qt::Edges);
     void ResizeWindowByCursor(QPoint);
     void closeEvent(QCloseEvent *) override;
-//    void paintEvent(QPaintEvent *) override;
+    void paintEvent(QPaintEvent *) override;
 
   private:
     void PopulateUi();

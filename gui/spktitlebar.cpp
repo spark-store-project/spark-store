@@ -25,7 +25,7 @@ SpkTitleBar::SpkTitleBar(QWidget *parent) : QWidget(parent)
   mMainLayout->setSpacing(8);
   mBtnGroup->setSpacing(0);
 
-  mMainLayout->addSpacing(8);
+  mMainLayout->addSpacing(12);
   mMainLayout->addWidget(mIcon);
   mMainLayout->addWidget(mTitle);
   mMainLayout->addLayout(mUserSpace);

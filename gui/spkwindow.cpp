@@ -14,6 +14,7 @@
 
 SpkWindow::SpkWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
 {
+  mUseCustomEvents = SpkUi::DtkPlugin == nullptr; // Put to the front, to prevent warnings
   if(SpkUi::DtkPlugin && !qgetenv("SPARK_NO_DXCB").toInt())
     SpkUi::DtkPlugin->addWindow(this, parent); // Register window to DXcb so we got Deepin
   else
@@ -24,7 +25,6 @@ SpkWindow::SpkWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(paren
   mMoving = mResizing = false;
   mCloseHook = nullptr;
   mMaximized = windowState().testFlag(Qt::WindowMaximized);
-  mUseCustomEvents = SpkUi::DtkPlugin == nullptr;
 
   PopulateUi();
 }
@@ -223,6 +223,20 @@ void SpkWindow::closeEvent(QCloseEvent *e)
   }
   e->accept();
   emit Closed();
+}
+
+void SpkWindow::paintEvent(QPaintEvent *e)
+{
+  //FIXME: DOESN'T WORK!
+//  QPainter painter(this);
+//  painter.setBrush(QBrush(Qt::NoBrush));
+//  painter.setPen(QPen(SpkUi::ColorLine));
+//  QRect rect = this->rect();
+//  rect.setWidth(rect.width() - 2);
+//  rect.setHeight(rect.height() - 2);
+//  rect.adjust(-1, -1, 1, 1);
+//  painter.drawRect(rect);
+//  QWidget::paintEvent(e);
 }
 
 void SpkWindow::SetCornerRadius(int radius)

@@ -17,6 +17,11 @@ class QNetworkReply;
 
 namespace SpkUi
 {
+  enum SpkStackedPages
+  {
+    PgQssTest // Must be at last
+  };
+
   class SpkSidebarSelector : public QObject
   {
       Q_OBJECT

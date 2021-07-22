@@ -26,10 +26,11 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
 
   mConfigPath = QDir::homePath() + "/.config/spark-store/config"; //TODO: flexible config via CLI
   if(QFileInfo(mConfigPath).exists())
-    mCfg = new QSettings(QDir::homePath() + "/.config/spark-store/config", QSettings::IniFormat);
+    mCfg = new QSettings(QDir::homePath() + "/.config/spark-store/config", QSettings::IniFormat,
+                         this);
   else
   {
-    mCfg = new QSettings(":/info/default_config", QSettings::IniFormat);
+    mCfg = new QSettings(":/info/default_config", QSettings::IniFormat, this);
 #if 0
     bool cfgDirOk;
     if(!qgetenv("SPARK_NO_INSTALL_CONFIG").toInt())

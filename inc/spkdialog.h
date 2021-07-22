@@ -15,7 +15,9 @@ class SpkDialog : public SpkWindow
     ~SpkDialog();
     void AddButton(QString text, SpkUi::SpkButtonStyle style = SpkUi::SpkButtonStyle::Normal);
     void AddWidget(QWidget*);
+    void AddLayout(QLayout*);
     void AddSpacing(int);
+    void SetMargin(int);
     int  Exec();
 
   private slots:
@@ -31,5 +33,5 @@ class SpkDialog : public SpkWindow
     QVBoxLayout *mMainVLay, *mWidgetsVLay;
     QHBoxLayout *mBtnLay;
     QButtonGroup *mBtnGroup;
-    QList<QWidget*> mWidgetsList, mParentsList;
+    QList<QObject*> mWidgetsList, mParentsList;
 };
