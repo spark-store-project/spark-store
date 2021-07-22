@@ -1,5 +1,6 @@
 
 #include <QApplication>
+#include "spkabout.h"
 #include "spkpageuitest.h"
 #include "spkpopup.h"
 #include "spkui_general.h"
@@ -51,6 +52,10 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   ShowPopup->setText("Show Popup");
   connect(ShowPopup, &QPushButton::clicked, this, &SpkPageUiTest::ShowPopupSlot);
 
+  ShowAbout = new QPushButton(this);
+  ShowAbout->setText("Show About Dialog");
+  connect(ShowAbout, &QPushButton::clicked, [](){ SpkAbout::Show(); });
+
   SlideV = new QSlider(this);
   SlideV->setObjectName("spk_pg_qsstest_slider_v");
   SlideV->setOrientation(Qt::Vertical);
@@ -71,6 +76,7 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   VLayBtn->addWidget(Loading);
   VLayBtn->addWidget(PopupText);
   VLayBtn->addWidget(ShowPopup);
+  VLayBtn->addWidget(ShowAbout);
 
   Group = new QGroupBox(this);
   Group->setObjectName("spk_pg_qsstest_groupbox");

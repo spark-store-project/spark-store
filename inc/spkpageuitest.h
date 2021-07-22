@@ -40,7 +40,8 @@ namespace SpkUi
       SpkLoading *Loading;
 
       QLineEdit *PopupText;
-      QPushButton *ShowPopup;
+      QPushButton *ShowPopup,
+                  *ShowAbout;
 
     public slots:
       void SetStylesheet();

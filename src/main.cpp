@@ -4,7 +4,6 @@
 #include "spkui_general.h"
 #include "spkstore.h"
 
-#include "spkabout.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,8 +12,6 @@ int main(int argc, char *argv[])
   QString LogPath = "";
 
   SpkStore store(false, LogPath);
-
-  SpkAbout::Show();
 
   return QApplication::exec();
 }
