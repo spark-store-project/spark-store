@@ -13,6 +13,7 @@
     %11: Text on Selection/Activation
     %12: Text on Global background
     %13: Text on controls background
+    %14: Text slightly lighter
 */
 
 QWidget
@@ -154,4 +155,9 @@ QScrollBar::handle:hover
 QScrollBar::add-line, QScrollBar::sub-line
 {
     height:0px
+}
+
+#spk_about_desc
+{
+    color: %14
 }

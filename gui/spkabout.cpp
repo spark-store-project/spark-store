@@ -35,6 +35,7 @@ SpkAbout::SpkAbout(QWidget *parent) : SpkDialog(parent)
       "more Debian-based Linux OSes, and build a real community software repository "
       "for users around the world.";
   mDescriptionText = new QLabel;
+  mDescriptionText->setObjectName("spk_about_desc");
   mDescriptionText->setWordWrap(true);
   mDescriptionText->setText(description);
 

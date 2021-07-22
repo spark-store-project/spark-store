@@ -146,7 +146,8 @@ namespace SpkUi
                            0x6b6b6b, 0x656565, 0x606060, 0x404040, 0x383838,
                            ColorTextOnBackground(0x0070ff),
                            ColorTextOnBackground(0x282828),
-                           ColorTextOnBackground(0x282828)
+                           ColorTextOnBackground(0x282828),
+                           /* TODO: %14 lighter text */
                          };
         CurrentStylesheet = StylesheetFromColors(LightColor);
         qApp->setStyleSheet(CurrentStylesheet);
@@ -159,7 +160,8 @@ namespace SpkUi
                           0x6b6b6b, 0x656565, 0x606060, 0x404040, 0x383838,
                           ColorTextOnBackground(0x0070ff),
                           ColorTextOnBackground(0x282828),
-                          ColorTextOnBackground(0x282828)
+                          ColorTextOnBackground(0x282828),
+                          0xd5d5d5
                          };
         CurrentStylesheet = StylesheetFromColors(DarkColor);
         CurrentColorSet = DarkColor;
