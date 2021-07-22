@@ -62,7 +62,7 @@ set(SOURCE_FILES
     inc/spkmsgbox.h gui/spkmsgbox.cpp
     inc/spkdialog.h gui/spkdialog.cpp
     inc/spkabout.h gui/spkabout.cpp
-    inc/spkpageqsstest.h gui/spkpageqsstest.cpp
+    inc/spkpageuitest.h gui/spkpageuitest.cpp
     inc/spkloading.h gui/spkloading.cpp
     inc/spksidebartree.h gui/spksidebartree.cpp
     inc/spkpopup.h gui/spkpopup.cpp

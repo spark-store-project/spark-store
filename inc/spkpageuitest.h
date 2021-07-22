@@ -16,11 +16,11 @@
 
 namespace SpkUi
 {
-  class SpkPageQssTest : public QSplitter
+  class SpkPageUiTest : public QSplitter
   {
       Q_OBJECT
     public:
-      SpkPageQssTest(QWidget *parent = nullptr);
+      SpkPageUiTest(QWidget *parent = nullptr);
       QWidget *WidL, *WidR;
       QVBoxLayout *VLayWidgets,
                   *VLayBtn,

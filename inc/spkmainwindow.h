@@ -11,7 +11,7 @@
 #include <QJsonObject>
 #include "spksidebartree.h" // In place of #include <QTreeWidget>
 #include <QPointer>
-#include "spkpageqsstest.h"
+#include "spkpageuitest.h"
 
 class QNetworkReply;
 
@@ -142,7 +142,7 @@ namespace SpkUi
       QTreeWidgetItem *CategoryParentItem;
 
       //Pages
-      SpkPageQssTest *PageQssTest;
+      SpkPageUiTest *PageQssTest;
   };
 }
 

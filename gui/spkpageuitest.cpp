@@ -1,10 +1,10 @@
 
 #include <QApplication>
-#include "spkpageqsstest.h"
+#include "spkpageuitest.h"
 #include "spkpopup.h"
 #include "spkui_general.h"
 
-SpkUi::SpkPageQssTest::SpkPageQssTest(QWidget *parent) : QSplitter(parent)
+SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
 {
   setObjectName("spk_pg_qsstest");
 
@@ -15,12 +15,12 @@ SpkUi::SpkPageQssTest::SpkPageQssTest(QWidget *parent) : QSplitter(parent)
   BtnApply = new QPushButton(this);
   BtnApply->setObjectName("spk_pg_qsstest_btnapply");
   BtnApply->setText("Apply");
-  connect(BtnApply, &QPushButton::pressed, this, &SpkPageQssTest::SetStylesheet);
+  connect(BtnApply, &QPushButton::pressed, this, &SpkPageUiTest::SetStylesheet);
 
   BtnFetch = new QPushButton(this);
   BtnFetch->setObjectName("spk_pg_qsstest_btnfetch");
   BtnFetch->setText("Fetch Stylesheet");
-  connect(BtnFetch, &QPushButton::pressed, this, &SpkPageQssTest::FetchStylesheet);
+  connect(BtnFetch, &QPushButton::pressed, this, &SpkPageUiTest::FetchStylesheet);
 
   HLayInputBtns = new QHBoxLayout;
   HLayInputBtns->setObjectName("spk_pg_qsstest_hlay_inputbtns");
@@ -49,7 +49,7 @@ SpkUi::SpkPageQssTest::SpkPageQssTest(QWidget *parent) : QSplitter(parent)
 
   ShowPopup = new QPushButton(this);
   ShowPopup->setText("Show Popup");
-  connect(ShowPopup, &QPushButton::clicked, this, &SpkPageQssTest::ShowPopupSlot);
+  connect(ShowPopup, &QPushButton::clicked, this, &SpkPageUiTest::ShowPopupSlot);
 
   SlideV = new QSlider(this);
   SlideV->setObjectName("spk_pg_qsstest_slider_v");
@@ -104,17 +104,17 @@ SpkUi::SpkPageQssTest::SpkPageQssTest(QWidget *parent) : QSplitter(parent)
   addWidget(WidR);
 }
 
-void SpkUi::SpkPageQssTest::SetStylesheet()
+void SpkUi::SpkPageUiTest::SetStylesheet()
 {
   qApp->setStyleSheet(TextStylesheet->toPlainText());
 }
 
-void SpkUi::SpkPageQssTest::FetchStylesheet()
+void SpkUi::SpkPageUiTest::FetchStylesheet()
 {
   TextStylesheet->setPlainText(SpkUi::CurrentStylesheet);
 }
 
-void SpkUi::SpkPageQssTest::ShowPopupSlot()
+void SpkUi::SpkPageUiTest::ShowPopupSlot()
 {
   SpkUi::Popup->Show(PopupText->text());
 }

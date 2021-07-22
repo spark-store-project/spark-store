@@ -170,7 +170,7 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   HorizontalDivide->addLayout(VLayMain);
 
   // Initialize pages
-  PageQssTest = new SpkUi::SpkPageQssTest(this);
+  PageQssTest = new SpkUi::SpkPageUiTest(this);
   Pager->addWidget(PageQssTest);
 
   setLayout(HorizontalDivide);

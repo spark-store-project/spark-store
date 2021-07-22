@@ -1,9 +1,8 @@
 
-#include <QEventLoop>
 #include "spkdialog.h"
+#include <QEventLoop>
 
-SpkDialog::SpkDialog(QWidget *parent) :
-  SpkWindow(parent, Qt::Dialog)
+SpkDialog::SpkDialog(QWidget *parent) : SpkWindow(parent, Qt::Dialog)
 {
   mDialogWidget = new QWidget;
   mMainVLay = new QVBoxLayout(mDialogWidget);
@@ -30,7 +29,7 @@ SpkDialog::~SpkDialog()
   auto itp = mParentsList.begin();
   for(auto itw = mWidgetsList.begin(); itw != mWidgetsList.end(); itw++)
   {
-    (*itw)->setParent(*(itp++)); // We shall never take the ownership of these widgets
+    (*itw)->setParent(*(itp++));// We shall never take the ownership of these widgets
   }
   delete mDialogWidget;
 }
@@ -102,4 +101,9 @@ void SpkDialog::ForceClose()
 {
   disconnect(this, &SpkDialog::CloseWindow, this, &QMainWindow::close);
   emit ExitEventLoop(-1);
+}
+
+void SpkDialog::SetMargin(int left, int top, int right, int bottom)
+{
+  mWidgetsVLay->setContentsMargins(left, top, right, bottom);
 }

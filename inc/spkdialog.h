@@ -18,6 +18,7 @@ class SpkDialog : public SpkWindow
     void AddLayout(QLayout*);
     void AddSpacing(int);
     void SetMargin(int);
+    void SetMargin(int, int, int, int);
     int  Exec();
 
   private slots:
@@ -28,8 +29,9 @@ class SpkDialog : public SpkWindow
     void ExitEventLoop(int);
     void CloseWindow();
 
-  private:
+  protected:
     QWidget *mDialogWidget;
+  private:
     QVBoxLayout *mMainVLay, *mWidgetsVLay;
     QHBoxLayout *mBtnLay;
     QButtonGroup *mBtnGroup;
