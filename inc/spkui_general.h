@@ -15,6 +15,23 @@ namespace SpkUi
 {
   enum SpkUiStyle { Light, Dark };
   enum SpkButtonStyle { Normal = 0, Recommend, Warn };
+  enum ColorSetIndex
+  {
+    GlobalBgnd = 0,
+    ControlsBgnd,
+    ControlsBgndHighlighted,
+    SelectionBgnd, AccentColor = SelectionBgnd,
+    SelectionBgndHighlighted, AccentColorHighlighted = SelectionBgndHighlighted,
+    LightCtrlsGradLight,
+    LightCtrlsGradDark,
+    LightCtrlsGradDarker,
+    DarkCtrlsGradLight,
+    DarkCtrlsGradDark,
+    TextOnSelection, TextOnAccentColor = TextOnSelection,
+    TextOnGlobalBgnd,
+    TextOnControlsBgnd,
+    TextLighter
+  };
 
   class SpkPopup;
 

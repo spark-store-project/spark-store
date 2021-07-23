@@ -2,6 +2,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include "spkloading.h"
+#include "spkui_general.h"
 
 SpkLoading::SpkLoading(QWidget *parent) : QWidget(parent)
 {
@@ -19,7 +20,7 @@ void SpkLoading::paintEvent(QPaintEvent *e)
 {
   QPainter p(this);
   QPen pen(Qt::NoPen);
-  QBrush b({ 0, 0x7b, 0xff }, Qt::SolidPattern); // TODO: Customizable accent color
+  QBrush b(SpkUi::CurrentColorSet[SpkUi::AccentColor], Qt::SolidPattern);
   p.setBrush(b);
   p.setPen(pen);
   p.setRenderHint(QPainter::Antialiasing);

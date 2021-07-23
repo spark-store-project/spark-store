@@ -268,9 +268,9 @@ namespace SpkUi
 
   void UiMetaObject::SetAccentColor(QColor aColor)
   {
-    CurrentColorSet[3] = aColor.lighter(80);
-    CurrentColorSet[4] = aColor;
-    CurrentColorSet[10] = ColorTextOnBackground(aColor);
+    CurrentColorSet[AccentColor] = aColor.lighter(80);
+    CurrentColorSet[AccentColorHighlighted] = aColor;
+    CurrentColorSet[TextOnAccentColor] = ColorTextOnBackground(aColor);
     qApp->setStyleSheet(StylesheetFromColors(CurrentColorSet));
   }
 
