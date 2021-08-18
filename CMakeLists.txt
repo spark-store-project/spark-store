@@ -54,6 +54,7 @@ set(SOURCE_FILES
     inc/dtk/spkdtkplugin.h
     inc/spkutils.h src/spkutils.cpp
     inc/telemetry/collectid.h
+    inc/spkqsshelper.h
 
     inc/spkwindow.h gui/spkwindow.cpp
     inc/spktitlebar.h gui/spktitlebar.cpp

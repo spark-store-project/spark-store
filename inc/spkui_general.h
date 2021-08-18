@@ -8,30 +8,16 @@
 #include <QString>
 #include <QSize>
 #include <QColor>
+#include <map>
 
+#include "spkqsshelper.h"
 #include "dtk/spkdtkplugin.h"
 
 namespace SpkUi
 {
+
   enum SpkUiStyle { Light, Dark };
   enum SpkButtonStyle { Normal = 0, Recommend, Warn };
-  enum ColorSetIndex
-  {
-    GlobalBgnd = 0,
-    ControlsBgnd,
-    ControlsBgndHighlighted,
-    SelectionBgnd, AccentColor = SelectionBgnd,
-    SelectionBgndHighlighted, AccentColorHighlighted = SelectionBgndHighlighted,
-    LightCtrlsGradLight,
-    LightCtrlsGradDark,
-    LightCtrlsGradDarker,
-    DarkCtrlsGradLight,
-    DarkCtrlsGradDark,
-    TextOnSelection, TextOnAccentColor = TextOnSelection,
-    TextOnGlobalBgnd,
-    TextOnControlsBgnd,
-    TextLighter
-  };
 
   class SpkPopup;
 
@@ -56,7 +42,7 @@ namespace SpkUi
   extern QSize PrimaryScreenSize;
   extern SpkDtkPlugin *DtkPlugin;
   extern QStyle *OldSystemStyle;
-  extern QList<QColor> CurrentColorSet;
+  extern std::map<Qss::ColorSetIndex, QColor> CurrentColorSet;
 
   extern SpkPopup *Popup;
 
@@ -68,16 +54,16 @@ namespace SpkUi
   namespace Priv
   {
     extern bool CrashHandlerActivated;
+    using namespace SpkUi::Qss;
   }
 
   void Initialize();
   void GuessAppropriateTheme();
   void PrepareForDeepinDesktop();
   bool CheckIsDeepinDesktop();
-  QString StylesheetFromColors(QList<QColor>);
+  QString StylesheetFromColors(Qss::ColorSet);
 
   QIcon GetThemedIcon(QString);
-  QColor ColorTextOnBackground(QColor);
 
   void CrashSignalHandler(int);
 

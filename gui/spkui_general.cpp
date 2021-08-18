@@ -24,14 +24,14 @@
 namespace SpkUi
 {
   UiMetaObject SpkUiMetaObject;
-
   SpkUiStyle CurrentStyle;
   QString StylesheetBase, CurrentStylesheet;
   QColor ColorLine, ColorBack;
   QSize PrimaryScreenSize;
   SpkDtkPlugin *DtkPlugin = nullptr;
   QStyle *OldSystemStyle = nullptr;
-  QList<QColor> CurrentColorSet;
+
+  std::map<Qss::ColorSetIndex, QColor> CurrentColorSet;
 
   SpkPopup *Popup;
 
@@ -141,38 +141,17 @@ namespace SpkUi
     switch(aStyle)
     {
       case Light:
-        static auto LightColor = QList<QColor>{
-                           0x282828, 0x282828, 0xff0000, 0x0070ff, QColor(0x70ff).lighter(120),
-                           0x6b6b6b, 0x656565, 0x606060, 0x404040, 0x383838,
-                           ColorTextOnBackground(0x0070ff),
-                           ColorTextOnBackground(0x282828),
-                           ColorTextOnBackground(0x282828),
-                           /* TODO: %14 lighter text */
-                         };
-        CurrentStylesheet = StylesheetFromColors(LightColor);
+        CurrentStylesheet = StylesheetFromColors(Qss::LightColorSet);
+        CurrentColorSet = Qss::LightColorSet;
         qApp->setStyleSheet(CurrentStylesheet);
-        // TODO
         ColorLine = Qt::black;
         break;
       case Dark:
-        static auto DarkColor = QList<QColor>{
-                          0x282828, 0x282828, 0xff0000, 0x0070ff, QColor(0x70ff).lighter(120),
-                          0x6b6b6b, 0x656565, 0x606060, 0x404040, 0x383838,
-                          ColorTextOnBackground(0x0070ff),
-                          ColorTextOnBackground(0x282828),
-                          ColorTextOnBackground(0x282828),
-                          0xd5d5d5
-                         };
-        CurrentStylesheet = StylesheetFromColors(DarkColor);
-        CurrentColorSet = DarkColor;
+        CurrentStylesheet = StylesheetFromColors(Qss::DarkColorSet);
+        CurrentColorSet = Qss::DarkColorSet;
         qApp->setStyleSheet(CurrentStylesheet);
         ColorLine = Qt::white;
         break;
-        // IDE complains about default label covering all conditions, commented
-//      default:
-//        sWarn(QObject::tr("SetGlobalStyle invoked with unknown style %1.")
-//              .arg(static_cast<int>(aStyle)));
-//        break;
     }
   }
 
@@ -251,11 +230,11 @@ namespace SpkUi
     return QIcon(":/icons/" + name + ".svg");
   }
 
-  QString StylesheetFromColors(QList<QColor> aColors)
+  QString StylesheetFromColors(Qss::ColorSet aColors)
   {
     QString ret = StylesheetBase;
     foreach(auto &i, aColors)
-      ret = ret.arg(i.name());
+      ret = ret.replace(Qss::ColorSet2Token.at(i.first), i.second.name());
     return ret;
   }
 
@@ -268,9 +247,9 @@ namespace SpkUi
 
   void UiMetaObject::SetAccentColor(QColor aColor)
   {
-    CurrentColorSet[AccentColor] = aColor.lighter(80);
-    CurrentColorSet[AccentColorHighlighted] = aColor;
-    CurrentColorSet[TextOnAccentColor] = ColorTextOnBackground(aColor);
+    CurrentColorSet[Qss::AccentColor] = aColor.lighter(80);
+    CurrentColorSet[Qss::AccentColorHighlighted] = aColor;
+    CurrentColorSet[Qss::TextOnAccentColor] = ColorTextOnBackground(aColor);
     qApp->setStyleSheet(StylesheetFromColors(CurrentColorSet));
   }
 

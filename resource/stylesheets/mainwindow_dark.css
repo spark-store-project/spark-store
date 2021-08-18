@@ -1,31 +1,171 @@
 /*
-    Spark Customizable style sheet conventions
-    %1 : Global background color
-    %2 : Controls background color
-    %3 : Controls background color highlighted
-    %4 : Selection/Activation background color
-    %5 : Selection/Activation background color hightlighted
-    %6 : Light controls gradient light
-    %7 : Light controls gradient dark
-    %8 : Light controls gradient darker
-    %9 : Dark controls gradient light
-    %10: Dark controls gradient dark
-    %11: Text on Selection/Activation
-    %12: Text on Global background
-    %13: Text on controls background
-    %14: Text slightly lighter
+    GBG_ : Global background color
+    CBG_ : Controls background color
+    CBGH : Controls background color highlighted
+    ACC_ : Selection/Activation background color
+    ACCH : Selection/Activation background color hightlighted
+    LCTL1 : Light controls gradient light
+    LCTL2 : Light controls gradient dark
+    LCTL3 : Light controls gradient darker
+    DCTL1 : Dark controls gradient light
+    DCTL2: Dark controls gradient dark
+    TXACC: Text on Selection/Activation
+    TXGBG: Text on Global background
+    TXCBG: Text on controls background
+    TXL: Text slightly lighter
+    GLS: Glossy edge on controls
+    SHD: Shades edge on controls
 */
 
 QWidget
 {
-    background-color: %1;
+    background-color: GBG_;
     color: #ffffff;
 }
 
 QLabel
 {
     background: transparent;
+    font-size: 14px;
 }
+
+QScrollArea
+{
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+QLineEdit
+{
+    background:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 LCTL1, stop:1 LCTL2);
+    padding: 3px;
+    border-radius: 7px;
+    border: 1px solid SHD;
+    border-bottom: 1px solid GLS;
+    selection-color: TXACC;
+    selection-background-color: ACC_;
+}
+
+QPushButton
+{
+    border-width: 1px;
+    padding: 2px;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 8px;
+    border-color: LCTL2;
+    border-top-color: SHD;
+    border-style: solid;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 LCTL1, stop:1 LCTL2)
+}
+
+QPushButton::pressed
+{
+    border-top-color: GLS;
+    border-bottom-color: SHD;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 LCTL3, stop:1 LCTL1)
+}
+
+QScrollBar::handle
+{
+    border: 0px;
+    border-radius: 5px;
+    background-color: DCTL1
+}
+QScrollBar::horizontal{height: 10px}
+QScrollBar::vertical{width:10px}
+
+QScrollBar::handle:hover
+{
+    background-color: LCTL2
+}
+
+QScrollBar::add-line, QScrollBar::sub-line
+{
+    height:0px
+}
+
+/* Custom widgets */
+
+#styAboutDesc
+{
+    color: TXL
+}
+
+SpkAppItem
+{
+    background: DCTL2;
+    border-radius: 11px;
+}
+
+SpkAppItem::hover
+{
+    background: DCTL1;
+    border-radius: 11px;
+}
+
+#styAppItmTitle
+{
+    font-weight: 500;
+    font-size: 17px;
+}
+
+#styChkBtn
+{
+    border-width: 0px;
+    background-color: DCTL1
+}
+
+#styChkBtn:pressed
+{
+    background-color: ACCH
+}
+
+#styChkBtn:checked
+{
+    background-color: ACC_
+}
+
+#styPlainChkBtn
+{
+    border-width: 0px;
+    background-color: GBG_
+}
+
+#styPlainChkBtn:pressed
+{
+    background-color: ACCH
+}
+
+#styPlainChkBtn:checked
+{
+    background-color: ACC_
+}
+
+SpkTitleBar
+{
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 DCTL2, stop:1 DCTL1)
+}
+
+SpkTitleBarDefaultButton
+{
+    margin: 0px;
+    border-radius: 0px;
+    border-width: 0px;
+    background-color: CBG_;
+}
+
+SpkTitleBarDefaultButton:hover
+{
+    background-color: DCTL1;
+}
+
+SpkTitleBarDefaultButton:pressed
+{
+    background-color: LCTL3;
+}
+
+/* Window widgets */
 
 #styMwCateg
 {
@@ -38,143 +178,21 @@ QLabel
 {
     height: 35px;
     border: none;
-    color: %13;
+    color: TXCBG;
 }
 
 #styMwCateg::item:selected
 {
-    color: %11;
-    background-color: %4;
+    color: TXACC;
+    background-color: ACC_;
 }
 
 #styMwCateg::branch:!has-children
 {
-    background: %1;
+    background: GBG_;
 }
 
 #styMwCateg::branch:selected
 {
-    background-color: %4;
-}
-
-QLabel
-{
-    font-size: 14px
-}
-
-QScrollArea
-{
-    border-width: 1px;
-    border-radius: 5px;
-}
-
-QPushButton
-{
-    border-width: 1px;
-    padding: 2px;
-    font-size: 14px;
-    font-weight: 300;
-    border-radius: 11px;
-    border-color: %7;
-    border-top-color: #7b7b7b;
-    border-style: solid;
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 %6, stop:1 %7)
-}
-
-QPushButton::pressed
-{
-    border-top-color: #656565;
-    border-bottom-color: #7b7b7b;
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 %8, stop:1 %6)
-}
-
-#styChkBtn
-{
-    border-width: 0px;
-    background-color: %9
-}
-
-#styChkBtn:pressed
-{
-    background-color: %5
-}
-
-#styChkBtn:checked
-{
-    background-color: %4
-}
-
-#styPlainChkBtn
-{
-    border-width: 0px;
-    background-color: %1
-}
-
-#styPlainChkBtn:pressed
-{
-    background-color: %5
-}
-
-#styPlainChkBtn:checked
-{
-    background-color: %4
-}
-
-SpkTitleBar
-{
-    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 %10, stop:1 %9)
-}
-
-SpkTitleBarDefaultButton
-{
-    margin: 0px;
-    border-radius: 0px;
-    border-width: 0px;
-    background-color: %2;
-}
-
-SpkTitleBarDefaultButton:hover
-{
-    background-color: %9;
-}
-
-SpkTitleBarDefaultButton:pressed
-{
-    background-color: %8;
-}
-
-QScrollBar::handle
-{
-    border: 0px;
-    border-radius: 5px;
-    background-color: #606060
-}
-QScrollBar::horizontal{height: 10px}
-QScrollBar::vertical{width:10px}
-
-QScrollBar::handle:hover
-{
-    background-color: #606060
-}
-
-QScrollBar::add-line, QScrollBar::sub-line
-{
-    height:0px
-}
-
-#styAboutDesc
-{
-    color: %14
-}
-
-SpkAppItem
-{
-    background: %10;
-    border-radius: 11px;
-}
-
-#styAppItmTitle
-{
-    font-weight: 500;
-    font-size: 17px;
+    background-color: ACC_;
 }

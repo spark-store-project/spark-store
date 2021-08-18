@@ -20,7 +20,7 @@ void SpkLoading::paintEvent(QPaintEvent *e)
 {
   QPainter p(this);
   QPen pen(Qt::NoPen);
-  QBrush b(SpkUi::CurrentColorSet[SpkUi::AccentColor], Qt::SolidPattern);
+  QBrush b(SpkUi::CurrentColorSet[SpkUi::Qss::AccentColor], Qt::SolidPattern);
   p.setBrush(b);
   p.setPen(pen);
   p.setRenderHint(QPainter::Antialiasing);

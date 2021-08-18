@@ -1,4 +1,14 @@
-#ifndef SPKRESOURCE_H
-#define SPKRESOURCE_H
 
-#endif // SPKRESOURCE_H
+#pragma once
+
+#include <QObject>
+
+class SpkResource : public QObject
+    {
+    Q_OBJECT
+      public:
+        SpkResource(QObject *parent = nullptr);
+
+      private:
+
+    };
