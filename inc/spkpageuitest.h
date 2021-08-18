@@ -11,6 +11,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QSlider>
+#include "spkappitem.h"
 
 #include "spkloading.h"
 
@@ -23,7 +24,7 @@ namespace SpkUi
       SpkPageUiTest(QWidget *parent = nullptr);
       QWidget *WidL, *WidR;
       QVBoxLayout *VLayWidgets,
-                  *VLayBtn,
+                  *VLayTestWidgets,
                   *VLayInput;
       QHBoxLayout *HLay4Slider,
                   *HLayInputBtns;
@@ -38,6 +39,7 @@ namespace SpkUi
       QSlider *SlideH;
       QSlider *SlideV;
       SpkLoading *Loading;
+      SpkAppItem *AppItem;
 
       QLineEdit *PopupText;
       QPushButton *ShowPopup,

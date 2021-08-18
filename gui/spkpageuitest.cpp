@@ -44,6 +44,13 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   Loading->setObjectName("spk_pg_qsstest_loading");
   Loading->start();
 
+  AppItem = new SpkAppItem(this);
+  AppItem->setObjectName("spk_pg_qsstest_appitem");
+  AppItem->SetTitle("Lorem Ipsum");
+  AppItem->SetDescription("Nam vehicula lacus vitae leo fermentum efficitur. "
+                          "Phasellus finibus risus id aliquam pulvinar.");
+  AppItem->SetIcon(QIcon::fromTheme("dialog-information").pixmap(72, 72));
+
   PopupText = new QLineEdit(this);
   PopupText->setObjectName("spk_pg_qsstest_poptext");
   PopupText->setText("Hello, world");
@@ -68,20 +75,21 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   SlideH->setMaximum(1000);
   SlideH->setMinimum(0);
 
-  VLayBtn = new QVBoxLayout;
-  VLayBtn->setObjectName("spk_pg_qsstest_vlay_btn");
-  VLayBtn->addWidget(Btn);
-  VLayBtn->addWidget(Chk);
-  VLayBtn->addWidget(Rad);
-  VLayBtn->addWidget(Loading);
-  VLayBtn->addWidget(PopupText);
-  VLayBtn->addWidget(ShowPopup);
-  VLayBtn->addWidget(ShowAbout);
+  VLayTestWidgets = new QVBoxLayout;
+  VLayTestWidgets->setObjectName("spk_pg_qsstest_vlay_btn");
+  VLayTestWidgets->addWidget(Btn);
+  VLayTestWidgets->addWidget(Chk);
+  VLayTestWidgets->addWidget(Rad);
+  VLayTestWidgets->addWidget(Loading);
+  VLayTestWidgets->addWidget(PopupText);
+  VLayTestWidgets->addWidget(ShowPopup);
+  VLayTestWidgets->addWidget(ShowAbout);
+  VLayTestWidgets->addWidget(AppItem);
 
   Group = new QGroupBox(this);
   Group->setObjectName("spk_pg_qsstest_groupbox");
   Group->setTitle("GroupBox");
-  Group->setLayout(VLayBtn);
+  Group->setLayout(VLayTestWidgets);
 
   VLayInput = new QVBoxLayout;
   VLayInput->setObjectName("spk_pg_qsstest_inputlay");

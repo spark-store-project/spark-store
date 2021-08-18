@@ -43,20 +43,20 @@ namespace SpkUi
       constexpr static int RoleItemCategoryPageId= Qt::UserRole + 2;
       void BindPageSwitcherButton(QAbstractButton* w)
       {
-        connect(w, &QAbstractButton::pressed,
+        connect(w, &QAbstractButton::toggled,
                 this, &SpkSidebarSelector::ButtonPressed);
       }
       void BindCategoryWidget(QTreeWidget* w)
       {
         mCategoryWidget = w;
-        connect(w, &QTreeWidget::itemClicked, this,
+        connect(w, &QTreeWidget::itemPressed, this,
                 &SpkSidebarSelector::TreeItemSelected);
       }
       void AddUnusableItem(QTreeWidgetItem *i) { mUnusableItems.append(i); }
 
     private slots:
       // We assume the objects in interest all have the correct properties
-      void ButtonPressed()
+      void ButtonPressed(bool aBtnState)
       {
         auto b = qobject_cast<QPushButton*>(sender());
         if(mLastCheckedBtn)
@@ -67,11 +67,7 @@ namespace SpkUi
             mLastCheckedBtn = nullptr;
           }
           else
-            // NOTE:
-            // Apparently for checkable buttons, Qt flip their checked property AFTER
-            // this slot function. So to prevent a checkable button being unchecked,
-            // we set it to unchecked here. Qt will flip it back to checked later.
-            b->setChecked(false);
+            b->setChecked(aBtnState);
         }
         else if(mLastSelectedItem)
         {

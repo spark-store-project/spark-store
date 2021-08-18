@@ -24,9 +24,11 @@ void SpkUiMessage::SendDesktopNotification(QString s, const char * const icon)
   notify_notification_show(_notify, nullptr);
 }
 
-void SpkUiMessage::SendStoreNotification(QString s) // TODO: IMPLEMENT IN-APP NOTIFICATION
+void SpkUiMessage::SendStoreNotification(QString s)
 {
-  SpkUi::Popup->Show(s);
+  // I don't really understand these measures of preventing copying really well,
+  // but Clang-tidy said so, so I did as instructed.
+  SpkUi::Popup->Show(std::move(s));
 }
 
 void SpkUiMessage::SetDesktopNotifyTimeout(int ms)

@@ -82,7 +82,7 @@ int SpkMsgBox::StaticExec(QString msg, QString title, QMessageBox::Icon icon,
     wExpandBtn->setMaximumWidth(100);
     wExpandBtn->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     wExpandBtn->setCheckable(true);
-    wExpandBtn->setObjectName("spk_styling_checkbtn");
+    wExpandBtn->setObjectName("styChkBtn");
     connect(wExpandBtn, &QPushButton::clicked,
             [&](){  // FIXME: hint doesn't change when visibility changes, this is a quirky hack
                     wExtraArea->setVisible(wExpandBtn->isChecked());

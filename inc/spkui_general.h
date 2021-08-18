@@ -45,7 +45,6 @@ namespace SpkUi
       static UiMetaObject *sGlobalInstance;
     public:
       UiMetaObject() {}
-      UiMetaObject *Instance() {return nullptr;} //FIXME!!
     public slots:
       void SetAccentColor(QColor);
   };

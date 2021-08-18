@@ -4,7 +4,7 @@
 #include "spkloading.h"
 #include "spkui_general.h"
 
-SpkLoading::SpkLoading(QWidget *parent) : QWidget(parent)
+SpkLoading::SpkLoading(QWidget *parent) : QFrame(parent)
 {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
   mAnimTimer = new QTimeLine(400, this);

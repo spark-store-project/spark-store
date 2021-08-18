@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include <QWidget>
+#include <QFrame>
 #include <QTimeLine>
 
-class SpkLoading : public QWidget
+class SpkLoading : public QFrame
 {
     Q_OBJECT
   public:

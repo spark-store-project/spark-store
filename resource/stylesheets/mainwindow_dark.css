@@ -22,32 +22,37 @@ QWidget
     color: #ffffff;
 }
 
-#spk_mw_category
+QLabel
+{
+    background: transparent;
+}
+
+#styMwCateg
 {
     border: none;
     font-size: 14px;
     show-decoration-selected: 1;
 }
 
-#spk_mw_category::item
+#styMwCateg::item
 {
     height: 35px;
     border: none;
     color: %13;
 }
 
-#spk_mw_category::item:selected
+#styMwCateg::item:selected
 {
     color: %11;
     background-color: %4;
 }
 
-#spk_mw_category::branch:!has-children
+#styMwCateg::branch:!has-children
 {
     background: %1;
 }
 
-#spk_mw_category::branch:selected
+#styMwCateg::branch:selected
 {
     background-color: %4;
 }
@@ -83,34 +88,34 @@ QPushButton::pressed
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 %8, stop:1 %6)
 }
 
-#spk_styling_checkbtn
+#styChkBtn
 {
     border-width: 0px;
     background-color: %9
 }
 
-#spk_styling_checkbtn:pressed
+#styChkBtn:pressed
 {
     background-color: %5
 }
 
-#spk_styling_checkbtn:checked
+#styChkBtn:checked
 {
     background-color: %4
 }
 
-#spk_styling_plaincheckbtn
+#styPlainChkBtn
 {
     border-width: 0px;
     background-color: %1
 }
 
-#spk_styling_plaincheckbtn:pressed
+#styPlainChkBtn:pressed
 {
     background-color: %5
 }
 
-#spk_styling_plaincheckbtn:checked
+#styPlainChkBtn:checked
 {
     background-color: %4
 }
@@ -157,7 +162,19 @@ QScrollBar::add-line, QScrollBar::sub-line
     height:0px
 }
 
-#spk_about_desc
+#styAboutDesc
 {
     color: %14
+}
+
+SpkAppItem
+{
+    background: %10;
+    border-radius: 11px;
+}
+
+#styAppItmTitle
+{
+    font-weight: 500;
+    font-size: 17px;
 }

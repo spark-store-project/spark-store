@@ -103,8 +103,8 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   SideBarRestrictor = new QWidget(this);
   SideBarRestrictor->setObjectName("spk_mw_sidebar_restrictor");
   SideBarRestrictor->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-  SideBarRestrictor->setMaximumWidth(300);
-  SideBarRestrictor->setMinimumWidth(300);
+  SideBarRestrictor->setMaximumWidth(200);
+  SideBarRestrictor->setMinimumWidth(200);
   SideBarRestrictor->setLayout(VLaySidebar);
 
   HLaySideTop = new QHBoxLayout;
@@ -123,7 +123,7 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   SidebarMgr->setObjectName("spk_mw_sidebar_mgr");
 
   BtnSettings = new QPushButton(this);
-  BtnSettings->setObjectName("spk_styling_plaincheckbtn");
+  BtnSettings->setObjectName("styPlainChkBtn");
   BtnSettings->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   BtnSettings->setCheckable(true);
   BtnSettings->setMaximumSize({ 48, 48 });
@@ -140,7 +140,7 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
 
   using SpkUi::SpkSidebarSelector;
   CategoryWidget = new SpkSidebarTree(this);
-  CategoryWidget->setObjectName("spk_mw_category");
+  CategoryWidget->setObjectName("styMwCateg");
   CategoryWidget->setAutoFillBackground(true);
   CategoryWidget->setColumnCount(1);
   CategoryWidget->setHeaderHidden(true);

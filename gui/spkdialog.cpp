@@ -44,10 +44,10 @@ void SpkDialog::AddButton(QString text, SpkUi::SpkButtonStyle style)
   {
 
     case SpkUi::SpkButtonStyle::Recommend:
-      b->setObjectName("spk_styling_recommendbtn");
+      b->setObjectName("sty_recommendbtn");
       break;
     case SpkUi::SpkButtonStyle::Warn:
-      b->setObjectName("spk_styling_warnbtn");
+      b->setObjectName("sty_warnbtn");
       break;
     default:
       break;

@@ -1,0 +1,4 @@
+#ifndef SPKRESOURCE_H
+#define SPKRESOURCE_H
+
+#endif // SPKRESOURCE_H

@@ -65,11 +65,13 @@ set(SOURCE_FILES
     inc/spkpageuitest.h gui/spkpageuitest.cpp
     inc/spkloading.h gui/spkloading.cpp
     inc/spksidebartree.h gui/spksidebartree.cpp
+    inc/spkappitem.h gui/spkappitem.cpp
     inc/spkpopup.h gui/spkpopup.cpp
 
     inc/spkstore.h src/spkstore.cpp
     inc/spkuimsg.h src/spkuimsg.cpp
     inc/spklogging.h src/spklogging.cpp
+    inc/spkresource.h src/spkresource.cpp
     )
 
 include(cmake/FindLibNotify.cmake)
