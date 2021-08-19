@@ -11,6 +11,10 @@ void SpkDtkPluginImpl::Initialize()
           &DPlatformTheme::activeColorChanged,
           this,
           &SpkDtkPluginImpl::AccentColorChanged);
+  connect(DGuiApplicationHelper::instance(),
+          &DGuiApplicationHelper::themeTypeChanged,
+          this,
+          &SpkDtkPluginImpl::DarkLightThemeChanged);
 }
 
 void SpkDtkPluginImpl::addWindow(QWidget *w, QObject *parent)
@@ -22,4 +26,9 @@ void SpkDtkPluginImpl::addWindow(QWidget *w, QObject *parent)
 QColor SpkDtkPluginImpl::GetAccentColor()
 {
   return DGuiApplicationHelper::instance()->systemTheme()->activeColor();
+}
+
+bool SpkDtkPluginImpl::GetIsDarkTheme()
+{
+  return DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType;
 }

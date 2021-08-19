@@ -15,4 +15,5 @@ class SpkDtkPluginImpl : public SpkDtkPlugin
     void addWindow(QWidget* w, QObject* parent) override;
     void Initialize() override;
     QColor GetAccentColor() override;
+    bool GetIsDarkTheme() override;
 };

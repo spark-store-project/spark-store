@@ -33,6 +33,7 @@ namespace SpkUi
       UiMetaObject() {}
     public slots:
       void SetAccentColor(QColor);
+      void SetDarkLightTheme(bool isDark);
   };
 
   extern UiMetaObject SpkUiMetaObject;

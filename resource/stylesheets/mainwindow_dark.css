@@ -20,7 +20,7 @@
 QWidget
 {
     background-color: GBG_;
-    color: #ffffff;
+    color: TXGBG;
 }
 
 QLabel
@@ -35,15 +35,18 @@ QScrollArea
     border-radius: 5px;
 }
 
-QLineEdit
+QLineEdit, QTextEdit
 {
-    background:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 LCTL1, stop:1 LCTL2);
-    padding: 3px;
+    padding: 2px;
     border-radius: 7px;
     border: 1px solid SHD;
     border-bottom: 1px solid GLS;
     selection-color: TXACC;
     selection-background-color: ACC_;
+}
+QLineEdit /*We can't apply gradient to TextEdit cuz it messes with scroll bar*/
+{
+    background:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 CBG_, stop:1 GBG_);
 }
 
 QPushButton
@@ -152,7 +155,7 @@ SpkTitleBarDefaultButton
     margin: 0px;
     border-radius: 0px;
     border-width: 0px;
-    background-color: CBG_;
+    background-color: GBG_;
 }
 
 SpkTitleBarDefaultButton:hover

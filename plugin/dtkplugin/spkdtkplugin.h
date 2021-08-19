@@ -11,9 +11,11 @@ class SpkDtkPlugin : public QObject
     virtual void Initialize() = 0;
     virtual void addWindow(QWidget* w, QObject* parent) = 0;
     virtual QColor GetAccentColor() = 0;
+    virtual bool GetIsDarkTheme() = 0;
 
   signals:
     void AccentColorChanged(QColor);
+    void DarkLightThemeChanged(bool isDark);
 };
 QT_BEGIN_NAMESPACE
 Q_DECLARE_INTERFACE(SpkDtkPlugin, "org.spark-store.client.dtkplugin")

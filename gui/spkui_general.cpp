@@ -109,9 +109,12 @@ namespace SpkUi
         i->Initialize();
 
         SpkUiMetaObject.SetAccentColor(i->GetAccentColor()); // Match OS accent color
+        SpkUiMetaObject.SetDarkLightTheme(i->GetIsDarkTheme()); // Match OS dark theme type
 
         QObject::connect(i, &SpkDtkPlugin::AccentColorChanged,
                          &SpkUiMetaObject, &UiMetaObject::SetAccentColor);
+        QObject::connect(i, &SpkDtkPlugin::DarkLightThemeChanged,
+                         &SpkUiMetaObject, &UiMetaObject::SetDarkLightTheme);
       }
     }
 
@@ -251,6 +254,14 @@ namespace SpkUi
     CurrentColorSet[Qss::AccentColorHighlighted] = aColor;
     CurrentColorSet[Qss::TextOnAccentColor] = ColorTextOnBackground(aColor);
     qApp->setStyleSheet(StylesheetFromColors(CurrentColorSet));
+  }
+
+  void UiMetaObject::SetDarkLightTheme(bool isDark)
+  {
+    if(isDark)
+      SetGlobalStyle(Dark);
+    else
+      SetGlobalStyle(Light);
   }
 
 }

@@ -115,8 +115,8 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   StoreIcon = new QLabel(this);
   StoreIcon->setObjectName("spk_mw_icon");
   StoreIcon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  StoreIcon->setMaximumSize({ 48, 48 });
-  StoreIcon->setMinimumSize({ 48, 48 });
+  StoreIcon->setMaximumSize({ 40, 40 });
+  StoreIcon->setMinimumSize({ 40, 40 });
   StoreIcon->setPixmap(QIcon(":/icons/spark-store.svg").pixmap(StoreIcon->size()));
 
   SidebarMgr = new SpkSidebarSelector(this);
@@ -126,9 +126,9 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   BtnSettings->setObjectName("styPlainChkBtn");
   BtnSettings->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   BtnSettings->setCheckable(true);
-  BtnSettings->setMaximumSize({ 48, 48 });
-  BtnSettings->setMinimumSize({ 48, 48 });
-  BtnSettings->setIconSize(QSize(24, 24));
+  BtnSettings->setMaximumSize({ 40, 40 });
+  BtnSettings->setMinimumSize({ 40, 40 });
+  BtnSettings->setIconSize(QSize(20, 20));
   BtnSettings->setIcon(SpkUi::GetThemedIcon("settings"));
   BtnSettings->setProperty("spk_pageno", 0);
   SidebarMgr->BindPageSwitcherButton(BtnSettings);

@@ -73,20 +73,22 @@ namespace SpkUi
 
     LightColorSet // TODO: Use real light color set
     {
-    //          { GlobalBgnd, 0x282828 },
-    //          { ControlsBgnd, 0x282828 },
-    //          { ControlsBgndHighlighted, 0xff0000 },
-    //          { SelectionBgnd, 0x0070ff },
-    //          { SelectionBgndHighlighted, QColor(0x0070ff).lighter(120) },
-    //          { LightCtrlsGradLight, 0x6b6b6b },
-    //          { LightCtrlsGradDark, 0x656565 },
-    //          { LightCtrlsGradDarker, 0x606060 },
-    //          { DarkCtrlsGradLight, 0x404040 },
-    //          { DarkCtrlsGradDark, 0x383838 },
-    //          { TextOnSelection, ColorTextOnBackground(0x0070ff) },
-    //          { TextOnGlobalBgnd, ColorTextOnBackground(0x282828) },
-    //          { TextOnControlsBgnd, ColorTextOnBackground(0x282828) },
-    //          { TextLighter, 0xd5d5d5 }
+      { GlobalBgnd, 0xf8f8f8 },
+      { ControlsBgnd, 0xf8f8f8 },
+      { ControlsBgndHighlighted, 0xff0000 },
+      { SelectionBgnd, 0x0070ff },
+      { SelectionBgndHighlighted, QColor(0x0070ff).lighter(120) },
+      { LightCtrlsGradLight, 0xfbfbfb },
+      { LightCtrlsGradDark, 0xf2f2f2 },
+      { LightCtrlsGradDarker, 0xebebeb },
+      { DarkCtrlsGradLight, 0xe4e4e4 },
+      { DarkCtrlsGradDark, 0xcecece },
+      { TextOnSelection, ColorTextOnBackground(0x0070ff) },
+      { TextOnGlobalBgnd, ColorTextOnBackground(0xf8f8f8) },
+      { TextOnControlsBgnd, ColorTextOnBackground(0xf8f8f8) },
+      { TextLighter, 0x2a2a2a },
+      { GlossyEdge, 0xc5c5c5 },
+      { ShadesEdge, 0x9d9d9d }
     };
 
     using ColorSet = std::map<Qss::ColorSetIndex, QColor>;
