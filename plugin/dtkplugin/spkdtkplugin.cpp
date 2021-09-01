@@ -13,8 +13,10 @@ void SpkDtkPluginImpl::Initialize()
           &SpkDtkPluginImpl::AccentColorChanged);
   connect(DGuiApplicationHelper::instance(),
           &DGuiApplicationHelper::themeTypeChanged,
-          this,
-          &SpkDtkPluginImpl::DarkLightThemeChanged);
+          [&](Dtk::Gui::DGuiApplicationHelper::ColorType t)
+          {
+            this->DarkLightThemeChanged(t == Dtk::Gui::DGuiApplicationHelper::DarkType);
+          });
 }
 
 void SpkDtkPluginImpl::addWindow(QWidget *w, QObject *parent)
