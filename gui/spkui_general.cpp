@@ -54,6 +54,7 @@ namespace SpkUi
     StylesheetBase = ObtainStylesheet.readAll();
     ObtainStylesheet.close();
 
+    CurrentStyle = SpkUiStyle::Invalid;
     SetGlobalStyle(Light, false);
 
     // Initalize crash handler

@@ -16,7 +16,7 @@
 namespace SpkUi
 {
 
-  enum SpkUiStyle { Light, Dark };
+  enum SpkUiStyle { Invalid, Light, Dark };
   enum SpkButtonStyle { Normal = 0, Recommend, Warn };
 
   class SpkPopup;
