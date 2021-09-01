@@ -68,5 +68,5 @@ namespace SpkUi
 
   void CrashSignalHandler(int);
 
-  void SetGlobalStyle(SpkUiStyle);
+  void SetGlobalStyle(const SpkUiStyle, const bool aPreserveAccentColor);
 };

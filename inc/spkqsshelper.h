@@ -2,6 +2,7 @@
 #pragma once
 
 #include <map>
+#include <list>
 #include <QColor>
 
 namespace SpkUi
@@ -28,6 +29,13 @@ namespace SpkUi
       TextLighter,
       GlossyEdge,
       ShadesEdge,
+    };
+
+    const std::list<ColorSetIndex> AccentColorExceptions
+    {
+      AccentColor,
+      AccentColorHighlighted,
+      TextOnAccentColor,
     };
 
     const std::map<ColorSetIndex, const char *> ColorSet2Token
@@ -87,8 +95,8 @@ namespace SpkUi
       { TextOnGlobalBgnd, ColorTextOnBackground(0xf8f8f8) },
       { TextOnControlsBgnd, ColorTextOnBackground(0xf8f8f8) },
       { TextLighter, 0x2a2a2a },
-      { GlossyEdge, 0xc5c5c5 },
-      { ShadesEdge, 0x9d9d9d }
+      { GlossyEdge, 0x9d9d9d },
+      { ShadesEdge, 0xc5c5c5 }
     };
 
     using ColorSet = std::map<Qss::ColorSetIndex, QColor>;

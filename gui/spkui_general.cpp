@@ -54,7 +54,7 @@ namespace SpkUi
     StylesheetBase = ObtainStylesheet.readAll();
     ObtainStylesheet.close();
 
-    SetGlobalStyle(Dark);
+    SetGlobalStyle(Light, false);
 
     // Initalize crash handler
     signal(SIGSEGV, SpkUi::CrashSignalHandler);
@@ -138,24 +138,31 @@ namespace SpkUi
                         "with unwanted blue borders."));
   }
 
-  void SetGlobalStyle(const SpkUiStyle aStyle)
+  void SetGlobalStyle(const SpkUiStyle aStyle, const bool aPreserveAccentColor)
   {
+    if(aStyle == CurrentStyle) // Don't waste precious CPU time parsing new style sheet!
+      return;
     CurrentStyle = aStyle;
+    Qss::ColorSet tempset;
     switch(aStyle)
     {
       case Light:
-        CurrentStylesheet = StylesheetFromColors(Qss::LightColorSet);
-        CurrentColorSet = Qss::LightColorSet;
-        qApp->setStyleSheet(CurrentStylesheet);
+        tempset = Qss::LightColorSet;
         ColorLine = Qt::black;
         break;
       case Dark:
-        CurrentStylesheet = StylesheetFromColors(Qss::DarkColorSet);
-        CurrentColorSet = Qss::DarkColorSet;
-        qApp->setStyleSheet(CurrentStylesheet);
+        tempset = Qss::DarkColorSet;
         ColorLine = Qt::white;
         break;
     }
+    if(aPreserveAccentColor)
+    {
+      for(auto i : Qss::AccentColorExceptions)
+        tempset[i] = CurrentColorSet[i];
+    }
+    CurrentColorSet = tempset;
+    CurrentStylesheet = StylesheetFromColors(CurrentColorSet);
+    qApp->setStyleSheet(CurrentStylesheet);
   }
 
   QString WriteStackTrace(const QString &aStackTrace)
@@ -259,9 +266,9 @@ namespace SpkUi
   void UiMetaObject::SetDarkLightTheme(bool isDark)
   {
     if(isDark)
-      SetGlobalStyle(Dark);
+      SetGlobalStyle(Dark, true);
     else
-      SetGlobalStyle(Light);
+      SetGlobalStyle(Light, true);
   }
 
 }
