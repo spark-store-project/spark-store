@@ -244,19 +244,6 @@ void SpkWindow::SetCornerRadius(int radius)
   mCornerRadius = radius;
 }
 
-void SpkWindow::SetWindowTheme(SpkWindow::SpkWindowStyle style)
-{
-  switch(style)
-  {
-    case Light:
-      SpkUi::SetGlobalStyle(SpkUi::SpkUiStyle::Light);
-      break;
-    case Dark:
-      SpkUi::SetGlobalStyle(SpkUi::SpkUiStyle::Dark);
-      break;
-  }
-}
-
 void SpkWindow::PopulateUi()
 {
   mCentralWidget = new QWidget(this);

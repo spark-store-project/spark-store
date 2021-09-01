@@ -41,7 +41,6 @@ class SpkWindow : public QMainWindow
 
   public slots:
     void SetCornerRadius(int);
-    void SetWindowTheme(SpkWindowStyle);
     void SetUseTitleBar(bool);
     void SetResizable(bool a) { mResizable = a; }
     void SetCentralMargin(int, int, int, int);
