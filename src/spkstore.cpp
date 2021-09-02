@@ -56,7 +56,12 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
   mNetMgr = new QNetworkAccessManager(this);
   mNetMgr->setProxy(QNetworkProxy(QNetworkProxy::NoProxy)); // FIXME
   mDistroName = SpkUtils::GetDistroName();
-  mApiRequestUrl = "https://store.deepinos.org/api/"; // TODO: CHECK BEFORE 4.0 RELEASE
+
+  // Initialize URL
+  mApiRequestUrl = mCfg->value("url/api", "https://store.deepinos.org/api/").toString();
+  mResourceRequestUrl = mCfg->value("url/res", "http://img.store.deepinos.org.cn/").toString();
+
+
   mUserAgentStr = QString("Spark-Store/%1 Distro/%2")
       .arg(GitVer::DescribeTags())
       .arg(mDistroName);
@@ -66,6 +71,7 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
     return;
 
   // UI Initialization
+  mResMgr = new SpkResource(this); // Resource manager must be created before the windows
   SpkUi::Initialize();
   mMainWindow = new SpkMainWindow;
   SpkUi::Popup = new SpkUi::SpkPopup(mMainWindow);
@@ -86,6 +92,14 @@ QNetworkReply *SpkStore::SendApiRequest(QString aPath, QJsonDocument aParam)
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
   request.setHeader(QNetworkRequest::UserAgentHeader, mUserAgentStr);
   return mNetMgr->post(request, aParam.isEmpty() ? "{}" : aParam.toJson(QJsonDocument::Compact));
+}
+
+QNetworkReply *SpkStore::SendResourceRequest(QString aPath)
+{
+  QNetworkRequest request;
+  request.setUrl(mResourceRequestUrl + aPath);
+  request.setHeader(QNetworkRequest::UserAgentHeader, mUserAgentStr);
+  return mNetMgr->get(request);
 }
 
 static void InstallDefaultConfigs()

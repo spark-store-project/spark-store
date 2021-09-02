@@ -2,9 +2,14 @@
 #include <QPainter>
 #include <QStyleOption>
 #include "spkappitem.h"
+#include "qt/elidedlabel.h"
 
-SpkAppItem::SpkAppItem(QWidget *parent) : QWidget(parent)
+const QSize SpkAppItem::IconSize_;
+
+SpkAppItem::SpkAppItem(int appId, QWidget *parent) : QWidget(parent)
 {
+  mAppId = appId;
+
   mMainLay = new QHBoxLayout(this);
   mLayText = new QVBoxLayout;
 
@@ -12,16 +17,17 @@ SpkAppItem::SpkAppItem(QWidget *parent) : QWidget(parent)
   mIcon->setFixedSize(IconSize, IconSize);
   mIcon->setAutoFillBackground(false);
 
+  // NOTE: Make mTitle ElidedTitle too?
   mTitle = new QLabel;
   mTitle->setWordWrap(false);
   mTitle->setObjectName("styAppItmTitle");
   mTitle->setAutoFillBackground(true);
-  mDescription = new QLabel;
-  mDescription->setWordWrap(true);
+  mDescription = new ElidedLabel;
+//  mDescription->setWordWrap(true); // Commented out since ElidedLabel lacks of these methods
   mDescription->setObjectName("styAppItmDesc");
   mDescription->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  mDescription->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-  mDescription->setAutoFillBackground(true);
+//  mDescription->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+//  mDescription->setAutoFillBackground(true);
   mLayText->addWidget(mTitle);
   mLayText->addWidget(mDescription);
   mLayText->setAlignment(Qt::AlignTop);
@@ -32,7 +38,7 @@ SpkAppItem::SpkAppItem(QWidget *parent) : QWidget(parent)
   setMinimumHeight(82);
   setMaximumHeight(82);
   setMinimumWidth(300);
-  setMaximumWidth(350);
+//  setMaximumWidth(350);
 }
 
 void SpkAppItem::paintEvent(QPaintEvent *e)

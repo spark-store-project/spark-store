@@ -56,7 +56,7 @@ QPushButton
     font-size: 14px;
     font-weight: 300;
     border-radius: 8px;
-    border-color: LCTL2;
+    border-color: GLS;
     border-top-color: SHD;
     border-style: solid;
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 LCTL1, stop:1 LCTL2)
@@ -90,6 +90,11 @@ QScrollBar::add-line, QScrollBar::sub-line
 
 /* Custom widgets */
 
+ElidedLabel
+{
+    background: transparent;
+}
+
 #styAboutDesc
 {
     color: TXL
@@ -104,7 +109,11 @@ SpkAppItem
 SpkAppItem::hover
 {
     background: DCTL1;
-    border-radius: 11px;
+}
+
+SpkAppItem::pressed
+{
+    background: DCTL3;
 }
 
 #styAppItmTitle

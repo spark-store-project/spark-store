@@ -78,3 +78,13 @@ void SpkUtils::DeleteReplyLater(QNetworkReply *aReply)
 {
   QObject::connect(aReply, &QNetworkReply::finished, aReply, &QObject::deleteLater);
 }
+
+QString SpkUtils::CutFileName(QString path)
+{
+  return path.section('/', -1);
+}
+
+QString SpkUtils::CutPath(QString path)
+{
+  return path.section('/', 1, -2, QString::SectionIncludeLeadingSep);
+}

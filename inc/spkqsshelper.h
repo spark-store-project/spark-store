@@ -23,6 +23,7 @@ namespace SpkUi
       LightCtrlsGradDarker,
       DarkCtrlsGradLight,
       DarkCtrlsGradDark,
+      DarkCtrlsGradDarker,
       TextOnSelection, TextOnAccentColor = TextOnSelection,
       TextOnGlobalBgnd,
       TextOnControlsBgnd,
@@ -50,6 +51,7 @@ namespace SpkUi
       { LightCtrlsGradDarker, "LCTL3" },
       { DarkCtrlsGradLight, "DCTL1" },
       { DarkCtrlsGradDark, "DCTL2" },
+      { DarkCtrlsGradDarker, "DCTL3" },
       { TextOnSelection, "TXACC" },
       { TextOnGlobalBgnd, "TXGBG" },
       { TextOnControlsBgnd, "TXCBG" },
@@ -71,6 +73,7 @@ namespace SpkUi
       { LightCtrlsGradDarker, 0x606060 },
       { DarkCtrlsGradLight, 0x404040 },
       { DarkCtrlsGradDark, 0x383838 },
+      { DarkCtrlsGradDarker, 0x323232 },
       { TextOnSelection, ColorTextOnBackground(0x0070ff) },
       { TextOnGlobalBgnd, ColorTextOnBackground(0x282828) },
       { TextOnControlsBgnd, ColorTextOnBackground(0x282828) },
@@ -91,12 +94,13 @@ namespace SpkUi
       { LightCtrlsGradDarker, 0xebebeb },
       { DarkCtrlsGradLight, 0xe4e4e4 },
       { DarkCtrlsGradDark, 0xcecece },
+      { DarkCtrlsGradDarker, 0xb8b8b8 },
       { TextOnSelection, ColorTextOnBackground(0x0070ff) },
       { TextOnGlobalBgnd, ColorTextOnBackground(0xf8f8f8) },
       { TextOnControlsBgnd, ColorTextOnBackground(0xf8f8f8) },
       { TextLighter, 0x2a2a2a },
-      { GlossyEdge, 0x9d9d9d },
-      { ShadesEdge, 0xc5c5c5 }
+      { GlossyEdge, 0xc5c5c5 },
+      { ShadesEdge, 0x9d9d9d }
     };
 
     using ColorSet = std::map<Qss::ColorSetIndex, QColor>;

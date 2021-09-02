@@ -56,6 +56,8 @@ set(SOURCE_FILES
     inc/telemetry/collectid.h
     inc/spkqsshelper.h
 
+    inc/qt/elidedlabel.h gui/qt/elidedlabel.cpp
+
     inc/spkwindow.h gui/spkwindow.cpp
     inc/spktitlebar.h gui/spktitlebar.cpp
     inc/spkui_general.h gui/spkui_general.cpp
@@ -63,11 +65,15 @@ set(SOURCE_FILES
     inc/spkmsgbox.h gui/spkmsgbox.cpp
     inc/spkdialog.h gui/spkdialog.cpp
     inc/spkabout.h gui/spkabout.cpp
-    inc/spkpageuitest.h gui/spkpageuitest.cpp
     inc/spkloading.h gui/spkloading.cpp
     inc/spksidebartree.h gui/spksidebartree.cpp
     inc/spkappitem.h gui/spkappitem.cpp
     inc/spkpopup.h gui/spkpopup.cpp
+    inc/spkstretchlayout.h gui/spkstretchlayout.cpp
+
+    inc/page/spkpagebase.h gui/page/spkpagebase.cpp
+    inc/page/spkpageuitest.h gui/page/spkpageuitest.cpp
+    inc/page/spkpageapplist.h gui/page/spkpageapplist.cpp
 
     inc/spkstore.h src/spkstore.cpp
     inc/spkuimsg.h src/spkuimsg.cpp

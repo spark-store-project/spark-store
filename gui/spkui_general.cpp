@@ -271,5 +271,4 @@ namespace SpkUi
     else
       SetGlobalStyle(Light, true);
   }
-
 }

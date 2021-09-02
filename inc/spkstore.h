@@ -9,6 +9,7 @@
 
 #include "spklogging.h"
 #include "spkmainwindow.h"
+#include "spkresource.h"
 
 /**
  * @brief SpkStore class is the core of the store client side program, it is constructed first and
@@ -27,13 +28,19 @@ class SpkStore : public QObject
 
     SpkMainWindow* GetRootWindow() { return mMainWindow; }
 
-    void SetApiResuestUrl(QString aUrlStr) { mApiRequestUrl = aUrlStr; }
+    void SetApiRequestUrl(QString aUrlStr) { mApiRequestUrl = aUrlStr; }
     QString GetApiRequestUrl() { return mApiRequestUrl; }
     QNetworkReply *SendApiRequest(QString path, QJsonDocument param = QJsonDocument());
+    QNetworkReply *SendResourceRequest(QString path); ///< WARNING: Only intended for SpkResource!
 
   private:
     SpkLogger *mLogger;
     SpkMainWindow *mMainWindow = nullptr;
+    SpkResource *mResMgr = nullptr;
     QNetworkAccessManager *mNetMgr = nullptr;
-    QString mDistroName, mApiRequestUrl, mUserAgentStr, mConfigPath;
+    QString mDistroName,
+            mApiRequestUrl,
+            mResourceRequestUrl,
+            mUserAgentStr,
+            mConfigPath;
 };

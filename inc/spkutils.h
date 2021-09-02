@@ -10,8 +10,9 @@
 #include "spkstore.h"
 #include "spklogging.h"
 
-#define STORE SpkStore::Instance
+#define STORE (SpkStore::Instance)
 #define CFG (SpkStore::Instance->mCfg)
+#define RES (SpkResource::Instance)
 
 namespace SpkUtils
 {
@@ -22,4 +23,7 @@ namespace SpkUtils
   void DeleteReplyLater(QNetworkReply *aReply);
 
   bool VerifyReplyJson(QNetworkReply *aReply, QJsonValue& aRetDoc);
+
+  QString CutFileName(QString);
+  QString CutPath(QString);
 }

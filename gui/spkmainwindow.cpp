@@ -11,6 +11,7 @@
 SpkMainWindow::SpkMainWindow(QWidget *parent) : SpkWindow(parent)
 {
   ui = new SpkUi::SpkMainWidget(parent);
+  Initialize();
 
   SetUseTitleBar(false);
   SetCentralWidget(ui);
@@ -22,11 +23,23 @@ SpkMainWindow::SpkMainWindow(QWidget *parent) : SpkWindow(parent)
   move(size.width(), size.height());
 }
 
+void SpkMainWindow::SwitchToPage(SpkUi::SpkStackedPages page)
+{
+  if(mCurrentPage != page)
+  {
+    ui->Pager->setCurrentIndex(int(page));
+    mCurrentPage = page;
+    // If the page is a SpkPageBase (with a resource context), activate it for resource acquisition
+    auto tryActivate = qobject_cast<SpkPageBase *>(ui->Pager->currentWidget());
+    if(tryActivate)
+      tryActivate->Activated();
+  }
+}
+
 void SpkMainWindow::PopulateCategories(QJsonArray aCategoryData)
 {
   using SpkUi::SpkSidebarSelector;
   QTreeWidgetItem *catg;
-  auto w = ui->CategoryWidget;
   if(ui->CategoryParentItem->childCount()) // Clear all existing children if there is any
     foreach(auto &i, ui->CategoryParentItem->takeChildren())
       delete i;
@@ -71,9 +84,90 @@ void SpkMainWindow::CategoryDataReceived()
   {
     sErr(tr("Failed to load categories!"));
     // TODO: Switch to an error page
+    return;
   }
   PopulateCategories(retval.toArray());
 }
+
+void SpkMainWindow::EnterCategoryList(int aCategoryId)
+{
+  // Asynchronously call category API
+  using namespace SpkUtils;
+  VerifySingleRequest(mCategoryAppListGetReply);
+  QJsonObject reqData;
+  QJsonDocument reqDoc;
+  reqData.insert("type_id", QJsonValue(aCategoryId));
+  reqDoc.setObject(reqData);
+  mCategoryAppListGetReply = STORE->SendApiRequest("application/get_application_list", reqDoc);
+  DeleteReplyLater(mCategoryAppListGetReply);
+  connect(mCategoryAppListGetReply, &QNetworkReply::finished,
+          this, &SpkMainWindow::CategoryListDataReceived);
+  setCursor(Qt::BusyCursor);
+}
+
+void SpkMainWindow::CategoryListDataReceived()
+{
+  QJsonValue retval;
+  if(!SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval) || !retval.isObject())
+  {
+    sErrPop(tr("Failed to load app list of category! Type of retval: %1.").arg(retval.type()));
+    return;
+  }
+  PopulateAppList(retval.toObject());
+  setCursor(Qt::ArrowCursor);
+  SwitchToPage(SpkUi::PgAppList);
+}
+
+void SpkMainWindow::PopulateAppList(QJsonObject appData)
+{
+  auto w = ui->PageAppList;
+  w->ClearAll();
+
+  if(!appData.contains("data") || !appData.value("data").isArray())
+  {
+    sErrPop(tr("Received invalid application list data!"));
+    return;
+  }
+
+  auto apps = appData.value("data").toArray();
+
+  foreach(auto i, apps)
+  {
+    if(i.isObject())
+    {
+      auto j = i.toObject();
+      QString pkgName, displayName, description, iconPath;
+      int appid;
+      if(j.contains("package") && j.value("package").isString())
+        pkgName = j.value("package").toString();
+      else continue;
+      if(j.contains("application_name_zh") && j.value("application_name_zh").isString())
+        displayName = j.value("application_name_zh").toString();
+      else continue;
+      if(j.contains("description") && j.value("description").isString())
+        description = j.value("description").toString();
+      else continue;
+      if(j.contains("application_id") && j.value("application_id").isDouble())
+        appid = j.value("application_id").toInt();
+      else continue;
+      if(j.contains("icons") && j.value("icons").isString())
+        iconPath = j.value("icons").toString();
+      else continue;
+      
+      w->AddApplicationEntry(displayName, pkgName, description, iconPath, appid);
+    }
+  }
+}
+
+// ==================== Main Window Initialization ====================
+
+void SpkMainWindow::Initialize()
+{
+  connect(ui->SidebarMgr, &SpkUi::SpkSidebarSelector::SwitchToCategory,
+          this, &SpkMainWindow::EnterCategoryList);
+}
+
+// ==================== Main Widget Initialization ====================
 
 SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
 {
@@ -169,9 +263,22 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   HorizontalDivide->addWidget(SideBarRestrictor);
   HorizontalDivide->addLayout(VLayMain);
 
+  // Red-Black tree based map will be able to sort things
+  QMap<SpkStackedPages, QWidget*> sorter;
+
   // Initialize pages
+  PageAppList = new SpkUi::SpkPageAppList(this);
+  PageAppList->setProperty("spk_pageid", SpkStackedPages::PgAppList);
+  sorter[PgAppList] = PageAppList;
+
+#ifndef NDEBUG // If only in debug mode should we initialize QSS test page
   PageQssTest = new SpkUi::SpkPageUiTest(this);
-  Pager->addWidget(PageQssTest);
+  PageQssTest->setProperty("spk_pageid", SpkStackedPages::PgQssTest);
+  sorter[PgQssTest] = PageQssTest;
+#endif
+
+  for(auto i : sorter)
+    Pager->addWidget(i);
 
   setLayout(HorizontalDivide);
 }

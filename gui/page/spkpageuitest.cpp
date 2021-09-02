@@ -1,7 +1,7 @@
 
 #include <QApplication>
 #include "spkabout.h"
-#include "spkpageuitest.h"
+#include "inc/page/spkpageuitest.h"
 #include "spkpopup.h"
 #include "spkui_general.h"
 
@@ -44,9 +44,9 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   Loading->setObjectName("spk_pg_qsstest_loading");
   Loading->start();
 
-  AppItem = new SpkAppItem(this);
+  AppItem = new SpkAppItem(0, this);
   AppItem->setObjectName("spk_pg_qsstest_appitem");
-  AppItem->SetTitle("Lorem Ipsum");
+  AppItem->SetTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
   AppItem->SetDescription("Nam vehicula lacus vitae leo fermentum efficitur. "
                           "Phasellus finibus risus id aliquam pulvinar.");
   AppItem->SetIcon(QIcon::fromTheme("dialog-information").pixmap(72, 72));

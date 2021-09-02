@@ -5,13 +5,15 @@
 #pragma once
 
 #include "spkwindow.h"
+#include <vector>
 #include <QTextEdit>
 #include <QStackedWidget>
 #include <QButtonGroup>
 #include <QJsonObject>
 #include "spksidebartree.h" // In place of #include <QTreeWidget>
 #include <QPointer>
-#include "spkpageuitest.h"
+#include "inc/page/spkpageuitest.h"
+#include "inc/page/spkpageapplist.h"
 
 class QNetworkReply;
 
@@ -19,7 +21,14 @@ namespace SpkUi
 {
   enum SpkStackedPages
   {
+    PgInvalid = -1,
+    PgAppList,
     PgQssTest // Must be at last
+  };
+
+  const std::vector<SpkStackedPages> ResourceContexts
+  {
+    PgAppList
   };
 
   class SpkSidebarSelector : public QObject
@@ -139,6 +148,7 @@ namespace SpkUi
 
       //Pages
       SpkPageUiTest *PageQssTest;
+      SpkPageAppList *PageAppList;
   };
 }
 
@@ -154,11 +164,24 @@ class SpkMainWindow : public SpkWindow
     void PopulateCategories(QJsonArray);
 
   private:
-    QPointer<QNetworkReply> mCategoryGetReply;
+    void Initialize();
+
+  private:
+    QPointer<QNetworkReply> mCategoryGetReply,
+                            mCategoryAppListGetReply;
+    SpkUi::SpkStackedPages mCurrentPage = SpkUi::PgInvalid;
 
   public slots:
     void RefreshCategoryData();
 
   private slots:
+    void SwitchToPage(SpkUi::SpkStackedPages page);
+
     void CategoryDataReceived();
+
+    void EnterCategoryList(int id);
+    void CategoryListDataReceived();
+
+  private:
+    void PopulateAppList(QJsonObject appData);
 };
