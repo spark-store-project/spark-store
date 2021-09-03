@@ -113,9 +113,9 @@ void SpkMainWindow::CategoryListDataReceived()
     sErrPop(tr("Failed to load app list of category! Type of retval: %1.").arg(retval.type()));
     return;
   }
+  SwitchToPage(SpkUi::PgAppList);
   PopulateAppList(retval.toObject());
   setCursor(Qt::ArrowCursor);
-  SwitchToPage(SpkUi::PgAppList);
 }
 
 void SpkMainWindow::PopulateAppList(QJsonObject appData)
