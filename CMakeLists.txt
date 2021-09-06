@@ -54,7 +54,7 @@ set(SOURCE_FILES
     inc/dtk/spkdtkplugin.h
     inc/spkutils.h src/spkutils.cpp
     inc/telemetry/collectid.h
-    inc/spkqsshelper.h
+    inc/spkqsshelper.h gui/spkqsshelper.cpp
 
     inc/qt/elidedlabel.h gui/qt/elidedlabel.cpp
 

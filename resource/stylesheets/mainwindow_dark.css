@@ -7,12 +7,15 @@
     LCTL1 : Light controls gradient light
     LCTL2 : Light controls gradient dark
     LCTL3 : Light controls gradient darker
+    LCTLD : Light controls disabled background
     DCTL1 : Dark controls gradient light
     DCTL2: Dark controls gradient dark
+    DCTLD: Dark controls disabled background
     TXACC: Text on Selection/Activation
     TXGBG: Text on Global background
     TXCBG: Text on controls background
     TXL: Text slightly lighter
+    TXD: Text disabled
     GLS: Glossy edge on controls
     SHD: Shades edge on controls
 */
@@ -62,11 +65,17 @@ QPushButton
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 LCTL1, stop:1 LCTL2)
 }
 
-QPushButton::pressed
+QPushButton:pressed
 {
     border-top-color: GLS;
     border-bottom-color: SHD;
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 LCTL3, stop:1 LCTL1)
+}
+
+QPushButton:disabled
+{
+    background-color: LCTLD;
+    color: TXD;
 }
 
 QScrollBar::handle

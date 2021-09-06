@@ -55,7 +55,12 @@ namespace SpkUi
     ObtainStylesheet.close();
 
     CurrentStyle = SpkUiStyle::Invalid;
+
+#ifdef NDEBUG
     SetGlobalStyle(Light, false);
+#else
+    SetGlobalStyle(qgetenv("SPK_FORCE_DARK").toInt() ? Dark : Light, false);
+#endif
 
     // Initalize crash handler
     signal(SIGSEGV, SpkUi::CrashSignalHandler);
