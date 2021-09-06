@@ -1,7 +1,7 @@
 
 #include "page/spkpagebase.h"
 
-SpkPageBase::SpkPageBase(QWidget *parent) : QScrollArea(parent)
+SpkPageBase::SpkPageBase(QWidget *parent) : QWidget(parent)
 {
 
 }

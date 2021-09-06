@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include <QScrollArea>
+#include <QtWidgets>
 #include <spkresource.h>
 
-class SpkPageBase : public QScrollArea
+class SpkPageBase : public QWidget
 {
     Q_OBJECT
   public:

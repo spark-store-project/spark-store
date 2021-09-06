@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include <QScrollArea>
-#include <QList>
+#include <QtWidgets>
 #include "spkresource.h"
 #include "spkappitem.h"
 #include "page/spkpagebase.h"
@@ -19,20 +18,40 @@ namespace SpkUi
       void AddApplicationEntry(QString name, QString pkgName, QString description, QString iconUrl,
                                int appId);
       void ClearAll();
+      void SetPageStatus(int total, int current, int itemCount);
+      void SetCurrentCategory(int categoryId) { mCategoryId = categoryId; }
 
     private:
+      void DisablePageSwitchers();
 
     public:
 
     private:
+      QVBoxLayout *mMainLay;
+      QHBoxLayout *mPageSwitchLay;
+      QPushButton *mBtnPgUp, *mBtnPgDown, *mBtnGotoPage;
+      QLineEdit *mPageInput;
+      QScrollArea *mAppsArea;
+      QLabel *mPageIndicator;
+      QWidget *mAppsWidget, *mPageSwitchWidget;
       SpkStretchLayout *mItemLay;
       QList<SpkAppItem *> mAppItemList;
 
+      QIntValidator *mPageValidator;
+
+      int mCategoryId, mCurrentPage;
+
     signals:
       void ApplicationClicked(QString name, QString pkgName);
+      void SwitchListPage(int categoryId, int page);
 
     public slots:
       void ResourceAcquisitionFinished(int id, ResourceResult result);
       void Activated();
+
+    private slots:
+      void PageUp();
+      void PageDown();
+      void GotoPage();
   };
 }

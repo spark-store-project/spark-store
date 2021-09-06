@@ -99,7 +99,7 @@ namespace SpkUi
         }
         mLastSelectedItem = item;
         if(item->data(column, RoleItemIsCategory).toBool())
-          emit SwitchToCategory(item->data(column, RoleItemCategoryPageId).toInt());
+          emit SwitchToCategory(item->data(column, RoleItemCategoryPageId).toInt(), 0);
         else
           emit SwitchToPage(item->data(column, RoleItemCategoryPageId).toInt());
       }
@@ -117,7 +117,7 @@ namespace SpkUi
       }
 
     signals:
-      void SwitchToCategory(int aCategoryId);
+      void SwitchToCategory(int aCategoryId, int aPage);
       void SwitchToPage(int aPageId);
   };
 
@@ -179,7 +179,7 @@ class SpkMainWindow : public SpkWindow
 
     void CategoryDataReceived();
 
-    void EnterCategoryList(int id);
+    void EnterCategoryList(int aCategoryId, int aPage);
     void CategoryListDataReceived();
 
   private:

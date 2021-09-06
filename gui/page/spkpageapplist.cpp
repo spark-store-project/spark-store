@@ -1,14 +1,50 @@
 
-#include <page/spkpageapplist.h>
-#include "inc/page/spkpageapplist.h"
+#include "page/spkpageapplist.h"
 #include "spkutils.h"
+#include "spkuimsg.h"
 
 namespace SpkUi
 {
   SpkPageAppList::SpkPageAppList(QWidget *parent) : SpkPageBase(parent)
   {
-    mItemLay = new SpkStretchLayout(this);
-    mItemLay->setContentsMargins(6, 6, 6, 6);
+    mAppsWidget = new QWidget;
+    mAppsArea = new QScrollArea(this);
+    mMainLay = new QVBoxLayout(this);
+    mItemLay = new SpkStretchLayout(mAppsWidget);
+
+    mPageSwitchWidget = new QWidget;
+    mPageSwitchLay = new QHBoxLayout(mPageSwitchWidget);
+    mBtnPgUp = new QPushButton;
+    mBtnPgDown = new QPushButton;
+    mBtnGotoPage = new QPushButton;
+    mPageInput = new QLineEdit;
+    mPageValidator = new QIntValidator(mPageInput);
+    mPageIndicator = new QLabel;
+
+    mPageValidator->setRange(1, 99);
+    mPageInput->setFixedWidth(50);
+    mPageInput->setValidator(mPageValidator);
+    mBtnGotoPage->setText(tr("Goto"));
+    mBtnPgUp->setText(tr("Previous"));
+    mBtnPgDown->setText(tr("Next"));
+
+    mPageSwitchLay->addWidget(mPageIndicator);
+    mPageSwitchLay->addStretch();
+    mPageSwitchLay->addWidget(mPageInput);
+    mPageSwitchLay->addWidget(mBtnGotoPage);
+    mPageSwitchLay->addWidget(mBtnPgUp);
+    mPageSwitchLay->addWidget(mBtnPgDown);
+
+    mAppsArea->setWidget(mAppsWidget);
+    mAppsArea->setWidgetResizable(true);
+
+    mMainLay->addWidget(mAppsArea);
+    mMainLay->addWidget(mPageSwitchWidget);
+    setLayout(mMainLay);
+
+    connect(mBtnPgUp, &QPushButton::clicked, this, &SpkPageAppList::PageUp);
+    connect(mBtnPgDown, &QPushButton::clicked, this, &SpkPageAppList::PageDown);
+    connect(mBtnGotoPage, &QPushButton::clicked, this, &SpkPageAppList::GotoPage);
   }
 
   void SpkPageAppList::AddApplicationEntry(QString name, QString pkgName, QString description,
@@ -76,6 +112,48 @@ namespace SpkUi
       RES->PurgeCachedResource(item->property("pkg_name").toString(),
                                SpkResource::ResourceType::AppIcon, 0);
     }
+  }
+
+  void SpkPageAppList::SetPageStatus(int total, int current, int itemCount)
+  {
+    mCurrentPage = current;
+    mPageIndicator->setText(tr("Page %1 / %2, %3 apps in total")
+                            .arg(current).arg(total).arg(itemCount));
+    mBtnPgUp->setDisabled(current == 1);
+    mBtnPgDown->setDisabled(total == current || total == 1);
+    mBtnGotoPage->setDisabled(total == 1);
+    mPageValidator->setTop(total);
+  }
+
+  void SpkPageAppList::DisablePageSwitchers()
+  {
+    mBtnPgDown->setDisabled(true);
+    mBtnPgUp->setDisabled(true);
+    mBtnGotoPage->setDisabled(true);
+  }
+
+  void SpkPageAppList::PageUp()
+  {
+    DisablePageSwitchers();
+    emit SwitchListPage(mCategoryId, mCurrentPage - 1);
+  }
+
+  void SpkPageAppList::PageDown()
+  {
+    DisablePageSwitchers();
+    emit SwitchListPage(mCategoryId, mCurrentPage + 1);
+  }
+
+  void SpkPageAppList::GotoPage()
+  {
+    if(mPageInput->text().isEmpty())
+      return SpkUiMessage::SendStoreNotification(tr("Please enter page number to go to!"));
+    int page = mPageInput->text().toInt();
+    if(page > mPageValidator->top())
+      return SpkUiMessage::SendStoreNotification(tr("Page %1 is not a valid page number!")
+                                                 .arg(page));
+    DisablePageSwitchers();
+    emit SwitchListPage(mCategoryId, page);
   }
 
   void SpkPageAppList::Activated()

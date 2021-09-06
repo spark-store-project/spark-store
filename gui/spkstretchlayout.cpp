@@ -19,21 +19,22 @@ void SpkStretchLayout::addItem(QLayoutItem *item)
 
 QSize SpkStretchLayout::sizeHint() const
 {
-  int n = mItems.count();
-  auto minSize = mItems.isEmpty() ? QSize { 0, 0 } : mItems.first()->minimumSize();
-  QSize s { 200, 50 }; // s: Hint
-  if(n)
-    s = s.expandedTo(QSize { minSize.width(), minSize.height() * n });
-  return s + n * QSize(spacing(), spacing());
+  if(mItems.isEmpty())
+    return { 300, 300 };
+  auto w = geometry().width();
+  auto it = mItems.first();
+  int countPerLine = w / (it->minimumSize().width() + spacing());
+  int lines = ceil((double)mItems.size() / countPerLine);
+  auto h = static_cast<int>(it->minimumSize().height() * lines + spacing() * lines);
+  return { w, h };
 }
 
 QSize SpkStretchLayout::minimumSize() const
 {
-  int n = mItems.count();
-  auto minSize = mItems.isEmpty() ? QSize { 0, 0 } : mItems.first()->minimumSize();
-  QSize s(minSize.width(), minSize.height() * n);
-  return s + n * QSize(spacing(), spacing());
-
+  // It works this way, but I honestly have no idea WHY IT WORKS
+  auto r = sizeHint();
+  r.setWidth(300);
+  return r;
 }
 
 int SpkStretchLayout::count() const
@@ -64,6 +65,9 @@ void SpkStretchLayout::setGeometry(const QRect &rect)
   // All items are considered the same, so we only calculate with the first item.
   // Figure out how many at most can we squeeze into one line
   int countPerLine = w / (itm->minimumSize().width() + spacing());
+
+  if(countPerLine < 1)
+    countPerLine = 1;
 
   if(countPerLine >= mItems.size()) // All items fit in one line
     size = itm->minimumSize();

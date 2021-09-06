@@ -89,7 +89,7 @@ void SpkMainWindow::CategoryDataReceived()
   PopulateCategories(retval.toArray());
 }
 
-void SpkMainWindow::EnterCategoryList(int aCategoryId)
+void SpkMainWindow::EnterCategoryList(int aCategoryId, int aPage)
 {
   // Asynchronously call category API
   using namespace SpkUtils;
@@ -97,12 +97,14 @@ void SpkMainWindow::EnterCategoryList(int aCategoryId)
   QJsonObject reqData;
   QJsonDocument reqDoc;
   reqData.insert("type_id", QJsonValue(aCategoryId));
+  reqData.insert("page", QJsonValue(aPage));
   reqDoc.setObject(reqData);
   mCategoryAppListGetReply = STORE->SendApiRequest("application/get_application_list", reqDoc);
   DeleteReplyLater(mCategoryAppListGetReply);
   connect(mCategoryAppListGetReply, &QNetworkReply::finished,
           this, &SpkMainWindow::CategoryListDataReceived);
   setCursor(Qt::BusyCursor);
+  ui->PageAppList->SetCurrentCategory(aCategoryId); // AppList needs to remember current category
 }
 
 void SpkMainWindow::CategoryListDataReceived()
@@ -122,12 +124,27 @@ void SpkMainWindow::PopulateAppList(QJsonObject appData)
 {
   auto w = ui->PageAppList;
   w->ClearAll();
+  static auto err =
+  [](){
+    sErr("Received invalid application list data!");
+    SpkUiMessage::SendStoreNotification(tr("An invalid response was received. Please try again!"));
+    return;
+  };
+  int pgCurrent, pgTotal, totalApps;
+
+  if(appData.contains("currentPage") && appData.value("currentPage").isDouble())
+    pgCurrent = appData.value("currentPage").toInt();
+  else return err();
+  if(appData.contains("totalPages") && appData.value("totalPages").isDouble())
+    pgTotal = appData.value("totalPages").toInt();
+  else return err();
+  if(appData.contains("count") && appData.value("count").isDouble())
+    totalApps = appData.value("count").toInt();
+  else return err();
+  w->SetPageStatus(pgTotal, pgCurrent, totalApps);
 
   if(!appData.contains("data") || !appData.value("data").isArray())
-  {
-    sErrPop(tr("Received invalid application list data!"));
-    return;
-  }
+    return err();
 
   auto apps = appData.value("data").toArray();
 
@@ -164,6 +181,8 @@ void SpkMainWindow::PopulateAppList(QJsonObject appData)
 void SpkMainWindow::Initialize()
 {
   connect(ui->SidebarMgr, &SpkUi::SpkSidebarSelector::SwitchToCategory,
+          this, &SpkMainWindow::EnterCategoryList);
+  connect(ui->PageAppList, &SpkUi::SpkPageAppList::SwitchListPage,
           this, &SpkMainWindow::EnterCategoryList);
 }
 
