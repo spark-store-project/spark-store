@@ -70,6 +70,7 @@ set(SOURCE_FILES
     inc/spkappitem.h gui/spkappitem.cpp
     inc/spkpopup.h gui/spkpopup.cpp
     inc/spkstretchlayout.h gui/spkstretchlayout.cpp
+    inc/spkfocuslineedit.h
 
     inc/page/spkpagebase.h gui/page/spkpagebase.cpp
     inc/page/spkpageuitest.h gui/page/spkpageuitest.cpp

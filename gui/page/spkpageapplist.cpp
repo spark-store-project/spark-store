@@ -114,9 +114,10 @@ namespace SpkUi
     }
   }
 
-  void SpkPageAppList::SetPageStatus(int total, int current, int itemCount)
+  void SpkPageAppList::SetPageStatus(int total, int current, int itemCount, QString &keyword)
   {
     mCurrentPage = current;
+    mKeyword = keyword;
     mPageIndicator->setText(tr("Page %1 / %2, %3 apps in total")
                             .arg(current).arg(total).arg(itemCount));
     mBtnPgUp->setDisabled(current == 1);
@@ -135,13 +136,19 @@ namespace SpkUi
   void SpkPageAppList::PageUp()
   {
     DisablePageSwitchers();
-    emit SwitchListPage(mCategoryId, mCurrentPage - 1);
+    if(mKeyword.isEmpty())
+      emit SwitchListPage(mCategoryId, mCurrentPage - 1);
+    else
+      emit SwitchSearchPage(mKeyword, mCurrentPage - 1);
   }
 
   void SpkPageAppList::PageDown()
   {
     DisablePageSwitchers();
-    emit SwitchListPage(mCategoryId, mCurrentPage + 1);
+    if(mKeyword.isEmpty())
+      emit SwitchListPage(mCategoryId, mCurrentPage + 1);
+    else
+      emit SwitchSearchPage(mKeyword, mCurrentPage + 1);
   }
 
   void SpkPageAppList::GotoPage()
@@ -153,7 +160,10 @@ namespace SpkUi
       return SpkUiMessage::SendStoreNotification(tr("Page %1 is not a valid page number!")
                                                  .arg(page));
     DisablePageSwitchers();
-    emit SwitchListPage(mCategoryId, page);
+    if(mKeyword.isEmpty())
+      emit SwitchListPage(mCategoryId, page);
+    else
+      emit SwitchSearchPage(mKeyword, page);
   }
 
   void SpkPageAppList::Activated()

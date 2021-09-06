@@ -9,5 +9,7 @@
     <qresource prefix="/">
         <file>icons/spark-store.svg</file>
         <file>icons/settings-dark.svg</file>
+        <file>icons/clear-input.svg</file>
+        <file>icons/search-mini.svg</file>
     </qresource>
 </RCC>

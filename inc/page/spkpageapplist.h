@@ -18,7 +18,7 @@ namespace SpkUi
       void AddApplicationEntry(QString name, QString pkgName, QString description, QString iconUrl,
                                int appId);
       void ClearAll();
-      void SetPageStatus(int total, int current, int itemCount);
+      void SetPageStatus(int total, int current, int itemCount, QString &keyword);
       void SetCurrentCategory(int categoryId) { mCategoryId = categoryId; }
 
     private:
@@ -40,10 +40,12 @@ namespace SpkUi
       QIntValidator *mPageValidator;
 
       int mCategoryId, mCurrentPage;
+      QString mKeyword;
 
     signals:
       void ApplicationClicked(QString name, QString pkgName);
       void SwitchListPage(int categoryId, int page);
+      void SwitchSearchPage(QString keyword, int page);
 
     public slots:
       void ResourceAcquisitionFinished(int id, ResourceResult result);

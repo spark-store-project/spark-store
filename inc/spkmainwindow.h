@@ -12,8 +12,10 @@
 #include <QJsonObject>
 #include "spksidebartree.h" // In place of #include <QTreeWidget>
 #include <QPointer>
-#include "inc/page/spkpageuitest.h"
-#include "inc/page/spkpageapplist.h"
+#include <QTimeLine>
+#include "spkfocuslineedit.h"
+#include "page/spkpageuitest.h"
+#include "page/spkpageapplist.h"
 
 class QNetworkReply;
 
@@ -146,6 +148,11 @@ namespace SpkUi
 
       QTreeWidgetItem *CategoryParentItem;
 
+      // Title bar search bar
+      SpkFocusLineEdit *SearchEdit;
+      QAction *ActClearSearchBar, *ActSearchIcon;
+      QTimeLine *SearchBarAnim;
+
       //Pages
       SpkPageUiTest *PageQssTest;
       SpkPageAppList *PageAppList;
@@ -178,10 +185,13 @@ class SpkMainWindow : public SpkWindow
     void SwitchToPage(SpkUi::SpkStackedPages page);
 
     void CategoryDataReceived();
-
+    // Enter a category (and switch pages)
     void EnterCategoryList(int aCategoryId, int aPage);
     void CategoryListDataReceived();
+    // Search a keyword (and switch pages)
+    void SearchKeyword(QString aKeyword, int aPage);
+    void SearchDataReceived();
 
   private:
-    void PopulateAppList(QJsonObject appData);
+    void PopulateAppList(QJsonObject appData, QString &&keyword);
 };

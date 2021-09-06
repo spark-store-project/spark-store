@@ -116,11 +116,41 @@ void SpkMainWindow::CategoryListDataReceived()
     return;
   }
   SwitchToPage(SpkUi::PgAppList);
-  PopulateAppList(retval.toObject());
+  PopulateAppList(retval.toObject(), "");
   setCursor(Qt::ArrowCursor);
 }
 
-void SpkMainWindow::PopulateAppList(QJsonObject appData)
+void SpkMainWindow::SearchKeyword(QString aKeyword, int aPage)
+{
+  using namespace SpkUtils;
+  VerifySingleRequest(mCategoryAppListGetReply);
+  QJsonObject reqData;
+  QJsonDocument reqDoc;
+  reqData.insert("application_name", QJsonValue(aKeyword));
+  reqData.insert("page", QJsonValue(aPage));
+  reqDoc.setObject(reqData);
+  mCategoryAppListGetReply = STORE->SendApiRequest("application/get_application_list", reqDoc);
+  mCategoryAppListGetReply->setProperty("keyword", aKeyword);
+  DeleteReplyLater(mCategoryAppListGetReply);
+  connect(mCategoryAppListGetReply, &QNetworkReply::finished,
+          this, &SpkMainWindow::SearchDataReceived);
+  setCursor(Qt::BusyCursor);
+}
+
+void SpkMainWindow::SearchDataReceived()
+{
+  QJsonValue retval;
+  if(!SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval) || !retval.isObject())
+  {
+    sErrPop(tr("Failed to search keyword! Type of retval: %1.").arg(retval.type()));
+    return;
+  }
+  SwitchToPage(SpkUi::PgAppList);
+  PopulateAppList(retval.toObject(), mCategoryAppListGetReply->property("keyword").toString());
+  setCursor(Qt::ArrowCursor);
+}
+
+void SpkMainWindow::PopulateAppList(QJsonObject appData, QString &&keyword)
 {
   auto w = ui->PageAppList;
   w->ClearAll();
@@ -141,7 +171,7 @@ void SpkMainWindow::PopulateAppList(QJsonObject appData)
   if(appData.contains("count") && appData.value("count").isDouble())
     totalApps = appData.value("count").toInt();
   else return err();
-  w->SetPageStatus(pgTotal, pgCurrent, totalApps);
+  w->SetPageStatus(pgTotal, pgCurrent, totalApps, keyword);
 
   if(!appData.contains("data") || !appData.value("data").isArray())
     return err();
@@ -184,6 +214,10 @@ void SpkMainWindow::Initialize()
           this, &SpkMainWindow::EnterCategoryList);
   connect(ui->PageAppList, &SpkUi::SpkPageAppList::SwitchListPage,
           this, &SpkMainWindow::EnterCategoryList);
+  connect(ui->PageAppList, &SpkUi::SpkPageAppList::SwitchSearchPage,
+          this, &SpkMainWindow::SearchKeyword);
+  connect(ui->SearchEdit, &QLineEdit::returnPressed,
+          [=](){ emit SearchKeyword(ui->SearchEdit->text(), 1); });
 }
 
 // ==================== Main Widget Initialization ====================
@@ -281,6 +315,45 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
     HorizontalDivide->addSpacing(SpkWindow::BorderWidth);
   HorizontalDivide->addWidget(SideBarRestrictor);
   HorizontalDivide->addLayout(VLayMain);
+
+  //============ Search Bar ============
+
+  SearchEdit = new SpkFocusLineEdit(this);
+  SearchEdit->setPlaceholderText(tr("Press Enter to search"));
+  SearchEdit->setFixedWidth(30);
+  SearchEdit->setFixedHeight(30);
+  SearchBarAnim = new QTimeLine(300, this);
+  SearchBarAnim->setDuration(300);
+  SearchBarAnim->setEasingCurve(QEasingCurve::OutExpo);
+  SearchBarAnim->setUpdateInterval(20);
+  ActClearSearchBar = SearchEdit->addAction(QIcon(":/icons/clear-input.svg"),
+                                            QLineEdit::TrailingPosition);
+  ActClearSearchBar->setVisible(false); // Invisible by default
+  ActSearchIcon = SearchEdit->addAction(QIcon(":/icons/search-mini.svg"), QLineEdit::LeadingPosition);
+  connect(SearchEdit, &SpkFocusLineEdit::focusGained,
+          [=](){
+    ActClearSearchBar->setVisible(true);
+    SearchBarAnim->setDirection(QTimeLine::Forward);
+    SearchBarAnim->start();
+  });
+  connect(SearchEdit, &SpkFocusLineEdit::focusLost,
+             [=](){
+    ActClearSearchBar->setVisible(false);
+    SearchBarAnim->setDirection(QTimeLine::Backward);
+    SearchBarAnim->start();
+  });
+  connect(SearchBarAnim, &QTimeLine::valueChanged,
+          [=](qreal v){
+    SearchEdit->setFixedWidth(static_cast<int>(250 * v) + 30);
+  });
+  connect(ActClearSearchBar, &QAction::triggered, [=](){ SearchEdit->clear(); });
+
+  auto space = TitleBar->GetUserSpace();
+  space->addWidget(SearchEdit);
+  space->addStretch();
+
+
+  //============ Pages =============
 
   // Red-Black tree based map will be able to sort things
   QMap<SpkStackedPages, QWidget*> sorter;
