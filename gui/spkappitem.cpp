@@ -32,6 +32,7 @@ SpkAppItem::SpkAppItem(int appId, QWidget *parent) : QWidget(parent)
   mLayText->addWidget(mDescription);
   mLayText->setAlignment(Qt::AlignTop);
 
+  mMainLay->setMargin(5);
   mMainLay->addWidget(mIcon);
   mMainLay->addLayout(mLayText);
 
