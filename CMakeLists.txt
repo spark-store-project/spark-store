@@ -75,6 +75,7 @@ set(SOURCE_FILES
     inc/page/spkpagebase.h gui/page/spkpagebase.cpp
     inc/page/spkpageuitest.h gui/page/spkpageuitest.cpp
     inc/page/spkpageapplist.h gui/page/spkpageapplist.cpp
+    inc/page/spkpageappdetails.h gui/page/spkpageappdetails.cpp
 
     inc/spkstore.h src/spkstore.cpp
     inc/spkuimsg.h src/spkuimsg.cpp

@@ -50,3 +50,15 @@ void SpkAppItem::paintEvent(QPaintEvent *e)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
+
+void SpkAppItem::mousePressEvent(QMouseEvent *e)
+{
+  mPressCond = true;
+}
+
+void SpkAppItem::mouseReleaseEvent(QMouseEvent *e)
+{
+  if(mPressCond)
+    emit clicked(mAppId);
+  mPressCond = false;
+}

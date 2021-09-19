@@ -18,6 +18,8 @@ class SpkAppItem : public QWidget
 
   protected:
     void paintEvent(QPaintEvent *e);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 
   public:
     static constexpr int IconSize = 72;
@@ -29,7 +31,11 @@ class SpkAppItem : public QWidget
     ElidedLabel *mDescription;
     int mAppId;
 
+    bool mPressCond;
+
     QVBoxLayout *mLayText;
     QHBoxLayout *mMainLay;
 
+  signals:
+    void clicked(int);
 };

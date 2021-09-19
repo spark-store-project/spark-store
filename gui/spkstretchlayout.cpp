@@ -21,7 +21,7 @@ QSize SpkStretchLayout::sizeHint() const
 {
   if(mItems.isEmpty())
     return { 300, 300 };
-  auto w = geometry().width();
+  auto w = geometry().width() - spacing();
   auto it = mItems.first();
   int countPerLine = w / (it->minimumSize().width() + spacing());
   int lines = ceil((double)mItems.size() / countPerLine);
@@ -75,14 +75,16 @@ void SpkStretchLayout::setGeometry(const QRect &rect)
   else // Stretch items.
     size = QSize {(w / countPerLine - spc), itm->maximumSize().height() };
 
+  auto origin = geometry().topLeft();
+
   QLayoutItem *o;
   for(int i = 0; i < mItems.size(); i++)
   {
     o = mItems.at(i);
     QRect geo;
     geo.setSize(size);
-    geo.moveTo((i % countPerLine) * (size.width() + spc) + spc,
-               (i / countPerLine) * (size.height() + spacing()) + spc);
+    geo.moveTo((i % countPerLine) * (size.width() + spc) + spc + origin.x(),
+               (i / countPerLine) * (size.height() + spacing()) + spc + origin.y());
     o->setGeometry(geo);
   }
 }

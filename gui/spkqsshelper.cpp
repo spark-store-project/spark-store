@@ -26,7 +26,8 @@ const std::map<SpkUi::Qss::ColorSetIndex, const char *> SpkUi::Qss::ColorSet2Tok
   { TextOnSelection, "TXACC" },
   { TextOnGlobalBgnd, "TXGBG" },
   { TextOnControlsBgnd, "TXCBG" },
-  { TextLighter, "TXL" },
+  { TextLighter, "TXL1" },
+  { TextEvenLighter, "TXL2" },
   { TextDisabled, "TXD" },
   { GlossyEdge, "GLS" },
   { ShadesEdge, "SHD" }
@@ -51,6 +52,7 @@ const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::DarkColorSet
   { TextOnGlobalBgnd, ColorTextOnBackground(0x282828) },
   { TextOnControlsBgnd, ColorTextOnBackground(0x282828) },
   { TextLighter, 0xd5d5d5 },
+  { TextEvenLighter, 0x505050 },
   { TextDisabled, 0xbebebe },
   { GlossyEdge, 0x656565 },
   { ShadesEdge, 0x7b7b7b }
@@ -75,6 +77,7 @@ const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::LightColorSet
   { TextOnGlobalBgnd, ColorTextOnBackground(0xf8f8f8) },
   { TextOnControlsBgnd, ColorTextOnBackground(0xf8f8f8) },
   { TextLighter, 0x2a2a2a },
+  { TextEvenLighter, 0xa0a0a0 },
   { TextDisabled, 0x8a8a8a },
   { GlossyEdge, 0xc5c5c5 },
   { ShadesEdge, 0x9d9d9d }

@@ -14,7 +14,8 @@
     TXACC: Text on Selection/Activation
     TXGBG: Text on Global background
     TXCBG: Text on controls background
-    TXL: Text slightly lighter
+    TXL1: Text slightly lighter
+    TXL2: Text lighter even more
     TXD: Text disabled
     GLS: Glossy edge on controls
     SHD: Shades edge on controls
@@ -106,7 +107,7 @@ ElidedLabel
 
 #styAboutDesc
 {
-    color: TXL
+    color: TXL1
 }
 
 SpkAppItem
@@ -126,10 +127,27 @@ SpkAppItem::hover
     font-size: 17px;
 }
 
+#styDetTitle
+{
+    font-weight: 600;
+    font-size: 36px;
+}
+
 #styAppItmDesc
 {
-    color: TXL;
+    color: TXL1;
     font-size: 12px;
+}
+
+#styDetDesc
+{
+    color: TXL1;
+    font-size: 14px;
+}
+
+#styDetPkg
+{
+    color: TXL2
 }
 
 #styChkBtn

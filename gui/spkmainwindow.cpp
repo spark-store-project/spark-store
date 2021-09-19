@@ -157,7 +157,7 @@ void SpkMainWindow::PopulateAppList(QJsonObject appData, QString &&keyword)
   static auto err =
   [](){
     sErr("Received invalid application list data!");
-    SpkUiMessage::SendStoreNotification(tr("An invalid response was received. Please try again!"));
+    SpkUiMessage::SendStoreNotification(tr("Received an invalid response. Please try again!"));
     return;
   };
   int pgCurrent, pgTotal, totalApps;
@@ -178,7 +178,7 @@ void SpkMainWindow::PopulateAppList(QJsonObject appData, QString &&keyword)
 
   auto apps = appData.value("data").toArray();
 
-  foreach(auto i, apps)
+  for(auto &&i : apps)
   {
     if(i.isObject())
     {
@@ -206,10 +206,112 @@ void SpkMainWindow::PopulateAppList(QJsonObject appData, QString &&keyword)
   }
 }
 
+void SpkMainWindow::EnterAppDetails(int aAppId)
+{
+  using namespace SpkUtils;
+  VerifySingleRequest(mAppDetailsGetReply);
+  QJsonObject reqData;
+  QJsonDocument reqDoc;
+  reqData.insert("application_id", QJsonValue(aAppId));
+  reqDoc.setObject(reqData);
+  mAppDetailsGetReply = STORE->SendApiRequest("application/get_application_detail", reqDoc);
+  DeleteReplyLater(mAppDetailsGetReply);
+  connect(mAppDetailsGetReply, &QNetworkReply::finished,
+          this, &SpkMainWindow::AppDetailsDataReceived);
+  setCursor(Qt::BusyCursor);
+}
+
+void SpkMainWindow::AppDetailsDataReceived()
+{
+  QJsonValue retval;
+  if(!SpkUtils::VerifyReplyJson(mAppDetailsGetReply, retval) || !retval.isObject())
+  {
+    sErrPop(tr("Failed to open app details page! Type of retval: %1.").arg(retval.type()));
+    return;
+  }
+  SwitchToPage(SpkUi::PgAppList);
+  PopulateAppDetails(retval.toObject());
+  setCursor(Qt::ArrowCursor);
+}
+
+void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
+{
+  QString pkgName, author, contributor, site, iconPath, arch, version, details, shortDesc, name;
+  QStringList screenshots, tags;
+  int packageSize;
+  static auto err =
+  [](){
+    sErr("Received invalid application details!");
+    SpkUiMessage::SendStoreNotification(tr("Received an invalid response. Please try again!"));
+    return;
+  };
+
+  if(appDetails.contains("package") && appDetails.value("package").isString())
+    pkgName = appDetails.value("package").toString();
+  else return err();
+  if(appDetails.contains("application_name_zh") && appDetails.value("application_name_zh").isString())
+    name = appDetails.value("application_name_zh").toString();
+  else name = pkgName;
+  if(appDetails.contains("version") && appDetails.value("version").isString())
+    version = appDetails.value("version").toString();
+  else return err();
+  if(appDetails.contains("icons") && appDetails.value("icons").isString())
+    iconPath= appDetails.value("icons").toString();
+  if(appDetails.contains("author") && appDetails.value("author").isString())
+    author = appDetails.value("author").toString();
+  if(appDetails.contains("contributor") && appDetails.value("contributor").isString())
+    contributor = appDetails.value("contributor").toString();
+  if(appDetails.contains("website") && appDetails.value("website").isString())
+    site = appDetails.value("website").toString();
+  if(appDetails.contains("description") && appDetails.value("description").isString())
+    shortDesc = appDetails.value("description").toString();
+  if(appDetails.contains("more") && appDetails.value("more").isString())
+    details = appDetails.value("more").toString();
+  if(appDetails.contains("arch") && appDetails.value("arch").isString())
+    arch = appDetails.value("arch").toString();
+  if(appDetails.contains("size") && appDetails.value("size").isDouble())
+    packageSize = appDetails.value("size").toInt();
+
+  QJsonArray imgs;
+  if(appDetails.contains("img_urls") && appDetails.value("img_urls").isArray())
+    imgs = appDetails.value("img_urls").toArray();
+  if(!imgs.isEmpty())
+    for(auto &&i : imgs)
+      if(i.isString()) screenshots << i.toString();
+
+  QJsonArray tags_j;
+  if(appDetails.contains("tags") && appDetails.value("tags").isArray())
+    imgs = appDetails.value("tags").toArray();
+  if(!tags_j.isEmpty())
+    for(auto &&i : tags_j)
+      if(i.isString()) tags << i.toString();
+
+  // Details string has a strangely appended LF. IDK but still should remove it.
+  shortDesc = shortDesc.trimmed();
+
+  auto w = ui->PageAppDetails;
+  w->mPkgName->setText(pkgName);
+  w->mAppTitle->setText(name);
+  w->mAppShortDesc->setText(shortDesc);
+  w->mAppDescription->setText(details);
+  w->mAuthor->SetValue(author);
+  w->mContributor->SetValue(contributor);
+  w->mSite->SetValue(site);
+  w->mArch->SetValue(arch);
+  w->mSize->SetValue(SpkUtils::BytesToSize(packageSize));
+  w->mVersion->setText(version);
+  SwitchToPage(SpkUi::PgAppDetails);
+  ui->AppDetailsItem->setHidden(false);
+  ui->CategoryWidget->setCurrentItem(ui->AppDetailsItem);
+  w->LoadAppResources(pkgName, iconPath, screenshots, tags);
+}
+
 // ==================== Main Window Initialization ====================
 
 void SpkMainWindow::Initialize()
 {
+  connect(ui->SidebarMgr, &SpkUi::SpkSidebarSelector::SwitchToPage,
+          this, &SpkMainWindow::SwitchToPage);
   connect(ui->SidebarMgr, &SpkUi::SpkSidebarSelector::SwitchToCategory,
           this, &SpkMainWindow::EnterCategoryList);
   connect(ui->PageAppList, &SpkUi::SpkPageAppList::SwitchListPage,
@@ -218,6 +320,8 @@ void SpkMainWindow::Initialize()
           this, &SpkMainWindow::SearchKeyword);
   connect(ui->SearchEdit, &QLineEdit::returnPressed,
           [=](){ emit SearchKeyword(ui->SearchEdit->text(), 1); });
+  connect(ui->PageAppList, &SpkUi::SpkPageAppList::ApplicationClicked,
+          this, &SpkMainWindow::EnterAppDetails);
 }
 
 // ==================== Main Widget Initialization ====================
@@ -292,11 +396,28 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   CategoryWidget->setColumnCount(1);
   CategoryWidget->setHeaderHidden(true);
   CategoryWidget->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
+
+  //============ Sidebar entries BEGIN ============
+  AppDetailsItem = new QTreeWidgetItem(QStringList(tr("App Details")));
+  AppDetailsItem->setData(0, SpkSidebarSelector::RoleItemIsCategory, false);
+  AppDetailsItem->setData(0, SpkSidebarSelector::RoleItemCategoryPageId, SpkStackedPages::PgAppDetails);
   CategoryParentItem = new QTreeWidgetItem(QStringList(tr("Categories")));
   CategoryParentItem->setFlags(CategoryParentItem->flags().setFlag(Qt::ItemIsSelectable, false));
-  CategoryParentItem->setExpanded(true);
+#ifndef NDEBUG
+  UiTestItem = new QTreeWidgetItem(QStringList(tr("UI TEST")));
+  UiTestItem->setData(0, SpkSidebarSelector::RoleItemIsCategory, false);
+  UiTestItem->setData(0, SpkSidebarSelector::RoleItemCategoryPageId, SpkStackedPages::PgQssTest);
+#endif
+  //============ Sidebar entries END ============
+
   SidebarMgr->AddUnusableItem(CategoryParentItem);
+  CategoryWidget->addTopLevelItem(AppDetailsItem);
   CategoryWidget->addTopLevelItem(CategoryParentItem);
+  CategoryWidget->addTopLevelItem(UiTestItem);
+
+  // Must be done after added into a view.
+  AppDetailsItem->setHidden(true); // Hide until we actually open up a Details page
+  CategoryParentItem->setExpanded(true);
 
   // FIXMEIFPOSSIBLE: Fusion adds extra gradient.
   // Details: https://forum.qt.io/topic/128190/fusion-style-kept-adding-an-extra-
@@ -355,13 +476,17 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
 
   //============ Pages =============
 
-  // Red-Black tree based map will be able to sort things
+  // Red-Black tree based map will be able to sort things. Just for convenience of ordering pages.
   QMap<SpkStackedPages, QWidget*> sorter;
 
   // Initialize pages
   PageAppList = new SpkUi::SpkPageAppList(this);
   PageAppList->setProperty("spk_pageid", SpkStackedPages::PgAppList);
   sorter[PgAppList] = PageAppList;
+
+  PageAppDetails = new SpkUi::SpkPageAppDetails(this);
+  PageAppDetails->setProperty("spk_pageid", SpkStackedPages::PgAppDetails);
+  sorter[PgAppDetails] = PageAppDetails;
 
 #ifndef NDEBUG // If only in debug mode should we initialize QSS test page
   PageQssTest = new SpkUi::SpkPageUiTest(this);

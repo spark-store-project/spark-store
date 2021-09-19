@@ -30,6 +30,7 @@ namespace SpkUi
       TextOnGlobalBgnd,
       TextOnControlsBgnd,
       TextLighter,
+      TextEvenLighter,
       TextDisabled,
       GlossyEdge,
       ShadesEdge,

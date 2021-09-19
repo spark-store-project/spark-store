@@ -53,6 +53,7 @@ namespace SpkUi
     auto item = new SpkAppItem(appId, this);
     auto id = mAppItemList.size();
 
+    connect(item, &SpkAppItem::clicked, this, &SpkPageAppList::ApplicationClicked);
     item->SetTitle(name);
     item->SetDescription(description);
     item->setProperty("pkg_name", pkgName);

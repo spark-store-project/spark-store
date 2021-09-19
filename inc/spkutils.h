@@ -26,4 +26,5 @@ namespace SpkUtils
 
   QString CutFileName(QString);
   QString CutPath(QString);
+  QString BytesToSize(size_t s, int prec = 2);
 }

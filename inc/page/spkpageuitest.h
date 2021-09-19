@@ -12,6 +12,8 @@
 #include <QHBoxLayout>
 #include <QSlider>
 #include "spkappitem.h"
+#include "spkstretchlayout.h"
+#include "page/spkpageappdetails.h"
 
 #include "spkloading.h"
 
@@ -40,6 +42,9 @@ namespace SpkUi
       QSlider *SlideV;
       SpkLoading *Loading;
       SpkAppItem *AppItem;
+      SpkStretchLayout *DetailsLay;
+      SpkDetailEntry *Detail1, *Detail2, *Detail3;
+      QWidget *DetailsWidget;
 
       QLineEdit *PopupText;
       QPushButton *ShowPopup,

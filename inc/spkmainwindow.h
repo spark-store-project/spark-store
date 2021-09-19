@@ -16,6 +16,7 @@
 #include "spkfocuslineedit.h"
 #include "page/spkpageuitest.h"
 #include "page/spkpageapplist.h"
+#include "page/spkpageappdetails.h"
 
 class QNetworkReply;
 
@@ -25,6 +26,7 @@ namespace SpkUi
   {
     PgInvalid = -1,
     PgAppList,
+    PgAppDetails,
     PgQssTest // Must be at last
   };
 
@@ -86,7 +88,7 @@ namespace SpkUi
           mLastSelectedItem = nullptr;
         }
         mLastCheckedBtn = b;
-        emit SwitchToPage(b->property("spk_pageno").toInt());
+        emit SwitchToPage(static_cast<SpkStackedPages>(b->property("spk_pageno").toInt()));
       }
       void TreeItemSelected(QTreeWidgetItem *item, int column)
       {
@@ -103,7 +105,8 @@ namespace SpkUi
         if(item->data(column, RoleItemIsCategory).toBool())
           emit SwitchToCategory(item->data(column, RoleItemCategoryPageId).toInt(), 0);
         else
-          emit SwitchToPage(item->data(column, RoleItemCategoryPageId).toInt());
+          emit SwitchToPage(static_cast<SpkStackedPages>(
+                            item->data(column, RoleItemCategoryPageId).toInt()));
       }
       void UnusableItemSelected(QTreeWidgetItem *i)
       {
@@ -120,7 +123,7 @@ namespace SpkUi
 
     signals:
       void SwitchToCategory(int aCategoryId, int aPage);
-      void SwitchToPage(int aPageId);
+      void SwitchToPage(SpkStackedPages aPageId);
   };
 
   class SpkMainWidget : public QFrame
@@ -146,7 +149,9 @@ namespace SpkUi
       QMap<int, QTreeWidgetItem> *CategoryItemMap;
       SpkSidebarSelector *SidebarMgr;
 
-      QTreeWidgetItem *CategoryParentItem;
+      QTreeWidgetItem *CategoryParentItem,
+                      *AppDetailsItem,
+                      *UiTestItem;
 
       // Title bar search bar
       SpkFocusLineEdit *SearchEdit;
@@ -156,6 +161,7 @@ namespace SpkUi
       //Pages
       SpkPageUiTest *PageQssTest;
       SpkPageAppList *PageAppList;
+      SpkPageAppDetails *PageAppDetails;
   };
 }
 
@@ -175,7 +181,8 @@ class SpkMainWindow : public SpkWindow
 
   private:
     QPointer<QNetworkReply> mCategoryGetReply,
-                            mCategoryAppListGetReply;
+                            mCategoryAppListGetReply,
+                            mAppDetailsGetReply;
     SpkUi::SpkStackedPages mCurrentPage = SpkUi::PgInvalid;
 
   public slots:
@@ -191,7 +198,11 @@ class SpkMainWindow : public SpkWindow
     // Search a keyword (and switch pages)
     void SearchKeyword(QString aKeyword, int aPage);
     void SearchDataReceived();
+    // Enter the details page of an application (and switch pages)
+    void EnterAppDetails(int aAppId);
+    void AppDetailsDataReceived();
 
   private:
     void PopulateAppList(QJsonObject appData, QString &&keyword);
+    void PopulateAppDetails(QJsonObject appDetails);
 };

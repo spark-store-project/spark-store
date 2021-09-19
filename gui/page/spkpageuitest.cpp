@@ -51,6 +51,18 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
                           "Phasellus finibus risus id aliquam pulvinar.");
   AppItem->SetIcon(QIcon::fromTheme("dialog-information").pixmap(72, 72));
 
+  Detail1 = new SpkDetailEntry; Detail1->SetTitle("Foo"); Detail1->SetValue("1");
+  Detail2 = new SpkDetailEntry; Detail2->SetTitle("Foo"); Detail2->SetValue("1");
+  Detail3 = new SpkDetailEntry; Detail3->SetTitle("Foo"); Detail3->SetValue("1");
+
+  DetailsLay = new SpkStretchLayout;
+  DetailsLay->addWidget(Detail1);
+  DetailsLay->addWidget(Detail2);
+  DetailsLay->addWidget(Detail3);
+
+  DetailsWidget = new QWidget;
+  DetailsWidget->setLayout(DetailsLay);
+
   PopupText = new QLineEdit(this);
   PopupText->setObjectName("spk_pg_qsstest_poptext");
   PopupText->setText("Hello, world");
@@ -85,6 +97,7 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   VLayTestWidgets->addWidget(ShowPopup);
   VLayTestWidgets->addWidget(ShowAbout);
   VLayTestWidgets->addWidget(AppItem);
+  VLayTestWidgets->addWidget(DetailsWidget);
 
   Group = new QGroupBox(this);
   Group->setObjectName("spk_pg_qsstest_groupbox");

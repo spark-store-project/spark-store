@@ -43,7 +43,7 @@ namespace SpkUi
       QString mKeyword;
 
     signals:
-      void ApplicationClicked(QString name, QString pkgName);
+      void ApplicationClicked(int appId);
       void SwitchListPage(int categoryId, int page);
       void SwitchSearchPage(QString keyword, int page);
 
