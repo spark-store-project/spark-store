@@ -30,7 +30,9 @@ const std::map<SpkUi::Qss::ColorSetIndex, const char *> SpkUi::Qss::ColorSet2Tok
   { TextEvenLighter, "TXL2" },
   { TextDisabled, "TXD" },
   { GlossyEdge, "GLS" },
-  { ShadesEdge, "SHD" }
+  { ShadesEdge, "SHD" },
+  { ScrollBarNorm, "SCBN" },
+  { ScrollBarHover, "SCBH" },
 };
 
 const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::DarkColorSet
@@ -55,7 +57,9 @@ const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::DarkColorSet
   { TextEvenLighter, 0x505050 },
   { TextDisabled, 0xbebebe },
   { GlossyEdge, 0x656565 },
-  { ShadesEdge, 0x7b7b7b }
+  { ShadesEdge, 0x7b7b7b },
+  { ScrollBarNorm, 0x404040 },
+  { ScrollBarHover, 0x656565 },
 };
 
 const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::LightColorSet
@@ -79,6 +83,8 @@ const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::LightColorSet
   { TextLighter, 0x2a2a2a },
   { TextEvenLighter, 0xa0a0a0 },
   { TextDisabled, 0x8a8a8a },
-  { GlossyEdge, 0xc5c5c5 },
-  { ShadesEdge, 0x9d9d9d }
+  { GlossyEdge, 0x9d9d9d },
+  { ShadesEdge, 0xc5c5c5 },
+  { ScrollBarNorm, 0xa0a0a0 },
+  { ScrollBarHover, 0x858585 },
 };

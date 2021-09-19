@@ -69,7 +69,7 @@ namespace SpkUi
                                      Qt::SmoothTransformation));
       else
       {
-        item->SetIcon(QIcon::fromTheme("dialog-error").pixmap(SpkAppItem::IconSize_));
+        item->SetIcon(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
         RES->PurgeCachedResource(pkgName, SpkResource::ResourceType::AppIcon, 0);
       }
     }
@@ -105,11 +105,11 @@ namespace SpkUi
                                      Qt::IgnoreAspectRatio,
                                      Qt::SmoothTransformation));
       else
-        item->SetIcon(QIcon::fromTheme("dialog-error").pixmap(SpkAppItem::IconSize_));
+        item->SetIcon(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
     }
     else if(result.status == SpkResource::ResourceStatus::Failed)
     {
-      item->SetIcon(QIcon::fromTheme("dialog-error").pixmap(SpkAppItem::IconSize_));
+      item->SetIcon(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
       RES->PurgeCachedResource(item->property("pkg_name").toString(),
                                SpkResource::ResourceType::AppIcon, 0);
     }

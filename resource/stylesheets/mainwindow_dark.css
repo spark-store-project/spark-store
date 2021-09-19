@@ -83,14 +83,14 @@ QScrollBar::handle
 {
     border: 0px;
     border-radius: 5px;
-    background-color: DCTL1
+    background-color: SCBN
 }
 QScrollBar::horizontal{height: 10px}
 QScrollBar::vertical{width:10px}
 
 QScrollBar::handle:hover
 {
-    background-color: LCTL2
+    background-color: SCBH
 }
 
 QScrollBar::add-line, QScrollBar::sub-line

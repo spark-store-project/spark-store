@@ -39,7 +39,6 @@ SpkAppItem::SpkAppItem(int appId, QWidget *parent) : QWidget(parent)
   setMinimumHeight(82);
   setMaximumHeight(82);
   setMinimumWidth(300);
-//  setMaximumWidth(350);
 }
 
 void SpkAppItem::paintEvent(QPaintEvent *e)

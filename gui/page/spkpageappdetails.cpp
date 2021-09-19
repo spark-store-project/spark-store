@@ -3,7 +3,6 @@
 #include "page/spkpageappdetails.h"
 #include "spkutils.h"
 
-
 namespace SpkUi
 {
   constexpr QSize SpkPageAppDetails::IconSize;
@@ -23,7 +22,7 @@ namespace SpkUi
                                        Qt::SmoothTransformation));
       else
       {
-        mAppIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(SpkAppItem::IconSize_));
+        mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(IconSize));
         RES->PurgeCachedResource(aPkgName, SpkResource::ResourceType::AppIcon, 0);
       }
     }
@@ -45,7 +44,7 @@ namespace SpkUi
           else
           {
             // TODO
-            //        mAppIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(SpkAppItem::IconSize_));
+            //        mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
             RES->PurgeCachedResource(aPkgName, SpkResource::ResourceType::AppScreenshot, 0);
           }
       }
@@ -149,11 +148,11 @@ namespace SpkUi
                                           Qt::IgnoreAspectRatio,
                                           Qt::SmoothTransformation));
         else
-          mAppIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(SpkAppItem::IconSize_));
+          mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
       }
       else if(result.status == SpkResource::ResourceStatus::Failed)
       {
-        mAppIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(SpkAppItem::IconSize_));
+        mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
         RES->PurgeCachedResource(mPkgName->text(), SpkResource::ResourceType::AppIcon, 0);
       }
     }

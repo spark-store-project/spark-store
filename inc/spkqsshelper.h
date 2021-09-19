@@ -34,6 +34,8 @@ namespace SpkUi
       TextDisabled,
       GlossyEdge,
       ShadesEdge,
+      ScrollBarNorm,
+      ScrollBarHover,
     };
 
     extern const std::list<ColorSetIndex> AccentColorExceptions;
