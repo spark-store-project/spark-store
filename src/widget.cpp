@@ -825,7 +825,7 @@ void Widget::sltAppinfoResetUi()
     ui->pushButton_uninstall->hide();
     ui->pushButton_website->setEnabled(false);
     ui->pushButton->setEnabled(false);
-    ui->pushButton_translate->setEnabled(false);
+    ui->pushButton_update->setEnabled(false);
     ui->label_show->setText("Loading...");
     ui->label_show->show();
 }
@@ -909,7 +909,7 @@ void Widget::sltAppinfoIcon(QPixmap *icon)
     ui->label_appicon->show();
     ui->pushButton_download->setEnabled(true);
     ui->pushButton->setEnabled(true);
-    ui->pushButton_translate->setEnabled(true);
+    ui->pushButton_update->setEnabled(true);
     ui->pushButton_website->setEnabled(true);
 }
 
@@ -1367,22 +1367,8 @@ void Widget::on_webEngineView_loadFinished(bool arg1)
     }
 }
 
-void Widget::on_pushButton_translate_clicked()
+void Widget::on_pushButton_update_clicked()
 {
-    DDialog tipDialog;
-    tipDialog.setWordWrapMessage(true);
-    tipDialog.addButtons({ tr("Yes"), tr("No") });
-    tipDialog.setTitle(tr("Information for Contributors"));
-    tipDialog.setMessage(tr("Currently the translation contribution is limited to English,\n"
-                            "and you will be redirected to our Gitee repository at which you are\n"
-                            "supposed to be creating pull requests to contribute app info\n"
-                            "translations.\n"
-                            "Tips:You can simply click the file to edit to create a flat pull request without create a full pull request\n"
-                            "Tips:You can use github account to login to Gitee"
-                            "\nClick yes to continue."));
-
-    if(!tipDialog.exec())
-    {
-        QDesktopServices::openUrl("https://gitee.com/deepin-community-store/json/tree/master/store/" + type_name + '/' + pkgName);
-    }
+    QDesktopServices::openUrl(QUrl("http://www.shenmo.tech:420/?p=485"));
 }
+

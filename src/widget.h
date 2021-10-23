@@ -101,9 +101,9 @@ private slots:
     void on_webEngineView_loadProgress(int progress);
     void on_webEngineView_loadFinished(bool arg1);
     void on_pushButton_refresh_clicked();
-    void on_pushButton_translate_clicked();
+    void on_pushButton_update_clicked();
 
-public:
+  public:
     QUrl url;
 
     downloadlist download_list[LIST_MAX];

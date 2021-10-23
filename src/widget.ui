@@ -345,7 +345,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -490,7 +490,7 @@
             <x>0</x>
             <y>0</y>
             <width>889</width>
-            <height>854</height>
+            <height>847</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -907,9 +907,9 @@
                </widget>
               </item>
               <item row="0" column="9">
-               <widget class="QPushButton" name="pushButton_translate">
+               <widget class="QPushButton" name="pushButton_update">
                 <property name="text">
-                 <string>Contribute translation</string>
+                 <string>Request Update</string>
                 </property>
                </widget>
               </item>
@@ -994,7 +994,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>851</width>
-                   <height>323</height>
+                   <height>326</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1123,8 +1123,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>743</width>
-            <height>902</height>
+            <width>697</width>
+            <height>808</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -1428,8 +1428,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>903</width>
-            <height>681</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
          </widget>

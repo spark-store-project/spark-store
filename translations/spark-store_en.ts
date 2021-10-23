@@ -296,11 +296,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="912"/>
-        <source>Contribute translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/widget.ui" line="930"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
@@ -401,6 +396,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/widget.ui" line="912"/>
+        <source>Request Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/widget.ui" line="1194"/>
         <source>Take effect when restart</source>
         <translation type="unfinished"></translation>
@@ -473,32 +473,6 @@
     <message>
         <location filename="../src/widget.cpp" line="1147"/>
         <source>Unknown error!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1374"/>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1374"/>
-        <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1375"/>
-        <source>Information for Contributors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1376"/>
-        <source>Currently the translation contribution is limited to English,
-and you will be redirected to our Gitee repository at which you are
-supposed to be creating pull requests to contribute app info
-translations.
-Tips:You can simply click the file to edit to create a flat pull request without create a full pull request
-Tips:You can use github account to login to Gitee
-Click yes to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

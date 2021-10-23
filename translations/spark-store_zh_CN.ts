@@ -327,9 +327,8 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="912"/>
         <source>Contribute translation</source>
-        <translation>贡献翻译/应用反馈</translation>
+        <translation type="vanished">贡献翻译/应用反馈</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="930"/>
@@ -461,6 +460,11 @@
         <translation></translation>
     </message>
     <message>
+        <location filename="../src/widget.ui" line="912"/>
+        <source>Request Update</source>
+        <translation>请求更新</translation>
+    </message>
+    <message>
         <location filename="../src/widget.ui" line="1194"/>
         <source>Take effect when restart</source>
         <translation>重启商店后生效</translation>
@@ -586,22 +590,18 @@
         <translation>未知错误！</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1374"/>
         <source>Yes</source>
-        <translation>是</translation>
+        <translation type="vanished">是</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1374"/>
         <source>No</source>
-        <translation>否</translation>
+        <translation type="vanished">否</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1375"/>
         <source>Information for Contributors</source>
-        <translation>贡献者须知</translation>
+        <translation type="vanished">贡献者须知</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1376"/>
         <source>Currently the translation contribution is limited to English,
 and you will be redirected to our Gitee repository at which you are
 supposed to be creating pull requests to contribute app info
@@ -609,7 +609,7 @@ translations.
 Tips:You can simply click the file to edit to create a flat pull request without create a full pull request
 Tips:You can use github account to login to Gitee
 Click yes to continue.</source>
-        <translation>目前商店仅支持应用程序英文详细信息的贡献。
+        <translation type="vanished">目前商店仅支持应用程序英文详细信息的贡献。
 在你确认后你会被导向到我们的 Gitee 页面，
 请在此创建 Pull Request 以进行翻译贡献。
 备注：你可以直接在页面编辑以快速创建轻量级pr
