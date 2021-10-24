@@ -462,7 +462,7 @@
     <message>
         <location filename="../src/widget.ui" line="912"/>
         <source>Request Update</source>
-        <translation type="unfinished">软件催更</translation>
+        <translation type="unfinished">软件催更/应用反馈</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1194"/>
