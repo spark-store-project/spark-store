@@ -16,4 +16,4 @@ cp ./translations/*.qm ./debian/usr/share/spark-store/translations/
 
 version=$(cat ./debian/DEBIAN/control | grep "Version" | awk -F ' '  '{print $2}')
 
-fakeroot dpkg -b ./debian ./spark-store_"$version"_amd64.deb
+fakeroot dpkg -b ./debian ./
