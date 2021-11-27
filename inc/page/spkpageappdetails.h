@@ -20,6 +20,7 @@ namespace SpkUi
       SpkPageAppDetails(QWidget *parent = nullptr);
 
       void LoadAppResources(QString pkgName, QString icon, QStringList screenshots, QStringList tags);
+      void SetWebsiteLink(QString url);
 
     private:
 
@@ -30,14 +31,19 @@ namespace SpkUi
     public:
       static constexpr QSize IconSize { 144, 144 };
 
+      // Main Area
       QScrollArea *mMainArea;
       QWidget *mDetailWidget, *mIconTitleWidget, *mWid4MainArea;
-      QLabel *mAppTitle, *mAppIcon, *mAppDescription, *mAppShortDesc, *mPkgName, *mVersion;
+      QLabel *mAppTitle, *mAppIcon, *mAppDescription, *mAppShortDesc, *mPkgName, *mVersion,
+             *mWebsite;
       SpkDetailEntry *mAuthor, *mContributor, *mSite, *mArch, *mSize;
       SpkStretchLayout *mDetailLay;
       QVBoxLayout *mMainLay, *mTitleLay, *mLay4MainArea;
       QHBoxLayout *mIconTitleLay;
 
+      // Bottom bar
+      QWidget *mBottomBar;
+      QPushButton *mBtnInstall, *mBtnDownload, *mBtnUninstall, *mBtnRequestUpdate, *mBtnReport;
   };
 
   class SpkDetailEntry : public QWidget

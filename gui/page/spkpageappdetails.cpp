@@ -53,6 +53,11 @@ namespace SpkUi
     // TODO: tags
   }
 
+  void SpkPageAppDetails::SetWebsiteLink(QString url)
+  {
+    mWebsite->setText(QString("<a href=\"%1\">%1</a>").arg(url));
+  }
+
   SpkPageAppDetails::SpkPageAppDetails(QWidget *parent) : SpkPageBase(parent)
   {
     mMainArea = new QScrollArea;
@@ -81,6 +86,7 @@ namespace SpkUi
     mAppShortDesc->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
     mAppShortDesc->setMinimumWidth(100);
     mVersion = new QLabel;
+    mWebsite = new QLabel;
     mPkgName = new QLabel;
     mPkgName->setObjectName("styDetPkg");
 
@@ -90,6 +96,7 @@ namespace SpkUi
     mTitleLay->addWidget(mVersion);
     mTitleLay->addWidget(mAppShortDesc);
     mTitleLay->addWidget(mPkgName);
+    mTitleLay->addWidget(mWebsite);
     mTitleLay->setSpacing(0);
 
     mIconTitleLay = new QHBoxLayout;
@@ -118,7 +125,7 @@ namespace SpkUi
     mDetailLay->addWidget(mContributor);
     mDetailLay->addWidget(mSize);
     mDetailLay->addWidget(mArch);
-    mDetailLay->addWidget(mSite);
+//    mDetailLay->addWidget(mSite);
 
 //    mDetailWidget = new QWidget;
 //    mDetailWidget->setLayout(mDetailLay);
@@ -133,6 +140,9 @@ namespace SpkUi
     mWid4MainArea->setLayout(mMainLay);
 
     mMainArea->setWidget(mWid4MainArea);
+
+    mWebsite->setTextFormat(Qt::RichText);
+    mWebsite->setOpenExternalLinks(true);
   }
 
   void SpkPageAppDetails::ResourceAcquisitionFinished(int id, ResourceResult result)

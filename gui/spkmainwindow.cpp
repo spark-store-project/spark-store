@@ -23,6 +23,15 @@ SpkMainWindow::SpkMainWindow(QWidget *parent) : SpkWindow(parent)
   move(size.width(), size.height());
 }
 
+void SpkMainWindow::SwitchDayNightTheme()
+{
+  if(SpkUi::CurrentStyle == SpkUi::Dark)
+    SpkUi::SetGlobalStyle(SpkUi::Light, true);
+  else
+    SpkUi::SetGlobalStyle(SpkUi::Dark, true);
+  ReloadThemedUiIcons();
+}
+
 void SpkMainWindow::SwitchToPage(SpkUi::SpkStackedPages page)
 {
   if(mCurrentPage != page)
@@ -296,7 +305,8 @@ void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
   w->mAppDescription->setText(details);
   w->mAuthor->SetValue(author);
   w->mContributor->SetValue(contributor);
-  w->mSite->SetValue(site);
+//  w->mSite->SetValue(site); // Doesn't look good, I disabled it temporarily. Better solution?
+  w->SetWebsiteLink(site);
   w->mArch->SetValue(arch);
   w->mSize->SetValue(SpkUtils::BytesToSize(packageSize));
   w->mVersion->setText(version);
@@ -304,6 +314,12 @@ void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
   ui->AppDetailsItem->setHidden(false);
   ui->CategoryWidget->setCurrentItem(ui->AppDetailsItem);
   w->LoadAppResources(pkgName, iconPath, screenshots, tags);
+}
+
+void SpkMainWindow::ReloadThemedUiIcons()
+{
+  for(auto &i : mThemedUiIconReferences)
+    i.first->setIcon(SpkUi::GetThemedIcon(i.second));
 }
 
 // ==================== Main Window Initialization ====================
@@ -322,6 +338,17 @@ void SpkMainWindow::Initialize()
           [=](){ emit SearchKeyword(ui->SearchEdit->text(), 1); });
   connect(ui->PageAppList, &SpkUi::SpkPageAppList::ApplicationClicked,
           this, &SpkMainWindow::EnterAppDetails);
+  connect(ui->BtnDayNight, &QPushButton::pressed,
+          this, &SpkMainWindow::SwitchDayNightTheme);
+  if(SpkUi::States::IsUsingDtkPlugin)
+  {
+    connect(SpkUi::DtkPlugin, &SpkDtkPlugin::DarkLightThemeChanged,
+            this, &SpkMainWindow::ReloadThemedUiIcons);
+  }
+
+  // Register themed button icons
+  mThemedUiIconReferences.append({ ui->BtnSettings, "settings" });
+  mThemedUiIconReferences.append({ ui->BtnDayNight, "daynight" });
 }
 
 // ==================== Main Widget Initialization ====================
@@ -384,8 +411,17 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   BtnSettings->setProperty("spk_pageno", 0);
   SidebarMgr->BindPageSwitcherButton(BtnSettings);
 
+  BtnDayNight = new QPushButton(this);
+  BtnDayNight->setObjectName("styPlainChkBtn");
+  BtnDayNight->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  BtnDayNight->setMaximumSize({ 40, 40 });
+  BtnDayNight->setMinimumSize({ 40, 40 });
+  BtnDayNight->setIconSize(QSize(20, 20));
+  BtnDayNight->setIcon(SpkUi::GetThemedIcon("daynight"));
+
   HLaySideTop->addWidget(StoreIcon);
   HLaySideTop->addStretch();
+  HLaySideTop->addWidget(BtnDayNight);
   HLaySideTop->addWidget(BtnSettings);
   VLaySidebar->addLayout(HLaySideTop);
 

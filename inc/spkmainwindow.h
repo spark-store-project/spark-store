@@ -144,7 +144,7 @@ namespace SpkUi
       QVBoxLayout *VLaySidebar;
       QHBoxLayout *HLaySideTop;
       QLabel *StoreIcon;
-      QPushButton *BtnSettings, *BtnFeedback, *BtnLogs;
+      QPushButton *BtnSettings, *BtnFeedback, *BtnLogs, *BtnDayNight;
       SpkSidebarTree *CategoryWidget;
       QMap<int, QTreeWidgetItem> *CategoryItemMap;
       SpkSidebarSelector *SidebarMgr;
@@ -184,11 +184,15 @@ class SpkMainWindow : public SpkWindow
                             mCategoryAppListGetReply,
                             mAppDetailsGetReply;
     SpkUi::SpkStackedPages mCurrentPage = SpkUi::PgInvalid;
+    QList<QPair<QPushButton*, QString>> mThemedUiIconReferences;
 
   public slots:
+    void ReloadThemedUiIcons();
     void RefreshCategoryData();
 
   private slots:
+    void SwitchDayNightTheme();
+
     void SwitchToPage(SpkUi::SpkStackedPages page);
 
     void CategoryDataReceived();

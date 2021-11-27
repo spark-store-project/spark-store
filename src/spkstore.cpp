@@ -59,7 +59,7 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
 
   // Initialize URL
   mApiRequestUrl = mCfg->value("url/api", "https://store.deepinos.org/api/").toString();
-  mResourceRequestUrl = mCfg->value("url/res", "http://img.store.deepinos.org.cn/").toString();
+  mResourceRequestUrl = mCfg->value("url/res", "http://d.deepinos.org.cn/").toString();
 
 
   mUserAgentStr = QString("Spark-Store/%1 Distro/%2")
@@ -89,6 +89,7 @@ QNetworkReply *SpkStore::SendApiRequest(QString aPath, QJsonDocument aParam)
 {
   QNetworkRequest request;
   request.setUrl(mApiRequestUrl + aPath);
+  request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
   request.setHeader(QNetworkRequest::UserAgentHeader, mUserAgentStr);
   return mNetMgr->post(request, aParam.isEmpty() ? "{}" : aParam.toJson(QJsonDocument::Compact));
@@ -97,9 +98,29 @@ QNetworkReply *SpkStore::SendApiRequest(QString aPath, QJsonDocument aParam)
 QNetworkReply *SpkStore::SendResourceRequest(QString aPath)
 {
   QNetworkRequest request;
+  request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
   request.setUrl(mResourceRequestUrl + aPath);
   request.setHeader(QNetworkRequest::UserAgentHeader, mUserAgentStr);
   return mNetMgr->get(request);
+}
+
+QNetworkReply *SpkStore::SendDownloadRequest(QUrl file, qint64 fromByte, qint64 toByte)
+{
+  QNetworkRequest request;
+  request.setUrl(file);
+  request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+  if(fromByte != -1 && toByte != -1)
+  {
+    request.setRawHeader("Range", QString("bytes=%1-%2").arg(fromByte).arg(toByte).toLocal8Bit());
+  }
+  request.setHeader(QNetworkRequest::UserAgentHeader, mUserAgentStr);
+  return mNetMgr->get(request);
+}
+
+QNetworkReply *SpkStore::SendCustomHeadRequest(QNetworkRequest req)
+{
+  req.setHeader(QNetworkRequest::UserAgentHeader, mUserAgentStr);
+  return mNetMgr->head(req);
 }
 
 static void InstallDefaultConfigs()

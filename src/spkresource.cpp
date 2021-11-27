@@ -176,6 +176,8 @@ void SpkResource::PurgeCachedResource(const QString &aPkgName, SpkResource::Reso
 {
   auto dir = QDir(mCacheDirectory + aPkgName + '/', ResourceName[aType] + '*');
   auto list = dir.entryList();
+  sLog("Resource \"" + dir.absolutePath() + '/' + dir.nameFilters()[0] +
+       "\" was requested to be removed.");
 
   if(list.isEmpty())
     return;

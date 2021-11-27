@@ -12,5 +12,8 @@
         <file>icons/clear-input.svg</file>
         <file>icons/search-mini.svg</file>
         <file>icons/broken-icon.svg</file>
+        <file>icons/settings.svg</file>
+        <file>icons/daynight-dark.svg</file>
+        <file>icons/daynight.svg</file>
     </qresource>
 </RCC>

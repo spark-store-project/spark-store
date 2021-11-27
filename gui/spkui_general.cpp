@@ -20,6 +20,7 @@
 #include "spkmsgbox.h"
 #include "spkpopup.h"
 #include "spklogging.h"
+#include "spkstore.h"
 
 namespace SpkUi
 {

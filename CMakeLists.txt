@@ -81,6 +81,7 @@ set(SOURCE_FILES
     inc/spkuimsg.h src/spkuimsg.cpp
     inc/spklogging.h src/spklogging.cpp
     inc/spkresource.h src/spkresource.cpp
+    inc/spkdownload.h src/spkdownload.cpp
     )
 
 include(cmake/FindLibNotify.cmake)

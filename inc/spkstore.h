@@ -32,6 +32,9 @@ class SpkStore : public QObject
     QString GetApiRequestUrl() { return mApiRequestUrl; }
     QNetworkReply *SendApiRequest(QString path, QJsonDocument param = QJsonDocument());
     QNetworkReply *SendResourceRequest(QString path); ///< WARNING: Only intended for SpkResource!
+    QNetworkReply *SendDownloadRequest(QUrl file, qint64 fromByte = -1, qint64 toByte = -1);
+
+    QNetworkReply *SendCustomHeadRequest(QNetworkRequest);
 
   private:
     SpkLogger *mLogger;
