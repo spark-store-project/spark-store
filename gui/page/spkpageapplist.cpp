@@ -97,6 +97,7 @@ namespace SpkUi
   void SpkPageAppList::ResourceAcquisitionFinished(int id, ResourceResult result)
   {
     QPixmap icon;
+//    qDebug() << "PageAppList: Resource" << id << "acquired";
     auto item = mAppItemList[id];
     if(result.status == SpkResource::ResourceStatus::Ready)
     {

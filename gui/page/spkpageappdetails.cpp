@@ -148,6 +148,7 @@ namespace SpkUi
   void SpkPageAppDetails::ResourceAcquisitionFinished(int id, ResourceResult result)
   {
     QPixmap icon;
+//    qDebug() << "PageAppDetails: Resource" << id << "acquired";
     if(!id)
     {
       // id == 0, icon

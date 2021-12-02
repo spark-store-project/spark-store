@@ -74,7 +74,7 @@ void SpkResource::ResourceDownloaded()
     if(!QDir().mkpath(path))
     {
       sWarn(tr("Cache directory \"%1\" cannot be created.").arg(path));
-      return;
+      goto ContinueNext;
     }
   }
   if(writeCache.open(QFile::WriteOnly))
@@ -85,32 +85,41 @@ void SpkResource::ResourceDownloaded()
   else
     sWarn("Save cache to \"" + cacheFile + "\" failed! Msg: " + writeCache.errorString());
 
+  qInfo() << "Resource " << reply->property("dest_file").toString() << " downloaded";
+
   // Tell ResourceContext
-  AcquisitionFinish(id, ret);
+  if(!reply->property("outdated").toBool())
+    AcquisitionFinish(id, ret);
+
+ContinueNext:
   // Start next possible mission
   TryBeginAwaitingTasks();
 }
 
 void SpkResource::Acquire(SpkPageBase *dest, bool stopOngoing, bool clearQueue)
 {
+  for(auto &i : mWorkingRequests.keys())
+  {
+    // Don't let an outdated task falsely report a finish signal.
+    // This is the designed way of stopping it from emitting a finish signal
+    i->setProperty("outdated", true);
+    // And abort as requested.
+    if(stopOngoing)
+      i->abort();
+    delete i;
+  }
+
   if(stopOngoing)
   {
-    for(auto &i : mWorkingRequests.keys())
-    {
-      // Don't let forced abort falsely report a finish signal. Disconnect them first.
-      i->disconnect(i, &QNetworkReply::finished, this, &SpkResource::ResourceDownloaded);
-      i->abort();
-      delete i;
-    }
     mWorkingRequests.clear();
-
     mRequestSemaphore->release(mMaximumConcurrent); // Release all semaphore users
   }
 
   if(clearQueue)
     mAwaitingRequests.clear();
 
-  disconnect(this, SLOT(AcquisitionFinish(int, ResourceResult)));
+  auto discResult = disconnect(this, SIGNAL(AcquisitionFinish(int, ResourceResult)), nullptr, nullptr);
+//  qDebug() << "SpkResource: Acquisition disconnection" << (discResult ? "success" : "failure");
 
   connect(this, &SpkResource::AcquisitionFinish,
           dest, &SpkPageBase::ResourceAcquisitionFinished,
