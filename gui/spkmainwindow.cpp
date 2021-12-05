@@ -349,6 +349,8 @@ void SpkMainWindow::Initialize()
   // Register themed button icons
 //  mThemedUiIconReferences.append({ ui->BtnSettings, "settings" });
   mThemedUiIconReferences.append({ ui->BtnDayNight, "daynight" });
+
+  ReloadThemedUiIcons();
 }
 
 // ==================== Main Widget Initialization ====================
