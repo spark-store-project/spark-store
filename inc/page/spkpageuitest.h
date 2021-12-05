@@ -11,9 +11,11 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QSlider>
+#include <QProgressBar>
 #include "spkappitem.h"
 #include "spkstretchlayout.h"
 #include "page/spkpageappdetails.h"
+#include "spkiconbutton.h"
 
 #include "spkloading.h"
 
@@ -40,6 +42,8 @@ namespace SpkUi
       QGroupBox *Group;
       QSlider *SlideH;
       QSlider *SlideV;
+      SpkIconButton *IconBtn;
+      QProgressBar *Prog;
       SpkLoading *Loading;
       SpkAppItem *AppItem;
       SpkStretchLayout *DetailsLay;

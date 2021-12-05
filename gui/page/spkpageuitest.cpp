@@ -44,6 +44,11 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   Loading->setObjectName("spk_pg_qsstest_loading");
   Loading->start();
 
+  Prog = new QProgressBar(this);
+  Prog->setObjectName("spk_pg_qsstest_prog");
+  Prog->setValue(65);
+  Prog->setRange(0, 100);
+
   AppItem = new SpkAppItem(0, this);
   AppItem->setObjectName("spk_pg_qsstest_appitem");
   AppItem->SetTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
@@ -87,11 +92,16 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   SlideH->setMaximum(1000);
   SlideH->setMinimum(0);
 
+  IconBtn = new SpkIconButton(this);
+  IconBtn->setObjectName("spk_pg_qsstest_iconbtn");
+  IconBtn->SetIcon(QIcon(":/icons/settings.svg"), QSize{ 16, 16 });
+
   VLayTestWidgets = new QVBoxLayout;
   VLayTestWidgets->setObjectName("spk_pg_qsstest_vlay_btn");
   VLayTestWidgets->addWidget(Btn);
   VLayTestWidgets->addWidget(Chk);
   VLayTestWidgets->addWidget(Rad);
+  VLayTestWidgets->addWidget(IconBtn);
   VLayTestWidgets->addWidget(Loading);
   VLayTestWidgets->addWidget(PopupText);
   VLayTestWidgets->addWidget(ShowPopup);
@@ -113,6 +123,7 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   VLayWidgets->setObjectName("spk_pg_qsstest_widgetlay");
   VLayWidgets->addWidget(Group);
   VLayWidgets->addWidget(SlideH);
+  VLayWidgets->addWidget(Prog);
 
   HLay4Slider = new QHBoxLayout;
   HLay4Slider->setObjectName("spk_pg_qsstest_hlay_for_slider");
@@ -122,6 +133,7 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   WidL = new QWidget(this);
   WidL->setObjectName("spk_pg_qsstest_widleft");
   WidL->setLayout(HLay4Slider);
+  WidL->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
 
   WidR = new QWidget(this);
   WidR->setObjectName("spk_pg_qsstest_widright");

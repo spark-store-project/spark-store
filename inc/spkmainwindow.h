@@ -14,6 +14,7 @@
 #include <QPointer>
 #include <QTimeLine>
 #include "spkfocuslineedit.h"
+#include "spkiconbutton.h"
 #include "page/spkpageuitest.h"
 #include "page/spkpageapplist.h"
 #include "page/spkpageappdetails.h"
@@ -144,7 +145,7 @@ namespace SpkUi
       QVBoxLayout *VLaySidebar;
       QHBoxLayout *HLaySideTop;
       QLabel *StoreIcon;
-      QPushButton *BtnSettings, *BtnFeedback, *BtnLogs, *BtnDayNight;
+      SpkIconButton *BtnSettings, *BtnFeedback, *BtnLogs, *BtnDayNight;
       SpkSidebarTree *CategoryWidget;
       QMap<int, QTreeWidgetItem> *CategoryItemMap;
       SpkSidebarSelector *SidebarMgr;
@@ -184,7 +185,7 @@ class SpkMainWindow : public SpkWindow
                             mCategoryAppListGetReply,
                             mAppDetailsGetReply;
     SpkUi::SpkStackedPages mCurrentPage = SpkUi::PgInvalid;
-    QList<QPair<QPushButton*, QString>> mThemedUiIconReferences;
+    QList<QPair<SpkIconButton*, QString>> mThemedUiIconReferences;
 
   public slots:
     void ReloadThemedUiIcons();

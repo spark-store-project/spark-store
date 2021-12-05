@@ -102,6 +102,7 @@ SpkTitleBarDefaultButton::SpkTitleBarDefaultButton(QWidget* parent) : QPushButto
   setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
   setMaximumWidth(ButtonWidth);
   setMinimumWidth(ButtonWidth);
+  setFocusPolicy(Qt::NoFocus);
 }
 
 void SpkTitleBarDefaultButton::paintEvent(QPaintEvent *e)

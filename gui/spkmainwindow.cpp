@@ -319,7 +319,7 @@ void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
 void SpkMainWindow::ReloadThemedUiIcons()
 {
   for(auto &i : mThemedUiIconReferences)
-    i.first->setIcon(SpkUi::GetThemedIcon(i.second));
+    i.first->SetIcon(SpkUi::GetThemedIcon(i.second), QSize { 20, 20 });
 }
 
 // ==================== Main Window Initialization ====================
@@ -338,7 +338,7 @@ void SpkMainWindow::Initialize()
           [=](){ emit SearchKeyword(ui->SearchEdit->text(), 1); });
   connect(ui->PageAppList, &SpkUi::SpkPageAppList::ApplicationClicked,
           this, &SpkMainWindow::EnterAppDetails);
-  connect(ui->BtnDayNight, &QPushButton::pressed,
+  connect(ui->BtnDayNight, &QPushButton::clicked,
           this, &SpkMainWindow::SwitchDayNightTheme);
   if(SpkUi::States::IsUsingDtkPlugin)
   {
@@ -347,7 +347,7 @@ void SpkMainWindow::Initialize()
   }
 
   // Register themed button icons
-  mThemedUiIconReferences.append({ ui->BtnSettings, "settings" });
+//  mThemedUiIconReferences.append({ ui->BtnSettings, "settings" });
   mThemedUiIconReferences.append({ ui->BtnDayNight, "daynight" });
 }
 
@@ -400,24 +400,20 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   SidebarMgr = new SpkSidebarSelector(this);
   SidebarMgr->setObjectName("spk_mw_sidebar_mgr");
 
-  BtnSettings = new QPushButton(this);
+  BtnSettings = new SpkIconButton(this);
   BtnSettings->setObjectName("styPlainChkBtn");
   BtnSettings->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   BtnSettings->setCheckable(true);
-  BtnSettings->setMaximumSize({ 40, 40 });
-  BtnSettings->setMinimumSize({ 40, 40 });
-  BtnSettings->setIconSize(QSize(20, 20));
-  BtnSettings->setIcon(SpkUi::GetThemedIcon("settings"));
+  BtnSettings->setFixedSize({ 40, 40 });
+  BtnSettings->SetIcon(QIcon(":/icons/settings.svg"), QSize(20, 20));
   BtnSettings->setProperty("spk_pageno", 0);
   SidebarMgr->BindPageSwitcherButton(BtnSettings);
 
-  BtnDayNight = new QPushButton(this);
+  BtnDayNight = new SpkIconButton(this);
   BtnDayNight->setObjectName("styPlainChkBtn");
   BtnDayNight->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  BtnDayNight->setMaximumSize({ 40, 40 });
-  BtnDayNight->setMinimumSize({ 40, 40 });
-  BtnDayNight->setIconSize(QSize(20, 20));
-  BtnDayNight->setIcon(SpkUi::GetThemedIcon("daynight"));
+  BtnDayNight->setFixedSize({ 40, 40 });
+  BtnDayNight->SetIcon(QIcon(":/icons/daynight.svg"), QSize(20, 20));
 
   HLaySideTop->addWidget(StoreIcon);
   HLaySideTop->addStretch();

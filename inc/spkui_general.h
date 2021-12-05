@@ -39,7 +39,9 @@ namespace SpkUi
   extern UiMetaObject SpkUiMetaObject;
   extern SpkUiStyle CurrentStyle;
   extern QString StylesheetBase, CurrentStylesheet;
-  extern QColor ColorLine, ColorBack;
+  extern QColor ColorLine, ColorBack,
+                ColorBtnMaskUnselected, ///< SpkIconButton icon mask colors, unselected & selected
+                ColorBtnMaskSelected;
   extern QSize PrimaryScreenSize;
   extern SpkDtkPlugin *DtkPlugin;
   extern QStyle *OldSystemStyle;

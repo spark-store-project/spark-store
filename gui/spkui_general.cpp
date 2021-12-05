@@ -27,7 +27,7 @@ namespace SpkUi
   UiMetaObject SpkUiMetaObject;
   SpkUiStyle CurrentStyle;
   QString StylesheetBase, CurrentStylesheet;
-  QColor ColorLine, ColorBack;
+  QColor ColorLine, ColorBack, ColorBtnMaskSelected, ColorBtnMaskUnselected;
   QSize PrimaryScreenSize;
   SpkDtkPlugin *DtkPlugin = nullptr;
   QStyle *OldSystemStyle = nullptr;
@@ -45,6 +45,16 @@ namespace SpkUi
   {
     bool CrashHandlerActivated;
   }
+
+  // ======================= Static Linkage Private Functions ========================
+
+  static void SetBtnMaskColor()
+  {
+    ColorBtnMaskUnselected = ColorTextOnBackground(CurrentColorSet[Qss::ControlsBgnd]);
+    ColorBtnMaskSelected = ColorTextOnBackground(CurrentColorSet[Qss::AccentColor]);
+  }
+
+  // ======================== Public Functions =========================
 
   void Initialize()
   {
@@ -153,6 +163,7 @@ namespace SpkUi
     Qss::ColorSet tempset;
     switch(aStyle)
     {
+      case Invalid:
       case Light:
         tempset = Qss::LightColorSet;
         ColorLine = Qt::black;
@@ -169,6 +180,7 @@ namespace SpkUi
     }
     CurrentColorSet = tempset;
     CurrentStylesheet = StylesheetFromColors(CurrentColorSet);
+    SetBtnMaskColor();
     qApp->setStyleSheet(CurrentStylesheet);
   }
 
@@ -262,11 +274,16 @@ namespace SpkUi
     return gray > 0.5 ? Qt::black : Qt::white;
   }
 
+  // =================== UiMetaObject =======================
+  // UiMetaObject is the signal-slot receiver for DDE plugin, receiving the DDE system level
+  // notifications of UI theme changes
+
   void UiMetaObject::SetAccentColor(QColor aColor)
   {
     CurrentColorSet[Qss::AccentColor] = aColor.lighter(90);
     CurrentColorSet[Qss::AccentColorHighlighted] = aColor.lighter(105);
     CurrentColorSet[Qss::TextOnAccentColor] = ColorTextOnBackground(aColor);
+    SetBtnMaskColor();
     qApp->setStyleSheet(StylesheetFromColors(CurrentColorSet));
   }
 

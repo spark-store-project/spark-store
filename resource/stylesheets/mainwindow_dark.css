@@ -98,6 +98,23 @@ QScrollBar::add-line, QScrollBar::sub-line
     height:0px
 }
 
+QProgressBar
+{
+    border: none;
+    background-color: DCTL2;
+    height: 8px;
+    border-radius: 4px;
+    font-size: 1px;
+    color: transparent;
+}
+
+QProgressBar::chunk
+{
+    border: none;
+    border-radius: 4px;
+    background-color: ACC_;
+}
+
 /* Custom widgets */
 
 ElidedLabel
@@ -180,6 +197,22 @@ SpkAppItem::hover
 #styPlainChkBtn:checked
 {
     background-color: ACC_
+}
+
+SpkIconButton
+{
+    border-width: 0px;
+    background-color: GBG_;
+}
+
+SpkIconButton:pressed
+{
+    background-color: ACCH;
+}
+
+SpkIconButton:checked
+{
+    background-color: ACC_;
 }
 
 SpkTitleBar

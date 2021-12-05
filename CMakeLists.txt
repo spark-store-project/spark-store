@@ -60,6 +60,7 @@ set(SOURCE_FILES
 
     inc/spkwindow.h gui/spkwindow.cpp
     inc/spktitlebar.h gui/spktitlebar.cpp
+    inc/spkiconbutton.h gui/spkiconbutton.cpp
     inc/spkui_general.h gui/spkui_general.cpp
     inc/spkmainwindow.h gui/spkmainwindow.cpp
     inc/spkmsgbox.h gui/spkmsgbox.cpp
