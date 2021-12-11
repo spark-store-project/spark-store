@@ -1,9 +1,22 @@
 #!/bin/sh
 
+
+if [ "$1" = "triggered" ]; then
+  echo '------------星火应用商店现已集成UOS包补丁工具---------------'
+	if [ -f "/usr/bin/deepin-app-store-tool" ]; then 
+	echo '----------检测到已安装深度应用商店，不运行补丁---------------'
+	exit 0
+	fi
+  echo '--------检测到Uniontech标准软件包，运行补丁以修正安装--------'
+    /usr/local/bin/spark-dstore-patch
+  echo '-----------spark-dstore-patch补丁工具已运行完毕-----------'
+else
+
 mkdir -p /usr/local/bin
 
 ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
 ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
+ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
 
 cd /tmp/spark-store-install
 wget https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc
@@ -14,4 +27,7 @@ update-desktop-database /usr/share/applications || true
 xdg-mime default spark-store.desktop x-scheme-handler/spk
 update-mime-database /usr/share/mime || true
 
+exit 0
+fi
+exit 0
 # /tmp/spark-store-install/feedback.sh
