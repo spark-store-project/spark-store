@@ -8,7 +8,7 @@
 SpkIconButton::SpkIconButton(QWidget *parent) :
   QPushButton(parent)
 {
-
+  setFocusPolicy(Qt::NoFocus);
 }
 
 void SpkIconButton::SetIcon(QIcon i, QSize s)

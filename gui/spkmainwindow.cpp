@@ -447,7 +447,10 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   SidebarMgr->AddUnusableItem(CategoryParentItem);
   CategoryWidget->addTopLevelItem(AppDetailsItem);
   CategoryWidget->addTopLevelItem(CategoryParentItem);
+  CategoryWidget->addTopLevelItem(DownloadsItem);
   CategoryWidget->addTopLevelItem(UiTestItem);
+
+  CategoryWidget->setFocusPolicy(Qt::NoFocus);
 
   // Must be done after added into a view.
   AppDetailsItem->setHidden(true); // Hide until we actually open up a Details page

@@ -27,6 +27,9 @@ namespace SpkUi
     mBtnGotoPage->setText(tr("Goto"));
     mBtnPgUp->setText(tr("Previous"));
     mBtnPgDown->setText(tr("Next"));
+    mBtnGotoPage->setFocusPolicy(Qt::NoFocus);
+    mBtnPgDown->setFocusPolicy(Qt::NoFocus);
+    mBtnPgUp->setFocusPolicy(Qt::NoFocus);
 
     mPageSwitchLay->addWidget(mPageIndicator);
     mPageSwitchLay->addStretch();
@@ -92,6 +95,7 @@ namespace SpkUi
       itm->deleteLater();
     }
     mAppItemList.clear();
+    mAppsArea->verticalScrollBar()->setValue(0);
   }
 
   void SpkPageAppList::ResourceAcquisitionFinished(int id, ResourceResult result)
