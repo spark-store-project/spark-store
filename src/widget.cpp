@@ -1369,6 +1369,6 @@ void Widget::on_webEngineView_loadFinished(bool arg1)
 
 void Widget::on_pushButton_update_clicked()
 {
-    QDesktopServices::openUrl(QUrl("http://www.shenmo.tech:420/?p=485"));
+    QDesktopServices::openUrl(QUrl("https://www.deepinos.org/"));
 }
 
