@@ -11,6 +11,7 @@ make -j$(cat /proc/cpuinfo | grep "processor" | wc -l)
 cd ..
 
 cp ./ssinstall ./debian/opt/durapps/spark-store/bin/
+cp ./spark-dstore-patch ./debian/opt/durapps/spark-store/bin/
 cp ./build/src/spark-store ./debian/opt/durapps/spark-store/bin/
 cp ./translations/*.qm ./debian/usr/share/spark-store/translations/
 
