@@ -1,6 +1,7 @@
 
-#include <arpa/inet.h>
 #include <QDebug>
+#include <QJsonObject>
+#include <QJsonDocument>
 #include "spkutils.h"
 
 void SpkUtils::VerifySingleRequest(QPointer<QNetworkReply> aReply)

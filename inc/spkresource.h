@@ -45,6 +45,8 @@ class SpkResource : public QObject
 
     inline QString GetCachePath(const ResourceTask &task);
 
+    ResourceResult CacheLookup(QString pkgName, ResourceType type, QVariant info);
+
     /**
      * @brief When the resource context was changed, the new context needs to acquire the resource
      *        manager, so the resource manager can download resource for the new context.

@@ -7,6 +7,7 @@
 
 #include "dtk/spkdtkplugin.h"
 #include "gitver.h"
+#include "spkmainwindow.h"
 #include "spkpopup.h"
 #include "spkstore.h"
 #include "spkutils.h"

@@ -63,6 +63,18 @@ void SpkResource::ResourceDownloaded()
 
   ResourceResult ret;
   ret.status = ResourceStatus::Ready;
+
+  if(reply->error() != QNetworkReply::NoError)
+  {
+    ret.status = ResourceStatus::Failed;
+    sWarn(tr("SpkResource: %1 cannot be downloaded, error code %2")
+             .arg(reply->url().toString())
+             .arg(reply->error()));
+    // Tell ResourceContext
+    if(!reply->property("outdated").toBool())
+      AcquisitionFinish(id, ret);
+  }
+
   ret.data = reply->readAll();
 
   // Save cache to disk
@@ -106,12 +118,13 @@ void SpkResource::Acquire(SpkPageBase *dest, bool stopOngoing, bool clearQueue)
     // And abort as requested.
     if(stopOngoing)
       i->abort();
-    delete i;
+    mWorkingRequests.remove(i);
   }
+
+  mWorkingRequests.clear();
 
   if(stopOngoing)
   {
-    mWorkingRequests.clear();
     mRequestSemaphore->release(mMaximumConcurrent); // Release all semaphore users
   }
 
@@ -138,7 +151,23 @@ ResourceResult SpkResource::LocateCachedResource(const ResourceTask &task)
 
   // If there is the desired file, then we return the resource in binary
   auto cacheFullPath = GetCachePath(task);
-  if(list.contains(SpkUtils::CutFileName(cacheFullPath)))
+
+  bool isCacheHit;
+  // Wildcard support
+  if(task.path == "*")
+  {
+    cacheFullPath.chop(1);
+    auto filterResult = list.filter(SpkUtils::CutFileName(cacheFullPath));
+    isCacheHit = !filterResult.isEmpty();
+    if(isCacheHit)
+      cacheFullPath = SpkUtils::CutPath(cacheFullPath) + '/' + filterResult[0];
+  }
+  else
+  {
+    isCacheHit = list.contains(SpkUtils::CutFileName(cacheFullPath));
+  }
+
+  if(isCacheHit)
   {
 //    qInfo() << "Cache hit:" << GetCachePath(task);
     QFile cacheFile(cacheFullPath);
@@ -198,7 +227,13 @@ void SpkResource::PurgeCachedResource(const QString &aPkgName, SpkResource::Reso
 QString SpkResource::GetCachePath(const ResourceTask &task)
 {
   return mCacheDirectory + task.pkgName + '/' + ResourceName.value(task.type) + '.' +
-         task.info.toString() + '.' + SpkUtils::CutFileName(task.path);
+      task.info.toString() + '.' + SpkUtils::CutFileName(task.path);
+}
+
+ResourceResult SpkResource::CacheLookup(QString pkgName, ResourceType type, QVariant info)
+{
+  ResourceTask task { .pkgName = pkgName, .path = "*", .type = type, .info = info, .id = -1 };
+  return LocateCachedResource(task);
 }
 
 const QMap<SpkResource::ResourceType, QString> SpkResource::ResourceName

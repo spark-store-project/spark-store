@@ -18,6 +18,7 @@
 #include "page/spkpageuitest.h"
 #include "page/spkpageapplist.h"
 #include "page/spkpageappdetails.h"
+#include "page/spkpagedownloads.h"
 
 class QNetworkReply;
 
@@ -28,6 +29,7 @@ namespace SpkUi
     PgInvalid = -1,
     PgAppList,
     PgAppDetails,
+    PgDownloads,
     PgQssTest // Must be at last
   };
 
@@ -152,6 +154,7 @@ namespace SpkUi
 
       QTreeWidgetItem *CategoryParentItem,
                       *AppDetailsItem,
+                      *DownloadsItem,
                       *UiTestItem;
 
       // Title bar search bar
@@ -163,6 +166,7 @@ namespace SpkUi
       SpkPageUiTest *PageQssTest;
       SpkPageAppList *PageAppList;
       SpkPageAppDetails *PageAppDetails;
+      SpkPageDownloads *PageDownloads;
   };
 }
 

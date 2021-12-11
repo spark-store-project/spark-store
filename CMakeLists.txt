@@ -69,6 +69,7 @@ set(SOURCE_FILES
     inc/spkloading.h gui/spkloading.cpp
     inc/spksidebartree.h gui/spksidebartree.cpp
     inc/spkappitem.h gui/spkappitem.cpp
+    inc/spkdownloadentry.h gui/spkdownloadentry.cpp
     inc/spkpopup.h gui/spkpopup.cpp
     inc/spkstretchlayout.h gui/spkstretchlayout.cpp
     inc/spkfocuslineedit.h
@@ -77,6 +78,7 @@ set(SOURCE_FILES
     inc/page/spkpageuitest.h gui/page/spkpageuitest.cpp
     inc/page/spkpageapplist.h gui/page/spkpageapplist.cpp
     inc/page/spkpageappdetails.h gui/page/spkpageappdetails.cpp
+    inc/page/spkpagedownloads.h gui/page/spkpagedownloads.cpp
 
     inc/spkstore.h src/spkstore.cpp
     inc/spkuimsg.h src/spkuimsg.cpp

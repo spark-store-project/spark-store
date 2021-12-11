@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include "spkui_general.h"
+#include "spkmainwindow.h"
 #include "spkmsgbox.h"
 #include "spkstore.h"
 

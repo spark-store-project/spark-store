@@ -1,7 +1,10 @@
 
 #include "spkdownload.h"
 #include "spkutils.h"
+#include "spkui_general.h"
+#include "spkpopup.h"
 #include <QEventLoop>
+#include <QDir>
 
 SpkDownloadMgr::SpkDownloadMgr(QObject *parent)
 {
@@ -18,6 +21,12 @@ SpkDownloadMgr::SpkDownloadMgr(QObject *parent)
 
   mCurrentDownloadId = -1;
   mActiveWorkerCount = 0;
+  mDownloadedBytes = 0;
+
+  mProgressEmitterTimer.setInterval(800);
+
+  connect(&mProgressEmitterTimer, &QTimer::timeout,
+          this, &SpkDownloadMgr::ProgressTimer);
 }
 
 SpkDownloadMgr::~SpkDownloadMgr()
@@ -139,6 +148,8 @@ bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
     i.Reply->setProperty("failCount", 0); // Used for fail retry algorithm
   }
 
+  mProgressEmitterTimer.start();
+
   return true;
 }
 
@@ -150,7 +161,27 @@ bool SpkDownloadMgr::PauseCurrentDownload()
 
 bool SpkDownloadMgr::CancelCurrentDownload()
 {
-  // UNIMPLEMENTED
+  // Don't proceed when no downloads are there
+  if(mCurrentDownloadId == -1)
+    return false;
+
+  // Terminate all workers
+  for(auto &i : mScheduledWorkers)
+  {
+    auto r = i.Reply;
+    r->blockSignals(true);
+    r->abort();
+    r->deleteLater();
+  }
+
+  // Terminate and delete the temporary file
+  mDestFile.close();
+  if(!mDestFile.remove())
+  {
+    sErr(tr("SpkDownloadMgr: Cannot remove destination file %1 of a cancelled task")
+           .arg(mDestFile.fileName()));
+    SpkUi::Popup->Show(tr("The destination file of the cancelled task can't be deleted!"));
+  }
   return false;
 }
 
@@ -178,6 +209,9 @@ void SpkDownloadMgr::WorkerFinish()
       mScheduledWorkers.clear();
       mFailureRetryQueue.clear();
       mCurrentDownloadId = -1;
+      mDownloadedBytes = 0;
+
+      mProgressEmitterTimer.stop();
     }
   }
   else
@@ -217,6 +251,12 @@ void SpkDownloadMgr::WorkerDownloadProgress()
   mDestFile.seek(worker.BeginOffset + worker.BytesRecvd);
   mDestFile.write(replyData);
   worker.BytesRecvd += replyData.size();
+  mDownloadedBytes += replyData.size();
+}
+
+void SpkDownloadMgr::ProgressTimer()
+{
+  emit DownloadProgressed(mDownloadedBytes, mCurrentRemoteFileInfo.Size, mCurrentDownloadId);
 }
 
 void SpkDownloadMgr::LinkReplyWithMe(QNetworkReply *reply)

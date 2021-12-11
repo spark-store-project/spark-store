@@ -2,6 +2,7 @@
 #pragma once
 
 #include "spkstore.h"
+#include <QTimer>
 
 /**
  * @note SpkDownloadMgr does NOT do download scheduling and other things; it's only a multithreaded
@@ -68,6 +69,8 @@ class SpkDownloadMgr : public QObject
     QFile mDestFile;
     QString mDestFolder, mCurrentRemotePath;
     RemoteFileInfo mCurrentRemoteFileInfo;
+    QTimer mProgressEmitterTimer;
+    qint64 mDownloadedBytes;
 
     int mCurrentDownloadId;
     int mActiveWorkerCount;
@@ -88,6 +91,7 @@ class SpkDownloadMgr : public QObject
   private slots:
     void WorkerFinish();
     void WorkerDownloadProgress(); ///< Be connected to ***QNetworkReply::readyRead***
+    void ProgressTimer();
 
   private:
     void LinkReplyWithMe(QNetworkReply*);
@@ -95,7 +99,7 @@ class SpkDownloadMgr : public QObject
     void TryScheduleFailureRetries(int i); ///< Try schedule on a specific task slot.
 
   signals:
-    void DownloadProgressed(qint64 bytes, qint64 total);
+    void DownloadProgressed(qint64 bytes, qint64 total, int id);
     void DownloadStopped(TaskResult status, int id);
 
 

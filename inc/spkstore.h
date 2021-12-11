@@ -8,8 +8,9 @@
 #include <QtNetwork/QNetworkAccessManager>
 
 #include "spklogging.h"
-#include "spkmainwindow.h"
 #include "spkresource.h"
+
+class SpkMainWindow;
 
 /**
  * @brief SpkStore class is the core of the store client side program, it is constructed first and

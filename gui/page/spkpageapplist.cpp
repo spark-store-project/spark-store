@@ -7,6 +7,9 @@ namespace SpkUi
 {
   SpkPageAppList::SpkPageAppList(QWidget *parent) : SpkPageBase(parent)
   {
+    mLoadingIcon = new QPixmap(QIcon(":/icons/loading-icon.svg").pixmap(SpkAppItem::IconSize_));
+    mBrokenIcon = new QPixmap(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
+
     mAppsWidget = new QWidget;
     mAppsArea = new QScrollArea(this);
     mMainLay = new QVBoxLayout(this);
@@ -63,6 +66,7 @@ namespace SpkUi
 
     auto iconRes = RES->RequestResource(id, pkgName, SpkResource::ResourceType::AppIcon,
                                         iconUrl, 0);
+    // TODO: cache scaled icons
     QPixmap icon;
     if(iconRes.status == SpkResource::ResourceStatus::Ready)
     {
@@ -72,13 +76,13 @@ namespace SpkUi
                                      Qt::SmoothTransformation));
       else
       {
-        item->SetIcon(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
+        item->SetIcon(*mBrokenIcon);
         RES->PurgeCachedResource(pkgName, SpkResource::ResourceType::AppIcon, 0);
       }
     }
-    //TODO: prepare icons for loading entries
-//  else
-//    item->SetIcon(QPixmap(":/icons/loading_icon.svg").scaled(SpkAppItem::IconSize_));
+    //TODO: [TEST] prepare icons for loading entries
+    else
+      item->SetIcon(*mLoadingIcon);
 
     mAppItemList.append(item);
     mItemLay->addWidget(item);
@@ -110,11 +114,11 @@ namespace SpkUi
                                      Qt::IgnoreAspectRatio,
                                      Qt::SmoothTransformation));
       else
-        item->SetIcon(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
+        item->SetIcon(*mBrokenIcon);
     }
     else if(result.status == SpkResource::ResourceStatus::Failed)
     {
-      item->SetIcon(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
+      item->SetIcon(*mBrokenIcon);
       RES->PurgeCachedResource(item->property("pkg_name").toString(),
                                SpkResource::ResourceType::AppIcon, 0);
     }

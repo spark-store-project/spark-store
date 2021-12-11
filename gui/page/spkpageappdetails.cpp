@@ -2,6 +2,7 @@
 
 #include "page/spkpageappdetails.h"
 #include "spkutils.h"
+#include "spkappitem.h"
 
 namespace SpkUi
 {
@@ -112,8 +113,8 @@ namespace SpkUi
     mAuthor->SetTitle(tr("Author"));
     mContributor = new SpkDetailEntry;
     mContributor->SetTitle(tr("Contributor"));
-    mSite = new SpkDetailEntry;
-    mSite->SetTitle(tr("Website"));
+//    mSite = new SpkDetailEntry;
+//    mSite->SetTitle(tr("Website"));
     mArch = new SpkDetailEntry;
     mArch->SetTitle(tr("Architecture"));
     mSize = new SpkDetailEntry;

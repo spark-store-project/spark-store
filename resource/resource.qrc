@@ -15,5 +15,6 @@
         <file>icons/settings.svg</file>
         <file>icons/daynight-dark.svg</file>
         <file>icons/daynight.svg</file>
+        <file>icons/loading-icon.svg</file>
     </qresource>
 </RCC>

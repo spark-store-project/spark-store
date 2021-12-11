@@ -435,8 +435,13 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   AppDetailsItem = new QTreeWidgetItem(QStringList(tr("App Details")));
   AppDetailsItem->setData(0, SpkSidebarSelector::RoleItemIsCategory, false);
   AppDetailsItem->setData(0, SpkSidebarSelector::RoleItemCategoryPageId, SpkStackedPages::PgAppDetails);
+
   CategoryParentItem = new QTreeWidgetItem(QStringList(tr("Categories")));
   CategoryParentItem->setFlags(CategoryParentItem->flags().setFlag(Qt::ItemIsSelectable, false));
+
+  DownloadsItem = new QTreeWidgetItem(QStringList(tr("Downloads")));
+  DownloadsItem->setData(0, SpkSidebarSelector::RoleItemIsCategory, false);
+  DownloadsItem->setData(0, SpkSidebarSelector::RoleItemCategoryPageId, SpkStackedPages::PgDownloads);
 #ifndef NDEBUG
   UiTestItem = new QTreeWidgetItem(QStringList(tr("UI TEST")));
   UiTestItem->setData(0, SpkSidebarSelector::RoleItemIsCategory, false);
@@ -524,6 +529,10 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   PageAppDetails = new SpkUi::SpkPageAppDetails(this);
   PageAppDetails->setProperty("spk_pageid", SpkStackedPages::PgAppDetails);
   sorter[PgAppDetails] = PageAppDetails;
+
+  PageDownloads = new SpkUi::SpkPageDownloads(this);
+  PageDownloads->setProperty("spk_pageid", SpkStackedPages::PgDownloads);
+  sorter[PgDownloads] = PageDownloads;
 
 #ifndef NDEBUG // If only in debug mode should we initialize QSS test page
   PageQssTest = new SpkUi::SpkPageUiTest(this);

@@ -37,6 +37,10 @@ namespace SpkUi
       SpkStretchLayout *mItemLay;
       QList<SpkAppItem *> mAppItemList;
 
+      // Cached icons
+      QPixmap *mLoadingIcon,
+              *mBrokenIcon;
+
       QIntValidator *mPageValidator;
 
       int mCategoryId, mCurrentPage;
