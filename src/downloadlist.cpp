@@ -51,8 +51,13 @@ downloadlist::downloadlist(QWidget *parent) :
     {
         menu_install->addAction(action_deepin);
     }
-
-    menu_install->addAction(action_gdebi);
+    QFile gdebi("/usr/bin/gdebi");
+    gdebi.open(QIODevice::ReadOnly);
+    if(gdebi.isOpen())
+    {
+        menu_install->addAction(action_gdebi);
+    }
+    
 }
 
 downloadlist::~downloadlist()
