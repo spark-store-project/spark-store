@@ -27,3 +27,11 @@ void SpkUi::SpkPageDownloads::DownloadProgress(qint64 downloadedBytes, qint64 to
 {
   // TODO
 }
+
+void SpkUi::SpkPageDownloads::AddDownloadTask(QString name, QString pkgName, QString path)
+{
+}
+
+void SpkUi::SpkPageDownloads::DownloadStopped(SpkDownloadMgr::TaskResult status, int id)
+{
+}
