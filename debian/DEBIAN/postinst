@@ -2,9 +2,7 @@
 
 
 if [ "$1" = "triggered" ]; then
-  echo '------------星火应用商店现已集成UOS包补丁工具---------------'
 	if [ -f "/usr/bin/deepin-app-store-tool" ]; then 
-	echo '----------检测到已安装深度应用商店，不运行补丁---------------'
 	exit 0
 	fi
   echo '--------检测到Uniontech标准软件包，运行补丁以修正安装--------'
@@ -21,6 +19,9 @@ ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-ds
 cd /tmp/spark-store-install
 wget https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc
 apt-key add dcs-repo.gpg-key.asc
+wget https://d.store.deepinos.org.cn/ssrepokey.asc
+apt-key add ssrepokey.asc
+
 
 update-icon-caches /usr/share/icons/hicolor || true
 update-desktop-database /usr/share/applications || true
