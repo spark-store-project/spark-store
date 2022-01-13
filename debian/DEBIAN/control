@@ -1,12 +1,11 @@
 Package: spark-store
-Version: 3.0.3-7
+Version: 3.0.3-8
 Maintainer: shenmo <shenmo@spark-app.store>
 Section: utils
 Source: https://gitee.com/deepin-community-store/spark-store
-Homepage: ttps://gitee.com/deepin-community-store/spark-store
+Homepage: https://gitee.com/deepin-community-store/spark-store
 Architecture: amd64
 Priority: optional
 Depends: libc6 (>= 2.14), libgcc1 (>= 1:3.0), libstdc++6 (>= 5.2), libqt5core5a (>= 5.11.0~rc1), libqt5gui5 (>= 5.11.0~rc1), libqt5widgets5 (>= 5.11.0~rc1), libqt5network5 (>= 5.11.0~rc1), libqt5webenginewidgets5 (>= 5.11.0~rc1), libqt5concurrent5 (>= 5.11.0~rc1), libdtkcore5 (>= 5.2.1-1), libdtkwidget5 (>= 5.2.1-1), libdtkgui5 (>= 5.2.0-1), libglib2.0-0, libgdk-pixbuf2.0-0, libnotify4, wget, curl, gnupg
-Description: Spark Store version 3.0.3-7 update
-Provides: deepin-app-store
-Conflicts: spark-dstore-patch
+Description: Spark Store version 3.0.3-8 update
+Conflicts: spark-dstore-patch(<=1.2)
