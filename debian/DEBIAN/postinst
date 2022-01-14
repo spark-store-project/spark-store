@@ -19,8 +19,8 @@ ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-ds
 cd /tmp/spark-store-install
 wget https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc
 apt-key add dcs-repo.gpg-key.asc
-wget https://d.store.deepinos.org.cn/ssrepokey.asc
-apt-key add ssrepokey.asc
+# wget https://d.store.deepinos.org.cn/ssrepokey.asc
+# apt-key add ssrepokey.asc
 
 
 update-icon-caches /usr/share/icons/hicolor || true
