@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dpkg -i $1 || apt install -yf || dpkg -P $1

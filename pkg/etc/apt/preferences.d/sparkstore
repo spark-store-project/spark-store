@@ -1,0 +1,3 @@
+Package: *
+Pin: origin *.deepinos.org.cn
+Pin-Priority: 400

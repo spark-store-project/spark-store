@@ -1,0 +1,5 @@
+spark-store (3.0.3-9) stable; urgency=medium
+
+  * Support dpkg-buildpackage
+
+ -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800

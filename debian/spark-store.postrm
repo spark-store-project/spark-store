@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Update certain caches
+update-icon-caches /usr/share/icons/hicolor || true
+update-desktop-database /usr/share/applications || true
+update-mime-database /usr/share/mime || true

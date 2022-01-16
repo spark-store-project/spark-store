@@ -26,7 +26,7 @@ DEFINES += QT_APP_DEBUG
 include(../third-party/QtNetworkService/QtNetworkService.pri)
 
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget glib-2.0 gdk-pixbuf-2.0 libnotify
+PKGCONFIG += dtkcore dtkgui dtkwidget libnotify
 
 # 禁止输出 qWarning / qDebug 信息
 CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
@@ -81,3 +81,8 @@ TRANSLATIONS += \
     ../translations/spark-store_en.ts \
     ../translations/spark-store_fr.ts \
     ../translations/spark-store_zh_CN.ts
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/durapps/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target

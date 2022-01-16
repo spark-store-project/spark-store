@@ -1,0 +1,44 @@
+#!/bin/sh
+
+case "$1" in
+	configure)
+		# Check if /usr/local/bin existed
+		mkdir -p /usr/local/bin
+
+		# Create symbol links for binary files
+		ln -s -f /opt/durapps/spark-store/bin/ussinstall /usr/local/bin/ussinstall
+		ln -s -f /opt/durapps/spark-store/bin/ussremove /usr/local/bin/ussremove
+		ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
+		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
+		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
+
+		# Download and install 
+		cd /tmp/spark-store-install
+		wget https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc
+		apt-key add dcs-repo.gpg-key.asc
+
+		# Update certain caches
+		update-icon-caches /usr/share/icons/hicolor || true
+		update-desktop-database /usr/share/applications || true
+		xdg-mime default spark-store.desktop x-scheme-handler/spk
+		update-mime-database /usr/share/mime || true
+
+		# Send email for statistics
+		# /tmp/spark-store-install/feedback.sh
+	;;
+
+	triggered)
+		# Trigger for UOS debs installation
+		echo '-----------星火应用商店现已集成 UOS 包补丁工具--------------'
+		if [ -x "/usr/bin/deepin-app-store-tool" ] ; then
+			echo '----------检测到已安装深度应用商店，不运行补丁---------------'
+			exit 0
+		fi
+
+		if [ -x "/usr/local/bin/spark-dstore-patch" ] ; then
+  			echo '-------检测到 Uniontech 标准软件包，运行补丁以修正安装-------'
+    			/usr/local/bin/spark-dstore-patch
+  			echo '---------- spark-dstore-patch 补丁工具已运行完毕----------'
+		fi
+	;;
+esac
