@@ -1,3 +1,14 @@
 
-[Apis]
-MasterApiUrl=https://store.deepinos.org/api
+[url]
+api=https://store.deepinos.org/api/
+res=http://img.store.deepinos.org.cn/
+
+[dirs]
+cache=%1/.cache/spark-store/res/
+download="%1/.local/spark-store/downloads/"
+
+[download]
+servers=https://d1.store.deepinos.org.cn/;;https://d2.store.deepinos.org.cn/;;https://d3.store.deepinos.org.cn/;;https://d4.store.deepinos.org.cn/;;https://d5.store.deepinos.org.cn/
+
+[resource]
+concurrent=5

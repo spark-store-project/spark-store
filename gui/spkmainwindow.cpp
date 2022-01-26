@@ -42,6 +42,9 @@ void SpkMainWindow::SwitchToPage(SpkUi::SpkStackedPages page)
     auto tryActivate = qobject_cast<SpkPageBase *>(ui->Pager->currentWidget());
     if(tryActivate)
       tryActivate->Activated();
+
+    ui->BtnBack->setVisible(page == SpkUi::SpkStackedPages::PgAppDetails);
+    ui->BtnBack->setEnabled(true);
   }
 }
 
@@ -89,9 +92,11 @@ void SpkMainWindow::RefreshCategoryData()
 void SpkMainWindow::CategoryDataReceived()
 {
   QJsonValue retval;
-  if(!SpkUtils::VerifyReplyJson(mCategoryGetReply, retval) || !retval.isArray())
+  auto verify = SpkUtils::VerifyReplyJson(mCategoryGetReply, retval);
+  if(verify || !retval.isArray())
   {
-    sErr(tr("Failed to load categories!"));
+    sErr(tr("Failed to load categories! Type=%1 Code=%2").arg(retval.type()).arg(verify));
+    sNotify(tr("Cannot load categories! Type: %1 Code: %2").arg(retval.type()).arg(verify));
     // TODO: Switch to an error page
     return;
   }
@@ -119,9 +124,11 @@ void SpkMainWindow::EnterCategoryList(int aCategoryId, int aPage)
 void SpkMainWindow::CategoryListDataReceived()
 {
   QJsonValue retval;
-  if(!SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval) || !retval.isObject())
+  int verify = SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval);
+  if(verify || !retval.isObject())
   {
-    sErrPop(tr("Failed to load app list of category! Type of retval: %1.").arg(retval.type()));
+    sErr(tr("Failed to load app list of category! Type=%1 Code=%2").arg(retval.type()).arg(verify));
+    sNotify(tr("Failed to load app list of category! Type: %1 Code: %2").arg(retval.type()).arg(verify));
     return;
   }
   SwitchToPage(SpkUi::PgAppList);
@@ -149,9 +156,11 @@ void SpkMainWindow::SearchKeyword(QString aKeyword, int aPage)
 void SpkMainWindow::SearchDataReceived()
 {
   QJsonValue retval;
-  if(!SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval) || !retval.isObject())
+  auto verify = SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval);
+  if(verify || !retval.isObject())
   {
-    sErrPop(tr("Failed to search keyword! Type of retval: %1.").arg(retval.type()));
+    sErr(tr("Failed to search keyword! Type=%1 Code=%2").arg(retval.type()).arg(verify));
+    sNotify(tr("Failed to search keyword! Type: %1 Code: %2").arg(retval.type()).arg(verify));
     return;
   }
   SwitchToPage(SpkUi::PgAppList);
@@ -233,9 +242,11 @@ void SpkMainWindow::EnterAppDetails(int aAppId)
 void SpkMainWindow::AppDetailsDataReceived()
 {
   QJsonValue retval;
-  if(!SpkUtils::VerifyReplyJson(mAppDetailsGetReply, retval) || !retval.isObject())
+  auto verify = SpkUtils::VerifyReplyJson(mAppDetailsGetReply, retval);
+  if(verify || !retval.isObject())
   {
-    sErrPop(tr("Failed to open app details page! Type of retval: %1.").arg(retval.type()));
+    sErr(tr("Failed to open app details page! Type=%1 Code=%2").arg(retval.type()).arg(verify));
+    sNotify(tr("Failed to open app details page! Type: %1 Code: %2").arg(retval.type()).arg(verify));
     return;
   }
   SwitchToPage(SpkUi::PgAppList);
@@ -245,7 +256,8 @@ void SpkMainWindow::AppDetailsDataReceived()
 
 void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
 {
-  QString pkgName, author, contributor, site, iconPath, arch, version, details, shortDesc, name;
+  QString pkgName, author, contributor, site, iconPath, arch, version, details, shortDesc, name,
+          pkgPath;
   QStringList screenshots, tags;
   int packageSize;
   static auto err =
@@ -280,6 +292,8 @@ void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
     arch = appDetails.value("arch").toString();
   if(appDetails.contains("size") && appDetails.value("size").isDouble())
     packageSize = appDetails.value("size").toInt();
+  if(appDetails.contains("deb_url") && appDetails.value("deb_url").isString())
+    pkgPath = appDetails.value("deb_url").toString();
 
   QJsonArray imgs;
   if(appDetails.contains("img_urls") && appDetails.value("img_urls").isArray())
@@ -310,6 +324,7 @@ void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
   w->mArch->SetValue(arch);
   w->mSize->SetValue(SpkUtils::BytesToSize(packageSize));
   w->mVersion->setText(version);
+  w->SetPackagePath(pkgPath);
   SwitchToPage(SpkUi::PgAppDetails);
   ui->AppDetailsItem->setHidden(false);
   ui->CategoryWidget->setCurrentItem(ui->AppDetailsItem);
@@ -345,6 +360,8 @@ void SpkMainWindow::Initialize()
     connect(SpkUi::DtkPlugin, &SpkDtkPlugin::DarkLightThemeChanged,
             this, &SpkMainWindow::ReloadThemedUiIcons);
   }
+  connect(ui->PageAppDetails, &SpkUi::SpkPageAppDetails::RequestDownload,
+          ui->PageDownloads, &SpkUi::SpkPageDownloads::AddDownloadTask);
 
   // Register themed button icons
 //  mThemedUiIconReferences.append({ ui->BtnSettings, "settings" });
@@ -416,6 +433,11 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   BtnDayNight->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   BtnDayNight->setFixedSize({ 40, 40 });
   BtnDayNight->SetIcon(QIcon(":/icons/daynight.svg"), QSize(20, 20));
+
+  BtnBack = new SpkIconButton(this);
+  BtnBack->setFixedSize({ 40, 40 });
+  BtnBack->SetIcon(QIcon(":/icons/back.svg"), QSize(20, 20));
+  BtnBack->setVisible(false);
 
   HLaySideTop->addWidget(StoreIcon);
   HLaySideTop->addStretch();
@@ -510,8 +532,14 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
     SearchEdit->setFixedWidth(static_cast<int>(250 * v) + 30);
   });
   connect(ActClearSearchBar, &QAction::triggered, [=](){ SearchEdit->clear(); });
+  connect(BtnBack, &QPushButton::clicked,
+          [=](){
+    SidebarMgr->GoBack();
+    BtnBack->setEnabled(false);
+  });
 
   auto space = TitleBar->GetUserSpace();
+  space->addWidget(BtnBack);
   space->addWidget(SearchEdit);
   space->addStretch();
 

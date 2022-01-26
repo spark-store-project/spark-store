@@ -66,7 +66,6 @@ namespace SpkUi
 
     auto iconRes = RES->RequestResource(id, pkgName, SpkResource::ResourceType::AppIcon,
                                         iconUrl, 0);
-    // TODO: cache scaled icons
     QPixmap icon;
     if(iconRes.status == SpkResource::ResourceStatus::Ready)
     {
@@ -80,7 +79,6 @@ namespace SpkUi
         RES->PurgeCachedResource(pkgName, SpkResource::ResourceType::AppIcon, 0);
       }
     }
-    //TODO: [TEST] prepare icons for loading entries
     else
       item->SetIcon(*mLoadingIcon);
 

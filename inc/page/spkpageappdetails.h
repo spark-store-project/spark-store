@@ -21,8 +21,10 @@ namespace SpkUi
 
       void LoadAppResources(QString pkgName, QString icon, QStringList screenshots, QStringList tags);
       void SetWebsiteLink(QString url);
+      void SetPackagePath(QString url);
 
     private:
+      QString mPkgPath;
 
     public slots:
       void ResourceAcquisitionFinished(int id, ResourceResult result);
@@ -38,12 +40,16 @@ namespace SpkUi
              *mWebsite;
       SpkDetailEntry *mAuthor, *mContributor, *mSite, *mArch, *mSize;
       SpkStretchLayout *mDetailLay;
-      QVBoxLayout *mMainLay, *mTitleLay, *mLay4MainArea;
+      QVBoxLayout *mDetailsLay, *mTitleLay, *mMainLay;
       QHBoxLayout *mIconTitleLay;
 
       // Bottom bar
       QWidget *mBottomBar;
       QPushButton *mBtnInstall, *mBtnDownload, *mBtnUninstall, *mBtnRequestUpdate, *mBtnReport;
+      QHBoxLayout *mBottomBarLay;
+
+    signals:
+      void RequestDownload(QString name, QString pkgName, QString path);
   };
 
   class SpkDetailEntry : public QWidget

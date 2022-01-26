@@ -13,6 +13,7 @@
 #include "spksidebartree.h" // In place of #include <QTreeWidget>
 #include <QPointer>
 #include <QTimeLine>
+#include <QQueue>
 #include "spkfocuslineedit.h"
 #include "spkiconbutton.h"
 #include "page/spkpageuitest.h"
@@ -47,6 +48,9 @@ namespace SpkUi
       QTreeWidget *mCategoryWidget;
       QVector<QTreeWidgetItem *> mUnusableItems; // Unselectable top level items; never changes
 
+      QTreeWidgetItem* mLastCategoryItem;
+      int mLastCategoryPage;
+
     public:
       SpkSidebarSelector(QObject *parent = nullptr) : QObject(parent)
       {
@@ -69,6 +73,11 @@ namespace SpkUi
                 &SpkSidebarSelector::TreeItemSelected);
       }
       void AddUnusableItem(QTreeWidgetItem *i) { mUnusableItems.append(i); }
+      void GoBack()
+      {
+        emit SwitchToCategory(mLastCategoryPage, 0);
+        mLastCategoryItem->setSelected(true);
+      }
 
     private slots:
       // We assume the objects in interest all have the correct properties
@@ -91,7 +100,8 @@ namespace SpkUi
           mLastSelectedItem = nullptr;
         }
         mLastCheckedBtn = b;
-        emit SwitchToPage(static_cast<SpkStackedPages>(b->property("spk_pageno").toInt()));
+        auto id = b->property("spk_pageno").toInt();
+        emit SwitchToPage(static_cast<SpkStackedPages>(id));
       }
       void TreeItemSelected(QTreeWidgetItem *item, int column)
       {
@@ -105,11 +115,11 @@ namespace SpkUi
           mLastCheckedBtn = nullptr;
         }
         mLastSelectedItem = item;
+        auto id = item->data(column, RoleItemCategoryPageId).toInt();
         if(item->data(column, RoleItemIsCategory).toBool())
-          emit SwitchToCategory(item->data(column, RoleItemCategoryPageId).toInt(), 0);
+          emit SwitchToCategory(id, 0), mLastCategoryPage = id, mLastCategoryItem = item;
         else
-          emit SwitchToPage(static_cast<SpkStackedPages>(
-                            item->data(column, RoleItemCategoryPageId).toInt()));
+          emit SwitchToPage(static_cast<SpkStackedPages>(id));
       }
       void UnusableItemSelected(QTreeWidgetItem *i)
       {
@@ -147,7 +157,7 @@ namespace SpkUi
       QVBoxLayout *VLaySidebar;
       QHBoxLayout *HLaySideTop;
       QLabel *StoreIcon;
-      SpkIconButton *BtnSettings, *BtnFeedback, *BtnLogs, *BtnDayNight;
+      SpkIconButton *BtnSettings, *BtnFeedback, *BtnLogs, *BtnDayNight, *BtnBack;
       SpkSidebarTree *CategoryWidget;
       QMap<int, QTreeWidgetItem> *CategoryItemMap;
       SpkSidebarSelector *SidebarMgr;

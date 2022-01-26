@@ -91,9 +91,11 @@ class SpkDownloadMgr : public QObject
   private slots:
     void WorkerFinish();
     void WorkerDownloadProgress(); ///< Be connected to ***QNetworkReply::readyRead***
+    void WorkerError(QNetworkReply::NetworkError);
     void ProgressTimer();
 
   private:
+    void ProcessWorkerError(DownloadWorker &, int id);
     void LinkReplyWithMe(QNetworkReply*);
     void TryScheduleFailureRetries();
     void TryScheduleFailureRetries(int i); ///< Try schedule on a specific task slot.

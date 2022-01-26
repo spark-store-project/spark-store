@@ -60,7 +60,7 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
 
   // Initialize URL
   mApiRequestUrl = mCfg->value("url/api", "https://store.deepinos.org/api/").toString();
-  mResourceRequestUrl = mCfg->value("url/res", "http://d.deepinos.org.cn/").toString();
+  mResourceRequestUrl = mCfg->value("url/res", "http://img.store.deepinos.org.cn/").toString();
 
 
   mUserAgentStr = QString("Spark-Store/%1 Distro/%2")

@@ -22,9 +22,10 @@ namespace SpkUtils
 
   void DeleteReplyLater(QNetworkReply *aReply);
 
-  bool VerifyReplyJson(QNetworkReply *aReply, QJsonValue& aRetDoc);
+  int VerifyReplyJson(QNetworkReply *aReply, QJsonValue& aRetDoc);
 
   QString CutFileName(QString);
   QString CutPath(QString);
   QString BytesToSize(size_t s, int prec = 2);
+  bool EnsureDirExists(QString path);
 }

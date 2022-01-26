@@ -12,8 +12,8 @@ SpkResource* SpkResource::Instance = nullptr;
 // clazy:excludeall=container-anti-pattern
 
 SpkResource::SpkResource(QObject *parent) : QObject(parent),
-  mMaximumConcurrent(CFG->value("download/resource_concurrent_count", 5).toInt()),
-  mCacheDirectory(CFG->value("cache_directory", "%1/.cache/spark-store/res/")
+  mMaximumConcurrent(CFG->value("resource/concurrent", 5).toInt()),
+  mCacheDirectory(CFG->value("dirs/cache", "%1/.cache/spark-store/res/")
     .toString()
     .arg(QDir::homePath()))
 {

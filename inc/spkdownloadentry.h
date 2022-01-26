@@ -9,6 +9,7 @@
 #include <QProgressBar>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QTime>
 
 class SpkDownloadEntry : public QWidget
 {
@@ -33,10 +34,10 @@ class SpkDownloadEntry : public QWidget
       InstallFailed
     };
 
-  public slots:
+    void SetTotalBytes(qint64 total);
     void SetBasicInfo(QString name, QPixmap icon);
-    void SetStatus(DownloadEntryStatus status);
-    void SetProgress(int);
+    void SetStatus(DownloadEntryStatus status, QString msg = "");
+    void Progress(qint64 bytes);
 
   private:
     QLabel *mIcon, *mMessage;
@@ -49,4 +50,8 @@ class SpkDownloadEntry : public QWidget
     QHBoxLayout *mLayMsgs, *mLayMain;
     QVBoxLayout *mLayInfo;
 
+    // Download status data
+    qint64 mTotalBytes, mDownloadedBytes;
+    QTime mLastReportTime;
+    QString mReadableTotalSize;
 };

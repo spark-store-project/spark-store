@@ -56,7 +56,12 @@ namespace SpkUi
 
   void SpkPageAppDetails::SetWebsiteLink(QString url)
   {
-    mWebsite->setText(QString("<a href=\"%1\">%1</a>").arg(url));
+    mWebsite->setText(QString("<a href=\"%1\">%2</a>").arg(url, tr("Website link")));
+  }
+
+  void SpkPageAppDetails::SetPackagePath(QString url)
+  {
+    mPkgPath = url;
   }
 
   SpkPageAppDetails::SpkPageAppDetails(QWidget *parent) : SpkPageBase(parent)
@@ -65,16 +70,20 @@ namespace SpkUi
     mMainArea->setWidgetResizable(true);
     mMainArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    mLay4MainArea = new QVBoxLayout(this);
-    mLay4MainArea->addWidget(mMainArea);
+    mMainLay = new QVBoxLayout(this);
+    mMainLay->addWidget(mMainArea);
 
-    mMainLay = new QVBoxLayout(mMainArea);
-    mMainLay->setSizeConstraint(QLayout::SetMinAndMaxSize);
+    mBottomBar = new QWidget;
+    mMainLay->addWidget(mBottomBar);
+
+    mDetailsLay = new QVBoxLayout(mMainArea);
+    mDetailsLay->setSizeConstraint(QLayout::SetMinAndMaxSize);
 
     mAppIcon = new QLabel;
 
     mAppTitle = new QLabel;
     mAppTitle->setObjectName("styDetTitle");
+    mAppTitle->setWordWrap(true);
 
     mAppDescription = new QLabel;
     mAppDescription->setObjectName("styDetDesc");
@@ -87,9 +96,11 @@ namespace SpkUi
     mAppShortDesc->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
     mAppShortDesc->setMinimumWidth(100);
     mVersion = new QLabel;
+    mVersion->setWordWrap(true);
     mWebsite = new QLabel;
     mPkgName = new QLabel;
     mPkgName->setObjectName("styDetPkg");
+    mPkgName->setWordWrap(true);
 
     mTitleLay = new QVBoxLayout;
     mTitleLay->setAlignment(Qt::AlignTop);
@@ -132,18 +143,49 @@ namespace SpkUi
 //    mDetailWidget->setLayout(mDetailLay);
 //    mDetailWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    mMainLay->setAlignment(Qt::AlignTop);
-    mMainLay->addWidget(mIconTitleWidget);
-    mMainLay->addLayout(mDetailLay);
-    mMainLay->addWidget(mAppDescription);
+    mDetailsLay->setAlignment(Qt::AlignTop);
+    mDetailsLay->addWidget(mIconTitleWidget);
+    mDetailsLay->addLayout(mDetailLay);
+    mDetailsLay->addWidget(mAppDescription);
 //    mMainLay->addStretch();
     mWid4MainArea = new QWidget;
-    mWid4MainArea->setLayout(mMainLay);
+    mWid4MainArea->setLayout(mDetailsLay);
 
     mMainArea->setWidget(mWid4MainArea);
 
     mWebsite->setTextFormat(Qt::RichText);
     mWebsite->setOpenExternalLinks(true);
+
+    // Bottom bar buttons
+    mBottomBarLay = new QHBoxLayout;
+    mBottomBar->setLayout(mBottomBarLay);
+
+    mBtnDownload = new QPushButton;
+    mBtnDownload->setText(tr("Download"));
+
+    mBtnInstall = new QPushButton;
+    mBtnInstall->setText(tr("Install"));
+
+    mBtnUninstall = new QPushButton;
+    mBtnUninstall->setText(tr("Uninstall"));
+
+    mBtnRequestUpdate = new QPushButton;
+    mBtnRequestUpdate->setText(tr("Request Update"));
+
+    mBtnReport = new QPushButton;
+    mBtnReport->setText(tr("Report"));
+
+    mBottomBarLay->addStretch();
+    mBottomBarLay->addWidget(mBtnDownload);
+    mBottomBarLay->addWidget(mBtnInstall);
+    mBottomBarLay->addWidget(mBtnUninstall);
+    mBottomBarLay->addWidget(mBtnRequestUpdate);
+    mBottomBarLay->addWidget(mBtnReport);
+
+    connect(mBtnDownload, &QPushButton::clicked,
+            [=](){ emit RequestDownload(mAppTitle->text(), mPkgName->text(),
+                                        "/store/chat/icalingua/icalingua_2.4.4-Deus-non-vult_amd64.deb");
+                 });
   }
 
   void SpkPageAppDetails::ResourceAcquisitionFinished(int id, ResourceResult result)

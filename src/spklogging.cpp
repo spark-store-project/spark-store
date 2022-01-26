@@ -7,6 +7,7 @@
 #include "spklogging.h"
 #include "spkmsgbox.h"
 #include "spkuimsg.h"
+#include "spkutils.h"
 
 SpkLogger *SpkLogger::Instance = nullptr;
 
@@ -42,12 +43,11 @@ void SpkLogger::Initialize(QString suggestPath)
   }
   mLogPath = QDir::homePath() + "/.local/share/spark-store/logs/default.log";
   QString path = mLogPath.section('/', 1, -2, QString::SectionIncludeLeadingSep);
-  if(!QDir().exists(path))
-    if(!QDir().mkpath(path))
-    {
-      SpkLogger::Error(QObject::tr("Log directory \"%1\" cannot be created.").arg(path));
-      return;
-    }
+  if(!SpkUtils::EnsureDirExists(path))
+  {
+    SpkLogger::Error(QObject::tr("Log directory \"%1\" cannot be created.").arg(path));
+    return;
+  }
 
   mLogFile.setFileName(mLogPath);
   mLogFile.open(QFile::WriteOnly | QFile::Append);

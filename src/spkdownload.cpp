@@ -8,15 +8,19 @@
 
 SpkDownloadMgr::SpkDownloadMgr(QObject *parent)
 {
-  mDestFolder = CFG->value("download/dir", QDir::homePath() + "/.local/spark-store/downloads")
-                       .toString();
+  mDestFolder = CFG->value("dirs/download", "%1/.local/spark-store/downloads")
+                       .toString().arg(QDir::homePath());
 
   QDir dest(mDestFolder);
   if(!dest.exists())
     QDir().mkdir(mDestFolder);
 
   // Distribution servers
-  QString srvPaths = CFG->value("download/servers", "https://d.store.deepinos.org/").toString();
+  QString srvPaths = CFG->value("download/servers", "https://d1.store.deepinos.org.cn/;;"
+                                                    "https://d2.store.deepinos.org.cn/;;"
+                                                    "https://d3.store.deepinos.org.cn/;;"
+                                                    "https://d4.store.deepinos.org.cn/;;"
+                                                    "https://d5.store.deepinos.org.cn/").toString();
   mServers = srvPaths.split(";;");
 
   mCurrentDownloadId = -1;
@@ -76,7 +80,7 @@ void SpkDownloadMgr::SetDestinationFolder(QString path)
 }
 
 bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
-{
+{  
   if(mCurrentDownloadId != -1)
     return false; // Already downloading something
 
@@ -87,16 +91,34 @@ bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
     info = GetRemoteFileInfo(mServers[i] + path);
     // TODO: Mark dead servers as unusable so they don't get scheduled first?
   }
-  if(info.Size == -1) return false; // If all servers failed then we say it's a failure
+  if(info.Size == -1)
+  {
+    sNotify(tr("Server request failure, %1 cannot be downloaded.").arg(SpkUtils::CutFileName(path)));
+    sErr(tr("SpkDownloadMgr: all start requests failed for %1.").arg(path));
+    return false; // If all servers failed then we say it's a failure
+  }
 
   mCurrentRemoteFileInfo = info;
   mActiveWorkerCount = 0;
 
   // Create the destination file.
-  mDestFile.close();
+  if(mDestFile.isOpen())
+    mDestFile.close();
+  if(!SpkUtils::EnsureDirExists(mDestFolder))
+  {
+    sNotify(tr("Cannot create download destination folder, download cannot start."));
+    sErr(tr("SpkDownloadMgr: Download directory %1 cannot be created.").arg(mDestFolder));
+    return false;
+  }
   mDestFile.setFileName(mDestFolder + '/' + SpkUtils::CutFileName(path));
   if(!mDestFile.open(QFile::ReadWrite))
+  {
+    sNotify(tr("Cannot write to destination file, download cannot start."));
+    sErr(tr("SpkDownloadMgr: Download destination file %1 cannot be opened with mode %2.")
+         .arg(mDestFile.fileName())
+         .arg(mDestFile.openMode()));
     return false;
+  }
 
   mCurrentRemotePath = path;
 
@@ -150,6 +172,8 @@ bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
 
   mProgressEmitterTimer.start();
 
+  mCurrentDownloadId = downloadId;
+
   return true;
 }
 
@@ -180,9 +204,9 @@ bool SpkDownloadMgr::CancelCurrentDownload()
   {
     sErr(tr("SpkDownloadMgr: Cannot remove destination file %1 of a cancelled task")
            .arg(mDestFile.fileName()));
-    SpkUi::Popup->Show(tr("The destination file of the cancelled task can't be deleted!"));
+    sNotify(tr("The destination file of the cancelled task can't be deleted!"));
   }
-  return false;
+  return true;
 }
 
 void SpkDownloadMgr::WorkerFinish()
@@ -216,29 +240,7 @@ void SpkDownloadMgr::WorkerFinish()
   }
   else
   {
-    // Failed here! Update our offset and required bytes count etc.
-    worker.BeginOffset += worker.BytesRecvd;
-    worker.BytesNeeded -= worker.BytesRecvd;
-    worker.BytesRecvd = 0;
-
-    if(reply->property("failCount").toInt() > MaximumThreadRetryCount)
-    {
-      // Failed too many times, this server is probably down or really bad condition.
-      // Schedule it on other servers.
-      reply->deleteLater();
-      worker.Reply = nullptr;
-      mFailureRetryQueue.enqueue(worker);
-      return;
-    }
-
-    // We can still retry.
-    worker.Reply =
-        STORE->SendDownloadRequest(mServers[id] + mCurrentRemotePath,
-                                   worker.BeginOffset,
-                                   worker.BeginOffset + worker.BytesNeeded);
-    LinkReplyWithMe(worker.Reply);
-    worker.Reply->setProperty("failCount", reply->property("failCount").toInt() + 1);
-    reply->deleteLater();
+    ProcessWorkerError(worker, id);
   }
 }
 
@@ -254,9 +256,47 @@ void SpkDownloadMgr::WorkerDownloadProgress()
   mDownloadedBytes += replyData.size();
 }
 
+void SpkDownloadMgr::WorkerError(QNetworkReply::NetworkError)
+{
+  QNetworkReply *reply = static_cast<QNetworkReply*>(sender());
+  int id = reply->property("workerId").toInt();
+  DownloadWorker &worker = mScheduledWorkers[id];
+
+  ProcessWorkerError(worker, id);
+}
+
 void SpkDownloadMgr::ProgressTimer()
 {
   emit DownloadProgressed(mDownloadedBytes, mCurrentRemoteFileInfo.Size, mCurrentDownloadId);
+}
+
+void SpkDownloadMgr::ProcessWorkerError(DownloadWorker &worker, int id)
+{
+  auto reply = worker.Reply;
+
+  // Update our offset and required bytes count etc.
+  worker.BeginOffset += worker.BytesRecvd;
+  worker.BytesNeeded -= worker.BytesRecvd;
+  worker.BytesRecvd = 0;
+
+  if(reply->property("failCount").toInt() > MaximumThreadRetryCount)
+  {
+    // Failed too many times, this server is probably down or really bad condition.
+    // Schedule it on other servers.
+    reply->deleteLater();
+    worker.Reply = nullptr;
+    mFailureRetryQueue.enqueue(worker);
+    return;
+  }
+
+  // We can still retry.
+  worker.Reply =
+      STORE->SendDownloadRequest(reply->url(),
+                                 worker.BeginOffset,
+                                 worker.BeginOffset + worker.BytesNeeded);
+  LinkReplyWithMe(worker.Reply);
+  worker.Reply->setProperty("failCount", reply->property("failCount").toInt() + 1);
+  reply->deleteLater();
 }
 
 void SpkDownloadMgr::LinkReplyWithMe(QNetworkReply *reply)
