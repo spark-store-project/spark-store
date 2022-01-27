@@ -21,6 +21,7 @@
 #include "spkpopup.h"
 #include "spklogging.h"
 #include "spkstore.h"
+#include "spkutils.h"
 
 namespace SpkUi
 {
@@ -60,7 +61,9 @@ namespace SpkUi
   {
     // Obtain global stylesheets
     QFile ObtainStylesheet;
-    ObtainStylesheet.setFileName(":/stylesheets/stylesheets/mainwindow_dark.css");
+    ObtainStylesheet.setFileName(CFG->ReadField("internal/qss_path",
+                                                ":/stylesheet/stylesheet/default.css")
+                                 .toString());
     ObtainStylesheet.open(QIODevice::ReadOnly);
     StylesheetBase = ObtainStylesheet.readAll();
     ObtainStylesheet.close();
@@ -70,7 +73,7 @@ namespace SpkUi
 #ifdef NDEBUG
     SetGlobalStyle(Light, false);
 #else
-    SetGlobalStyle(qgetenv("SPK_FORCE_DARK").toInt() ? Dark : Light, false);
+    SetGlobalStyle(qEnvironmentVariableIntValue("SPK_FORCE_DARK") ? Dark : Light, false);
 #endif
 
     // Initalize crash handler
@@ -111,7 +114,7 @@ namespace SpkUi
     qApp->addLibraryPath("/usr/local/lib");
     qApp->addLibraryPath("/usr/lib");
 #endif
-    if(!qgetenv("SPARK_NO_DTK_PLUGIN").toInt())
+    if(!qEnvironmentVariableIntValue("SPARK_NO_DTK_PLUGIN"))
     {
       QPluginLoader p("libspkdtkplugin");
       if(p.load())
@@ -121,24 +124,24 @@ namespace SpkUi
         {
           DtkPlugin = i;
           States::IsUsingDtkPlugin = true;
+
+          i->Initialize();
+
+          SpkUiMetaObject.SetAccentColor(i->GetAccentColor()); // Match OS accent color
+          SpkUiMetaObject.SetDarkLightTheme(i->GetIsDarkTheme()); // Match OS dark theme type
+
+          QObject::connect(i, &SpkDtkPlugin::AccentColorChanged,
+                           &SpkUiMetaObject, &UiMetaObject::SetAccentColor);
+          QObject::connect(i, &SpkDtkPlugin::DarkLightThemeChanged,
+                           &SpkUiMetaObject, &UiMetaObject::SetDarkLightTheme);
         }
-
-        i->Initialize();
-
-        SpkUiMetaObject.SetAccentColor(i->GetAccentColor()); // Match OS accent color
-        SpkUiMetaObject.SetDarkLightTheme(i->GetIsDarkTheme()); // Match OS dark theme type
-
-        QObject::connect(i, &SpkDtkPlugin::AccentColorChanged,
-                         &SpkUiMetaObject, &UiMetaObject::SetAccentColor);
-        QObject::connect(i, &SpkDtkPlugin::DarkLightThemeChanged,
-                         &SpkUiMetaObject, &UiMetaObject::SetDarkLightTheme);
       }
     }
 
     // NOTE: Chameleon style kept adding unwanted blue focus indication border
     // to widgets that shouldn't have borders.
     // We need to eliminate this irritating problem.
-    if(qgetenv("SPARK_NO_QSTYLE_CHANGE").toInt())
+    if(qEnvironmentVariableIntValue("SPARK_NO_QSTYLE_CHANGE"))
       return;
     OldSystemStyle = QStyleFactory::create("chameleon"); // TreeWidget doesn't work well with Fusion
     auto styles = QStyleFactory::keys();

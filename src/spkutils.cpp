@@ -3,6 +3,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QDir>
+#include <QWidget>
 #include "spkutils.h"
 
 void SpkUtils::VerifySingleRequest(QPointer<QNetworkReply> aReply)
@@ -109,4 +110,9 @@ bool SpkUtils::EnsureDirExists(QString path)
       return false;
 
   return true;
+}
+
+void SpkUtils::FillWidget(QWidget *widget, QVariant val)
+{
+
 }

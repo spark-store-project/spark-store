@@ -26,12 +26,11 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
   // Finish all essential initialization after this.
 
   mConfigPath = QDir::homePath() + "/.config/spark-store/config"; //TODO: flexible config via CLI
-  if(QFileInfo(mConfigPath).exists())
-    mCfg = new QSettings(QDir::homePath() + "/.config/spark-store/config", QSettings::IniFormat,
-                         this);
+  if(QFileInfo::exists(mConfigPath))
+    mCfg = new SpkConfig(this, QDir::homePath() + "/.config/spark-store/config");
   else
   {
-    mCfg = new QSettings(":/info/default_config", QSettings::IniFormat, this);
+    mCfg = new SpkConfig(this, ":/info/default_config");
 #if 0
     bool cfgDirOk;
     if(!qgetenv("SPARK_NO_INSTALL_CONFIG").toInt())
@@ -59,9 +58,8 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
   mDistroName = SpkUtils::GetDistroName();
 
   // Initialize URL
-  mApiRequestUrl = mCfg->value("url/api", "https://store.deepinos.org/api/").toString();
-  mResourceRequestUrl = mCfg->value("url/res", "http://img.store.deepinos.org.cn/").toString();
-
+  mCfg->BindField("url/api", &mApiRequestUrl, "https://store.deepinos.org/api/");
+  mCfg->BindField("url/res", &mResourceRequestUrl, "http://img.store.deepinos.org.cn/");
 
   mUserAgentStr = QString("Spark-Store/%1 Distro/%2")
       .arg(GitVer::DescribeTags())
@@ -74,6 +72,7 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
   // UI Initialization
   mResMgr = new SpkResource(this); // Resource manager must be created before the windows
   SpkUi::Initialize();
+  SpkUi::SpkUiMetaObject.SetAccentColor(QColor(200,100,0));
   mMainWindow = new SpkMainWindow;
   SpkUi::Popup = new SpkUi::SpkPopup(mMainWindow);
 

@@ -16,7 +16,7 @@ set(SPARK_FORCE_TELEMETRY OFF)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
+#set(CMAKE_AUTOUIC ON)
 
 set(QT_VERSION 5)
 set(REQUIRED_LIBS
@@ -49,6 +49,9 @@ set(SOURCE_FILES
 
     resource/resource.qrc
 
+    gui/page/ui/settings.ui
+    ${WRAPPED_UI_FILES}
+
     inc/gitver.h
     inc/deepinplatform.h
     inc/dtk/spkdtkplugin.h
@@ -79,12 +82,14 @@ set(SOURCE_FILES
     inc/page/spkpageapplist.h gui/page/spkpageapplist.cpp
     inc/page/spkpageappdetails.h gui/page/spkpageappdetails.cpp
     inc/page/spkpagedownloads.h gui/page/spkpagedownloads.cpp
+    inc/page/spkpagesettings.h gui/page/spkpagesettings.cpp
 
     inc/spkstore.h src/spkstore.cpp
     inc/spkuimsg.h src/spkuimsg.cpp
     inc/spklogging.h src/spklogging.cpp
     inc/spkresource.h src/spkresource.cpp
     inc/spkdownload.h src/spkdownload.cpp
+    inc/spkconfig.h src/spkconfig.cpp
     )
 
 include(cmake/FindLibNotify.cmake)
@@ -106,6 +111,9 @@ add_link_options(-rdynamic)
 
 # Find Qt before adding other build targets
 find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
+
+QT5_WRAP_UI(WRAPPED_UI_FILES
+            gui/page/ui/settings.ui)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

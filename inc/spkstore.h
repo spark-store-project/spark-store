@@ -9,6 +9,7 @@
 
 #include "spklogging.h"
 #include "spkresource.h"
+#include "spkconfig.h"
 
 class SpkMainWindow;
 
@@ -23,7 +24,7 @@ class SpkStore : public QObject
     Q_OBJECT
   public:
     static SpkStore *Instance;
-    QSettings *mCfg;
+    SpkConfig *mCfg;
     SpkStore(bool aCli, QString &aLogPath);
     ~SpkStore();
 

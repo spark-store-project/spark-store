@@ -20,6 +20,7 @@
 #include "page/spkpageapplist.h"
 #include "page/spkpageappdetails.h"
 #include "page/spkpagedownloads.h"
+#include "page/spkpagesettings.h"
 
 class QNetworkReply;
 
@@ -31,6 +32,7 @@ namespace SpkUi
     PgAppList,
     PgAppDetails,
     PgDownloads,
+    PgSettings,
     PgQssTest // Must be at last
   };
 
@@ -177,6 +179,7 @@ namespace SpkUi
       SpkPageAppList *PageAppList;
       SpkPageAppDetails *PageAppDetails;
       SpkPageDownloads *PageDownloads;
+      SpkPageSettings *PageSettings;
   };
 }
 

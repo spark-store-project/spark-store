@@ -72,8 +72,10 @@ class SpkDownloadMgr : public QObject
     QTimer mProgressEmitterTimer;
     qint64 mDownloadedBytes;
 
-    int mCurrentDownloadId;
+    int mCurrentDownloadId; ///< Indicates download status. -1 means no download going on.
     int mActiveWorkerCount;
+
+    QString mBulkServerPaths; ///< Config string, modification are taken care of by callback.
 
   public slots:
     void SetDestinationFolder(QString path);
@@ -99,6 +101,8 @@ class SpkDownloadMgr : public QObject
     void LinkReplyWithMe(QNetworkReply*);
     void TryScheduleFailureRetries();
     void TryScheduleFailureRetries(int i); ///< Try schedule on a specific task slot.
+
+    bool ServerAddressesChangedCallback(); ///< Called by SpkConfig upon address changing
 
   signals:
     void DownloadProgressed(qint64 bytes, qint64 total, int id);

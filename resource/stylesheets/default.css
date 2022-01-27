@@ -39,7 +39,7 @@ QScrollArea
     border-radius: 5px;
 }
 
-QLineEdit, QTextEdit
+QLineEdit, QTextEdit, QComboBox, QPlainTextEdit, QSpinBox
 {
     padding: 2px;
     border-radius: 7px;
@@ -48,9 +48,60 @@ QLineEdit, QTextEdit
     selection-color: TXACC;
     selection-background-color: ACC_;
 }
-QLineEdit /*We can't apply gradient to TextEdit cuz it messes with scroll bar*/
+
+QLineEdit, QComboBox /*We can't apply gradient to TextEdit cuz it messes with scroll bar*/
 {
-    background:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 CBG_, stop:1 GBG_);
+    /*background:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 DCTL1, stop:1 DCTL3);*/
+    /*Gradient doesn't work, LCTL/DCTL isn't adopting theme changes.
+      To see effects, try it yourself*/
+}
+
+QComboBox::drop-down
+{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border: none;
+}
+
+QSpinBox::up-button
+{
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 25px;
+    height: 15px;
+    border: none;
+}
+
+QSpinBox::down-button
+{
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    width: 25px;
+    height: 15px;
+    border: none;
+}
+
+QComboBox::down-arrow
+{
+    image: url(:/icons/down-small.svg)
+}
+
+QComboBox QAbstractItemView
+{
+    border: 1px solid SHD;
+    border-radius: 7px;
+    selection-background-color: ACCH;
+}
+
+QSpinBox::up-arrow
+{
+    image: url(:/icons/up-small.svg);
+}
+
+QSpinBox::down-arrow
+{
+    image: url(:/icons/down-small.svg);
 }
 
 QPushButton
@@ -148,6 +199,12 @@ SpkAppItem::hover
 {
     font-weight: 600;
     font-size: 36px;
+}
+
+#styConfTitle
+{
+    font-weight: 400;
+    font-size: 28px;
 }
 
 #styAppItmDesc

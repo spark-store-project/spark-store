@@ -12,14 +12,15 @@ SpkResource* SpkResource::Instance = nullptr;
 // clazy:excludeall=container-anti-pattern
 
 SpkResource::SpkResource(QObject *parent) : QObject(parent),
-  mMaximumConcurrent(CFG->value("resource/concurrent", 5).toInt()),
-  mCacheDirectory(CFG->value("dirs/cache", "%1/.cache/spark-store/res/")
+  mMaximumConcurrent(CFG->ReadField("resource/concurrent", 5).toInt()),
+  mCacheDirectory(CFG->ReadField("dirs/cache", "*/.cache/spark-store/res/")
     .toString()
-    .arg(QDir::homePath()))
+    .replace('*', QDir::homePath()))
 {
   Q_ASSERT(!Instance);
   qRegisterMetaType<ResourceResult>();
   Instance = this;
+
   mRequestSemaphore = new QSemaphore(mMaximumConcurrent);
 
   QString path = mCacheDirectory.section('/', 1, -2, QString::SectionIncludeLeadingSep);

@@ -1,0 +1,4 @@
+#ifndef SPKFILLWIDGET_H
+#define SPKFILLWIDGET_H
+
+#endif // SPKFILLWIDGET_H

@@ -8,20 +8,25 @@
 
 SpkDownloadMgr::SpkDownloadMgr(QObject *parent)
 {
-  mDestFolder = CFG->value("dirs/download", "%1/.local/spark-store/downloads")
-                       .toString().arg(QDir::homePath());
+  CFG->BindField("dirs/download", &mDestFolder,
+                 QString("*/.local/spark-store/downloads"));
+  mDestFolder.replace('*', QDir::homePath());
 
   QDir dest(mDestFolder);
   if(!dest.exists())
     QDir().mkdir(mDestFolder);
 
   // Distribution servers
-  QString srvPaths = CFG->value("download/servers", "https://d1.store.deepinos.org.cn/;;"
-                                                    "https://d2.store.deepinos.org.cn/;;"
-                                                    "https://d3.store.deepinos.org.cn/;;"
-                                                    "https://d4.store.deepinos.org.cn/;;"
-                                                    "https://d5.store.deepinos.org.cn/").toString();
-  mServers = srvPaths.split(";;");
+
+  CFG->BindField("download/servers", &mBulkServerPaths,
+                 "https://d1.store.deepinos.org.cn/;;"
+                 "https://d2.store.deepinos.org.cn/;;"
+                 "https://d3.store.deepinos.org.cn/;;"
+                 "https://d4.store.deepinos.org.cn/;;"
+                 "https://d5.store.deepinos.org.cn/",
+                 std::bind(&SpkDownloadMgr::ServerAddressesChangedCallback, this));
+
+  mServers = mBulkServerPaths.split(";;");
 
   mCurrentDownloadId = -1;
   mActiveWorkerCount = 0;
@@ -332,4 +337,14 @@ void SpkDownloadMgr::TryScheduleFailureRetries(int i)
                                    worker.BeginOffset + worker.BytesNeeded);
     LinkReplyWithMe(mScheduledWorkers[i].Reply);
   }
+}
+
+bool SpkDownloadMgr::ServerAddressesChangedCallback()
+{
+  if(mCurrentDownloadId != -1)
+    return false;
+
+  // URL format verification *is done in the GUI*, we jsut have to split it here
+  mServers = mBulkServerPaths.split(";;");
+  return true;
 }

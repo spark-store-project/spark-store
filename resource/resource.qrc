@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/stylesheets">
-        <file>stylesheets/mainwindow_dark.css</file>
+        <file>stylesheets/default.css</file>
     </qresource>
     <qresource prefix="/info">
         <file>lipsum.txt</file>
@@ -17,5 +17,7 @@
         <file>icons/daynight.svg</file>
         <file>icons/loading-icon.svg</file>
         <file>icons/back.svg</file>
+        <file>icons/down-small.svg</file>
+        <file>icons/up-small.svg</file>
     </qresource>
 </RCC>

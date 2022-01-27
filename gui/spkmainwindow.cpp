@@ -425,7 +425,7 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   BtnSettings->setCheckable(true);
   BtnSettings->setFixedSize({ 40, 40 });
   BtnSettings->SetIcon(QIcon(":/icons/settings.svg"), QSize(20, 20));
-  BtnSettings->setProperty("spk_pageno", 0);
+  BtnSettings->setProperty("spk_pageno", PgSettings);
   SidebarMgr->BindPageSwitcherButton(BtnSettings);
 
   BtnDayNight = new SpkIconButton(this);
@@ -561,6 +561,10 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   PageDownloads = new SpkUi::SpkPageDownloads(this);
   PageDownloads->setProperty("spk_pageid", SpkStackedPages::PgDownloads);
   sorter[PgDownloads] = PageDownloads;
+
+  PageSettings = new SpkUi::SpkPageSettings(this);
+  PageSettings->setProperty("spk_pageid", SpkStackedPages::PgSettings);
+  sorter[PgSettings] = PageSettings;
 
 #ifndef NDEBUG // If only in debug mode should we initialize QSS test page
   PageQssTest = new SpkUi::SpkPageUiTest(this);
