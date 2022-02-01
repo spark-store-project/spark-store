@@ -17,6 +17,9 @@ case "$1" in
 		wget https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc
 		apt-key add dcs-repo.gpg-key.asc
 
+        # Run apt update to avoid users being fucked up by the non-exist dependency problem
+        apt update &
+
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
 		update-desktop-database /usr/share/applications || true
