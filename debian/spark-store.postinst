@@ -29,16 +29,12 @@ case "$1" in
 
 	triggered)
 		# Trigger for UOS debs installation
-		echo '-----------星火应用商店现已集成 UOS 包补丁工具--------------'
-		if [ -x "/usr/bin/deepin-app-store-tool" ] ; then
-			echo '----------检测到已安装深度应用商店，不运行补丁---------------'
-			exit 0
-		fi
+			if [ -f "/usr/bin/deepin-app-store-tool" ]; then 
+	        exit 0
+	        fi
+  echo '--------检测到Uniontech标准软件包，运行补丁以修正安装--------'
+    /usr/local/bin/spark-dstore-patch
+  echo '-----------spark-dstore-patch补丁工具已运行完毕-----------'
 
-		if [ -x "/usr/local/bin/spark-dstore-patch" ] ; then
-  			echo '-------检测到 Uniontech 标准软件包，运行补丁以修正安装-------'
-    			/usr/local/bin/spark-dstore-patch
-  			echo '---------- spark-dstore-patch 补丁工具已运行完毕----------'
-		fi
 	;;
 esac
