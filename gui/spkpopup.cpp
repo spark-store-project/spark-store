@@ -25,7 +25,7 @@ namespace SpkUi
     // of the actual displayed text.
     mAnim = new QSequentialAnimationGroup(this);
 
-    // Disabled as translucency doesn't work well on every platform
+    // Disabled as translucency doesn't work well on every platform :(
 //    mAnimFadeIn = new QPropertyAnimation(this, "windowOpacity");
 //    mAnimFadeOut = new QPropertyAnimation(this, "windowOpacity");
 //    mAnimFadeIn->setStartValue(0.0);
@@ -48,7 +48,9 @@ namespace SpkUi
     connect(mAnim, &QAnimationGroup::stateChanged,
             [=](QAbstractAnimation::State newState, QAbstractAnimation::State oldState)
     {
-      qDebug() << "OldState" << oldState << "NewState" << newState;
+//      qDebug() << "OldState" << oldState << "NewState" << newState;
+      if(newState == QAbstractAnimation::Stopped)
+        setVisible(false);
     });
   }
 
