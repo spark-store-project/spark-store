@@ -124,6 +124,7 @@ void SpkMainWindow::EnterCategoryList(int aCategoryId, int aPage)
 void SpkMainWindow::CategoryListDataReceived()
 {
   QJsonValue retval;
+  setCursor(Qt::ArrowCursor);
   int verify = SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval);
   if(verify || !retval.isObject())
   {
@@ -133,7 +134,6 @@ void SpkMainWindow::CategoryListDataReceived()
   }
   SwitchToPage(SpkUi::PgAppList);
   PopulateAppList(retval.toObject(), "");
-  setCursor(Qt::ArrowCursor);
 }
 
 void SpkMainWindow::SearchKeyword(QString aKeyword, int aPage)
@@ -156,6 +156,7 @@ void SpkMainWindow::SearchKeyword(QString aKeyword, int aPage)
 void SpkMainWindow::SearchDataReceived()
 {
   QJsonValue retval;
+  setCursor(Qt::ArrowCursor);
   auto verify = SpkUtils::VerifyReplyJson(mCategoryAppListGetReply, retval);
   if(verify || !retval.isObject())
   {
@@ -165,7 +166,6 @@ void SpkMainWindow::SearchDataReceived()
   }
   SwitchToPage(SpkUi::PgAppList);
   PopulateAppList(retval.toObject(), mCategoryAppListGetReply->property("keyword").toString());
-  setCursor(Qt::ArrowCursor);
 }
 
 void SpkMainWindow::PopulateAppList(QJsonObject appData, QString &&keyword)
@@ -242,6 +242,7 @@ void SpkMainWindow::EnterAppDetails(int aAppId)
 void SpkMainWindow::AppDetailsDataReceived()
 {
   QJsonValue retval;
+  setCursor(Qt::ArrowCursor);
   auto verify = SpkUtils::VerifyReplyJson(mAppDetailsGetReply, retval);
   if(verify || !retval.isObject())
   {
@@ -251,7 +252,6 @@ void SpkMainWindow::AppDetailsDataReceived()
   }
   SwitchToPage(SpkUi::PgAppList);
   PopulateAppDetails(retval.toObject());
-  setCursor(Qt::ArrowCursor);
 }
 
 void SpkMainWindow::PopulateAppDetails(QJsonObject appDetails)
