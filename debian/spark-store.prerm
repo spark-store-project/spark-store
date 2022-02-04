@@ -6,3 +6,10 @@ rm /usr/local/bin/ssinstall
 rm /usr/local/bin/spark-dstore-patch
 rm /usr/local/bin/ussinstall
 rm /usr/local/bin/ussremove
+
+# Remove gpg key file
+if [ -f "/etc/apt/trusted.gpg.d/spark-store.gpg" ] ; then
+	rm /etc/apt/trusted.gpg.d/spark-store.gpg
+fi
+
+nohup apt-key del '9D9A A859 F750 24B1 A1EC  E16E 0E41 D354 A29A 440C' > /dev/null 2>&1 &
