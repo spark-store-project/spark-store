@@ -66,6 +66,8 @@ namespace SpkUi
       void BindPageSwitcherButton(QAbstractButton* w)
       {
         connect(w, &QAbstractButton::toggled,
+                this, &SpkSidebarSelector::ButtonToggled);
+        connect(w, &QAbstractButton::pressed,
                 this, &SpkSidebarSelector::ButtonPressed);
       }
       void BindCategoryWidget(QTreeWidget* w)
@@ -83,7 +85,7 @@ namespace SpkUi
 
     private slots:
       // We assume the objects in interest all have the correct properties
-      void ButtonPressed(bool aBtnState)
+      void ButtonToggled(bool aBtnState)
       {
         auto b = qobject_cast<QPushButton*>(sender());
         if(mLastCheckedBtn)
@@ -93,8 +95,6 @@ namespace SpkUi
             mLastCheckedBtn->setChecked(false);
             mLastCheckedBtn = nullptr;
           }
-          else
-            b->setChecked(aBtnState);
         }
         else if(mLastSelectedItem)
         {
@@ -104,6 +104,12 @@ namespace SpkUi
         mLastCheckedBtn = b;
         auto id = b->property("spk_pageno").toInt();
         emit SwitchToPage(static_cast<SpkStackedPages>(id));
+      }
+      void ButtonPressed()
+      { // Prevent a selected button from being deselected by clicking on it
+        auto b = qobject_cast<QPushButton*>(sender());
+        if(mLastCheckedBtn == b)
+          b->setChecked(false);
       }
       void TreeItemSelected(QTreeWidgetItem *item, int column)
       {
