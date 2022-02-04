@@ -22,7 +22,7 @@ namespace SpkUi
       SpkDownloadMgr *mDownloadMgr;
       QMap<uint, SpkDownloadEntry*> mEntries;
       uint mNextDownloadId;
-      QQueue<QPair<int, QString>> mWaitingDownloads;
+      QQueue<QPair<uint, QString>> mWaitingDownloads;
       enum { Idle, Waiting, Downloading } mCurrentStatus;
 
       // UI

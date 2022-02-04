@@ -13,7 +13,7 @@
 #include "spkutils.h"
 
 SpkStore *SpkStore::Instance = nullptr;
-static void InstallDefaultConfigs();
+static bool InstallDefaultConfigs(QString configPath);
 
 SpkStore::SpkStore(bool aCli, QString &aLogPath)
 {
@@ -30,27 +30,12 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
     mCfg = new SpkConfig(this, QDir::homePath() + "/.config/spark-store/config");
   else
   {
-    mCfg = new SpkConfig(this, ":/info/default_config");
-#if 0
-    bool cfgDirOk;
-    if(!qgetenv("SPARK_NO_INSTALL_CONFIG").toInt())
-    {
-      QString path = mConfigPath.section('/', 1, -2, QString::SectionIncludeLeadingSep);
-      if(!QDir().exists(path))
-      {
-        if(!QDir().mkpath(path))
-          sErrPop(QObject::tr("Config directory \"%1\" cannot be created.").arg(path));
-        else
-          cfgDirOk = true;
-      }
-      else
-        cfgDirOk = true;
-
-      if(cfgDirOk) // Only try copying if config dir is OK
-        if(!QFile::copy(":/info/default_config", QDir::homePath() + "/.config/spark-store/config"))
-          sErrPop(tr("Cannot install default config file!"));
-    }
+#if 1
+    if(InstallDefaultConfigs(mConfigPath))
+      mCfg = new SpkConfig(this, QDir::homePath() + "/.config/spark-store/config");
+    else
 #endif
+      mCfg = new SpkConfig(this, ":/info/default_config");
   }
 
   mNetMgr = new QNetworkAccessManager(this);
@@ -123,7 +108,32 @@ QNetworkReply *SpkStore::SendCustomHeadRequest(QNetworkRequest req)
   return mNetMgr->head(req);
 }
 
-static void InstallDefaultConfigs()
+static bool InstallDefaultConfigs(QString configPath)
 {
-  //TODO:STUB
+  bool cfgDirOk = false;
+  if(!qEnvironmentVariableIntValue("SPARK_NO_INSTALL_CONFIG"))
+  {
+    cfgDirOk = SpkUtils::EnsureDirExists(SpkUtils::CutPath(configPath));
+
+    if(cfgDirOk) // Only try copying if config dir is OK
+    {
+      if(!QFile::copy(":/info/default_config", QDir::homePath() + "/.config/spark-store/config"))
+      {
+        sErrPop(QObject::tr("Cannot install default config file!"));
+        return false;
+      }
+      else
+      {
+        // Copying from resource to disk causes the file to be read only (444)
+        // Set it to 644 manually
+        QFile::setPermissions(QDir::homePath() + "/.config/spark-store/config",
+                              QFileDevice::WriteOwner | QFileDevice::ReadOwner |
+                              QFileDevice::ReadGroup | QFileDevice::ReadOther);
+        return true;
+      }
+    }
+    else
+      return false;
+  }
+  return false;
 }

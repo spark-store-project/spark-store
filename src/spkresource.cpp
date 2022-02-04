@@ -73,7 +73,7 @@ void SpkResource::ResourceDownloaded()
              .arg(reply->error()));
     // Tell ResourceContext
     if(!reply->property("outdated").toBool())
-      AcquisitionFinish(id, ret);
+      emit AcquisitionFinish(id, ret);
   }
 
   ret.data = reply->readAll();
@@ -102,7 +102,7 @@ void SpkResource::ResourceDownloaded()
 
   // Tell ResourceContext
   if(!reply->property("outdated").toBool())
-    AcquisitionFinish(id, ret);
+    emit AcquisitionFinish(id, ret);
 
 ContinueNext:
   // Start next possible mission
@@ -215,7 +215,7 @@ void SpkResource::PurgeCachedResource(const QString &aPkgName, SpkResource::Reso
 {
   auto dir = QDir(mCacheDirectory + aPkgName + '/', ResourceName[aType] + '*');
   auto list = dir.entryList();
-  sLog("Resource \"" + dir.absolutePath() + '/' + dir.nameFilters()[0] +
+  sLog("Resource \"" + dir.absolutePath() + '/' + dir.nameFilters().constFirst() +
        "\" was requested to be removed.");
 
   if(list.isEmpty())

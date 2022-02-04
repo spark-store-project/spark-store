@@ -97,3 +97,13 @@ QVariant SpkConfig::ReadField(QString key, QVariant defaultValue)
 {
   return mSettings.value(key, defaultValue);
 }
+
+void SpkConfig::SetSettings(QString key, QVariant value)
+{
+  mSettings.setValue(key, value);
+}
+
+void SpkConfig::Sync()
+{
+  mSettings.sync();
+}

@@ -37,6 +37,8 @@ class SpkConfig : public QObject
     QVariant ReadField(QString key, QVariant defaultValue);
     // Wrapper of QSettings::setValue, used for "set and restart to take effect" configurations
     void SetSettings(QString key, QVariant value);
+    // Wrapper of QSettings::sync
+    void Sync();
 
   private:
     QSettings mSettings;
