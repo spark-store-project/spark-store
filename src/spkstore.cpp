@@ -51,7 +51,7 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
 #ifdef NDEBUG
       .arg(mDistroName);
 #else
-      .arg(mDistroName + " SparkDeveloper");
+      .arg(mDistroName + " @SparkDeveloper");
 #endif
 
   // Finish all essential initialization before this.
@@ -61,7 +61,6 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
   // UI Initialization
   mResMgr = new SpkResource(this); // Resource manager must be created before the windows
   SpkUi::Initialize();
-  SpkUi::SpkUiMetaObject.SetAccentColor(QColor(200,100,0));
   mMainWindow = new SpkMainWindow;
   SpkUi::Popup = new SpkUi::SpkPopup(mMainWindow);
 
