@@ -48,7 +48,11 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
 
   mUserAgentStr = QString("Spark-Store/%1 Distro/%2")
       .arg(GitVer::DescribeTags())
+#ifdef NDEBUG
       .arg(mDistroName);
+#else
+      .arg(mDistroName + " SparkDeveloper");
+#endif
 
   // Finish all essential initialization before this.
   if(aCli)
