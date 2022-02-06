@@ -9,22 +9,25 @@
 #include "spklogging.h"
 #include "spkwindow.h"
 #include "spkui_general.h"
+#include "spktitlebar.h"
 
 #include <QDebug>
 
-SpkWindow::SpkWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags)
+SpkWindow::SpkWindow(QWidget *parent) : QWidget(parent)
 {
   mUseCustomEvents = SpkUi::DtkPlugin == nullptr; // Put to the front, to prevent warnings
-  if(SpkUi::DtkPlugin && !qgetenv("SPARK_NO_DXCB").toInt())
+  if(SpkUi::DtkPlugin && !qEnvironmentVariableIntValue("SPARK_NO_DXCB"))
     SpkUi::DtkPlugin->addWindow(this, parent); // Register window to DXcb so we got Deepin
   else
     setWindowFlags(Qt::FramelessWindowHint); // Remove default title bar
+  setAttribute(Qt::WA_Hover);
   mCornerRadius = 5;
   mUserCentralWidget = nullptr;
   mResizable = true;
   mMoving = mResizing = false;
   mCloseHook = nullptr;
   mMaximized = windowState().testFlag(Qt::WindowMaximized);
+  setMouseTracking(true);
 
   PopulateUi();
 }
@@ -38,7 +41,7 @@ bool SpkWindow::event(QEvent *evt)
 {
   // These custom events weren't useful for Deepin platform
   if(!mUseCustomEvents)
-    return QMainWindow::event(evt);
+    return QWidget::event(evt);
 
   switch(evt->type())
   {
@@ -53,7 +56,7 @@ bool SpkWindow::event(QEvent *evt)
     }
     case QEvent::MouseButtonPress:
     {
-      if(!mResizable) break;
+//      if(!mResizable) break;
       auto e = static_cast<QMouseEvent*>(evt);
       if(e->button() != Qt::LeftButton) break;
       auto edge = DetectEdgeOnThis(e->pos());
@@ -65,7 +68,7 @@ bool SpkWindow::event(QEvent *evt)
       }
       else
       {
-        if(!QMainWindow::event(evt) || 1)
+        if(!QWidget::event(evt) || 1) // Movable property is not implemented, let move anywhere
         {
           mMoveOffset = e->globalPos() - pos();
           mMoving = true;
@@ -77,7 +80,7 @@ bool SpkWindow::event(QEvent *evt)
     }
     case QEvent::MouseButtonRelease:
     {
-      if(!mResizable) break;
+//      if(!mResizable) break;
       auto e = static_cast<QMouseEvent*>(evt);
       if(e->button() != Qt::LeftButton) break;
       mResizing = false;
@@ -120,7 +123,7 @@ bool SpkWindow::event(QEvent *evt)
     default:
       ;
   }
-  return QMainWindow::event(evt);
+  return QWidget::event(evt);
 }
 
 Qt::Edges SpkWindow::DetectEdgeOnThis(QPoint p)
@@ -227,16 +230,16 @@ void SpkWindow::closeEvent(QCloseEvent *e)
 
 void SpkWindow::paintEvent(QPaintEvent *e)
 {
-  //FIXME: DOESN'T WORK!
-//  QPainter painter(this);
-//  painter.setBrush(QBrush(Qt::NoBrush));
-//  painter.setPen(QPen(SpkUi::ColorLine));
-//  QRect rect = this->rect();
-//  rect.setWidth(rect.width() - 2);
-//  rect.setHeight(rect.height() - 2);
-//  rect.adjust(-1, -1, 1, 1);
-//  painter.drawRect(rect);
-//  QWidget::paintEvent(e);
+  QWidget::paintEvent(e);
+  if(!mUseCustomEvents)
+    return;
+
+  QPainter painter(this);
+  painter.setBrush(QBrush(Qt::NoBrush));
+  painter.setPen(QPen(SpkUi::ColorLine));
+  QRect rect = this->rect();
+  rect.adjust(0, 0, -1, -1);
+  painter.drawRect(rect);
 }
 
 void SpkWindow::SetCornerRadius(int radius)
@@ -246,22 +249,22 @@ void SpkWindow::SetCornerRadius(int radius)
 
 void SpkWindow::PopulateUi()
 {
-  mCentralWidget = new QWidget(this);
   mMainVLayout = new QVBoxLayout;
   mTitleBarComponent = new SpkTitleBar(this);
 
-  mCentralWidget->setLayout(mMainVLayout);
+  setLayout(mMainVLayout);
 
   mMainVLayout->addWidget(mTitleBarComponent);
   mMainVLayout->setAlignment(Qt::AlignTop);
-  mMainVLayout->setContentsMargins(0, 0, 0, 0);
+  if(mUseCustomEvents)
+    mMainVLayout->setContentsMargins(1, 1, 1, 1);
+  else
+    mMainVLayout->setContentsMargins(0, 0, 0, 0);
   mMainVLayout->setSpacing(0);
 
   mTitleBarComponent->SetTitle(qAppName());
   mTitleBarComponent->SetUseIcon(false);
   mTitleBarComponent->SetLinkedWindow(this);
-
-  setCentralWidget(mCentralWidget);
   setWindowFlag(Qt::NoDropShadowWindowHint, false);
 }
 

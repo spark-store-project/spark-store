@@ -50,7 +50,7 @@ class SpkTitleBar : public QWidget
     void SetTitle(QString t) { mTitle->setText(t); }
     QString GetTitle() { return mTitle->text(); }
     void SetUseIcon(bool t) { mIcon->setVisible(t); }
-    void SetLinkedWindow(QMainWindow *w) { mLinkedWindow = w; }
+    void SetLinkedWindow(SpkWindow *w) { mLinkedWindow = w; }
 
     QHBoxLayout *GetUserSpace() { return mUserSpace; }
   protected:
@@ -59,7 +59,7 @@ class SpkTitleBar : public QWidget
   private:
     QLabel *mIcon;
     QLabel *mTitle;
-    QMainWindow *mLinkedWindow;
+    SpkWindow *mLinkedWindow;
     QHBoxLayout *mMainLayout, *mUserSpace, *mBtnGroup;
     SpkTitleBarDefaultButton *mBtnMin, *mBtnMaxRestore, *mBtnClose;
 

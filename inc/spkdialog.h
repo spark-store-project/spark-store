@@ -17,6 +17,7 @@ class SpkDialog : public SpkWindow
     void AddWidget(QWidget*);
     void AddLayout(QLayout*);
     void AddSpacing(int);
+    void AddStretch(int a = 0);
     void SetMargin(int);
     void SetMargin(int, int, int, int);
     int  Exec();

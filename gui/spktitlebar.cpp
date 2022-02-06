@@ -1,6 +1,7 @@
 
 #include <QEvent>
 #include <QMouseEvent>
+#include "spkwindow.h"
 #include "spkui_general.h"
 #include "spktitlebar.h"
 

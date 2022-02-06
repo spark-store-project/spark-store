@@ -2,21 +2,22 @@
 #include "spkdialog.h"
 #include <QEventLoop>
 
-SpkDialog::SpkDialog(QWidget *parent) : SpkWindow(parent, Qt::Dialog)
+SpkDialog::SpkDialog(QWidget *parent) : SpkWindow(parent)
 {
   mDialogWidget = new QWidget;
-  mMainVLay = new QVBoxLayout(mDialogWidget);
+  mMainVLay = new QVBoxLayout;
   mWidgetsVLay = new QVBoxLayout();
   mBtnLay = new QHBoxLayout();
   mBtnGroup = new QButtonGroup(this);
 
   mMainVLay->addLayout(mWidgetsVLay);
   mMainVLay->addLayout(mBtnLay);
-  mMainVLay->setSizeConstraint(QLayout::SetMinimumSize);
 
   mBtnLay->setAlignment(Qt::AlignCenter);
 
   SetCentralWidget(mDialogWidget);
+
+  mDialogWidget->setLayout(mMainVLay);
 
   // idClicked is not available on platforms we support, shouldn't change it
   connect(mBtnGroup, QOverload<int>::of(&QButtonGroup::buttonClicked),
@@ -74,6 +75,11 @@ void SpkDialog::AddLayout(QLayout *w)
 void SpkDialog::AddSpacing(int a)
 {
   mWidgetsVLay->addSpacing(a);
+}
+
+void SpkDialog::AddStretch(int a)
+{
+  mWidgetsVLay->addStretch(a);
 }
 
 void SpkDialog::SetMargin(int a)

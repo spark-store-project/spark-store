@@ -18,9 +18,11 @@ SpkMainWindow::SpkMainWindow(QWidget *parent) : SpkWindow(parent)
   SetTitleBar(ui->TitleBar, false);
   RefreshCategoryData();
 
-  auto size = QGuiApplication::primaryScreen()->size() * 0.25;
-  resize(QGuiApplication::primaryScreen()->size() * 0.5);
-  move(size.width(), size.height());
+  auto size = QGuiApplication::primaryScreen()->size() * 0.5;
+  size = size.expandedTo(QSize(900, 600));
+  resize(size);
+  auto pos = QGuiApplication::primaryScreen()->size() * 0.5 - size * 0.5;
+  move(pos.width(), pos.height());
 }
 
 void SpkMainWindow::SwitchDayNightTheme()

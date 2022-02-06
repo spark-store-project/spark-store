@@ -4,16 +4,16 @@
 
 #pragma once
 
-#include <QMainWindow>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QCloseEvent>
-#include "spktitlebar.h"
 
-class SpkWindow : public QMainWindow
+class SpkTitleBar;
+
+class SpkWindow : public QWidget
 {
     Q_OBJECT
   public:
@@ -21,7 +21,7 @@ class SpkWindow : public QMainWindow
     static constexpr int BorderWidth = 7;
 
   private:
-    QWidget *mCentralWidget, *mUserCentralWidget;
+    QWidget *mUserCentralWidget;
     QVBoxLayout *mMainVLayout;
     SpkTitleBar *mTitleBarComponent;
     int mCornerRadius;
@@ -32,7 +32,7 @@ class SpkWindow : public QMainWindow
     bool mUseCustomEvents;
 
   public:
-    SpkWindow(QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
+    SpkWindow(QWidget *parent = nullptr);
     ~SpkWindow() override;
     void SetCentralWidget(QWidget *);
     bool GetUseTitleBar();
@@ -62,4 +62,6 @@ class SpkWindow : public QMainWindow
 
   private:
     void PopulateUi();
+
+    void paintWindowBorder();
 };
