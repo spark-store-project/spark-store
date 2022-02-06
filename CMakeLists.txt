@@ -50,6 +50,7 @@ set(SOURCE_FILES
     resource/resource.qrc
 
     gui/page/ui/settings.ui
+    gui/page/ui/homepage.ui
     ${WRAPPED_UI_FILES}
 
     inc/gitver.h
@@ -76,8 +77,10 @@ set(SOURCE_FILES
     inc/spkpopup.h gui/spkpopup.cpp
     inc/spkstretchlayout.h gui/spkstretchlayout.cpp
     inc/spkfocuslineedit.h
+    inc/spknotifydot.h gui/spknotifydot.cpp
 
     inc/page/spkpagebase.h gui/page/spkpagebase.cpp
+    inc/page/spkpagehome.h gui/page/spkpagehome.cpp
     inc/page/spkpageuitest.h gui/page/spkpageuitest.cpp
     inc/page/spkpageapplist.h gui/page/spkpageapplist.cpp
     inc/page/spkpageappdetails.h gui/page/spkpageappdetails.cpp
@@ -113,7 +116,8 @@ add_link_options(-rdynamic)
 find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 
 QT5_WRAP_UI(WRAPPED_UI_FILES
-            gui/page/ui/settings.ui)
+            gui/page/ui/settings.ui
+            gui/page/ui/homepage.ui)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

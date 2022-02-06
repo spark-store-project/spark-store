@@ -454,6 +454,10 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   CategoryWidget->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
 
   //============ Sidebar entries BEGIN ============
+  HomepageItem = new QTreeWidgetItem(QStringList(tr("Home")));
+  HomepageItem->setData(0, SpkSidebarSelector::RoleItemIsCategory, false);
+  HomepageItem->setData(0, SpkSidebarSelector::RoleItemCategoryPageId, SpkStackedPages::PgHomepage);
+
   AppDetailsItem = new QTreeWidgetItem(QStringList(tr("App Details")));
   AppDetailsItem->setData(0, SpkSidebarSelector::RoleItemIsCategory, false);
   AppDetailsItem->setData(0, SpkSidebarSelector::RoleItemCategoryPageId, SpkStackedPages::PgAppDetails);
@@ -471,6 +475,7 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
 #endif
   //============ Sidebar entries END ============
 
+  CategoryWidget->addTopLevelItem(HomepageItem);
   SidebarMgr->AddUnusableItem(CategoryParentItem);
   CategoryWidget->addTopLevelItem(AppDetailsItem);
   CategoryWidget->addTopLevelItem(CategoryParentItem);
@@ -566,6 +571,10 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   PageSettings->setProperty("spk_pageid", SpkStackedPages::PgSettings);
   sorter[PgSettings] = PageSettings;
 
+  PageHome = new SpkUi::SpkPageHome(this);
+  PageSettings->setProperty("spk_pageid", SpkStackedPages::PgHomepage);
+  sorter[PgHomepage] = PageHome;
+
 #ifndef NDEBUG // If only in debug mode should we initialize QSS test page
   PageQssTest = new SpkUi::SpkPageUiTest(this);
   PageQssTest->setProperty("spk_pageid", SpkStackedPages::PgQssTest);
@@ -574,6 +583,9 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
 
   for(auto i : sorter)
     Pager->addWidget(i);
+
+  // Default page selection : homepage
+  HomepageItem->setSelected(true);
 
   setLayout(HorizontalDivide);
 }

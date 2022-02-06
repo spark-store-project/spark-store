@@ -188,6 +188,16 @@ SpkAppItem::hover
 {
     background: DCTL1;
 }
+ /* homepage*/
+#lblTitle
+{
+    font-weiget: 700;
+    font-size: 40px;
+}
+
+#btnAnnouncements, #btnFeedback, #btnDonation
+{
+}
 
 #styAppItmTitle
 {

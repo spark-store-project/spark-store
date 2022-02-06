@@ -17,6 +17,7 @@
 #include "spkfocuslineedit.h"
 #include "spkiconbutton.h"
 #include "page/spkpageuitest.h"
+#include "page/spkpagehome.h"
 #include "page/spkpageapplist.h"
 #include "page/spkpageappdetails.h"
 #include "page/spkpagedownloads.h"
@@ -29,6 +30,7 @@ namespace SpkUi
   enum SpkStackedPages
   {
     PgInvalid = -1,
+    PgHomepage,
     PgAppList,
     PgAppDetails,
     PgDownloads,
@@ -170,7 +172,8 @@ namespace SpkUi
       QMap<int, QTreeWidgetItem> *CategoryItemMap;
       SpkSidebarSelector *SidebarMgr;
 
-      QTreeWidgetItem *CategoryParentItem,
+      QTreeWidgetItem *HomepageItem,
+                      *CategoryParentItem,
                       *AppDetailsItem,
                       *DownloadsItem,
                       *UiTestItem;
@@ -182,6 +185,8 @@ namespace SpkUi
 
       //Pages
       SpkPageUiTest *PageQssTest;
+
+      SpkPageHome *PageHome;
       SpkPageAppList *PageAppList;
       SpkPageAppDetails *PageAppDetails;
       SpkPageDownloads *PageDownloads;
