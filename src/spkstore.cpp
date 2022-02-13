@@ -11,6 +11,8 @@
 #include "spkpopup.h"
 #include "spkstore.h"
 #include "spkutils.h"
+#include "pkgs/spkpkgmgrpacman.h"
+#include "pkgs/spkpkgmgrapt.h"
 
 SpkStore *SpkStore::Instance = nullptr;
 static bool InstallDefaultConfigs(QString configPath);
@@ -53,6 +55,15 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
 #else
       .arg(mDistroName + " @SparkDeveloper");
 #endif
+
+  // Initialize package management backend
+  // Test for which backend fits
+  if(SpkPkgMgrApt::DetectRequirements())
+    new SpkPkgMgrApt(this);
+  else if(SpkPkgMgrPacman::DetectRequirements())
+    new SpkPkgMgrPacman(this);
+  else
+    new SpkPkgMgrBase(this);
 
   // Finish all essential initialization before this.
   if(aCli)

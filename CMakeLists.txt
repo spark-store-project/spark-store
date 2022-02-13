@@ -87,6 +87,10 @@ set(SOURCE_FILES
     inc/page/spkpagedownloads.h gui/page/spkpagedownloads.cpp
     inc/page/spkpagesettings.h gui/page/spkpagesettings.cpp
 
+    inc/pkgs/spkpkgmgrbase.h
+    inc/pkgs/spkpkgmgrpacman.h src/pkgs/spkpkgmgrpacman.cpp
+    inc/pkgs/spkpkgmgrapt.h src/pkgs/spkpkgmgrapt.cpp
+
     inc/spkstore.h src/spkstore.cpp
     inc/spkuimsg.h src/spkuimsg.cpp
     inc/spklogging.h src/spklogging.cpp

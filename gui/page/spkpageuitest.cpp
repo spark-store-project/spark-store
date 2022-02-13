@@ -4,6 +4,7 @@
 #include "inc/page/spkpageuitest.h"
 #include "spkpopup.h"
 #include "spkui_general.h"
+#include "pkgs/spkpkgmgrbase.h"
 
 SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
 {
@@ -80,6 +81,10 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   ShowAbout->setText("Show About Dialog");
   connect(ShowAbout, &QPushButton::clicked, [](){ SpkAbout::Show(); });
 
+  ShowPkgmgr = new QPushButton(this);
+  ShowPkgmgr->setText("Show Install Menu");
+  connect(ShowPkgmgr, &QPushButton::clicked, [](){ SpkPkgMgrBase::Instance()->ExecuteInstallation("", 0); });
+
   SlideV = new QSlider(this);
   SlideV->setObjectName("spk_pg_qsstest_slider_v");
   SlideV->setOrientation(Qt::Vertical);
@@ -106,6 +111,7 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
   VLayTestWidgets->addWidget(PopupText);
   VLayTestWidgets->addWidget(ShowPopup);
   VLayTestWidgets->addWidget(ShowAbout);
+  VLayTestWidgets->addWidget(ShowPkgmgr);
   VLayTestWidgets->addWidget(AppItem);
   VLayTestWidgets->addWidget(DetailsWidget);
 

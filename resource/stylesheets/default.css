@@ -166,6 +166,44 @@ QProgressBar::chunk
     background-color: ACC_;
 }
 
+QMenu
+{
+    background-color: CBG_;
+    padding: 6px 0px;
+    border-radius: 6px;
+}
+
+QMenu::item
+{
+    background-color: CBG_;
+}
+
+QMenu::item:disabled
+{
+    color: TXD;
+}
+
+QMenu::item:selected
+{
+    background-color: ACC_;
+    color: TXACC;
+}
+
+QMenu::item:pressed
+{
+    background-color: ACCH;
+    color: TXACC;
+}
+
+QMenu::separator
+{
+    background: DCTLD;
+    height: 1px;
+    margin: 2px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
 /* Custom widgets */
 
 ElidedLabel
@@ -191,7 +229,7 @@ SpkAppItem::hover
  /* homepage*/
 #lblTitle
 {
-    font-weiget: 700;
+    font-weight: 600;
     font-size: 40px;
 }
 

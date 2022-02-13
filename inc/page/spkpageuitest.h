@@ -52,7 +52,8 @@ namespace SpkUi
 
       QLineEdit *PopupText;
       QPushButton *ShowPopup,
-                  *ShowAbout;
+                  *ShowAbout,
+                  *ShowPkgmgr;
 
     public slots:
       void SetStylesheet();
