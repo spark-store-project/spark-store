@@ -19,6 +19,9 @@ class SpkPkgMgrApt : public SpkPkgMgrBase
     bool ChangeServerRepository(QString content);
 
   private:
+    void CheckInstallerAvailability();
+
+  private:
     QAction *mActAptitudeTerm,
             *mActAptTerm,
             *mActGdebi,
