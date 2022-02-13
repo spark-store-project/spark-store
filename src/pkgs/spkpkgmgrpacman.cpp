@@ -24,5 +24,5 @@ bool SpkPkgMgrPacman::DetectRequirements()
 SpkPkgMgrBase::PkgInstallResult
 SpkPkgMgrPacman::ExecuteInstallation(QString pkgPath, int entryId)
 {
-  SpkPkgMgrBase::ExecuteInstallation(pkgPath, entryId);
+  return SpkPkgMgrBase::ExecuteInstallation(pkgPath, entryId);
 }

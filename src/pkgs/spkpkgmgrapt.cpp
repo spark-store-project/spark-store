@@ -5,7 +5,11 @@
 SpkPkgMgrApt::SpkPkgMgrApt(QObject *parent) :
   SpkPkgMgrBase(parent)
 {
+  mActDesc = new QAction("Debian APT", this);
+  mActDesc->setDisabled(true);
 
+  mMenu->addSeparator();
+  mMenu->addAction(mActDesc);
 }
 
 bool SpkPkgMgrApt::DetectRequirements()
@@ -17,7 +21,7 @@ bool SpkPkgMgrApt::DetectRequirements()
 SpkPkgMgrBase::PkgInstallResult
 SpkPkgMgrApt::ExecuteInstallation(QString pkgPath, int entryId)
 {
-
+  return SpkPkgMgrBase::ExecuteInstallation(pkgPath, entryId);
 }
 
 
