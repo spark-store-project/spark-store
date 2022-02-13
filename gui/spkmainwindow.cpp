@@ -99,9 +99,10 @@ void SpkMainWindow::CategoryDataReceived()
   {
     sErr(tr("Failed to load categories! Type=%1 Code=%2").arg(retval.type()).arg(verify));
     sNotify(tr("Cannot load categories! Type: %1 Code: %2").arg(retval.type()).arg(verify));
-    // TODO: Switch to an error page
+    ui->PageHome->ui->widReloadCategory->setVisible(true);
     return;
   }
+  ui->PageHome->ui->widReloadCategory->setVisible(false);
   PopulateCategories(retval.toArray());
 }
 
@@ -364,6 +365,8 @@ void SpkMainWindow::Initialize()
   }
   connect(ui->PageAppDetails, &SpkUi::SpkPageAppDetails::RequestDownload,
           ui->PageDownloads, &SpkUi::SpkPageDownloads::AddDownloadTask);
+  connect(ui->PageHome->ui->btnReloadCategory, &QPushButton::clicked,
+          this, &SpkMainWindow::RefreshCategoryData);
 
   // Register themed button icons
 //  mThemedUiIconReferences.append({ ui->BtnSettings, "settings" });

@@ -237,6 +237,12 @@ SpkAppItem::hover
 {
 }
 
+#widReloadCategory
+{
+    background-color: #FFA329;
+    border-radius: 6px;
+}
+
 #styAppItmTitle
 {
     font-weight: 500;
