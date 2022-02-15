@@ -4,7 +4,10 @@
 #include <QJsonDocument>
 #include <QDir>
 #include <QWidget>
+#include <QPair>
 #include "spkutils.h"
+
+QPair<QString, QString> SpkUtils::AvailableTerminal = {"", ""};
 
 void SpkUtils::VerifySingleRequest(QPointer<QNetworkReply> aReply)
 {
@@ -112,7 +115,41 @@ bool SpkUtils::EnsureDirExists(QString path)
   return true;
 }
 
-void SpkUtils::FillWidget(QWidget *widget, QVariant val)
-{
+// From https://github.com/qt-creator/qt-creator/blob/18f1be58e7937af4f538fc0c47f660cf8c60bda2/src/libs/utils/consoleprocess.cpp
+using StrStrPair = QPair<QString, QString>;
+Q_GLOBAL_STATIC_WITH_ARGS(QList<StrStrPair>, KnownTerminals,
+                          ({
+                          {"x-terminal-emulator", "-e"},
+                          {"xdg-terminal ", ""},
+                          {"xterm", "-e"},
+                          {"aterm", "-e"},
+                          {"Eterm", "-e"},
+                          {"rxvt", "-e"},
+                          {"urxvt", "-e"},
+                          {"xfce4-terminal", "-x"},
+                          {"konsole", "-e "},
+                          {"gnome-terminal", "--"}
+                          }));
 
+bool SpkUtils::FindViableTerminal()
+{
+  auto dirs = qgetenv("PATH").split(':');
+  QList<QDir> searchDirs;
+
+  for(auto &i : dirs)
+    searchDirs.append(QDir(i));
+
+  for(auto &i : *KnownTerminals)
+  {
+    for(auto &j : searchDirs)
+    {
+      if(j.exists(i.first))
+      {
+        AvailableTerminal = i;
+        return true;
+      }
+    }
+  }
+
+  return false;
 }

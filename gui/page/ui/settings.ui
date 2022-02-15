@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>501</width>
-    <height>699</height>
+    <width>581</width>
+    <height>896</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,41 +61,17 @@
    </item>
    <item>
     <layout class="QGridLayout" name="laySettings">
-     <item row="3" column="1">
-      <widget class="QPlainTextEdit" name="edtDownloadServers">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>80</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>150</height>
-        </size>
-       </property>
-       <property name="baseSize">
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="spkcfg_key" stdset="0">
-        <string notr="true">download/servers</string>
+     <item row="5" column="0">
+      <widget class="QLabel" name="lblApiUrl">
+       <property name="text">
+        <string>Store API URL</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="lblLightDarkTheme">
+     <item row="6" column="0">
+      <widget class="QLabel" name="lblResourceUrl">
        <property name="text">
-        <string>Light/dark theme</string>
+        <string>Store resource URL</string>
        </property>
       </widget>
      </item>
@@ -106,75 +82,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QComboBox" name="cmbLightDarkTheme">
-       <property name="frame">
-        <bool>true</bool>
-       </property>
-       <property name="spkcfg_key" stdset="0">
-        <string notr="true">gui/theme</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Auto</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Always Light</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Always Dark</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="lblApiUrl">
-       <property name="text">
-        <string>Store API URL</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="lblAptRepo">
-       <property name="text">
-        <string>APT Repository</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="edtApiUrl">
-       <property name="spkcfg_key" stdset="0">
-        <string>url/api</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="lblDownloadServers">
-       <property name="toolTip">
-        <string>Server addresses are separated with two semicolons (;;).</string>
-       </property>
-       <property name="toolTipDuration">
-        <number>1</number>
-       </property>
-       <property name="text">
-        <string>Download servers</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="edtResourceCachePath">
-       <property name="spkcfg_key" stdset="0">
-        <string>dirs/cache</string>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="0">
       <widget class="QLabel" name="lblResourceCachePath">
        <property name="text">
@@ -182,23 +89,10 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="lblDownloadPath">
-       <property name="toolTip">
-        <string/>
-       </property>
-       <property name="toolTipDuration">
-        <number>-1</number>
-       </property>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lblAptRepo">
        <property name="text">
-        <string>Download path</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="lblResourceUrl">
-       <property name="text">
-        <string>Store resource URL</string>
+        <string>APT Repository</string>
        </property>
       </widget>
      </item>
@@ -254,6 +148,122 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lblLightDarkTheme">
+       <property name="text">
+        <string>Light/dark theme</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="edtResourceCachePath">
+       <property name="spkcfg_key" stdset="0">
+        <string>dirs/cache</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPlainTextEdit" name="edtDownloadServers">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>150</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="spkcfg_key" stdset="0">
+        <string notr="true">download/servers</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="cmbLightDarkTheme">
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <property name="spkcfg_key" stdset="0">
+        <string notr="true">gui/theme</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Auto</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Always Light</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Always Dark</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lblDownloadPath">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="toolTipDuration">
+        <number>-1</number>
+       </property>
+       <property name="text">
+        <string>Download path</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="lblDownloadServers">
+       <property name="toolTip">
+        <string>Server addresses are separated with two semicolons (;;).</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>1</number>
+       </property>
+       <property name="text">
+        <string>Download servers</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="edtApiUrl">
+       <property name="spkcfg_key" stdset="0">
+        <string>url/api</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="lblRepoListUrl">
+       <property name="text">
+        <string>APT Repository Source</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="edtRepoListUrl"/>
      </item>
     </layout>
    </item>

@@ -19,6 +19,9 @@ namespace SpkUi
     mMainArea->setWidget(mSettingsWidget);
     mMainArea->setWidgetResizable(true);
 
+    CFG->BindField("url/repo", &this->mRepoListUrl,
+                   "https://d.store.deepinos.org.cn/store/server.list");
+
     SetupUi();
   }
 
@@ -50,20 +53,21 @@ namespace SpkUi
     ui->edtDownloadPath->setText(CFG->ReadField("dirs/download", "").toString());
     ui->edtDownloadServers->setPlainText(CFG->ReadField("download/servers", "").toString());
     ui->edtQssPath->setText(CFG->ReadField("internal/qss_path", "").toString());
+    ui->edtRepoListUrl->setText(CFG->ReadField("url/repo", "").toString());
   }
 
   void SpkPageSettings::SaveConfiguration()
   {
     auto ui = mSettingsUi;
-    auto settings = CFG;
 
     CFG->SetSettings("resource/concurrent", ui->spnConcurrentResDownloads->value());
-    assert(CFG->SetField("url/api", ui->edtApiUrl->text()));
-    assert(CFG->SetField("url/res", ui->edtResourceUrl->text()));
+    CFG->SetField("url/api", ui->edtApiUrl->text());
+    CFG->SetField("url/res", ui->edtResourceUrl->text());
     CFG->SetSettings("dirs/cache", ui->edtResourceCachePath->text());
-    assert(CFG->SetField("dirs/download", ui->edtDownloadPath->text()));
-    assert(CFG->SetField("download/servers", ui->edtDownloadServers->toPlainText()));
+    CFG->SetField("dirs/download", ui->edtDownloadPath->text());
+    CFG->SetField("download/servers", ui->edtDownloadServers->toPlainText());
     CFG->SetSettings("internal/qss_path", ui->edtQssPath->text());
+    CFG->SetField("url/repo", ui->edtRepoListUrl->text());
   }
 
   void SpkPageSettings::Activated()

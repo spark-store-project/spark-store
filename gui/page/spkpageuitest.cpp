@@ -83,7 +83,7 @@ SpkUi::SpkPageUiTest::SpkPageUiTest(QWidget *parent) : QSplitter(parent)
 
   ShowPkgmgr = new QPushButton(this);
   ShowPkgmgr->setText("Show Install Menu");
-  connect(ShowPkgmgr, &QPushButton::clicked, [](){ SpkPkgMgrBase::Instance()->ExecuteInstallation("", 0); });
+  connect(ShowPkgmgr, &QPushButton::clicked, [=](){ SpkPkgMgrBase::Instance()->ExecuteInstallation(PopupText->text(), 0); });
 
   SlideV = new QSlider(this);
   SlideV->setObjectName("spk_pg_qsstest_slider_v");

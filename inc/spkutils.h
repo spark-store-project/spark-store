@@ -29,5 +29,7 @@ namespace SpkUtils
   QString BytesToSize(size_t s, int prec = 2);
   bool EnsureDirExists(QString path);
 
-  void FillWidget(QWidget* widget, QVariant val);
+  bool FindViableTerminal();
+
+  extern QPair<QString, QString> AvailableTerminal;
 }

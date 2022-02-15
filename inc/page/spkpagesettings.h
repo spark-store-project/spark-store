@@ -22,11 +22,15 @@ namespace SpkUi
 
       virtual void Activated() override;
 
+    private slots:
+
     private:
       QScrollArea *mMainArea;
       QVBoxLayout *mMainLay;
       QWidget *mSettingsWidget;
       Ui::SpkUiSettings *mSettingsUi;
+
+      QString mRepoListUrl;
 
   };
 }

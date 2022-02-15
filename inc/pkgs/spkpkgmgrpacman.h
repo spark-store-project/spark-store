@@ -3,7 +3,7 @@
 
 #include "spkpkgmgrbase.h"
 
-class SpkPkgMgrPacman : public SpkPkgMgrBase
+class SpkPkgMgrPacman final : public SpkPkgMgrBase
 {
     Q_OBJECT
 

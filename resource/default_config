@@ -2,6 +2,7 @@
 [url]
 api=https://store.deepinos.org/api/
 res=http://img.store.deepinos.org.cn/
+repo=https://d.store.deepinos.org.cn/store/server.list
 
 [dirs]
 cache="*/.cache/spark-store/res/"

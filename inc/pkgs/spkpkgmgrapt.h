@@ -2,8 +2,9 @@
 #pragma once
 
 #include "spkpkgmgrbase.h"
+#include <QProcess>
 
-class SpkPkgMgrApt : public SpkPkgMgrBase
+class SpkPkgMgrApt final : public SpkPkgMgrBase
 {
     Q_OBJECT
 
@@ -21,10 +22,15 @@ class SpkPkgMgrApt : public SpkPkgMgrBase
   private:
     void CheckInstallerAvailability();
 
+  private slots:
+    void InstallerExited(int, QProcess::ExitStatus);
+
   private:
     QAction *mActAptitudeTerm,
             *mActAptTerm,
             *mActGdebi,
             *mActDeepinPkgInst;
+
+    QProcess mInstaller;
 
 };

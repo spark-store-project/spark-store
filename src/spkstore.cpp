@@ -8,6 +8,7 @@
 #include "dtk/spkdtkplugin.h"
 #include "gitver.h"
 #include "spkmainwindow.h"
+#include "spkmsgbox.h"
 #include "spkpopup.h"
 #include "spkstore.h"
 #include "spkutils.h"
@@ -74,6 +75,13 @@ SpkStore::SpkStore(bool aCli, QString &aLogPath)
   SpkUi::Initialize();
   mMainWindow = new SpkMainWindow;
   SpkUi::Popup = new SpkUi::SpkPopup(mMainWindow);
+
+  if(!SpkUtils::FindViableTerminal())
+    SpkMsgBox::StaticExec(tr("Cannot find a terminal emulator on the system.\n"
+                             "You will have to specify it in settings later in order\n"
+                             "to use terminal for program output."),
+                          tr("No Terminals Found"),
+                          QMessageBox::Warning);
 
   mMainWindow->show();
 }
