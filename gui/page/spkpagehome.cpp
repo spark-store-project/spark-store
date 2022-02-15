@@ -35,6 +35,8 @@ void SpkUi::SpkPageHome::SetupUi()
 
   connect(ui->lblAuthor, &QLabel::linkActivated,
           this, &SpkPageHome::LinkActivated);
+  connect(ui->btnSubmit, &QPushButton::clicked,
+          [&](){ LinkActivated("https://upload.deepinos.org"); });
   connect(ui->btnFeedback, &QPushButton::clicked,
           [&](){ LinkActivated("https://www.deepinos.org/t/spark-feedback"); });
   connect(ui->btnDonation, &QPushButton::clicked,
