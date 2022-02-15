@@ -157,16 +157,10 @@ namespace SpkUi
       SpkMainWidget(QWidget *parent = nullptr);
 
       QHBoxLayout *HorizontalDivide;
-      QVBoxLayout *VLayMain;
-      SpkTitleBar *TitleBar;
 
       QStackedWidget *Pager;
 
       // Category widget is for switching pages
-      QWidget *SideBarRestrictor;
-      QVBoxLayout *VLaySidebar;
-      QHBoxLayout *HLaySideTop;
-      QLabel *StoreIcon;
       SpkIconButton *BtnSettings, *BtnFeedback, *BtnLogs, *BtnDayNight, *BtnBack;
       SpkSidebarTree *CategoryWidget;
       QMap<int, QTreeWidgetItem> *CategoryItemMap;

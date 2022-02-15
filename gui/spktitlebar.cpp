@@ -15,7 +15,7 @@ SpkTitleBar::SpkTitleBar(QWidget *parent) : QWidget(parent)
 
   mIcon = new QLabel(this);
   mTitle = new QLabel(this);
-  mIcon->setFixedSize(32, 32);
+  mIcon->setFixedSize(40, 40);
 
   mMainLayout = new QHBoxLayout(this);
   mUserSpace = new QHBoxLayout();

@@ -46,7 +46,7 @@ class SpkTitleBar : public QWidget
     using OperationButton = SpkTitleBarDefaultButton::OperationButton;
     void SetOperationButton(OperationButton);
 
-    void SetIcon(QPixmap &p) { mIcon->setPixmap(p); }
+    void SetIcon(QPixmap p) { mIcon->setPixmap(p); }
     void SetTitle(QString t) { mTitle->setText(t); }
     QString GetTitle() { return mTitle->text(); }
     void SetUseIcon(bool t) { mIcon->setVisible(t); }

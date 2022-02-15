@@ -10,13 +10,14 @@
 
 SpkMainWindow::SpkMainWindow(QWidget *parent) : SpkWindow(parent)
 {
-  ui = new SpkUi::SpkMainWidget(parent);
+  ui = new SpkUi::SpkMainWidget(this);
   Initialize();
 
-  SetUseTitleBar(false);
   SetCentralWidget(ui);
-  SetTitleBar(ui->TitleBar, false);
   RefreshCategoryData();
+  GetTitleBar()->SetTitle("");
+  GetTitleBar()->SetUseIcon(true);
+  GetTitleBar()->SetIcon(QIcon(":/icons/spark-store.svg").pixmap({ 40, 40 }));
 
   auto size = QGuiApplication::primaryScreen()->size() * 0.5;
   size = size.expandedTo(QSize(900, 600));
@@ -385,42 +386,6 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   Pager->setObjectName("spk_mw_pager");
   Pager->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  TitleBar = new SpkTitleBar(this);
-  TitleBar->setObjectName("spk_mw_titlebar");
-  TitleBar->SetUseIcon(false);
-  TitleBar->SetTitle("");
-
-  VLayMain = new QVBoxLayout;
-  VLayMain->setObjectName("spk_mw_main_vlay");
-  VLayMain->setSpacing(0);
-  VLayMain->setContentsMargins(0, 0, 0, 0);
-  VLayMain->addWidget(TitleBar);
-  VLayMain->addWidget(Pager);
-
-  VLaySidebar = new QVBoxLayout;
-  VLaySidebar->setObjectName("spk_mw_sidebar_lay");
-  VLaySidebar->setSpacing(0);
-  VLaySidebar->setContentsMargins(0, 0, 0, 0);
-
-  SideBarRestrictor = new QWidget(this);
-  SideBarRestrictor->setObjectName("spk_mw_sidebar_restrictor");
-  SideBarRestrictor->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-  SideBarRestrictor->setMaximumWidth(200);
-  SideBarRestrictor->setMinimumWidth(200);
-  SideBarRestrictor->setLayout(VLaySidebar);
-
-  HLaySideTop = new QHBoxLayout;
-  HLaySideTop->setObjectName("spk_mw_sidebar_top_lay");
-  HLaySideTop->setSpacing(8);
-  HLaySideTop->setContentsMargins(8, 4, 4, 4);
-
-  StoreIcon = new QLabel(this);
-  StoreIcon->setObjectName("spk_mw_icon");
-  StoreIcon->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  StoreIcon->setMaximumSize({ 40, 40 });
-  StoreIcon->setMinimumSize({ 40, 40 });
-  StoreIcon->setPixmap(QIcon(":/icons/spark-store.svg").pixmap(StoreIcon->size()));
-
   SidebarMgr = new SpkSidebarSelector(this);
   SidebarMgr->setObjectName("spk_mw_sidebar_mgr");
 
@@ -444,12 +409,6 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   BtnBack->SetIcon(QIcon(":/icons/back.svg"), QSize(20, 20));
   BtnBack->setVisible(false);
 
-  HLaySideTop->addWidget(StoreIcon);
-  HLaySideTop->addStretch();
-  HLaySideTop->addWidget(BtnDayNight);
-  HLaySideTop->addWidget(BtnSettings);
-  VLaySidebar->addLayout(HLaySideTop);
-
   using SpkUi::SpkSidebarSelector;
   CategoryWidget = new SpkSidebarTree(this);
   CategoryWidget->setObjectName("styMwCateg");
@@ -457,6 +416,7 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   CategoryWidget->setColumnCount(1);
   CategoryWidget->setHeaderHidden(true);
   CategoryWidget->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
+  CategoryWidget->setFixedWidth(250);
 
   //============ Sidebar entries BEGIN ============
   HomepageItem = new QTreeWidgetItem(QStringList(tr("Home")));
@@ -498,7 +458,6 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   // layer-of-gradient-to-my-selected-item-of-qtreewidget-even-with-qss
   if(SpkUi::OldSystemStyle)
     CategoryWidget->setStyle(SpkUi::OldSystemStyle);
-  VLaySidebar->addWidget(CategoryWidget);
   SidebarMgr->BindCategoryWidget(CategoryWidget);
 
   HorizontalDivide = new QHBoxLayout;
@@ -508,8 +467,8 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   HorizontalDivide->setAlignment(Qt::AlignLeft);
   if(!SpkUi::States::IsUsingDtkPlugin)
     HorizontalDivide->addSpacing(SpkWindow::BorderWidth);
-  HorizontalDivide->addWidget(SideBarRestrictor);
-  HorizontalDivide->addLayout(VLayMain);
+  HorizontalDivide->addWidget(CategoryWidget);
+  HorizontalDivide->addWidget(Pager);
 
   //============ Search Bar ============
 
@@ -548,7 +507,11 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
     BtnBack->setEnabled(false);
   });
 
-  auto space = TitleBar->GetUserSpace();
+  auto space = static_cast<SpkWindow*>(parent)->GetTitleBar()->GetUserSpace();
+
+  space->addSpacing(50);
+  space->addWidget(BtnDayNight);
+  space->addWidget(BtnSettings);
   space->addWidget(BtnBack);
   space->addWidget(SearchEdit);
   space->addStretch();
