@@ -556,6 +556,8 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
 
   // Default page selection : homepage
   HomepageItem->setSelected(true);
+  // Manually "activate" the default page item to make the sidebar tree know about default item
+  emit CategoryWidget->itemPressed(HomepageItem, 0);
 
   setLayout(HorizontalDivide);
 }
