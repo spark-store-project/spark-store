@@ -33,6 +33,7 @@ const std::map<SpkUi::Qss::ColorSetIndex, const char *> SpkUi::Qss::ColorSet2Tok
   { ShadesEdge, "SHD" },
   { ScrollBarNorm, "SCBN" },
   { ScrollBarHover, "SCBH" },
+  { DivideLine, "DVL" },
 };
 
 const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::DarkColorSet
@@ -60,6 +61,7 @@ const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::DarkColorSet
   { ShadesEdge, 0x7b7b7b },
   { ScrollBarNorm, 0x404040 },
   { ScrollBarHover, 0x656565 },
+  { DivideLine, 0x424242 },
 };
 
 const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::LightColorSet
@@ -87,4 +89,5 @@ const std::map<SpkUi::Qss::ColorSetIndex, QColor> SpkUi::Qss::LightColorSet
   { ShadesEdge, 0xc5c5c5 },
   { ScrollBarNorm, 0xa0a0a0 },
   { ScrollBarHover, 0x858585 },
+  { DivideLine, 0xd5d5d5 },
 };

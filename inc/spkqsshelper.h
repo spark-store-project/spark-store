@@ -36,6 +36,7 @@ namespace SpkUi
       ShadesEdge,
       ScrollBarNorm,
       ScrollBarHover,
+      DivideLine,
     };
 
     extern const std::list<ColorSetIndex> AccentColorExceptions;

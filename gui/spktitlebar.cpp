@@ -5,7 +5,7 @@
 #include "spkui_general.h"
 #include "spktitlebar.h"
 
-SpkTitleBar::SpkTitleBar(QWidget *parent) : QWidget(parent)
+SpkTitleBar::SpkTitleBar(QWidget *parent) : QFrame(parent)
 {
   mLinkedWindow = nullptr;
 
@@ -39,7 +39,7 @@ SpkTitleBar::SpkTitleBar(QWidget *parent) : QWidget(parent)
   mBtnMaxRestore->SetRole(OperationButton::MaximizeRestore);
   mBtnClose->SetRole(OperationButton::Close);
 
-  mMainLayout->setContentsMargins(0, 0, 0, 0);
+  mMainLayout->setContentsMargins(0, 0, 0, 1);
 
   setLayout(mMainLayout);
 

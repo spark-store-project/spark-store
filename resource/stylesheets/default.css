@@ -197,7 +197,7 @@ QMenu::item:pressed
 
 QMenu::separator
 {
-    background: DCTLD;
+    background: DVL;
     height: 1px;
     margin: 2px;
     margin-left: 8px;
@@ -356,6 +356,7 @@ SpkTitleBarDefaultButton:pressed
     border: none;
     font-size: 14px;
     show-decoration-selected: 1;
+    border-right: 1px solid DVL;
 }
 
 #styMwCateg::item
@@ -379,4 +380,10 @@ SpkTitleBarDefaultButton:pressed
 #styMwCateg::branch:selected
 {
     background-color: ACC_;
+}
+
+#spk_mw_titlebar
+{
+    background-color: GBG_;
+    border-bottom: 1px solid DVL;
 }

@@ -18,6 +18,8 @@ SpkMainWindow::SpkMainWindow(QWidget *parent) : SpkWindow(parent)
   GetTitleBar()->SetTitle("");
   GetTitleBar()->SetUseIcon(true);
   GetTitleBar()->SetIcon(QIcon(":/icons/spark-store.svg").pixmap({ 40, 40 }));
+  GetTitleBar()->setObjectName("spk_mw_titlebar");
+  GetTitleBar()->setAttribute(Qt::WA_StyledBackground);
 
   auto size = QGuiApplication::primaryScreen()->size() * 0.5;
   size = size.expandedTo(QSize(900, 600));
@@ -416,7 +418,7 @@ SpkUi::SpkMainWidget::SpkMainWidget(QWidget *parent) : QFrame(parent)
   CategoryWidget->setColumnCount(1);
   CategoryWidget->setHeaderHidden(true);
   CategoryWidget->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
-  CategoryWidget->setFixedWidth(250);
+  CategoryWidget->setFixedWidth(200);
 
   //============ Sidebar entries BEGIN ============
   HomepageItem = new QTreeWidgetItem(QStringList(tr("Home")));

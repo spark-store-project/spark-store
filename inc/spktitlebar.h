@@ -36,7 +36,7 @@ class SpkTitleBarDefaultButton : public QPushButton
     void PaintSymbol(QPainter &);
 };
 
-class SpkTitleBar : public QWidget
+class SpkTitleBar : public QFrame
 {
     Q_OBJECT
     friend class SpkWindow;
