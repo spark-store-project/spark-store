@@ -34,6 +34,8 @@ namespace SpkUi
     public slots:
       void SetAccentColor(QColor);
       void SetDarkLightTheme(bool isDark);
+    signals:
+      void SetThemeButtonVisible(bool);
   };
 
   extern UiMetaObject SpkUiMetaObject;
@@ -52,6 +54,11 @@ namespace SpkUi
   namespace States
   {
     extern bool IsDDE, IsUsingDtkPlugin;
+
+    extern bool DoRespondAutoTheme;
+    extern int LightDarkMode; ///< Tied to settings UI value
+
+    bool ThemeConfigCallback();
   }
 
   namespace Priv

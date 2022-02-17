@@ -371,6 +371,13 @@ void SpkMainWindow::Initialize()
   connect(ui->PageHome->ui->btnReloadCategory, &QPushButton::clicked,
           this, &SpkMainWindow::RefreshCategoryData);
 
+  connect(&SpkUi::SpkUiMetaObject, &SpkUi::UiMetaObject::SetThemeButtonVisible,
+          [=](bool visible)
+          {
+            ui->BtnDayNight->setVisible(visible);
+            ReloadThemedUiIcons();
+          });
+
   // Register themed button icons
 //  mThemedUiIconReferences.append({ ui->BtnSettings, "settings" });
   mThemedUiIconReferences.append({ ui->BtnDayNight, "daynight" });

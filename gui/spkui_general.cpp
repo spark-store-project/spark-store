@@ -40,6 +40,32 @@ namespace SpkUi
   namespace States
   {
     bool IsDDE = false, IsUsingDtkPlugin = false;
+
+    bool DoRespondAutoTheme = false;
+    int LightDarkMode = 3; // Default to Manual
+
+    bool ThemeConfigCallback()
+    {
+      switch(LightDarkMode)
+      {
+        case 0:
+          if(!DtkPlugin) return false;
+          SpkUiMetaObject.SetDarkLightTheme(DtkPlugin->GetIsDarkTheme());
+          break;
+        case 1:
+          SetGlobalStyle(Light, true);
+          SpkUiMetaObject.SetThemeButtonVisible(false);
+          break;
+        case 2:
+          SetGlobalStyle(Dark,  true);
+          SpkUiMetaObject.SetThemeButtonVisible(false);
+          break;
+        case 3:
+          SpkUiMetaObject.SetThemeButtonVisible(true);
+          break;
+      }
+      return true;
+    }
   }
 
   namespace Priv
@@ -87,11 +113,12 @@ namespace SpkUi
 
     // Misc data initialization
     PrimaryScreenSize = QGuiApplication::primaryScreen()->size();
+    CFG->BindField("ui/theme", &States::LightDarkMode, 3, States::ThemeConfigCallback);
   }
 
   void GuessAppropriateTheme()
   {
-
+    // FIXME: Too difficult, not implementing it
   }
 
   bool CheckIsDeepinDesktop()
@@ -280,9 +307,12 @@ namespace SpkUi
   // =================== UiMetaObject =======================
   // UiMetaObject is the signal-slot receiver for DDE plugin, receiving the DDE system level
   // notifications of UI theme changes
+  // Communications with UI widgets are also done here
 
   void UiMetaObject::SetAccentColor(QColor aColor)
   {
+    if(!SpkUi::States::DoRespondAutoTheme)
+      return;
     CurrentColorSet[Qss::AccentColor] = aColor.lighter(90);
     CurrentColorSet[Qss::AccentColorHighlighted] = aColor.lighter(105);
     CurrentColorSet[Qss::TextOnAccentColor] = ColorTextOnBackground(aColor);
@@ -292,6 +322,8 @@ namespace SpkUi
 
   void UiMetaObject::SetDarkLightTheme(bool isDark)
   {
+    if(!SpkUi::States::DoRespondAutoTheme)
+      return;
     if(isDark)
       SetGlobalStyle(Dark, true);
     else

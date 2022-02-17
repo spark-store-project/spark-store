@@ -1,6 +1,7 @@
 
 #include "spkutils.h"
 #include "page/spkpagesettings.h"
+#include "spkmsgbox.h"
 
 namespace SpkUi
 {
@@ -54,6 +55,7 @@ namespace SpkUi
     ui->edtDownloadServers->setPlainText(CFG->ReadField("download/servers", "").toString());
     ui->edtQssPath->setText(CFG->ReadField("internal/qss_path", "").toString());
     ui->edtRepoListUrl->setText(CFG->ReadField("url/repo", "").toString());
+    ui->cmbLightDarkTheme->setCurrentIndex(CFG->ReadField("ui/theme", 0).toInt());
   }
 
   void SpkPageSettings::SaveConfiguration()
@@ -65,9 +67,20 @@ namespace SpkUi
     CFG->SetField("url/res", ui->edtResourceUrl->text());
     CFG->SetSettings("dirs/cache", ui->edtResourceCachePath->text());
     CFG->SetField("dirs/download", ui->edtDownloadPath->text());
-    CFG->SetField("download/servers", ui->edtDownloadServers->toPlainText());
     CFG->SetSettings("internal/qss_path", ui->edtQssPath->text());
     CFG->SetField("url/repo", ui->edtRepoListUrl->text());
+
+    if(!CFG->SetField("download/servers", ui->edtDownloadServers->toPlainText()))
+      SpkMsgBox::StaticExec(tr("Cannot change distribution servers.\n"
+                               "There's probably still downloads going on."),
+                            tr("Cannot set distribution server"),
+                            QMessageBox::Warning);
+
+    if(!CFG->SetField("ui/theme", ui->cmbLightDarkTheme->currentIndex()))
+      SpkMsgBox::StaticExec(tr("Auto mode can only be used when DDE plugin is loaded.\n"
+                               "Option change is not applied."),
+                            tr("Cannot set theme mode"),
+                            QMessageBox::Warning);
   }
 
   void SpkPageSettings::Activated()
