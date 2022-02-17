@@ -26,7 +26,7 @@ SpkUi::SpkPageDownloads::SpkPageDownloads(QWidget *parent) :
   mCurrentStatus = Idle;
 
   connect(mDownloadMgr, &SpkDownloadMgr::DownloadStopped,
-          this, &SpkPageDownloads::DownloadStopped);
+          this, &SpkPageDownloads::DownloadStopped, Qt::QueuedConnection);
 }
 
 SpkUi::SpkPageDownloads::~SpkPageDownloads()
@@ -58,23 +58,26 @@ void SpkUi::SpkPageDownloads::AddDownloadTask(QString name, QString pkgName, QSt
     icon.load(":/icons/broken-icon.svg");
   entry->SetBasicInfo(name, icon);
   entry->SetStatus(SpkDownloadEntry::Waiting);
+  auto id = mNextDownloadId;
 
-  mEntries[mNextDownloadId] = entry;
+  mNextDownloadId++;
+
+  mEntries[id] = entry;
   mLayEntries->addWidget(entry);
 
   if(mCurrentStatus != Idle)
-    mWaitingDownloads.enqueue({ mNextDownloadId, path }); // Queue download task for future
+    mWaitingDownloads.enqueue({ id, path }); // Queue download task for future
   else
   {
-    if(!mDownloadMgr->StartNewDownload(path, mNextDownloadId)) // Initiate a download task when idle
-      emit mDownloadMgr->DownloadStopped(SpkDownloadMgr::FailNoVaibleServer, mNextDownloadId);
-    else
+    mCurrentStatus = Waiting;
+    if(!mDownloadMgr->StartNewDownload(path, id)) // Initiate a download task when idle
     {
-      mCurrentStatus = Waiting;
+      // If fails to start then try next one. Emitting this signal causes
+      // SpkPageDownloads::DownloadStopped to be activated and thus tries next item in queue
+      emit mDownloadMgr->DownloadStopped(SpkDownloadMgr::FailNoVaibleServer, id);
     }
   }
 
-  mNextDownloadId++;
 }
 
 void SpkUi::SpkPageDownloads::DownloadStopped(SpkDownloadMgr::TaskResult status, int id)
