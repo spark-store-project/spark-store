@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
 
+  qRegisterMetaType<SpkDownloadMgr::TaskResult>("TaskResult");
+
   QString LogPath = "";
 
   SpkStore store(false, LogPath);

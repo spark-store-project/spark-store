@@ -7,6 +7,9 @@
 /**
  * @note SpkDownloadMgr does NOT do download scheduling and other things; it's only a multithreaded
  *       downloader; it manages the threads that are downloading stuff from the Internet.
+ *
+ *       Because of this, SpkDownloadMgr does not support complex download queues, cannot handle
+ *       pauses, and can only work on a sequential list of tasks.
  */
 
 class SpkDownloadMgr : public QObject
@@ -34,14 +37,21 @@ class SpkDownloadMgr : public QObject
      *        unnecessary race conditions and data safety problems.
      *        DownloadWorker is also used in mFailureRetryQueue to indicate the blocks that needed
      *        to be retried on other servers.
+     *
+     *        Each worker has a watch dog value, incremented each time the download speed is
+     *        updated, and zeroed each time the worker has data ready. If the value exceeds a
+     *        preset maximum, then this worker is considered timed out and killed.
      */
     struct DownloadWorker
     {
       QNetworkReply *Reply; ///< Reply from the network
+      int Watchdog; ///< Watch dog value watching for a timed out worker
       qint64 BeginOffset; ///< Where should a worker start downloading
       qint64 BytesNeeded; ///< How many bytes a worker should fetch in total
       qint64 BytesRecvd; ///< How many bytes a worker has received till now
     };
+
+    constexpr static int WatchDogMaximum = 7;
 
     struct RemoteFileInfo
     {

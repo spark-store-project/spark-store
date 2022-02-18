@@ -184,7 +184,7 @@ namespace SpkUi
 
     connect(mBtnDownload, &QPushButton::clicked,
             [=](){ emit RequestDownload(mAppTitle->text(), mPkgName->text(),
-                                        "/store/chat/icalingua/icalingua_2.4.4-Deus-non-vult_amd64.deb");
+                                        "/store/reading/youdao-dict/youdao-dict_6.0.0-0~ubuntu_amd64.deb");
                  });
   }
 

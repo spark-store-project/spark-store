@@ -5,6 +5,8 @@
 #include "spkpopup.h"
 #include <QEventLoop>
 #include <QDir>
+#include <QApplication>
+#include <QDebug>
 
 SpkDownloadMgr::SpkDownloadMgr(QObject *parent)
 {
@@ -89,13 +91,18 @@ bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
   if(mCurrentDownloadId != -1)
     return false; // Already downloading something
 
+  // Reserve the manager and let everyone else wait
+  mCurrentDownloadId = downloadId;
+
   // Try get the file size first. If one server fails then go to next server
+  qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
   RemoteFileInfo info;
   for(int i = 0; i < mServers.size() && info.Size == -1; i++)
   {
     info = GetRemoteFileInfo(mServers[i] + path);
     // TODO: Mark dead servers as unusable so they don't get scheduled first?
   }
+  qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
   if(info.Size == -1)
   {
     sNotify(tr("Server request failure, %1 cannot be downloaded.").arg(SpkUtils::CutFileName(path)));
@@ -165,6 +172,7 @@ bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
   {
     DownloadWorker worker { .BeginOffset = 0, .BytesNeeded = info.Size, .BytesRecvd = 0 };
     worker.Reply = STORE->SendDownloadRequest(mServers[0] + path);
+    worker.Reply->setProperty("workerId", mScheduledWorkers.size());
     mScheduledWorkers.append(worker);
   }
 
@@ -173,6 +181,7 @@ bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
   {
     LinkReplyWithMe(i.Reply);
     i.Reply->setProperty("failCount", 0); // Used for fail retry algorithm
+    mActiveWorkerCount++;
   }
 
   mProgressEmitterTimer.start();
@@ -198,6 +207,8 @@ bool SpkDownloadMgr::CancelCurrentDownload()
   for(auto &i : mScheduledWorkers)
   {
     auto r = i.Reply;
+    if(!r) // Don't bother with finished workers
+      continue;
     r->blockSignals(true);
     r->abort();
     r->deleteLater();
@@ -207,10 +218,19 @@ bool SpkDownloadMgr::CancelCurrentDownload()
   mDestFile.close();
   if(!mDestFile.remove())
   {
-    sErr(tr("SpkDownloadMgr: Cannot remove destination file %1 of a cancelled task")
+    sWarn(tr("SpkDownloadMgr: Cannot remove destination file %1 of a cancelled task")
            .arg(mDestFile.fileName()));
     sNotify(tr("The destination file of the cancelled task can't be deleted!"));
   }
+
+  // Tell the UI to schedule next task and cleanup current status
+  emit DownloadStopped(FailCancel, mCurrentDownloadId);
+  mScheduledWorkers.clear();
+  mFailureRetryQueue.clear();
+  mCurrentDownloadId = -1;
+  mDownloadedBytes = 0;
+  mProgressEmitterTimer.stop();
+
   return true;
 }
 
@@ -224,7 +244,15 @@ void SpkDownloadMgr::WorkerFinish()
 
   if(reply->error() == QNetworkReply::NetworkError::NoError)
   {
-    // Finished successfully, destroy associated stuff
+    // Finished successfully, write any data possibly left in buffer
+    auto replyData = reply->readAll();
+    mDestFile.seek(worker.BeginOffset + worker.BytesRecvd);
+    mDestFile.write(replyData);
+    worker.BytesRecvd += replyData.size();
+    worker.Watchdog = 0;
+    mDownloadedBytes += replyData.size();
+
+    // Destroy associated stuff
     reply->deleteLater();
     worker.Reply = nullptr;
 
@@ -239,6 +267,7 @@ void SpkDownloadMgr::WorkerFinish()
       mFailureRetryQueue.clear();
       mCurrentDownloadId = -1;
       mDownloadedBytes = 0;
+      mDestFile.close(); // Remember to close file!!
 
       mProgressEmitterTimer.stop();
     }
@@ -258,20 +287,51 @@ void SpkDownloadMgr::WorkerDownloadProgress()
   mDestFile.seek(worker.BeginOffset + worker.BytesRecvd);
   mDestFile.write(replyData);
   worker.BytesRecvd += replyData.size();
+  worker.Watchdog = 0;
   mDownloadedBytes += replyData.size();
 }
 
-void SpkDownloadMgr::WorkerError(QNetworkReply::NetworkError)
+void SpkDownloadMgr::WorkerError(QNetworkReply::NetworkError err)
 {
   QNetworkReply *reply = static_cast<QNetworkReply*>(sender());
   int id = reply->property("workerId").toInt();
   DownloadWorker &worker = mScheduledWorkers[id];
+
+  switch(err)
+  {
+    case QNetworkReply::TimeoutError:
+      sNotify(tr("A download has timed out, retrying..."));
+      sWarn(tr("SpkDownloadMgr: %1 download timed out. Retrying").arg(reply->url().toString()));
+      break;
+
+    default:
+      sNotify(tr("An error occured when downloading, retrying..."));
+      sWarn(tr("SpkDownloadMgr: %1 fails with error %2. Retrying")
+            .arg(reply->url().toString())
+            .arg((int)err));
+      break;
+  }
 
   ProcessWorkerError(worker, id);
 }
 
 void SpkDownloadMgr::ProgressTimer()
 {
+  // Check watchdog
+  for(auto &i : mScheduledWorkers)
+  {
+    if(i.Reply == nullptr) continue;
+    if(++i.Watchdog > WatchDogMaximum)
+    {
+      // This reply has timed out
+      emit i.Reply->errorOccurred(QNetworkReply::TimeoutError);
+      // FIXME: Likely a Qt Bug. If you add these two lines (which you should if it works!),
+      // And the target reply is a reply created on retry, then the signal on the last line
+      // is NEVER EMITTED.
+//      i.Reply->blockSignals(true);
+//      i.Reply->abort();
+    }
+  }
   emit DownloadProgressed(mDownloadedBytes, mCurrentRemoteFileInfo.Size, mCurrentDownloadId);
 }
 
@@ -291,6 +351,8 @@ void SpkDownloadMgr::ProcessWorkerError(DownloadWorker &worker, int id)
     reply->deleteLater();
     worker.Reply = nullptr;
     mFailureRetryQueue.enqueue(worker);
+    if(mActiveWorkerCount < mScheduledWorkers.size())
+      TryScheduleFailureRetries();
     return;
   }
 
@@ -301,14 +363,17 @@ void SpkDownloadMgr::ProcessWorkerError(DownloadWorker &worker, int id)
                                  worker.BeginOffset + worker.BytesNeeded);
   LinkReplyWithMe(worker.Reply);
   worker.Reply->setProperty("failCount", reply->property("failCount").toInt() + 1);
+  worker.Reply->setProperty("workerId", id);
+  worker.Watchdog = 0;
   reply->deleteLater();
 }
 
 void SpkDownloadMgr::LinkReplyWithMe(QNetworkReply *reply)
 {
-  mActiveWorkerCount++; // Each time you spin up a request you must do this so it's ok to do it here
   connect(reply, &QNetworkReply::readyRead, this, &SpkDownloadMgr::WorkerDownloadProgress);
   connect(reply, &QNetworkReply::finished, this, &SpkDownloadMgr::WorkerFinish);
+  connect(reply, &QNetworkReply::errorOccurred, this, &SpkDownloadMgr::WorkerError);
+  reply->setProperty("linked", 1);
 }
 
 void SpkDownloadMgr::TryScheduleFailureRetries()
@@ -335,6 +400,7 @@ void SpkDownloadMgr::TryScheduleFailureRetries(int i)
         STORE->SendDownloadRequest(mServers[i] + mCurrentRemotePath,
                                    worker.BeginOffset,
                                    worker.BeginOffset + worker.BytesNeeded);
+    mScheduledWorkers[i].Reply->setProperty("workerId", i);
     LinkReplyWithMe(mScheduledWorkers[i].Reply);
   }
 }
