@@ -110,6 +110,7 @@ void SpkDownloadEntry::SetStatus(DownloadEntryStatus status, QString msg)
       mBtnDelete->setVisible(false);
       mLoading->setVisible(true);
       mLoading->Begin();
+      break;
 
     case Installed:
       mMessage->setText(tr("Installed"));
