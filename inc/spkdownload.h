@@ -27,6 +27,7 @@ class SpkDownloadMgr : public QObject
       FailCannotCreateFile, ///< Failed because destination file cannot be created
       FailNoVaibleServer, ///< Failed because no server provides file size or download stalled on
                           ///< all of them
+      FailCancel, ///< User has cancelled the task
       Fail
     };
 
@@ -66,6 +67,8 @@ class SpkDownloadMgr : public QObject
      * @note This function uses BLOCKING IO!
      */
     static RemoteFileInfo GetRemoteFileInfo(QUrl url);
+
+    QString GetDestFilePath(QString downloadPath);
 
   private:
     QList<QString> mServers; ///< Multithreaded download

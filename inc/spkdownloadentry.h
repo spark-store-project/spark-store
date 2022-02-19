@@ -26,8 +26,7 @@ class SpkDownloadEntry : public QWidget
       Invalid = -1,
       Waiting,
       Downloading,
-      Paused,
-      Failed,
+      DownloadFailed,
       ToBeInstalled,
       Installing,
       Installed,
@@ -35,9 +34,23 @@ class SpkDownloadEntry : public QWidget
     };
 
     void SetTotalBytes(qint64 total);
-    void SetBasicInfo(QString name, QPixmap icon);
+    void SetBasicInfo(QString name, QPixmap icon, QString filePath);
     void SetStatus(DownloadEntryStatus status, QString msg = "");
     void Progress(qint64 bytes);
+    QString GetTaskName() { return mAppName->text(); }
+    QString GetFilePath() { return mFilePath; }
+
+    enum EntryAction
+    {
+      AbortDownload,
+      RetryDownload,
+      StartInstall,
+      RemoveEntry
+    };
+
+  private slots:
+    void ActionButton();
+    void DeleteButton();
 
   private:
     QLabel *mIcon, *mMessage;
@@ -54,4 +67,11 @@ class SpkDownloadEntry : public QWidget
     qint64 mTotalBytes, mDownloadedBytes;
     QTime mLastReportTime;
     QString mReadableTotalSize;
+
+    QString mFilePath;
+
+    DownloadEntryStatus mStatus;
+
+  signals:
+    void Action(EntryAction);
 };

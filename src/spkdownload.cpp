@@ -71,6 +71,11 @@ SpkDownloadMgr::RemoteFileInfo SpkDownloadMgr::GetRemoteFileInfo(QUrl url)
   return ret;
 }
 
+QString SpkDownloadMgr::GetDestFilePath(QString downloadPath)
+{
+  return mDestFolder + '/' + SpkUtils::CutFileName(downloadPath);
+}
+
 void SpkDownloadMgr::SetDestinationFolder(QString path)
 {
   QDir dir(path);
@@ -122,7 +127,7 @@ bool SpkDownloadMgr::StartNewDownload(QString path, int downloadId)
     sErr(tr("SpkDownloadMgr: Download directory %1 cannot be created.").arg(mDestFolder));
     return false;
   }
-  mDestFile.setFileName(mDestFolder + '/' + SpkUtils::CutFileName(path));
+  mDestFile.setFileName(GetDestFilePath(path));
   if(!mDestFile.open(QFile::ReadWrite))
   {
     sNotify(tr("Cannot write to destination file, download cannot start."));

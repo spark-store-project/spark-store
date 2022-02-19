@@ -13,6 +13,7 @@
 #define STORE (SpkStore::Instance)
 #define CFG (SpkStore::Instance->mCfg)
 #define RES (SpkResource::Instance)
+#define PKG (SpkPkgMgrBase::Instance())
 
 namespace SpkUtils
 {

@@ -4,6 +4,7 @@
 #include "spkdownload.h"
 #include "spkdownloadentry.h"
 #include "page/spkpagebase.h"
+#include "pkgs/spkpkgmgrbase.h"
 
 namespace SpkUi
 {
@@ -22,7 +23,7 @@ namespace SpkUi
       SpkDownloadMgr *mDownloadMgr;
       QMap<uint, SpkDownloadEntry*> mEntries;
       uint mNextDownloadId;
-      QQueue<QPair<uint, QString>> mWaitingDownloads;
+      QQueue<QPair<int, QString>> mWaitingDownloads;
       enum { Idle, Waiting, Downloading } mCurrentStatus;
 
       // UI
@@ -33,6 +34,11 @@ namespace SpkUi
     private slots:
       void DownloadProgress(qint64 downloadedBytes, qint64 totalBytes, int id);
       void DownloadStopped(SpkDownloadMgr::TaskResult status, int id);
+      void EntryAction(SpkDownloadEntry::EntryAction);
+      void InstallationEnded(int id, SpkPkgMgrBase::PkgInstallResult, int exitCode);
+
+    private:
+      void NewDownloadTask(int id, QString downloadPath);
   };
 }
 

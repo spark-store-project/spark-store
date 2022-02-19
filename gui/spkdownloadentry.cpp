@@ -40,6 +40,11 @@ SpkDownloadEntry::SpkDownloadEntry(QWidget *parent)
 
   setLayout(mLayMain);
 
+  connect(mBtnActions, &QPushButton::clicked, this, &SpkDownloadEntry::ActionButton);
+  connect(mBtnDelete, &QPushButton::clicked, this, &SpkDownloadEntry::DeleteButton);
+
+  mStatus = Invalid;
+
   mLastReportTime = QTime::currentTime();
 }
 
@@ -56,14 +61,16 @@ void SpkDownloadEntry::SetTotalBytes(qint64 total)
   mLastReportTime = QTime::currentTime();
 }
 
-void SpkDownloadEntry::SetBasicInfo(QString name, QPixmap icon)
+void SpkDownloadEntry::SetBasicInfo(QString name, QPixmap icon, QString filePath)
 {
   mAppName->setText(name);
   mIcon->setPixmap(icon.scaled(IconSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+  mFilePath = filePath;
 }
 
 void SpkDownloadEntry::SetStatus(DownloadEntryStatus status, QString msg)
 {
+  mStatus = status;
   switch(status)
   {
     case Waiting:
@@ -71,31 +78,36 @@ void SpkDownloadEntry::SetStatus(DownloadEntryStatus status, QString msg)
       mProgress->setVisible(false);
       mBtnActions->setVisible(false);
       mBtnDelete->setVisible(true);
+      mBtnDelete->setText(tr("Cancel"));
       break;
 
     case Downloading:
       mMessage->setText(tr(""));
       mProgress->setVisible(true);
-      mBtnActions->setVisible(true);
+      mBtnActions->setVisible(false);
       break;
 
-    case Paused:
-      mMessage->setText(tr("Paused"));
-      break;
-
-    case Failed:
+    case DownloadFailed:
       mMessage->setText(msg);
       mProgress->setVisible(false);
+      mBtnActions->setVisible(true);
+      mBtnActions->setText(tr("Retry"));
+
       break;
 
     case ToBeInstalled:
       mMessage->setText(tr("Download Finished"));
       mProgress->setVisible(false);
+      mBtnActions->setVisible(true);
+      mBtnDelete->setVisible(false);
+      mBtnActions->setText(tr("Install"));
       break;
 
     case Installing:
       mMessage->setText("");
       mProgress->setVisible(false);
+      mBtnActions->setVisible(false);
+      mBtnDelete->setVisible(false);
       mLoading->setVisible(true);
       mLoading->Begin();
 
@@ -103,12 +115,18 @@ void SpkDownloadEntry::SetStatus(DownloadEntryStatus status, QString msg)
       mMessage->setText(tr("Installed"));
       mLoading->End();
       mLoading->setVisible(false);
+      mBtnDelete->setVisible(true);
+      mBtnDelete->setText(tr("Delete"));
       break;
 
     case InstallFailed:
       mMessage->setText(msg.isEmpty() ? tr("Install Failed") : msg);
       mLoading->End();
       mLoading->setVisible(false);
+      mBtnActions->setVisible(true);
+      mBtnActions->setText(tr("Install"));
+      mBtnDelete->setVisible(true);
+      mBtnDelete->setText(tr("Cancel"));
       break;
 
     case Invalid:
@@ -134,4 +152,43 @@ void SpkDownloadEntry::Progress(qint64 bytes)
   mDownloadedBytes = bytes;
   mProgress->setValue(static_cast<int>(((double)bytes) / mTotalBytes * 1000));
   mLastReportTime = now;
+}
+
+void SpkDownloadEntry::ActionButton()
+{
+  switch(mStatus)
+  {
+    case DownloadFailed:
+      emit Action(RetryDownload);
+      break;
+
+    case ToBeInstalled:
+    case InstallFailed:
+      emit Action(StartInstall);
+      break;
+
+    default:
+      break;
+  }
+}
+
+void SpkDownloadEntry::DeleteButton()
+{
+  switch(mStatus)
+  {
+    case Waiting:
+    case DownloadFailed:
+    case Installed:
+    case InstallFailed:
+    case ToBeInstalled:
+      emit Action(RemoveEntry);
+      break;
+
+    case Downloading:
+      emit Action(AbortDownload);
+      break;
+
+    default:
+      break;
+  }
 }

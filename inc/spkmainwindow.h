@@ -82,6 +82,7 @@ namespace SpkUi
       void GoBack()
       {
         emit SwitchToCategory(mLastCategoryPage, 0);
+        mCategoryWidget->currentItem()->setSelected(false);
         mLastCategoryItem->setSelected(true);
       }
 

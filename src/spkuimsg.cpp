@@ -34,7 +34,7 @@ void SpkUiMessage::SendStoreNotification(QString s)
 void SpkUiMessage::SetDesktopNotifyTimeout(int ms)
 {
   if(!_notify)
-    _notify = notify_notification_new("", "", "");
+    return;
   notify_notification_set_timeout(_notify, ms);
   mTimeoutDesktop = ms;
 }

@@ -163,8 +163,8 @@ namespace SpkUi
     mBtnDownload = new QPushButton;
     mBtnDownload->setText(tr("Download"));
 
-    mBtnInstall = new QPushButton;
-    mBtnInstall->setText(tr("Install"));
+//    mBtnInstall = new QPushButton;
+//    mBtnInstall->setText(tr("Install"));
 
     mBtnUninstall = new QPushButton;
     mBtnUninstall->setText(tr("Uninstall"));
@@ -177,7 +177,7 @@ namespace SpkUi
 
     mBottomBarLay->addStretch();
     mBottomBarLay->addWidget(mBtnDownload);
-    mBottomBarLay->addWidget(mBtnInstall);
+//    mBottomBarLay->addWidget(mBtnInstall);
     mBottomBarLay->addWidget(mBtnUninstall);
     mBottomBarLay->addWidget(mBtnRequestUpdate);
     mBottomBarLay->addWidget(mBtnReport);
