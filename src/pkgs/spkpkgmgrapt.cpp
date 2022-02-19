@@ -102,7 +102,7 @@ void SpkPkgMgrApt::CheckInstallerAvailability()
 
 void SpkPkgMgrApt::InstallerExited(int exitCode, QProcess::ExitStatus status)
 {
-  if(status == QProcess::NormalExit)
+  if(status == QProcess::NormalExit && exitCode == 0)
     emit ReportInstallResult(mCurrentItemId, Succeeded, exitCode);
   else
     emit ReportInstallResult(mCurrentItemId, Failed, exitCode);
