@@ -74,7 +74,7 @@
    <item>
     <widget class="QLabel" name="lblAuthor">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brought to you by &lt;a href=&quot;spark-app.store&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;Spark Project&lt;/span&gt;&lt;/a&gt;, an open source software project.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brought to you by &lt;a href=&quot;https://spark-app.store&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;Spark Project&lt;/span&gt;&lt;/a&gt;, an open source software project.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
