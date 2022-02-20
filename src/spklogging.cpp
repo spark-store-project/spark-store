@@ -64,7 +64,7 @@ void SpkLogger::Initialize(QString suggestPath)
 
 void SpkLogger::Log(QString message)
 {
-  message = QDateTime::currentDateTime().toString() + "[Log]" + message;
+  message = QDateTime::currentDateTime().toString() + "[Log    ]" + message;
   mLogData.insertRow(mLogData.rowCount());
   auto id = mLogData.index(mLogData.rowCount() - 1, 0);
   mLogData.setData(id, message);
@@ -82,7 +82,7 @@ void SpkLogger::Warning(QString message)
 
 void SpkLogger::Error(QString message, const bool pop)
 {
-  message = QDateTime::currentDateTime().toString() + "[Error]" + message;
+  message = QDateTime::currentDateTime().toString() + "[Error  ]" + message;
   mLogData.insertRow(mLogData.rowCount());
   auto id = mLogData.index(mLogData.rowCount() - 1, 0);
   mLogData.setData(id, message);
