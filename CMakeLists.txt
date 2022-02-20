@@ -24,7 +24,8 @@ set(REQUIRED_LIBS
     Gui
     Widgets
     Network
-    Concurrent)
+    Concurrent
+    LinguistTools)
 set(REQUIRED_LIBS_QUALIFIED
     Qt5::Core
     Qt5::Gui
@@ -123,7 +124,9 @@ QT5_WRAP_UI(WRAPPED_UI_FILES
             gui/page/ui/settings.ui
             gui/page/ui/homepage.ui)
 
-add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
+qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} lang/zh.ts)
+
+add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES} ${QM_FILES})
 
 if(SPARK_BUILD_DTK_PLUGIN)
     add_subdirectory(plugin/dtkplugin)
