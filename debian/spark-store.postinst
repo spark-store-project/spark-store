@@ -13,12 +13,12 @@ case "$1" in
 		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
 
 		# Download and install key
-		nohup wget -O /tmp/spark-store-install/spark-store.asc https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc > /dev/null 2>&1
-		nohup gpg --dearmor /tmp/spark-store-install/spark-store.asc > /dev/null 2>&1
+		wget -O /tmp/spark-store-install/spark-store.asc https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc 
+		gpg --dearmor /tmp/spark-store-install/spark-store.asc 
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
         	# Run apt update to avoid users being fucked up by the non-exist dependency problem
-        	nohup apt update > /dev/null 2>&1 &
+        	 apt update  &
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
