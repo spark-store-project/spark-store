@@ -9,14 +9,14 @@ void SpkUiMessage::SendDesktopNotification(QString s, const char * const icon)
 {
   if(_notify == nullptr)
   {
-      _notify = notify_notification_new(tr("Spark\\ Store").toLocal8Bit(),
+      _notify = notify_notification_new(tr("Spark Store").toLocal8Bit(),
                                         s.toLocal8Bit(),
                                         icon);
       notify_notification_set_timeout(_notify, mTimeoutDesktop);
   }
   else
   {
-      notify_notification_update(_notify, tr("Spark\\ Store").toLocal8Bit(),
+      notify_notification_update(_notify, tr("Spark Store").toLocal8Bit(),
                                  s.toLocal8Bit(),
                                  icon);
   }

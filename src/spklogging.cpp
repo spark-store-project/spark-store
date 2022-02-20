@@ -16,7 +16,7 @@ SpkLogger::SpkLogger(QString suggestPath)
   Initialize(suggestPath);
 
   // Initialize libnotify
-  if(!notify_init(QObject::tr("Spark\\ Store").toLocal8Bit()))
+  if(!notify_init(QObject::tr("Spark Store").toLocal8Bit()))
   {
     sErrPop(QObject::tr("libnotify failed to initialize. "
                         "Desktop notifications will not work."));
