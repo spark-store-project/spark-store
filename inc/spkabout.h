@@ -8,6 +8,8 @@
 
 class SpkAbout : public SpkDialog
 {
+    Q_OBJECT
+
   public:
     SpkAbout(QWidget* parent = nullptr);
     ~SpkAbout();
