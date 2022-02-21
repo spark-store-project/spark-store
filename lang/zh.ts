@@ -201,38 +201,43 @@ Right now we are not just a Chinese group. We are discovering our way into more 
     </message>
     <message>
         <location filename="../gui/spkdownloadentry.cpp" line="81"/>
-        <location filename="../gui/spkdownloadentry.cpp" line="130"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="136"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../gui/spkdownloadentry.cpp" line="94"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="85"/>
+        <source>Starting download</source>
+        <translation>正在开始下载</translation>
+    </message>
+    <message>
+        <location filename="../gui/spkdownloadentry.cpp" line="100"/>
         <source>Retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../gui/spkdownloadentry.cpp" line="99"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="105"/>
         <source>Download Finished</source>
         <translation>下载完成</translation>
     </message>
     <message>
-        <location filename="../gui/spkdownloadentry.cpp" line="103"/>
-        <location filename="../gui/spkdownloadentry.cpp" line="128"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="109"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="134"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../gui/spkdownloadentry.cpp" line="116"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="122"/>
         <source>Installed</source>
         <translation>已安装完成</translation>
     </message>
     <message>
-        <location filename="../gui/spkdownloadentry.cpp" line="120"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="126"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../gui/spkdownloadentry.cpp" line="124"/>
+        <location filename="../gui/spkdownloadentry.cpp" line="130"/>
         <source>Install Failed</source>
         <translation>安装失败</translation>
     </message>
@@ -772,12 +777,12 @@ to use terminal for program output.</source>
         <translation>下载“%1”时出错。</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpagedownloads.cpp" line="156"/>
+        <location filename="../gui/page/spkpagedownloads.cpp" line="158"/>
         <source>Failed to start installation.</source>
         <translation>无法开始安装。</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpagedownloads.cpp" line="192"/>
+        <location filename="../gui/page/spkpagedownloads.cpp" line="194"/>
         <source>Install failed, exit code: %1.</source>
         <translation>安装失败，退出代码：%1。</translation>
     </message>

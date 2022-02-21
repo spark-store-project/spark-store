@@ -25,6 +25,7 @@ class SpkDownloadEntry : public QWidget
     {
       Invalid = -1,
       Waiting,
+      Starting,
       Downloading,
       DownloadFailed,
       ToBeInstalled,

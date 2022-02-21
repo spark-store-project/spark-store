@@ -81,10 +81,16 @@ void SpkDownloadEntry::SetStatus(DownloadEntryStatus status, QString msg)
       mBtnDelete->setText(tr("Cancel"));
       break;
 
+    case Starting:
+      mMessage->setText(tr("Starting download"));
+      mBtnDelete->setVisible(false);
+      break;
+
     case Downloading:
       mMessage->setText(tr(""));
       mProgress->setVisible(true);
       mBtnActions->setVisible(false);
+      mBtnDelete->setVisible(true);
       break;
 
     case DownloadFailed:

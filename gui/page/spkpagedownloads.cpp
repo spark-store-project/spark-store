@@ -13,11 +13,11 @@ SpkUi::SpkPageDownloads::SpkPageDownloads(QWidget *parent) :
   mScrollWidget = new QWidget;
   mScrollArea = new QScrollArea(this);
 
+  mLayEntries->setAlignment(Qt::AlignTop);
   mScrollWidget->setLayout(mLayEntries);
   mScrollArea->setWidget(mScrollWidget);
   mScrollArea->setWidgetResizable(true);
   mMainLay->addWidget(mScrollArea);
-  mMainLay->addStretch();
   setLayout(mMainLay);
 
   mDownloadMgr = new SpkDownloadMgr(this);
@@ -118,6 +118,8 @@ void SpkUi::SpkPageDownloads::DownloadStopped(SpkDownloadMgr::TaskResult status,
   if(!mWaitingDownloads.isEmpty())
   {
     auto nextTask = mWaitingDownloads.dequeue();
+    auto nextEntry = mEntries[nextTask.first];
+    nextEntry->SetStatus(SpkDownloadEntry::Starting);
     mDownloadMgr->StartNewDownload(nextTask.second, nextTask.first);
     mCurrentStatus = Waiting;
   }
@@ -199,6 +201,8 @@ void SpkUi::SpkPageDownloads::NewDownloadTask(int id, QString downloadPath)
     mWaitingDownloads.enqueue({ id, downloadPath }); // Queue download task for future
   else
   {
+    auto nextEntry = mEntries[id];
+    nextEntry->SetStatus(SpkDownloadEntry::Starting);
     mCurrentStatus = Waiting;
     if(!mDownloadMgr->StartNewDownload(downloadPath, id)) // Initiate a download task when idle
     {
