@@ -18,7 +18,7 @@ case "$1" in
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
         	# Run apt update to avoid users being fucked up by the non-exist dependency problem
-        	 apt update  &
+        	apt update
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
