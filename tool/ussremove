@@ -2,7 +2,7 @@
 
 reset
 
-echo Copyright (c) 2019-2021 The Spark Project
+echo "Copyright (c) 2019-2021 The Spark Project"
 
 if [ -x "/usr/bin/deepin-deb-installer" ] ; then 
 	echo "深度软件包安装器已安装，开始检测证书"
