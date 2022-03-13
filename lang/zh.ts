@@ -404,6 +404,14 @@ Right now we are not just a Chinese group. We are discovering our way into more 
     </message>
 </context>
 <context>
+    <name>SpkImgViewer</name>
+    <message>
+        <location filename="../gui/spkimgviewer.cpp" line="23"/>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SpkMainWindow</name>
     <message>
         <location filename="../gui/spkmainwindow.cpp" line="103"/>
@@ -666,47 +674,47 @@ to use terminal for program output.</source>
 <context>
     <name>SpkUi::SpkPageAppDetails</name>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="59"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="87"/>
         <source>Website link</source>
         <translation>网站链接</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="124"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="154"/>
         <source>Author</source>
         <translation>作者</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="126"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="156"/>
         <source>Contributor</source>
         <translation>贡献者</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="130"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="160"/>
         <source>Architecture</source>
         <translation>架构</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="132"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="162"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="164"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="206"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="170"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="212"/>
         <source>Uninstall</source>
         <translation>卸载</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="173"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="215"/>
         <source>Request Update</source>
         <translation>请求更新</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpageappdetails.cpp" line="176"/>
+        <location filename="../gui/page/spkpageappdetails.cpp" line="218"/>
         <source>Report</source>
         <translation>举报</translation>
     </message>

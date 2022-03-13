@@ -8,16 +8,27 @@
 #include <QFormLayout>
 #include "page/spkpagebase.h"
 #include "spkstretchlayout.h"
+#include "spkimgviewer.h"
 
 namespace SpkUi
 {
   class SpkDetailEntry;
+
+  class SpkClickLabel : public QLabel
+  {
+      Q_OBJECT
+    protected:
+      virtual void mousePressEvent(QMouseEvent *e) override { emit Pressed(); }
+    signals:
+      void Pressed();
+  };
 
   class SpkPageAppDetails : public SpkPageBase
   {
       Q_OBJECT
     public:
       SpkPageAppDetails(QWidget *parent = nullptr);
+      ~SpkPageAppDetails();
 
       void LoadAppResources(QString pkgName, QString icon, QStringList screenshots, QStringList tags);
       void SetWebsiteLink(QString url);
@@ -25,6 +36,7 @@ namespace SpkUi
 
     private:
       QString mPkgPath;
+      QPixmap mBrokenImg, mIconLoading;
 
     public slots:
       void ResourceAcquisitionFinished(int id, ResourceResult result);
@@ -34,14 +46,18 @@ namespace SpkUi
       static constexpr QSize IconSize { 144, 144 };
 
       // Main Area
-      QScrollArea *mMainArea;
-      QWidget *mDetailWidget, *mIconTitleWidget, *mWid4MainArea;
+      QScrollArea *mMainArea, *mScreenshotArea;
+      QWidget *mDetailWidget, *mIconTitleWidget, *mWid4MainArea, *mWid4ShotArea;
       QLabel *mAppTitle, *mAppIcon, *mAppDescription, *mAppShortDesc, *mPkgName, *mVersion,
              *mWebsite;
       SpkDetailEntry *mAuthor, *mContributor, *mSite, *mArch, *mSize;
       SpkStretchLayout *mDetailLay;
       QVBoxLayout *mDetailsLay, *mTitleLay, *mMainLay;
-      QHBoxLayout *mIconTitleLay;
+      QHBoxLayout *mIconTitleLay, *mScreenshotLay;
+      QList<SpkClickLabel*> mScreenshotPreviews;
+
+      QMap<int, QPixmap> mAppImages;
+      SpkImgViewer *mImgViewer;
 
       // Bottom bar
       QWidget *mBottomBar;
@@ -50,6 +66,9 @@ namespace SpkUi
 
     signals:
       void RequestDownload(QString name, QString pkgName, QString path);
+
+    private slots:
+      void ImageClicked();
   };
 
   class SpkDetailEntry : public QWidget

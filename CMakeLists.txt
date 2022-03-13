@@ -79,6 +79,7 @@ set(SOURCE_FILES
     inc/spkstretchlayout.h gui/spkstretchlayout.cpp
     inc/spkfocuslineedit.h
     inc/spknotifydot.h gui/spknotifydot.cpp
+    inc/spkimgviewer.h gui/spkimgviewer.cpp
 
     inc/page/spkpagebase.h gui/page/spkpagebase.cpp
     inc/page/spkpagehome.h gui/page/spkpagehome.cpp

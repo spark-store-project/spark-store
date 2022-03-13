@@ -43,6 +43,7 @@ class SpkTitleBar : public QFrame
   public:
     SpkTitleBar(QWidget *parent = nullptr);
     ~SpkTitleBar();
+    static constexpr int Height = 48;
     using OperationButton = SpkTitleBarDefaultButton::OperationButton;
     void SetOperationButton(OperationButton);
 

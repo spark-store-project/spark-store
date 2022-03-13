@@ -9,8 +9,7 @@ SpkTitleBar::SpkTitleBar(QWidget *parent) : QFrame(parent)
 {
   mLinkedWindow = nullptr;
 
-  setMinimumHeight(48);
-  setMaximumHeight(48);
+  setFixedHeight(Height);
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
   mIcon = new QLabel(this);

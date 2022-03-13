@@ -23,31 +23,59 @@ namespace SpkUi
                                        Qt::SmoothTransformation));
       else
       {
-        mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(IconSize));
+        mAppIcon->setPixmap(mBrokenImg);
         RES->PurgeCachedResource(aPkgName, SpkResource::ResourceType::AppIcon, 0);
       }
     }
 
-    // Load screenshots
+    // Load screenshots. Screenshots have id starting with 1.
     if(aScreenshots.isEmpty())
       return;
+    else
+    {
+      auto count = aScreenshots.size();
+      mImgViewer->SetImageTotal(count);
+      if(count > mScreenshotPreviews.size())
+      {
+        auto from = mScreenshotPreviews.size(), to = count - mScreenshotPreviews.size();
+        for(int i = 0; i <= to; i++)
+        {
+          auto wid = new SpkClickLabel;
+          wid->setProperty("shotId", from + i + 1);
+          wid->setFixedHeight(200);
+          wid->setCursor(Qt::PointingHandCursor);
+          connect(wid, &SpkClickLabel::Pressed, this, &SpkPageAppDetails::ImageClicked);
+          mScreenshotPreviews.append(wid);
+          mScreenshotLay->addWidget(wid);
+        }
+      }
+    }
 
     int shotId = 0;
     for(auto &i : aScreenshots)
     {
       shotId++;
-      res = RES->RequestResource(shotId, aPkgName, SpkResource::ResourceType::AppScreenshot, aIcon,
+      res = RES->RequestResource(shotId, aPkgName, SpkResource::ResourceType::AppScreenshot, i,
                                  shotId);
+      auto preview = mScreenshotPreviews[shotId - 1];
+      preview->setVisible(true);
       if(res.status == SpkResource::ResourceStatus::Ready)
       {
         if(pic.loadFromData(res.data))
-          ;// TODO
-          else
-          {
-            // TODO
-            //        mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
-            RES->PurgeCachedResource(aPkgName, SpkResource::ResourceType::AppScreenshot, 0);
-          }
+        {
+          mAppImages[shotId] = pic;
+          mImgViewer->SetPixmap(shotId, &mAppImages[shotId]);
+          preview->setPixmap(pic.scaledToHeight(200, Qt::SmoothTransformation));
+        }
+        else
+        {
+          mAppImages[shotId] = mBrokenImg;
+          RES->PurgeCachedResource(aPkgName, SpkResource::ResourceType::AppScreenshot, 0);
+        }
+      }
+      else
+      {
+        preview->setPixmap(mIconLoading);
       }
     }
 
@@ -64,7 +92,9 @@ namespace SpkUi
     mPkgPath = url;
   }
 
-  SpkPageAppDetails::SpkPageAppDetails(QWidget *parent) : SpkPageBase(parent)
+  SpkPageAppDetails::SpkPageAppDetails(QWidget *parent) : SpkPageBase(parent),
+    mBrokenImg(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_)),
+    mIconLoading(QIcon(":/icons/loading-icon.svg").pixmap(SpkAppItem::IconSize_))
   {
     mMainArea = new QScrollArea;
     mMainArea->setWidgetResizable(true);
@@ -148,6 +178,18 @@ namespace SpkUi
     mDetailsLay->addLayout(mDetailLay);
     mDetailsLay->addWidget(mAppDescription);
 //    mMainLay->addStretch();
+
+    mScreenshotLay = new QHBoxLayout;
+    mScreenshotArea = new QScrollArea;
+    mWid4ShotArea = new QWidget;
+    mWid4ShotArea->setLayout(mScreenshotLay);
+    mScreenshotArea->setWidget(mWid4ShotArea);
+    mScreenshotArea->setWidgetResizable(true);
+    mScreenshotArea->setFixedHeight(230);
+    mScreenshotArea->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+    mDetailsLay->addWidget(mScreenshotArea);
+
     mWid4MainArea = new QWidget;
     mWid4MainArea->setLayout(mDetailsLay);
 
@@ -182,43 +224,80 @@ namespace SpkUi
     mBottomBarLay->addWidget(mBtnRequestUpdate);
     mBottomBarLay->addWidget(mBtnReport);
 
+    mImgViewer = new SpkImgViewer;
+    mImgViewer->setVisible(false);
+
     connect(mBtnDownload, &QPushButton::clicked,
             [=](){ emit RequestDownload(mAppTitle->text(), mPkgName->text(),
                                         "/store/reading/youdao-dict/youdao-dict_6.0.0-0~ubuntu_amd64.deb");
-                 });
+    });
+  }
+
+  SpkPageAppDetails::~SpkPageAppDetails()
+  {
+    delete mImgViewer;
   }
 
   void SpkPageAppDetails::ResourceAcquisitionFinished(int id, ResourceResult result)
   {
-    QPixmap icon;
+    QPixmap img;
 //    qDebug() << "PageAppDetails: Resource" << id << "acquired";
     if(!id)
     {
       // id == 0, icon
       if(result.status == SpkResource::ResourceStatus::Ready)
       {
-        if(icon.loadFromData(result.data))
-          mAppIcon->setPixmap(icon.scaled(SpkAppItem::IconSize_,
+        if(img.loadFromData(result.data))
+          mAppIcon->setPixmap(img.scaled(SpkAppItem::IconSize_,
                                           Qt::IgnoreAspectRatio,
                                           Qt::SmoothTransformation));
         else
-          mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
+          mAppIcon->setPixmap(mBrokenImg);
       }
       else if(result.status == SpkResource::ResourceStatus::Failed)
       {
-        mAppIcon->setPixmap(QIcon(":/icons/broken-icon.svg").pixmap(SpkAppItem::IconSize_));
+        mAppIcon->setPixmap(mBrokenImg);
         RES->PurgeCachedResource(mPkgName->text(), SpkResource::ResourceType::AppIcon, 0);
       }
     }
     else
     {
-      // TODO: screenshots
+      auto preview = mScreenshotPreviews[id - 1];
+      preview->setVisible(true);
+      if(result.status == SpkResource::ResourceStatus::Ready)
+      {
+        if(img.loadFromData(result.data))
+        {
+          mAppImages[id] = img;
+          mImgViewer->SetPixmap(id, &mAppImages[id]);
+          mScreenshotPreviews[id - 1]->setPixmap(img.scaledToHeight(200, Qt::SmoothTransformation));
+        }
+        else
+        {
+          mImgViewer->SetPixmap(id, &mBrokenImg);
+          mScreenshotPreviews[id - 1]->setPixmap(mBrokenImg);
+        }
+      }
+      else if(result.status == SpkResource::ResourceStatus::Failed)
+      {
+        mImgViewer->SetPixmap(id, &mBrokenImg);
+        mScreenshotPreviews[id - 1]->setPixmap(mBrokenImg);
+        RES->PurgeCachedResource(mPkgName->text(), SpkResource::ResourceType::AppIcon, 0);
+      }
     }
   }
 
   void SpkPageAppDetails::Activated()
   {
     RES->Acquire(this, false);
+    for(auto &i : mScreenshotPreviews)
+      i->setVisible(false);
+    mImgViewer->Clear();
+  }
+
+  void SpkPageAppDetails::ImageClicked()
+  {
+    mImgViewer->ShowWithImage(sender()->property("shotId").toInt());
   }
 
   SpkDetailEntry::SpkDetailEntry(QWidget *parent) : QWidget(parent)
