@@ -29,7 +29,7 @@ CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dtkcore dtkgui dtkwidget libnotify
 
 # 禁止输出 qWarning / qDebug 信息
-CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
+#CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
 
 SOURCES += \
     appitem.cpp \

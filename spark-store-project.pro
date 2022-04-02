@@ -4,8 +4,10 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += \
+    src/spark-dstore-patch \
     third-party/QtNetworkService \
     src/spark-store.pro
+
     
 spark-store.depends = third-party/QtNetworkService
 
