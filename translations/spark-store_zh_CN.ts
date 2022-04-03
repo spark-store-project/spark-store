@@ -193,7 +193,7 @@
         <location filename="../src/widget.cpp" line="902"/>
         <location filename="../src/widget.cpp" line="1171"/>
         <source>Install</source>
-        <translation>安装</translation>
+        <translation>很厉害但没种子就会失败的bt下载</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="313"/>

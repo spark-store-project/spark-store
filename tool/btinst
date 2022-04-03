@@ -1,0 +1,21 @@
+#!/bin/bash
+# 第一个参数固定是bittorrent下载链接或者magnet
+# 第二个参数就是文件名
+export DISPLAY=:0
+export XAUTHORITY=/home/shenmo/.Xauthority
+
+if [ -x /tmp/spark-store/$2 ];then
+rm /tmp/spark-store/$2
+echo "检测到之前下载了软件包，未避免不能覆盖，先删除"
+fi
+
+mkdir -p /tmp/spark-store
+cd /tmp/spark-store
+echo "开始下载软件包"
+
+aria2c "$1"
+echo "安装"
+pkexec ssinstall "/tmp/spark-store/$2"
+echo 安装结束，按回车关闭窗口
+read
+exit 0

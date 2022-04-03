@@ -18,7 +18,7 @@
 #include <QSettings>
 #include <QGraphicsOpacityEffect>
 #include <QtConcurrent> // 并发
-
+#include <QDebug>
 #include <DApplication>
 #include <DGuiApplicationHelper>
 #include <DDialog>
@@ -606,19 +606,39 @@ void Widget::updatefoot()
 
 void Widget::on_pushButton_download_clicked()
 {
-    chooseLeftMenu(13);
+//    chooseLeftMenu(13);
 
-    allDownload += 1;
+//    allDownload += 1;
 
     QFileInfo info(url.path());
     QString fileName(info.fileName());  // 获取文件名
-    download_list[allDownload - 1].pkgName = pkgName;
-    if(fileName.isEmpty())
-    {
-        sendNotification(tr("Failed to get the name to the file to be downloaded."));
-        return;
-    }
+//    download_list[allDownload - 1].pkgName = pkgName;
+    QString downloadurl(url.path());
+    downloadurl.remove(0,2);
+    //日了，获取serverurl那么远。。。直接写死了，反正在测试
+    downloadurl.prepend("https://d.store.deepinos.org.cn");
+    qInfo()<<"下载链接拼接之后是"<<downloadurl<<"，注意这里的serverUrl是写死的！！正式上线不要用"<<endl;
+    QString btUrl = downloadurl +  ".torrent";
+    qInfo()<<"合成的bt链接是"<<btUrl<<endl;
+    qInfo()<<"虽然很奇怪这个链接为什么要这样处理但是确实能获取到的filename是"<<fileName<<endl;
 
+    QtConcurrent::run([=]()
+    {
+        ui->pushButton_download->setEnabled(false);
+
+        QProcess btinst;
+        btinst.start("x-terminal-emulator", QStringList() << "-e" << "/opt/durapps/spark-store/bin/btinst" << btUrl << fileName);
+        btinst.waitForFinished();
+        ui->pushButton_download->setEnabled(true);
+
+    });
+
+
+
+
+
+
+/*
     download_list[allDownload - 1].setParent(ui->listWidget);
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     item->setSizeHint(download_list[allDownload - 1].size());
@@ -632,28 +652,23 @@ void Widget::on_pushButton_download_clicked()
     icon.load("/tmp/spark-store/icon.png", "PNG");
     system("cp /tmp/spark-store/icon.png /tmp/spark-store/icon_" + QString::number(allDownload - 1).toUtf8() + ".png");
     download_list[allDownload - 1].seticon(icon);
+*/
 
+/*
     if(!isBusy)
     {
-        /*
-        file = new QFile(fileName);
-        if(!file->open(QIODevice::WriteOnly))
-        {
-            delete file;
-            file = nullptr;
-            return;
-        }
-        */
+
 
         nowDownload += 1;
         startRequest(urList.at(nowDownload - 1), fileName);     // 进行链接请求
     }
-
+*/
     if(ui->pushButton_download->text() == tr("Reinstall"))
     {
         download_list[allDownload - 1].reinstall = true;
     }
 }
+
 
 void Widget::startRequest(QUrl url, QString fileName)
 {
@@ -869,6 +884,8 @@ void Widget::sltAppinfoTags(QStringList *tagList)
     }
 }
 
+
+// 在这里添加选择新的json项目，比如bt专用链接
 void Widget::sltAppinfoDetails(QString *name, QString *details, QString *info,
                                QString *website, QString *packageName, QUrl *fileUrl,
                                bool isInstalled, bool isUpdated)

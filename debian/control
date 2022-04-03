@@ -32,6 +32,7 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  libdtkcore5,
  libdtkgui5,
  libdtkwidget5,
- libnotify4
+ libnotify4,
+ aria2
 Description: Spark Store
  A community powered app store, based on DTK.
