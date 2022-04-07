@@ -14,9 +14,10 @@ int main(int argc, char *argv[])
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);    // 开启 Hidpi 支持
     // 程序内强制添加"-platformtheme deepin"参数喂给Qt让Qt正确使用Deepin主题修复各种奇怪样式问题
     QVector<char*> fakeArgs(argc + 2);
-    fakeArgs[0] = "-platformtheme";
-    fakeArgs[1] = "deepin";
-    for(int i = 0; i < argc; i++) fakeArgs[i + 2] = argv[i];
+    fakeArgs[0] = argv[0];
+    fakeArgs[1] = "-platformtheme";
+    fakeArgs[2] = "deepin";
+    for(int i = 1; i < argc; i++) fakeArgs[i + 2] = argv[i];
     DApplication a(argc + 2, fakeArgs.data());
 
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
