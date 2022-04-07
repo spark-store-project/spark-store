@@ -2,6 +2,7 @@
 #include <DApplicationSettings>
 #include <DWidgetUtil>      // Dtk::Widget::moveToCenter(&w); 要调用它，就得引用 DWidgetUtil
 
+#include <QVector>
 #include <QScreen>
 
 #include "widget.h"
@@ -11,7 +12,12 @@ int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();  // 让 bar 处在标题栏中
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);    // 开启 Hidpi 支持
-    DApplication a(argc, argv);
+    // 程序内强制添加"-platformtheme deepin"参数喂给Qt让Qt正确使用Deepin主题修复各种奇怪样式问题
+    QVector<char*> fakeArgs(argc + 2);
+    fakeArgs[0] = "-platformtheme";
+    fakeArgs[1] = "deepin";
+    for(int i = 0; i < argc; i++) fakeArgs[i + 2] = argv[i];
+    DApplication a(argc + 2, fakeArgs.data());
 
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
     a.loadTranslator();     // 载入翻译
