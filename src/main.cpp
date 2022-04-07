@@ -18,7 +18,8 @@ int main(int argc, char *argv[])
     fakeArgs[1] = "-platformtheme";
     fakeArgs[2] = "deepin";
     for(int i = 1; i < argc; i++) fakeArgs[i + 2] = argv[i];
-    DApplication a(argc + 2, fakeArgs.data());
+    int fakeArgc = argc + 2; // 为啥DApplication的argc要用引用啊？
+    DApplication a(fakeArgc, fakeArgs.data());
 
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
     a.loadTranslator();     // 载入翻译
