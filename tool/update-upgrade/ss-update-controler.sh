@@ -28,7 +28,6 @@ read option
 case $option in 
 	1)
 	echo "执行以下操作需要授权..."
-
 	if [  -f /etc/xdg/autostart/spark-update-notifier.desktop ];then 
 	echo "检测到已经启动了自动更新检测，关闭中"
 	sudo systemctl disable spark-update-notifier
