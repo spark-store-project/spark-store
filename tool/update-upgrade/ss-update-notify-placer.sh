@@ -38,14 +38,17 @@ fi
 
 
 updatetext=`sudo apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"`
-isupdate=`echo $updatetext | grep "can be upgraded"`
-#echo $isupdate
 
-if [  "$isupdate" ];then
-	update_app_number=`echo ${updatetext%package*} #从右向左截取第一个 src 后的字符串`
-	update_app_number=`echo ${update_app_number: -1}`
-	mkdir -p /tmp/spark-store-updatenum
-	sudo echo "$update_app_number" > /tmp/spark-store-updatenum/number
-else
-	sudo echo "0" > /tmp/spark-store-updatenum/number
+isupdate=`echo ${updatetext: -5}`
+if [ "$isupdate" = "date." ];then
+sudo echo "0" > /tmp/spark-store-updatenum/number
+exit 0 
 fi
+
+
+update_app_number=`echo ${updatetext%package*} #从右向左截取第一个 src 后的字符串`
+update_app_number=`echo ${update_app_number: -1}`	
+sudo echo "$update_app_number" > /tmp/spark-store-updatenum/number
+
+	
+
