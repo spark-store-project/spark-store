@@ -7,9 +7,18 @@ rm /usr/local/bin/spark-dstore-patch
 rm /usr/local/bin/ussinstall
 rm /usr/local/bin/ussremove
 
+# Remove residual symbol links to stop upgrade detect
+rm /etc/xdg/autostart/spark-update-notifier.desktop
+
+# Stop update detect service
+systemctl disable spark-update-notifier
+
 # Remove gpg key file
 if [ -f "/etc/apt/trusted.gpg.d/spark-store.gpg" ] ; then
 	rm /etc/apt/trusted.gpg.d/spark-store.gpg
 fi
 
 apt-key del '9D9A A859 F750 24B1 A1EC  E16E 0E41 D354 A29A 440C'
+
+# Shutdown services 
+service spark-update-notifier stop

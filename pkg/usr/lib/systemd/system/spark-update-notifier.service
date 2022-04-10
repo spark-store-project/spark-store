@@ -6,7 +6,7 @@ After=apt-daily.service network.target network-online.target systemd-networkd.se
 [Service]
 Type=oneshot
 RemainAfterExit=yes 
-ExecStart=/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify-placer
+ExecStart=/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify-placer.sh
 Restart=on-failure
 RestartSec=10
 

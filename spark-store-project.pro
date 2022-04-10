@@ -30,6 +30,10 @@ sourceslist.path = /etc/apt/sources.list.d
 desktop.files += pkg/usr/share/applications/spark-store.desktop
 desktop.path = /usr/share/applications
 
+service.files += pkg/usr/lib/systemd/system/spark-update-notifier.service
+service.path = /usr/lib/systemd/system/
+
+
 icon.files += pkg/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 icon.path = /usr/share/icons/hicolor/scalable/apps
 
@@ -43,4 +47,5 @@ INSTALLS += \
     icon \
     sourceslist \
     preferences \
-    tmp
+    tmp \
+    service

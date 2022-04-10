@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 echo "因为目前没有有时间的Qt程序员志愿者所以现在加功能只有让shenmo写脚本了..."
-echo "下面一段是shenmo想了半天写出来的(为了让用户认真读操碎了心~"
-echo "请务必认真阅读("
 echo
 echo "此功能被添加的原因是：为了防止影响系统更新，星火源默认的优先级是400，低于默认的500。这导致了与系统仓库相同包名的软件包无法正常更新到比系统仓库更高的版本。例如：hugo，系统仓库中的低版本会被优先安装，而且默认不会更新到星火的更新的版本"
 echo "此脚本可以检测星火源中是否有比当前系统更高版本的软件包，由您决定是否安装"
@@ -31,21 +29,24 @@ case $option in
 	1)
 	echo "执行以下操作需要授权..."
 
-	if [  -f $XDG_CONFIG_HOME/autostart/spark-update-notifier.desktop ];then 
+	if [  -f /etc/xdg/autostart/spark-update-notifier.desktop ];then 
 	echo "检测到已经启动了自动更新检测，关闭中"
 	sudo systemctl disable spark-update-notifier
-	rm $XDG_CONFIG_HOME/autostart/spark-update-notifier.desktop
+	rm /etc/xdg/autostart/spark-update-notifier.desktop
 	
 	else
 	echo "未检测到自动更新检测，启动中"
 	sudo systemctl enable spark-update-notifier
 	sudo service spark-update-notifier start
-	ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop $XDG_CONFIG_HOME/autostart
+#	ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop $XDG_CONFIG_HOME/autostart
+#	
+	ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop /etc/xdg/autostart
 	/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify.sh
 	fi
 	;;
 
 	2)
+	echo "执行以下操作需要授权..."
 	/opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
 
