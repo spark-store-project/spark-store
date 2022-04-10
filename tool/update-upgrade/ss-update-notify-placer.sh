@@ -46,4 +46,6 @@ if [  "$isupdate" ];then
 	update_app_number=`echo ${update_app_number: -1}`
 	mkdir -p /tmp/spark-store-updatenum
 	sudo echo "$update_app_number" > /tmp/spark-store-updatenum/number
+else
+	sudo echo "0" > /tmp/spark-store-updatenum/number
 fi
