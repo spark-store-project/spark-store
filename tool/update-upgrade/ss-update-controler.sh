@@ -32,7 +32,7 @@ case $option in
 	if [  -f /etc/xdg/autostart/spark-update-notifier.desktop ];then 
 	echo "检测到已经启动了自动更新检测，关闭中"
 	sudo systemctl disable spark-update-notifier
-	rm /etc/xdg/autostart/spark-update-notifier.desktop
+	sudo rm /etc/xdg/autostart/spark-update-notifier.desktop
 	
 	else
 	echo "未检测到自动更新检测，启动中"
@@ -40,8 +40,8 @@ case $option in
 	sudo service spark-update-notifier start
 #	ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop $XDG_CONFIG_HOME/autostart
 #	
-	ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop /etc/xdg/autostart
-	/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify.sh
+	sudo ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop /etc/xdg/autostart
+	/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify.sh now
 	fi
 	;;
 
