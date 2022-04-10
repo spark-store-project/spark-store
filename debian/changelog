@@ -1,3 +1,12 @@
+spark-store (3.0.3-11) stable; urgency=medium
+
+  * Now support autoupdate
+
+ -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
+
+
+
+
 spark-store (3.0.3-10) stable; urgency=medium
 
   * Now also compile dstore patch

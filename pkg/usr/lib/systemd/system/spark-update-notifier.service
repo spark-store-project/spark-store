@@ -1,0 +1,15 @@
+[Unit]
+Description:Spark Store update notifier
+After=apt-daily.service network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes 
+ExecStart=/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify-placer
+Restart=on-failure
+RestartSec=10
+
+[Install]
+Alias=spark-update-notifier
+WantedBy=multi-user.target

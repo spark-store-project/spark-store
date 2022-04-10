@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("spark-union");
     a.setOrganizationDomain("https://www.deepinos.org/");
     a.setApplicationName("Spark Store");    //不需要翻译，否则 ~/.local/share/ 下文件夹名称也被翻译为中文
-    a.setApplicationVersion(DApplication::buildVersion("3.0.3-10"));
+    a.setApplicationVersion(DApplication::buildVersion("3.0.3-11"));
     a.setApplicationAcknowledgementPage("https://gitee.com/deepin-community-store/spark-store");
     a.setApplicationDescription(
                 QObject::tr(

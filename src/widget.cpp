@@ -192,14 +192,18 @@ void Widget::initUI()
     // 添加菜单项
     QAction *actionSubmission = new QAction(tr("Submit App"), this);
     QAction *setting = new QAction(tr("Settings"));
+    QAction *upgrade = new QAction(tr("App Upgrade"));
 
     QMenu *menu = new QMenu;
     menu->addAction(setting);
+    menu->addAction(upgrade);
     menu->addAction(actionSubmission);
+
     titlebar->setMenu(menu);
 
     connect(actionSubmission, &QAction::triggered, this, [=]{QDesktopServices::openUrl(QUrl("https://upload.deepinos.org/"));});
     connect(setting, &QAction::triggered, this, &Widget::opensetting);
+    connect(upgrade, &QAction::triggered, this, [=]{QProcess::startDetached("x-terminal-emulator -e /opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh");});
 
     // 载入自定义字体
     int loadedFontID = QFontDatabase::addApplicationFont(":/fonts/fonts/hksnzt.ttf");
