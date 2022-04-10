@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+rm -rf /tmp/spark-store-updatenum/number
 LANG=en.US
 
 #!/bin/bash
