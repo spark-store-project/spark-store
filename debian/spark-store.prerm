@@ -13,6 +13,11 @@ rm /etc/xdg/autostart/spark-update-notifier.desktop
 # Stop update detect service
 systemctl disable spark-update-notifier
 
+# Clean the service place file
+if [ -d "/tmp/spark-store-updatenum/" ] ; then
+	rm -rf /tmp/spark-store-updatenum/s
+fi
+
 # Remove gpg key file
 if [ -f "/etc/apt/trusted.gpg.d/spark-store.gpg" ] ; then
 	rm /etc/apt/trusted.gpg.d/spark-store.gpg

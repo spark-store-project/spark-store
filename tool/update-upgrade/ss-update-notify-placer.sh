@@ -39,6 +39,9 @@ fi
 
 updatetext=`sudo apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"`
 
+mkdir -p /tmp/spark-store-updatenum/
+
+
 isupdate=`echo ${updatetext: -5}`
 if [ "$isupdate" = "date." ];then
 sudo echo "0" > /tmp/spark-store-updatenum/number
