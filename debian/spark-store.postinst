@@ -27,7 +27,8 @@ case "$1" in
 
 		# Start upgrade detect service
 		systemctl enable spark-update-notifier
-
+		service spark-update-notifier start
+		
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
