@@ -49,7 +49,7 @@ QLayoutItem *SpkStretchLayout::itemAt(int i) const
 
 QLayoutItem *SpkStretchLayout::takeAt(int i)
 {
-  return i >=0 && i < mItems.size() ? mItems.takeAt(i) : nullptr;
+  return i >= 0 && i < mItems.size() ? mItems.takeAt(i) : nullptr;
 }
 
 void SpkStretchLayout::setGeometry(const QRect &rect)
@@ -87,4 +87,6 @@ void SpkStretchLayout::setGeometry(const QRect &rect)
                (i / countPerLine) * (size.height() + spacing()) + spc + origin.y());
     o->setGeometry(geo);
   }
+
+//  qDebug() << rect;
 }

@@ -236,7 +236,7 @@
         <number>-1</number>
        </property>
        <property name="text">
-        <string>Download path</string>
+        <string>Download path*</string>
        </property>
       </widget>
      </item>

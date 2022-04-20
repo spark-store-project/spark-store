@@ -408,7 +408,7 @@ Right now we are not just a Chinese group. We are discovering our way into more 
     <message>
         <location filename="../gui/spkimgviewer.cpp" line="23"/>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>图片预览</translation>
     </message>
 </context>
 <context>
@@ -798,28 +798,46 @@ to use terminal for program output.</source>
 <context>
     <name>SpkUi::SpkPageSettings</name>
     <message>
-        <location filename="../gui/page/spkpagesettings.cpp" line="74"/>
+        <location filename="../gui/page/spkpagesettings.cpp" line="89"/>
         <source>Cannot change distribution servers.
 There&apos;s probably still downloads going on.</source>
         <translation>无法更改分发服务器。
 可能是因为还有下载正在进行。</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpagesettings.cpp" line="76"/>
+        <location filename="../gui/page/spkpagesettings.cpp" line="91"/>
         <source>Cannot set distribution server</source>
         <translation>无法设置分发服务器</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpagesettings.cpp" line="80"/>
+        <location filename="../gui/page/spkpagesettings.cpp" line="95"/>
         <source>Auto mode can only be used when DDE plugin is loaded.
 Option change is not applied.</source>
         <translation>自动模式只能在DDE插件加载时使用。
 选项更改未应用。</translation>
     </message>
     <message>
-        <location filename="../gui/page/spkpagesettings.cpp" line="82"/>
+        <location filename="../gui/page/spkpagesettings.cpp" line="97"/>
         <source>Cannot set theme mode</source>
         <translation>无法设置主题模式</translation>
+    </message>
+    <message>
+        <location filename="../gui/page/spkpagesettings.cpp" line="103"/>
+        <location filename="../gui/page/spkpagesettings.cpp" line="104"/>
+        <source>Counting...</source>
+        <translation>正在统计……</translation>
+    </message>
+    <message>
+        <location filename="../gui/page/spkpagesettings.cpp" line="143"/>
+        <location filename="../gui/page/spkpagesettings.cpp" line="148"/>
+        <source>Cleaned</source>
+        <translation>已清理</translation>
+    </message>
+    <message>
+        <location filename="../gui/page/spkpagesettings.cpp" line="182"/>
+        <location filename="../gui/page/spkpagesettings.cpp" line="205"/>
+        <source>Cleaning...</source>
+        <translation>清理中……</translation>
     </message>
 </context>
 <context>
@@ -940,10 +958,14 @@ Option change is not applied.</source>
         <translation>手动</translation>
     </message>
     <message>
+        <source>Download path</source>
+        <translation type="vanished">下载路径</translation>
+    </message>
+    <message>
         <location filename="../gui/page/ui/settings.ui" line="239"/>
         <location filename="../build/ui_settings.h" line="400"/>
-        <source>Download path</source>
-        <translation>下载路径</translation>
+        <source>Download path*</source>
+        <translation>下载路径*</translation>
     </message>
     <message>
         <location filename="../gui/page/ui/settings.ui" line="246"/>
