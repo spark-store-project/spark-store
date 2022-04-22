@@ -10,7 +10,7 @@
 DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
-    //DApplication::loadDXcbPlugin();  // 已废弃
+    DApplication::loadDXcbPlugin();  // 已废弃，但是对于非deepin桌面可以正常使用标题栏
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);    // 开启 Hidpi 支持
     // 程序内强制添加"-platformtheme deepin"参数喂给Qt让Qt正确使用Deepin主题修复各种奇怪样式问题
     QVector<char*> fakeArgs(argc + 2);
