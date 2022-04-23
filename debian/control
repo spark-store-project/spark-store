@@ -33,6 +33,7 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  libdtkgui5(>=5.2),
  libdtkwidget5(>=5.2),
  libnotify4,
- curl
+ curl,
+ dde-qt5integration
 Description: Spark Store
  A community powered app store, based on DTK.
