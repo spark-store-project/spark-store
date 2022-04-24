@@ -1,3 +1,12 @@
+spark-store (3.0.3-13) stable; urgency=medium
+
+  * Update the ssinstall script. Now support apt-fast and will temporarily increase the spark store source priority to 500 to make depends install correctly
+  * Change the style of About Dialog
+
+ -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
+
+
+
 spark-store (3.0.3-12) stable; urgency=medium
 
   * Rollback to use DApplication::loadDXcbPlugin() to make titlebar behave normally in ubuntu

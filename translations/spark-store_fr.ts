@@ -23,7 +23,9 @@ Spark Store est publié sous licence GPL V3
 Nous sommes nés pour le changement.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="40"/>
+        <location filename="../src/main.cpp" line="35"/>
+        <location filename="../src/main.cpp" line="43"/>
+        <location filename="../src/main.cpp" line="49"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31,7 +33,22 @@ Nous sommes nés pour le changement.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="48"/>
+        <location filename="../src/main.cpp" line="32"/>
+        <source>We publish this program under GPL V3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="37"/>
+        <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by  community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="45"/>
+        <source>The Spark Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="57"/>
         <source>&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;Published under GPL V3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -188,8 +205,8 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="547"/>
-        <location filename="../src/widget.cpp" line="902"/>
-        <location filename="../src/widget.cpp" line="1171"/>
+        <location filename="../src/widget.cpp" line="906"/>
+        <location filename="../src/widget.cpp" line="1175"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -232,7 +249,7 @@ Nous sommes nés pour le changement.</translation>
     <message>
         <location filename="../src/widget.ui" line="769"/>
         <location filename="../src/widget.ui" line="772"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 20.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -585,10 +602,10 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="138"/>
-        <location filename="../src/widget.cpp" line="402"/>
-        <location filename="../src/widget.cpp" line="407"/>
-        <location filename="../src/widget.cpp" line="417"/>
-        <location filename="../src/widget.cpp" line="422"/>
+        <location filename="../src/widget.cpp" line="406"/>
+        <location filename="../src/widget.cpp" line="411"/>
+        <location filename="../src/widget.cpp" line="421"/>
+        <location filename="../src/widget.cpp" line="426"/>
         <source>Spark\ Store</source>
         <translation type="unfinished"></translation>
     </message>
@@ -613,63 +630,68 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="340"/>
+        <location filename="../src/widget.cpp" line="344"/>
         <source>Not Exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="652"/>
-        <location filename="../src/widget.cpp" line="891"/>
+        <location filename="../src/widget.cpp" line="656"/>
+        <location filename="../src/widget.cpp" line="895"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="618"/>
+        <location filename="../src/widget.cpp" line="622"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="702"/>
+        <location filename="../src/widget.cpp" line="195"/>
+        <source>App Upgrade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widget.cpp" line="706"/>
         <source>Relative apps Not Found!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="711"/>
+        <location filename="../src/widget.cpp" line="715"/>
         <source>Request Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="896"/>
+        <location filename="../src/widget.cpp" line="900"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1079"/>
+        <location filename="../src/widget.cpp" line="1083"/>
         <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1140"/>
+        <location filename="../src/widget.cpp" line="1144"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1147"/>
+        <location filename="../src/widget.cpp" line="1151"/>
         <source>Unknown error!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1175"/>
+        <location filename="../src/widget.cpp" line="1179"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1197"/>
+        <location filename="../src/widget.cpp" line="1201"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1279"/>
+        <location filename="../src/widget.cpp" line="1283"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -753,52 +775,52 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="69"/>
+        <location filename="../src/downloadlist.cpp" line="74"/>
         <source>Downloaded, waiting to install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="95"/>
+        <location filename="../src/downloadlist.cpp" line="100"/>
         <source>Failed to download %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="97"/>
+        <location filename="../src/downloadlist.cpp" line="102"/>
         <source>Download Failed，Check Your Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="109"/>
+        <location filename="../src/downloadlist.cpp" line="114"/>
         <source>Finished downloading %1, awaiting to install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="142"/>
+        <location filename="../src/downloadlist.cpp" line="147"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="185"/>
+        <location filename="../src/downloadlist.cpp" line="190"/>
         <source>Finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="191"/>
+        <location filename="../src/downloadlist.cpp" line="196"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="192"/>
+        <location filename="../src/downloadlist.cpp" line="197"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="198"/>
+        <location filename="../src/downloadlist.cpp" line="203"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="220"/>
+        <location filename="../src/downloadlist.cpp" line="225"/>
         <source>Download canceled</source>
         <translation type="unfinished"></translation>
     </message>

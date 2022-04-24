@@ -37,3 +37,4 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  dde-qt5integration
 Description: Spark Store
  A community powered app store, based on DTK.
+Recommends: apt-fast
