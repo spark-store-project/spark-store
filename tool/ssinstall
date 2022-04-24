@@ -3,7 +3,7 @@
 
 echo "Spark Store Install script.星火商店安装脚本"
 
-DEPEND=`dpkg -s apt-fast`
+DEPEND=`which apt-fast`
 isuos=`cat /etc/os-release | grep UnionTech`
 #临时提升星火源的优先级
 sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
