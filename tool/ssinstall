@@ -1,3 +1,33 @@
-#!/bin/sh
+#!/bin/bash
+#将来可能可以换成apt-metalink来直接用种子/链接下载
 
+echo "Spark Store Install script.星火商店安装脚本"
+
+DEPEND=`dpkg -s apt-fast`
+isuos=`cat /etc/os-release | grep UnionTech`
+#临时提升星火源的优先级
+sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
+
+if [ "$DEPEND" = "" ] ; then
+echo "没有检测到apt-fast组件，将会使用单线程下载依赖"
+echo "你可以安装apt-fast来加速下载（对UOS无效）"
+echo "若要使用apt-fast加速下载，请在安装apt-fast时选择使用apt并选择略过确认对话框"
+echo ----------------------------------------------------------------------------------
 dpkg -i $1 || apt install -yf || dpkg -P $1
+fi
+
+
+if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
+echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
+echo ----------------------------------------------------------------------------------
+dpkg -i $1 || apt install -yf || dpkg -P $1
+fi
+
+if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
+echo "检测到apt-fast，使用apt-fast进行多线程下载加速"
+echo ----------------------------------------------------------------------------------
+dpkg -i $1 || apt-fast install -yf || dpkg -P $1
+fi
+
+sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore
+#恢复优先级
