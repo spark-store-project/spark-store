@@ -2,6 +2,7 @@ spark-store (3.0.3-13) stable; urgency=medium
 
   * Update the ssinstall script. Now support apt-fast and will temporarily increase the spark store source priority to 500 to make depends install correctly
   * Change the style of About Dialog
+  * Modified depends to avoid Deb installers can not handle "Provides"
 
  -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
 
