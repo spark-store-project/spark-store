@@ -3,6 +3,24 @@
 
 echo "Spark Store Install script.星火商店安装脚本"
 
+if [ $# -eq 0 ];then
+echo "没有接收到参数，退出"
+echo "用法：$0 deb路径"
+exit
+fi
+
+if [ "$(id -u)" != "0" ]
+then
+    echo "ssinstall需要在root下运行";
+	exit
+fi
+
+if [ ! -f "$1" ]
+then
+	echo "文件不存在"
+	exit
+fi
+
 DEPEND=`which apt-fast`
 isuos=`cat /etc/os-release | grep UnionTech`
 #临时提升星火源的优先级
