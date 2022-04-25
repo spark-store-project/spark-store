@@ -23,7 +23,7 @@ stages:
         displayName: 镜像构建
         type: cert
         certificate: d3a72e50-a6b5-013a-3031-5e77c3ac149e
-        tag: uos-21-dtk5.4:latest
+        tag: uos-21-dtk5.4:1.0
         dockerfile: ./.gitee/Dockerfile
         isCache: false
   - name: stage-78c83955
