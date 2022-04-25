@@ -51,4 +51,5 @@ INSTALLS += \
     sourceslist \
     preferences \
     tmp \
-    service
+    service \
+	polkit-1
