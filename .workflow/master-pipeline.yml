@@ -21,10 +21,8 @@ stages:
       - step: build@docker
         name: build_docker
         displayName: 镜像构建
-        type: account
-        repository: https://hub.docker.com/r/shenmo7192/uos-21-dtk5.4
-        username: sparkpublic
-        password: thisisapublic
+        type: cert
+        certificate: d3a72e50-a6b5-013a-3031-5e77c3ac149e
         tag: '1.0'
         dockerfile: ./.gitee/Dockerfile
         isCache: false
