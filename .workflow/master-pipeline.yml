@@ -22,7 +22,7 @@ stages:
         name: build_docker
         displayName: 镜像构建
         type: account
-        repository: hub.docker.com
+        repository: https://hub.docker.com/r/shenmo7192/uos-21-dtk5.4
         username: sparkpublic
         password: thisisapublic
         tag: build.${GITEE_PIPELINE_BUILD_NUMBER}
