@@ -2,15 +2,7 @@ version: '1.0'
 name: dtk-build-commit-20220425
 displayName: dtk-build-commit
 triggers:
-  trigger: auto
-  push:
-    branches:
-      prefix:
-        - master
-  pr:
-    branches:
-      prefix:
-        - ''
+  trigger: manual
 stages:
   - name: stage-200d0b6b
     displayName: docker build
