@@ -23,8 +23,8 @@ stages:
         displayName: 镜像构建
         type: account
         repository: hub.docker.com
-        username: shenmo7192
-        password: '12345678'
+        username: sparkpublic
+        password: thisisapublic
         tag: build.${GITEE_PIPELINE_BUILD_NUMBER}
         dockerfile: ./.gitee/Dockerfile
         isCache: false
