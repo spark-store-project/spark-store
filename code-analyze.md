@@ -11,25 +11,7 @@ https://store.deepinos.org.cn/
 
 
 
-#### 如何编译
 
-Deepin V20/UOS 系统下, 安装依赖
-
-```shell
-sudo apt install qt5-default libdtkcore-dev libdtkgui-dev libdtkwidget-dev qtwebengine5-dev libnotify-dev
-```
-
-```shell
-git clone https://gitee.com/deepin-community-store/spark-store.git
-cd spark-store
-mkdir build && cd build
-qmake ..
-make -j
-```
-
-./build 文件夹下的 spark-store 即为可执行文件
-
-P.S. 安装依赖后直接运行 build.sh 即可编译并打包
 
 # 星火应用商店文档
 
