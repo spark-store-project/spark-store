@@ -9,16 +9,30 @@
 
 希望看到这里的人也可以加入我们的队伍，开发或者投递应用都很欢迎，共同构建Linux应用生态
 
-如果喜欢，请
-
-### [在这里投稿](https://upload.deepinos.org/index)
+如果有想要提交的软件包，请 [在这里投稿](https://upload.deepinos.org/index)
 
 
 ## 🙌 简单的开始
 
 如果想安装 `星火应用商店` ，请打开右侧的 [Release] 页面，找到最新版本，并选择适用于当前系统的安装包下载。
 
-**Watch** 项目，以获取应用的更新动态。
+---
+#### 编译安装
+
+
+Deepin V20/UOS 21/ Ubuntu 22.04 系统下, 安装依赖
+
+```shell
+sudo apt install debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev
+
+```
+然后
+```shell
+git clone https://gitee.com/deepin-community-store/spark-store.git
+cd spark-store
+dpkg-buildpackage
+```
+
 
 
 ## 🚀 协作
