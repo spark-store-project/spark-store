@@ -1,2 +1,4 @@
-FROM python:3
-RUN pip3 install requests 
+FROM uos-21-dtk5.4:1.0
+ADD . /root/workdir
+WORKDIR /root/workdir
+RUN dpkg-buildpackage
