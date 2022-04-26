@@ -21,7 +21,7 @@ stages:
         certificate: d3a72e50-a6b5-013a-3031-5e77c3ac149e
         tag: shenmo7192/uos-21-dtk5.4:1.0
         dockerfile: ./.gitee/Dockerfile
-        isCache: false
+        isCache: true
   - name: stage-78c83955
     displayName: upload
     strategy: naturally
@@ -33,12 +33,6 @@ stages:
         displayName: 上传制品
         dependArtifact: BUILD_ARTIFACT
         artifactName: package
-      - step: publish@release_artifacts
-        name: publish_release_artifacts
-        displayName: 发布
-        dependArtifact: package
-        version: 3.1.0.0
-        autoIncrement: true
 permissions:
   - role: admin
     members: []
