@@ -22,7 +22,7 @@ stages:
         displayName: 镜像构建
         type: cert
         certificate: d3a72e50-a6b5-013a-3031-5e77c3ac149e
-        tag: spark-store-with-uos:1.0
+        tag: shenmo7192/spark-store-with-uos:1.${GITEE_PIPELINE_BUILD_NUMBER}
         dockerfile: ./.gitee/Dockerfile
         isCache: true
   - name: stage-78c83955
