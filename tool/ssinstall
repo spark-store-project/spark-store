@@ -3,26 +3,83 @@
 
 echo "Spark Store Install script.星火商店安装脚本"
 
+#################检测文件是否存在
 if [ $# -eq 0 ];then
 echo "没有接收到参数，退出"
 echo "用法：$0 deb路径"
 exit
 fi
 
-if [ "$(id -u)" != "0" ]
-then
-    echo "ssinstall需要在root下运行";
-	exit
-fi
-
 if [ ! -f "$1" ]
 then
 	echo "文件不存在"
-	exit
+	exit 1
+fi
+#################root校验+要密码
+if [ "$(id -u)" != "0" ]
+then
+    echo "ssinstall需要在root下运行";
+	uname=`whoami`
+	echo "Now input the password of $uname"
+	read upass
+	################检查密码对不对
+    echo "$upass" | sudo -S echo "i love amber forever"
+	passcheck=`echo "$upass" | sudo -S echo "i love amber forever"`
+	if [ "$passcheck" != "i love amber forever" ];then
+	echo "-----------------------------------------------------"
+	echo "E:密码错误,退出脚本！"
+	exit 1		
+	fi
 fi
 
+
+
+
+
+
+
+
+
+##################apt-fast/metalink测试
 DEPEND=`which apt-fast`
 isuos=`cat /etc/os-release | grep UnionTech`
+
+
+##############判断是否是root运行，如果是，则正常走；如果不是，则代输密码
+if [ "$(id -u)" != "0" ];then
+#############################无root权限时
+#临时提升星火源的优先级
+echo "$upass" | sudo -S sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
+
+if [ "$DEPEND" = "" ] ; then
+echo "没有检测到apt-fast组件，将会使用单线程下载依赖"
+echo "你可以安装apt-fast来加速下载（对UOS无效）"
+echo "若要使用apt-fast加速下载，请在安装apt-fast时选择使用apt并选择略过确认对话框"
+echo ----------------------------------------------------------------------------------
+echo "$upass" | sudo -S dpkg -i $1 || apt install -yf || dpkg -P $1
+fi
+
+
+if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
+echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
+echo ----------------------------------------------------------------------------------
+dpkg -i $1 || apt install -yf || dpkg -P $1
+fi
+
+if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
+echo "检测到apt-fast，使用apt-fast进行多线程下载加速"
+echo ----------------------------------------------------------------------------------
+echo "$upass" | sudo -S dpkg -i $1 || apt-fast install -yf || dpkg -P $1
+fi
+
+echo "$upass" | sudo -S sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore
+#恢复优先级
+
+
+
+else
+###########################有root权限时
+
 #临时提升星火源的优先级
 sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
 
@@ -49,3 +106,7 @@ fi
 
 sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore
 #恢复优先级
+
+
+
+fi
