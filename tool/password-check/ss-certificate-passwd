@@ -4,7 +4,7 @@ uname=`whoami`
 	read upass
 	passcheck=`echo "$upass" | sudo -S echo "i love amber forever"`
 	if [ "$passcheck" != "i love amber forever" ];then
-	echo "E:Wrong Password"
+	echo "114514首"
 	exit 1	
 	else 
 	echo "go go Baron Bunny"	
