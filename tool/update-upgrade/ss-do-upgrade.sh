@@ -1,7 +1,9 @@
 #!/bin/bash
-#临时提升星火源的优先级
-sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
-sudo apt upgrade
-sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore
-#恢复优先级
-
+DEPEND=`which apt-fast`
+if [ "$DEPEND" = "" ] ; then
+echo "没有安装apt-fast，使用apt运行"
+sudo apt upgrade -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+else
+echo "已安装apt-fast，使用apt-fast加速运行"
+sudo apt-fast upgrade -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+fi
