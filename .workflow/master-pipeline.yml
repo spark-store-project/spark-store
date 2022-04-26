@@ -3,6 +3,10 @@ name: dtk-build-commit-20220425
 displayName: dtk-build-commit
 triggers:
   trigger: manual
+  push:
+    branches:
+      prefix:
+        - master
 stages:
   - name: stage-200d0b6b
     displayName: docker build
