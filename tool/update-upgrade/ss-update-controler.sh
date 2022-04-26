@@ -19,6 +19,9 @@ reset
 
 endloop=0
 
+
+while [ $endloop -eq 0 ] ;do
+
 if [  -f /etc/xdg/autostart/spark-update-notifier.desktop ];then 
 textupdateopen="关闭"
 #已经开启了就显示关闭
@@ -26,7 +29,6 @@ else
 textupdateopen="开启"
 fi
 
-while [ $endloop -eq 0 ] ;do
 echo "欢迎使用星火更新工具 脚本版 "
 echo "请在以下操作中选择一个进行~"
 echo "输入1 $textupdateopen星火更新检测工具(如果开启则会在系统启动后自动检测更新。如有更新则会弹出通知)"
