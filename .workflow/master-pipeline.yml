@@ -4,6 +4,9 @@ displayName: dtk-build-commit
 triggers:
   trigger: manual
   push:
+    branches:
+      prefix:
+        - master
     tags:
       prefix:
         - ''
