@@ -11,47 +11,25 @@ triggers:
       prefix:
         - ''
 stages:
-  - name: stage-200d0b6b
-    displayName: docker build
-    strategy: naturally
-    trigger: auto
-    executor: []
-    steps:
-      - step: build@docker
-        name: build_docker
-        displayName: 镜像构建
-        type: cert
-        certificate: d3a72e50-a6b5-013a-3031-5e77c3ac149e
-        tag: shenmo7192/spark-store-with-uos:1.${GITEE_PIPELINE_BUILD_NUMBER}
-        dockerfile: ./.gitee/Dockerfile
-        context: ./target/build
-        isCache: true
   - name: stage-4e566164
-    displayName: 复制
+    displayName: build
     strategy: naturally
     trigger: auto
     executor: []
     steps:
-      - step: shell@agent
-        name: execute_shell
-        displayName: Shell 脚本执行
-        hostGroupID: gitee-go
-        script: |-
-          # 请在此输入您想执行的脚本
-          mkdir /root/workspace/deepin-community-store/spark-store/target/deb
-          mv /root/workspace/deepin-community-store/spark-store/target/build/*.deb ../deb
-          BUILD_ARTIFACT="/root/workspace/deepin-community-store/spark-store/target/deb"
-  - name: stage-78c83955
-    displayName: upload
-    strategy: naturally
-    trigger: auto
-    executor: []
-    steps:
-      - step: publish@general_artifacts
-        name: publish_general_artifacts
-        displayName: 上传制品
-        dependArtifact: BUILD_ARTIFACT
-        artifactName: package
+      - step: execute@docker
+        name: execute_by_docker
+        displayName: 基于镜像的脚本执行
+        certificate: d3a72e50-a6b5-013a-3031-5e77c3ac149e
+        image: https://hub.docker.com/r/shenmo7192/uos-21-dtk5.4
+        command:
+          - git clone https://gitee.com/deepin-community-store/spark-store
+          - mkdir debs
+          - cd spark-store
+          - dpkg-buildpackage
+          - mv *.deb ../debs
+          - cd ../debs
+          - curl -s --url "smtp://smtp.163.com" --mail-from "sparkstorefeedback@163.com" --mail-rcpt "shenmo@spark-app.store" --upload-file ./*.deb --user "sparkstorefeedback@163.com:YWYGLQNOPLWNNJJY"
 permissions:
   - role: admin
     members: []
