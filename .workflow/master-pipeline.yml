@@ -21,7 +21,7 @@ stages:
         name: execute_by_docker
         displayName: 基于镜像的脚本执行
         certificate: d3a72e50-a6b5-013a-3031-5e77c3ac149e
-        image: https://hub.docker.com/r/shenmo7192/uos-21-dtk5.4
+        image: hub.docker.com/r/shenmo7192/uos-21-dtk5.4
         command:
           - git clone https://gitee.com/deepin-community-store/spark-store
           - mkdir debs
