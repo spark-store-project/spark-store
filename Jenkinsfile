@@ -4,12 +4,12 @@ pipeline {
     stage('build') {
       agent {
         docker {
-          image 'jerry979/dtke:5.11.1'
+          image 'shenmo7192/uos-21-dtk5.4'
         }
 
       }
       steps {
-        sh 'mkdir build && cd build && qmake .. && make '
+        sh 'dpkg-buildpackage && tree .'
         archiveArtifacts(artifacts: 'build/src/spark-store', allowEmptyArchive: true, defaultExcludes: true)
       }
     }
