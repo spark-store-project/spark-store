@@ -4,7 +4,7 @@ pipeline {
     stage('build') {
       agent {
         docker {
-          image 'shenmo7192/uos-21-dtk5.4:v1.0'
+          image 'shenmo7192/uos-21-dtk5.4:1.0'
         }
       }
       steps {
