@@ -9,11 +9,6 @@ pipeline {
       }
       steps {
         sh 'mkdir build && cd build && qmake .. && make && cd ..'
-      }
-    }
-
-    stage('archive') {
-      steps {
         archiveArtifacts(artifacts: 'build/src/spark-store', allowEmptyArchive: true, defaultExcludes: true)
       }
     }
