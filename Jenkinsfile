@@ -4,7 +4,7 @@ pipeline {
     stage('build') {
       agent {
         docker {
-          image 'sparkstore/qt-build-image:5.11'
+          image 'sparkstore/qt-build-image:5.11-1'
         }
       }
       steps {
