@@ -8,7 +8,7 @@ pipeline {
         }
       }
       steps {
-        sh 'mkdir build && cd build && qmake .. && make'
+        sh 'mkdir build && cd build && qmake .. && make && cd ..'
       }
     }
 
