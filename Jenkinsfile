@@ -4,11 +4,11 @@ pipeline {
     stage('build') {
       agent {
         docker {
-          image 'shenmo7192/uos-21-dtk5.4:1.0'
+          image 'sparkstore/qt-build-image:5.11'
         }
       }
       steps {
-        sh 'dpkg-buildpackage && tree .'
+        sh 'mkdir build && cd build && qmake .. && make'
       }
     }
 
