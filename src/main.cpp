@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
                       )
                   );
       dialog.setProductName(QLabel::tr("Spark Store"));
-      dialog.setCompanyLogo(QPixmap(":/Logo-Spark.png"));
+      dialog.setCompanyLogo(QPixmap(":/spark-store.png"));
       dialog.setWebsiteName(QObject::tr("The Spark Project"));
       dialog.setWebsiteLink("https://gitee.com/deepin-community-store");
      

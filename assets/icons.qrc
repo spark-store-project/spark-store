@@ -34,7 +34,6 @@
         <file>icons/refresh-page.svg</file>
     </qresource>
     <qresource prefix="/">
-        <file>Logo-Spark.png</file>
         <file>tags/a2d.png</file>
         <file>tags/community.svg</file>
         <file>tags/deepin.svg</file>
@@ -51,6 +50,8 @@
         <file>tags/dwine5-small.png</file>
         <file>tags/dwine5.svg</file>
         <file>tags/dwine2-small.png</file>
+        <file>spark-store.png</file>
+        <file>spark-logo.svg</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>fonts/hksnzt.ttf</file>
