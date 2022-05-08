@@ -1,4 +1,4 @@
-spark-store (3.0.3-14) stable; urgency=medium
+spark-store (3.1) stable; urgency=medium
 
   * Add pkexec policy: ssinstall
   * Modify ssinistall script: Now will refuse run when no args are given or not run as root.
