@@ -71,7 +71,7 @@ void downloadlist::setValue(qint64 value)
     ui->label_2->setText(QString::number(double(value) / 100) + "% (" + speed + ")");
     if(ui->label_2->text().left(4) == "100%")
     {
-        ui->label_2->setText(tr("Downloaded, waiting to install"));
+        ui->label_2->setText(tr("Downloaded. Open APP Upgrade and Install Settings to enable password-free installation"));
     }
 }
 

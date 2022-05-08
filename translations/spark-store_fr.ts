@@ -630,6 +630,11 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/widget.cpp" line="195"/>
+        <source>APP Upgrade and Install Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/widget.cpp" line="344"/>
         <source>Not Exist</source>
         <translation type="unfinished"></translation>
@@ -643,11 +648,6 @@ Nous sommes nés pour le changement.</translation>
     <message>
         <location filename="../src/widget.cpp" line="622"/>
         <source>Failed to get the name to the file to be downloaded.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="195"/>
-        <source>App Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -776,7 +776,7 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/downloadlist.cpp" line="74"/>
-        <source>Downloaded, waiting to install</source>
+        <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -192,7 +192,7 @@ void Widget::initUI()
     // 添加菜单项
     QAction *actionSubmission = new QAction(tr("Submit App"), this);
     QAction *setting = new QAction(tr("Settings"));
-    QAction *upgrade = new QAction(tr("App Upgrade"));
+    QAction *upgrade = new QAction(tr("APP Upgrade and Install Settings"));
 
     QMenu *menu = new QMenu;
     menu->addAction(setting);

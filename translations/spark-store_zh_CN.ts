@@ -505,8 +505,8 @@
     </message>
     <message>
         <location filename="../src/widget.cpp" line="195"/>
-        <source>App Upgrade</source>
-        <translation type="unfinished"></translation>
+        <source>APP Upgrade and Install Settings</source>
+        <translation>应用更新和安装设置</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="344"/>
@@ -728,9 +728,8 @@ Click yes to continue.</source>
         <translation>深度软件包安装器</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="74"/>
         <source>Downloaded, waiting to install</source>
-        <translation>已完成，等待安装</translation>
+        <translation type="vanished">已完成，等待安装</translation>
     </message>
     <message>
         <location filename="../src/downloadlist.cpp" line="100"/>
@@ -755,6 +754,11 @@ Click yes to continue.</source>
     <message>
         <source>Installing...</source>
         <translation type="obsolete">正在安装</translation>
+    </message>
+    <message>
+        <location filename="../src/downloadlist.cpp" line="74"/>
+        <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
+        <translation type="unfinished">下载完成 可进入应用更新和安装设置来启动免密码安装</translation>
     </message>
     <message>
         <location filename="../src/downloadlist.cpp" line="190"/>
