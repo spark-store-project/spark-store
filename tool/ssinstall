@@ -63,7 +63,7 @@ fi
 if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
 echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
 echo ----------------------------------------------------------------------------------
-dpkg -i $1 || apt install -yf || dpkg -P $1
+echo "$upass" | sudo -S dpkg -i $1 || apt install -yf || dpkg -P $1
 fi
 
 if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
