@@ -1,4 +1,4 @@
-spark-store (3.1) stable; urgency=medium
+spark-store (3.1.0) stable; urgency=medium
 
   * Add pkexec policy: ssinstall. Only will be enabled after permitted.
   * Modify ssinistall script: Now will ask for password when not run as root
