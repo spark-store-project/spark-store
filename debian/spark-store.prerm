@@ -20,9 +20,14 @@ systemctl disable spark-update-notifier
 
 
 
-# Clean the service place file
+# Clean the update-number service place file if exist
 if [ -d "/tmp/spark-store-updatenum/" ] ; then
-	rm -rf /tmp/spark-store-updatenum/s
+	rm -rf /tmp/spark-store-updatenum/
+fi
+
+# Clean the auto install polkit file if exist
+if [ -f "/usr/share/polkit-1/actions/store.spark-app.ssinstall.policy" ] ; then
+	rm /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 fi
 
 # Remove gpg key file
