@@ -1,7 +1,7 @@
 spark-store (3.1) stable; urgency=medium
 
-  * Add pkexec policy: ssinstall
-  * Modify ssinistall script: Now will refuse run when no args are given or not run as root.
+  * Add pkexec policy: ssinstall. Only will be enabled after permitted.
+  * Modify ssinistall script: Now will ask for password when not run as root
 
  -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
 
