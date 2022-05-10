@@ -1,3 +1,13 @@
+spark-store (3.1.1) stable; urgency=medium
+
+  * Now will delete the link of policy file after uninstall or upgrade
+  * Now ss-update-controler will create symbol link instead of hard link
+
+ -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
+
+
+
+
 spark-store (3.1.0) stable; urgency=medium
 
   * Add pkexec policy: ssinstall. Only will be enabled after permitted.
