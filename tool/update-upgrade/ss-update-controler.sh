@@ -95,7 +95,7 @@ read is_accept_polkiy
 
 if [ "$is_accept_polkiy" = "1" ];then
 	echo "执行以下操作需要授权..."
-	sudo ln /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
+	sudo ln -s /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 	echo 已启动
 	sleep 3
 	reset
