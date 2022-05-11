@@ -17,6 +17,8 @@
 
 如果想安装 `星火应用商店` ，请打开右侧的 [Release] 页面，找到最新版本，并选择适用于当前系统的安装包下载。
 
+如果你在使用 `Debian 11/Ubuntu 20.04`，你需要额外下载依赖补充包 https://gitee.com/link?target=https%3A%2F%2Fd.store.deepinos.org.cn%2Fspark-store-dependencies-kylin.zip
+
 ---
 #### 编译安装
 
@@ -24,7 +26,7 @@
 Deepin V20/UOS 21/ Ubuntu 22.04 系统下, 安装依赖
 
 ```shell
-sudo apt install qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev
+sudo apt install git qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev
 
 ```
 然后
