@@ -17,7 +17,7 @@
 
 如果想安装 `星火应用商店` ，请打开右侧的 [Release] 页面，找到最新版本，并选择适用于当前系统的安装包下载。
 
-如果你在使用 `Debian 11/Ubuntu 20.04`，你需要额外下载依赖补充包 https://gitee.com/link?target=https%3A%2F%2Fd.store.deepinos.org.cn%2Fspark-store-dependencies-kylin.zip
+如果你在使用 `Debian 11/Ubuntu 20.04`，你需要额外下载[依赖补充包](https://gitee.com/deepin-community-store/spark-store)
 
 ---
 #### 编译安装
