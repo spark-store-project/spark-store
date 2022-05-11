@@ -5,7 +5,10 @@ Spark Store aims to collect Linux apps for the convieniece of Linux new comers
 
 The collecting process needs everyone's help
 
-We set up this APP Store and collect APPs/tools that everyone need widely. Also we pack Windows apps with wine. All packages will be shared in our repository for users to get freely. 
+We set up this APP Store and collect APPs/tools that everyone need widely. Also we pack Windows apps with wine. 
+
+All packages will be shared in our repository for users to get freely. 
+
 Distrobution supported：Deepin 20 ; Ubuntu 22.04 LTS / Ubuntu 20.04 LTS(May stop support in the future） ; UniontechOS Home 21
 
 
