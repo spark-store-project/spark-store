@@ -35,7 +35,7 @@ case $option in
 	0)
 	reset
 	echo "此须知适用于自动更新功能"
-	echo "此脚本可以检测星火源中是否有比当前系统更高版本的软件包，由您决定是否安装"
+	echo "此脚本可以检测星火源中是否有比当前系统更高版本的软件包，由您决定是否安装；在安装更新过程中请不要直接点击关闭本页面，以免发生错误"
 	echo "此脚本使用apt update/apt list --upgrade/apt upgrade来更新软件源、列出更新列表和操作更新"
 	echo
 	echo "该脚本不对其使用效果有任何明示或暗示的担保，在使用前请您确保您清楚地知道您在干什么。您应当清楚，星火商店的软件包并不是适配所有发行版的；尽管绝大多数的软件更新是无害的，您仍然应该仔细检查显示出来的更新内容，以确保不会对您	的依赖环境造成破坏，尤其是那些看起来和系统依赖相关的软件包。在查看过更新列表之后，确认更新之前，您仍有一次取消更新的机会。"
@@ -51,13 +51,13 @@ case $option in
 	1)
 	echo "执行以下操作需要授权..."
 	if [  -f /etc/xdg/autostart/spark-update-notifier.desktop ];then 
-	echo "检测到已经启动了自动更新检测，执行关闭"
+	echo "---检测到已经启动了自动更新检测，执行关闭"
 	sudo systemctl disable spark-update-notifier
 	sudo rm /etc/xdg/autostart/spark-update-notifier.desktop
 	sleep 3
 	reset
 	else
-	echo "未检测到自动更新检测，启动"
+	echo "---未检测到自动更新检测，执行启动"
 	sudo systemctl enable spark-update-notifier
 	sudo service spark-update-notifier start
 #	ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop $XDG_CONFIG_HOME/autostart
@@ -73,13 +73,13 @@ case $option in
 	echo "执行以下操作需要授权..."
 	/opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
-	echo "请按回车返回"
+	echo "---请按回车返回"
 	read
 	reset
 	;;
 	3)
 	if [ -f /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy ];then 
-	echo "检测到已经启动了免输入密码，执行关闭"
+	echo "---检测到已经启动了免输入密码，执行关闭"
 	sudo rm /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 	sleep 3
 	reset
@@ -96,11 +96,11 @@ read is_accept_polkiy
 if [ "$is_accept_polkiy" = "1" ];then
 	echo "执行以下操作需要授权..."
 	sudo ln -s /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
-	echo 已启动
+	echo "---已启动"
 	sleep 3
 	reset
 	else
-	echo 未同意，返回
+	echo "---未同意，返回"
 	sleep 3
 	reset
 fi
@@ -110,7 +110,7 @@ fi
 	exit 0
 	;;
 	*) 
-	echo "无法识别的输入！请重新输入"
+	echo "---无法识别的输入！请重新输入"
 	reset
 esac
 
