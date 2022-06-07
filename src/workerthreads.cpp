@@ -29,7 +29,7 @@ void SpkAppInfoLoaderThread::run()
 
         QString deburl = serverUrl;
         deburl = deburl.left(urladdress.length() - 1);
-        urladdress = "https://img.jerrywang.top/";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
+        urladdress = "https://d.store.deepinos.org.cn/";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
         urladdress = urladdress.left(urladdress.length() - 1);
 
         for(int i = 3; i < downloadurl.size(); i++)
