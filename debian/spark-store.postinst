@@ -48,10 +48,7 @@ case "$1" in
 		if [ -x "/usr/bin/deepin-app-store-tool" ] ; then 
 			exit 0
 		fi
-		# Quit if yoyo-daemon existed
-		if [ -x "/usr/bin/yoyo-daemon" ] ; then 
-			exit 0
-		fi
+
 		# Trigger for UOS debs installation
 		echo '--------检测到Uniontech标准软件包，运行补丁以修正安装--------'
 		if [ -x "/usr/local/bin/spark-dstore-patch" ] ; then
