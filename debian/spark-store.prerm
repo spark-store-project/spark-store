@@ -6,6 +6,7 @@ rm /usr/local/bin/ssinstall
 rm /usr/local/bin/spark-dstore-patch
 rm /usr/local/bin/ussinstall
 rm /usr/local/bin/ussremove
+rm /usr/local/bin/ss-apt-fast
 
 # Remove residual symbol links to stop upgrade detect if exist
 if [ -f /etc/xdg/autostart/spark-update-notifier.desktop ];then

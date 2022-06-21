@@ -1,0 +1,8 @@
+#/bin/bash
+DEPEND=`dpkg -l | grep  apt-fast`
+if [ "$DEPEND" = "" ] ; then 
+echo "未安装依赖：apt-fast 本脚本退出"
+exit 0
+fi
+
+sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/apt-fast.conf' /etc/apt-fast.conf apt-fast "$@"
