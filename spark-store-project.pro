@@ -37,6 +37,7 @@ polkit-1.files +=pkg/usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 polkit-1.path = /usr/share/polkit-1/actions/
 
 
+
 icon.files += pkg/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 icon.path = /usr/share/icons/hicolor/scalable/apps
 
