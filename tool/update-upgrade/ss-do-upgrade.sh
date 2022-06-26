@@ -1,9 +1,9 @@
 #!/bin/bash
-DEPEND=`which apt-fast`
-if [ "$DEPEND" = "" ] ; then
-echo "没有安装apt-fast，使用apt运行"
-sudo apt upgrade -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+
+echo "以上可升级，是否升级？[y/n]"
+read yes_or_no
+if [ "$yes_or_no" = "y" ];then
+sudo ss-apt-fast upgrade -y -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 else
-echo "已安装apt-fast，使用apt-fast加速运行"
-ss-apt-fast upgrade -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+exit
 fi

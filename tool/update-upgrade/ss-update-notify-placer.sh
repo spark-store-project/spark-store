@@ -50,7 +50,7 @@ fi
 
 
 update_app_number=`echo ${updatetext%package*} #从右向左截取第一个 src 后的字符串`
-update_app_number=`echo ${update_app_number: -1}`	
+update_app_number=`echo ${update_app_number##*information...}`
 sudo echo "$update_app_number" > /tmp/spark-store-updatenum/number
 
 	

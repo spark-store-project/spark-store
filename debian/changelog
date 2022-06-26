@@ -1,3 +1,19 @@
+spark-store (3.2) stable; urgency=medium
+
+
+
+    新增：ssinstall现在会在没有apt-fast的时候自动安装
+    新增：ss-apt-fast现在会在没有apt-fast的时候自动安装
+    修改：删除ssinstall中无用的 || dpkg -P $1
+    新增：ss-apt-fast会先下载云上的conf以确保mirror是最新的
+    修复：去除wget指令
+
+
+
+ -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
+
+
+
 spark-store (3.1.2) stable; urgency=medium
 
   * Now let apt-fast method support all mirrors

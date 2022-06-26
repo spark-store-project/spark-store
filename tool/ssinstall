@@ -38,10 +38,8 @@ fi
 
 
 
-
-
 ##################apt-fast/metalink测试
-DEPEND=`which apt-fast`
+DEPEND="这里一定会安装所以放弃处理"
 isuos=`cat /etc/os-release | grep UnionTech`
 
 
@@ -51,25 +49,24 @@ if [ "$(id -u)" != "0" ];then
 #临时提升星火源的优先级
 echo "$upass" | sudo -S sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
 
-if [ "$DEPEND" = "" ] ; then
-echo "没有检测到apt-fast组件，将会使用单线程下载依赖"
-echo "你可以安装apt-fast来加速下载（对UOS无效）"
-echo "若要使用apt-fast加速下载，请在安装apt-fast时选择使用apt并选择略过确认对话框"
-echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || apt install -yf || dpkg -P $1
+IS_INSTALLED=`which apt-fast`
+if [ "$IS_INSTALLED" = "" ] ; then 
+echo "未安装依赖：apt-fast 开始安装"
+echo "$upass" | sudo -S apt install apt-fast -y
 fi
+
 
 
 if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
 echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
 echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || apt install -yf || dpkg -P $1
+echo "$upass" | sudo -S dpkg -i $1 || apt install -yf 
 fi
 
 if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
 echo "检测到apt-fast，使用ss-apt-fast进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || ss-apt-fast install -yf || dpkg -P $1
+echo "$upass" | sudo -S dpkg -i $1 || ss-apt-fast install -yf 
 fi
 
 echo "$upass" | sudo -S sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore
@@ -83,25 +80,23 @@ else
 #临时提升星火源的优先级
 sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
 
-if [ "$DEPEND" = "" ] ; then
-echo "没有检测到apt-fast组件，将会使用单线程下载依赖"
-echo "你可以安装apt-fast来加速下载（对UOS无效）"
-echo "若要使用apt-fast加速下载，请在安装apt-fast时选择使用apt并选择略过确认对话框"
-echo ----------------------------------------------------------------------------------
-dpkg -i $1 || apt install -yf || dpkg -P $1
+IS_INSTALLED=`which  apt-fast`
+if [ "$IS_INSTALLED" = "" ] ; then 
+echo "未安装依赖：apt-fast 开始安装"
+apt install apt-fast -y
 fi
 
 
 if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
 echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
 echo ----------------------------------------------------------------------------------
-dpkg -i $1 || apt install -yf || dpkg -P $1
+dpkg -i $1 || apt install -yf 
 fi
 
 if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
 echo "检测到apt-fast，使用ss-apt-fast进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
-dpkg -i $1 || ss-apt-fast install -yf || dpkg -P $1
+dpkg -i $1 || ss-apt-fast install -yf 
 fi
 
 sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore

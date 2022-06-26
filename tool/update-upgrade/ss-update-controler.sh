@@ -30,12 +30,6 @@ echo "输入2 查看可更新软件包列表并决定是否更新"
 echo "输入3 $text_auto_install_open点击安装免输入密码功能"
 echo "输入4 退出脚本"
 echo
-echo "小提示：建议安装apt-fast以提高下载速度。"
-echo "安装过apt-fast的用户可在系统更新的时候使用ss-apt-fast代替apt-fast进行更新"
-echo "比如 sudo ss-apt-fast update或者sudo ss-apt-fast upgrade"
-echo 
-echo "UOS除外：UOS对下载源采取了禁止非APT应用多线程下载的策略"
-echo "为了防止系统依赖包无法下载，在依赖下载时禁用了apt-fast."
 read option
 
 case $option in 
