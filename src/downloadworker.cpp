@@ -106,13 +106,19 @@ DownloadController::DownloadController(QObject *parent)
         for (int i = 0; i < list.size(); i++) {
             if (list.at(i).contains("镜像源 Download only") && i + 1 < list.size()) {
                 for (int j = i + 1; j < list.size(); j++) {
-                    domains.append(list.at(j));
+                    system("curl -I -s --connect-timeout 5 " + list.at(j).toUtf8() 
+                        + "/dcs-repo.gpg-key.asc -w  %{http_code}  |tail -n1 > /tmp/spark-store/cdnStatus.txt");
+                    QFile cdnStatus("/tmp/spark-store/cdnStatus.txt");
+                    if(cdnStatus.open(QFile::ReadOnly) && QString(cdnStatus.readAll()).toUtf8()=="200"){
+                        qDebug() << list.at(j);
+                        domains.append(list.at(j));
+                    }   
                 }
                 break;
             }
         }
     }
-    qDebug() << domains.size();
+    qDebug() << domains << domains.size();
 
     /*
     domains = {

@@ -46,7 +46,12 @@ Widget::Widget(DBlurEffectWidget *parent) :
     manager = new QNetworkAccessManager(this);  // 下载管理
 
     httpClient = new AeaQt::HttpClient;
-    downloadController = new DownloadController(this);  // 并发下载
+    
+    QtConcurrent::run([=]()
+    {
+        downloadController = new DownloadController(this);  // 并发下载
+    });
+    
 
     connect(ui->menu_main, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(0);});
     connect(ui->menu_network, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(1);});
