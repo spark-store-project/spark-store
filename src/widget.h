@@ -76,7 +76,7 @@ private slots:
     void sltAppinfoTags(QStringList *tagList);
     void sltAppinfoDetails(QString *name, QString *details, QString *info,
                            QString *website, QString *packageName,
-                           QUrl *fileUrl, bool isInstalled,
+                           QUrl *fileUrl, int downloadCount, bool isInstalled,
                            bool isUpdated);
     void sltAppinfoIcon(QPixmap *icon);
     void sltAppinfoScreenshot(QPixmap *picture, int index);

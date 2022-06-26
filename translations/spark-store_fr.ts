@@ -56,47 +56,47 @@ Nous sommes nés pour le changement.</translation>
 <context>
     <name>SpkAppInfoLoaderThread</name>
     <message>
-        <location filename="../src/workerthreads.cpp" line="167"/>
+        <location filename="../src/workerthreads.cpp" line="174"/>
         <source>Failed to download app info. Please check internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="48"/>
+        <location filename="../src/workerthreads.cpp" line="55"/>
         <source>PkgName: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="49"/>
+        <location filename="../src/workerthreads.cpp" line="56"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="52"/>
+        <location filename="../src/workerthreads.cpp" line="59"/>
         <source>Author: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="57"/>
+        <location filename="../src/workerthreads.cpp" line="64"/>
         <source>Official Site: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="61"/>
+        <location filename="../src/workerthreads.cpp" line="68"/>
         <source>Contributor: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="62"/>
+        <location filename="../src/workerthreads.cpp" line="69"/>
         <source>Update Time: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="63"/>
+        <location filename="../src/workerthreads.cpp" line="70"/>
         <source>Installed Size: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="123"/>
+        <location filename="../src/workerthreads.cpp" line="130"/>
         <source>Failed to load application icon.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -204,217 +204,222 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="547"/>
-        <location filename="../src/widget.cpp" line="906"/>
-        <location filename="../src/widget.cpp" line="1175"/>
+        <location filename="../src/widget.ui" line="584"/>
+        <location filename="../src/widget.cpp" line="908"/>
+        <location filename="../src/widget.cpp" line="1177"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="560"/>
+        <location filename="../src/widget.ui" line="681"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="606"/>
+        <location filename="../src/widget.ui" line="636"/>
         <source>ICON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="661"/>
+        <location filename="../src/widget.ui" line="591"/>
         <source>Uninstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="677"/>
+        <location filename="../src/widget.ui" line="577"/>
         <source>Site</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="716"/>
+        <location filename="../src/widget.ui" line="614"/>
         <source>Share</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="750"/>
-        <location filename="../src/widget.ui" line="753"/>
+        <location filename="../src/widget.ui" line="718"/>
+        <location filename="../src/widget.ui" line="721"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app is developed by community user,we give this tag to honor those who contribute to the Linux Ecology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="756"/>
+        <location filename="../src/widget.ui" line="724"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/community-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="769"/>
-        <location filename="../src/widget.ui" line="772"/>
+        <location filename="../src/widget.ui" line="737"/>
+        <location filename="../src/widget.ui" line="740"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="775"/>
+        <location filename="../src/widget.ui" line="743"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/ubuntu-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="788"/>
-        <location filename="../src/widget.ui" line="791"/>
+        <location filename="../src/widget.ui" line="756"/>
+        <location filename="../src/widget.ui" line="759"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="794"/>
+        <location filename="../src/widget.ui" line="762"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/deepin-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="807"/>
-        <location filename="../src/widget.ui" line="810"/>
+        <location filename="../src/widget.ui" line="775"/>
+        <location filename="../src/widget.ui" line="778"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="813"/>
+        <location filename="../src/widget.ui" line="781"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/uos-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="826"/>
-        <location filename="../src/widget.ui" line="829"/>
+        <location filename="../src/widget.ui" line="794"/>
+        <location filename="../src/widget.ui" line="797"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is a  DTK5 app,which means it would have better effect on Deepin Desktop Environment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="832"/>
+        <location filename="../src/widget.ui" line="800"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dtk-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="845"/>
-        <location filename="../src/widget.ui" line="848"/>
+        <location filename="../src/widget.ui" line="813"/>
+        <location filename="../src/widget.ui" line="816"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine2 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="851"/>
+        <location filename="../src/widget.ui" line="819"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine2-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="864"/>
-        <location filename="../src/widget.ui" line="867"/>
+        <location filename="../src/widget.ui" line="832"/>
+        <location filename="../src/widget.ui" line="835"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine5 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="870"/>
+        <location filename="../src/widget.ui" line="838"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine5-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="883"/>
-        <location filename="../src/widget.ui" line="886"/>
+        <location filename="../src/widget.ui" line="851"/>
+        <location filename="../src/widget.ui" line="854"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An Appimage to deb app.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="889"/>
+        <location filename="../src/widget.ui" line="857"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/a2d-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="912"/>
+        <location filename="../src/widget.ui" line="880"/>
         <source>Request Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="930"/>
-        <source>Info</source>
+        <location filename="../src/widget.ui" line="919"/>
+        <source>Total downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="937"/>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widget.ui" line="944"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An app store developed by community enthusiasts&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="979"/>
+        <location filename="../src/widget.ui" line="986"/>
         <source>Screenshots</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1142"/>
+        <location filename="../src/widget.ui" line="1149"/>
         <source>Line Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1158"/>
+        <location filename="../src/widget.ui" line="1165"/>
         <source>Choose Line:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1181"/>
+        <location filename="../src/widget.ui" line="1188"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1194"/>
+        <location filename="../src/widget.ui" line="1201"/>
         <source>Take effect when restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1223"/>
+        <location filename="../src/widget.ui" line="1230"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The role of the source server is to ensure that the software is updated, and supports the use of the apt tool to get the software. We usually prefer that you use the first line as the update source, which is generally the most stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1233"/>
+        <location filename="../src/widget.ui" line="1240"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1240"/>
+        <location filename="../src/widget.ui" line="1247"/>
         <source>Source Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1260"/>
+        <location filename="../src/widget.ui" line="1267"/>
         <source>Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1281"/>
+        <location filename="../src/widget.ui" line="1288"/>
         <source>Temp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1304"/>
+        <location filename="../src/widget.ui" line="1311"/>
         <source>Clean</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1314"/>
+        <location filename="../src/widget.ui" line="1321"/>
         <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1327"/>
+        <location filename="../src/widget.ui" line="1334"/>
         <source>Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1341"/>
+        <location filename="../src/widget.ui" line="1348"/>
         <source>Location：/tmp/spark-store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1362"/>
+        <location filename="../src/widget.ui" line="1369"/>
         <source>About us</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1369"/>
+        <location filename="../src/widget.ui" line="1376"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;QQ group:872690351&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -511,7 +516,7 @@ Nous sommes nés pour le changement.</translation>
         <translation type="vanished">Nom</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="575"/>
+        <location filename="../src/widget.ui" line="536"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -584,7 +589,7 @@ Nous sommes nés pour le changement.</translation>
         <translation type="vanished">Taille: </translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1334"/>
+        <location filename="../src/widget.ui" line="1341"/>
         <source>0B</source>
         <translation type="unfinished">0B</translation>
     </message>
@@ -641,7 +646,7 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="656"/>
-        <location filename="../src/widget.cpp" line="895"/>
+        <location filename="../src/widget.cpp" line="897"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
@@ -661,37 +666,42 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="900"/>
+        <location filename="../src/widget.cpp" line="887"/>
+        <source>Total downloads: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widget.cpp" line="902"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1083"/>
+        <location filename="../src/widget.cpp" line="1085"/>
         <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1144"/>
+        <location filename="../src/widget.cpp" line="1146"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1151"/>
+        <location filename="../src/widget.cpp" line="1153"/>
         <source>Unknown error!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1179"/>
+        <location filename="../src/widget.cpp" line="1181"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1201"/>
+        <location filename="../src/widget.cpp" line="1203"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1283"/>
+        <location filename="../src/widget.cpp" line="1285"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>

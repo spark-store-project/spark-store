@@ -29,7 +29,7 @@
     <message>
         <location filename="../src/main.cpp" line="37"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by  community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
-        <translation type="unfinished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款社区维护的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
+        <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款社区维护的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
         <source>Version 2.0+2</source>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../src/main.cpp" line="45"/>
         <source>The Spark Project</source>
-        <translation type="unfinished">星火计划 The Spark Project</translation>
+        <translation>星火计划 The Spark Project</translation>
     </message>
     <message>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;We publish this program under GPL V3</source>
@@ -57,47 +57,47 @@
 <context>
     <name>SpkAppInfoLoaderThread</name>
     <message>
-        <location filename="../src/workerthreads.cpp" line="167"/>
+        <location filename="../src/workerthreads.cpp" line="174"/>
         <source>Failed to download app info. Please check internet connection.</source>
         <translation>下载应用程序详细信息失败，请检查网络连接。</translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="48"/>
+        <location filename="../src/workerthreads.cpp" line="55"/>
         <source>PkgName: </source>
         <translation>包名： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="49"/>
+        <location filename="../src/workerthreads.cpp" line="56"/>
         <source>Version: </source>
         <translation>版本： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="52"/>
+        <location filename="../src/workerthreads.cpp" line="59"/>
         <source>Author: </source>
         <translation>作者： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="57"/>
+        <location filename="../src/workerthreads.cpp" line="64"/>
         <source>Official Site: </source>
         <translation>官网： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="61"/>
+        <location filename="../src/workerthreads.cpp" line="68"/>
         <source>Contributor: </source>
         <translation>投稿者： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="62"/>
+        <location filename="../src/workerthreads.cpp" line="69"/>
         <source>Update Time: </source>
         <translation>更新时间： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="63"/>
+        <location filename="../src/workerthreads.cpp" line="70"/>
         <source>Installed Size: </source>
         <translation>大小： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="123"/>
+        <location filename="../src/workerthreads.cpp" line="130"/>
         <source>Failed to load application icon.</source>
         <translation>加载应用程序图标失败。</translation>
     </message>
@@ -188,19 +188,19 @@
         <translation>打开下载文件夹</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="560"/>
+        <location filename="../src/widget.ui" line="681"/>
         <source>Name</source>
         <translation>软件名</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="606"/>
+        <location filename="../src/widget.ui" line="636"/>
         <source>ICON</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="547"/>
-        <location filename="../src/widget.cpp" line="906"/>
-        <location filename="../src/widget.cpp" line="1175"/>
+        <location filename="../src/widget.ui" line="584"/>
+        <location filename="../src/widget.cpp" line="908"/>
+        <location filename="../src/widget.cpp" line="1177"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -225,79 +225,79 @@
         <translation>社交沟通</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="661"/>
+        <location filename="../src/widget.ui" line="591"/>
         <source>Uninstall</source>
         <translation>卸载</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="677"/>
+        <location filename="../src/widget.ui" line="577"/>
         <source>Site</source>
         <translation>官网</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="750"/>
-        <location filename="../src/widget.ui" line="753"/>
+        <location filename="../src/widget.ui" line="718"/>
+        <location filename="../src/widget.ui" line="721"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app is developed by community user,we give this tag to honor those who contribute to the Linux Ecology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这款应用是社区开发者开发的，我们为社区开发者颁发这款勋章以表彰他们对Linux生态的贡献&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="756"/>
+        <location filename="../src/widget.ui" line="724"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/community-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="769"/>
-        <location filename="../src/widget.ui" line="772"/>
+        <location filename="../src/widget.ui" line="737"/>
+        <location filename="../src/widget.ui" line="740"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="788"/>
-        <location filename="../src/widget.ui" line="791"/>
+        <location filename="../src/widget.ui" line="756"/>
+        <location filename="../src/widget.ui" line="759"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="794"/>
+        <location filename="../src/widget.ui" line="762"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/deepin-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="807"/>
-        <location filename="../src/widget.ui" line="810"/>
+        <location filename="../src/widget.ui" line="775"/>
+        <location filename="../src/widget.ui" line="778"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持UOS家庭版 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="826"/>
-        <location filename="../src/widget.ui" line="829"/>
+        <location filename="../src/widget.ui" line="794"/>
+        <location filename="../src/widget.ui" line="797"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is a  DTK5 app,which means it would have better effect on Deepin Desktop Environment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这是一款DTK5应用，请使用深度桌面环境来获得最完美的体验&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="832"/>
+        <location filename="../src/widget.ui" line="800"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dtk-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="864"/>
-        <location filename="../src/widget.ui" line="867"/>
+        <location filename="../src/widget.ui" line="832"/>
+        <location filename="../src/widget.ui" line="835"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine5 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这是一款deepin-wine5应用，如果你并没有在使用深度系列发行版（比如您在使用ubuntu），你需要自行配置deepin-wine5环境&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="883"/>
-        <location filename="../src/widget.ui" line="886"/>
+        <location filename="../src/widget.ui" line="851"/>
+        <location filename="../src/widget.ui" line="854"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An Appimage to deb app.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这是一款Appimage转制应用.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="889"/>
+        <location filename="../src/widget.ui" line="857"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/a2d-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="716"/>
+        <location filename="../src/widget.ui" line="614"/>
         <source>Share</source>
         <translation>Spk分享链接</translation>
     </message>
@@ -320,18 +320,18 @@
         <translation type="vanished">社交沟通</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="845"/>
-        <location filename="../src/widget.ui" line="848"/>
+        <location filename="../src/widget.ui" line="813"/>
+        <location filename="../src/widget.ui" line="816"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine2 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这是一款 deepin-wine2 应用，如果你并没有在使用深度系列发行版（比如您在使用ubuntu），你需要自行配置 deepin-wine2 环境&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="851"/>
+        <location filename="../src/widget.ui" line="819"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine2-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="870"/>
+        <location filename="../src/widget.ui" line="838"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine5-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
@@ -340,32 +340,32 @@
         <translation type="vanished">贡献翻译/应用反馈</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="930"/>
+        <location filename="../src/widget.ui" line="937"/>
         <source>Info</source>
         <translation>详细</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="937"/>
+        <location filename="../src/widget.ui" line="944"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An app store developed by community enthusiasts&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;由社区爱好者开发的一款应用商店&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="979"/>
+        <location filename="../src/widget.ui" line="986"/>
         <source>Screenshots</source>
         <translation>屏幕截图</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1142"/>
+        <location filename="../src/widget.ui" line="1149"/>
         <source>Line Settings</source>
         <translation>线路设置</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1158"/>
+        <location filename="../src/widget.ui" line="1165"/>
         <source>Choose Line:</source>
         <translation>线路选择：</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1181"/>
+        <location filename="../src/widget.ui" line="1188"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
@@ -374,57 +374,57 @@
         <translation type="vanished">重启商店后生效</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1223"/>
+        <location filename="../src/widget.ui" line="1230"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The role of the source server is to ensure that the software is updated, and supports the use of the apt tool to get the software. We usually prefer that you use the first line as the update source, which is generally the most stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;源服务器的作用是保证软件更新，并且支持使用apt工具获取软件。通常我们更建议你使用第一个线路作为更新源，一般是最稳定的。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1233"/>
+        <location filename="../src/widget.ui" line="1240"/>
         <source>Update</source>
         <translation>更新源</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1240"/>
+        <location filename="../src/widget.ui" line="1247"/>
         <source>Source Server</source>
         <translation>更新源服务器</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1260"/>
+        <location filename="../src/widget.ui" line="1267"/>
         <source>Server</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1281"/>
+        <location filename="../src/widget.ui" line="1288"/>
         <source>Temp</source>
         <translation>缓存目录</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1304"/>
+        <location filename="../src/widget.ui" line="1311"/>
         <source>Clean</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1314"/>
+        <location filename="../src/widget.ui" line="1321"/>
         <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
         <translation>因为这个目录位于/tmp下，所以即使你不手动清空的话，其也将在系统重启时自动清空。</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1327"/>
+        <location filename="../src/widget.ui" line="1334"/>
         <source>Size:</source>
         <translation>目录大小：</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1341"/>
+        <location filename="../src/widget.ui" line="1348"/>
         <source>Location：/tmp/spark-store</source>
         <translation>目录位置：/tmp/spark-store</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1362"/>
+        <location filename="../src/widget.ui" line="1369"/>
         <source>About us</source>
         <translation>关于我们</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1369"/>
+        <location filename="../src/widget.ui" line="1376"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;QQ group:872690351&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们并&lt;span style=&quot; font-weight:600;&quot;&gt;不是&lt;/span&gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&lt;/p&gt;&lt;p&gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&lt;/p&gt;&lt;p&gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&lt;/p&gt;&lt;p&gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们 &amp;lt;jifengshenmo@outlook.com&amp;gt;，我们会第一时间删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&lt;/p&gt;&lt;p&gt;QQ 群：872690351&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -454,32 +454,37 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="575"/>
+        <location filename="../src/widget.ui" line="536"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="775"/>
+        <location filename="../src/widget.ui" line="743"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/ubuntu-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="813"/>
+        <location filename="../src/widget.ui" line="781"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/uos-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="912"/>
+        <location filename="../src/widget.ui" line="880"/>
         <source>Request Update</source>
-        <translation type="unfinished">软件催更/应用反馈</translation>
+        <translation>软件催更/应用反馈</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1194"/>
+        <location filename="../src/widget.ui" line="919"/>
+        <source>Total downloads</source>
+        <translation>总下载量</translation>
+    </message>
+    <message>
+        <location filename="../src/widget.ui" line="1201"/>
         <source>Take effect when restart</source>
         <translation>重启商店后生效</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1334"/>
+        <location filename="../src/widget.ui" line="1341"/>
         <source>0B</source>
         <translation></translation>
     </message>
@@ -512,6 +517,11 @@
         <location filename="../src/widget.cpp" line="344"/>
         <source>Not Exist</source>
         <translation>不存在</translation>
+    </message>
+    <message>
+        <location filename="../src/widget.cpp" line="887"/>
+        <source>Total downloads: %1</source>
+        <translation>总下载量：%1</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="138"/>
@@ -556,7 +566,7 @@
     </message>
     <message>
         <location filename="../src/widget.cpp" line="656"/>
-        <location filename="../src/widget.cpp" line="895"/>
+        <location filename="../src/widget.cpp" line="897"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
@@ -584,22 +594,22 @@
         <translation type="vanished">目前仅支持商店专用链接的打开，搜索功能正在开发，请期待以后的版本！</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="900"/>
+        <location filename="../src/widget.cpp" line="902"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1083"/>
+        <location filename="../src/widget.cpp" line="1085"/>
         <source>Updating, please wait...</source>
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1144"/>
+        <location filename="../src/widget.cpp" line="1146"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
         <translation>更新中发生错误，请在终端使用apt update来查看错误原因。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1151"/>
+        <location filename="../src/widget.cpp" line="1153"/>
         <source>Unknown error!</source>
         <translation>未知错误！</translation>
     </message>
@@ -651,17 +661,17 @@ Click yes to continue.</source>
         <translation type="vanished">服务器未知错误</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1179"/>
+        <location filename="../src/widget.cpp" line="1181"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1201"/>
+        <location filename="../src/widget.cpp" line="1203"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1283"/>
+        <location filename="../src/widget.cpp" line="1285"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -758,7 +768,7 @@ Click yes to continue.</source>
     <message>
         <location filename="../src/downloadlist.cpp" line="74"/>
         <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
-        <translation type="unfinished">下载完成 可进入应用更新和安装设置来启动免密码安装</translation>
+        <translation>下载完成 可进入应用更新和安装设置来启动免密码安装</translation>
     </message>
     <message>
         <location filename="../src/downloadlist.cpp" line="190"/>

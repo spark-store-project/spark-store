@@ -11,12 +11,19 @@
 void SpkAppInfoLoaderThread::run()
 {
     emit requestResetUi();
+    int downloadCount = 0;
 
     httpClient = new AeaQt::HttpClient;
 
+    httpClient->get(targetUrl.toString().replace("app.json", "download-times.txt"))
+        .onResponse([&downloadCount](QByteArray text)
+    {
+        downloadCount = QString(text).toInt();
+    });
+
     httpClient->get(targetUrl.toString())
             .header("content-type", "application/json")
-            .onResponse([this](QByteArray json_array)
+            .onResponse([&](QByteArray json_array)
     {
         qDebug() << "请求应用信息 " << json_array;
         QString urladdress, deatils, more, packagename, appweb;
@@ -95,7 +102,7 @@ void SpkAppInfoLoaderThread::run()
             isUpdated = false;
         }
 
-        emit requestSetAppInformation(&appName, &details, &more, &appweb, &packagename, &fileUrl, isInstalled, isUpdated);
+        emit requestSetAppInformation(&appName, &details, &more, &appweb, &packagename, &fileUrl, downloadCount, isInstalled, isUpdated);
 
         // tag 加载
         QString tags = json["Tags"].toString();

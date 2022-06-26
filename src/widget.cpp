@@ -837,6 +837,7 @@ void Widget::sltAppinfoResetUi()
     ui->pushButton_update->setEnabled(false);
     ui->label_show->setText("Loading...");
     ui->label_show->show();
+    ui->label_downloadCount->clear();
 }
 
 void Widget::sltAppinfoTags(QStringList *tagList)
@@ -880,7 +881,7 @@ void Widget::sltAppinfoTags(QStringList *tagList)
 
 void Widget::sltAppinfoDetails(QString *name, QString *details, QString *info,
                                QString *website, QString *packageName, QUrl *fileUrl,
-                               bool isInstalled, bool isUpdated)
+                               int downloadCount, bool isInstalled, bool isUpdated)
 {
     ui->label_appname->setText(appName = *name);
     ui->label_appname->show();
@@ -888,6 +889,7 @@ void Widget::sltAppinfoDetails(QString *name, QString *details, QString *info,
     ui->label_info->show();
     ui->label_more->setText(*info);
     ui->label_more->show();
+    ui->label_downloadCount->setText(tr("Total downloads: %1").arg(downloadCount));
 
     pkgName = *packageName;
     url = *fileUrl;
