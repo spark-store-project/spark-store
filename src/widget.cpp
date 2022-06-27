@@ -47,11 +47,6 @@ Widget::Widget(DBlurEffectWidget *parent) :
 
     httpClient = new AeaQt::HttpClient;
     
-    QtConcurrent::run([=]()
-    {
-        downloadController = new DownloadController(this);  // 并发下载
-    });
-    
 
     connect(ui->menu_main, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(0);});
     connect(ui->menu_network, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(1);});
@@ -672,6 +667,7 @@ void Widget::startRequest(QUrl url, QString fileName)
     isdownload = true;
     download_list[allDownload - 1].free = false;
 
+    downloadController = new DownloadController(this);  // 并发下载，在点击下载按钮的时候才会初始化
     connect(downloadController, &DownloadController::downloadProcess, this, &Widget::updateDataReadProgress);
     connect(downloadController, &DownloadController::downloadFinished, this, &Widget::httpFinished);
     connect(downloadController, &DownloadController::errorOccur, this, [=](QString msg){this->sendNotification(msg);});
