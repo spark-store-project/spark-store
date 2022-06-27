@@ -13,6 +13,7 @@ apt install apt-fast -y
 fi
 
 rm /opt/durapps/spark-store/bin/apt-fast-conf/apt-fast.conf
-curl -o /opt/durapps/spark-store/bin/apt-fast-conf/apt-fast.conf "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/apt-fast.conf"
+echo "从服务器获取配置和镜像列表..."
+curl -s --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/apt-fast.conf "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/apt-fast.conf"
 
 bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/apt-fast.conf' /etc/apt-fast.conf apt-fast "$@"
