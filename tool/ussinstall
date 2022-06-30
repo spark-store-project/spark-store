@@ -38,9 +38,9 @@ else
 	until [ -f "/usr/share/ca-certificates/deepin/private/priv.crt" ] ; do 
 		echo "没有检测到证书，准备调用证书工具生成证书，请输入您的UOS账号/密码。本脚本不会上传任何信息"
 		echo "请在此行输入您的UOS账号用户名/电话号/邮箱"
-		read account
+		read -e account
 		echo "请在此行输入您的UOS账号密码"
-		read passwd
+		read -e passwd
 		echo "即将安装证书，请在弹出的窗口安装"
 		cert-tool -username="$account" -password="$passwd"
 	done

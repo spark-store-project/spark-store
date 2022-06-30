@@ -30,7 +30,7 @@ echo "输入2 查看可更新软件包列表并决定是否更新"
 echo "输入3 $text_auto_install_open点击安装免输入密码功能"
 echo "输入4 退出脚本"
 echo
-read option
+read -e option
 
 case $option in 
 	0)
