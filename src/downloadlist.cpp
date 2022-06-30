@@ -92,19 +92,6 @@ QString downloadlist::getName()
 
 void downloadlist::readyInstall()
 {
-    if(ui->progressBar->value() != ui->progressBar->maximum() && !close)
-    {
-        ui->progressBar->hide();
-        ui->pushButton_install->show();
-        ui->pushButton_2->hide();
-        Widget::sendNotification(tr("Failed to download %1").arg(ui->label->text()), 5000,
-                                 "/tmp/spark-store/icon_" + QString::number(num).toUtf8() + ".png");
-        ui->label_2->setText(tr("Download Failed，Check Your Connection"));
-        ui->pushButton_install->setEnabled(false);
-
-        return;
-    }
-
     if(!close)
     {
         ui->progressBar->hide();

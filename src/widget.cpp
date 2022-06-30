@@ -108,10 +108,9 @@ Widget::Widget(DBlurEffectWidget *parent) :
     download_speed.start();
     connect(&download_speed,&QTimer::timeout,[=]()
     {
-        if(isdownload)
+        if(isdownload && theSpeed == "")
         {
             size1 = download_size;
-            QString theSpeed;
             double bspeed;
             bspeed = size1 - size2;
             if(bspeed < 1024)
@@ -129,9 +128,11 @@ Widget::Widget(DBlurEffectWidget *parent) :
             else
             {
                 theSpeed = QString::number(0.01 * int(100 * (bspeed / (1024 * 1024 * 1024)))) + "GB/s";
-            }
-            download_list[nowDownload - 1].setSpeed(theSpeed);
+            }          
             size2 = download_size;
+        }
+        if(isdownload){
+        download_list[nowDownload - 1].setSpeed(theSpeed);
         }
     });
 
@@ -788,15 +789,15 @@ void Widget::httpReadyRead()
     }
 }
 
-void Widget::updateDataReadProgress(qint64 bytesRead, qint64 totalBytes)
+void Widget::updateDataReadProgress(QString speedInfo, qint64 bytesRead, qint64 totalBytes)
 {
     if(totalBytes <= 0)
     {
         return;
     }
-
+    theSpeed = speedInfo;
     download_list[nowDownload - 1].setMax(10000);   // 最大值
-    download_list[nowDownload - 1].setValue((bytesRead * 10000) / totalBytes);  // 当前值
+    download_list[nowDownload - 1].setValue(int(bytesRead * 100 / totalBytes) * 100);  // 当前值
     download_size = bytesRead;
     if(download_list[nowDownload - 1].close)
     {
@@ -955,7 +956,9 @@ void Widget::httpFinished() // 完成下载
     download_list[nowDownload - 1].free = true;
     if(nowDownload < allDownload)
     {
+
         // 如果有排队则下载下一个
+        qDebug() << "切换下一个下载...";
         nowDownload += 1;
         while(download_list[nowDownload - 1].close)
         {
@@ -1039,7 +1042,7 @@ void Widget::on_pushButton_updateServer_clicked()
         ui->comboBox_server->clear();
 
         QFile::remove(QDir::homePath().toUtf8() + "/.config/spark-store/server.list");
-        system("curl -o " + QDir::homePath().toUtf8() + "/.config/spark-store/server.list https://d.store.deepinos.org.cn/store/server.list");
+        system("curl -o " + QDir::homePath().toUtf8() + "/.config/spark-store/server.list https://d.store.deepinos.org.cn/store/server-and-mirror.list");
         std::fstream server;
         server.open(QDir::homePath().toUtf8() + "/.config/spark-store/server.list", std::ios::in);
         std::string lineTmp;
@@ -1325,7 +1328,7 @@ void Widget::on_webEngineView_urlChanged(const QUrl &arg1)
         ui->label_appname->clear();
         ui->pushButton_download->setEnabled(false);
         ui->stackedWidget->setCurrentIndex(2);
-        qDebug() << "https://demo-one-vert.vercel.app/" + type_name + "/" + pname;
+        qDebug() << "https://d.store.deepinos.org.cn/" + type_name + "/" + pname;
         qDebug() << "链接地址：" << arg1;
 
         /*
