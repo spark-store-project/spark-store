@@ -28,12 +28,19 @@ If you are using Debian11/Ubuntu 20.04, you will need extra dependency package. 
 #### Compile and developement
 
 
-For Deepin V20/UOS 21/ Ubuntu 22.04/ Debian 11
+For Deepin V20/UOS 21/ Debian 11
 
 ```shell
 sudo apt install git qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev
 
 ```
+
+Ubuntu 22.04
+```shell
+sudo apt install git qtbase5-dev debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev
+
+```
+
 Then
 
 ```shell

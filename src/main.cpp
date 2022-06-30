@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
      DAboutDialog dialog;
       a.setAboutDialog(&dialog);
       dialog.setLicense(QObject::tr("We publish this program under GPL V3"));
-      dialog.setVersion(DApplication::buildVersion("Version 3.2"));
+      dialog.setVersion(DApplication::buildVersion("Version 3.1.3"));
       dialog.setProductIcon(QIcon::fromTheme("spark-store"));  // 设置Logo
       dialog.setProductName(QLabel::tr("Spark Store"));
       dialog.setDescription(

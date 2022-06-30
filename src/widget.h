@@ -69,7 +69,7 @@ private slots:
 
     void httpFinished();
     void httpReadyRead();
-    void updateDataReadProgress(qint64,qint64);
+    void updateDataReadProgress(QString, qint64, qint64);
 
     // SpkAppInfoLoaderThread的槽函数
     void sltAppinfoResetUi();
@@ -147,6 +147,7 @@ private:
     QFuture<void> load;
     QFutureWatcher<void> watchScreenshotLoad;
     QTimer download_speed;
+    QString theSpeed;
     QString type_name;
     QColor main_color;
     int foot;

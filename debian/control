@@ -35,7 +35,8 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  libnotify4,
  curl,
  dde-qt5integration,
- bubblewrap
+ bubblewrap,
+ aria2
 Description: Spark Store
  A community powered app store, based on DTK.
 Recommends: apt-fast
