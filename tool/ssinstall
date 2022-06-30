@@ -21,7 +21,7 @@ then
     echo "ssinstall需要在root下运行";
 	uname=`whoami`
 	echo "Now input the password of $uname"
-	read upass
+	read -e upass
 	################检查密码对不对
     echo "$upass" | sudo -S echo "i love amber forever"
 	passcheck=`echo "$upass" | sudo -S echo "i love amber forever"`
