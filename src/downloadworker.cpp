@@ -176,11 +176,9 @@ void DownloadController::startDownload(const QString &url)
 
         auto pidNumber = cmd->processId();
         this->pidNumber = pidNumber;
-        int statusSum = 0;
-        while (statusSum > -20)
+        while (cmd->waitForFinished(-1))
         {
-            auto status = cmd->waitForFinished() - 1;
-            statusSum += status;
+            continue;
         }
         emit downloadFinished();
     });
