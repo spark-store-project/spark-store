@@ -1,3 +1,11 @@
+spark-store (3.1.3-1) stable; urgency=medium
+
+  * 修复 下载提前退出
+  * 移除 下载量显示
+
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.1.3) stable; urgency=medium
 
   * Now uses aria2 to download softwares form all mirrors
