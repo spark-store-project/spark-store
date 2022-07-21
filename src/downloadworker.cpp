@@ -96,6 +96,7 @@ void DownloadController::startDownload(const QString &url)
         QString aria2Urls = "";
         QString aria2Verbose = "--summary-interval=1";
         QString aria2Threads = "-s " + QString::number(domains.size());
+        QString aria2NoConfig = "--no-conf";
         QStringList command;
         QString downloadDir = "/tmp/spark-store/";
 
@@ -114,6 +115,7 @@ void DownloadController::startDownload(const QString &url)
         command.append(downloadDir.toUtf8());
         command.append(aria2Verbose.toUtf8());
         command.append(aria2Threads.toUtf8());
+        command.append(aria2NoConfig.toUtf8());
         qDebug() << command;
         auto cmd = new QProcess();
         cmd->setProcessChannelMode(QProcess::MergedChannels);
