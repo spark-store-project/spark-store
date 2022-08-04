@@ -36,8 +36,11 @@ fi
 
 #The code above is modified from https://blog.csdn.net/yaxuan88521/article/details/120516298
 
+curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
+# 每日更新星火源文件
 
-updatetext=`sudo apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"`
+updatetext=`bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"`
+
 
 mkdir -p /tmp/spark-store-updatenum/
 

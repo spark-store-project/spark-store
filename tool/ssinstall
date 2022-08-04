@@ -46,8 +46,7 @@ isuos=`cat /etc/os-release | grep UnionTech`
 ##############判断是否是root运行，如果是，则正常走；如果不是，则代输密码
 if [ "$(id -u)" != "0" ];then
 #############################无root权限时
-#临时提升星火源的优先级
-echo "$upass" | sudo -S sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
+
 
 IS_INSTALLED=`which apt-fast`
 if [ "$IS_INSTALLED" = "" ] ; then 
@@ -69,16 +68,14 @@ echo ---------------------------------------------------------------------------
 echo "$upass" | sudo -S dpkg -i $1 || sudo ss-apt-fast install -yf 
 fi
 
-echo "$upass" | sudo -S sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore
-#恢复优先级
+
 
 
 
 else
 ###########################有root权限时
 
-#临时提升星火源的优先级
-sed -i 's/400/500/g' /etc/apt/preferences.d/sparkstore
+
 
 IS_INSTALLED=`which  apt-fast`
 if [ "$IS_INSTALLED" = "" ] ; then 
@@ -99,8 +96,6 @@ echo ---------------------------------------------------------------------------
 dpkg -i $1 || ss-apt-fast install -yf 
 fi
 
-sed -i 's/500/400/g' /etc/apt/preferences.d/sparkstore
-#恢复优先级
 
 
 
