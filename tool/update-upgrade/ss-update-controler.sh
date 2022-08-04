@@ -74,7 +74,8 @@ case $option in
 	echo "请注意：如果有些更新需要从系统获取更多依赖，你将需要手动操作 sudo ss-apt-fast upgrade"
 	echo "执行以下操作需要授权..."
 	sudo curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
-	/opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
+	sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+    /opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
 	echo "---请按回车返回"
 	read
