@@ -45,18 +45,18 @@ downloadlist::downloadlist(QWidget *parent) :
         menu_install->addAction(action_dpkg);
     }
 
-    QFile deepin("/usr/bin/deepin-deb-installer");
-    deepin.open(QIODevice::ReadOnly);
-    if(deepin.isOpen())
-    {
-        menu_install->addAction(action_deepin);
-    }
-    QFile gdebi("/usr/bin/gdebi");
-    gdebi.open(QIODevice::ReadOnly);
-    if(gdebi.isOpen())
-    {
-        menu_install->addAction(action_gdebi);
-    }
+//    QFile deepin("/usr/bin/deepin-deb-installer");
+//    deepin.open(QIODevice::ReadOnly);
+//    if(deepin.isOpen())
+//    {
+//        menu_install->addAction(action_deepin);
+//    }
+//    QFile gdebi("/usr/bin/gdebi");
+//    gdebi.open(QIODevice::ReadOnly);
+//    if(gdebi.isOpen())
+//    {
+//        menu_install->addAction(action_gdebi);
+//    }
     
 }
 
@@ -219,6 +219,7 @@ void downloadlist::on_pushButton_3_clicked()
 {
     textbrowser->setLineWidth(0);
     textbrowser->setText(out);
+    textbrowser->setMinimumHeight(500);
 
     output_w->setMinimumHeight(600);
     output_w->setAttribute(Qt::WA_TranslucentBackground);

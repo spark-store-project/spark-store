@@ -52,15 +52,15 @@ if [ "$(id -u)" != "0" ];then
 if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
 echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
 echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || sudo ss-apt-fast ssupdate && sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install -yf
+echo "$upass" | sudo -S dpkg -i $1 || sudo /usr/local/bin/ss-apt-fast ssupdate && sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install -yf
 
 
 fi
 
 if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
-echo "检测到apt-fast，使用ss-apt-fast进行多线程下载加速"
+echo "检测到apt-fast，使用/usr/local/bin/ss-apt-fast进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || sudo ss-apt-fast ssupdate && sudo ss-apt-fast install -yf 
+echo "$upass" | sudo -S dpkg -i $1 || sudo /usr/local/bin/ss-apt-fast ssupdate && sudo /usr/local/bin/ss-apt-fast install -yf 
 fi
 
 
@@ -76,13 +76,13 @@ else
 if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
 echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
 echo ----------------------------------------------------------------------------------
-dpkg -i $1 || ss-apt-fast ssupdate && bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update && sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install -yf
+dpkg -i $1 || /usr/local/bin/ss-apt-fast ssupdate && bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update && sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install -yf
 fi
 
 if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
-echo "检测到apt-fast，使用ss-apt-fast进行多线程下载加速"
+echo "检测到apt-fast，使用/usr/local/bin/ss-apt-fast进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
-dpkg -i $1 || ss-apt-fast ssupdate && ss-apt-fast install -yf 
+dpkg -i $1 || /usr/local/bin/ss-apt-fast ssupdate && /usr/local/bin/ss-apt-fast install -yf 
 fi
 
 
