@@ -1,4 +1,11 @@
+spark-store (3.1.4) stable; urgency=medium
 
+  * 发布正式版，同步到官网
+  * 修复安装时使用wget的问题
+  * 合并3.1.3-1和3.1.3-2的更改
+
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
 spark-store (3.1.3-2) stable; urgency=medium
 

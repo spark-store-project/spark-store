@@ -16,7 +16,7 @@ case "$1" in
 
 
 		# Download and install key
-		wget -O /tmp/spark-store-install/spark-store.asc https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc 
+		curl --progress-bar -o /tmp/spark-store-install/spark-store.asc https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc 
 		gpg --dearmor /tmp/spark-store-install/spark-store.asc 
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
