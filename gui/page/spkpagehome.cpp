@@ -29,6 +29,10 @@ void SpkUi::SpkPageHome::SetupUi()
 
   ui->lblNewAnnouncement->setVisible(false);
 
+  // Click event will propagate to the main window and cause the window to move when
+  // mouse enters the zoom & move detection area. Disable mouse event propagation.
+  ui->lblAuthor->setAttribute(Qt::WA_NoMousePropagation, true);
+
   ui->widReloadCategory->setVisible(false);
   ui->widReloadCategory->setAttribute(Qt::WA_StyledBackground);
   ui->lblCategoryErrIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(QSize(32, 32)));
