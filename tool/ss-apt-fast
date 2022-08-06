@@ -3,7 +3,7 @@
 
 
 
-if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "download" ] ; then
+if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] || [ "$1" = "download" ] ; then
 
 ###刷新apt-fast配置
 mkdir -p /tmp/ss-apt-fast-conf/sources.list.d
