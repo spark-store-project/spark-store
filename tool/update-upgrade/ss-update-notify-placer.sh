@@ -9,7 +9,7 @@ LANG=en.US
 function network()
 {
     #超时时间
-    local timeout=1
+    local timeout=5
 
     #目标网站
     local target=www.baidu.com
