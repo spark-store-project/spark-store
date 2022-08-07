@@ -1,3 +1,32 @@
+spark-store (3.1.4-1) stable; urgency=medium
+
+  * 安装脚本和检测更新脚本检查网络时间超时时间延长至5s  
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.1.4) stable; urgency=medium
+
+  * 发布正式版，同步到官网
+  * 修复安装时使用wget的问题
+  * 合并3.1.3-1和3.1.3-2的更改
+  * 屏蔽了ssinstall之外的安装方式
+  * 调整了报错框的形式
+  * 修复pkexec下ssinstall不处理依赖
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.1.3-2) stable; urgency=medium
+
+  * 调整 现在与系统更新分开，不再导致更新失败
+  * 支持直接更新软件源文件，不再让d.吃全部更新流量
+  * ss-apt-fast不再强制root权限
+  * 修改ss-apt-fast的策略，现在除了安装，下载和更新都改用apt
+  * ssinstall 现在也会在不适用ss-apt-fast的时候模拟源了（针对UOS）
+
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.1.3-1) stable; urgency=medium
 
   * 修复 下载提前退出
