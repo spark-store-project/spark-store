@@ -1,7 +1,7 @@
 spark-store (3.1.4-1) stable; urgency=medium
 
   * 安装脚本和检测更新脚本检查网络时间超时时间延长至5s  
-
+  * 修复：ssinstall在没有安装apt-fast的情况下首次安装需要依赖的软件时安装失败 
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 

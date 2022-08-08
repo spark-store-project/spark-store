@@ -47,7 +47,12 @@ isuos=`cat /etc/os-release | grep UnionTech`
 if [ "$(id -u)" != "0" ];then
 #############################无root权限时
 
+IS_INSTALLED=`which apt-fast`
+if [ "$IS_INSTALLED" = "" ] ; then 
+echo "未安装依赖：apt-fast 开始安装"
+echo "$upass" | sudo -S /usr/local/bin/ss-apt-fast ssupdate && echo "$upass" | sudo -S bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install apt-fast -y
 
+fi
 
 if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
 echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
@@ -70,8 +75,11 @@ fi
 else
 ###########################有root权限时
 
-
-
+IS_INSTALLED=`which apt-fast`
+if [ "$IS_INSTALLED" = "" ] ; then 
+echo "未安装依赖：apt-fast 开始安装"
+/usr/local/bin/ss-apt-fast ssupdate && bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install apt-fast -y
+fi
 
 if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
 echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
