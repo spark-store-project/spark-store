@@ -44,6 +44,48 @@ void timeSleeper(int time)
     return;
 }
 
+bool checkMeatlink(QString metaUrl)
+{
+    QFile metaStatus("/tmp/spark-store/metaStatus.txt");
+    if (metaStatus.exists())
+    {
+        metaStatus.remove();
+    }
+    system("curl -I -s --connect-timeout 5 " + metaUrl.toUtf8() + " -w  %{http_code}  |tail -n1 > /tmp/spark-store/metaStatus.txt");
+    if (metaStatus.open(QFile::ReadOnly) && QString(metaStatus.readAll()).toUtf8() == "200")
+    {
+        metaStatus.remove();
+        return true;
+    }
+    return false;
+}
+
+void gennerateDomain(QVector<QString> &domains)
+{
+    QFile serverList(QDir::homePath().toUtf8() + "/.config/spark-store/server.list");
+    if (serverList.open(QFile::ReadOnly))
+    {
+        QStringList list = QString(serverList.readAll()).trimmed().split("\n");
+        qDebug() << list << list.size();
+        domains.clear();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            if (list.at(i).contains("镜像源 Download only") && i + 1 < list.size())
+            {
+                for (int j = i + 1; j < list.size(); j++)
+                {
+                    domains.append(list.at(j));
+                }
+                break;
+            }
+        }
+        if (domains.size() == 0)
+        {
+            domains.append("d.store.deepinos.org.cn");
+        }
+    }
+}
 
 /**
  * @brief 开始下载
@@ -59,54 +101,37 @@ void DownloadController::startDownload(const QString &url)
     }
 
     QtConcurrent::run([=]()
-    {
-        QFile serverList(QDir::homePath().toUtf8() + "/.config/spark-store/server.list");
-        if (serverList.open(QFile::ReadOnly))
-        {
-            QStringList list = QString(serverList.readAll()).trimmed().split("\n");
-            qDebug() << list << list.size();
-            domains.clear();
-
-            for (int i = 0; i < list.size(); i++)
-            {
-                if (list.at(i).contains("镜像源 Download only") && i + 1 < list.size())
-                {
-                    for (int j = i + 1; j < list.size(); j++)
-                    {
-                        system("curl -I -s --connect-timeout 5 https://" + list.at(j).toUtf8() + "/dcs-repo.gpg-key.asc -w  %{http_code}  |tail -n1 > /tmp/spark-store/cdnStatus.txt");
-                        QFile cdnStatus("/tmp/spark-store/cdnStatus.txt");
-                        if (cdnStatus.open(QFile::ReadOnly) && QString(cdnStatus.readAll()).toUtf8() == "200")
-                        {
-                            qDebug() << list.at(j);
-                            domains.append(list.at(j));
-                        }
-                    }
-                    break;
-                }
-            }
-            if (domains.size() == 0)
-            {
-                domains.append("d.store.deepinos.org.cn");
-            }
-            qDebug() << domains << domains.size();
+                      {
+        QString metaUrl = url + ".metalink";
+        qDebug() << "metalink" << metaUrl;
+        bool useMetalink = false;
+        if (checkMeatlink(metaUrl)){
+            useMetalink = true;
+            qDebug() << "useMetalink:" << useMetalink;
+        }else{
+            gennerateDomain(domains);
+            // qDebug() << domains << domains.size();
         }
-
         QDir tmpdir("/tmp/spark-store/");
         QString aria2Command = "-d";
         QString aria2Urls = "";
         QString aria2Verbose = "--summary-interval=1";
-        QString aria2Threads = "-s " + QString::number(domains.size());
+        QString aria2Threads = "--split=16";
         QString aria2NoConfig = "--no-conf";
+        QString aria2NoSeeds = "--seed-time=0";
         QStringList command;
         QString downloadDir = "/tmp/spark-store/";
 
-        
-        for (int i = 0; i < domains.size(); i++)
-        {
-            command.append(replaceDomain(url, domains.at(i)).toUtf8());
-            aria2Urls += replaceDomain(url, domains.at(i));
-            aria2Urls += " ";
+        if (useMetalink){
+            command.append(metaUrl.toUtf8());
         }
+        else{
+            for (int i = 0; i < domains.size(); i++)
+            {
+                command.append(replaceDomain(url, domains.at(i)).toUtf8());
+            }
+        }
+
 
         qint64 downloadSizeRecord = 0;
         QString speedInfo = "";
@@ -114,8 +139,11 @@ void DownloadController::startDownload(const QString &url)
         command.append(aria2Command.toUtf8());
         command.append(downloadDir.toUtf8());
         command.append(aria2Verbose.toUtf8());
-        command.append(aria2Threads.toUtf8());
         command.append(aria2NoConfig.toUtf8());
+        command.append(aria2Threads.toUtf8());
+        if (useMetalink){
+            command.append(aria2NoSeeds.toUtf8());
+        }
         qDebug() << command;
         auto cmd = new QProcess();
         cmd->setProcessChannelMode(QProcess::MergedChannels);
@@ -130,6 +158,7 @@ void DownloadController::startDownload(const QString &url)
             //通过读取输出计算下载速度
             QFileInfo info(tmpdir.absoluteFilePath(filename));
             QString message = cmd->readAllStandardOutput().data();
+            //qDebug() << message;
             message = message.replace(" ", "").replace("\n", "").replace("-", "");
             message = message.replace("*", "").replace("=", "");
             QStringList list;
@@ -153,7 +182,7 @@ void DownloadController::startDownload(const QString &url)
                 speedInfo = message.mid(speedPlace1 + 3, speedPlace2 - speedPlace1 - 3);
                 speedInfo += "/s";
             }
-            qDebug() << percentInfo << speedInfo;
+            // qDebug() << percentInfo << speedInfo;
             if (downloadSize >= downloadSizeRecord)
             {
                 downloadSizeRecord = downloadSize;
@@ -182,8 +211,7 @@ void DownloadController::startDownload(const QString &url)
         {
             continue;
         }
-        emit downloadFinished();
-    });
+        emit downloadFinished(); });
 }
 
 /**
