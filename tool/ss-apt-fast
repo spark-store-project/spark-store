@@ -24,7 +24,7 @@ fi
 bwrap --dev-bind / / \
                    --bind '/tmp/ss-apt-fast-conf/apt-fast.conf' /etc/apt-fast.conf \
                    --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                apt-fast "$@"
+                apt-fast "$@" --allow-downgrades
 
 rm -rf  /tmp/ss-apt-fast-conf
 

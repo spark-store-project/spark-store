@@ -1,3 +1,11 @@
+spark-store (3.1.5) stable; urgency=medium
+
+  * 改变更新策略，现在支持应用在更新时引入新依赖
+  * ss-apt-fast现在默认允许降级，以与apt使用体验一致
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.1.4-2) stable; urgency=medium
 
   * 客户端下载使用metalink来支持bt下载加速
