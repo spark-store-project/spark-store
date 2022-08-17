@@ -9,9 +9,17 @@ PKG_LIST="$(bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-c
 
 
 isuos=`cat /etc/os-release | grep UnionTech`
-if [ "$isuos" != "" ]; then ###这是确定是否为UOS
-echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
+if [ "$isuos" != "" ]; then ###这是确定是否为UOS 如果是
+echo "UOS中系统依赖无法使用第三方下载工具，使用apt-fast下载本体"
 
+  cd /var/cache/apt/archives
+  for PKG_NAME in $PKG_LIST;
+  do
+    echo "$PKG_NAME 正在下载..."
+  sudo /usr/local/bin/ss-apt-fast download "$PKG_NAME" -y >/dev/null 2>&1;
+  done
+   
+  echo "----开始安装"
   for PKG_NAME in $PKG_LIST;
   do
     echo "$PKG_NAME 正在准备更新..."
@@ -22,6 +30,8 @@ echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast
       echo "WARNING: $PKG_NAME 无法更新"
     fi
   done
+
+
 
 else ###这是确定是否为UOS
 
