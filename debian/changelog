@@ -1,7 +1,31 @@
+spark-store (3.1.5-1) stable; urgency=medium
+
+  * 改变更新策略，UOS也下载加速，但是安装不加速
+
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.1.5) stable; urgency=medium
+
+  * 改变更新策略，现在支持应用在更新时引入新依赖
+  * ss-apt-fast现在默认允许降级，以与apt使用体验一致
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.1.4-2) stable; urgency=medium
+
+  * 客户端下载使用metalink来支持bt下载加速
+  * 修复使用更新和安装设置更新商店本体时出错
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.1.4-1) stable; urgency=medium
 
   * 安装脚本和检测更新脚本检查网络时间超时时间延长至5s  
-
+  * 修复：ssinstall在没有安装apt-fast的情况下首次安装需要依赖的软件时安装失败 
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 

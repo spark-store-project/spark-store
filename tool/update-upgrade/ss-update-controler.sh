@@ -71,10 +71,9 @@ case $option in
 	;;
 
 	2)
-	echo "请注意：如果有些更新需要从系统获取更多依赖，你将需要手动操作 sudo ss-apt-fast upgrade"
 	echo "执行以下操作需要授权..."
 	sudo ss-apt-fast ssupdate
-    /opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
+       /opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
 	echo "---请按回车返回"
 	read
