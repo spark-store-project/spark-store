@@ -1,3 +1,11 @@
+spark-store (3.1.5-2) stable; urgency=medium
+
+  * 下载软件时跳过获取大小，修复部分软件无法下载的问题
+
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.1.5-1) stable; urgency=medium
 
   * 改变更新策略，UOS也下载加速，但是安装不加速
