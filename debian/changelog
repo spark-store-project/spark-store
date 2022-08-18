@@ -1,7 +1,7 @@
 spark-store (3.1.5-2) stable; urgency=medium
 
   * 下载软件时跳过获取大小，修复部分软件无法下载的问题
-
+  * 修复 获取key时出错，指定使用http1.1
 
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
