@@ -18,7 +18,7 @@ case "$1" in
 		# Download and install key
 		mkdir -p /tmp/spark-store-install/
 		cp -f /opt/durapps/spark-store/bin/spark-store.asc  /tmp/spark-store-install/spark-store.asc
-		gpg --dearmor /opt/durapps/spark-store/bin/spark-store.asc 
+		gpg --dearmor /tmp/spark-store-install/spark-store.asc
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
 
