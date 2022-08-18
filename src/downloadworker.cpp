@@ -1,14 +1,8 @@
 #include "downloadworker.h"
 #include <QEventLoop>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QThread>
 #include <QProcess>
 #include <QRegularExpression>
-#include <QFileInfo>
 #include <QDir>
-#include <QElapsedTimer>
 #include <QtConcurrent>
 
 DownloadController::DownloadController(QObject *parent)
@@ -36,13 +30,6 @@ void DownloadController::setFilename(QString filename)
     this->filename = filename;
 }
 
-void timeSleeper(int time)
-{
-    QElapsedTimer t1;
-    t1.start();
-    while(t1.elapsed()<time);
-    return;
-}
 
 bool checkMeatlink(QString metaUrl)
 {
@@ -156,11 +143,9 @@ void DownloadController::startDownload(const QString &url)
         [&]()
         {
             //通过读取输出计算下载速度
-            QFileInfo info(tmpdir.absoluteFilePath(filename));
             QString message = cmd->readAllStandardOutput().data();
-            //qDebug() << message;
-            message = message.replace(" ", "").replace("\n", "").replace("-", "");
-            message = message.replace("*", "").replace("=", "");
+            // qDebug() << message;
+            message = message.replace(" ", "");
             QStringList list;
             qint64 downloadSize = 0;
             int downloadSizePlace1 = message.indexOf("(");
@@ -174,10 +159,10 @@ void DownloadController::startDownload(const QString &url)
                 {
                     int percentInfoNumber = percentInfo.toUInt();
 
-                    downloadSize = (percentInfoNumber + 1) * fileSize / 100;
+                    downloadSize = percentInfoNumber * fileSize / 100;
                 }
             }
-            if (speedPlace1 != -1 && speedPlace2 != -1)
+            if (speedPlace1 != -1 && speedPlace2 != -1 && speedPlace2 - speedPlace1 <= 15)
             {
                 speedInfo = message.mid(speedPlace1 + 3, speedPlace2 - speedPlace1 - 3);
                 speedInfo += "/s";
@@ -227,30 +212,8 @@ void DownloadController::stopDownload()
 
 qint64 DownloadController::getFileSize(const QString &url)
 {
-    QEventLoop event;
-    QNetworkAccessManager requestManager;
-    QNetworkRequest request;
-    request.setUrl(QUrl(url));
-    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
-    QNetworkReply *reply = requestManager.head(request);
-    connect(reply, static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
-            [this, reply](QNetworkReply::NetworkError error)
-            {
-                if (error != QNetworkReply::NoError)
-                {
-                    emit errorOccur(reply->errorString());
-                }
-            });
-    connect(reply, &QNetworkReply::finished, &event, &QEventLoop::quit);
-    event.exec();
-
-    qint64 fileSize = 0;
-    if (reply->rawHeader("Accept-Ranges") == QByteArrayLiteral("bytes") && reply->hasRawHeader(QString("Content-Length").toLocal8Bit()))
-    {
-        fileSize = reply->header(QNetworkRequest::ContentLengthHeader).toUInt();
-    }
-    qDebug() << "文件大小为：" << fileSize;
-    reply->deleteLater();
+    // 已经无需使用 qtnetwork 再获取 filesize，完全交给 aria2 来计算进度。 为保证兼容性，故保留此函数。
+    qint64 fileSize = 10000;
     return fileSize;
 }
 
