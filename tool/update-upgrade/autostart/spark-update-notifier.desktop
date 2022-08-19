@@ -1,5 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Exec=/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify.sh
-Name=spark-update-notifier

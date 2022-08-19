@@ -21,11 +21,14 @@ tool.path = /opt/durapps/$${TARGET}/bin
 qm.files += translations/*.qm
 qm.path = /usr/share/spark-store/translations
 
-preferences.files += pkg/etc/apt/preferences.d/sparkstore
-preferences.path = /etc/apt/preferences.d
+#preferences.files += pkg/etc/apt/preferences.d/sparkstore
+#preferences.path = /etc/apt/preferences.d
 
-sourceslist.files += pkg/etc/apt/sources.list.d/sparkstore.list
-sourceslist.path = /etc/apt/sources.list.d
+#sourceslist.files += pkg/etc/apt/sources.list.d/sparkstore.list
+#sourceslist.path = /etc/apt/sources.list.d
+
+bash_completion.files += pkg/usr/share/bash-completion/completions/aptss
+bash_completion.path = /usr/share/bash-completion/completions
 
 desktop.files += pkg/usr/share/applications/spark-store.desktop
 desktop.path = /usr/share/applications
@@ -49,9 +52,9 @@ INSTALLS += \
     qm \
     desktop \
     icon \
-    sourceslist \
     preferences \
     tmp \
-    service 
+    service \
+    bash_completion
 #	polkit-1 
 #   暂时不添加

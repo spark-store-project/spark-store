@@ -51,20 +51,15 @@ case $option in
 	;;
 	1)
 	echo "执行以下操作需要授权..."
-	if [  -f /etc/xdg/autostart/spark-update-notifier.desktop ];then 
+	if [  -e /etc/systemd/system/multi-user.target.wants/spark-update-notifier.service ];then 
 	echo "---检测到已经启动了自动更新检测，执行关闭"
 	sudo systemctl disable spark-update-notifier
-	sudo rm /etc/xdg/autostart/spark-update-notifier.desktop
 	sleep 3
 	reset
 	else
 	echo "---未检测到自动更新检测，执行启动"
 	sudo systemctl enable spark-update-notifier
 	sudo service spark-update-notifier start
-#	ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop $XDG_CONFIG_HOME/autostart
-#	
-	sudo ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop /etc/xdg/autostart
-	/opt/durapps/spark-store/bin/update-upgrade/ss-update-notify.sh now
 	sleep 3
 	reset
 	fi
@@ -72,8 +67,8 @@ case $option in
 
 	2)
 	echo "执行以下操作需要授权..."
-	sudo ss-apt-fast ssupdate
-       /opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
+	sudo aptss ssupdate
+    /opt/durapps/spark-store/bin/update-upgrade/ss-upgrade-list.sh
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
 	echo "---请按回车返回"
 	read
