@@ -22,7 +22,7 @@ echo "UOS中系统依赖无法使用第三方下载工具，使用apt-fast下载
   echo "----开始安装"
   for PKG_NAME in $PKG_LIST;
   do
-    echo "$PKG_NAME 正在准备更新..."
+    echo "$PKG_NAME 正在更新..."
     if sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install "$PKG_NAME" -y   >/dev/null 2>&1;
     then
       echo "$PKG_NAME 已更新"
@@ -33,11 +33,11 @@ echo "UOS中系统依赖无法使用第三方下载工具，使用apt-fast下载
 
 
 
-else ###这是确定是否为UOS
+else ###这是确定是否为UOS,如果不是
 
   for PKG_NAME in $PKG_LIST;
   do
-    echo "$PKG_NAME 正在准备更新..."
+    echo "$PKG_NAME 正在更新..."
     if sudo aptss install "$PKG_NAME" -y >/dev/null 2>&1;
     then
       echo "$PKG_NAME 已更新"
