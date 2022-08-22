@@ -1,0 +1,63 @@
+version: '1.0'
+name: dtk-build-release-tag-20220425
+displayName: dtk-build-release-tag
+triggers:
+  trigger: manual
+  push:
+    tags:
+      prefix:
+        - ''
+stages:
+  - name: stage-4e566164
+    displayName: build
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@gcc
+        name: build_gcc
+        displayName: GCC 构建
+        gccVersion: '9.4'
+        commands:
+          - sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+          - '# 换源'
+          - apt update
+          - echo "正在准备Debian 10环境..."
+          - apt install git -y >/dev/null 2>&1
+          - git clone https://gitlink.org.cn/shenmo7192/debian-10-container.git
+          - mv debian-10-container/Debian-10.tar.xz /mnt
+          - cd /mnt/
+          - tar -xf Debian-10.tar.xz
+          - cd Debian-10
+          - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build.sh
+          - chmod +x spark-build.sh
+          - echo "进入Debian 10环境"
+          - chroot /mnt/Debian-10 /bin/bash /spark-build.sh
+          - cd /mnt/Debian-10/build-spark
+          - 'mkdir target '
+          - for f in $(find . -type f -name "*.deb")
+          - do
+          - '    mv $f target'
+          - done
+        artifacts:
+          - name: BUILD_ARTIFACT
+            path:
+              - /mnt/Debian-10/build-spark/target
+        caches: []
+        notify: []
+        strategy:
+          retry: '0'
+  - name: stage-29f3ffbb
+    displayName: 上传
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: publish@general_artifacts
+        name: publish_general_artifacts
+        displayName: 上传制品
+        dependArtifact: BUILD_ARTIFACT
+        artifactName: output
+        notify: []
+        strategy:
+          retry: '0'
