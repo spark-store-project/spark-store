@@ -3,10 +3,10 @@ name: dtk-build-commit-20220425
 displayName: dtk-build-commit
 triggers:
   trigger: auto
-  push:
+  pr:
     branches:
       prefix:
-        - master
+        - ''
 stages:
   - name: stage-4e566164
     displayName: build

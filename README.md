@@ -22,7 +22,7 @@ If you want to submit an APP to share with others，Please [Click here](https://
 
 If you simply want to install the Spark Store,just enter the  [Release] page, find the version you want and install.
 
-If you are using Debian11/Ubuntu 20.04, you will need extra dependency package. Available [here](https://d.store.deepinos.org.cn/spark-store-dependencies-kylin.zip)
+If you are using Debian11/Ubuntu 20.04, you will need extra dependency package. Available [here](https://code.gitlink.org.cn/shenmo7192/spark-store-dependencies/raw/branch/master/spark-store-dependencies-kylin.zip)
 
 ---
 #### Compile and developement
