@@ -1,3 +1,27 @@
+spark-store (3.1.5-4) stable; urgency=medium
+
+  * 更改ss-apt-fast策略，现在只会在update，ssupdate和没有检测到配置文件的时候更新配置文件
+  * 新增ss-apt-fast别名：aptss 
+  * 更新检测服务优化：从分体改为一体
+  * aptss 支持自动补全
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.1.5-3) stable; urgency=medium
+
+  * 包内自带密钥
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.1.5-2) stable; urgency=medium
+
+  * 下载软件时跳过获取大小，修复部分软件无法下载的问题
+  * 修复 获取key时出错，指定使用http1.1
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.1.5-1) stable; urgency=medium
 
   * 改变更新策略，UOS也下载加速，但是安装不加速

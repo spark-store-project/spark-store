@@ -1,0 +1,39 @@
+version: '1.0'
+name: dtk-build-commit-20220425
+displayName: dtk-build-commit
+triggers:
+  trigger: auto
+  pr:
+    branches:
+      prefix:
+        - ''
+stages:
+  - name: stage-4e566164
+    displayName: build
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: execute@docker
+        name: execute_by_docker
+        displayName: 基于镜像的脚本执行
+        certificate: ''
+        image: docker.io/debian:buster-slim
+        command:
+          - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+          - '# 换源'
+          - apt update
+          - export DEBIAN_FRONTEND=noninteractive
+          - echo "安装git devscripts equivs ..."
+          - apt install git devscripts equivs curl -y >/dev/null 2>&1
+          - git clone https://gitlink.org.cn/shenmo7192/dtk-old-bundle.git
+          - cd dtk-old-bundle
+          - apt install ./*.deb -y
+          - cd ..
+          - rm -rf dtk-old-bundle
+          - 'mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" '
+          - dpkg-buildpackage -b -us -uc
+          - cd ..
+          - ls -all
+          - pwd
+        strategy: {}

@@ -2,6 +2,12 @@
 
 case "$1" in
 	configure)
+
+        # config for aptss
+        mkdir -p /etc/aptss/sources.list.d
+        ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
+        
+
 		# Check if /usr/local/bin existed
 		mkdir -p /usr/local/bin
 
@@ -11,31 +17,24 @@ case "$1" in
 		ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
 		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
 		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
-		ln -s -f /opt/durapps/spark-store/bin/ss-apt-fast /usr/local/bin/ss-apt-fast
+		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/local/bin/ss-apt-fast
+		
+        ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
 
 
 
 		# Download and install key
-		curl --progress-bar -o /tmp/spark-store-install/spark-store.asc https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc 
-		gpg --dearmor /tmp/spark-store-install/spark-store.asc 
+		mkdir -p /tmp/spark-store-install/
+		cp -f /opt/durapps/spark-store/bin/spark-store.asc  /tmp/spark-store-install/spark-store.asc
+		gpg --dearmor /tmp/spark-store-install/spark-store.asc
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
-
-		# Remove existing source file
-		rm -f /etc/apt/preferences.d/sparkstore
-		rm -f /etc/apt/sources.list.d/sparkstore.list
 
 
         	# Run apt update to avoid users being fucked up by the non-exist dependency problem
 
-		curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
-		# 下载源列表
-        	bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-		# 更新
+		aptss ssupdate
 
-
-		# Create symbo links to start upgrade detect
-		ln -s /opt/durapps/spark-store/bin/update-upgrade/autostart/spark-update-notifier.desktop /etc/xdg/autostart/spark-update-notifier.desktop
 
 		# Start upgrade detect service
 		systemctl enable spark-update-notifier
