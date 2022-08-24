@@ -103,14 +103,12 @@ void DownloadController::startDownload(const QString &url)
         QString aria2Command = "-d";
         QString aria2Urls = "";
         QString aria2Verbose = "--summary-interval=1";
-        QString aria2Threads = "--split=2";  // 仅使用最快的两个镜像源
+        QString aria2SizePerThreads = "--min-split-size=1M"; 
         QString aria2NoConfig = "--no-conf";
         QString aria2NoSeeds = "--seed-time=0";
         QStringList command;
         QString downloadDir = "/tmp/spark-store/";
-        QString aira2URLSelector = "--uri-selector=adaptive";
-        QString aria2StreamPiece = "--stream-piece-selector=default";
-        QString aria2ConnectionPerServer = "--max-connection-per-server=4";
+        QString aria2ConnectionPerServer = "--max-connection-per-server=1";
 
         if (useMetalink){
             command.append(metaUrl.toUtf8());
@@ -130,9 +128,7 @@ void DownloadController::startDownload(const QString &url)
         command.append(downloadDir.toUtf8());
         command.append(aria2Verbose.toUtf8());
         command.append(aria2NoConfig.toUtf8());
-        command.append(aria2Threads.toUtf8());
-        command.append(aira2URLSelector.toUtf8());
-        command.append(aria2StreamPiece.toUtf8());
+        command.append(aria2SizePerThreads.toUtf8());
         command.append(aria2ConnectionPerServer.toUtf8());
         if (useMetalink){
             command.append(aria2NoSeeds.toUtf8());
