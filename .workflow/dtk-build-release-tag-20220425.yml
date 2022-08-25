@@ -34,7 +34,7 @@ stages:
           - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build.sh
           - chmod +x spark-build.sh
           - mkdir  build-spark
-          - cp $WORK_DIR build-spark/spark-store
+          - cp -r $WORK_DIR build-spark/spark-store
           - echo "进入Debian 10环境"
           - chroot /mnt/Debian-10 /bin/bash /spark-build.sh
           - cd /mnt/Debian-10/build-spark
