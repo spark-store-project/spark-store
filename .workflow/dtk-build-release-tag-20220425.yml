@@ -26,11 +26,15 @@ stages:
           - apt install git -y >/dev/null 2>&1
           - git clone https://gitlink.org.cn/shenmo7192/debian-10-container.git
           - mv debian-10-container/Debian-10.tar.xz /mnt
+          - rm -rf debian-10-container
+          - WORK_DIR=`pwd`
           - cd /mnt/
           - tar -xf Debian-10.tar.xz
           - cd Debian-10
           - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build.sh
           - chmod +x spark-build.sh
+          - mkdir  build-spark
+          - cp $WORK_DIR build-spark/spark-store
           - echo "进入Debian 10环境"
           - chroot /mnt/Debian-10 /bin/bash /spark-build.sh
           - cd /mnt/Debian-10/build-spark
