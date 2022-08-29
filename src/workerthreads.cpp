@@ -48,8 +48,12 @@ void SpkAppInfoLoaderThread::run()
 
         QString deburl = serverUrl;
         deburl = deburl.left(urladdress.length() - 1);
-        urladdress = "https://d.store.deepinos.org.cn/";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
-        urladdress = urladdress.left(urladdress.length() - 1);
+        
+        QStringList url_ = targetUrl.toString().replace("//", "/").split("/");
+        urladdress = "https://" + url_[1];
+        // 不使用图片专用服务器
+        // urladdress = "https://d.store.deepinos.org.cn";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
+
 
         for(int i = 3; i < downloadurl.size(); i++)
         {
