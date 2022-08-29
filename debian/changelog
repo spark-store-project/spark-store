@@ -3,6 +3,8 @@ spark-store (3.2) stable; urgency=medium
   * 新增下载量统计功能
   * 显示下载量
   * 修复spk链接生成错误
+  * 启动时检测商店applist源
+  * 默认启用cdn加速
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
