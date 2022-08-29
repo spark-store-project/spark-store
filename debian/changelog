@@ -1,19 +1,19 @@
 spark-store (3.2) stable; urgency=medium
 
-* 新增下载量统计功能
+  * 新增下载量统计功能
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
 spark-store (3.1.6) stable; urgency=medium
 
-* 修复部分情况下无法选中正确的镜像源的问题
-* 合入3.1.5以来的各项修改
+  * 修复部分情况下无法选中正确的镜像源的问题
+  * 合入3.1.5以来的各项修改
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
 spark-store (3.1.5-5) stable; urgency=medium
 
-* 从所有镜像源中选取最快镜像源高速下载
+  * 从所有镜像源中选取最快镜像源高速下载
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 

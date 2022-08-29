@@ -198,6 +198,15 @@ void DownloadController::startDownload(const QString &url)
         {
             continue;
         }
+
+        // 统计下载量
+        QString SenderdPath = "/opt/durapps/spark-store/bin/ss-feedback/sender-d";
+        /*
+        * https://en.wikipedia.org/wiki/HD_70642
+        * HD 70642 is a star with an exoplanetary companion in the southern constellation of Puppis. 
+        */
+        system(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
+
         emit downloadFinished(); });
 }
 
