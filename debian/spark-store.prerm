@@ -11,6 +11,9 @@ rm /usr/bin/aptss
 
 rm -rf /etc/aptss/
 
+# Remove Sender module
+rm /opt/durapps/spark-store/bin/ss-feedback/sender-d
+
 # Remove residual symbol links to stop upgrade detect if exist
 if [ -e /etc/xdg/autostart/spark-update-notifier.desktop ];then
 rm /etc/xdg/autostart/spark-update-notifier.desktop
