@@ -23,7 +23,7 @@ protected:
 private:
     QUrl targetUrl;
     QString serverUrl;
-    QString downdloadTimes;
+    QString downloadTimes;
     bool finishedDownload = false;
     int downloaderRetval = 0;
 
