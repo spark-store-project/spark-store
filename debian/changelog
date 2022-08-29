@@ -5,6 +5,7 @@ spark-store (3.2) stable; urgency=medium
   * 修复spk链接生成错误
   * 启动时检测商店applist源
   * 默认启用cdn加速
+  * ssupdate不再更新/etc/aptss下的cache，如要如此，请使用aptss update
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
