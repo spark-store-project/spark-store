@@ -13,27 +13,29 @@ void SpkAppInfoLoaderThread::run()
     emit requestResetUi();
 
     httpClient = new AeaQt::HttpClient;
-
+    QString oriSeverUrl = "https://d.store.deepinos.org.cn";
+    QString cdnSeverUrl = "https://cdn.d.store.deepinos.org.cn";
 
     QString downloadTimesUrl = targetUrl.toString();
-    downloadTimesUrl = downloadTimesUrl.replace("app.json","download-times.txt");
+    downloadTimesUrl = downloadTimesUrl.replace(oriSeverUrl, cdnSeverUrl);
+    downloadTimesUrl = downloadTimesUrl.replace("app.json", "download-times.txt");
     httpClient->get(downloadTimesUrl)
             .onResponse([this](QString downloadTimesFeedback)
     {
         qDebug() << "请求应用下载量信息 " << downloadTimesFeedback;
-        this->downdloadTimes = downloadTimesFeedback.replace("\n","");
+        this->downloadTimes = downloadTimesFeedback.replace("\n","");
     })
     .onError([this](QString errorStr)
     {
         qDebug() << "请求下载量失败:" << errorStr;
-        this->downdloadTimes  = "0";
+        this->downloadTimes  = "0";
     })
     .block()
             .timeout(3*1000)
             .exec();
 
 
-    httpClient->get(targetUrl.toString())
+    httpClient->get(targetUrl.toString().replace(oriSeverUrl, cdnSeverUrl))
             .header("content-type", "application/json")
             .onResponse([this](QByteArray json_array)
     {
@@ -48,8 +50,12 @@ void SpkAppInfoLoaderThread::run()
 
         QString deburl = serverUrl;
         deburl = deburl.left(urladdress.length() - 1);
-        urladdress = "https://d.store.deepinos.org.cn/";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
-        urladdress = urladdress.left(urladdress.length() - 1);
+        
+        QStringList url_ = targetUrl.toString().replace("//", "/").split("/");
+        urladdress = "https://" + url_[1];
+        // 使用 cdn 服务器
+        urladdress = "https://cdn.d.store.deepinos.org.cn";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
+
 
         for(int i = 3; i < downloadurl.size(); i++)
         {
@@ -66,7 +72,7 @@ void SpkAppInfoLoaderThread::run()
         QString details;
         details = tr("PkgName: ") + json["Pkgname"].toString() + "\n";
         details += tr("Version: ") + json["Version"].toString() + "\n";
-        details += tr("Download Times: ") + this->downdloadTimes + "\n";
+        details += tr("Download Times: ") + this->downloadTimes + "\n";
         if(!json["Author"].toString().trimmed().isEmpty())
         {
             details += tr("Author: ") + json["Author"].toString() + "\n";

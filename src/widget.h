@@ -43,7 +43,6 @@ class DownloadController;
 namespace AeaQt {
 class HttpClient;
 }
-
 class Widget : public DBlurEffectWidget
 {
     Q_OBJECT
@@ -105,6 +104,7 @@ private slots:
 
   public:
     QUrl url;
+    QString cdnSeverUrl;
 
     downloadlist download_list[LIST_MAX];
     Ui::Widget *ui;
