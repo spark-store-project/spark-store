@@ -1,11 +1,13 @@
 spark-store (3.2) stable; urgency=medium
 
-  * 新增下载量统计功能
-  * 显示下载量
-  * 修复spk链接生成错误
-  * 启动时检测商店applist源
-  * 默认启用cdn加速
-  * ssupdate不再更新/etc/aptss下的cache，如要如此，请使用aptss update
+  * 新增 下载量统计功能
+  * 新增 显示下载量
+  * 修复 spk链接生成错误
+  * 调整 启动时检测商店applist源
+  * 新增 applist cdn加速
+  * 调整 ssupdate不再更新/etc/aptss下的cache，如要如此，请使用aptss update
+  * 修复 在更新检测设置中的是否开启自动更新检测设置项的显示不随开启或关闭状态改变
+  * 修复 在检测更新时临时降低优先级到100，防止系统中有且版本一致的包被反复来回更新 
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 

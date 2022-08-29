@@ -7,7 +7,7 @@ endloop=0
 #####################检测是否启动过了更新检测工具
 while [ $endloop -eq 0 ] ;do
 
-if [  -f /etc/xdg/autostart/spark-update-notifier.desktop ];then 
+if [  -e /etc/systemd/system/multi-user.target.wants/spark-update-notifier.service ];then 
 text_update_open="关闭"
 #已经开启了就显示关闭
 else

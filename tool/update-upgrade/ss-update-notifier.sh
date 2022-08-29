@@ -48,11 +48,18 @@ fi
 
 curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
 # 每日更新星火源文件
+mkdir -p /etc/apt/preferences.d
+touch /etc/apt/preferences.d/sparkstore
+cat << EOF >/etc/apt/preferences.d/sparkstore
+Package: *
+Pin: origin *.deepinos.org.cn
+Pin-Priority: 100
+
+EOF
 
 updatetext=`aptss ssupdate`
 
-
-mkdir -p /tmp/spark-store-updatenum/
+rm /etc/apt/preferences.d/sparkstore
 
 
 isupdate=`echo ${updatetext: -5}`
