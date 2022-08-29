@@ -29,7 +29,7 @@
     <message>
         <location filename="../src/main.cpp" line="37"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by  community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
-        <translation type="unfinished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款社区维护的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
+        <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款社区维护的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
         <source>Version 2.0+2</source>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../src/main.cpp" line="45"/>
         <source>The Spark Project</source>
-        <translation type="unfinished">星火计划 The Spark Project</translation>
+        <translation>星火计划 The Spark Project</translation>
     </message>
     <message>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;We publish this program under GPL V3</source>
@@ -57,47 +57,52 @@
 <context>
     <name>SpkAppInfoLoaderThread</name>
     <message>
-        <location filename="../src/workerthreads.cpp" line="167"/>
+        <location filename="../src/workerthreads.cpp" line="193"/>
         <source>Failed to download app info. Please check internet connection.</source>
         <translation>下载应用程序详细信息失败，请检查网络连接。</translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="48"/>
+        <location filename="../src/workerthreads.cpp" line="73"/>
         <source>PkgName: </source>
         <translation>包名： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="49"/>
+        <location filename="../src/workerthreads.cpp" line="74"/>
         <source>Version: </source>
         <translation>版本： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="52"/>
+        <location filename="../src/workerthreads.cpp" line="77"/>
         <source>Author: </source>
         <translation>作者： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="57"/>
+        <location filename="../src/workerthreads.cpp" line="82"/>
         <source>Official Site: </source>
         <translation>官网： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="61"/>
+        <location filename="../src/workerthreads.cpp" line="86"/>
         <source>Contributor: </source>
         <translation>投稿者： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="62"/>
+        <location filename="../src/workerthreads.cpp" line="87"/>
         <source>Update Time: </source>
         <translation>更新时间： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="63"/>
+        <location filename="../src/workerthreads.cpp" line="88"/>
         <source>Installed Size: </source>
         <translation>大小： </translation>
     </message>
     <message>
-        <location filename="../src/workerthreads.cpp" line="123"/>
+        <location filename="../src/workerthreads.cpp" line="89"/>
+        <source>Download Times: </source>
+        <translation>下载量： </translation>
+    </message>
+    <message>
+        <location filename="../src/workerthreads.cpp" line="149"/>
         <source>Failed to load application icon.</source>
         <translation>加载应用程序图标失败。</translation>
     </message>
@@ -199,8 +204,8 @@
     </message>
     <message>
         <location filename="../src/widget.ui" line="547"/>
-        <location filename="../src/widget.cpp" line="906"/>
-        <location filename="../src/widget.cpp" line="1175"/>
+        <location filename="../src/widget.cpp" line="910"/>
+        <location filename="../src/widget.cpp" line="1183"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -484,41 +489,41 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="186"/>
+        <location filename="../src/widget.cpp" line="187"/>
         <source>Spark Store</source>
         <translation>Spark 应用商店</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="187"/>
+        <location filename="../src/widget.cpp" line="188"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="193"/>
+        <location filename="../src/widget.cpp" line="194"/>
         <source>Submit App</source>
         <translation>投递应用</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="194"/>
+        <location filename="../src/widget.cpp" line="195"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="195"/>
+        <location filename="../src/widget.cpp" line="196"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>应用更新和安装设置</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="344"/>
+        <location filename="../src/widget.cpp" line="347"/>
         <source>Not Exist</source>
         <translation>不存在</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="138"/>
-        <location filename="../src/widget.cpp" line="406"/>
-        <location filename="../src/widget.cpp" line="411"/>
-        <location filename="../src/widget.cpp" line="421"/>
-        <location filename="../src/widget.cpp" line="426"/>
+        <location filename="../src/widget.cpp" line="139"/>
+        <location filename="../src/widget.cpp" line="409"/>
+        <location filename="../src/widget.cpp" line="414"/>
+        <location filename="../src/widget.cpp" line="424"/>
+        <location filename="../src/widget.cpp" line="429"/>
         <source>Spark\ Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -555,8 +560,8 @@
         <translation type="vanished">大小： </translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="656"/>
-        <location filename="../src/widget.cpp" line="895"/>
+        <location filename="../src/widget.cpp" line="659"/>
+        <location filename="../src/widget.cpp" line="899"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
@@ -565,17 +570,17 @@
         <translation type="vanished">加载应用程序图标失败。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="622"/>
+        <location filename="../src/widget.cpp" line="625"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation>获取安装包文件名失败。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="706"/>
+        <location filename="../src/widget.cpp" line="710"/>
         <source>Relative apps Not Found!</source>
         <translation>相关应用未找到！</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="715"/>
+        <location filename="../src/widget.cpp" line="719"/>
         <source>Request Error: %1</source>
         <translation>请求错误：%1</translation>
     </message>
@@ -584,22 +589,22 @@
         <translation type="vanished">目前仅支持商店专用链接的打开，搜索功能正在开发，请期待以后的版本！</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="900"/>
+        <location filename="../src/widget.cpp" line="904"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1083"/>
+        <location filename="../src/widget.cpp" line="1091"/>
         <source>Updating, please wait...</source>
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1144"/>
+        <location filename="../src/widget.cpp" line="1152"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
         <translation>更新中发生错误，请在终端使用apt update来查看错误原因。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1151"/>
+        <location filename="../src/widget.cpp" line="1159"/>
         <source>Unknown error!</source>
         <translation>未知错误！</translation>
     </message>
@@ -651,17 +656,17 @@ Click yes to continue.</source>
         <translation type="vanished">服务器未知错误</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1179"/>
+        <location filename="../src/widget.cpp" line="1187"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1201"/>
+        <location filename="../src/widget.cpp" line="1209"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1283"/>
+        <location filename="../src/widget.cpp" line="1291"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -732,22 +737,20 @@ Click yes to continue.</source>
         <translation type="vanished">已完成，等待安装</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="100"/>
         <source>Failed to download %1</source>
-        <translation>下载 %1 失败</translation>
+        <translation type="vanished">下载 %1 失败</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="102"/>
         <source>Download Failed，Check Your Connection</source>
-        <translation>下载失败，请检查网络连接</translation>
+        <translation type="vanished">下载失败，请检查网络连接</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="114"/>
+        <location filename="../src/downloadlist.cpp" line="101"/>
         <source>Finished downloading %1, awaiting to install</source>
         <translation>%1 下载完成，等待安装</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="147"/>
+        <location filename="../src/downloadlist.cpp" line="134"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
@@ -758,30 +761,30 @@ Click yes to continue.</source>
     <message>
         <location filename="../src/downloadlist.cpp" line="74"/>
         <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
-        <translation type="unfinished">下载完成 可进入应用更新和安装设置来启动免密码安装</translation>
+        <translation>下载完成 可进入应用更新和安装设置来启动免密码安装</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="190"/>
+        <location filename="../src/downloadlist.cpp" line="177"/>
         <source>Finish</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="196"/>
+        <location filename="../src/downloadlist.cpp" line="183"/>
         <source>Retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="197"/>
+        <location filename="../src/downloadlist.cpp" line="184"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation>dpkg出现错误，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="203"/>
+        <location filename="../src/downloadlist.cpp" line="190"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation>安装被中止，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/downloadlist.cpp" line="225"/>
+        <location filename="../src/downloadlist.cpp" line="212"/>
         <source>Download canceled</source>
         <translation>下载已取消</translation>
     </message>

@@ -72,7 +72,6 @@ void SpkAppInfoLoaderThread::run()
         QString details;
         details = tr("PkgName: ") + json["Pkgname"].toString() + "\n";
         details += tr("Version: ") + json["Version"].toString() + "\n";
-        details += tr("Download Times: ") + this->downloadTimes + "\n";
         if(!json["Author"].toString().trimmed().isEmpty())
         {
             details += tr("Author: ") + json["Author"].toString() + "\n";
@@ -86,7 +85,8 @@ void SpkAppInfoLoaderThread::run()
         }
         details += tr("Contributor: ") + json["Contributor"].toString() + "\n";
         details += tr("Update Time: ") + json["Update"].toString() + "\n";
-        details += tr("Installed Size: ") + json["Size"].toString() + "\n";
+        details += tr("Installed Size: ") + json["Size"].toString() + "\n\n";
+        details += tr("Download Times: ") + this->downloadTimes + "\n";
         more = json["More"].toString();
 
         QProcess isInstall;
