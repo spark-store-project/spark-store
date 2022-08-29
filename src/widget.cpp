@@ -94,7 +94,7 @@ Widget::Widget(DBlurEffectWidget *parent) :
     connect(searchEdit, &DSearchEdit::returnPressed, this, [=]()
     {
         qDebug() << "触发了搜索，呜啦啦啦!";
-        QString searchtext = searchEdit->text();
+        QString searchtext = searchEdit->text().replace("\r","");
         if(!searchtext.isEmpty())
         {
             qDebug() << searchEdit->text();
@@ -1308,13 +1308,16 @@ void Widget::on_stackedWidget_currentChanged(int arg1)
 void Widget::on_webEngineView_urlChanged(const QUrl &arg1)
 {
     //分析出服务器中的分类名称
-    QStringList url_ = arg1.path().split("/");
+    QStringList url_ = arg1.path().replace("//", "/").split("/");
     QString pname;
-    if(url_.size() > 3)
+    qDebug() << "URL size:" << url_.size();
+    if (url_.size() > 3)
     {
         type_name = url_[2];
         pname = url_[3];
     }
+    qDebug() << "type_name:" << type_name << ";pname" << pname;
+
     //如果是app.json就打开详情页
     if(arg1.path().right(8) == "app.json")
     {
@@ -1328,8 +1331,8 @@ void Widget::on_webEngineView_urlChanged(const QUrl &arg1)
         ui->label_appname->clear();
         ui->pushButton_download->setEnabled(false);
         ui->stackedWidget->setCurrentIndex(2);
-        qDebug() << "https://d.store.deepinos.org.cn/" + type_name + "/" + pname;
-        qDebug() << "链接地址：" << arg1;
+        
+        qDebug() << "程序跳转链接地址：" << arg1;
 
         /*
         load.cancel();  // 打开并发加载线程前关闭正在执行的线程

@@ -14,6 +14,25 @@ void SpkAppInfoLoaderThread::run()
 
     httpClient = new AeaQt::HttpClient;
 
+
+    QString downloadTimesUrl = targetUrl.toString();
+    downloadTimesUrl = downloadTimesUrl.replace("app.json","download-times.txt");
+    httpClient->get(downloadTimesUrl)
+            .onResponse([this](QString downloadTimesFeedback)
+    {
+        qDebug() << "请求应用下载量信息 " << downloadTimesFeedback;
+        this->downdloadTimes = downloadTimesFeedback.replace("\n","");
+    })
+    .onError([this](QString errorStr)
+    {
+        qDebug() << "请求下载量失败:" << errorStr;
+        this->downdloadTimes  = "0";
+    })
+    .block()
+            .timeout(3*1000)
+            .exec();
+
+
     httpClient->get(targetUrl.toString())
             .header("content-type", "application/json")
             .onResponse([this](QByteArray json_array)
@@ -47,6 +66,7 @@ void SpkAppInfoLoaderThread::run()
         QString details;
         details = tr("PkgName: ") + json["Pkgname"].toString() + "\n";
         details += tr("Version: ") + json["Version"].toString() + "\n";
+        details += tr("Download Times: ") + this->downdloadTimes + "\n";
         if(!json["Author"].toString().trimmed().isEmpty())
         {
             details += tr("Author: ") + json["Author"].toString() + "\n";
