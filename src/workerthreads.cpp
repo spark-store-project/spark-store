@@ -13,10 +13,12 @@ void SpkAppInfoLoaderThread::run()
     emit requestResetUi();
 
     httpClient = new AeaQt::HttpClient;
-
+    QString oriSeverUrl = "https://d.store.deepinos.org.cn";
+    QString cdnSeverUrl = "https://cdn.d.store.deepinos.org.cn";
 
     QString downloadTimesUrl = targetUrl.toString();
-    downloadTimesUrl = downloadTimesUrl.replace("app.json","download-times.txt");
+    downloadTimesUrl = downloadTimesUrl.replace(oriSeverUrl, cdnSeverUrl);
+    downloadTimesUrl = downloadTimesUrl.replace("app.json", "download-times.txt");
     httpClient->get(downloadTimesUrl)
             .onResponse([this](QString downloadTimesFeedback)
     {
@@ -33,7 +35,7 @@ void SpkAppInfoLoaderThread::run()
             .exec();
 
 
-    httpClient->get(targetUrl.toString())
+    httpClient->get(targetUrl.toString().replace(oriSeverUrl, cdnSeverUrl))
             .header("content-type", "application/json")
             .onResponse([this](QByteArray json_array)
     {
@@ -51,8 +53,8 @@ void SpkAppInfoLoaderThread::run()
         
         QStringList url_ = targetUrl.toString().replace("//", "/").split("/");
         urladdress = "https://" + url_[1];
-        // 不使用图片专用服务器
-        // urladdress = "https://d.store.deepinos.org.cn";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
+        // 使用 cdn 服务器
+        urladdress = "https://cdn.d.store.deepinos.org.cn";  // 使用图片专用服务器请保留这行，删除后将使用源服务器
 
 
         for(int i = 3; i < downloadurl.size(); i++)

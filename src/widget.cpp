@@ -292,18 +292,20 @@ void Widget::initConfig()
 
     // 读取服务器URL并初始化菜单项的链接
     QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
-    if(!readConfig.value("server/choose").toString().isEmpty())
+    if(!readConfig.value("server/choose").toString().isEmpty() && readConfig.value("server/updated").toString() == "TRUE")
     {
         ui->comboBox_server->setCurrentText(readConfig.value("server/choose").toString());
         appinfoLoadThread.setServer(serverUrl = readConfig.value("server/choose").toString());
     }
     else
     {
-        appinfoLoadThread.setServer(serverUrl = "https://d.store.deepinos.org.cn/");  // 默认URL
+        this->cdnSeverUrl = "https://cdn.d.store.deepinos.org.cn/";
+        appinfoLoadThread.setServer(serverUrl = this->cdnSeverUrl);  // 默认URL
     }
     configCanSave = true;   //　防止触发保存配置信号
 
     // menuUrl[0] = "http://127.0.0.1:8000/#/darkprogramming";
+    qDebug() << "serverUrl: " << serverUrl;
     menuUrl[0] = serverUrl + "store/#/";
     menuUrl[1] = serverUrl + "store/#/network";
     menuUrl[2] = serverUrl + "store/#/relations";
@@ -1026,11 +1028,13 @@ void Widget::on_comboBox_server_currentIndexChanged(const QString &arg1)
 {
     appinfoLoadThread.setServer(arg1);  // 服务器信息更新
 
+    const QString updatedInfo = "TRUE";
     if(configCanSave)
     {
         // ui->label_setting1->show();
         QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
         setConfig->setValue("server/choose", arg1);
+        setConfig->setValue("server/updated", updatedInfo);
     }
 }
 
