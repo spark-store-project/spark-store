@@ -380,18 +380,18 @@
     </message>
     <message>
         <location filename="../src/widget.ui" line="1223"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The role of the source server is to ensure that the software is updated, and supports the use of the apt tool to get the software. We usually prefer that you use the first line as the update source, which is generally the most stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;源服务器的作用是保证软件更新，并且支持使用apt工具获取软件。通常我们更建议你使用第一个线路作为更新源，一般是最稳定的。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jump to the Spark app store home page to check for updates. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;跳转到星火应用商店主页检测更新。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1233"/>
         <source>Update</source>
-        <translation>更新源</translation>
+        <translation>跳转更新</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1240"/>
-        <source>Source Server</source>
-        <translation>更新源服务器</translation>
+        <source>Spark Store Update</source>
+        <translation>星火应用商店更新检测</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1260"/>

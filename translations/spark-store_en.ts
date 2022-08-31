@@ -349,7 +349,7 @@
     </message>
     <message>
         <location filename="../src/widget.ui" line="1223"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The role of the source server is to ensure that the software is updated, and supports the use of the apt tool to get the software. We usually prefer that you use the first line as the update source, which is generally the most stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jump to the Spark app store home page to check for updates. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -359,7 +359,7 @@
     </message>
     <message>
         <location filename="../src/widget.ui" line="1240"/>
-        <source>Source Server</source>
+        <source>Spark Store Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
