@@ -211,7 +211,7 @@ Nous sommes nés pour le changement.</translation>
     <message>
         <location filename="../src/widget.ui" line="547"/>
         <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1183"/>
+        <location filename="../src/widget.cpp" line="1144"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -651,6 +651,11 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/widget.cpp" line="1110"/>
+        <source>Update finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/widget.cpp" line="625"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation type="unfinished"></translation>
@@ -676,27 +681,22 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1152"/>
+        <location filename="../src/widget.cpp" line="1114"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1159"/>
-        <source>Unknown error!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1187"/>
+        <location filename="../src/widget.cpp" line="1148"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1209"/>
+        <location filename="../src/widget.cpp" line="1170"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1291"/>
+        <location filename="../src/widget.cpp" line="1252"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>

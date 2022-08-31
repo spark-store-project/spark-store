@@ -205,7 +205,7 @@
     <message>
         <location filename="../src/widget.ui" line="547"/>
         <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1183"/>
+        <location filename="../src/widget.cpp" line="1144"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -476,7 +476,7 @@
     <message>
         <location filename="../src/widget.ui" line="912"/>
         <source>Request Update</source>
-        <translation type="unfinished">软件催更/应用反馈</translation>
+        <translation>软件催更/应用反馈</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1194"/>
@@ -517,6 +517,11 @@
         <location filename="../src/widget.cpp" line="347"/>
         <source>Not Exist</source>
         <translation>不存在</translation>
+    </message>
+    <message>
+        <location filename="../src/widget.cpp" line="1110"/>
+        <source>Update finished</source>
+        <translation type="unfinished">更新完毕</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="139"/>
@@ -599,14 +604,13 @@
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1152"/>
+        <location filename="../src/widget.cpp" line="1114"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
         <translation>更新中发生错误，请在终端使用apt update来查看错误原因。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1159"/>
         <source>Unknown error!</source>
-        <translation>未知错误！</translation>
+        <translation type="vanished">未知错误！</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -656,17 +660,17 @@ Click yes to continue.</source>
         <translation type="vanished">服务器未知错误</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1187"/>
+        <location filename="../src/widget.cpp" line="1148"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1209"/>
+        <location filename="../src/widget.cpp" line="1170"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1291"/>
+        <location filename="../src/widget.cpp" line="1252"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
