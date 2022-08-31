@@ -6,6 +6,11 @@ case "$1" in
         # config for aptss
         mkdir -p /etc/aptss/sources.list.d
         ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
+
+	#  Remove the sources.list file
+	if [ -e /etc/apt/sources.list.d/sparkstore.list ];then
+	rm /etc/apt/sources.list.d/sparkstore.list
+	fi
         
 
 		# Check if /usr/local/bin existed
