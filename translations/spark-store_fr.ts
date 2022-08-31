@@ -211,7 +211,7 @@ Nous sommes nés pour le changement.</translation>
     <message>
         <location filename="../src/widget.ui" line="547"/>
         <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1144"/>
+        <location filename="../src/widget.cpp" line="1119"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -370,7 +370,7 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1223"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jump to the Spark app store home page to check for updates. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -651,11 +651,6 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1110"/>
-        <source>Update finished</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/widget.cpp" line="625"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation type="unfinished"></translation>
@@ -681,22 +676,17 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1114"/>
-        <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1148"/>
+        <location filename="../src/widget.cpp" line="1123"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1170"/>
+        <location filename="../src/widget.cpp" line="1145"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1252"/>
+        <location filename="../src/widget.cpp" line="1227"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
