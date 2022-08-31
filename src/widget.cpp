@@ -1090,34 +1090,9 @@ void Widget::on_pushButton_updateApt_clicked()
         ui->pushButton_updateApt->setEnabled(false);
         ui->label_aptserver->setText(tr("Updating, please wait..."));
 
-                QProcess runupdate;
-                runupdate.start("pkexec" , QStringList() << "aptss" << "ssupdate");
-                runupdate.waitForFinished();
-                QString error = runupdate.readAllStandardError();
-
-                QStringList everyError = error.split("\n");
-                bool haveError = false;
-                for(int i = 0; i < everyError.size(); i++)
-                {
-                    if(everyError[i].left(2) == "E:")
-                    {
-                        haveError = true;
-                    }
-                }
-
-                if(!haveError)
-                {
-                    ui->label_aptserver->setText(tr("Update finished"));
-                }
-                else
-                {
-                    ui->label_aptserver->setText(tr("Apt has reported an error. Please use apt update in terminal to locate the problem."));
-                }
-
-
-
-
-
+        QString storeSpk = "spk://store/tools/spark-store";
+        openUrl(storeSpk);
+        ui->label_aptserver->setText(tr(""));
 
         ui->pushButton_updateApt->setEnabled(true);
       });

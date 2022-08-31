@@ -211,7 +211,7 @@ Nous sommes nés pour le changement.</translation>
     <message>
         <location filename="../src/widget.ui" line="547"/>
         <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1144"/>
+        <location filename="../src/widget.cpp" line="1119"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -370,7 +370,7 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1223"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The role of the source server is to ensure that the software is updated, and supports the use of the apt tool to get the software. We usually prefer that you use the first line as the update source, which is generally the most stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -380,7 +380,7 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1240"/>
-        <source>Source Server</source>
+        <source>Spark Store Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -557,15 +557,15 @@ Nous sommes nés pour le changement.</translation>
         <translation type="vanished">Redémarrez pour prendre effet</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;源服务器的作用是保证软件更新，并且支持使用apt工具获取软件。通常我们更建议你使用第一个线路作为更新源，一般是最稳定的。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;跳转到星火应用商店主页检测更新。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Le rôle du serveur source est de s&apos;assurer que le logiciel est mis à jour et prend en charge l&apos;utilisation de l&apos;outil apt pour obtenir le logiciel. Nous préférons généralement que vous utilisiez la première ligne comme source de mise à jour, qui est généralement la plus stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>更新源</source>
+        <source>跳转更新</source>
         <translation type="vanished">Mettre à jour la source APT</translation>
     </message>
     <message>
-        <source>更新源服务器：</source>
+        <source>星火应用商店更新检测：</source>
         <translation type="vanished">Source APT: </translation>
     </message>
     <message>
@@ -651,11 +651,6 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1110"/>
-        <source>Update finished</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/widget.cpp" line="625"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation type="unfinished"></translation>
@@ -681,22 +676,17 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1114"/>
-        <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1148"/>
+        <location filename="../src/widget.cpp" line="1123"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1170"/>
+        <location filename="../src/widget.cpp" line="1145"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1252"/>
+        <location filename="../src/widget.cpp" line="1227"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
