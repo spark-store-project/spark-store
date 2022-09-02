@@ -1148,6 +1148,16 @@ void Widget::on_pushButton_clear_clicked()  // 清空临时缓存目录
     });
 }
 
+void Widget::on_pushButton_clearWebCache_clicked()
+{
+    QtConcurrent::run([=]()
+                      {
+
+        QString dataLocal = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+        QDir cacheDir(dataLocal );
+        cacheDir.removeRecursively(); });
+}
+
 quint64 Widget::dirFileSize(const QString &path)
 {
     QDir dir(path);

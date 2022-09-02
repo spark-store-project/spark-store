@@ -345,7 +345,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -489,7 +489,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>903</width>
+            <width>889</width>
             <height>849</height>
            </rect>
           </property>
@@ -993,8 +993,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>869</width>
-                   <height>325</height>
+                   <width>851</width>
+                   <height>324</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1123,8 +1123,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>738</width>
-            <height>886</height>
+            <width>889</width>
+            <height>716</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -1285,7 +1285,31 @@
               <item>
                <widget class="QWidget" name="widget_10" native="true">
                 <layout class="QGridLayout" name="gridLayout_4">
-                 <item row="0" column="3">
+                 <item row="2" column="0" colspan="5">
+                  <widget class="QLabel" name="label_12">
+                   <property name="styleSheet">
+                    <string notr="true">color:#808080</string>
+                   </property>
+                   <property name="text">
+                    <string>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="tmp_size_ui">
+                   <property name="text">
+                    <string>0B</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0" colspan="2">
+                  <widget class="QLabel" name="label_11">
+                   <property name="text">
+                    <string>Location：/tmp/spark-store</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="4">
                   <spacer name="horizontalSpacer_5">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -1305,16 +1329,6 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="0" colspan="4">
-                  <widget class="QLabel" name="label_12">
-                   <property name="styleSheet">
-                    <string notr="true">color:#808080</string>
-                   </property>
-                   <property name="text">
-                    <string>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_13">
                    <property name="maximumSize">
@@ -1328,17 +1342,10 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="tmp_size_ui">
+                 <item row="0" column="3">
+                  <widget class="QPushButton" name="pushButton_clearWebCache">
                    <property name="text">
-                    <string>0B</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0" colspan="2">
-                  <widget class="QLabel" name="label_11">
-                   <property name="text">
-                    <string>Location：/tmp/spark-store</string>
+                    <string>Clear Web Cache</string>
                    </property>
                   </widget>
                  </item>
