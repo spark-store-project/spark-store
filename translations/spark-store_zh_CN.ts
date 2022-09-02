@@ -205,7 +205,7 @@
     <message>
         <location filename="../src/widget.ui" line="547"/>
         <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1144"/>
+        <location filename="../src/widget.cpp" line="1119"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -379,9 +379,8 @@
         <translation type="vanished">重启商店后生效</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1223"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jump to the Spark app store home page to check for updates. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;跳转到星火应用商店主页检测更新。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;跳转到星火应用商店主页检测更新。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1233"/>
@@ -484,6 +483,11 @@
         <translation>重启商店后生效</translation>
     </message>
     <message>
+        <location filename="../src/widget.ui" line="1223"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>检查星火应用商店更新</translation>
+    </message>
+    <message>
         <location filename="../src/widget.ui" line="1334"/>
         <source>0B</source>
         <translation></translation>
@@ -519,9 +523,8 @@
         <translation>不存在</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1110"/>
         <source>Update finished</source>
-        <translation type="unfinished">更新完毕</translation>
+        <translation type="obsolete">更新完毕</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="139"/>
@@ -604,9 +607,8 @@
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1114"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
-        <translation>更新中发生错误，请在终端使用apt update来查看错误原因。</translation>
+        <translation type="vanished">更新中发生错误，请在终端使用apt update来查看错误原因。</translation>
     </message>
     <message>
         <source>Unknown error!</source>
@@ -660,17 +662,17 @@ Click yes to continue.</source>
         <translation type="vanished">服务器未知错误</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1148"/>
+        <location filename="../src/widget.cpp" line="1123"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1170"/>
+        <location filename="../src/widget.cpp" line="1145"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1252"/>
+        <location filename="../src/widget.cpp" line="1227"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
