@@ -1090,77 +1090,13 @@ void Widget::on_pushButton_updateApt_clicked()
         ui->pushButton_updateApt->setEnabled(false);
         ui->label_aptserver->setText(tr("Updating, please wait..."));
 
-        std::fstream sourcesList, policy, update;
-        QDir tmpdir("/tmp");
-        auto tmpPath = QString::fromUtf8(TMP_PATH).toStdString();
-        bool unknownError = true;
-
-        tmpdir.mkpath("spark-store");
-        sourcesList.open(tmpPath + "/sparkstore.list", std::ios::out);
-        // 商店已经下架会替换系统库的包，优先级 policy 弃用
-        // policy.open(tmpPath + "/sparkstore", std::ios::out);
-
-        if(sourcesList /*&& policy*/)
-        {
-            auto serverAddr = ui->comboBox_server->currentText();
-
-            sourcesList << "deb [by-hash=force] ";
-            sourcesList << serverAddr.toUtf8().toStdString();
-            sourcesList << " /";
-            sourcesList.close();
-
-            /*
-             * policy << "Package: *\n" << "Pin: origin *" <<
-             * serverAddr.mid(serverAddr.indexOf('.')).toUtf8().toStdString() << "\n" <<
-             * "Pin-Priority: 90"; // 降低星火源的优先级，防止从星火安装已存在的系统包，破坏依赖
-             * policy.close();
-           */
-
-            update.open(tmpPath + "/update.sh", std::ios::out);
-            if(update)
-            {
-                unknownError = false;
-                update << "#!/bin/sh\n" <<
-                          "mv " + tmpPath + "/sparkstore.list /etc/apt/sources.list.d/sparkstore.list && " <<
-                          // "mv " + tmpPath + "/sparkstore /etc/apt/preferences.d/sparkstore && " <<
-                          "apt update";
-                update.close();
-
-                system(("chmod +x " + tmpPath + "/update.sh").c_str());
-
-                QProcess runupdate;
-                runupdate.start("pkexec", QStringList() << QString::fromStdString(tmpPath + "/update.sh"));
-                runupdate.waitForFinished();
-                QString error = runupdate.readAllStandardError();
-
-                QStringList everyError = error.split("\n");
-                bool haveError = false;
-                for(int i = 0; i < everyError.size(); i++)
-                {
-                    if(everyError[i].left(2) == "E:")
-                    {
-                        haveError = true;
-                    }
-                }
-
-                if(!haveError)
-                {
-                    ui->label_aptserver->setText("deb [by-hash=force] " + ui->comboBox_server->currentText().toUtf8() + " /");
-                }
-                else
-                {
-                    ui->label_aptserver->setText(tr("Apt has reported an error. Please use apt update in terminal to locate the problem."));
-                }
-            }
-        }
-
-        if(unknownError)
-        {
-            ui->label_aptserver->setText(tr("Unknown error!"));
-        }
+        QString storeSpk = "spk://store/tools/spark-store";
+        openUrl(storeSpk);
+        ui->label_aptserver->setText(tr(""));
 
         ui->pushButton_updateApt->setEnabled(true);
-    });
+      });
+
 }
 
 void Widget::on_pushButton_uninstall_clicked()
@@ -1210,6 +1146,16 @@ void Widget::on_pushButton_clear_clicked()  // 清空临时缓存目录
         ui->pushButton_clear->setEnabled(true);
         Widget::opensetting();
     });
+}
+
+void Widget::on_pushButton_clearWebCache_clicked()
+{
+    QtConcurrent::run([=]()
+                      {
+
+        QString dataLocal = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+        QDir cacheDir(dataLocal );
+        cacheDir.removeRecursively(); });
 }
 
 quint64 Widget::dirFileSize(const QString &path)

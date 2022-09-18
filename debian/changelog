@@ -1,3 +1,10 @@
+spark-store (3.2.1) stable; urgency=medium
+
+  * 更改刷新系统源的功能
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.2) stable; urgency=medium
 
   * 新增 下载量统计功能

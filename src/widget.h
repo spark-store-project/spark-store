@@ -91,6 +91,7 @@ private slots:
     void on_pushButton_updateApt_clicked();
     void on_pushButton_uninstall_clicked();
     void on_pushButton_clear_clicked();
+    void on_pushButton_clearWebCache_clicked();
     void on_pushButton_website_clicked();
     void on_pushButton_clicked();
     void on_btn_openDir_clicked();

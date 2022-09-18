@@ -150,7 +150,7 @@
     <message>
         <location filename="../src/widget.ui" line="547"/>
         <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1183"/>
+        <location filename="../src/widget.cpp" line="1119"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -348,18 +348,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1223"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The role of the source server is to ensure that the software is updated, and supports the use of the apt tool to get the software. We usually prefer that you use the first line as the update source, which is generally the most stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/widget.ui" line="1233"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1240"/>
-        <source>Source Server</source>
+        <source>Spark Store Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -428,6 +423,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/widget.ui" line="1223"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/widget.ui" line="1334"/>
         <source>0B</source>
         <translation type="unfinished">0B</translation>
@@ -493,17 +493,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1152"/>
-        <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1159"/>
-        <source>Unknown error!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widget.cpp" line="1187"/>
+        <location filename="../src/widget.cpp" line="1123"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -518,12 +508,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1209"/>
+        <location filename="../src/widget.cpp" line="1145"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1291"/>
+        <location filename="../src/widget.cpp" line="1227"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>

@@ -205,7 +205,7 @@
     <message>
         <location filename="../src/widget.ui" line="547"/>
         <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1183"/>
+        <location filename="../src/widget.cpp" line="1119"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -379,19 +379,18 @@
         <translation type="vanished">重启商店后生效</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1223"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The role of the source server is to ensure that the software is updated, and supports the use of the apt tool to get the software. We usually prefer that you use the first line as the update source, which is generally the most stable. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;源服务器的作用是保证软件更新，并且支持使用apt工具获取软件。通常我们更建议你使用第一个线路作为更新源，一般是最稳定的。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jump to the Spark app store home page to check for updates. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;跳转到星火应用商店主页检测更新。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1233"/>
         <source>Update</source>
-        <translation>更新源</translation>
+        <translation>跳转更新</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1240"/>
-        <source>Source Server</source>
-        <translation>更新源服务器</translation>
+        <source>Spark Store Update</source>
+        <translation>星火应用商店更新检测</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1260"/>
@@ -476,12 +475,17 @@
     <message>
         <location filename="../src/widget.ui" line="912"/>
         <source>Request Update</source>
-        <translation type="unfinished">软件催更/应用反馈</translation>
+        <translation>软件催更/应用反馈</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1194"/>
         <source>Take effect when restart</source>
         <translation>重启商店后生效</translation>
+    </message>
+    <message>
+        <location filename="../src/widget.ui" line="1223"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>检查星火应用商店更新</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1334"/>
@@ -517,6 +521,10 @@
         <location filename="../src/widget.cpp" line="347"/>
         <source>Not Exist</source>
         <translation>不存在</translation>
+    </message>
+    <message>
+        <source>Update finished</source>
+        <translation type="obsolete">更新完毕</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="139"/>
@@ -599,14 +607,12 @@
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1152"/>
         <source>Apt has reported an error. Please use apt update in terminal to locate the problem.</source>
-        <translation>更新中发生错误，请在终端使用apt update来查看错误原因。</translation>
+        <translation type="vanished">更新中发生错误，请在终端使用apt update来查看错误原因。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1159"/>
         <source>Unknown error!</source>
-        <translation>未知错误！</translation>
+        <translation type="vanished">未知错误！</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -656,17 +662,17 @@ Click yes to continue.</source>
         <translation type="vanished">服务器未知错误</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1187"/>
+        <location filename="../src/widget.cpp" line="1123"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1209"/>
+        <location filename="../src/widget.cpp" line="1145"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1291"/>
+        <location filename="../src/widget.cpp" line="1227"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
