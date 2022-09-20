@@ -65,7 +65,7 @@ fi
 if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
 echo "检测到apt-fast，使用aptss进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || sudo aptss ssupdate && sudo aptss install -yf 
+echo "$upass" | sudo -S dpkg -i $1 || sudo aptss install -yf 
 fi
 
 
@@ -90,7 +90,7 @@ fi
 if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
 echo "检测到apt-fast，使用aptss进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
-dpkg -i $1 || aptss ssupdate && aptss install -yf 
+dpkg -i $1 || aptss install -yf 
 fi
 
 

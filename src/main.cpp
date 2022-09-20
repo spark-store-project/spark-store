@@ -13,6 +13,10 @@ int main(int argc, char *argv[])
     DApplication::loadDXcbPlugin();  // 已废弃，但是对于非deepin桌面可以正常使用标题栏
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);    // 开启 Hidpi 支持
     // 程序内强制添加"-platformtheme deepin"参数喂给Qt让Qt正确使用Deepin主题修复各种奇怪样式问题
+
+    // 浏览器开启 GPU 支持
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode");
+    
     QVector<char*> fakeArgs(argc + 2);
     fakeArgs[0] = argv[0];
     fakeArgs[1] = "-platformtheme";
@@ -30,7 +34,7 @@ int main(int argc, char *argv[])
      DAboutDialog dialog;
       a.setAboutDialog(&dialog);
       dialog.setLicense(QObject::tr("We publish this program under GPL V3"));
-      dialog.setVersion(DApplication::buildVersion("Version 3.2.1"));
+      dialog.setVersion(DApplication::buildVersion("Version 3.2.2"));
       dialog.setProductIcon(QIcon::fromTheme("spark-store"));  // 设置Logo
       dialog.setProductName(QLabel::tr("Spark Store"));
       dialog.setDescription(
@@ -51,7 +55,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("spark-union");
     a.setOrganizationDomain("https://www.deepinos.org/");
     a.setApplicationName("Spark Store");    //不需要翻译，否则 ~/.local/share/ 下文件夹名称也被翻译为中文
-    a.setApplicationVersion(DApplication::buildVersion("3.2.1"));
+    a.setApplicationVersion(DApplication::buildVersion("3.2.2"));
     a.setApplicationAcknowledgementPage("https://gitee.com/deepin-community-store/spark-store");
     a.setApplicationDescription(
                 QObject::tr(
