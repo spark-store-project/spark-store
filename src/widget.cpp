@@ -18,6 +18,7 @@
 #include <QSettings>
 #include <QGraphicsOpacityEffect>
 #include <QtConcurrent> // 并发
+#include <QCloseEvent>  // close event
 
 #include <DApplication>
 #include <DGuiApplicationHelper>
@@ -572,14 +573,14 @@ void Widget::chooseLeftMenu(int index)
 
     updateUI();
 
-    if(index <= 12)
+    if (index <= 12)
     {
-        if(themeIsDark)
+        if (themeIsDark)
         {
             QString darkurl = menuUrl[index].toString();
             QStringList list = darkurl.split("/");
             darkurl.clear();
-            for(int i = 0; i < list.size() - 1; i++)
+            for (int i = 0; i < list.size() - 1; i++)
             {
                 darkurl += list[i] + "/";
             }
@@ -687,22 +688,18 @@ void Widget::searchApp(QString text)
     }
     else
     {
-        // sendNotification(tr("Spark store could only process spk:// links for now. The search feature is coming soon!"));
-        // ui->webView->setUrl(QUrl("http://www.baidu.com/s?wd="+text));    // 这东西对接百度
-        // ui->stackedWidget->setCurrentIndex(0);
-
         // 禁止同时进行多次搜索
-        if(!mutex.tryLock())
+        if (!mutex.tryLock())
         {
             return;
         }
 
         // 关键字搜索处理
         httpClient->get("https://search.deepinos.org.cn/appinfo/search")
-                .header("content-type", "application/json")
-                .queryParam("keyword", text)
-                .onResponse([this](QByteArray result)
-        {
+            .header("content-type", "application/json")
+            .queryParam("keyword", text)
+            .onResponse([this](QByteArray result)
+                        {
             auto json = QJsonDocument::fromJson(result).array();
             if (json.empty())
             {
@@ -711,18 +708,23 @@ void Widget::searchApp(QString text)
                 mutex.unlock();
                 return;
             }
-            displaySearchApp(json);
-        })
-        .onError([this](QString errorStr)
-        {
+            displaySearchApp(json); })
+            .onError([this](QString errorStr)
+                     {
             qDebug()  << "请求出错：" << errorStr;
             sendNotification(QString(tr("Request Error: %1")).arg(errorStr));
             mutex.unlock();
-            return;
-        })
-        .timeout(10 * 1000)
-                .exec();
+            return; })
+            .timeout(10 * 1000)
+            .exec();
     }
+    httpClient->deleteLater();
+}
+
+void Widget::closeEvent(QCloseEvent *event)
+{
+    mutex.unlock();
+    httpClient->deleteLater();
 }
 
 /**
