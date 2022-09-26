@@ -718,7 +718,6 @@ void Widget::searchApp(QString text)
             .timeout(10 * 1000)
             .exec();
     }
-    httpClient->deleteLater();
 }
 
 void Widget::closeEvent(QCloseEvent *event)
