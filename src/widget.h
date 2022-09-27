@@ -128,6 +128,7 @@ private:
     void setfoot(int);
     void updatefoot();
     void updateUI();
+    void closeEvent(QCloseEvent *event);
 
     quint64 dirFileSize(const QString &path);
 
