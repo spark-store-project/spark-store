@@ -1,3 +1,10 @@
+spark-store (3.2.4) stable; urgency=medium
+
+  * 客户端更新时不关闭免密码登录
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.2.3) stable; urgency=medium
 
   * 客户端异常退出时仍然占用资源问题修复
