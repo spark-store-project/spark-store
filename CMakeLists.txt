@@ -125,7 +125,11 @@ QT5_WRAP_UI(WRAPPED_UI_FILES
             gui/page/ui/settings.ui
             gui/page/ui/homepage.ui)
 
-qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} lang/zh.ts)
+add_custom_target(run_lupdate
+                  COMMAND lupdate . -ts lang/zh.ts
+                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+qt5_add_translation(QM_FILES lang/zh.ts)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES} ${QM_FILES})
 
