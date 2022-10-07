@@ -40,8 +40,6 @@ fi
 
 ##################apt-fast/metalink测试
 DEPEND="这里一定会安装所以放弃处理"
-isuos=`cat /etc/os-release | grep UnionTech`
-
 
 ##############判断是否是root运行，如果是，则正常走；如果不是，则代输密码
 if [ "$(id -u)" != "0" ];then
@@ -54,15 +52,8 @@ echo "$upass" | sudo -S aptss ssupdate && echo "$upass" | sudo -S bwrap --dev-bi
 
 fi
 
-if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
-echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
-echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || sudo aptss ssupdate && sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install -yf
 
-
-fi
-
-if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
+if  [ "$DEPEND" != "" ]; then
 echo "检测到apt-fast，使用aptss进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
 echo "$upass" | sudo -S dpkg -i $1 || sudo aptss install -yf 
@@ -81,13 +72,8 @@ echo "未安装依赖：apt-fast 开始安装"
 aptss ssupdate && bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install apt-fast -y 
 fi
 
-if [ "$DEPEND" != "" ]  && [ "$isuos" != "" ]; then
-echo "UOS中系统依赖无法使用第三方下载工具，放弃使用apt-fast"
-echo ----------------------------------------------------------------------------------
-dpkg -i $1 || aptss ssupdate && sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install -yf
-fi
 
-if  [ "$DEPEND" != "" ]  && [ "$isuos" = "" ]; then
+if  [ "$DEPEND" != "" ]; then
 echo "检测到apt-fast，使用aptss进行多线程下载加速"
 echo ----------------------------------------------------------------------------------
 dpkg -i $1 || aptss install -yf 
