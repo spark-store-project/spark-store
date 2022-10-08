@@ -10,7 +10,7 @@
 
 希望看到这里的人也可以加入我们的队伍，开发或者投递应用都很欢迎，共同构建Linux应用生态
 
-在这里查看我们的Issue处理情况 https://gitee.com/deepin-community-store/spark-store/board
+在这里追踪我们的Issue处理情况 https://gitee.com/deepin-community-store/spark-store/board
 
 如果有想要提交的软件包，请 [在这里投稿](https://upload.deepinos.org/index)
 
