@@ -1,5 +1,6 @@
 #!/bin/sh
 
+if [ "$1" = "remove" ] || [ "$1" = "purge" ];then
 # Remove residual symbol links
 rm /usr/local/bin/spark-store
 rm /usr/local/bin/ssinstall
@@ -39,3 +40,8 @@ fi
 
 apt-key del '9D9A A859 F750 24B1 A1EC  E16E 0E41 D354 A29A 440C'
 
+else
+
+echo "非卸载操作，不进行配置清理"
+
+fi

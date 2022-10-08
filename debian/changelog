@@ -1,3 +1,18 @@
+spark-store (3.2.4~test1) stable; urgency=medium
+
+  * 客户端更新时不关闭免密码登录
+  * UOS合并正常aptss中
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.2.3) stable; urgency=medium
+
+  * 客户端异常退出时仍然占用资源问题修复
+  * 降低dtk依赖版本，Debian 11 stable可直接安装
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.2.2) stable; urgency=medium
 
   * aptss will now refresh the system source before doing install,  policy....etc
