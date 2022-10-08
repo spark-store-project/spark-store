@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     // 程序内强制添加"-platformtheme deepin"参数喂给Qt让Qt正确使用Deepin主题修复各种奇怪样式问题
 
     // 浏览器开启 GPU 支持
-    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode");
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blocklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode");
     
     QVector<char*> fakeArgs(argc + 2);
     fakeArgs[0] = argv[0];
