@@ -12,8 +12,10 @@ All packages will be shared in our repository for users to get freely.
 Distrobution supported：Deepin 20 ; Ubuntu 22.04 LTS / Ubuntu 20.04 LTS(May stop support in the future） ; UniontechOS Home 21
 
 
+You can track our Issue resoving progress here  https://gitee.com/deepin-community-store/spark-store/board
 
-I hope people who see here can also join our team，development help or submit applications are welcomed
+
+We hope people who see here can also join our team，development help or submit applications are welcomed
 
 If you want to submit an APP to share with others，Please [Click here](https://upload.deepinos.org/index)
 

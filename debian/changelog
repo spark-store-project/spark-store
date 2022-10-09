@@ -1,3 +1,12 @@
+spark-store (3.2.4~test2) stable; urgency=medium
+
+  * 客户端集成投稿器入口和支持
+  * 更新和安装设置入口转移到左列列表
+
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.2.4~test1) stable; urgency=medium
 
   * 客户端更新时不关闭免密码登录
