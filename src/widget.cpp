@@ -1128,11 +1128,11 @@ void Widget::on_pushButton_uninstall_clicked()
 
         QProcess uninstall;
         uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << pkgName.toLower());
-        uninstall.waitForFinished();
+        uninstall.waitForFinished(-1); // 默认无限时长
 
         QProcess check;
         check.start("dpkg", QStringList() << "-s" << pkgName.toLower());
-        check.waitForFinished();
+        check.waitForFinished(180); // 默认超时 3 分钟
 
         if (check.readAllStandardOutput().isEmpty())
         {
