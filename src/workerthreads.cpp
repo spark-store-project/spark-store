@@ -92,7 +92,7 @@ void SpkAppInfoLoaderThread::run()
         QProcess isInstall;
         packagename = json["Pkgname"].toString();
         isInstall.start("dpkg -s " + json["Pkgname"].toString());
-        isInstall.waitForFinished();
+        isInstall.waitForFinished(180); // 默认超时 3 分钟
         int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
         if(error == 0)
         {
@@ -100,12 +100,12 @@ void SpkAppInfoLoaderThread::run()
 
             QProcess isUpdate;
             isUpdate.start("dpkg-query --showformat='${Version}' --show " + json["Pkgname"].toString());
-            isUpdate.waitForFinished();
+            isUpdate.waitForFinished(180); // 默认超时 3 分钟
             QString localVersion = isUpdate.readAllStandardOutput();
             localVersion.replace("'", "");
 
             isUpdate.start("dpkg --compare-versions " + localVersion + " ge " + json["Version"].toString());
-            isUpdate.waitForFinished();
+            isUpdate.waitForFinished(180); // 默认超时 3 分钟
             if(!isUpdate.exitCode())
             {
                 isUpdated = true;
