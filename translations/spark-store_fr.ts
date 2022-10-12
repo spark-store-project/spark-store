@@ -23,9 +23,9 @@ Spark Store est publié sous licence GPL V3
 Nous sommes nés pour le changement.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="35"/>
-        <location filename="../src/main.cpp" line="43"/>
-        <location filename="../src/main.cpp" line="49"/>
+        <location filename="../src/main.cpp" line="39"/>
+        <location filename="../src/main.cpp" line="47"/>
+        <location filename="../src/main.cpp" line="53"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33,22 +33,22 @@ Nous sommes nés pour le changement.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="32"/>
+        <location filename="../src/main.cpp" line="36"/>
         <source>We publish this program under GPL V3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="37"/>
+        <location filename="../src/main.cpp" line="41"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by  community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="45"/>
+        <location filename="../src/main.cpp" line="49"/>
         <source>The Spark Project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="57"/>
+        <location filename="../src/main.cpp" line="61"/>
         <source>&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;Published under GPL V3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -210,8 +210,8 @@ Nous sommes nés pour le changement.</translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="547"/>
-        <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1119"/>
+        <location filename="../src/widget.cpp" line="930"/>
+        <location filename="../src/widget.cpp" line="1139"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -394,32 +394,37 @@ Nous sommes nés pour le changement.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1304"/>
+        <location filename="../src/widget.ui" line="1328"/>
         <source>Clean</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1314"/>
+        <location filename="../src/widget.ui" line="1294"/>
         <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1327"/>
+        <location filename="../src/widget.ui" line="1341"/>
         <source>Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1341"/>
+        <location filename="../src/widget.ui" line="1308"/>
         <source>Location：/tmp/spark-store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1362"/>
-        <source>About us</source>
+        <location filename="../src/widget.ui" line="1348"/>
+        <source>Clear Web Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="1369"/>
+        <source>About us</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widget.ui" line="1376"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;QQ group:872690351&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -589,7 +594,7 @@ Nous sommes nés pour le changement.</translation>
         <translation type="vanished">Taille: </translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1334"/>
+        <location filename="../src/widget.ui" line="1301"/>
         <source>0B</source>
         <translation type="unfinished">0B</translation>
     </message>
@@ -606,87 +611,92 @@ Nous sommes nés pour le changement.</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nous ne sommes pas l&apos;équipe officielle, tout comme vous, nous ne sommes qu&apos;un des nombreux passionnés et utilisateurs de systèmes Linux / deepin, nous développons et gérons le &quot;Spark Store&quot;! &quot;, est de rassembler la communauté pour partager des logiciels utiles, ou pour participer au développement ensemble, afin que nous utilisions tous les derniers et meilleurs logiciels. &lt;/p&gt;&lt;p&gt; Nous n&apos;en tirons aucun profit, tous les développeurs et mainteneurs ne sont pas payés, et nous comptons sur les dons de la communauté pour la plupart de nos dépenses, dont nous sommes reconnaissants et qui nous permettent de ne pas dépenser trop d&apos;énergie se soucier du financement. &lt;/p&gt;&lt;p&gt;Notre service et nos logiciels sont gratuits pour tout le monde à utiliser, à communiquer et à apprendre, mais vous devez vous conformer aux lois et réglementations locales dans le processus de votre utilisation, sinon tout problème n&apos;a rien à voir avec nous. &lt;/p&gt;&lt;p&gt;Si une partie du magasin enfreint vos droits, veuillez nous en informer &amp;lt;jifengshenmo@outlook.com&amp;gt; nous retirerons le contenu en infraction dès que possible. &lt;/p&gt;&lt;p&gt;Si vous souhaitez également vous impliquer avec nous, que vous soyez impliqué dans le développement, la conception, le pitching ou la soumission de travaux, nous vous invitons à nous rejoindre. &lt;/p&gt;&lt;p&gt;QQ group:872690351&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="139"/>
-        <location filename="../src/widget.cpp" line="409"/>
-        <location filename="../src/widget.cpp" line="414"/>
-        <location filename="../src/widget.cpp" line="424"/>
+        <location filename="../src/widget.cpp" line="140"/>
         <location filename="../src/widget.cpp" line="429"/>
+        <location filename="../src/widget.cpp" line="434"/>
+        <location filename="../src/widget.cpp" line="444"/>
+        <location filename="../src/widget.cpp" line="449"/>
         <source>Spark\ Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="187"/>
+        <location filename="../src/widget.cpp" line="188"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="188"/>
+        <location filename="../src/widget.cpp" line="189"/>
         <source>Search or enter spk://</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="194"/>
+        <location filename="../src/widget.cpp" line="195"/>
         <source>Submit App</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="195"/>
+        <location filename="../src/widget.cpp" line="196"/>
+        <source>Submit App with client(Recommanded)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widget.cpp" line="197"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="196"/>
+        <location filename="../src/widget.cpp" line="198"/>
         <source>APP Upgrade and Install Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="347"/>
+        <location filename="../src/widget.cpp" line="367"/>
         <source>Not Exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="659"/>
-        <location filename="../src/widget.cpp" line="899"/>
+        <location filename="../src/widget.cpp" line="679"/>
+        <location filename="../src/widget.cpp" line="919"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="625"/>
+        <location filename="../src/widget.cpp" line="645"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="710"/>
+        <location filename="../src/widget.cpp" line="726"/>
         <source>Relative apps Not Found!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="719"/>
+        <location filename="../src/widget.cpp" line="734"/>
         <source>Request Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="904"/>
+        <location filename="../src/widget.cpp" line="924"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1091"/>
+        <location filename="../src/widget.cpp" line="1111"/>
         <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1123"/>
+        <location filename="../src/widget.cpp" line="1143"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1145"/>
+        <location filename="../src/widget.cpp" line="1165"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1227"/>
+        <location filename="../src/widget.cpp" line="1257"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>

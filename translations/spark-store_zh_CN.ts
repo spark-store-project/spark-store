@@ -12,9 +12,9 @@
 <context>
     <name>QLabel</name>
     <message>
-        <location filename="../src/main.cpp" line="35"/>
-        <location filename="../src/main.cpp" line="43"/>
-        <location filename="../src/main.cpp" line="49"/>
+        <location filename="../src/main.cpp" line="39"/>
+        <location filename="../src/main.cpp" line="47"/>
+        <location filename="../src/main.cpp" line="53"/>
         <source>Spark Store</source>
         <translation>Spark 应用商店</translation>
     </message>
@@ -22,12 +22,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="32"/>
+        <location filename="../src/main.cpp" line="36"/>
         <source>We publish this program under GPL V3</source>
         <translation>本程序按GPL V3开源</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="37"/>
+        <location filename="../src/main.cpp" line="41"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by  community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
         <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款社区维护的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
@@ -40,7 +40,7 @@
         <translation type="vanished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;deepin 社区驱动的一款第三方应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="45"/>
+        <location filename="../src/main.cpp" line="49"/>
         <source>The Spark Project</source>
         <translation>星火计划 The Spark Project</translation>
     </message>
@@ -49,7 +49,7 @@
         <translation type="vanished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由 深度社区 出品的应用商店&lt;/span&gt;&lt;br/&gt;&quot;&quot;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&quot;&quot;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火开发者联盟&lt;/span&gt;&lt;br/&gt;本程序遵循 GPL V3 协议发布</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="57"/>
+        <location filename="../src/main.cpp" line="61"/>
         <source>&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;Published under GPL V3</source>
         <translation>&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;由 Deepin 社区出品的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;星火商店开发组&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;遵循 GPL V3 协议发布</translation>
     </message>
@@ -204,8 +204,8 @@
     </message>
     <message>
         <location filename="../src/widget.ui" line="547"/>
-        <location filename="../src/widget.cpp" line="910"/>
-        <location filename="../src/widget.cpp" line="1119"/>
+        <location filename="../src/widget.cpp" line="930"/>
+        <location filename="../src/widget.cpp" line="1139"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -403,32 +403,37 @@
         <translation>缓存目录</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1304"/>
+        <location filename="../src/widget.ui" line="1328"/>
         <source>Clean</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1314"/>
+        <location filename="../src/widget.ui" line="1294"/>
         <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
         <translation>因为这个目录位于/tmp下，所以即使你不手动清空的话，其也将在系统重启时自动清空。</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1327"/>
+        <location filename="../src/widget.ui" line="1341"/>
         <source>Size:</source>
         <translation>目录大小：</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1341"/>
+        <location filename="../src/widget.ui" line="1308"/>
         <source>Location：/tmp/spark-store</source>
         <translation>目录位置：/tmp/spark-store</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1362"/>
+        <location filename="../src/widget.ui" line="1348"/>
+        <source>Clear Web Cache</source>
+        <translation>清理网页缓存</translation>
+    </message>
+    <message>
+        <location filename="../src/widget.ui" line="1369"/>
         <source>About us</source>
         <translation>关于我们</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1369"/>
+        <location filename="../src/widget.ui" line="1376"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;QQ group:872690351&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们并&lt;span style=&quot; font-weight:600;&quot;&gt;不是&lt;/span&gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&lt;/p&gt;&lt;p&gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&lt;/p&gt;&lt;p&gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&lt;/p&gt;&lt;p&gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们 &amp;lt;jifengshenmo@outlook.com&amp;gt;，我们会第一时间删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&lt;/p&gt;&lt;p&gt;QQ 群：872690351&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -488,37 +493,42 @@
         <translation>检查星火应用商店更新</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="1334"/>
+        <location filename="../src/widget.ui" line="1301"/>
         <source>0B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="187"/>
+        <location filename="../src/widget.cpp" line="188"/>
         <source>Spark Store</source>
         <translation>Spark 应用商店</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="188"/>
+        <location filename="../src/widget.cpp" line="189"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="194"/>
+        <location filename="../src/widget.cpp" line="195"/>
         <source>Submit App</source>
         <translation>投递应用</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="195"/>
+        <location filename="../src/widget.cpp" line="196"/>
+        <source>Submit App with client(Recommanded)</source>
+        <translation>使用本地投稿器投递应用（推荐）</translation>
+    </message>
+    <message>
+        <location filename="../src/widget.cpp" line="197"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="196"/>
+        <location filename="../src/widget.cpp" line="198"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>应用更新和安装设置</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="347"/>
+        <location filename="../src/widget.cpp" line="367"/>
         <source>Not Exist</source>
         <translation>不存在</translation>
     </message>
@@ -527,11 +537,11 @@
         <translation type="obsolete">更新完毕</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="139"/>
-        <location filename="../src/widget.cpp" line="409"/>
-        <location filename="../src/widget.cpp" line="414"/>
-        <location filename="../src/widget.cpp" line="424"/>
+        <location filename="../src/widget.cpp" line="140"/>
         <location filename="../src/widget.cpp" line="429"/>
+        <location filename="../src/widget.cpp" line="434"/>
+        <location filename="../src/widget.cpp" line="444"/>
+        <location filename="../src/widget.cpp" line="449"/>
         <source>Spark\ Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -568,8 +578,8 @@
         <translation type="vanished">大小： </translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="659"/>
-        <location filename="../src/widget.cpp" line="899"/>
+        <location filename="../src/widget.cpp" line="679"/>
+        <location filename="../src/widget.cpp" line="919"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
@@ -578,17 +588,17 @@
         <translation type="vanished">加载应用程序图标失败。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="625"/>
+        <location filename="../src/widget.cpp" line="645"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation>获取安装包文件名失败。</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="710"/>
+        <location filename="../src/widget.cpp" line="726"/>
         <source>Relative apps Not Found!</source>
         <translation>相关应用未找到！</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="719"/>
+        <location filename="../src/widget.cpp" line="734"/>
         <source>Request Error: %1</source>
         <translation>请求错误：%1</translation>
     </message>
@@ -597,12 +607,12 @@
         <translation type="vanished">目前仅支持商店专用链接的打开，搜索功能正在开发，请期待以后的版本！</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="904"/>
+        <location filename="../src/widget.cpp" line="924"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1091"/>
+        <location filename="../src/widget.cpp" line="1111"/>
         <source>Updating, please wait...</source>
         <translation>正在更新，请稍候……</translation>
     </message>
@@ -662,17 +672,17 @@ Click yes to continue.</source>
         <translation type="vanished">服务器未知错误</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1123"/>
+        <location filename="../src/widget.cpp" line="1143"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1145"/>
+        <location filename="../src/widget.cpp" line="1165"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1227"/>
+        <location filename="../src/widget.cpp" line="1257"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
