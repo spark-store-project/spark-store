@@ -151,7 +151,7 @@ void downloadlist::install(int t)
 
             bool haveError = false;
             bool notRoot = false;
-            installer.waitForFinished();
+            installer.waitForFinished(-1); // 不设置超时
             out = installer.readAllStandardOutput();
 
             QStringList everyOut = out.split("\n");
@@ -169,7 +169,7 @@ void downloadlist::install(int t)
 
             QProcess isInstall;
             isInstall.start("dpkg -s " + pkgName);
-            isInstall.waitForFinished();
+            isInstall.waitForFinished(180); // 默认超时 3 分钟
             int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
             if(error == 0)
             {

@@ -193,6 +193,7 @@ void Widget::initUI()
 
     // 添加菜单项
     QAction *actionSubmission = new QAction(tr("Submit App"), this);
+    QAction *actionSubmissionWithClient = new QAction(tr("Submit App with client(Recommanded)"), this);
     QAction *setting = new QAction(tr("Settings"));
     QAction *upgrade = new QAction(tr("APP Upgrade and Install Settings"));
 
@@ -200,12 +201,30 @@ void Widget::initUI()
     menu->addAction(setting);
     menu->addAction(upgrade);
     menu->addAction(actionSubmission);
+    menu->addAction(actionSubmissionWithClient);
 
     titlebar->setMenu(menu);
 
     connect(actionSubmission, &QAction::triggered, this, [=]{QDesktopServices::openUrl(QUrl("https://upload.deepinos.org/"));});
     connect(setting, &QAction::triggered, this, &Widget::opensetting);
     connect(upgrade, &QAction::triggered, this, [=]{QProcess::startDetached("x-terminal-emulator -e /opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh");});
+
+    // 投稿器
+    connect(actionSubmissionWithClient, &QAction::triggered, this, [=]
+        {
+            QString submitterSpk = "spk://store/tools/spark-store-submitter";
+            QFile actionSubmissionClientStatus("/opt/spark-store-submitter/bin/spark-store-submitter");
+            if (actionSubmissionClientStatus.exists())
+            {
+                qDebug() << "投稿器存在";
+                QProcess::startDetached("/opt/spark-store-submitter/bin/spark-store-submitter"); 
+            }
+            else{
+                qDebug() << "投稿器不存在，跳转页面";
+                openUrl(submitterSpk);
+            }
+                
+        });
 
     // 载入自定义字体
     int loadedFontID = QFontDatabase::addApplicationFont(":/fonts/fonts/hksnzt.ttf");
@@ -1109,11 +1128,11 @@ void Widget::on_pushButton_uninstall_clicked()
 
         QProcess uninstall;
         uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << pkgName.toLower());
-        uninstall.waitForFinished();
+        uninstall.waitForFinished(-1); // 默认无限时长
 
         QProcess check;
         check.start("dpkg", QStringList() << "-s" << pkgName.toLower());
-        check.waitForFinished();
+        check.waitForFinished(180); // 默认超时 3 分钟
 
         if (check.readAllStandardOutput().isEmpty())
         {
@@ -1284,6 +1303,7 @@ void Widget::on_webEngineView_urlChanged(const QUrl &arg1)
         ui->stackedWidget->setCurrentIndex(2);
         
         qDebug() << "程序跳转链接地址：" << arg1;
+        QString url = arg1.toString();
 
         /*
         load.cancel();  // 打开并发加载线程前关闭正在执行的线程
@@ -1294,7 +1314,7 @@ void Widget::on_webEngineView_urlChanged(const QUrl &arg1)
         */
         appinfoLoadThread.requestInterruption();
         appinfoLoadThread.wait(100);
-        appinfoLoadThread.setUrl(arg1);
+        appinfoLoadThread.setUrl(url.replace("+","%2B")); //对+进行转译，避免oss出错
         appinfoLoadThread.start();
     }
 }
