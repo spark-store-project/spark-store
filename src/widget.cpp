@@ -1303,6 +1303,7 @@ void Widget::on_webEngineView_urlChanged(const QUrl &arg1)
         ui->stackedWidget->setCurrentIndex(2);
         
         qDebug() << "程序跳转链接地址：" << arg1;
+        QString url = arg1.toString();
 
         /*
         load.cancel();  // 打开并发加载线程前关闭正在执行的线程
@@ -1313,7 +1314,7 @@ void Widget::on_webEngineView_urlChanged(const QUrl &arg1)
         */
         appinfoLoadThread.requestInterruption();
         appinfoLoadThread.wait(100);
-        appinfoLoadThread.setUrl(arg1);
+        appinfoLoadThread.setUrl(url.replace("+","%2B")); //对+进行转译，避免oss出错
         appinfoLoadThread.start();
     }
 }

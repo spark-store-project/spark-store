@@ -116,7 +116,7 @@ void DownloadController::startDownload(const QString &url)
         else{
             for (int i = 0; i < domains.size(); i++)
             {
-                command.append(replaceDomain(url, domains.at(i)).toUtf8());
+                command.append(replaceDomain(url, domains.at(i)).replace("+","%2B").toUtf8()); //对+进行转译，避免oss出错
             }
         }
 
