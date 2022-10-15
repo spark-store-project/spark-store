@@ -64,6 +64,7 @@ public:
     static void sendNotification(const QString &message, const int msTimeout = 5000, const QString &icon = "spark-store");
     static void sendNotification(const char *message, const int msTimeout = 5000, const QString &icon = "spark-store");
 
+    void initDbus();
 private slots:
 
     void httpFinished();
@@ -102,6 +103,9 @@ private slots:
     void on_webEngineView_loadFinished(bool arg1);
     void on_pushButton_refresh_clicked();
     void on_pushButton_update_clicked();
+
+    //接受来自dbus的url
+    void onGetUrl(const QString &url);
 
   public:
     QUrl url;

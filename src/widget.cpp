@@ -33,6 +33,7 @@
 #include "HttpClient.h"
 #include "downloadworker.h"
 
+#include "./dbus/dbussparkstore.h"
 DWIDGET_USE_NAMESPACE
 
 Widget::Widget(DBlurEffectWidget *parent) :
@@ -138,6 +139,9 @@ Widget::Widget(DBlurEffectWidget *parent) :
     });
 
     notify_init(tr("Spark\\ Store").toLocal8Bit());
+
+    //初始化dbus服务
+    initDbus();
 }
 
 Widget::~Widget()
@@ -450,6 +454,15 @@ void Widget::sendNotification(const char *message, const int msTimeout, const QS
     }
 
     notify_notification_show(_notify, nullptr);
+}
+
+void Widget::initDbus()
+{
+    DBusSparkStoreService *dbusInter = new DBusSparkStoreService(this);
+
+    QDBusConnection::sessionBus().registerService("com.gitee.spark.store");
+    QDBusConnection::sessionBus().registerObject("/com/gitee/spark/store", "com.gitee.spark.store", this);
+    connect(dbusInter,&DBusSparkStoreService::sigOpenUrl,this,&Widget::onGetUrl);
 }
 
 void Widget::updateUI()
@@ -1352,5 +1365,14 @@ void Widget::on_webEngineView_loadFinished(bool arg1)
 void Widget::on_pushButton_update_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://www.deepinos.org/"));
+}
+
+void Widget::onGetUrl(const QString &url)
+{
+    if(url.left(6)=="spk://")
+    {
+        openUrl(QUrl(url));
+    }
+    activateWindow();
 }
 

@@ -4,6 +4,9 @@
 #include <DAboutDialog>
 #include <QVector>
 #include <QScreen>
+//新增dbus
+#include <QDBusInterface>
+#include <QDBusPendingCall>
 
 #include "widget.h"
 
@@ -69,6 +72,17 @@ int main(int argc, char *argv[])
     // 限制单实例运行
     if(!a.setSingleInstance("spark-store"))
     {
+        qDebug() << "The application is already running!";
+        QDBusInterface iface("com.gitee.spark.store",
+                             "/com/gitee/spark/store",
+                             "com.gitee.spark.store",
+                             QDBusConnection::sessionBus());
+
+        QString arg1 = argv[1];
+
+        iface.asyncCall("activeWindow",arg1);
+
+
         return -1;
     }
 

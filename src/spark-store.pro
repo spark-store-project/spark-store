@@ -8,6 +8,7 @@ QT       += core gui network concurrent webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QT       += dbus
 TARGET = spark-store
 TEMPLATE = app
 
@@ -41,7 +42,8 @@ SOURCES += \
     main.cpp \
     progressload.cpp \
     widget.cpp \
-    workerthreads.cpp
+    workerthreads.cpp \
+    dbus/dbussparkstore.cpp
 
 HEADERS += \
     appitem.h \
@@ -52,7 +54,8 @@ HEADERS += \
     image_show.h \
     progressload.h \
     widget.h \
-    workerthreads.h
+    workerthreads.h \
+    dbus/dbussparkstore.h
 
 FORMS += \
     appitem.ui \
