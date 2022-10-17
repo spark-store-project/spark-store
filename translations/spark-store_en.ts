@@ -12,9 +12,9 @@
 <context>
     <name>QLabel</name>
     <message>
-        <location filename="../src/main.cpp" line="39"/>
-        <location filename="../src/main.cpp" line="47"/>
-        <location filename="../src/main.cpp" line="53"/>
+        <location filename="../src/main.cpp" line="42"/>
+        <location filename="../src/main.cpp" line="50"/>
+        <location filename="../src/main.cpp" line="56"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22,22 +22,22 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="36"/>
+        <location filename="../src/main.cpp" line="39"/>
         <source>We publish this program under GPL V3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="41"/>
+        <location filename="../src/main.cpp" line="44"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by  community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="49"/>
+        <location filename="../src/main.cpp" line="52"/>
         <source>The Spark Project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="61"/>
+        <location filename="../src/main.cpp" line="64"/>
         <source>&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;Published under GPL V3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -149,8 +149,8 @@
     </message>
     <message>
         <location filename="../src/widget.ui" line="547"/>
-        <location filename="../src/widget.cpp" line="930"/>
-        <location filename="../src/widget.cpp" line="1139"/>
+        <location filename="../src/widget.cpp" line="943"/>
+        <location filename="../src/widget.cpp" line="1152"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -254,7 +254,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="864"/>
         <location filename="../src/widget.ui" line="867"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine5 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -303,6 +302,10 @@
     </message>
     <message>
         <location filename="../src/widget.ui" line="845"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app. Spark Store will configure the wine environment for you， so don‘t worry.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/widget.ui" line="848"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine2 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -310,6 +313,11 @@
     <message>
         <location filename="../src/widget.ui" line="851"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine2-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widget.ui" line="864"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.Spark Store will configure the wine environment for you， so don‘t worry.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -438,92 +446,92 @@
         <translation type="unfinished">0B</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="188"/>
+        <location filename="../src/widget.cpp" line="192"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="189"/>
+        <location filename="../src/widget.cpp" line="193"/>
         <source>Search or enter spk://</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="195"/>
+        <location filename="../src/widget.cpp" line="199"/>
         <source>Submit App</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="196"/>
+        <location filename="../src/widget.cpp" line="200"/>
         <source>Submit App with client(Recommanded)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="197"/>
+        <location filename="../src/widget.cpp" line="201"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="198"/>
+        <location filename="../src/widget.cpp" line="202"/>
         <source>APP Upgrade and Install Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="367"/>
+        <location filename="../src/widget.cpp" line="371"/>
         <source>Not Exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="140"/>
-        <location filename="../src/widget.cpp" line="429"/>
-        <location filename="../src/widget.cpp" line="434"/>
-        <location filename="../src/widget.cpp" line="444"/>
-        <location filename="../src/widget.cpp" line="449"/>
+        <location filename="../src/widget.cpp" line="141"/>
+        <location filename="../src/widget.cpp" line="433"/>
+        <location filename="../src/widget.cpp" line="438"/>
+        <location filename="../src/widget.cpp" line="448"/>
+        <location filename="../src/widget.cpp" line="453"/>
         <source>Spark\ Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="679"/>
-        <location filename="../src/widget.cpp" line="919"/>
+        <location filename="../src/widget.cpp" line="692"/>
+        <location filename="../src/widget.cpp" line="932"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="645"/>
+        <location filename="../src/widget.cpp" line="658"/>
         <source>Failed to get the name to the file to be downloaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="924"/>
+        <location filename="../src/widget.cpp" line="937"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1111"/>
+        <location filename="../src/widget.cpp" line="1124"/>
         <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1143"/>
+        <location filename="../src/widget.cpp" line="1156"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="726"/>
+        <location filename="../src/widget.cpp" line="739"/>
         <source>Relative apps Not Found!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="734"/>
+        <location filename="../src/widget.cpp" line="747"/>
         <source>Request Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1165"/>
+        <location filename="../src/widget.cpp" line="1178"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="1257"/>
+        <location filename="../src/widget.cpp" line="1270"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
