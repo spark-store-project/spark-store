@@ -1,3 +1,19 @@
+spark-store (3.2.4) stable; urgency=medium
+
+  * 修改tag相关的文案内容：wine相关环境已可自动配置了
+  * 准备发版
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.2.4~test4) stable; urgency=medium
+
+  * 现在在商店启动后点击spk链接仍会正常启动 https://gitee.com/deepin-community-store/spark-store/commit/dd6780d636042bf12d77414e6f1552cc7d1ed24c
+  
+
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.2.4~test3) stable; urgency=medium
 
   * 发版，合入到master
