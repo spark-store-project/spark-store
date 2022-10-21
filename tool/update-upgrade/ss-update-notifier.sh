@@ -71,13 +71,20 @@ fi
 update_app_number=`echo ${updatetext%package*} #从右向左截取第一个 src 后的字符串`
 update_app_number=`echo ${update_app_number##*information...}`
 
+
 PKG_LIST="$(bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt list --upgradable -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" | awk 'BEGIN {FS="/"} {print $1}' | awk NR\>1)" 
 
+
+
 for PKG_NAME in $PKG_LIST;do
-if [ "$(dpkg-query -W -f='${Status}' $PKG_NAME | grep hold)" = "" ];then
-       let update_app_number=update_app_number-1
+if [ "$(dpkg-query -W -f='${Status}' $PKG_NAME | grep hold)" != "" ];then
+       let update_app_number=$update_app_number-1
+	echo $update_app_number
+	echo $PKG_NAME 
 fi
 done
+
+
 
 if [ $update_app_number -lt 1 ];then
 exit
