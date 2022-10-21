@@ -22,7 +22,16 @@ done | zenity --list --text="选择你想更新的应用" --column=是否更新 
 if [ "$PKG_UPGRADE_LIST" = "" ];then
 zenity --info --icon-name=spark-store --text "没有选中任何软件\n但是你并没有站在世界之巅" --title "星火商店更新检测服务" --height 150 --width 300
 else
-sudo aptss install $PKG_UPGRADE_LIST -y
+sudo aptss install $PKG_UPGRADE_LIST -y | zenity --progress --auto-close --no-cancel --pulsate --text=正在更新已选中的应用，请稍候... --height 70 --width 400 --title="星火商店更新模块"
+
+if [ "$?" = "0" ];then
+
+zenity --info --icon-name=spark-store --text "已选中的软件已经更新完毕" --title "星火商店更新检测服务" --height 150 --width 300
+else
+zenity --error  --text "更新出现错误！请手动执行 sudo aptss full-upgrade 查看问题" --title "星火商店更新检测服务" --height 150 --width 300
 fi
 
 fi
+
+fi
+####从最开头
