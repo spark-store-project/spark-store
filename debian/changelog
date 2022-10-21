@@ -1,3 +1,10 @@
+spark-store (3.3) stable; urgency=medium
+
+  * 修复 检查更新 未刷新软件源
+  * 把检查更新单独拿出作为左列
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.3~test3) stable; urgency=medium
 
   * 把检查更新加入免密码
