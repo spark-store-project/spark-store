@@ -1,4 +1,5 @@
 #!/bin/bash
+aptss ssupdate | zenity --progress --no-cancel --pulsate --text=正在更新检查，请稍候... --height 70 --width 400 --title="星火商店更新模块"
 PKG_LIST="$(bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt list --upgradable -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" | awk 'BEGIN {FS="/"} {print $1}' | awk NR\>1)" 
 ####如果没更新，就弹出不需要更新
 if [ -z "$PKG_LIST" ];then
