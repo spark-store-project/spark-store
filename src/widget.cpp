@@ -211,7 +211,7 @@ void Widget::initUI()
 
     connect(actionSubmission, &QAction::triggered, this, [=]{QDesktopServices::openUrl(QUrl("https://upload.deepinos.org/"));});
     connect(setting, &QAction::triggered, this, &Widget::opensetting);
-    connect(upgrade, &QAction::triggered, this, [=]{QProcess::startDetached("x-terminal-emulator -e /opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh");});
+    connect(upgrade, &QAction::triggered, this, [=]{QProcess::startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh");});
 
     // 投稿器
     connect(actionSubmissionWithClient, &QAction::triggered, this, [=]
