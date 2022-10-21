@@ -6,7 +6,7 @@ else
 PKG_UPGRADE_LIST=`for PKG_NAME in $PKG_LIST;
 do
 #### 检测是否是hold状态
-	if [ "${dpkg-query -W -f='${Status}' $PKG_NAME | grep hold}" != "" ];then
+	if [ "$(dpkg-query -W -f='${Status}' $PKG_NAME | grep hold)" = "" ];then
        echo "true"
        echo "$PKG_NAME"
 	else
