@@ -32,6 +32,8 @@
         <file>icons/category_active.svg</file>
         <file>icons/refresh-page-dark.svg</file>
         <file>icons/refresh-page.svg</file>
+        <file>icons/upgrades-symbolic_dark.svg</file>
+        <file>icons/upgrades-symbolic.svg</file>
     </qresource>
     <qresource prefix="/">
         <file>tags/a2d.png</file>

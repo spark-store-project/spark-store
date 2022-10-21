@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1053</width>
-    <height>711</height>
+    <height>754</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,6 +93,20 @@
       <property name="rightMargin">
        <number>5</number>
       </property>
+      <item row="13" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_theme">
+        <property name="text">
+         <string>Beautify</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_chat">
+        <property name="text">
+         <string>Chat</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <spacer name="verticalSpacer_7">
         <property name="orientation">
@@ -109,86 +123,30 @@
         </property>
        </spacer>
       </item>
-      <item row="5" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_music">
+      <item row="3" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_network">
         <property name="text">
-         <string>Music</string>
+         <string>Network</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_photo">
-        <property name="text">
-         <string>Graphics</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_dev">
-        <property name="text">
-         <string>Development</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="icon">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>36</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>36</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>icon</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <spacer name="horizontalSpacer_8">
+      <item row="18" column="0">
+       <spacer name="verticalSpacer">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
+         <enum>Qt::Vertical</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>3</width>
-          <height>20</height>
+          <width>20</width>
+          <height>40</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer_9">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="12" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_system">
+      <item row="8" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_game">
         <property name="text">
-         <string>Tools</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_read">
-        <property name="text">
-         <string>Reading</string>
+         <string>Games</string>
         </property>
        </widget>
       </item>
@@ -196,6 +154,13 @@
        <widget class="QPushButton" name="menu_office">
         <property name="text">
          <string>Office</string>
+        </property>
+       </widget>
+      </item>
+      <item row="17" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_download">
+        <property name="text">
+         <string>Download</string>
         </property>
        </widget>
       </item>
@@ -219,10 +184,10 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_chat">
+      <item row="6" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_video">
         <property name="text">
-         <string>Chat</string>
+         <string>Video</string>
         </property>
        </widget>
       </item>
@@ -246,44 +211,10 @@
         </property>
        </widget>
       </item>
-      <item row="17" column="0">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="13" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_theme">
+      <item row="12" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_system">
         <property name="text">
-         <string>Beautify</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_network">
-        <property name="text">
-         <string>Network</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_game">
-        <property name="text">
-         <string>Games</string>
-        </property>
-       </widget>
-      </item>
-      <item row="14" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_other">
-        <property name="text">
-         <string>Others</string>
+         <string>Tools</string>
         </property>
        </widget>
       </item>
@@ -300,17 +231,63 @@
         </property>
        </widget>
       </item>
-      <item row="16" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_download">
+      <item row="10" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_read">
         <property name="text">
-         <string>Download</string>
+         <string>Reading</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="0" colspan="6">
-       <widget class="QPushButton" name="menu_video">
+      <item row="14" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_other">
         <property name="text">
-         <string>Video</string>
+         <string>Others</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_photo">
+        <property name="text">
+         <string>Graphics</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="icon">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>36</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>icon</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <spacer name="horizontalSpacer_9">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="11" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_dev">
+        <property name="text">
+         <string>Development</string>
         </property>
        </widget>
       </item>
@@ -330,6 +307,36 @@
         </property>
         <property name="styleSheet">
          <string notr="true">background-color:#808080</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>3</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="5" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_music">
+        <property name="text">
+         <string>Music</string>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="0" colspan="6">
+       <widget class="QPushButton" name="menu_upgrade">
+        <property name="text">
+         <string>Upgrade</string>
         </property>
        </widget>
       </item>
@@ -365,11 +372,11 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QWebEngineView" name="webEngineView" native="true">
+        <widget class="QWebEngineView" name="webEngineView">
          <property name="contextMenuPolicy">
           <enum>Qt::DefaultContextMenu</enum>
          </property>
-         <property name="url" stdset="0">
+         <property name="url">
           <url>
            <string>about:blank</string>
           </url>
@@ -489,8 +496,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>889</width>
-            <height>849</height>
+            <width>903</width>
+            <height>848</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -993,8 +1000,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>851</width>
-                   <height>324</height>
+                   <width>869</width>
+                   <height>326</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1123,8 +1130,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>889</width>
-            <height>716</height>
+            <width>738</width>
+            <height>833</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_23">

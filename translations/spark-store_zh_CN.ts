@@ -617,7 +617,7 @@
     <message>
         <location filename="../src/widget.cpp" line="937"/>
         <source>Upgrade</source>
-        <translation>升级</translation>
+        <translation>软件升级</translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="1124"/>

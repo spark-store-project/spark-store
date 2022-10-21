@@ -1,3 +1,29 @@
+spark-store (3.3) stable; urgency=medium
+
+  * 修复 检查更新 未刷新软件源
+  * 把检查更新单独拿出作为左列
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.3~test3) stable; urgency=medium
+
+  * 把检查更新加入免密码
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.3~test2) stable; urgency=medium
+
+  * 更新检测功能全部更改到zenity
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.3~test1) stable; urgency=medium
+
+  * zenity，选择可更新应用
+  * 自动更新检测现在会跳过hold
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.2.4) stable; urgency=medium
 
   * 修改tag相关的文案内容：wine相关环境已可自动配置了
