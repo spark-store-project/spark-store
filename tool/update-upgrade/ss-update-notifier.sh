@@ -66,11 +66,23 @@ isupdate=`echo ${updatetext: -5}`
 if [ "$isupdate" = "date." ];then
 exit 0 
 fi
-
+#### 从这里开始，只有检测到了更新才会进行
 
 update_app_number=`echo ${updatetext%package*} #从右向左截取第一个 src 后的字符串`
 update_app_number=`echo ${update_app_number##*information...}`
 
+PKG_LIST="$(bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt list --upgradable -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" | awk 'BEGIN {FS="/"} {print $1}' | awk NR\>1)" 
+
+for PKG_NAME in $PKG_LIST;do
+if [ "${dpkg-query -W -f='${Status}' $PKG_NAME | grep hold}" != "" ];then
+       let update_app_number=update_app_number-1
+fi
+done
+
+if [ $update_app_number -lt 1 ];then
+exit
+fi
+#### 如果都是hold的那就直接退出，否则把剩余的给提醒了
 
 notify-send -i spark-store "星火更新提醒" "星火商店仓库中有$update_app_number个软件包可以更新啦！请到星火商店的菜单处理"
 
