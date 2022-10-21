@@ -36,7 +36,7 @@ desktop.path = /usr/share/applications
 service.files += pkg/usr/lib/systemd/system/spark-update-notifier.service
 service.path = /usr/lib/systemd/system/
 
-polkit-1.files +=pkg/usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
+polkit-1.files +=pkg/usr/share/polkit-1/actions/store.spark-app.ss-do-upgrade.policy
 polkit-1.path = /usr/share/polkit-1/actions/
 
 
@@ -55,6 +55,6 @@ INSTALLS += \
     preferences \
     tmp \
     service \
-    bash_completion
-#	polkit-1 
+    bash_completion \
+    polkit-1 
 #   暂时不添加

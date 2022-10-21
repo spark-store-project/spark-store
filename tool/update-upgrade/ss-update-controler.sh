@@ -40,7 +40,7 @@ case $option in
 	;;
 
 	2)
-	pkexec bash /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
+	pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
 	;;
 	3)
 	if [ -f /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy ];then 
