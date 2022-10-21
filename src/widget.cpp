@@ -63,7 +63,8 @@ Widget::Widget(DBlurEffectWidget *parent) :
     connect(ui->menu_system, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(10);});
     connect(ui->menu_theme, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(11);});
     connect(ui->menu_other, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(12);});
-    connect(ui->menu_download, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(13);});
+    connect(ui->menu_upgrade, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(13);});
+    connect(ui->menu_download, &QPushButton::clicked, this, [=](){Widget::chooseLeftMenu(14);});
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType)
     {
@@ -255,7 +256,8 @@ void Widget::initUI()
     left_list[10] = ui->menu_system;
     left_list[11] = ui->menu_theme;
     left_list[12] = ui->menu_other;
-    left_list[13] = ui->menu_download;
+    left_list[13] = ui->menu_upgrade;
+    left_list[14] = ui->menu_download;
 
     ui->label_show->hide();
 
@@ -482,7 +484,8 @@ void Widget::updateUI()
         left_list[10]->setIcon(QIcon(":/icons/icons/category_system_dark.svg"));
         left_list[11]->setIcon(QIcon(":/icons/icons/theme-symbolic_dark.svg"));
         left_list[12]->setIcon(QIcon(":/icons/icons/category_others_dark.svg"));
-        left_list[13]->setIcon(QIcon(":/icons/icons/downloads-symbolic_dark.svg"));
+        left_list[13]->setIcon(QIcon(":/icons/icons/upgrades-symbolic_dark.svg"));
+        left_list[14]->setIcon(QIcon(":/icons/icons/downloads-symbolic_dark.svg"));
     }
     else
     {
@@ -499,10 +502,11 @@ void Widget::updateUI()
         left_list[10]->setIcon(QIcon(":/icons/icons/category_system.svg"));
         left_list[11]->setIcon(QIcon(":/icons/icons/theme-symbolic.svg"));
         left_list[12]->setIcon(QIcon(":/icons/icons/category_others.svg"));
-        left_list[13]->setIcon(QIcon(":/icons/icons/downloads-symbolic.svg"));
+        left_list[13]->setIcon(QIcon(":/icons/icons/upgrades-symbolic.svg"));
+        left_list[14]->setIcon(QIcon(":/icons/icons/downloads-symbolic.svg"));
     }
 
-    for(int i = 0; i < 14; i++)
+    for(int i = 0; i < 15; i++)
     {
         /* 设置左侧菜单字体
          * QFont temp = font;
@@ -590,7 +594,10 @@ void Widget::updateUI()
         left_list[12]->setIcon(QIcon(":/icons/icons/category_others_dark.svg"));
         break;
     case 13:
-        left_list[13]->setIcon(QIcon(":/icons/icons/downloads-symbolic_dark.svg"));
+        left_list[13]->setIcon(QIcon(":/icons/icons/upgrades-symbolic_dark.svg"));
+        break;
+    case 14:
+        left_list[14]->setIcon(QIcon(":/icons/icons/downloads-symbolic_dark.svg"));
         break;
     }
 }
@@ -630,6 +637,16 @@ void Widget::chooseLeftMenu(int index)
 
         ui->stackedWidget->setCurrentIndex(0);
     }
+    else if (index == 13){
+        QtConcurrent::run([=]{
+            auto upgradeP = new QProcess();
+            upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
+            upgradeP->waitForStarted();
+            upgradeP->waitForFinished(-1);
+            
+        });
+        ui->stackedWidget->setCurrentIndex(0);
+    }
     else
     {
         ui->stackedWidget->setCurrentIndex(1);
@@ -649,7 +666,7 @@ void Widget::updatefoot()
 
 void Widget::on_pushButton_download_clicked()
 {
-    chooseLeftMenu(13);
+    chooseLeftMenu(14);
 
     allDownload += 1;
 
