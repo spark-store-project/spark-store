@@ -510,6 +510,9 @@ void Widget::updateUI()
          * left_list[i]->setFont(temp);
          */
 
+        QFont temp;
+        temp.setFamily(temp.defaultFamily());
+        left_list[i]->setFont(temp);
         left_list[i]->setFixedHeight(38);
         if(themeIsDark)
         {
