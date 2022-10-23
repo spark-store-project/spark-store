@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
      DAboutDialog dialog;
       a.setAboutDialog(&dialog);
       dialog.setLicense(QObject::tr("We publish this program under GPL V3"));
-      dialog.setVersion(DApplication::buildVersion("Version 3.3.0.1"));
+      dialog.setVersion(DApplication::buildVersion("Version 3.3.0.2"));
       dialog.setProductIcon(QIcon::fromTheme("spark-store"));  // 设置Logo
       dialog.setProductName(QLabel::tr("Spark Store"));
       dialog.setDescription(
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("spark-union");
     a.setOrganizationDomain("https://www.deepinos.org/");
     a.setApplicationName("Spark Store");    //不需要翻译，否则 ~/.local/share/ 下文件夹名称也被翻译为中文
-    a.setApplicationVersion(DApplication::buildVersion("3.3.0.1"));
+    a.setApplicationVersion(DApplication::buildVersion("3.3.0.2"));
     a.setApplicationAcknowledgementPage("https://gitee.com/deepin-community-store/spark-store");
     a.setApplicationDescription(
                 QObject::tr(
