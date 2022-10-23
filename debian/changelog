@@ -1,3 +1,10 @@
+spark-store (3.3.0.4) stable; urgency=medium
+
+  * 为减轻服务器压力，不再单独更新某一个应用，而是作为整体更新
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.3.0.3) stable; urgency=medium
 
   * 回滚 更新中行为到进度条而不是实时输出

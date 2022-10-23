@@ -28,9 +28,7 @@ if [ "$PKG_UPGRADE_LIST" = "" ];then
 zenity --info --icon-name=spark-store --text "没有选中任何软件\n但是你并没有站在世界之巅" --title "星火商店更新检测服务" --height 150 --width 300
 else
 
-for PKG_NAME_UPGRADE in $PKG_UPGRADE_LIST;do
-bash aptss install $PKG_NAME_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text="正在更新 $PKG_NAME_UPGRADE ，请稍候..." --height 70 --width 400 --title="星火商店更新模块"
-done
+bash aptss install $PKG_UPGRADE_LIST -y | zenity --progress --auto-close --no-cancel --pulsate --text=正在更新已选中的应用，请稍候... --height 70 --width 400 --title="星火商店更新模块"
 
 if [ "$?" = "0" ];then
 
