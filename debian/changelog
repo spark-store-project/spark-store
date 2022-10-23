@@ -1,6 +1,7 @@
 spark-store (3.3.0.3) stable; urgency=medium
 
   * 回滚 更新中行为到进度条而不是实时输出
+  * 更新应用时显示正在更新哪个应用
 
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800

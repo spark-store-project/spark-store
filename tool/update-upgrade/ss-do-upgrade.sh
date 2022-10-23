@@ -18,7 +18,7 @@ do
        echo "$PKG_NAME"
 	else
 	echo "false"
-	echo "$PKG_NAME (无法更新：请先执行 sudo apt-mark unhold 后再更新)"
+	echo "$PKG_NAME (无法更新：已被标记为保留)"
 	fi
 done | zenity --list --text="选择你想更新的应用" --column=是否更新 --column=应用包名 --separator=" " --checklist --print-column=2 --multiple --height 350 --width 550 ` 
 
@@ -29,7 +29,7 @@ zenity --info --icon-name=spark-store --text "没有选中任何软件\n但是�
 else
 
 for PKG_NAME_UPGRADE in $PKG_UPGRADE_LIST;do
-bash aptss install $PKG_NAME_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text=正在更新$PKG_NAME_UPGRADE，请稍候... --height 70 --width 400 --title="星火商店更新模块"
+bash aptss install $PKG_NAME_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text=正在更新 $PKG_NAME_UPGRADE ，请稍候... --height 70 --width 400 --title="星火商店更新模块"
 done
 
 if [ "$?" = "0" ];then
