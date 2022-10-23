@@ -29,7 +29,7 @@ zenity --info --icon-name=spark-store --text "没有选中任何软件\n但是�
 else
 
 for PKG_NAME_UPGRADE in $PKG_UPGRADE_LIST;do
-bash aptss install $PKG_NAME_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text=正在更新 $PKG_NAME_UPGRADE ，请稍候... --height 70 --width 400 --title="星火商店更新模块"
+bash aptss install $PKG_NAME_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text="正在更新 $PKG_NAME_UPGRADE ，请稍候..." --height 70 --width 400 --title="星火商店更新模块"
 done
 
 if [ "$?" = "0" ];then
