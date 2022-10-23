@@ -1,3 +1,10 @@
+spark-store (3.3.0.1) stable; urgency=medium
+
+  * 修复 检查更新的更新进程未实际运行
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.3) stable; urgency=medium
 
   * 修复 检查更新 未刷新软件源
