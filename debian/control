@@ -14,8 +14,7 @@ Build-Depends:
  libdtkcore-dev(>=5.0),
  libdtkgui-dev(>=5.0),
  libdtkwidget-dev(>=5.0),
-# qttools5-private-dev,
-# 为了在ci中加速配置，跳过此依赖。若要配置翻译，需要安装此依赖
+ qttools5-private-dev,
  libnotify-dev,
  qtwebengine5-dev
 Standards-Version: 3.0
