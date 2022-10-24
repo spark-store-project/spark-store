@@ -19,7 +19,7 @@ function notify-send() {
 function network()
 {
     #超时时间
-    local timeout=5
+    local timeout=15
 
     #目标网站
     local target=www.baidu.com
