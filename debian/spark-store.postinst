@@ -30,7 +30,7 @@ case "$1" in
 
 		gcc /opt/durapps/spark-store/bin/ss-feedback/sender-d.sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
 
-		# Download and install key
+		# Install key
 		mkdir -p /tmp/spark-store-install/
 		cp -f /opt/durapps/spark-store/bin/spark-store.asc  /tmp/spark-store-install/spark-store.asc
 		gpg --dearmor /tmp/spark-store-install/spark-store.asc
@@ -39,8 +39,8 @@ case "$1" in
 
 
         	# Run apt update to avoid users being fucked up by the non-exist dependency problem
-
-		aptss ssupdate
+		# Now abandoned as aptss now run ssupdate everytime
+		#aptss ssupdate
 
 
 		# Start upgrade detect service
