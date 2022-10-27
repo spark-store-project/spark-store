@@ -36,7 +36,7 @@ desktop.path = /usr/share/applications
 service.files += pkg/usr/lib/systemd/system/spark-update-notifier.service
 service.path = /usr/lib/systemd/system/
 
-polkit-1.files +=pkg/usr/share/polkit-1/actions/store.spark-app.ss-do-upgrade.policy
+polkit-1.files +=pkg/usr/share/polkit-1/actions/store.spark-app.ss-do-upgrade-worker.policy
 polkit-1.path = /usr/share/polkit-1/actions/
 
 

@@ -1,3 +1,23 @@
+spark-store (3.3.3~test2) stable; urgency=medium
+
+  * bug fix: 更新和检查更新出错时不报错.此更新需要一个推送
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.3.3~test1) stable; urgency=medium
+
+  * 3.3.3将会是修复大部分bug后的最终版本
+  * 图形环境中所有root权限的组件剥离到cli(可用于deepin 23 daily，只保证商店本体正常运作，不处理安装依赖不满足)
+  * 文案更改：更新检查-->检查更新
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.3.1~test1) stable; urgency=medium
+
+  * 安装时不再需要联网
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.3.0.4) stable; urgency=medium
 
   * 为减轻服务器压力，不再单独更新某一个应用，而是作为整体更新

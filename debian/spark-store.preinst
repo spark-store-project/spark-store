@@ -24,4 +24,5 @@ function network-check()
 }
 
 
-network-check
+#network-check
+echo "不再检测网络"
