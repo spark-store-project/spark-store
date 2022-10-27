@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --no-cancel --pulsate --text=正在更新检查，请稍候... --height 70 --width 400 --title="星火商店更新模块"
+pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --no-cancel --pulsate --text="正在检查更新，请稍候..." --height 70 --width 400 --title="星火商店更新模块"
 PKG_LIST="$(pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgradable-list)" 
 ####如果没更新，就弹出不需要更新
 if [ -z "$PKG_LIST" ];then
