@@ -1,7 +1,8 @@
 spark-store (3.3.3~test1) stable; urgency=medium
 
   * 3.3.3将会是修复大部分bug后的最终版本
-  * 图形环境中所有root权限的组件剥离到cli
+  * 图形环境中所有root权限的组件剥离到cli(可用于deepin 23 daily，只保证商店本体正常运作，不处理安装依赖不满足)
+  * 文案更改：更新检查-->检查更新
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
