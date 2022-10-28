@@ -1,12 +1,12 @@
 #!/bin/bash
 
 
-pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --pulsate --no-cancel --text="正在检查更新，请稍候..." --height 70 --width 400 --title="星火商店更新模块" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --pulsate --no-cancel  --text="正在检查更新，请稍候..." --height 70 --width 400 --title="星火商店更新模块" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 
 if [ -z `cat /tmp/spark-store-app-ssupdate-status.txt` != "0" ];then
 echo "无错误"
 else
-zenity --error  --text "检查更新进程出现错误！按确定查看报错，可用于反馈" --title "星火商店更新检测服务" --height 200 --width 350 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+zenity --error  --text "检查更新进程出现错误！按确定查看报错，可用于反馈" --title "星火商店更新检测模块" --height 200 --width 350 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 zenity --text-info --filename=/tmp/spark-store-app-ssupdate-log.txt --checkbox="我已复制了此文本框中的日志，且将会在反馈时附上 。反馈渠道可以在右上角菜单的设置中找到" --title="反馈渠道在商店右上角的设置里" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
 exit 
@@ -16,7 +16,7 @@ pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean
 PKG_LIST="$(pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgradable-list)" 
 ####如果没更新，就弹出不需要更新
 if [ -z "$PKG_LIST" ];then
-zenity --info  --text "没有软件需要更新\n但是你并没有站在世界之巅" --title "星火商店更新检测服务" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+zenity --info  --text "没有软件需要更新\n但是你并没有站在世界之巅" --title "星火商店更新检测模块" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 else
 PKG_UPGRADE_LIST=`for PKG_NAME in $PKG_LIST;
 do
@@ -42,9 +42,9 @@ pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgra
 
 if [ -z "`cat /tmp/spark-store-app-upgrade-status.txt`"  ];then
 
-zenity --info  --text "已选中的软件已经更新完毕" --title "星火商店更新检测服务" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+zenity --info  --text "已选中的软件已经更新完毕" --title "星火商店更新检测模块" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 else
-zenity --error  --text "更新出现错误！按确定查看报错，可用于反馈" --title "星火商店更新检测服务" --height 200 --width 350 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+zenity --error  --text "更新出现错误！按确定查看报错，可用于反馈" --title "星火商店更新检测模块" --height 200 --width 350 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 zenity --text-info --filename=/tmp/spark-store-app-upgrade-log.txt --checkbox="我已复制了此文本框中的日志，且将会在反馈时附上 。反馈渠道可以在右上角菜单的设置中找到" --title="反馈渠道在商店右上角的设置里往下拉" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 fi
 
