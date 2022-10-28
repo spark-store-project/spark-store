@@ -23,7 +23,7 @@ if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] ; 
 DEPEND=`which  apt-fast`
 if [ "$DEPEND" = "" ] ; then 
 echo "未安装依赖：apt-fast 开始安装"
-aptss ssupdate && bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install apt-fast -y 
+aptss ssupdate && bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt install ss-apt-fast -y 
 fi
 
 sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"  -o Dir::etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
