@@ -1,6 +1,7 @@
 spark-store (3.3.3~test3) stable; urgency=medium
 
   * Now use ss-apt-fast instead of apt-fast
+  * 修复：右上角 更新和安装设置 菜单中进入更新列表失效
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
