@@ -3,6 +3,10 @@
 case "$1" in
 	configure)
 
+	# Enable i386 arch
+	echo "Enable i386 arch..."
+	dpkg --add-architecture i386
+
         # config for aptss
         mkdir -p /etc/aptss/sources.list.d
         ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
