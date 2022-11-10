@@ -11,6 +11,9 @@ All packages will be shared in our repository for users to get freely.
 
 Distrobution supported：Deepin 20 ; Ubuntu 22.04 LTS / Ubuntu 20.04 LTS(May stop support in the future） ; UniontechOS Home 21
 
+*About OpenKylin and deepin 23*
+
+The adaptation work is scheduled after their official release.
 
 You can track our Issue resoving progress here  https://gitee.com/deepin-community-store/spark-store/board
 

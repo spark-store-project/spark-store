@@ -42,7 +42,7 @@ pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgra
 
 if [ -z "`cat /tmp/spark-store-app-upgrade-status.txt`"  ];then
 
-zenity --info  --text "已选中的软件已经更新完毕" --title "星火商店更新检测模块" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+zenity --info  --text "选中的软件已经更新完毕" --title "星火商店更新检测模块" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 else
 zenity --error  --text "更新出现错误！按确定查看报错，可用于反馈" --title "星火商店更新检测模块" --height 200 --width 350 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 zenity --text-info --filename=/tmp/spark-store-app-upgrade-log.txt --checkbox="我已复制了此文本框中的日志，且将会在反馈时附上 。反馈渠道可以在右上角菜单的设置中找到" --title="反馈渠道在商店右上角的设置里往下拉" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
