@@ -23,6 +23,7 @@ stages:
           - mv debian-10-container/Debian-10.tar.xz /mnt
           - rm -rf debian-10-container
           - WORK_DIR=`pwd`
+          - yum install xz -y
           - cd /mnt/
           - tar -xf Debian-10.tar.xz
           - cd Debian-10
