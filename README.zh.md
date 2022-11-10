@@ -8,6 +8,10 @@
 我们创建了这个应用商店，广泛收录大家需要的软件包，搜集优质小工具，主动适配wine应用，存放到储存库供大家获取
 我们支持：Deepin 20 ; Ubuntu 22.04 LTS / Ubuntu 20.04 LTS(将会逐渐停止支持） ; UOS Home 21
 
+*关于OpenKylin和deepin 23*
+
+支持计划将会在对应系统发布正式版之后开始评估和执行
+
 希望看到这里的人也可以加入我们的队伍，开发或者投递应用都很欢迎，共同构建Linux应用生态
 
 在这里追踪我们的Issue处理情况 https://gitee.com/deepin-community-store/spark-store/board
