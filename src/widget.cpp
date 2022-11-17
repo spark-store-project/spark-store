@@ -1386,7 +1386,17 @@ void Widget::on_webEngineView_loadFinished(bool arg1)
 
 void Widget::on_pushButton_update_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://www.deepinos.org/"));
+    QString feedbackSpk = "spk://store/chat/store.spark-app.feedback";
+    QFile actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
+    if (actionSubmissionClientStatus.exists())
+    {
+        qDebug() << "反馈器存在";
+        QProcess::startDetached("sh /opt/durapps/store.spark-app.feedback/launch.sh");
+    }
+    else{
+        qDebug() << "反馈器不存在，跳转页面";
+        openUrl(feedbackSpk);
+    }
 }
 
 void Widget::onGetUrl(const QString &url)
