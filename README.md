@@ -63,7 +63,11 @@ We use Gitee as our code hosting platform. Please click here to contact us.
 https://gitee.com/deepin-community-store/spark-store
 
 ### Rocket Chat
+
 https://chat.shenmo.tech/
+
 PWA Client：
+
 spk://store/chat/store.spark-app.feedback
+
 （Copy and paste to search bar or in browser address bar after installing Spark Store）
