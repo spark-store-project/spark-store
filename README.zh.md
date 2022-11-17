@@ -54,3 +54,9 @@ dpkg-buildpackage
 ## 🚀 协作
 
 非常感谢有兴趣的开发者或爱好者参与 `星火应用商店` 项目，分享你的见解与思路。
+
+### 交流平台
+https://chat.shenmo.tech/
+客户端PWA：
+spk://store/chat/store.spark-app.feedback
+（安装星火商店后在浏览器打开或复制到搜索栏打开）
