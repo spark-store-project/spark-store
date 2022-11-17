@@ -638,13 +638,15 @@ void Widget::chooseLeftMenu(int index)
         ui->stackedWidget->setCurrentIndex(0);
     }
     else if (index == 13){
-        QtConcurrent::run([=]{
-            auto upgradeP = new QProcess();
-            upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
-            upgradeP->waitForStarted();
-            upgradeP->waitForFinished(-1);
-            
-        });
+        QFile upgradeStatus("/tmp/spark-store/upgradeStatus.txt");
+        if (!upgradeStatus.exists()){
+            QtConcurrent::run([=]{
+                auto upgradeP = new QProcess();
+                upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
+                upgradeP->waitForStarted();
+                upgradeP->waitForFinished(-1);
+            });
+        }
         ui->stackedWidget->setCurrentIndex(0);
     }
     else

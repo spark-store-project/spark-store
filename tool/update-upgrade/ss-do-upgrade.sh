@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+touch /tmp/spark-store/upgradeStatus.txt
 pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --pulsate --no-cancel  --text="正在检查更新，请稍候..." --height 70 --width 400 --title="星火商店更新模块" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 
 if [ -z `cat /tmp/spark-store-app-ssupdate-status.txt` != "0" ];then
@@ -53,4 +53,6 @@ fi
 fi
 
 fi
+
+rm -f touch /tmp/spark-store/upgradeStatus.txt
 ####从最开头
