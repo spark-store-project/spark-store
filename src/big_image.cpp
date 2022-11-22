@@ -7,7 +7,8 @@ big_image::big_image(DBlurEffectWidget *parent) :
     DBlurEffectWidget(parent),
     m_image(new QLabel)
 {
-    setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint); // 设置图片对话框总在最前
+//    setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint); // 设置图片对话框总在最前
+    setWindowModality(Qt::ApplicationModal); // 以上无效不如直接使用 模态化对话框
     setRadius(0);
     setMaskAlpha(60);
     setMaskColor(QColor("#000000"));
