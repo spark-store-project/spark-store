@@ -805,6 +805,7 @@ void Widget::displaySearchApp(QJsonArray array)
     {
         QJsonObject appInfo = array.at(i).toObject();
         AppItem *appItem = new AppItem(this);
+        appItem->setAttribute(Qt::WA_DeleteOnClose);
         QString url = QString("spk://store/%1/%2")
                 .arg(appInfo["category_slug"].toString())
                 .arg(appInfo["pkgname"].toString());
@@ -1090,6 +1091,7 @@ void Widget::on_comboBox_server_currentIndexChanged(const QString &arg1)
         QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
         setConfig->setValue("server/choose", arg1);
         setConfig->setValue("server/updated", updatedInfo);
+        setConfig->deleteLater();
     }
 }
 
