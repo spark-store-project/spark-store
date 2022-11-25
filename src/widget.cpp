@@ -745,8 +745,14 @@ void Widget::searchApp(QString text)
         // 禁止同时进行多次搜索
         if (!mutex.tryLock())
         {
+            qDebug() << "Do not repeat searches！";
+            sendNotification(tr("Do not repeat searches!"));
             return;
         }
+
+        //加载动画
+        spinner->show();
+        spinner->start();
 
         // 关键字搜索处理
         httpClient->get("https://search.deepinos.org.cn/appinfo/search")
@@ -760,8 +766,14 @@ void Widget::searchApp(QString text)
                 qDebug() << "相关应用未找到！";
                 sendNotification(tr("Relative apps Not Found!"));
                 mutex.unlock();
+                clearSearchApp();
+                spinner->stop();
+                spinner->hide();
+                ui->stackedWidget->setCurrentIndex(0);
+                ui->webEngineView->setUrl(QUrl("https://wayou.github.io/t-rex-runner"));
                 return;
             }
+            clearSearchApp();
             displaySearchApp(json); })
             .onError([this](QString errorStr)
                      {
@@ -781,9 +793,9 @@ void Widget::closeEvent(QCloseEvent *event)
 }
 
 /**
- * @brief 展示搜索的APP信息
+ * @brief 清除搜索的APP信息
  */
-void Widget::displaySearchApp(QJsonArray array)
+void Widget::clearSearchApp()
 {
     ui->stackedWidget->setCurrentIndex(4);
 
@@ -798,8 +810,14 @@ void Widget::displaySearchApp(QJsonArray array)
     }
 
     main->removeItem(applist_grid);
-    spinner->show();
-    spinner->start();
+}
+/**
+ * @brief 展示搜索的APP信息
+ */
+void Widget::displaySearchApp(QJsonArray array)
+{
+    
+    
 
     for(int i = 0; i < array.size(); i++)
     {
