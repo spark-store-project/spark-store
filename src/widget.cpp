@@ -160,7 +160,7 @@ void Widget::initUI()
 {
     // ui初始化
     setMaskAlpha(200);
-    ui->webfoot->setFixedHeight(0);
+    // ui->webfoot->setFixedHeight(0);
     ui->stackedWidget->setCurrentIndex(0);
     ui->listWidget->hide();
     ui->label_setting1->hide();
@@ -349,7 +349,7 @@ void Widget::initConfig()
     // web控件初始化
     // ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);    // 用来激活接受 linkClicked 信号
     // ui->webView->page()->settings()->setAttribute(QWebSettings::JavascriptEnabled, true);
-    ui->webfoot->hide();
+    // ui->webfoot->hide();
 
     // 初始化首页
     // ui->webEngineView->setUrl(menuUrl[0]);
@@ -387,7 +387,7 @@ void Widget::setTheme(bool isDark, QColor color)
         // 黑色模式
         themeIsDark = true;
         ui->webEngineView->setStyleSheet("background-color: #252525;");
-        ui->webfoot->setStyleSheet("background-color: #252525;");
+        // ui->webfoot->setStyleSheet("background-color: #252525;");
         ui->btn_openDir->setStyleSheet("color: #AFAFAF; background-color: #2C2C2C; border: 0px;");
         ui->label->setStyleSheet("background-color: #252525;");
         // ui->scrollArea->setStyleSheet("background-color: #2C2C2C;");
@@ -400,7 +400,7 @@ void Widget::setTheme(bool isDark, QColor color)
         // 亮色模式
         themeIsDark = false;
         ui->webEngineView->setStyleSheet("background-color: #FFFFFF;");
-        ui->webfoot->setStyleSheet("background-color: #FFFFFF;");
+        // ui->webfoot->setStyleSheet("background-color: #FFFFFF;");
         ui->btn_openDir->setStyleSheet("color: #505050; background-color: #F8F8F8; border: 0px;");
         ui->label->setStyleSheet("background-color: #FFFFFF;");
         // ui->scrollArea->setStyleSheet("background-color: #F8F8F8;");
@@ -660,11 +660,11 @@ void Widget::setfoot(int h)
     foot = h;
 }
 
-void Widget::updatefoot()
-{
-    int allh = ui->stackedWidget->height();
-    ui->webfoot->setFixedHeight(allh - foot);
-}
+//void Widget::updatefoot()
+//{
+//    int allh = ui->stackedWidget->height();
+//    ui->webfoot->setFixedHeight(allh - foot);
+//}
 
 void Widget::on_pushButton_download_clicked()
 {
