@@ -205,7 +205,12 @@ void DownloadController::startDownload(const QString &url)
         * https://en.wikipedia.org/wiki/HD_70642
         * HD 70642 is a star with an exoplanetary companion in the southern constellation of Puppis. 
         */
-        system(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
+        QProcess mailProcess;
+        mailProcess.start(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
+        mailProcess.waitForStarted();
+        mailProcess.waitForFinished(3);
+        mailProcess.deleteLater();
+
 
         emit downloadFinished(); });
 }
