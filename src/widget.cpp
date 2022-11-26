@@ -638,13 +638,15 @@ void Widget::chooseLeftMenu(int index)
         ui->stackedWidget->setCurrentIndex(0);
     }
     else if (index == 13){
-        QtConcurrent::run([=]{
-            auto upgradeP = new QProcess();
-            upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
-            upgradeP->waitForStarted();
-            upgradeP->waitForFinished(-1);
-            
-        });
+        QFile upgradeStatus("/tmp/spark-store/upgradeStatus.txt");
+        if (!upgradeStatus.exists()){
+            QtConcurrent::run([=]{
+                auto upgradeP = new QProcess();
+                upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
+                upgradeP->waitForStarted();
+                upgradeP->waitForFinished(-1);
+            });
+        }
         ui->stackedWidget->setCurrentIndex(0);
     }
     else
@@ -743,8 +745,14 @@ void Widget::searchApp(QString text)
         // 禁止同时进行多次搜索
         if (!mutex.tryLock())
         {
+            qDebug() << "Do not repeat searches！";
+            sendNotification(tr("Do not repeat searches!"));
             return;
         }
+
+        //加载动画
+        spinner->show();
+        spinner->start();
 
         // 关键字搜索处理
         httpClient->get("https://search.deepinos.org.cn/appinfo/search")
@@ -758,8 +766,14 @@ void Widget::searchApp(QString text)
                 qDebug() << "相关应用未找到！";
                 sendNotification(tr("Relative apps Not Found!"));
                 mutex.unlock();
+                clearSearchApp();
+                spinner->stop();
+                spinner->hide();
+                ui->stackedWidget->setCurrentIndex(0);
+                ui->webEngineView->setUrl(QUrl("https://wayou.github.io/t-rex-runner"));
                 return;
             }
+            clearSearchApp();
             displaySearchApp(json); })
             .onError([this](QString errorStr)
                      {
@@ -779,9 +793,9 @@ void Widget::closeEvent(QCloseEvent *event)
 }
 
 /**
- * @brief 展示搜索的APP信息
+ * @brief 清除搜索的APP信息
  */
-void Widget::displaySearchApp(QJsonArray array)
+void Widget::clearSearchApp()
 {
     ui->stackedWidget->setCurrentIndex(4);
 
@@ -796,13 +810,20 @@ void Widget::displaySearchApp(QJsonArray array)
     }
 
     main->removeItem(applist_grid);
-    spinner->show();
-    spinner->start();
+}
+/**
+ * @brief 展示搜索的APP信息
+ */
+void Widget::displaySearchApp(QJsonArray array)
+{
+    
+    
 
     for(int i = 0; i < array.size(); i++)
     {
         QJsonObject appInfo = array.at(i).toObject();
         AppItem *appItem = new AppItem(this);
+        appItem->setAttribute(Qt::WA_DeleteOnClose);
         QString url = QString("spk://store/%1/%2")
                 .arg(appInfo["category_slug"].toString())
                 .arg(appInfo["pkgname"].toString());
@@ -1088,6 +1109,7 @@ void Widget::on_comboBox_server_currentIndexChanged(const QString &arg1)
         QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
         setConfig->setValue("server/choose", arg1);
         setConfig->setValue("server/updated", updatedInfo);
+        setConfig->deleteLater();
     }
 }
 
@@ -1384,7 +1406,17 @@ void Widget::on_webEngineView_loadFinished(bool arg1)
 
 void Widget::on_pushButton_update_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://www.deepinos.org/"));
+    QString feedbackSpk = "spk://store/chat/store.spark-app.feedback";
+    QFile actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
+    if (actionSubmissionClientStatus.exists())
+    {
+        qDebug() << "反馈器存在";
+        QProcess::startDetached("sh /opt/durapps/store.spark-app.feedback/launch.sh");
+    }
+    else{
+        qDebug() << "反馈器不存在，跳转页面";
+        openUrl(feedbackSpk);
+    }
 }
 
 void Widget::onGetUrl(const QString &url)

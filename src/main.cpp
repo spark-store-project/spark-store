@@ -4,15 +4,27 @@
 #include <DAboutDialog>
 #include <QVector>
 #include <QScreen>
+#include <QDir>
+#include <QSettings>
 //新增dbus
 #include <QDBusInterface>
 #include <QDBusPendingCall>
+
+// build time
+#include <QDate>
+#include <QTime>
 
 #include "widget.h"
 
 DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
+    // Get build time
+    static const QString version = "Version 3.3.3~test4";
+    static const QDate buildDate = QLocale( QLocale::English ).toDate( QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
+    static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
+
+
     DApplication::loadDXcbPlugin();  // 已废弃，但是对于非deepin桌面可以正常使用标题栏
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);    // 开启 Hidpi 支持
     // 程序内强制添加"-platformtheme deepin"参数喂给Qt让Qt正确使用Deepin主题修复各种奇怪样式问题
@@ -32,12 +44,25 @@ int main(int argc, char *argv[])
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
     a.loadTranslator();     // 载入翻译
 
+    QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
+
+    if (readConfig.value("build/version").toString() != version){
+        qDebug() << "Spark Store has been updated!";
+        QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
+        setConfig->setValue("build/version", "Version 3.3.3~test4");
+        setConfig->setValue("build/time", buildDate.toString("yyyy.MM.dd")+"-"+buildTime.toString());
+        setConfig->deleteLater();
+    }
+
+
+
+
     //Customized DAboutDialog 
      
      DAboutDialog dialog;
       a.setAboutDialog(&dialog);
       dialog.setLicense(QObject::tr("We publish this program under GPL V3"));
-      dialog.setVersion(DApplication::buildVersion("Version 3.3.3~test4"));
+      dialog.setVersion(DApplication::buildVersion(readConfig.value("build/version").toString()+"-"+readConfig.value("build/time").toString()));
       dialog.setProductIcon(QIcon::fromTheme("spark-store"));  // 设置Logo
       dialog.setProductName(QLabel::tr("Spark Store"));
       dialog.setDescription(
@@ -58,7 +83,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("spark-union");
     a.setOrganizationDomain("https://www.deepinos.org/");
     a.setApplicationName("Spark Store");    //不需要翻译，否则 ~/.local/share/ 下文件夹名称也被翻译为中文
-    a.setApplicationVersion(DApplication::buildVersion("3.3.3~test4"));
+    a.setApplicationVersion(DApplication::buildVersion(readConfig.value("build/version").toString()));
     a.setApplicationAcknowledgementPage("https://gitee.com/deepin-community-store/spark-store");
     a.setApplicationDescription(
                 QObject::tr(
