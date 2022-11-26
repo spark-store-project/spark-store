@@ -82,6 +82,7 @@ private slots:
     void sltAppinfoScreenshot(QPixmap *picture, int index);
     void sltAppinfoFinish();
 
+    void clearSearchApp(); // 清除搜索的APP信息
     void displaySearchApp(QJsonArray array); // 展示搜索的APP信息
     void downloadIconsFinished(int arraysize); // 当前搜索列表图标是否下载完成
 
