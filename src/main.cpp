@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     if (readConfig.value("build/version").toString() != version){
         qDebug() << "Spark Store has been updated!";
         QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
-        setConfig->setValue("build/version", "Version 3.3.3");
+        setConfig->setValue("build/version", version);
         setConfig->setValue("build/time", buildDate.toString("yyyy.MM.dd")+"-"+buildTime.toString());
         setConfig->deleteLater();
     }
