@@ -131,7 +131,7 @@ private:
     void initConfig();
     void chooseLeftMenu(int index);
     void setfoot(int);
-    void updatefoot();
+    // void updatefoot();
     void updateUI();
     void closeEvent(QCloseEvent *event);
 
