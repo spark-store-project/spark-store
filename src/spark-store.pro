@@ -4,11 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network concurrent webenginewidgets
+QT       += core gui network concurrent webenginewidgets dbus
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-QT       += dbus
 TARGET = spark-store
 TEMPLATE = app
 
@@ -43,7 +42,9 @@ SOURCES += \
     progressload.cpp \
     widget.cpp \
     workerthreads.cpp \
-    dbus/dbussparkstore.cpp
+    dbus/dbussparkstore.cpp \
+    webengine/webenginepage.cpp \
+    webengine/webengineview.cpp
 
 HEADERS += \
     appitem.h \
@@ -55,7 +56,9 @@ HEADERS += \
     progressload.h \
     widget.h \
     workerthreads.h \
-    dbus/dbussparkstore.h
+    dbus/dbussparkstore.h \
+    webengine/webenginepage.h \
+    webengine/webengineview.h
 
 FORMS += \
     appitem.ui \
