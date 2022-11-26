@@ -8,7 +8,6 @@ SUBDIRS += \
     third-party/QtNetworkService \
     src/spark-store.pro
 
-    
 spark-store.depends = third-party/QtNetworkService
 
 # Update translation files
@@ -39,8 +38,6 @@ service.path = /usr/lib/systemd/system/
 polkit-1.files +=pkg/usr/share/polkit-1/actions/store.spark-app.ss-do-upgrade-worker.policy
 polkit-1.path = /usr/share/polkit-1/actions/
 
-
-
 icon.files += pkg/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 icon.path = /usr/share/icons/hicolor/scalable/apps
 
@@ -52,7 +49,8 @@ INSTALLS += \
     qm \
     desktop \
     icon \
-    preferences \
+#    preferences \
+#    sourceslist \
     tmp \
     service \
     bash_completion \
