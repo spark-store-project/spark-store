@@ -109,6 +109,7 @@ void DownloadController::startDownload(const QString &url)
         QStringList command;
         QString downloadDir = "/tmp/spark-store/";
         QString aria2ConnectionPerServer = "--max-connection-per-server=1";
+        QString aria2ConnectionMax = "--max-concurrent-downloads=16";
 
         if (useMetalink){
             command.append(metaUrl.toUtf8());
@@ -130,6 +131,7 @@ void DownloadController::startDownload(const QString &url)
         command.append(aria2NoConfig.toUtf8());
         command.append(aria2SizePerThreads.toUtf8());
         command.append(aria2ConnectionPerServer.toUtf8());
+        command.append(aria2ConnectionMax.toUtf8());
         if (useMetalink){
             command.append(aria2NoSeeds.toUtf8());
         }
