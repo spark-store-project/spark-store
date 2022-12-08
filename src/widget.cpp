@@ -232,12 +232,12 @@ void Widget::initUI()
         });
 
     // 载入自定义字体
-    int loadedFontID = QFontDatabase::addApplicationFont(":/fonts/fonts/hksnzt.ttf");
-    QStringList loadedFontFamilies = QFontDatabase::applicationFontFamilies(loadedFontID);
-    if(!loadedFontFamilies.isEmpty())
-    {
-        font = loadedFontFamilies.at(0);
-    }
+    // int loadedFontID = QFontDatabase::addApplicationFont(":/fonts/fonts/hksnzt.ttf");
+    // QStringList loadedFontFamilies = QFontDatabase::applicationFontFamilies(loadedFontID);
+    // if(!loadedFontFamilies.isEmpty())
+    // {
+    //     font = loadedFontFamilies.at(0);
+    // }
     /* 全局字体设置
      * DApplication::setFont(font);
      */
