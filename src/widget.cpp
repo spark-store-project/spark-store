@@ -1238,10 +1238,15 @@ void Widget::on_pushButton_clearWebCache_clicked()
 {
     QtConcurrent::run([=]()
                       {
-
         QString dataLocal = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-        QDir cacheDir(dataLocal );
-        cacheDir.removeRecursively(); });
+        qDebug() << dataLocal;
+        QDir dataDir(dataLocal);
+        dataDir.removeRecursively();
+        dataLocal = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+        qDebug() << dataLocal;
+        QDir cacheDir(dataLocal);
+        cacheDir.removeRecursively();
+        });
 }
 
 quint64 Widget::dirFileSize(const QString &path)
