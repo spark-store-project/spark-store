@@ -33,8 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
             this->setStyleSheet("#mainpage{background-color: transparent;border-radius:14px;}\
                                 QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color:#FFFFFF}\
                                 ");
-            backButtom->setIcon(QIcon(":/icon/light/back.svg"));
-            downloadButton->setIcon(QIcon(":/icon/light/download.svg"));
+            backButtom->setIcon(QIcon(":/icon/dark/back.svg"));
+            downloadButton->setIcon(QIcon(":/icon/dark/download.svg"));
             int i = 0;
             while (i < ui->buttonGroup->buttons().size()) {
                 ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/dark/leftbutton_" + QString::number(i) + ".svg"));
