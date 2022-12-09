@@ -18,7 +18,7 @@ stages:
         name: execute_by_docker
         displayName: 基于镜像的脚本执行
         certificate: ''
-        image: docker.io/debian:buster-slim
+        image: docker.io/debian:buster
         command:
           - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
           - '# 换源'
