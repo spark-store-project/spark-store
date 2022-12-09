@@ -11,12 +11,12 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="216"/>
         <source>Download</source>
-        <translation type="unfinished">下载列表</translation>
+        <translation>下载</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="256"/>
         <source>Uninstall</source>
-        <translation type="unfinished">卸载</translation>
+        <translation>卸载</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="318"/>
@@ -116,42 +116,42 @@
         <location filename="../src/pages/appintopage.ui" line="673"/>
         <location filename="../src/pages/appintopage.ui" line="973"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="808"/>
         <source>Screen capture</source>
-        <translation type="unfinished"></translation>
+        <translation>屏幕截图</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1054"/>
         <source>Update</source>
-        <translation type="unfinished">更新源</translation>
+        <translation>更新时间</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1083"/>
         <source>Contributor</source>
-        <translation type="unfinished"></translation>
+        <translation>投稿用户</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1090"/>
         <source>Pkgname</source>
-        <translation type="unfinished"></translation>
+        <translation>软件包名</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1189"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>软件作者</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1218"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>软件大小</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1247"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>软件官网</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="76"/>
@@ -405,12 +405,12 @@
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="87"/>
         <source>Spark Store</source>
-        <translation type="unfinished">Spark 应用商店</translation>
+        <translation>星火应用商店</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="88"/>
         <source>Search or enter spk://</source>
-        <translation type="unfinished">搜索或打开链接</translation>
+        <translation>搜索或打开链接</translation>
     </message>
 </context>
 <context>
@@ -450,7 +450,7 @@
         <location filename="../src/main.cpp" line="38"/>
         <location filename="../src/main.cpp" line="40"/>
         <source>Spark Store</source>
-        <translation type="unfinished">Spark 应用商店</translation>
+        <translation>星火应用商店</translation>
     </message>
 </context>
 <context>
