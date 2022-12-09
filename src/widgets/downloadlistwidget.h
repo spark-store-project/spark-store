@@ -22,13 +22,14 @@ class DownloadListWidget : public DBlurEffectWidget
 public:
     void addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl);
     int isDownloading(QString url);
+    int nowDownload = 0;
+    int allDownload = 0;
+    QList<DownloadItem *> getDIList();
     void m_move(int x, int y);
     explicit DownloadListWidget(QWidget *parent = nullptr);
     ~DownloadListWidget();
 
 private:
-    int nowDownload = 0;
-    int allDownload = 0;
     int isdownload = false;
     bool isBusy = false;
     QStringList dlist;
@@ -51,6 +52,8 @@ private slots:
     bool eventFilter(QObject *, QEvent *);
     void mouseMoveEvent(QMouseEvent *event);
     void on_pushButton_clicked();
+signals:
+    void downloadFinished();
 };
 
 #endif // DOWNLOADLISTWIDGET_H

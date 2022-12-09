@@ -43,6 +43,9 @@ void AppIntoPage::clear()
 void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
 {
     dw=w;
+    connect(w, &DownloadListWidget::downloadFinished, [=]() {
+        isDownloading();
+    });
 }
 void AppIntoPage::openUrl(QUrl url)
 {
@@ -126,7 +129,7 @@ void AppIntoPage::openUrl(QUrl url)
         }
         else
         {
-            ui->downloadButton->setText(tr("Install"));
+            ui->downloadButton->setText(tr("Download"));
             ui->downloadButton->setEnabled(true);
             ui->downloadButton->show();
         }
@@ -180,7 +183,7 @@ void AppIntoPage::isDownloading()
     switch (dw->isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())) {
         case 3:{
             ui->downloadButton->setEnabled(true);
-            ui->downloadButton->setText(tr("Install"));
+            ui->downloadButton->setText(tr("Download"));
             break;
         }
         case 1:{
@@ -262,6 +265,10 @@ AppIntoPage::~AppIntoPage()
 void AppIntoPage::on_downloadButton_clicked()
 {
     dw->addItem(info["Name"].toString(),info["Filename"].toString(),info["Pkgname"].toString(),iconpixmap,SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
+    if(ui->downloadButton->text() == tr("Reinstall"))
+    {
+        dw->getDIList()[dw->allDownload - 1]->reinstall = true;
+    }
     isDownloading();
 }
 

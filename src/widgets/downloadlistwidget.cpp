@@ -96,6 +96,11 @@ void DownloadListWidget::addItem(QString name,QString fileName,QString pkgName,c
     }
 }
 
+QList<DownloadItem *> DownloadListWidget::getDIList()
+{
+    return downloaditemlist;
+}
+
 void DownloadListWidget::startRequest(QUrl url, QString fileName)
 {
     ui->listWidget->show();
@@ -117,6 +122,7 @@ void DownloadListWidget::httpFinished() // 完成下载
     isBusy = false;
     downloaditemlist[nowDownload - 1]->readyInstall();
     downloaditemlist[nowDownload - 1]->free = true;
+    emit downloadFinished();
     if(nowDownload < allDownload)
     {
 
