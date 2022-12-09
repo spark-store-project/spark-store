@@ -1,9 +1,12 @@
 #include "sparkapi.h"
 
 #include <QDebug>
+
+QString SparkAPI::serverUrl = "";
+
 SparkAPI::SparkAPI(QObject *parent) : QObject(parent)
 {
-
+   SparkAPI::serverUrl = "https://cdn.d.store.deepinos.org.cn/";
 }
 void SparkAPI::get(QUrl url)
 {
@@ -41,9 +44,13 @@ void SparkAPI::getAppInfo(QUrl spk)
 }
 QString SparkAPI::getServerUrl()
 {
-    return "https://cdn.d.store.deepinos.org.cn/";
+    return SparkAPI::serverUrl;
 }
 QString SparkAPI::getImgServerUrl()
 {
-    return "https://cdn.d.store.deepinos.org.cn/";
+    return SparkAPI::serverUrl;
+}
+void SparkAPI::setServerUrl(QString url)
+{
+    SparkAPI::serverUrl = url;
 }

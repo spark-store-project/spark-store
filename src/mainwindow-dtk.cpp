@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    initConfig();
     moveToCenter(this); //让窗口居中显示
 
     QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity", this);
@@ -34,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
     //ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
     setMaskAlpha(240);
 
-    initConfig();
     updateUi(0);
 
     QAction *setting = new QAction(tr("Settings"));

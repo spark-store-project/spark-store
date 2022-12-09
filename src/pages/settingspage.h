@@ -2,7 +2,12 @@
 #define SETTINGSPAGE_H
 
 #include <QWidget>
-
+#include <QFile>
+#include <QDir>
+#include <QDebug>
+#include <QSettings>
+#include <QtConcurrent>
+#include "../backend/sparkapi.h"
 namespace Ui {
 class SettingsPage;
 }
@@ -16,7 +21,15 @@ public:
     void setTheme(bool dark);
     ~SettingsPage();
 
+private slots:
+    void on_pushButton_updateServer_clicked();
+
+    void on_comboBox_server_currentIndexChanged(const QString &arg1);
+
 private:
+    bool configCanSave;
+    void readServerList();
+    void initConfig();
     Ui::SettingsPage *ui;
 };
 
