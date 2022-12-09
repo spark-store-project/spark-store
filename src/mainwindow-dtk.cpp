@@ -155,7 +155,7 @@ MainWindow::MainWindow(QWidget *parent)
                 searchEdit->clearEdit();
             } else {
                 ui->applistpage_1->getSearchList(searchtext);
-                switchPage(2);
+                switchPage(1);
                 searchEdit->clearEdit();
             }
         }
@@ -184,7 +184,7 @@ void MainWindow::openUrl(QUrl url)
 {
     if (url.toString().startsWith("spk://")) {
         ui->appintopage->openUrl(url);
-        switchPage(3);
+        switchPage(2);
     } else {
         QDesktopServices::openUrl(url);
     }
@@ -229,5 +229,5 @@ void MainWindow::updateUi(int now)
                  << "others";
         ui->applistpage->getAppList(itemlist[now]);
         qDebug() << itemlist[now];
-        switchPage(1);
+        switchPage(0);
 }
