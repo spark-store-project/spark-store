@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: spark-store
-Source: https://gitee.com/deepin-community-store/spark-store
+Source: https://gitee.com/deepin-community-store/spark-store-new
 
 Files: *
-Copyright: The Spark Project Developers
+Copyright: yzzi
  
 License: GPL-3+
  This package is free software; you can redistribute it and/or modify

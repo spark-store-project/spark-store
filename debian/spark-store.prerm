@@ -1,47 +1,8 @@
 #!/bin/sh
 
-if [ "$1" = "remove" ] || [ "$1" = "purge" ];then
 # Remove residual symbol links
 rm /usr/local/bin/spark-store
 rm /usr/local/bin/ssinstall
 rm /usr/local/bin/spark-dstore-patch
 rm /usr/local/bin/ussinstall
 rm /usr/local/bin/ussremove
-rm /usr/local/bin/ss-apt-fast
-rm /usr/bin/aptss
-
-rm -rf /etc/aptss/
-
-# Remove Sender module
-rm /opt/durapps/spark-store/bin/ss-feedback/sender-d
-
-# Remove residual symbol links to stop upgrade detect if exist
-if [ -e /etc/xdg/autostart/spark-update-notifier.desktop ];then
-rm /etc/xdg/autostart/spark-update-notifier.desktop
-fi
-
-# Shutdown services 
-service spark-update-notifier stop
-
-# Stop update detect service
-systemctl disable spark-update-notifier
-
-
-
-# Clean the auto install polkit file if exist
-if [ -f "/usr/share/polkit-1/actions/store.spark-app.ssinstall.policy" ] ; then
-	rm /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
-fi
-
-# Remove gpg key file
-if [ -f "/etc/apt/trusted.gpg.d/spark-store.gpg" ] ; then
-	rm /etc/apt/trusted.gpg.d/spark-store.gpg
-fi
-
-apt-key del '9D9A A859 F750 24B1 A1EC  E16E 0E41 D354 A29A 440C'
-
-else
-
-echo "非卸载操作，不进行配置清理"
-
-fi

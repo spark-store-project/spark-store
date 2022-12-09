@@ -1,10 +1,10 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-06-30T12:53:03
+# Project created by QtCreator 2021-10-29T16:58:36
 #
 #-------------------------------------------------
 
-QT       += core gui network concurrent webenginewidgets dbus
+QT       += core gui network concurrent webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,70 +23,55 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 DEFINES += QT_APP_DEBUG
-include(../third-party/QtNetworkService/QtNetworkService.pri)
 
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dtkcore dtkgui dtkwidget libnotify
 
-# 禁止输出 qWarning / qDebug 信息
-#CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
+# Disable qWarning / qDebug output in Release
+CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
 
 SOURCES += \
-    appitem.cpp \
-    big_image.cpp \
-    downloadlist.cpp \
-    downloadworker.cpp \
-    flowlayout.cpp \
-    image_show.cpp \
-    main.cpp \
-    progressload.cpp \
-    widget.cpp \
-    workerthreads.cpp \
-    dbus/dbussparkstore.cpp \
-    webengine/webenginepage.cpp \
-    webengine/webengineview.cpp
+        main.cpp \
+        mainwindow-dtk.cpp \
+        backend/sparkapi.cpp \
+        widgets/common/webenginepage.cpp \
+        widgets/common/webengineview.cpp \
+        widgets/downloadlistwidget.cpp \
+        widgets/common/downloaditem.cpp \
+        widgets/common/smoothlistwidget.cpp \
+        widgets/common/smoothscrollbar.cpp \
+        utils/httprequest.cpp \
+        pages/applistpage.cpp \
+        backend/downloadworker.cpp \
+        pages/appintopage.cpp \
+        widgets/big_image.cpp \
+        backend/image_show.cpp
 
 HEADERS += \
-    appitem.h \
-    big_image.h \
-    downloadlist.h \
-    downloadworker.h \
-    flowlayout.h \
-    image_show.h \
-    progressload.h \
-    widget.h \
-    workerthreads.h \
-    dbus/dbussparkstore.h \
-    webengine/webenginepage.h \
-    webengine/webengineview.h
+        mainwindow-dtk.h \
+        backend/sparkapi.h \
+        widgets/common/webenginepage.h \
+        widgets/common/webengineview.h \
+        widgets/downloadlistwidget.h \
+        widgets/common/downloaditem.h \
+        widgets/common/smoothlistwidget.h \
+        widgets/common/smoothscrollbar.h \
+        utils/httprequest.h \
+        pages/applistpage.h \
+        backend/downloadworker.h \
+        pages/appintopage.h \
+        widgets/big_image.h \
+        backend/image_show.h
 
 FORMS += \
-    appitem.ui \
-    downloadlist.ui \
-    widget.ui
+        mainwindow-dtk.ui \
+        widgets/downloadlistwidget.ui \
+        widgets/common/downloaditem.ui \
+        pages/applistpage.ui \
+        pages/appintopage.ui
 
 RESOURCES += \
-    ../assets/icons.qrc
-
-DISTFILES += \
-    ../assets/tags/a2d-small.png \
-    ../assets/tags/a2d.png \
-    ../assets/tags/community-small.png \
-    ../assets/tags/community.png \
-    ../assets/tags/deepin-small.png \
-    ../assets/tags/dtk-small.png \
-    ../assets/tags/ubuntu-small.png \
-    ../assets/tags/ubuntu.png \
-    ../assets/tags/uos-small.png \
-    ../assets/tags/community.svg \
-    ../assets/tags/deepin.svg \
-    ../assets/tags/logo_icon.svg \
-    ../assets/tags/uos.svg
-
-TRANSLATIONS += \
-    ../translations/spark-store_en.ts \
-    ../translations/spark-store_fr.ts \
-    ../translations/spark-store_zh_CN.ts
+        assets/assets.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

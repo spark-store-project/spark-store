@@ -1,73 +1,36 @@
-#  Spark App Store
-[![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
+<p align="center">
+<img src="/raw/master/pkg/usr/share/icons/hicolor/scalable/apps/spark-store.svg" height=200 width=200/>
+</p>
 
-Spark Store aims to collect Linux apps for the convieniece of Linux new comers
+<div align="center">
 
-The collecting process needs everyone's help
+# 星火应用商店
 
-We set up this APP Store and collect APPs/tools that everyone need widely. Also we pack Windows apps with wine. 
+`星火应用商店` 现在为 Linux 设计！
+  
 
-All packages will be shared in our repository for users to get freely. 
-
-Distrobution supported：Deepin 20 ; Ubuntu 22.04 LTS / Ubuntu 20.04 LTS(May stop support in the future） ; UniontechOS Home 21
-
-*About OpenKylin and deepin 23*
-
-The adaptation work is scheduled after their official release.
-
-You can track our Issue resoving progress here  https://gitee.com/deepin-community-store/spark-store/board
-
-
-We hope people who see here can also join our team，development help or submit applications are welcomed
-
-If you want to submit an APP to share with others，Please [Click here](https://upload.deepinos.org/index)
-
-
-## 🙌 A simple start
-
-If you simply want to install the Spark Store,just enter the  [Release] page, find the version you want and install.
-
-If you are using Debian11/Ubuntu 20.04, you will need extra dependency package. Available [here](https://code.gitlink.org.cn/shenmo7192/spark-store-dependencies/raw/branch/master/spark-store-dependencies-kylin.zip)
+</div>
 
 ---
-#### Compile and developement
+
+众所周知，国内的Linux应用比较少，wine应用难以获取，优质工具分散在民间各大论坛，无法形成合力，难以改善生态
+
+生态构建需要的不是某一方的单打独斗，而是人人行动起来，汇聚星火，产生燎原之势
+
+我们创建了这个应用商店，广泛收录大家需要的软件包，搜集优质小工具，主动适配wine应用，存放到储存库供大家获取
+
+我们支持：Deepin 20 ; Ubuntu 20.04 LTS ; UOS Home 20
+
+希望看到这里的人也可以加入我们的队伍，开发或者投递应用都很欢迎，共同构建Linux应用生态
 
 
-For Deepin V20/UOS 21/ Debian 11
+## 🙌 简单的开始
 
-```shell
-sudo apt install git qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev
-
-```
-
-Ubuntu 22.04
-```shell
-sudo apt install git qtbase5-dev debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev
-
-```
-
-Then
-
-```shell
-git clone https://gitee.com/deepin-community-store/spark-store.git
-cd spark-store
-dpkg-buildpackage
-```
+如果想安装 `星火应用商店` ，请打开右侧的 [Release] 页面，找到最新版本，并选择适用于当前系统的安装包下载。
 
 
+**Watch** 项目，以获取应用的更新动态。
 
-## 🚀 Coorperation
+## 🚀 协作
 
-We use Gitee as our code hosting platform. Please click here to contact us. 
-
-https://gitee.com/deepin-community-store/spark-store
-
-### Rocket Chat
-
-https://chat.shenmo.tech/
-
-PWA Client：
-
-spk://store/chat/store.spark-app.feedback
-
-（Copy and paste to search bar or in browser address bar after installing Spark Store）
+非常感谢有兴趣的开发者或爱好者参与 `星火应用商店` 项目，分享你的见解与思路。
