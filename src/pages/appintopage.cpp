@@ -240,7 +240,20 @@ void AppIntoPage::sltAppinfoTags(QStringList *tagList)
 void AppIntoPage::setTheme(bool dark)
 {
     if(dark)
-    {}else {
+    {
+        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4{background-color: #252525;border-radius:14px;border:1px solid rgb(64, 64, 64);}";
+        ui->frame->setStyleSheet(frameStyleSheet);
+        ui->frame_2->setStyleSheet(frameStyleSheet);
+        ui->frame_3->setStyleSheet(frameStyleSheet);
+        ui->frame_4->setStyleSheet(frameStyleSheet);
+
+        ui->icon_1->setPixmap(QPixmap(":/icon/dark/box.svg"));
+        ui->icon_2->setPixmap(QPixmap(":/icon/dark/box.svg"));
+        ui->icon_3->setPixmap(QPixmap(":/icon/dark/calendar.svg"));
+        ui->icon_4->setPixmap(QPixmap(":/icon/dark/text.svg"));
+        ui->icon_5->setPixmap(QPixmap(":/icon/dark/folder.svg"));
+        ui->icon_6->setPixmap(QPixmap(":/icon/dark/globe.svg"));
+    }else {
         //亮色模式
         QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4{background-color: #fbfbfb;border-radius:14px;border:1px solid rgb(229,229,229);}";
         ui->frame->setStyleSheet(frameStyleSheet);

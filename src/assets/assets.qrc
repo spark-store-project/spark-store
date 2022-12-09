@@ -38,5 +38,25 @@
         <file>icon/light/globe.svg</file>
         <file>icon/light/folder.svg</file>
         <file>icon/light/text.svg</file>
+        <file>icon/dark/back.svg</file>
+        <file>icon/dark/box.svg</file>
+        <file>icon/dark/calendar.svg</file>
+        <file>icon/dark/download.svg</file>
+        <file>icon/dark/folder.svg</file>
+        <file>icon/dark/globe.svg</file>
+        <file>icon/dark/leftbutton_0.svg</file>
+        <file>icon/dark/leftbutton_1.svg</file>
+        <file>icon/dark/leftbutton_2.svg</file>
+        <file>icon/dark/leftbutton_3.svg</file>
+        <file>icon/dark/leftbutton_4.svg</file>
+        <file>icon/dark/leftbutton_5.svg</file>
+        <file>icon/dark/leftbutton_6.svg</file>
+        <file>icon/dark/leftbutton_7.svg</file>
+        <file>icon/dark/leftbutton_8.svg</file>
+        <file>icon/dark/leftbutton_9.svg</file>
+        <file>icon/dark/leftbutton_10.svg</file>
+        <file>icon/dark/leftbutton_11.svg</file>
+        <file>icon/dark/leftbutton_12.svg</file>
+        <file>icon/dark/text.svg</file>
     </qresource>
 </RCC>

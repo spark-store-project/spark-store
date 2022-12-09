@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->titlebar->setBackgroundTransparent(true);
     //ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
     setMaskAlpha(240);
-    setMaskColor(QColor("#f3f7f8"));
 
     initConfig();
     updateUi(0);
@@ -30,9 +29,29 @@ MainWindow::MainWindow(QWidget *parent)
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType) {
         if (themeType == DGuiApplicationHelper::DarkType) {
             //深色模式
-
+            setMaskColor(QColor("#2a2b2b"));
+            this->setStyleSheet("#mainpage{background-color: transparent;border-radius:14px;}\
+                                QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color:#FFFFFF}\
+                                ");
+            backButtom->setIcon(QIcon(":/icon/light/back.svg"));
+            downloadButton->setIcon(QIcon(":/icon/light/download.svg"));
+            int i = 0;
+            while (i < ui->buttonGroup->buttons().size()) {
+                ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/dark/leftbutton_" + QString::number(i) + ".svg"));
+                if (QLocale::system().name() == "zh_CN") {
+                    ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;}\
+                                                                  QPushButton:hover{background-color:#7a7a7a;border:0px;border-radius:8px;}\
+                                                                  QPushButton:checked{background-color:#6e6e6e;border:0px;border-radius:8px;}");
+                } else {
+                    ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;text-align: left; padding-left: 15px;}\
+                                                                  QPushButton:hover{background-color:#7a7a7a;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}\
+                                                                  QPushButton:checked{background-color:#6e6e6e;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}");
+                }
+                i++;
+            }
         } else {
             //亮色模式
+            setMaskColor(QColor("#f3f7f8"));
             this->setStyleSheet("#mainpage{background-color: transparent;border-radius:14px;}\
                                 QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color:#000000}\
                                 ");
