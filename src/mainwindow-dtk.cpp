@@ -37,6 +37,13 @@ MainWindow::MainWindow(QWidget *parent)
     initConfig();
     updateUi(0);
 
+    QAction *setting = new QAction(tr("Settings"));
+
+    QMenu *menu = new QMenu;
+    menu->addAction(setting);
+
+    ui->titlebar->setMenu(menu);
+    connect(setting, &QAction::triggered, this, [=]{switchPage(3);});
     //主题切换
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType) {
         if (themeType == DGuiApplicationHelper::DarkType) {
@@ -87,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->applistpage->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->applistpage_1->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->appintopage->setTheme(themeType == DGuiApplicationHelper::DarkType);
+        ui->settingspage->setTheme(themeType == DGuiApplicationHelper::DarkType);
     });
 
     //初始化标题栏控件
@@ -193,7 +201,7 @@ void MainWindow::initConfig()
 void MainWindow::switchPage(int now) //临时方案，回家后修改
 {
     qDebug() << pageHistory.count();
-    if (pageHistory.count() >= 1) {
+    if (pageHistory.count() >= 0) {
         backButtom->show();
     } else {
         backButtom->hide();
