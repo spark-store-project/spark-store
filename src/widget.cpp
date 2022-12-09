@@ -791,6 +791,7 @@ void Widget::searchApp(QString text)
         }
 //        spinner->stop();
 //        spinner->hide();
+        ui->stackedWidget->setCurrentIndex(0);
         mutex.unlock();
 
 
