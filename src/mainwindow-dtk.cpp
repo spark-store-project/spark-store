@@ -13,6 +13,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     moveToCenter(this); //让窗口居中显示
 
+    QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity", this);
+    //设置动画效果
+    animation->setEasingCurve(QEasingCurve::Linear);
+    //设置动画时间（单位：毫秒）
+    animation->setDuration(500);     
+    // 设置动画步长值，以及在该位置时显示的透明度
+    animation->setKeyValueAt(0, 0);
+    // m_animation->setKeyValueAt(0.5, 0);
+    animation->setKeyValueAt(1, 1);
+    // 开始动画
+    animation->start();
+
     downloadlistwidget = new DownloadListWidget;
     downloadButton = new QPushButton(ui->titlebar);
     backButtom = new QPushButton(ui->titlebar);
