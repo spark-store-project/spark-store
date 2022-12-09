@@ -1,3 +1,18 @@
+spark-store (3.5) stable; urgency=medium
+
+  * feat: 搜索转为使用网页，提高加载速度和用户体验
+  * 下载软件时指定DNS,修复移动网络问题
+  * 准备进入LTS阶段
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+spark-store (3.4~test1) stable; urgency=medium
+
+  * feat: aptss不再尝试安装apt-fast，转而自带
+  * chore:  删除password-check模块
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.3.3) stable; urgency=medium
 
   * feat: 首页链接调用浏览器打开 

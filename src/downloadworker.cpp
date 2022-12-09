@@ -109,6 +109,8 @@ void DownloadController::startDownload(const QString &url)
         QStringList command;
         QString downloadDir = "/tmp/spark-store/";
         QString aria2ConnectionPerServer = "--max-connection-per-server=1";
+        QString aria2ConnectionMax = "--max-concurrent-downloads=16";
+        QString aria2DNSCommand = "--async-dns-server=119.29.29.29,223.5.5.5";
 
         if (useMetalink){
             command.append(metaUrl.toUtf8());
@@ -130,6 +132,8 @@ void DownloadController::startDownload(const QString &url)
         command.append(aria2NoConfig.toUtf8());
         command.append(aria2SizePerThreads.toUtf8());
         command.append(aria2ConnectionPerServer.toUtf8());
+        command.append(aria2ConnectionMax.toUtf8());
+        command.append(aria2DNSCommand.toUtf8());
         if (useMetalink){
             command.append(aria2NoSeeds.toUtf8());
         }
@@ -205,7 +209,12 @@ void DownloadController::startDownload(const QString &url)
         * https://en.wikipedia.org/wiki/HD_70642
         * HD 70642 is a star with an exoplanetary companion in the southern constellation of Puppis. 
         */
-        system(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
+        QProcess mailProcess;
+        mailProcess.start(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
+        mailProcess.waitForStarted();
+        mailProcess.waitForFinished(3);
+        mailProcess.deleteLater();
+
 
         emit downloadFinished(); });
 }

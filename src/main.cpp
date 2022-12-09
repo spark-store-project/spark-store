@@ -20,7 +20,7 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "Version 3.3.3";
+    static const QString version = "Version 3.4~test1";
     static const QDate buildDate = QLocale( QLocale::English ).toDate( QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
 
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     if (readConfig.value("build/version").toString() != version){
         qDebug() << "Spark Store has been updated!";
         QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
-        setConfig->setValue("build/version", "Version 3.3.3");
+        setConfig->setValue("build/version", version);
         setConfig->setValue("build/time", buildDate.toString("yyyy.MM.dd")+"-"+buildTime.toString());
         setConfig->deleteLater();
     }
