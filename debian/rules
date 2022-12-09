@@ -17,10 +17,11 @@ override_dh_auto_clean:
 
 override_dh_auto_configure:
 	mkdir -p $(CURDIR)/build
-
-	dh_auto_configure MAKEFLAGS=-j$(JOBS) -- spark-store.pro \
+	
+	dh_auto_configure MAKEFLAGS=-j$(JOBS) -- spark-store-project.pro \
 	-spec linux-g++ CONFIG+=qtquickcompiler \
 	-o $(CURDIR)/build/
+
 
 override_dh_auto_build:
 	make -C $(CURDIR)/build -j$(JOBS)
@@ -28,6 +29,7 @@ override_dh_auto_build:
 override_dh_auto_install:
 	make -C $(CURDIR)/build install \
 	INSTALL_ROOT=$(CURDIR)/debian/spark-store
+
 
 # Ignore the dpkg-shlibdeps: warning (it uses none of the library's symbols)
 # Qt Mutidedia lib will ref to network libraray.

@@ -1,0 +1,28 @@
+#!/bin/bash
+#检测网络链接畅通
+function network-check()
+{
+    #超时时间
+    local timeout=15
+
+    #目标网站
+    local target=www.baidu.com
+
+    #获取响应状态码
+    local ret_code=`curl -I -s --connect-timeout ${timeout} ${target} -w %{http_code} | tail -n1`
+
+    if [ "x$ret_code" = "x200" ]; then
+        echo "Network Checked successful ! Continue..."
+	 echo "网络通畅，继续安装"
+    else
+        #网络不畅通
+	echo "Network failed ! Cancel the installation"
+	echo "网络不畅，终止安装"
+	exit -1
+    fi
+
+}
+
+
+#network-check
+echo "不再检测网络"

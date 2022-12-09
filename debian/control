@@ -3,42 +3,44 @@ Maintainer: shenmo <shenmo@spark-app.store>
 Section: utils
 Priority: optional
 Build-Depends:
-    debhelper (>= 9),
-    pkg-config,
-    qtchooser (>= 55-gc9562a1-1~),
-    libqt5core5a,
-    libqt5gui5,
-    libqt5widgets5,
-    libqt5network5,
-    libqt5concurrent5,
-    libdtkcore-dev,
-    libdtkgui-dev,
-    libdtkwidget-dev,
-    qttools5-private-dev,
-    libnotify-dev
-Standards-Version: 3.1.0
+ debhelper (>= 9),
+ pkg-config,
+ qtchooser (>= 55-gc9562a1-1~),
+ libqt5core5a,
+ libqt5gui5,
+ libqt5widgets5,
+ libqt5network5,
+ libqt5concurrent5,
+ libdtkcore-dev(>=5.0),
+ libdtkgui-dev(>=5.0),
+ libdtkwidget-dev(>=5.0),
+ qttools5-private-dev,
+ libnotify-dev,
+ qtwebengine5-dev
+Standards-Version: 3.0
 Homepage: https://www.spark-app.store/
 
 
 Package: spark-store
 Architecture: any
 Depends:${shlibs:Depends}, ${misc:Depends},
-    libqt5core5a,
-    libqt5gui5,
-    libqt5widgets5,
-    libqt5network5,
-    libqt5concurrent5,
-    libdtkcore5,
-    libdtkgui5,
-    libdtkwidget5,
-    libnotify4,
-    curl,
-    openssl,
-    libssl-dev,
-    dde-qt5integration,
-    bubblewrap,
-    aria2,
-    gcc,
-    zenity
+ libqt5core5a,
+ libqt5gui5,
+ libqt5widgets5,
+ libqt5network5,
+ libqt5concurrent5,
+ libdtkcore5,
+ libdtkgui5,
+ libdtkwidget5,
+ libnotify4,
+ curl,
+ openssl,
+ libssl-dev,
+ dde-qt5integration,
+ bubblewrap,
+ aria2,
+ gcc,
+ zenity
 Description: Spark Store
  A community powered app store, based on DTK.
+Recommends: apt-fast

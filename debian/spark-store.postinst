@@ -2,6 +2,21 @@
 
 case "$1" in
 	configure)
+
+	# Enable i386 arch
+	echo "Enable i386 arch..."
+	dpkg --add-architecture i386
+
+        # config for aptss
+        mkdir -p /etc/aptss/sources.list.d
+        ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
+
+	#  Remove the sources.list file
+	if [ -e /etc/apt/sources.list.d/sparkstore.list ];then
+	rm /etc/apt/sources.list.d/sparkstore.list
+	fi
+        
+
 		# Check if /usr/local/bin existed
 		mkdir -p /usr/local/bin
 
@@ -11,11 +26,31 @@ case "$1" in
 		ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
 		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
 		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
+		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/local/bin/ss-apt-fast
+		
+     	       ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
 
-		# Download and install 
-		cd /tmp/spark-store-install
-		wget https://d.store.deepinos.org.cn/dcs-repo.gpg-key.asc
-		apt-key add dcs-repo.gpg-key.asc
+		# Compile the Sender module
+
+		gcc /opt/durapps/spark-store/bin/ss-feedback/sender-d.sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
+
+		# Install key
+		mkdir -p /tmp/spark-store-install/
+		cp -f /opt/durapps/spark-store/bin/spark-store.asc  /tmp/spark-store-install/spark-store.asc
+		gpg --dearmor /tmp/spark-store-install/spark-store.asc
+		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
+
+
+
+        	# Run apt update to avoid users being fucked up by the non-exist dependency problem
+		# Now abandoned as aptss now run ssupdate everytime
+		#aptss ssupdate
+
+
+		# Start upgrade detect service
+		systemctl enable spark-update-notifier
+		service spark-update-notifier start
+		
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
@@ -25,20 +60,26 @@ case "$1" in
 
 		# Send email for statistics
 		# /tmp/spark-store-install/feedback.sh
+
+		# Remove temp dir
+		rm -rf /tmp/spark-store-install
+
+
 	;;
 
 	triggered)
-		# Trigger for UOS debs installation
-		echo '-----------星火应用商店现已集成 UOS 包补丁工具--------------'
-		if [ -x "/usr/bin/deepin-app-store-tool" ] ; then
-			echo '----------检测到已安装深度应用商店，不运行补丁---------------'
+		# Quit if deepin-app-store-tool existed
+		if [ -x "/usr/bin/deepin-app-store-tool" ] ; then 
 			exit 0
 		fi
 
+		# Trigger for UOS debs installation
+		echo '--------检测到Uniontech标准软件包，运行补丁以修正安装--------'
 		if [ -x "/usr/local/bin/spark-dstore-patch" ] ; then
-  			echo '-------检测到 Uniontech 标准软件包，运行补丁以修正安装-------'
-    			/usr/local/bin/spark-dstore-patch
-  			echo '---------- spark-dstore-patch 补丁工具已运行完毕----------'
+			/usr/local/bin/spark-dstore-patch
+			echo '-----------spark-dstore-patch补丁工具已运行完毕-----------'
+		else
+			echo '------------spark-dstore-patch补丁工具运行失败------------'
 		fi
 	;;
 esac
