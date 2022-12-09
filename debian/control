@@ -40,6 +40,7 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  bubblewrap,
  aria2,
  gcc,
+ g++,
  zenity
 Description: Spark Store
  A community powered app store, based on DTK.
