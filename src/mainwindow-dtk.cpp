@@ -5,6 +5,11 @@
 #include <DGuiApplicationHelper>
 #include <QSizePolicy>
 
+#define AppPageApplist 0
+#define AppPageSearchlist 1
+#define AppPageAppdetail 2
+#define AppPageSettings 3
+
 MainWindow::MainWindow(QWidget *parent)
     : DBlurEffectWidget(parent)
     , ui(new Ui::MainWindow)
@@ -42,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     menu->addAction(setting);
 
     ui->titlebar->setMenu(menu);
-    connect(setting, &QAction::triggered, this, [=]{switchPage(3);});
+    connect(setting, &QAction::triggered, this, [=]{switchPage(AppPageSettings);});
     //主题切换
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType) {
         if (themeType == DGuiApplicationHelper::DarkType) {
@@ -155,7 +160,7 @@ MainWindow::MainWindow(QWidget *parent)
                 searchEdit->clearEdit();
             } else {
                 ui->applistpage_1->getSearchList(searchtext);
-                switchPage(1);
+                switchPage(AppPageSearchlist);
                 searchEdit->clearEdit();
             }
         }
@@ -183,10 +188,10 @@ MainWindow::~MainWindow()
 void MainWindow::openUrl(QUrl url)
 {
     if (url.toString().startsWith("spk://")) {
-        ui->appintopage->openUrl(url);
-        switchPage(2);
+        ui->appintopage->openUrl(QUrl(url.toString().replace("+","%2B")));
+        switchPage(AppPageAppdetail);
     } else {
-        QDesktopServices::openUrl(url);
+        QDesktopServices::openUrl(QUrl(url.toString().replace("+","%2B")));
     }
 }
 
@@ -229,5 +234,5 @@ void MainWindow::updateUi(int now)
                  << "others";
         ui->applistpage->getAppList(itemlist[now]);
         qDebug() << itemlist[now];
-        switchPage(0);
+        switchPage(AppPageApplist);
 }

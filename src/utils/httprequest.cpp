@@ -27,7 +27,7 @@ QString HttpRequest::postRequest(QString url, QString jsondata)
     QByteArray array= jsondata.toLatin1();
     QNetworkRequest request;
     QNetworkAccessManager *naManager=new QNetworkAccessManager(this);
-    QUrl strUrl = url;
+    QUrl strUrl = url.replace("+","%2B");
     request.setUrl(strUrl);
     request.setRawHeader("Content-Type", "charset='utf-8'");
     request.setRawHeader("Content-Type", "application/json");

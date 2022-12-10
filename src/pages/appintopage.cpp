@@ -54,12 +54,13 @@ void AppIntoPage::openUrl(QUrl url)
     connect(api,&SparkAPI::finishedObject,[=](QJsonObject appinfo){
 
         info = appinfo;
-        qDebug()<<url;
+//        qDebug()<<url;
         //获取图标
         QNetworkAccessManager *naManager;
         QNetworkRequest request;
         naManager=new QNetworkAccessManager(this);
-        request.setUrl(QUrl(api->getImgServerUrl()+"store"+url.path() + "/icon.png"));
+        qDebug()<<api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png";
+        request.setUrl(QUrl(api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png"));
         request.setRawHeader("User-Agent", "Mozilla/5.0");
         request.setRawHeader("Content-Type", "charset='utf-8'");
         naManager->get(request);
@@ -84,8 +85,9 @@ void AppIntoPage::openUrl(QUrl url)
         bool isInstalled;
         bool isUpdated;
         QString packagename = info["Pkgname"].toString();
-        isInstall.start("dpkg -s " + info["Pkgname"].toString());
-        isInstall.waitForFinished();
+        isInstall.start("dpkg -s " + info["Pkgname"].toString()); //todo
+        isInstall.waitForStarted();
+        isInstall.waitForFinished(-1);
         int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
         if(error == 0)
         {
@@ -93,12 +95,12 @@ void AppIntoPage::openUrl(QUrl url)
 
             QProcess isUpdate;
             isUpdate.start("dpkg-query --showformat='${Version}' --show " + info["Pkgname"].toString());
-            isUpdate.waitForFinished();
+            isUpdate.waitForFinished(10);
             QString localVersion = isUpdate.readAllStandardOutput();
             localVersion.replace("'", "");
 
             isUpdate.start("dpkg --compare-versions " + localVersion + " ge " + info["Version"].toString());
-            isUpdate.waitForFinished();
+            isUpdate.waitForFinished(10);
             if(!isUpdate.exitCode())
             {
                 isUpdated = true;
@@ -153,7 +155,7 @@ void AppIntoPage::openUrl(QUrl url)
             QNetworkAccessManager *naManager;
             QNetworkRequest request;
             naManager=new QNetworkAccessManager(this);
-            request.setUrl(QUrl(imglist[i]));
+            request.setUrl(QUrl(imglist[i].replace("+","%2B")));
             request.setRawHeader("User-Agent", "Mozilla/5.0");
             request.setRawHeader("Content-Type", "charset='utf-8'");
             naManager->get(request);
@@ -294,11 +296,11 @@ void AppIntoPage::on_pushButton_3_clicked()
 
                                     QProcess uninstall;
                                     uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << info["Pkgname"].toString().toLower());
-                                    uninstall.waitForFinished();
+                                    uninstall.waitForFinished(-1);
 
                                     QProcess check;
                                     check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-                                    check.waitForFinished();
+                                    check.waitForFinished(10);
 
                                     if (check.readAllStandardOutput().isEmpty())
                                     {

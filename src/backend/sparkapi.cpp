@@ -12,7 +12,7 @@ void SparkAPI::get(QUrl url)
 {
     QNetworkRequest request;
     HttpRequest *httprequest=new HttpRequest;
-    request.setUrl(url);
+    request.setUrl(QUrl(url.toString().replace("+","%2B")));
     connect(httprequest,&HttpRequest::finished,[=](QString data){
         QByteArray arr = data.toUtf8();
             //解析Json
@@ -40,7 +40,7 @@ void SparkAPI::getSearchList(QString keyword)
 }
 void SparkAPI::getAppInfo(QUrl spk)
 {
-    get(QUrl(getServerUrl()+"store"+spk.path() + "/app.json"));
+    get(QUrl(getServerUrl()+"store"+spk.path().replace("+","%2B") + "/app.json"));
 }
 QString SparkAPI::getServerUrl()
 {
