@@ -13,6 +13,7 @@
 #include <QDesktopServices>
 
 #include "widgets/downloadlistwidget.h"
+#include "utils/widgetanimation.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -31,7 +32,6 @@ public:
     void openUrl(QUrl);
 
 private:
-    void widgetShake(QWidget *pWidget, int nRange);
     void initConfig();
     void switchPage(int now);
     void updateUi(int now);
