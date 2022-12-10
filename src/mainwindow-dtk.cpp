@@ -110,6 +110,11 @@ MainWindow::MainWindow(QWidget *parent)
         downloadlistwidget->show();
     });
 
+    //appintopage按下下载按钮时标题栏下载列表按钮抖动
+    connect(ui->appintopage, &AppIntoPage::clickedDownloadBtn, [=]() {
+        widgetShake(downloadButton,6);//第一个参数是抖动的控件，第二个参数是抖动范围（像素）
+    });
+
     connect(backButtom, &QPushButton::clicked, [=]() {
         ui->stackedWidget->setCurrentIndex(pageHistory.at(pageHistory.count() - 2));
         if (pageHistory.at(pageHistory.count() - 1) == 3) {
@@ -183,6 +188,26 @@ MainWindow::~MainWindow()
     delete searchEdit;
     delete downloadlistwidget;
     delete ui;
+}
+
+void MainWindow::widgetShake(QWidget *pWidget, int nRange)
+{
+    int nX = pWidget->x();
+    int nY = pWidget->y();
+    QPropertyAnimation *pAnimation = new QPropertyAnimation(pWidget,"geometry");
+    pAnimation->setEasingCurve(QEasingCurve::InOutSine);
+    pAnimation->setDuration(400);
+    pAnimation->setStartValue(QRect(QPoint(nX,nY),pWidget->size()));
+
+    int nShakeCount = 8;
+    double nStep = 1.0/nShakeCount;
+    for(int i = 1; i < nShakeCount; i++){
+        nRange = i&1 ? -nRange : nRange;
+        pAnimation->setKeyValueAt(nStep*i,QRect(QPoint(nX + nRange,nY),pWidget->size()));
+    }
+
+    pAnimation->setEndValue(QRect(QPoint(nX,nY),pWidget->size()));
+    pAnimation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void MainWindow::openUrl(QUrl url)

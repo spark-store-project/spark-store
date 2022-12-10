@@ -37,6 +37,9 @@ private:
     void sltAppinfoTags(QStringList *tagList);
     DownloadListWidget *dw;
     Ui::AppIntoPage *ui;
+
+signals:
+    void clickedDownloadBtn();
 };
 
 #endif // APPINTOPAGE_H

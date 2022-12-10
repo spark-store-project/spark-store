@@ -279,6 +279,7 @@ AppIntoPage::~AppIntoPage()
 
 void AppIntoPage::on_downloadButton_clicked()
 {
+    emit clickedDownloadBtn();
     dw->addItem(info["Name"].toString(),info["Filename"].toString(),info["Pkgname"].toString(),iconpixmap,SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
     if(ui->downloadButton->text() == tr("Reinstall"))
     {

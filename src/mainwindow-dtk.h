@@ -31,6 +31,7 @@ public:
     void openUrl(QUrl);
 
 private:
+    void widgetShake(QWidget *pWidget, int nRange);
     void initConfig();
     void switchPage(int now);
     void updateUi(int now);
