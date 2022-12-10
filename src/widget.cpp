@@ -789,6 +789,7 @@ void Widget::searchApp(QString text)
         }else{
             ui->webEngineView->setUrl(serverUrl + "store/#/darksearch?keywords=" + text);
         }
+        ui->stackedWidget->setCurrentIndex(0);
 //        spinner->stop();
 //        spinner->hide();
         ui->stackedWidget->setCurrentIndex(0);
