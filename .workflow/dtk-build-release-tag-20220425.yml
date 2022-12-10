@@ -14,31 +14,40 @@ stages:
     trigger: auto
     executor: []
     steps:
-      - step: build@nodejs
-        name: build_dtk
-        displayName: DTK构建
-        nodeVersion: 14.16.0
-        commands:
-          - git clone https://gitlink.org.cn/shenmo7192/debian-10-container.git
-          - mv debian-10-container/Debian-10.tar.xz /mnt
-          - rm -rf debian-10-container
-          - WORK_DIR=`pwd`
-          - yum install xz -y
-          - cd /mnt/
-          - tar -xf Debian-10.tar.xz
-          - cd Debian-10
-          - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build.sh
-          - chmod +x spark-build.sh
-          - mkdir  build-spark
-          - cp -r $WORK_DIR build-spark/spark-store
-          - echo "进入Debian 10环境"
-          - chroot /mnt/Debian-10 /bin/bash /spark-build.sh
-          - cd /mnt/Debian-10/build-spark
+      - step: execute@docker
+        name: execute_by_docker
+        displayName: 基于镜像的DTK构建
+        certificate: ''
+        image: docker.io/debian:buster
+        command:
+          - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+          - '# 换源'
+          - apt update
+          - export DEBIAN_FRONTEND=noninteractive
+          - echo "安装git devscripts equivs curl..."
+          - 'apt install git devscripts equivs curl -y '
+          - git clone https://gitlink.org.cn/shenmo7192/dtk-old-bundle.git
+          - cd dtk-old-bundle
+          - apt install ./*.deb -y
+          - cd ..
+          - rm -rf dtk-old-bundle
+          - ''
+          - 'mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" '
+          - ''
+          - dpkg-buildpackage -b -us -uc
+          - cd ..
+          - ls -all
+          - pwd
+          - ''
+          - 'mkdir target '
+          - for f in $(find . -type f -name "*.deb")
+          - do
+          - '    mv $f target'
+          - done
         artifacts:
           - name: BUILD_ARTIFACT
             path:
-              - /mnt/Debian-10/build-spark/target
-        caches: []
+              - ../target
         notify: []
         strategy:
           retry: '0'
