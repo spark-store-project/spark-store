@@ -1,6 +1,6 @@
 #include "settingspage.h"
 #include "ui_settingspage.h"
-
+bool SettingsPage::isdownload = false;
 SettingsPage::SettingsPage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingsPage)
@@ -114,5 +114,106 @@ void SettingsPage::on_comboBox_server_currentIndexChanged(const QString &arg1)
         setConfig->setValue("server/updated", updatedInfo);
         setConfig->deleteLater();
     }
+}
+
+void SettingsPage::setIsDownload(bool isdownload)
+{
+    SettingsPage::isdownload = isdownload;
+}
+
+void SettingsPage::updateUI()
+{
+    if(isdownload)
+    {
+        ui->pushButton_clear->setEnabled(false);
+    }
+    else
+    {
+        ui->pushButton_clear->setEnabled(true);
+    }
+    // 显示缓存占用空间
+    quint64 tmp_size = dirFileSize(QString::fromUtf8(TMP_PATH));
+    QString tmp_size_str;
+    if(tmp_size < 1024)
+    {
+        tmp_size_str = QString::number(tmp_size) + "B";
+    }
+    else if(tmp_size < (1024 * 1024))
+    {
+        tmp_size_str = QString::number(0.01 * int(100 * (tmp_size / 1024))) + "KB";
+    }
+    else if(tmp_size<(1024*1024*1024))
+    {
+        tmp_size_str = QString::number(0.01 * int(100 * (tmp_size / (1024 * 1024)))) + "MB";
+    }
+    else
+    {
+        tmp_size_str = QString::number(0.01 * int(100 * (tmp_size / (1024 * 1024 * 1024)))) + "GB";
+    }
+
+    ui->tmp_size_ui->setText(tmp_size_str);
+}
+
+quint64 SettingsPage::dirFileSize(const QString &path)
+{
+    QDir dir(path);
+    quint64 size = 0;
+    // dir.entryInfoList(QDir::Files);  // 返回文件信息
+    foreach(QFileInfo fileInfo, dir.entryInfoList(QDir::Files))
+    {
+        // 计算文件大小
+        size += quint64(fileInfo.size());
+    }
+    // dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot);  // 返回所有子目录，并进行过滤
+    foreach(QString subDir, dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot))
+    {
+        // 若存在子目录，则递归调用 dirFileSize() 函数
+        size += dirFileSize(path + QDir::separator() + subDir);
+    }
+    return size;
+}
+
+void SettingsPage::on_pushButton_updateApt_clicked()
+{
+    QtConcurrent::run([=]()
+    {
+        ui->pushButton_updateApt->setEnabled(false);
+        ui->label_aptserver->setText(tr("Updating, please wait..."));
+
+        emit openUrl(QUrl("spk://store/tools/spark-store"));
+        ui->label_aptserver->setText(tr(""));
+
+        ui->pushButton_updateApt->setEnabled(true);
+      });
+}
+
+
+void SettingsPage::on_pushButton_clear_clicked()
+{
+    QtConcurrent::run([=]()
+    {
+        ui->pushButton_clear->setEnabled(false);
+
+        QDir tmpdir("/tmp/spark-store");
+        tmpdir.setFilter(QDir::Files);
+        int quantity = int(tmpdir.count());
+        for(int i = 0; i < quantity; i++)
+        {
+            tmpdir.remove(tmpdir[i]);
+        }
+        ui->pushButton_clear->setEnabled(true);
+        updateUI();
+    });
+}
+
+
+void SettingsPage::on_pushButton_clearWebCache_clicked()
+{
+    QtConcurrent::run([=]()
+    {
+        QString dataLocal = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+        QDir cacheDir(dataLocal );
+        cacheDir.removeRecursively();
+    });
 }
 

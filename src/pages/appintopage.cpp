@@ -51,6 +51,7 @@ void AppIntoPage::openUrl(QUrl url)
 {
     spk=url;
     SparkAPI *api=new SparkAPI(this);
+    clear();
     connect(api,&SparkAPI::finishedObject,[=](QJsonObject appinfo){
 
         info = appinfo;
@@ -316,3 +317,28 @@ void AppIntoPage::on_pushButton_3_clicked()
                                     ui->pushButton_3->setEnabled(true);
     });
 }
+
+void AppIntoPage::on_shareButton_clicked()
+{
+    qDebug() << "Share" << spk;
+
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(spk.toString());
+}
+
+
+void AppIntoPage::on_updateButton_clicked()
+{
+    QString feedbackSpk = "spk://store/chat/store.spark-app.feedback";
+    QFile actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
+    if (actionSubmissionClientStatus.exists())
+    {
+        qDebug() << "反馈器存在";
+        QProcess::startDetached("sh /opt/durapps/store.spark-app.feedback/launch.sh");
+    }
+    else{
+        qDebug() << "反馈器不存在，跳转页面";
+        openUrl(feedbackSpk);
+    }
+}
+

@@ -37,7 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
     menu->addAction(setting);
 
     ui->titlebar->setMenu(menu);
-    connect(setting, &QAction::triggered, this, [=]{switchPage(AppPageSettings);});
+    connect(setting, &QAction::triggered, this, [=]{
+        switchPage(AppPageSettings);
+        ui->settingspage->updateUI();
+    });
     //主题切换
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType) {
         if (themeType == DGuiApplicationHelper::DarkType) {
@@ -107,10 +110,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(backButtom, &QPushButton::clicked, [=]() {
         ui->stackedWidget->setCurrentIndex(pageHistory.at(pageHistory.count() - 2));
-        if (pageHistory.at(pageHistory.count() - 1) == 3) {
-            ui->appintopage->clear();
-        }
-
         pageHistory.removeLast();
         if (pageHistory.count() > 1) {
             backButtom->show();
@@ -139,7 +138,6 @@ MainWindow::MainWindow(QWidget *parent)
         ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{qproperty-icon: url(data/images/userMangaer/teacher.png);}");
         connect(ui->buttonGroup->buttons()[i], &QPushButton::toggled, [=](bool checked) {
             if (checked == true) {
-                ui->appintopage->clear();
                 updateUi(i);
             }
         });
@@ -169,7 +167,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->applistpage_1, &AppListPage::clicked, this, [=](QUrl spk) {
         openUrl(spk);
     });
-
+    connect(ui->settingspage, &SettingsPage::openUrl, this, [=](QUrl spk) {
+        openUrl(spk);
+    });
     emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
 }
 

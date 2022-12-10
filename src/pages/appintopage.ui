@@ -529,16 +529,16 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="shareButton">
              <property name="text">
-              <string>PushButton</string>
+              <string>Share</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="updateButton">
              <property name="text">
-              <string>PushButton</string>
+              <string>Request Update</string>
              </property>
             </widget>
            </item>

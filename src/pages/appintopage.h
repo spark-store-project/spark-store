@@ -5,6 +5,7 @@
 #include <QUrl>
 #include <QString>
 #include <QtConcurrent>
+#include <QClipboard>
 #include "backend/sparkapi.h"
 #include "backend/image_show.h"
 #include "widgets/downloadlistwidget.h"
@@ -28,6 +29,10 @@ private slots:
     void on_downloadButton_clicked();
 
     void on_pushButton_3_clicked();
+
+    void on_shareButton_clicked();
+
+    void on_updateButton_clicked();
 
 private:
     QJsonObject info;
