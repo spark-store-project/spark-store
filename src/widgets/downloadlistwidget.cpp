@@ -12,7 +12,8 @@ DownloadListWidget::DownloadListWidget(QWidget *parent) :
     this->setAttribute(Qt::WA_Hover,true);
     setFocus();
     setFixedSize(500,400);
-
+    ui->listWidget->hide();
+    ui->widget->show();
     // 计算显示下载速度
     download_speed.setInterval(1000);
     download_speed.start();
@@ -104,6 +105,7 @@ QList<DownloadItem *> DownloadListWidget::getDIList()
 void DownloadListWidget::startRequest(QUrl url, QString fileName)
 {
     ui->listWidget->show();
+    ui->widget->hide();
     isBusy = true;
     isdownload = true;
     downloaditemlist[allDownload - 1]->free = false;
