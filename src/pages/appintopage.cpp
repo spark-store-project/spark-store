@@ -9,6 +9,12 @@ AppIntoPage::AppIntoPage(QWidget *parent) :
     ui->listWidget->setMovement(QListView::Static);
     ui->listWidget->setMaximumHeight(200);
     ui->listWidget->setFlow(QListView::TopToBottom);
+    api1=new SparkAPI(this);
+    connect(api1,&SparkAPI::finishedRAW,[=](QString download_times){
+        download_times.remove(QRegExp("\\n"));
+        ui->download_times->setText(download_times);
+        qDebug()<<"Download Times:"+download_times;
+    });
     clear();
 }
 
@@ -179,6 +185,7 @@ void AppIntoPage::openUrl(QUrl url)
         api->deleteLater();
     });
     api->getAppInfo(url);
+    api1->getAppDownloadTimes(url);
 }
 
 void AppIntoPage::isDownloading()

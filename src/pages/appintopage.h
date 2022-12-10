@@ -35,6 +35,7 @@ private slots:
     void on_updateButton_clicked();
 
 private:
+    SparkAPI *api1;
     QJsonObject info;
     QPixmap iconpixmap;
     QUrl spk;

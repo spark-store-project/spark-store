@@ -13,8 +13,10 @@ public:
     static QString getServerUrl();
     static QString getImgServerUrl();
     static void setServerUrl(QString url);
+    void getAppDownloadTimes(QUrl spk);
     void getSearchList(QString keyword);
     void get(QUrl url);
+    void getRAW(QUrl url);
     void getAppList(QString type);
     void getAppInfo(QUrl spk);
     explicit SparkAPI(QObject *parent = nullptr);
@@ -24,6 +26,7 @@ private:
 
 signals:
     void finished(QJsonArray);
+    void finishedRAW(QString);
     void finishedObject(QJsonObject);
 
 public slots:
