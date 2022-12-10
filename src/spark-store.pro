@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network concurrent webenginewidgets
+QT       += core gui network concurrent webenginewidgets dbus
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,6 +31,7 @@ PKGCONFIG += dtkcore dtkgui dtkwidget libnotify
 CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
 
 SOURCES += \
+        dbus/dbussparkstoreservice.cpp \
         main.cpp \
         mainwindow-dtk.cpp \
         backend/sparkapi.cpp \
@@ -50,6 +51,7 @@ SOURCES += \
         backend/image_show.cpp
 
 HEADERS += \
+        dbus/dbussparkstoreservice.h \
         mainwindow-dtk.h \
         backend/sparkapi.h \
         pages/settingspage.h \

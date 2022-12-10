@@ -196,6 +196,8 @@ MainWindow::MainWindow(QWidget *parent)
         openUrl(spk);
     });
     emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
+
+    initDbus();
 }
 
 MainWindow::~MainWindow()
@@ -203,6 +205,24 @@ MainWindow::~MainWindow()
     delete searchEdit;
     delete downloadlistwidget;
     delete ui;
+}
+
+void MainWindow::initDbus()
+{
+    DBusSparkStoreService *dbusInter = new DBusSparkStoreService(this);
+
+    QDBusConnection::sessionBus().registerService("com.gitee.spark.store");
+    QDBusConnection::sessionBus().registerObject("/com/gitee/spark/store", "com.gitee.spark.store", this);
+    connect(dbusInter,&DBusSparkStoreService::sigOpenUrl,this,&MainWindow::onGetUrl);
+}
+
+void MainWindow::onGetUrl(const QString &url)
+{
+    if(url.left(6)=="spk://")
+    {
+        openUrl(QUrl(url));
+    }
+    activateWindow();
 }
 
 void MainWindow::openUrl(QUrl url)

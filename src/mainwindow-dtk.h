@@ -14,6 +14,7 @@
 
 #include "widgets/downloadlistwidget.h"
 #include "utils/widgetanimation.h"
+#include "dbus/dbussparkstoreservice.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -32,6 +33,7 @@ public:
     void openUrl(QUrl);
 
 private:
+    void initDbus();
     void initConfig();
     void switchPage(int now);
     void updateUi(int now);
@@ -44,6 +46,10 @@ private:
     QPushButton *backButtom;
     DSearchEdit *searchEdit = new DSearchEdit;
     Ui::MainWindow *ui;
+
+private slots:
+    //接受来自dbus的url
+    void onGetUrl(const QString &url);
 };
 
 #endif // MAINWINDOWDTK_H
