@@ -51,6 +51,11 @@ private slots:
     //接受来自dbus的url
     void onGetUrl(const QString &url);
     void on_pushButton_14_clicked();
+
+    // QWidget interface
+protected:
+    bool closeWindowAnimation = false;
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOWDTK_H
