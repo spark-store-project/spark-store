@@ -50,6 +50,7 @@ private:
 private slots:
     //接受来自dbus的url
     void onGetUrl(const QString &url);
+    void on_pushButton_14_clicked();
 };
 
 #endif // MAINWINDOWDTK_H

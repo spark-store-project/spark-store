@@ -76,6 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
                                 ");
             backButtom->setIcon(QIcon(":/icon/dark/back.svg"));
             downloadButton->setIcon(QIcon(":/icon/dark/download.svg"));
+            ui->pushButton_14->setIcon(QIcon(":/icon/dark/update.svg"));
             int i = 0;
             while (i < ui->buttonGroup->buttons().size()) {
                 ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/dark/leftbutton_" + QString::number(i) + ".svg"));
@@ -98,6 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
                                 ");
             backButtom->setIcon(QIcon(":/icon/light/back.svg"));
             downloadButton->setIcon(QIcon(":/icon/light/download.svg"));
+            ui->pushButton_14->setIcon(QIcon(":/icon/light/update.svg"));
             int i = 0;
             while (i < ui->buttonGroup->buttons().size()) {
                 ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/light/leftbutton_" + QString::number(i) + ".svg"));
@@ -276,3 +278,17 @@ void MainWindow::updateUi(int now)
         qDebug() << itemlist[now];
         switchPage(AppPageApplist);
 }
+
+void MainWindow::on_pushButton_14_clicked()
+{
+    QFile upgradeStatus("/tmp/spark-store/upgradeStatus.txt");
+    if (!upgradeStatus.exists()){
+        QtConcurrent::run([=]{
+            auto upgradeP = new QProcess();
+            upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
+            upgradeP->waitForStarted();
+            upgradeP->waitForFinished(-1);
+        });
+    }
+}
+

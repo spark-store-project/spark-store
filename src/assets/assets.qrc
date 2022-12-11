@@ -58,5 +58,7 @@
         <file>icon/dark/leftbutton_11.svg</file>
         <file>icon/dark/leftbutton_12.svg</file>
         <file>icon/dark/text.svg</file>
+        <file>icon/light/update.svg</file>
+        <file>icon/dark/update.svg</file>
     </qresource>
 </RCC>
