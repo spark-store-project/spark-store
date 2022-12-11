@@ -1,8 +1,6 @@
 #!/bin/bash
 
-apt-fast(){
-/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast "$@"
-}
+
 
 if [ ! -e "/tmp/aptss-conf/apt-fast.conf" ];then
 ###刷新apt-fast配置
@@ -27,7 +25,7 @@ sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sou
 bwrap --dev-bind / / \
                    --bind '/tmp/aptss-conf/apt-fast.conf' /etc/apt-fast.conf \
                    --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                apt-fast "$@" --allow-downgrades 
+                ss-apt-fast "$@" --allow-downgrades 
 
 
 elif [ "$1" = "download" ];then
@@ -36,7 +34,7 @@ elif [ "$1" = "download" ];then
 bwrap --dev-bind / / \
                    --bind '/tmp/aptss-conf/apt-fast.conf' /etc/apt-fast.conf \
                    --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                apt-fast "$@" --allow-downgrades 
+                ss-apt-fast "$@" --allow-downgrades 
 
 
 elif [ "$1" = "policy" ] || [ "$1" = "search" ];then

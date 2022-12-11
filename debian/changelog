@@ -1,3 +1,10 @@
+spark-store (3.5.2) stable; urgency=medium
+
+  * fix: aptss 转为使用内置的ss-apt-fast指令
+
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (3.5.1.1) stable; urgency=medium
 
   * fix: aptss shebang 修复
