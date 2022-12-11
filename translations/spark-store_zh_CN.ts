@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="234"/>
-        <location filename="../src/pages/appintopage.cpp" line="141"/>
-        <location filename="../src/pages/appintopage.cpp" line="196"/>
+        <location filename="../src/pages/appintopage.cpp" line="143"/>
+        <location filename="../src/pages/appintopage.cpp" line="198"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
@@ -140,32 +140,32 @@
         <translation>屏幕截图</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1136"/>
+        <location filename="../src/pages/appintopage.ui" line="1142"/>
         <source>Update</source>
         <translation>更新时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1165"/>
+        <location filename="../src/pages/appintopage.ui" line="1171"/>
         <source>Contributor</source>
         <translation>投稿用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1172"/>
+        <location filename="../src/pages/appintopage.ui" line="1178"/>
         <source>Pkgname</source>
         <translation>软件包名</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1271"/>
+        <location filename="../src/pages/appintopage.ui" line="1281"/>
         <source>Author</source>
         <translation>软件作者</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1300"/>
+        <location filename="../src/pages/appintopage.ui" line="1314"/>
         <source>Size</source>
         <translation>软件大小</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1329"/>
+        <location filename="../src/pages/appintopage.ui" line="1347"/>
         <source>Website</source>
         <translation>软件官网</translation>
     </message>
@@ -176,27 +176,27 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="130"/>
-        <location filename="../src/pages/appintopage.cpp" line="292"/>
+        <location filename="../src/pages/appintopage.cpp" line="294"/>
         <source>Reinstall</source>
         <translation type="unfinished">重新安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="135"/>
+        <location filename="../src/pages/appintopage.cpp" line="136"/>
         <source>Upgrade</source>
         <translation type="unfinished">升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="201"/>
+        <location filename="../src/pages/appintopage.cpp" line="203"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="206"/>
+        <location filename="../src/pages/appintopage.cpp" line="208"/>
         <source>Downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="316"/>
+        <location filename="../src/pages/appintopage.cpp" line="318"/>
         <source>Install</source>
         <translation type="unfinished">安装</translation>
     </message>
@@ -406,6 +406,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/mainwindow-dtk.ui" line="533"/>
+        <source>更新</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow-dtk.cpp" line="34"/>
         <source>Submit App</source>
         <translation>投递应用</translation>
@@ -426,12 +431,12 @@
         <translation>应用更新和安装设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="151"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="153"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="152"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="154"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>
@@ -439,15 +444,23 @@
 <context>
     <name>QLabel</name>
     <message>
+        <location filename="../src/main.cpp" line="64"/>
+        <location filename="../src/main.cpp" line="73"/>
         <source>Spark Store</source>
-        <translation type="vanished">Spark 应用商店</translation>
+        <translation>Spark 应用商店</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/main.cpp" line="61"/>
         <source>We publish this program under GPL V3</source>
-        <translation type="vanished">本程序按GPL V3开源</translation>
+        <translation>本程序按GPL V3开源</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="66"/>
+        <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by  community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Version 2.0+2</source>
@@ -458,20 +471,22 @@
         <translation type="vanished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;deepin 社区驱动的一款第三方应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</translation>
     </message>
     <message>
+        <location filename="../src/main.cpp" line="75"/>
         <source>The Spark Project</source>
-        <translation type="vanished">星火项目组</translation>
+        <translation>星火项目组</translation>
     </message>
     <message>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;We publish this program under GPL V3</source>
         <translation type="vanished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由 深度社区 出品的应用商店&lt;/span&gt;&lt;br/&gt;&quot;&quot;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&quot;&quot;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火开发者联盟&lt;/span&gt;&lt;br/&gt;本程序遵循 GPL V3 协议发布</translation>
     </message>
     <message>
+        <location filename="../src/main.cpp" line="84"/>
         <source>&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by deepin community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;Published under GPL V3</source>
-        <translation type="vanished">&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;由 Deepin 社区出品的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;星火商店开发组&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;遵循 GPL V3 协议发布</translation>
+        <translation>&lt;span style=&apos;font-size:10pt;font-weight:60;&apos;&gt;由 Deepin 社区出品的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos;font-size:12pt;&apos;&gt;星火商店开发组&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;遵循 GPL V3 协议发布</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="38"/>
-        <location filename="../src/main.cpp" line="40"/>
+        <location filename="../src/main.cpp" line="79"/>
+        <location filename="../src/main.cpp" line="81"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -565,8 +580,12 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="325"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;Connect us on Spark IM: &lt;a href=&quot;https://chat.shenmo.tech&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://chat.shenmo.tech&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;Our QQ Group number:872690351&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;我们并&amp;lt;span style=&amp;quot; font-weight:600;&amp;quot;&amp;gt;不是&amp;lt;/span&amp;gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们 &amp;amp;lt;jifengshenmo@outlook.com&amp;amp;gt;，我们会第一时间删除侵权内容。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;在 Spark IM 联系我们: &lt;a href=&quot;https://chat.shenmo.tech&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://chat.shenmo.tech&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;QQ 群：872690351&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;Connect us on Spark IM: https://chat.shenmo.tech&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;我们并&amp;lt;span style=&amp;quot; font-weight:600;&amp;quot;&amp;gt;不是&amp;lt;/span&amp;gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们 &amp;amp;lt;jifengshenmo@outlook.com&amp;amp;gt;，我们会第一时间删除侵权内容。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;在 Spark IM 联系我们: https://chat.shenmo.tech&amp;lt;br/&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
+        <translation type="vanished">&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;我们并&amp;lt;span style=&amp;quot; font-weight:600;&amp;quot;&amp;gt;不是&amp;lt;/span&amp;gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们 &amp;amp;lt;jifengshenmo@outlook.com&amp;amp;gt;，我们会第一时间删除侵权内容。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;在 Spark IM 联系我们: https://chat.shenmo.tech&amp;lt;br/&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.cpp" line="181"/>

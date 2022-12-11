@@ -181,7 +181,6 @@ MainWindow::MainWindow(QWidget *parent)
             } else {
                 ui->applistpage_1->getSearchList(searchtext);
                 switchPage(AppPageSearchlist);
-                searchEdit->clearEdit();
             }
         }
         this->setFocus();
