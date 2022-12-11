@@ -165,6 +165,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{qproperty-icon: url(data/images/userMangaer/teacher.png);}");
         connect(ui->buttonGroup->buttons()[i], &QPushButton::toggled, [=](bool checked) {
             if (checked == true) {
+                searchEdit->clearEdit();
                 updateUi(i);
             }
         });
