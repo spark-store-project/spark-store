@@ -29,7 +29,7 @@ case "$1" in
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/local/bin/ss-apt-fast
 		
      	       ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
-
+		
 		# Compile the Sender module
 
 		gcc /opt/durapps/spark-store/bin/ss-feedback/sender-d.sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
