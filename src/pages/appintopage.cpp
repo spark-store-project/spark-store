@@ -92,47 +92,49 @@ void AppIntoPage::openUrl(QUrl url)
         bool isInstalled;
         bool isUpdated;
         QString packagename = info["Pkgname"].toString();
-        isInstall.start("dpkg -s " + info["Pkgname"].toString()); //todo
-        isInstall.waitForStarted();
-        isInstall.waitForFinished(-1);
+        isInstall.start("dpkg -s " + info["Pkgname"].toString());
+        qDebug()<<info["Pkgname"].toString();
+        isInstall.waitForFinished(180); // 默认超时 3 分钟
         int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
         if(error == 0)
         {
-            isInstalled = true;
+                    isInstalled = true;
 
-            QProcess isUpdate;
-            isUpdate.start("dpkg-query --showformat='${Version}' --show " + info["Pkgname"].toString());
-            isUpdate.waitForFinished(10);
-            QString localVersion = isUpdate.readAllStandardOutput();
-            localVersion.replace("'", "");
+                    QProcess isUpdate;
+                    isUpdate.start("dpkg-query --showformat='${Version}' --show " + info["Pkgname"].toString());
+                    isUpdate.waitForFinished(180); // 默认超时 3 分钟
+                    QString localVersion = isUpdate.readAllStandardOutput();
+                    localVersion.replace("'", "");
 
-            isUpdate.start("dpkg --compare-versions " + localVersion + " ge " + info["Version"].toString());
-            isUpdate.waitForFinished(10);
-            if(!isUpdate.exitCode())
-            {
-                isUpdated = true;
-            }
-            else
-            {
-                isUpdated = false;
-            }
-        }
-        else
-        {
-            isInstalled = false;
-            isUpdated = false;
-        }
+                    isUpdate.start("dpkg --compare-versions " + localVersion + " ge " + info["Version"].toString());
+                    isUpdate.waitForFinished(180); // 默认超时 3 分钟
+                    if(!isUpdate.exitCode())
+                    {
+                        isUpdated = true;
+                    }
+                    else
+                    {
+                        isUpdated = false;
+                    }
+                }
+                else
+                {
+                    isInstalled = false;
+                    isUpdated = false;
+                }
 
         if(isInstalled)
         {
             if(isUpdated)
             {
                 ui->downloadButton->setText(tr("Reinstall"));
+                ui->downloadButton->show();
                 ui->pushButton_3->show();
             }
             else
             {
                 ui->downloadButton->setText(tr("Upgrade"));
+                ui->downloadButton->show();
                 ui->pushButton_3->show();
             }
         }
