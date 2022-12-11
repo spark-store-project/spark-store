@@ -7,9 +7,10 @@ rm /usr/local/bin/ssinstall
 rm /usr/local/bin/spark-dstore-patch
 rm /usr/local/bin/ussinstall
 rm /usr/local/bin/ussremove
+rm /usr/local/bin/ss-apt-fast
 
 rm /usr/bin/aptss
-rm /usr/bin/ss-apt-fast
+
 
 rm -rf /etc/aptss/
 
