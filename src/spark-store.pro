@@ -30,6 +30,14 @@ PKGCONFIG += dtkcore dtkgui dtkwidget libnotify
 # Disable qWarning / qDebug output in Release
 CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
 
+# Update translation files
+CONFIG(release, debug|release): system(bash $${PWD}/translate_generation.sh)
+
+TRANSLATIONS += \
+    ../translations/spark-store_en.ts \
+    ../translations/spark-store_fr.ts \
+    ../translations/spark-store_zh_CN.ts
+
 SOURCES += \
         dbus/dbussparkstoreservice.cpp \
         main.cpp \

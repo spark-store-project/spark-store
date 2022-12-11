@@ -9,177 +9,195 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="216"/>
+        <location filename="../src/pages/appintopage.ui" line="234"/>
+        <location filename="../src/pages/appintopage.cpp" line="141"/>
+        <location filename="../src/pages/appintopage.cpp" line="196"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="256"/>
+        <location filename="../src/pages/appintopage.ui" line="280"/>
         <source>Uninstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="318"/>
-        <location filename="../src/pages/appintopage.ui" line="321"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app is developed by community user,we give this tag to honor those who contribute to the Linux Ecology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/pages/appintopage.ui" line="336"/>
+        <source>0</source>
+        <translation type="unfinished">0B {0?}</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="324"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/community-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="337"/>
-        <location filename="../src/pages/appintopage.ui" line="340"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 20.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="343"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/ubuntu-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="356"/>
-        <location filename="../src/pages/appintopage.ui" line="359"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="362"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/uos-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="375"/>
-        <location filename="../src/pages/appintopage.ui" line="378"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine2 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="381"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine2-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="394"/>
-        <location filename="../src/pages/appintopage.ui" line="397"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is a  DTK5 app,which means it would have better effect on Deepin Desktop Environment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../src/pages/appintopage.ui" line="346"/>
+        <source>Download Times</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="400"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dtk-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../src/pages/appintopage.ui" line="403"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app is developed by community user,we give this tag to honor those who contribute to the Linux Ecology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="413"/>
-        <location filename="../src/pages/appintopage.ui" line="416"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../src/pages/appintopage.ui" line="406"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/community-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="419"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/deepin-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../src/pages/appintopage.ui" line="422"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 20.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="432"/>
-        <location filename="../src/pages/appintopage.ui" line="435"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An Appimage to deb app.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../src/pages/appintopage.ui" line="425"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/ubuntu-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="438"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/a2d-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../src/pages/appintopage.ui" line="441"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="451"/>
-        <location filename="../src/pages/appintopage.ui" line="454"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine5 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../src/pages/appintopage.ui" line="444"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/uos-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="457"/>
+        <location filename="../src/pages/appintopage.ui" line="460"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine2 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="463"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine2-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="476"/>
+        <location filename="../src/pages/appintopage.ui" line="479"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is a  DTK5 app,which means it would have better effect on Deepin Desktop Environment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="482"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dtk-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="495"/>
+        <location filename="../src/pages/appintopage.ui" line="498"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="501"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/deepin-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="514"/>
+        <location filename="../src/pages/appintopage.ui" line="517"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An Appimage to deb app.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="520"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/a2d-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="533"/>
+        <location filename="../src/pages/appintopage.ui" line="536"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine5 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="539"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine5-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="510"/>
-        <location filename="../src/pages/appintopage.ui" line="517"/>
-        <source>PushButton</source>
+        <location filename="../src/pages/appintopage.ui" line="592"/>
+        <source>Share</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="673"/>
-        <location filename="../src/pages/appintopage.ui" line="973"/>
+        <location filename="../src/pages/appintopage.ui" line="599"/>
+        <source>Request Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="755"/>
+        <location filename="../src/pages/appintopage.ui" line="1055"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="808"/>
+        <location filename="../src/pages/appintopage.ui" line="890"/>
         <source>Screen capture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1054"/>
+        <location filename="../src/pages/appintopage.ui" line="1136"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1083"/>
+        <location filename="../src/pages/appintopage.ui" line="1165"/>
         <source>Contributor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1090"/>
+        <location filename="../src/pages/appintopage.ui" line="1172"/>
         <source>Pkgname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1189"/>
+        <location filename="../src/pages/appintopage.ui" line="1271"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1218"/>
+        <location filename="../src/pages/appintopage.ui" line="1300"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1247"/>
+        <location filename="../src/pages/appintopage.ui" line="1329"/>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="76"/>
+        <location filename="../src/pages/appintopage.cpp" line="87"/>
         <source>Click Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="118"/>
+        <location filename="../src/pages/appintopage.cpp" line="130"/>
+        <location filename="../src/pages/appintopage.cpp" line="292"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="123"/>
+        <location filename="../src/pages/appintopage.cpp" line="135"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="129"/>
-        <location filename="../src/pages/appintopage.cpp" line="258"/>
-        <source>Install</source>
+        <location filename="../src/pages/appintopage.cpp" line="201"/>
+        <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>AppItem</name>
     <message>
-        <location filename="../src/widgets/common/appitem.ui" line="26"/>
-        <source>Form</source>
+        <location filename="../src/pages/appintopage.cpp" line="206"/>
+        <source>Downloaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="316"/>
+        <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -191,13 +209,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/applistpage.ui" line="62"/>
-        <source>推荐</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/applistpage.cpp" line="47"/>
-        <source>搜索 </source>
+        <location filename="../src/pages/applistpage.ui" line="60"/>
+        <source>about:blank</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -214,43 +227,38 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="66"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="82"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="90"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="106"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="157"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="189"/>
         <source>Waiting to download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="182"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="240"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="201"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="259"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="220"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="278"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="29"/>
-        <source>Spark Store App Installer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="30"/>
-        <source>ussinstall</source>
+        <source>Spark Store App Installer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -264,42 +272,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="76"/>
-        <source>Downloaded, waiting to install</source>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="72"/>
+        <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="104"/>
-        <source>Download Failed，Check Your Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="130"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="195"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="173"/>
         <source>Finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="201"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="179"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="202"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="180"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="208"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="186"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="297"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="208"/>
         <source>Download canceled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -312,16 +315,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/downloadlistwidget.ui" line="60"/>
-        <source>Open download directory</source>
+        <location filename="../src/widgets/downloadlistwidget.ui" line="41"/>
+        <source>The list is currently empty. Go and download some softwares!</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>HomePage</name>
     <message>
-        <location filename="../src/pages/homepage.ui" line="16"/>
-        <source>Form</source>
+        <location filename="../src/widgets/downloadlistwidget.ui" line="110"/>
+        <source>Open download directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -333,82 +333,97 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="82"/>
-        <source>导航</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow-dtk.ui" line="95"/>
+        <location filename="../src/mainwindow-dtk.ui" line="160"/>
         <source>主页</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="132"/>
+        <location filename="../src/mainwindow-dtk.ui" line="197"/>
         <source>网络</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="160"/>
+        <location filename="../src/mainwindow-dtk.ui" line="225"/>
         <source>社交</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="188"/>
+        <location filename="../src/mainwindow-dtk.ui" line="253"/>
         <source>音乐</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="216"/>
+        <location filename="../src/mainwindow-dtk.ui" line="281"/>
         <source>视频</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="244"/>
+        <location filename="../src/mainwindow-dtk.ui" line="309"/>
         <source>图像</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="272"/>
+        <location filename="../src/mainwindow-dtk.ui" line="337"/>
         <source>游戏</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="300"/>
+        <location filename="../src/mainwindow-dtk.ui" line="365"/>
         <source>办公</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="328"/>
+        <location filename="../src/mainwindow-dtk.ui" line="393"/>
         <source>阅读</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="356"/>
+        <location filename="../src/mainwindow-dtk.ui" line="421"/>
         <source>开发</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="384"/>
+        <location filename="../src/mainwindow-dtk.ui" line="449"/>
         <source>工具</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="412"/>
+        <location filename="../src/mainwindow-dtk.ui" line="477"/>
         <source>主题</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="440"/>
+        <location filename="../src/mainwindow-dtk.ui" line="505"/>
         <source>其他</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="87"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="34"/>
+        <source>Submit App</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="35"/>
+        <source>Submit App with client(Recommanded)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="36"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="37"/>
+        <source>APP Upgrade and Install Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="151"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="88"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="152"/>
         <source>Search or enter spk://</source>
         <translation type="unfinished"></translation>
     </message>
@@ -433,6 +448,104 @@ Nous sommes nés pour le changement.</translation>
         <location filename="../src/main.cpp" line="38"/>
         <location filename="../src/main.cpp" line="40"/>
         <source>Spark Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="91"/>
+        <source>Line Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="107"/>
+        <source>Choose Line:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="130"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="143"/>
+        <source>Take effect when restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="172"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="182"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="189"/>
+        <source>Spark Store Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="209"/>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="230"/>
+        <source>Temp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="243"/>
+        <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="250"/>
+        <source>0B</source>
+        <translation type="unfinished">0B</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="257"/>
+        <source>Location：/tmp/spark-store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="277"/>
+        <source>Clean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="290"/>
+        <source>Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="297"/>
+        <source>Clear Web Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="318"/>
+        <source>About us</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="325"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;Connect us on Spark IM: https://chat.shenmo.tech&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.cpp" line="181"/>
+        <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

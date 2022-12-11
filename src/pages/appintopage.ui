@@ -1105,12 +1105,18 @@ QListWidget::item::selected
                  <property name="text">
                   <string/>
                  </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item row="1" column="1">
                 <widget class="QLabel" name="d_author">
                  <property name="text">
                   <string/>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -1209,7 +1215,11 @@ QListWidget::item::selected
                 </spacer>
                </item>
                <item row="1" column="7">
-                <widget class="QLabel" name="d_update"/>
+                <widget class="QLabel" name="d_update">
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="icon_4">
@@ -1273,7 +1283,11 @@ QListWidget::item::selected
                 </widget>
                </item>
                <item row="4" column="1">
-                <widget class="QLabel" name="d_pkgname"/>
+                <widget class="QLabel" name="d_pkgname">
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="3" column="3">
                 <widget class="QLabel" name="icon_5">
@@ -1302,7 +1316,11 @@ QListWidget::item::selected
                 </widget>
                </item>
                <item row="4" column="4">
-                <widget class="QLabel" name="d_size"/>
+                <widget class="QLabel" name="d_size">
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="3" column="6">
                 <widget class="QLabel" name="icon_6">
@@ -1332,6 +1350,9 @@ QListWidget::item::selected
                </item>
                <item row="4" column="7">
                 <widget class="QLabel" name="d_website">
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
                  <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
