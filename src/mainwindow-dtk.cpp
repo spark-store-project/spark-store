@@ -245,7 +245,7 @@ void MainWindow::initConfig()
 void MainWindow::switchPage(int now) //临时方案，回家后修改
 {
     qDebug() << pageHistory.count();
-    if (pageHistory.count() >= 0) {
+    if (pageHistory.count() >= 1) {
         backButtom->show();
     } else {
         backButtom->hide();
