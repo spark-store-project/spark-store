@@ -141,10 +141,10 @@ void AppIntoPage::openUrl(QUrl url)
         else
         {
             ui->downloadButton->setText(tr("Download"));
+            isDownloading();
             ui->downloadButton->setEnabled(true);
             ui->downloadButton->show();
         }
-        isDownloading();
 
         QStringList taglist = info["Tags"].toString().split(";");
         QString tmp=info["img_urls"].toString();
