@@ -12,6 +12,7 @@ DownloadListWidget::DownloadListWidget(QWidget *parent) :
     this->setAttribute(Qt::WA_Hover,true);
     setFocus();
     setFixedSize(500,400);
+    setMaskAlpha(250);
     ui->listWidget->hide();
     ui->widget->show();
     // 计算显示下载速度

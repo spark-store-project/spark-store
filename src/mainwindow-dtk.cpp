@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->setCurrentIndex(0);
     ui->titlebar->setBackgroundTransparent(true);
     //ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
-    setMaskAlpha(240);
+    setMaskAlpha(250);
 
     updateUi(0);
 
