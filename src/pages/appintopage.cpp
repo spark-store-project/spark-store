@@ -330,7 +330,7 @@ void AppIntoPage::on_pushButton_3_clicked()
 void AppIntoPage::on_shareButton_clicked()
 {
     qDebug() << "Share" << spk;
-
+    Utils::sendNotification("spark-store",tr("Spark Store"),tr("The URL has been copied to the clipboard"));
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(spk.toString());
 }

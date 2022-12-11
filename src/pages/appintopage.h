@@ -9,6 +9,7 @@
 #include "backend/sparkapi.h"
 #include "backend/image_show.h"
 #include "widgets/downloadlistwidget.h"
+#include "utils/utils.h"
 namespace Ui {
 class AppIntoPage;
 }

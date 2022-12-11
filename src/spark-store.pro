@@ -44,6 +44,7 @@ SOURCES += \
         mainwindow-dtk.cpp \
         backend/sparkapi.cpp \
         pages/settingspage.cpp \
+        utils/utils.cpp \
         utils/widgetanimation.cpp \
         widgets/common/webenginepage.cpp \
         widgets/common/webengineview.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
         mainwindow-dtk.h \
         backend/sparkapi.h \
         pages/settingspage.h \
+        utils/utils.h \
         utils/widgetanimation.h \
         widgets/common/webenginepage.h \
         widgets/common/webengineview.h \
