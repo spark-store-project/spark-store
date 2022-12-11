@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 apt-fast(){
 /opt/durapps/spark-store/bin/apt-fast/ss-apt-fast "$@"
