@@ -15,7 +15,6 @@ Build-Depends:
  libdtkgui-dev(>=5.0),
  libdtkwidget-dev(>=5.0),
  qttools5-private-dev,
- libnotify-dev,
  qtwebengine5-dev
 Standards-Version: 3.0
 Homepage: https://www.spark-app.store/
@@ -32,7 +31,6 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  libdtkcore5,
  libdtkgui5,
  libdtkwidget5,
- libnotify4,
  curl,
  openssl,
  libssl-dev,
