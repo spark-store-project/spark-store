@@ -126,11 +126,7 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="599"/>
         <source>APP Feedback</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>APP Feedback</source>
-        <translation type="vanished">应用反馈</translation>
+        <translation>应用反馈</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="755"/>
@@ -205,9 +201,15 @@
         <translation>安装</translation>
     </message>
     <message>
+        <location filename="../src/pages/appintopage.cpp" line="322"/>
         <location filename="../src/pages/appintopage.cpp" line="333"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="322"/>
+        <source>Uninstall succeeded</source>
+        <translation>卸载成功</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="333"/>
@@ -345,6 +347,16 @@
         <location filename="../src/widgets/downloadlistwidget.ui" line="110"/>
         <source>Open download directory</source>
         <translation>打开下载文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
+        <source>Spark Store</source>
+        <translation>星火应用商店</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
+        <source>The download is complete. Please click the download button on the title Bar to open the download list for installation</source>
+        <translation>下载已完成，请点击标题栏上的下载按钮打开下载列表进行安装</translation>
     </message>
 </context>
 <context>

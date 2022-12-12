@@ -201,8 +201,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/pages/appintopage.cpp" line="322"/>
         <location filename="../src/pages/appintopage.cpp" line="333"/>
         <source>Spark Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="322"/>
+        <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -332,6 +338,16 @@
     <message>
         <location filename="../src/widgets/downloadlistwidget.ui" line="110"/>
         <source>Open download directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
+        <source>Spark Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
+        <source>The download is complete. Please click the download button on the title Bar to open the download list for installation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
