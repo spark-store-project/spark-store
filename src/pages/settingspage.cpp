@@ -201,6 +201,7 @@ void SettingsPage::on_pushButton_clear_clicked()
         {
             tmpdir.remove(tmpdir[i]);
         }
+        Utils::sendNotification("spark-store",tr("Spark Store"),tr("Temporary cache was cleaned"));
         ui->pushButton_clear->setEnabled(true);
         updateUI();
     });
