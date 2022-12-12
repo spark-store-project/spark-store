@@ -33,6 +33,7 @@ void AppIntoPage::clear()
     ui->author->clear();
     ui->label_2->clear();
     ui->downloadButton->hide();
+    ui->downloadButton->setEnabled(true);
     ui->pushButton_3->hide();
     int n=ui->listWidget->count();
     for(int i=0;i<n;i++)
@@ -128,12 +129,14 @@ void AppIntoPage::openUrl(QUrl url)
             if(isUpdated)
             {
                 ui->downloadButton->setText(tr("Reinstall"));
+                ui->downloadButton->setEnabled(true);
                 ui->downloadButton->show();
                 ui->pushButton_3->show();
             }
             else
             {
                 ui->downloadButton->setText(tr("Upgrade"));
+                ui->downloadButton->setEnabled(true);
                 ui->downloadButton->show();
                 ui->pushButton_3->show();
             }
