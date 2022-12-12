@@ -270,7 +270,7 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="278"/>
         <source>Info</source>
-        <translation>信息</translation>
+        <translation>详情</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="30"/>
