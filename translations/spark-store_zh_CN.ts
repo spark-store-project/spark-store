@@ -28,7 +28,7 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="346"/>
         <source>Download Times</source>
-        <translation type="unfinished"></translation>
+        <translation>下载量</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="400"/>
@@ -121,12 +121,12 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="592"/>
         <source>Share</source>
-        <translation type="unfinished">Spk分享链接</translation>
+        <translation>Spk分享链接</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="599"/>
         <source>Request Update</source>
-        <translation type="unfinished"></translation>
+        <translation>请求更新</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="755"/>
@@ -172,33 +172,43 @@
     <message>
         <location filename="../src/pages/appintopage.cpp" line="87"/>
         <source>Click Open</source>
-        <translation type="unfinished"></translation>
+        <translation>点击跳转</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="130"/>
         <location filename="../src/pages/appintopage.cpp" line="294"/>
         <source>Reinstall</source>
-        <translation type="unfinished">重新安装</translation>
+        <translation>重新安装</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="136"/>
         <source>Upgrade</source>
-        <translation type="unfinished">升级</translation>
+        <translation>升级</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="203"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>下载中</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="208"/>
         <source>Downloaded</source>
-        <translation type="unfinished"></translation>
+        <translation>下载完成</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="318"/>
         <source>Install</source>
-        <translation type="unfinished">安装</translation>
+        <translation>安装</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <source>Spark Store</source>
+        <translation>星火应用商店</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <source>The URL has been copied to the clipboard</source>
+        <translation>链接已复制到剪贴板</translation>
     </message>
 </context>
 <context>
@@ -234,42 +244,42 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="106"/>
         <source>Name</source>
-        <translation type="unfinished">软件名</translation>
+        <translation>软件名</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="189"/>
         <source>Waiting to download</source>
-        <translation type="unfinished">正在等待下载</translation>
+        <translation>正在等待下载</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="240"/>
         <source>Install</source>
-        <translation type="unfinished">安装</translation>
+        <translation>安装</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="259"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="278"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>信息</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="30"/>
         <source>Spark Store App Installer</source>
-        <translation type="unfinished">星火内置安装器</translation>
+        <translation>星火内置安装器</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="31"/>
         <source>deepin deb installer</source>
-        <translation type="unfinished">深度软件包安装器</translation>
+        <translation>深度软件包安装器</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="32"/>
         <source>gdebi</source>
-        <translation type="unfinished">gdebi</translation>
+        <translation>gdebi</translation>
     </message>
     <message>
         <source>Downloaded, waiting to install</source>
@@ -282,37 +292,37 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="72"/>
         <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
-        <translation type="unfinished"></translation>
+        <translation>打开 APP 升级和安装设置以启用无密码安装</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="130"/>
         <source>Installing</source>
-        <translation type="unfinished">正在安装</translation>
+        <translation>正在安装</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="173"/>
         <source>Finish</source>
-        <translation type="unfinished">完成</translation>
+        <translation>完成</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="179"/>
         <source>Retry</source>
-        <translation type="unfinished">重试</translation>
+        <translation>重试</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="180"/>
         <source>Error happened in dpkg progress , you can try it again</source>
-        <translation type="unfinished">dpkg出现错误，可重新安装</translation>
+        <translation>dpkg出现错误，可重新安装</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="186"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
-        <translation type="unfinished">安装被中止，可重新安装</translation>
+        <translation>安装被中止，可重新安装</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="208"/>
         <source>Download canceled</source>
-        <translation type="unfinished">下载已取消</translation>
+        <translation>下载已取消</translation>
     </message>
 </context>
 <context>
@@ -325,12 +335,12 @@
     <message>
         <location filename="../src/widgets/downloadlistwidget.ui" line="41"/>
         <source>The list is currently empty. Go and download some softwares!</source>
-        <translation type="unfinished">当前下载列表为空。去下载些软件吧！</translation>
+        <translation>当前下载列表为空。去下载些软件吧！</translation>
     </message>
     <message>
         <location filename="../src/widgets/downloadlistwidget.ui" line="110"/>
         <source>Open download directory</source>
-        <translation type="unfinished">打开下载文件夹</translation>
+        <translation>打开下载文件夹</translation>
     </message>
 </context>
 <context>
@@ -576,7 +586,7 @@
     <message>
         <location filename="../src/pages/settingspage.ui" line="318"/>
         <source>About us</source>
-        <translation type="unfinished">关于我们</translation>
+        <translation>关于我们</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="325"/>

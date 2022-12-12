@@ -200,6 +200,16 @@
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <source>Spark Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <source>The URL has been copied to the clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AppListPage</name>
