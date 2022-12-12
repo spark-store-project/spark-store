@@ -212,9 +212,8 @@ void DownloadController::startDownload(const QString &url)
         QProcess mailProcess;
         mailProcess.start(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
         mailProcess.waitForStarted();
-        mailProcess.waitForFinished(3);
+        mailProcess.waitForFinished();
         mailProcess.deleteLater();
-
 
         emit downloadFinished(); });
 }
