@@ -296,9 +296,13 @@
         <translation type="obsolete">下载失败，请检查网络连接</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="72"/>
         <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
-        <translation>打开 APP 升级和安装设置以启用无密码安装</translation>
+        <translation type="vanished">打开 APP 升级和安装设置以启用无密码安装</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="72"/>
+        <source>Download Complete.</source>
+        <translation>下载完成</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="130"/>

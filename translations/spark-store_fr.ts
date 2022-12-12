@@ -289,7 +289,7 @@
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="72"/>
-        <source>Downloaded. Open APP Upgrade and Install Settings to enable password-free installation</source>
+        <source>Download Complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
