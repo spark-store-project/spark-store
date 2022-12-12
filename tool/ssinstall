@@ -1,11 +1,32 @@
 #!/bin/bash
-#将来可能可以换成apt-metalink来直接用种子/链接下载
-
-apt-fast(){
-/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast "$@"
-}
 
 echo "Spark Store Install script.星火商店安装脚本"
+
+function pkexec_as_current_user() {
+    #Detect the name of the display in use
+    local display=":$(ls /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
+
+    #Detect the user using such display
+    local user=$(who | grep '('$display')' | awk '{print $1}' | head -n 1)
+
+    #Detect the id of the user
+    local uid=$(id -u $user)
+
+    sudo -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus pkexec "$@"
+}
+
+function zenity() {
+    #Detect the name of the display in use
+    local display=":$(ls /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
+
+    #Detect the user using such display
+    local user=$(who | grep '('$display')' | awk '{print $1}' | head -n 1)
+
+    #Detect the id of the user
+    local uid=$(id -u $user)
+
+    sudo -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus zenity "$@"
+}
 
 #################检测文件是否存在
 if [ $# -eq 0 ];then
@@ -19,39 +40,38 @@ then
 	echo "文件不存在"
 	exit 1
 fi
-#################root校验+要密码
-if [ "$(id -u)" != "0" ]
-then
-    echo "ssinstall需要在root下运行";
-	uname=`whoami`
-	echo "Now input the password of $uname"
-	read -e upass
-	################检查密码对不对
-    echo "$upass" | sudo -S echo "i love amber forever"
-	passcheck=`echo "$upass" | sudo -S echo "i love amber forever"`
-	if [ "$passcheck" != "i love amber forever" ];then
-	echo "-----------------------------------------------------"
-	echo "E:密码错误,退出脚本！"
-	exit 1		
-	fi
-fi
 
-
-
-
-##############判断是否是root运行，如果是，则正常走；如果不是，则代输密码
 if [ "$(id -u)" != "0" ];then
 #############################无root权限时
-echo ----------------------------------------------------------------------------------
-echo "$upass" | sudo -S dpkg -i $1 || sudo aptss install -yf 
+echo "请使用root启动ssinstall"
+exit 1
+fi
 
+###
+
+
+if [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_Packages" ];then
+echo "接收星火仓库软件信息中..."
+aptss ssupdate
+fi
+
+echo "正在计算hash并与星火仓库匹配..."
+
+DEB_MD5SUM=`md5sum "$1" | cut -c -32`
+
+IS_MD5SUM_CHECKD=`cat /var/lib/apt/lists/d.store.deepinos.org.cn_Packages | grep $DEB_MD5SUM`
+if [ ! -z "$IS_MD5SUM_CHECKD" ];then
+
+echo "校验成功，开始安装"
+echo  ----------------------------------------------------------------------------------
+dpkg -i "$1" || aptss install -yf 
 
 else
-###########################有root权限时
-
-echo  ----------------------------------------------------------------------------------
-dpkg -i $1 || aptss install -yf 
 
 
+zenity --info --icon-name=spark-store --height 270 --width 500 --text "软件包校验失败！这不应该发生！\n可能是因为软件包已损坏，星火仓库未同步，或者最坏的情况：恶意软件尝试利用自动安装来入侵系统！\n如果你不清楚发生了什么，请在接下来的认证窗口中选择取消认证\n执行 sudo aptss ssupdate 后再尝试安装。\n如果问题仍然存在，请在应用信息界面点击 应用反馈 来提交反馈给我们！\n\n如果你是审核人员，这是正常现象，在审核通过前星火仓库不会保存相关信息。请在接下来的弹窗中进行认证即可"
+
+
+pkexec_as_current_user bash -c "dpkg -i "$1" || aptss install -yf "
 
 fi
