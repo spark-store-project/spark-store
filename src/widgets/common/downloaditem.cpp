@@ -94,8 +94,8 @@ void DownloadItem::readyInstall()
     {
         ui->progressBar->hide();
         ui->pushButton_install->setEnabled(true);
-        DownloadItem::install(0);
         ui->pushButton_install->show();
+        DownloadItem::install(0);
         ui->pushButton_2->hide();
     }
 }
