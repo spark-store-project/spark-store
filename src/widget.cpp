@@ -1200,7 +1200,7 @@ void Widget::on_pushButton_uninstall_clicked()
 
         QProcess check;
         check.start("dpkg", QStringList() << "-s" << pkgName.toLower());
-        check.waitForFinished(180); // 默认超时 3 分钟
+        check.waitForFinished(180*1000); // 默认超时 3 分钟
 
         if (check.readAllStandardOutput().isEmpty())
         {
