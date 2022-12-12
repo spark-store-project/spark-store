@@ -68,6 +68,18 @@ void SettingsPage::initConfig()
 {
     readServerList();
 
+    // 初始化 apt 源显示
+    QFile aptserver("/etc/apt/sources.list.d/sparkstore.list");
+    aptserver.open(QIODevice::ReadOnly);
+    if(aptserver.isOpen())
+    {
+        ui->label_aptserver->setText(aptserver.readAll());
+    }
+    else
+    {
+        ui->label_aptserver->setText(tr("Not Exist"));
+    }
+    aptserver.close();
     // 读取服务器URL并初始化菜单项的链接
     QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
     if(!readConfig.value("server/choose").toString().isEmpty() && readConfig.value("server/updated").toString() == "TRUE")
