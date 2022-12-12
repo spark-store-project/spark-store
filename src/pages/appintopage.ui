@@ -596,7 +596,7 @@
            <item>
             <widget class="QPushButton" name="updateButton">
              <property name="text">
-              <string>Request Update</string>
+              <string>APP Feedback</string>
              </property>
             </widget>
            </item>

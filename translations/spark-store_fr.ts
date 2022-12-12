@@ -125,7 +125,7 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="599"/>
-        <source>Request Update</source>
+        <source>APP Feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -125,8 +125,12 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="599"/>
-        <source>Request Update</source>
-        <translation>请求更新</translation>
+        <source>APP Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>APP Feedback</source>
+        <translation type="vanished">应用反馈</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="755"/>
