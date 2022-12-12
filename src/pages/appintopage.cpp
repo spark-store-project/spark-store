@@ -319,7 +319,7 @@ void AppIntoPage::on_pushButton_3_clicked()
                                         ui->pushButton_3->hide();
 
                                         updatesEnabled();
-                                        //sendNotification(tr("Uninstall succeeded"));
+                                        Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
                                     }
 
                                     ui->downloadButton->setEnabled(true);

@@ -125,6 +125,7 @@ void DownloadListWidget::httpFinished() // 完成下载
     isBusy = false;
     downloaditemlist[nowDownload - 1]->readyInstall();
     downloaditemlist[nowDownload - 1]->free = true;
+    Utils::sendNotification("spark-store",tr("Spark Store"),tr("The download is complete. Please click the download button on the title Bar to open the download list for installation"));
     emit downloadFinished();
     if(nowDownload < allDownload)
     {

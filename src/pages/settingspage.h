@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QtConcurrent>
 #include "../backend/sparkapi.h"
+#include "utils/utils.h"
 #define TMP_PATH "/tmp/spark-store"
 
 namespace Ui {
