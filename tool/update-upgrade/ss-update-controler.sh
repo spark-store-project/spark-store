@@ -13,14 +13,9 @@ else
 text_update_open="开启"
 fi
 
-if [  -f /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy ];then 
-text_auto_install_open="关闭"
-#已经开启了就显示关闭
-else
-text_auto_install_open="开启"
-fi
 
-option=`zenity --list --text="欢迎使用星火更新和安装设置工具\n请在以下操作中选择一个进行~" --column 数字 --column=操作选项  --print-column=2  --height 350 --width 760 0 "查看自动更新相关功能使用前须知（重要）" 1 "$text_update_open星火更新检测工具(如果开启则会在系统启动后自动检测更新。如有更新则会弹出通知)" 2 查看可更新软件包列表并决定是否更新 3 "$text_auto_install_open点击安装免输入密码功能" 4 退出脚本 --hide-column=1 --print-column=1` 
+
+option=`zenity --list --text="欢迎使用星火更新和安装设置工具\n请在以下操作中选择一个进行~" --column 数字 --column=操作选项  --print-column=2  --height 350 --width 760 0 "查看自动更新相关功能使用前须知（重要）" 1 "$text_update_open星火更新检测工具(如果开启则会在系统启动后自动检测更新。如有更新则会弹出通知)" 2 查看可更新软件包列表并决定是否更新  4 退出脚本 --hide-column=1 --print-column=1` 
 
 case $option in 
 	0)
@@ -42,25 +37,7 @@ case $option in
 	2)
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
 	;;
-	3)
-	if [ -f /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy ];then 
-	zenity --info --icon-name=spark-store --height 150 --width 200 --text   "---检测到已经启动了免输入密码，执行关闭" --timeout=2 
-	pkexec rm /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
-	zenity --info --icon-name=spark-store --height 150 --width 200 --text   "已关闭" --timeout=2 
-	else
 
-	is_accept_polkiy=`zenity --list  --height 350 --width 300 --text "请注意：这个功能尚未开发完成，一旦开启，则运行pkexec ssinstall时不再需要授权\n仅对星火内置安装器生效\n理论上会存在一定的安全风险" --column 数字 --column=操作选项 --hide-column=1 --print-column=1 1 同意 2 拒绝`
-
-
-
-if [ "$is_accept_polkiy" = "1" ];then
-	pkexec ln -s /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
-	zenity --info --icon-name=spark-store --height 150 --width 200 --text  "---已启动"
-	else
-	zenity --info --icon-name=spark-store --height 150 --width 200 --text  "---未同意，返回"
-fi
-fi
-	;;
 	4)
 	exit 0
 	;;

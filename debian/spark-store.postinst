@@ -30,6 +30,9 @@ case "$1" in
 		
      	       ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
 
+		# Create symbol links for SSINSTALL 
+		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
+
 		# Compile the Sender module
 
 		gcc /opt/durapps/spark-store/bin/ss-feedback/sender-d.sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
