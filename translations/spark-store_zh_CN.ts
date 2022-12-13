@@ -310,32 +310,42 @@
         <translation>下载完成</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="98"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
+        <source>Spark Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
+        <source>The download is complete.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="99"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="142"/>
         <source>Finish</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="147"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="148"/>
         <source>Retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="148"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation>dpkg出现错误，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="154"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="155"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation>安装被中止，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="175"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="176"/>
         <source>Download canceled</source>
         <translation>下载已取消</translation>
     </message>
@@ -358,14 +368,12 @@
         <translation>打开下载文件夹</translation>
     </message>
     <message>
-        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
         <source>Spark Store</source>
-        <translation>星火应用商店</translation>
+        <translation type="vanished">星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
         <source>The download is complete. Please click the download button on the title Bar to open the download list for installation</source>
-        <translation>下载已完成，请点击标题栏上的下载按钮打开下载列表进行安装</translation>
+        <translation type="vanished">下载已完成，请点击标题栏上的下载按钮打开下载列表进行安装</translation>
     </message>
 </context>
 <context>

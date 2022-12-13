@@ -59,6 +59,7 @@ void DownloadItem::readyInstall()
 {
     if(!close)
     {
+        Utils::sendNotification("spark-store",tr("Spark Store"),tr("The download is complete."));
         ui->progressBar->hide();
         ui->pushButton_install->setEnabled(true);
         ui->pushButton_install->show();
