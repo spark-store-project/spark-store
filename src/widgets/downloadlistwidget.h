@@ -54,6 +54,7 @@ private slots:
     void on_pushButton_clicked();
 signals:
     void downloadFinished();
+    void downloadProgress(int i);
 };
 
 #endif // DOWNLOADLISTWIDGET_H

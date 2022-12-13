@@ -13,6 +13,7 @@
 #include <QDesktopServices>
 
 #include "widgets/downloadlistwidget.h"
+#include "widgets/common/progressbutton.h"
 #include "utils/widgetanimation.h"
 #include "dbus/dbussparkstoreservice.h"
 
@@ -42,7 +43,7 @@ private:
     QList<int> pageHistory;
 
     DownloadListWidget *downloadlistwidget;
-    QPushButton *downloadButton;
+    ProgressButton *downloadButton;
     QPushButton *backButtom;
     DSearchEdit *searchEdit = new DSearchEdit;
     Ui::MainWindow *ui;

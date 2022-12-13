@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     WidgetAnimation::widgetOpacity(this,true);
 
     downloadlistwidget = new DownloadListWidget;
-    downloadButton = new QPushButton(ui->titlebar);
+    downloadButton = new ProgressButton(ui->titlebar);
     backButtom = new QPushButton(ui->titlebar);
     ui->appintopage->setDownloadWidget(downloadlistwidget);
     ui->stackedWidget->setCurrentIndex(0);
@@ -75,7 +75,9 @@ MainWindow::MainWindow(QWidget *parent)
                                 QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color:#FFFFFF}\
                                 ");
             backButtom->setIcon(QIcon(":/icon/dark/back.svg"));
-            downloadButton->setIcon(QIcon(":/icon/dark/download.svg"));
+            downloadButton->setIcon(":/icon/dark/download.svg");
+            downloadButton->setBackgroundColor(QColor("#444444"));
+            downloadButton->setColor(QColor("#66CCFF"));
             ui->pushButton_14->setIcon(QIcon(":/icon/dark/update.svg"));
             int i = 0;
             while (i < ui->buttonGroup->buttons().size()) {
@@ -98,7 +100,9 @@ MainWindow::MainWindow(QWidget *parent)
                                 QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color:#000000}\
                                 ");
             backButtom->setIcon(QIcon(":/icon/light/back.svg"));
-            downloadButton->setIcon(QIcon(":/icon/light/download.svg"));
+            downloadButton->setBackgroundColor(QColor("#e3e4e4"));
+            downloadButton->setColor(QColor("#66CCFF"));
+            downloadButton->setIcon(":/icon/light/download.svg");
             ui->pushButton_14->setIcon(QIcon(":/icon/light/update.svg"));
             int i = 0;
             while (i < ui->buttonGroup->buttons().size()) {
@@ -123,7 +127,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     //初始化标题栏控件
-    connect(downloadButton, &QPushButton::clicked, [=]() {
+    connect(downloadButton, &ProgressButton::clicked, [=]() {
         QPoint pos;
         pos.setX(downloadButton->mapToGlobal(QPoint(0, 0)).x() + downloadButton->width() / 2 - downloadlistwidget->width() / 2);
         pos.setY(downloadButton->mapToGlobal(QPoint(0, 0)).y() + downloadButton->height() + 5);
@@ -188,6 +192,9 @@ MainWindow::MainWindow(QWidget *parent)
         this->setFocus();
     });
 
+    connect(downloadlistwidget, &DownloadListWidget::downloadProgress, this, [=](int i) {
+        downloadButton->setProgress(i);
+    });
     // 列表点击事件
     connect(ui->applistpage, &AppListPage::clicked, this, [=](QUrl spk) {
         openUrl(spk);

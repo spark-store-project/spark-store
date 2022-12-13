@@ -168,6 +168,7 @@ void DownloadListWidget::updateDataReadProgress(QString speedInfo, qint64 bytesR
     theSpeed = speedInfo;
     downloaditemlist[nowDownload - 1]->setMax(10000);   // 最大值
     downloaditemlist[nowDownload - 1]->setValue(int(bytesRead * 100 / totalBytes) * 100);  // 当前值
+    emit downloadProgress(int(bytesRead * 100 / totalBytes));
     download_size = bytesRead;
     if(downloaditemlist[nowDownload - 1]->close)
     {

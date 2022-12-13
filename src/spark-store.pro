@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network concurrent webenginewidgets dbus
+QT       += core gui network concurrent webenginewidgets dbus svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -46,6 +46,7 @@ SOURCES += \
         pages/settingspage.cpp \
         utils/utils.cpp \
         utils/widgetanimation.cpp \
+        widgets/common/progressbutton.cpp \
         widgets/common/webenginepage.cpp \
         widgets/common/webengineview.cpp \
         widgets/downloadlistwidget.cpp \
@@ -66,6 +67,7 @@ HEADERS += \
         pages/settingspage.h \
         utils/utils.h \
         utils/widgetanimation.h \
+        widgets/common/progressbutton.h \
         widgets/common/webenginepage.h \
         widgets/common/webengineview.h \
         widgets/downloadlistwidget.h \
