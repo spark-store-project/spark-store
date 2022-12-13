@@ -80,6 +80,7 @@ void AppIntoPage::openUrl(QUrl url)
                 ui->icon->setScaledContents(true);
             });
         ui->title->setText(info["Name"].toString());
+        ui->version->setText(info["Version"].toString());
         ui->author->setText(info["Author"].toString());
         ui->d_author->setText(info["Author"].toString());
         ui->d_size->setText(info["Size"].toString());
