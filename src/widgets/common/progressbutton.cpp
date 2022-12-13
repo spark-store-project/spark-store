@@ -90,6 +90,11 @@ void ProgressButton::setProgress(int progress)
 {
     buttonState = state::openProgress;
     ProgressButton::progress = progress;
+    if(progress == 0)
+    {
+        buttonState = state::normal;
+        update();
+    }
     if(progress == 100)
     {
         buttonState = state::closeProgress;

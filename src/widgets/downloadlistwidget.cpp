@@ -44,7 +44,9 @@ DownloadListWidget::DownloadListWidget(QWidget *parent) :
             size2 = download_size;
         }
         if(isdownload){
-        downloaditemlist[nowDownload - 1]->setSpeed(theSpeed);
+            downloaditemlist[nowDownload - 1]->setSpeed(theSpeed);
+        }else{
+            emit downloadProgress(0);
         }
     });
 }
