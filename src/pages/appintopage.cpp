@@ -95,7 +95,7 @@ void AppIntoPage::openUrl(QUrl url)
         QString packagename = info["Pkgname"].toString();
         isInstall.start("dpkg -s " + info["Pkgname"].toString());
         qDebug()<<info["Pkgname"].toString();
-        isInstall.waitForFinished(180); // 默认超时 3 分钟
+        isInstall.waitForFinished(180*1000); // 默认超时 3 分钟
         int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
         if(error == 0)
         {
@@ -103,12 +103,12 @@ void AppIntoPage::openUrl(QUrl url)
 
                     QProcess isUpdate;
                     isUpdate.start("dpkg-query --showformat='${Version}' --show " + info["Pkgname"].toString());
-                    isUpdate.waitForFinished(180); // 默认超时 3 分钟
+                    isUpdate.waitForFinished(180*1000); // 默认超时 3 分钟
                     QString localVersion = isUpdate.readAllStandardOutput();
                     localVersion.replace("'", "");
 
                     isUpdate.start("dpkg --compare-versions " + localVersion + " ge " + info["Version"].toString());
-                    isUpdate.waitForFinished(180); // 默认超时 3 分钟
+                    isUpdate.waitForFinished(180*1000); // 默认超时 3 分钟
                     if(!isUpdate.exitCode())
                     {
                         isUpdated = true;
@@ -314,7 +314,7 @@ void AppIntoPage::on_pushButton_3_clicked()
 
                                     QProcess check;
                                     check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-                                    check.waitForFinished(10);
+                                    check.waitForFinished(10*1000);
 
                                     if (check.readAllStandardOutput().isEmpty())
                                     {
