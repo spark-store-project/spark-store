@@ -261,22 +261,22 @@
         <translation>软件名</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="189"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="192"/>
         <source>Waiting to download</source>
         <translation>正在等待下载</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="240"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="243"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="259"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="262"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="278"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="281"/>
         <source>Info</source>
         <translation>详情</translation>
     </message>
@@ -310,19 +310,21 @@
         <translation>下载完成</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="156"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
-        <source>The download is complete.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="99"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="98"/>
         <source>Installing</source>
         <translation>正在安装</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
+        <source>Installation complete.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="142"/>
@@ -336,16 +338,26 @@
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <source>Error happened in dpkg progress , you can try it again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="150"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation>dpkg出现错误，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="155"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="156"/>
+        <source>dpkg progress had been aborted，you can retry installation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="157"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation>安装被中止，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="176"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="178"/>
         <source>Download canceled</source>
         <translation>下载已取消</translation>
     </message>
@@ -474,12 +486,12 @@
         <translation>应用更新和安装设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="153"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="180"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="154"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="181"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>

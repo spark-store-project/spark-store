@@ -138,7 +138,7 @@ void DownloadItem::install(int t)
             if(error == 0)
             {
                 ui->pushButton_install->hide();
-                Utils::sendNotification("spark-store",tr("Spark Store"),ui->label_filename->text() + " " + tr("Installation complete."));
+                Utils::sendNotification("spark-store",tr("Spark Store"),ui->label->text() + " " + tr("Installation complete."));
                 ui->label_2->setText(tr("Finish"));
                 ui->pushButton_3->show();
             }

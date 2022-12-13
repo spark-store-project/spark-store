@@ -253,22 +253,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="189"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="192"/>
         <source>Waiting to download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="240"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="243"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="259"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="262"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="278"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="281"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
@@ -278,18 +278,20 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="156"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
-        <source>The download is complete.</source>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="98"/>
+        <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="99"/>
-        <source>Installing</source>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
+        <source>Installation complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -304,16 +306,26 @@
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <source>Error happened in dpkg progress , you can try it again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="150"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="155"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="156"/>
+        <source>dpkg progress had been aborted，you can retry installation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="157"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="176"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="178"/>
         <source>Download canceled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -434,12 +446,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="153"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="180"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="154"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="181"/>
         <source>Search or enter spk://</source>
         <translation type="unfinished"></translation>
     </message>
