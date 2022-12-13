@@ -307,14 +307,14 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="39"/>
         <source>Download Complete.</source>
-        <translation>下载完成</translation>
+        <translation>下载完成.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="156"/>
         <source>Spark Store</source>
-        <translation type="unfinished"></translation>
+        <translation>星火应用商店</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="98"/>
@@ -324,7 +324,7 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
         <source>Installation complete.</source>
-        <translation type="unfinished"></translation>
+        <translation>安装完成.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="142"/>
