@@ -37,7 +37,6 @@ private:
     {
         normal,
         hover,
-        fromRoundedCornersToRounded,//从圆角变成圆形
         openProgress,
         closeProgress,
         recovery

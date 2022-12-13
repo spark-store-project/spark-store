@@ -51,6 +51,8 @@ DownloadListWidget::DownloadListWidget(QWidget *parent) :
 
 DownloadListWidget::~DownloadListWidget()
 {
+    downloadController->stopDownload();
+    delete downloadController;
     delete ui;
 }
 void DownloadListWidget::clearItem()

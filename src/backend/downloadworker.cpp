@@ -138,7 +138,7 @@ void DownloadController::startDownload(const QString &url)
             command.append(aria2NoSeeds.toUtf8());
         }
         qDebug() << command;
-        auto cmd = new QProcess();
+        auto cmd = new QProcess(this);
         cmd->setProcessChannelMode(QProcess::MergedChannels);
         cmd->setProgram("aria2c");
         cmd->setArguments(command);
