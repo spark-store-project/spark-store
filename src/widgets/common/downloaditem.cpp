@@ -59,7 +59,6 @@ void DownloadItem::readyInstall()
 {
     if(!close)
     {
-        Utils::sendNotification("spark-store",tr("Spark Store"),tr("The download is complete."));
         ui->progressBar->hide();
         ui->pushButton_install->setEnabled(true);
         ui->pushButton_install->show();
@@ -139,6 +138,7 @@ void DownloadItem::install(int t)
             if(error == 0)
             {
                 ui->pushButton_install->hide();
+                Utils::sendNotification("spark-store",tr("Spark Store"),tr("Installation complete."));
                 ui->label_2->setText(tr("Finish"));
                 ui->pushButton_3->show();
             }
@@ -146,12 +146,14 @@ void DownloadItem::install(int t)
             {
                 ui->pushButton_install->show();
                 ui->pushButton_install->setText(tr("Retry"));
+                Utils::sendNotification("spark-store",tr("Spark Store"),tr("Error happened in dpkg progress , you can try it again."));
                 ui->label_2->setText(tr("Error happened in dpkg progress , you can try it again"));
                 ui->pushButton_3->show();
             }
 
             if(notRoot)
             {
+                Utils::sendNotification("spark-store",tr("Spark Store"),tr("dpkg progress had been aborted，you can retry installation."));
                 ui->label_2->setText(tr("dpkg progress had been aborted，you can retry installation"));
                 ui->pushButton_install->show();
                 ui->pushButton_3->hide();
