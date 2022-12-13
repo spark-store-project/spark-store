@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="234"/>
-        <location filename="../src/pages/appintopage.cpp" line="143"/>
-        <location filename="../src/pages/appintopage.cpp" line="198"/>
+        <location filename="../src/pages/appintopage.cpp" line="146"/>
+        <location filename="../src/pages/appintopage.cpp" line="201"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -66,7 +66,7 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="457"/>
         <location filename="../src/pages/appintopage.ui" line="460"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine2 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app. Spark Store will automatically configure the wine kit for you.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -110,7 +110,7 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="533"/>
         <location filename="../src/pages/appintopage.ui" line="536"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.If you are using ubuntu or other non-deepin distro,you should deploy deepin-wine5 by your self.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -170,49 +170,49 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="87"/>
+        <location filename="../src/pages/appintopage.cpp" line="88"/>
         <source>Click Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="130"/>
-        <location filename="../src/pages/appintopage.cpp" line="294"/>
+        <location filename="../src/pages/appintopage.cpp" line="131"/>
+        <location filename="../src/pages/appintopage.cpp" line="297"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="136"/>
+        <location filename="../src/pages/appintopage.cpp" line="138"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="203"/>
+        <location filename="../src/pages/appintopage.cpp" line="206"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="208"/>
+        <location filename="../src/pages/appintopage.cpp" line="211"/>
         <source>Downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="318"/>
+        <location filename="../src/pages/appintopage.cpp" line="321"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="322"/>
-        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <location filename="../src/pages/appintopage.cpp" line="325"/>
+        <location filename="../src/pages/appintopage.cpp" line="336"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="322"/>
+        <location filename="../src/pages/appintopage.cpp" line="325"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <location filename="../src/pages/appintopage.cpp" line="336"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -273,52 +273,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="30"/>
-        <source>Spark Store App Installer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="31"/>
-        <source>deepin deb installer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="32"/>
-        <source>gdebi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="72"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="39"/>
         <source>Download Complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="130"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
+        <source>Spark Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="62"/>
+        <source>The download is complete.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="99"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="173"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="142"/>
         <source>Finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="179"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="148"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="180"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="186"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="155"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="208"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="176"/>
         <source>Download canceled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -340,16 +335,6 @@
         <source>Open download directory</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
-        <source>Spark Store</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/downloadlistwidget.cpp" line="128"/>
-        <source>The download is complete. Please click the download button on the title Bar to open the download list for installation</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -360,72 +345,72 @@
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="160"/>
-        <source>主页</source>
+        <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="197"/>
-        <source>网络</source>
+        <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="225"/>
-        <source>社交</source>
+        <source>Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="253"/>
-        <source>音乐</source>
+        <source>Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="281"/>
-        <source>视频</source>
+        <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="309"/>
-        <source>图像</source>
+        <source>Picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="337"/>
-        <source>游戏</source>
+        <source>Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="365"/>
-        <source>办公</source>
+        <source>Office</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="393"/>
-        <source>阅读</source>
+        <source>Reading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="421"/>
-        <source>开发</source>
+        <source>Development</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="449"/>
-        <source>工具</source>
+        <source>Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="477"/>
-        <source>主题</source>
+        <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="505"/>
-        <source>其他</source>
+        <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="533"/>
-        <source>更新</source>
+        <source>APP Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -525,23 +510,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="172"/>
+        <location filename="../src/pages/settingspage.ui" line="185"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="182"/>
+        <location filename="../src/pages/settingspage.ui" line="202"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="189"/>
+        <location filename="../src/pages/settingspage.ui" line="195"/>
         <source>Spark Store Update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/settingspage.ui" line="209"/>
-        <source>Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -592,6 +572,16 @@
     <message>
         <location filename="../src/pages/settingspage.cpp" line="181"/>
         <source>Updating, please wait...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.cpp" line="204"/>
+        <source>Spark Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.cpp" line="204"/>
+        <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

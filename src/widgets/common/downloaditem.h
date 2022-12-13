@@ -5,7 +5,7 @@
 #include <QTextBrowser>
 #include <QMenu>
 #include <QAction>
-
+#include "utils/utils.h"
 #include <DDialog>
 DWIDGET_USE_NAMESPACE
 

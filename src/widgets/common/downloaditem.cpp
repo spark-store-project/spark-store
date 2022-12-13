@@ -11,10 +11,6 @@ DownloadItem::DownloadItem(QWidget *parent) :
     reinstall(false),
     close(false),
     ui(new Ui::DownloadItem),
-    menu_install(new QMenu),
-    action_dpkg(new QAction),
-    action_deepin(new QAction),
-    action_gdebi(new QAction),
     output_w(new DDialog),
     textbrowser(new QTextBrowser)
 {
@@ -27,35 +23,6 @@ DownloadItem::DownloadItem(QWidget *parent) :
     ui->pushButton_3->hide();
     ui->widget_spinner->start();
     ui->widget_spinner->hide();
-    action_dpkg->setText(tr("Spark Store App Installer"));
-    action_deepin->setText(tr("deepin deb installer"));
-    action_gdebi->setText(tr("gdebi"));
-
-    connect(action_dpkg,&QAction::triggered,[=](){DownloadItem::install(0);});
-    connect(action_deepin,&QAction::triggered,[=](){DownloadItem::install(1);});
-    connect(action_gdebi,&QAction::triggered,[=](){DownloadItem::install(2);});
-
-    // ssinstall 命令存在时再加入该选项
-    QFile ssinstall("/usr/local/bin/ssinstall");
-    ssinstall.open(QIODevice::ReadOnly);
-    if(ssinstall.isOpen())
-    {
-        menu_install->addAction(action_dpkg);
-    }
-
-//    QFile deepin("/usr/bin/deepin-deb-installer");
-//    deepin.open(QIODevice::ReadOnly);
-//    if(deepin.isOpen())
-//    {
-//        menu_install->addAction(action_deepin);
-//    }
-//    QFile gdebi("/usr/bin/gdebi");
-//    gdebi.open(QIODevice::ReadOnly);
-//    if(gdebi.isOpen())
-//    {
-//        menu_install->addAction(action_gdebi);
-//    }
-    
 }
 
 DownloadItem::~DownloadItem()
@@ -94,8 +61,8 @@ void DownloadItem::readyInstall()
     {
         ui->progressBar->hide();
         ui->pushButton_install->setEnabled(true);
-        DownloadItem::install(0);
         ui->pushButton_install->show();
+        DownloadItem::install(0);
         ui->pushButton_2->hide();
     }
 }
@@ -171,6 +138,7 @@ void DownloadItem::install(int t)
             if(error == 0)
             {
                 ui->pushButton_install->hide();
+                Utils::sendNotification("spark-store",tr("Spark Store"),tr("Installation complete."));
                 ui->label_2->setText(tr("Finish"));
                 ui->pushButton_3->show();
             }
@@ -178,12 +146,14 @@ void DownloadItem::install(int t)
             {
                 ui->pushButton_install->show();
                 ui->pushButton_install->setText(tr("Retry"));
+                Utils::sendNotification("spark-store",tr("Spark Store"),tr("Error happened in dpkg progress , you can try it again."));
                 ui->label_2->setText(tr("Error happened in dpkg progress , you can try it again"));
                 ui->pushButton_3->show();
             }
 
             if(notRoot)
             {
+                Utils::sendNotification("spark-store",tr("Spark Store"),tr("dpkg progress had been aborted，you can retry installation."));
                 ui->label_2->setText(tr("dpkg progress had been aborted，you can retry installation"));
                 ui->pushButton_install->show();
                 ui->pushButton_3->hide();
@@ -200,8 +170,7 @@ void DownloadItem::install(int t)
 
 void DownloadItem::on_pushButton_install_clicked()
 {
-    // 弹出菜单
-    menu_install->exec(cursor().pos());
+    DownloadItem::install(0);
 }
 
 void DownloadItem::on_pushButton_2_clicked()
