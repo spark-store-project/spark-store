@@ -72,11 +72,11 @@ void DownloadListWidget::clearItem()
 }
 void DownloadListWidget::addItem(QString name,QString fileName,QString pkgName,const QPixmap icon,QString downloadurl)
 {
-    urList.append(downloadurl);
     if(fileName.isEmpty())
     {
         return;
     }
+    urList.append(downloadurl);
     allDownload += 1;
     DownloadItem *di=new DownloadItem(this);
     dlist<<downloadurl;
@@ -137,6 +137,11 @@ void DownloadListWidget::httpFinished() // 完成下载
         while(downloaditemlist[nowDownload - 1]->close)
         {
             nowDownload += 1;
+            if(nowDownload >= allDownload)
+            {
+                nowDownload = allDownload;
+                return;
+            }
         }
         QString fileName = downloaditemlist[nowDownload - 1]->getName();
         startRequest(urList.at(nowDownload-1), fileName);
