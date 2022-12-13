@@ -21,10 +21,10 @@ class DownloadListWidget : public DBlurEffectWidget
 
 public:
     void addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl);
-    int isDownloading(QString url);
     int nowDownload = 0;
     int allDownload = 0;
     QList<DownloadItem *> getDIList();
+    QList<QUrl> getUrlList();
     void m_move(int x, int y);
     explicit DownloadListWidget(QWidget *parent = nullptr);
     ~DownloadListWidget();

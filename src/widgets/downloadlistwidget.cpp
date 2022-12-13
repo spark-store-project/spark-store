@@ -72,16 +72,12 @@ void DownloadListWidget::clearItem()
 }
 void DownloadListWidget::addItem(QString name,QString fileName,QString pkgName,const QPixmap icon,QString downloadurl)
 {
-    allDownload += 1;
     urList.append(downloadurl);
-    if(dlist.contains(downloadurl))
-    {
-        return;
-    }
     if(fileName.isEmpty())
     {
         return;
     }
+    allDownload += 1;
     DownloadItem *di=new DownloadItem(this);
     dlist<<downloadurl;
     downloaditemlist<<di;
@@ -103,6 +99,11 @@ void DownloadListWidget::addItem(QString name,QString fileName,QString pkgName,c
 QList<DownloadItem *> DownloadListWidget::getDIList()
 {
     return downloaditemlist;
+}
+
+QList<QUrl> DownloadListWidget::getUrlList()
+{
+    return urList;
 }
 
 void DownloadListWidget::startRequest(QUrl url, QString fileName)
@@ -130,7 +131,6 @@ void DownloadListWidget::httpFinished() // 完成下载
     emit downloadFinished();
     if(nowDownload < allDownload)
     {
-
         // 如果有排队则下载下一个
         qDebug() << "切换下一个下载...";
         nowDownload += 1;
@@ -141,24 +141,6 @@ void DownloadListWidget::httpFinished() // 完成下载
         QString fileName = downloaditemlist[nowDownload - 1]->getName();
         startRequest(urList.at(nowDownload-1), fileName);
     }
-}
-
-int DownloadListWidget::isDownloading(QString url)
-{
-    int i = urList.indexOf(QUrl(url),0);
-    if(i == -1){
-        return 3;
-    }else if(i==nowDownload-1 && isdownload)
-    {
-        return 1;
-    }else if(i==nowDownload-1 && !isdownload)
-    {
-        return 2;
-    }else if(i<nowDownload-1)
-    {
-        return 2;
-    }
-    return 0;
 }
 
 void DownloadListWidget::updateDataReadProgress(QString speedInfo, qint64 bytesRead, qint64 totalBytes)

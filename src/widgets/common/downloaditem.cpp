@@ -36,6 +36,7 @@ void DownloadItem::setValue(qint64 value)
     ui->label_2->setText(QString::number(double(value) / 100) + "% (" + speed + ")");
     if(ui->label_2->text().left(4) == "100%")
     {
+        download = 1;
         ui->label_2->setText(tr("Download Complete."));
     }
 }
@@ -140,12 +141,14 @@ void DownloadItem::install(int t)
                 ui->pushButton_install->hide();
                 Utils::sendNotification("spark-store",tr("Spark Store"),ui->label->text() + " " + tr("Installation complete."));
                 ui->label_2->setText(tr("Finish"));
+                download = 3;
                 ui->pushButton_3->show();
             }
             else
             {
                 ui->pushButton_install->show();
                 ui->pushButton_install->setText(tr("Retry"));
+                download = 1;
                 Utils::sendNotification("spark-store",tr("Spark Store"),tr("Error happened in dpkg progress , you can try it again."));
                 ui->label_2->setText(tr("Error happened in dpkg progress , you can try it again"));
                 ui->pushButton_3->show();
@@ -176,6 +179,7 @@ void DownloadItem::on_pushButton_install_clicked()
 void DownloadItem::on_pushButton_2_clicked()
 {
     ui->label_2->setText(tr("Download canceled"));
+    download = 2;
     ui->pushButton_2->setEnabled(false);
     ui->progressBar->hide();
     close = true;

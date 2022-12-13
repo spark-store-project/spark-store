@@ -40,7 +40,7 @@ private:
     QJsonObject info;
     QPixmap iconpixmap;
     QUrl spk;
-    void isDownloading();
+    void isDownloading(QUrl url);
     void sltAppinfoTags(QStringList *tagList);
     DownloadListWidget *dw;
     Ui::AppIntoPage *ui;

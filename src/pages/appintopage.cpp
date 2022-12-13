@@ -51,7 +51,7 @@ void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
 {
     dw=w;
     connect(w, &DownloadListWidget::downloadFinished, [=]() {
-        isDownloading();
+        isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
     });
 }
 void AppIntoPage::openUrl(QUrl url)
@@ -144,7 +144,7 @@ void AppIntoPage::openUrl(QUrl url)
         else
         {
             ui->downloadButton->setText(tr("Download"));
-            isDownloading();
+            isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
             ui->downloadButton->setEnabled(true);
             ui->downloadButton->show();
         }
@@ -193,24 +193,36 @@ void AppIntoPage::openUrl(QUrl url)
     api1->getAppDownloadTimes(url);
 }
 
-void AppIntoPage::isDownloading()
+void AppIntoPage::isDownloading(QUrl url)
 {
-    switch (dw->isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())) {
-        case 3:{
-            ui->downloadButton->setEnabled(true);
-            ui->downloadButton->setText(tr("Download"));
-            break;
-        }
-        case 1:{
-            ui->downloadButton->setEnabled(false);
-            ui->downloadButton->setText(tr("Downloading"));
-            break;
-        }
-        case 2:{
-            ui->downloadButton->setEnabled(false);
-            ui->downloadButton->setText(tr("Downloaded"));
-            break;
-        }
+    if(dw->getUrlList().lastIndexOf(url) == -1)
+    {
+        ui->downloadButton->setEnabled(true);
+        return;
+    }else{
+        ui->downloadButton->setEnabled(false);
+    }
+    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 2)
+    {
+        ui->downloadButton->setEnabled(true);
+        ui->downloadButton->setText(tr("Download"));
+    }
+    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 1)
+    {
+        ui->downloadButton->setEnabled(true);
+        ui->downloadButton->setText(tr("Install"));
+    }
+    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->isInstall)
+    {
+        ui->downloadButton->setEnabled(false);
+        ui->downloadButton->setText(tr("Installing"));
+    }
+    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 3)
+    {
+        ui->downloadButton->setEnabled(true);
+        ui->downloadButton->setText(tr("Reinstall"));
+        ui->downloadButton->show();
+        ui->pushButton_3->show();
     }
 }
 
@@ -292,13 +304,20 @@ AppIntoPage::~AppIntoPage()
 
 void AppIntoPage::on_downloadButton_clicked()
 {
+    if(ui->downloadButton->text() == tr("Install"))
+    {
+        dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())]->install(0);
+        isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
+        return;
+    }
     emit clickedDownloadBtn();
     dw->addItem(info["Name"].toString(),info["Filename"].toString(),info["Pkgname"].toString(),iconpixmap,SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
     if(ui->downloadButton->text() == tr("Reinstall"))
     {
         dw->getDIList()[dw->allDownload - 1]->reinstall = true;
     }
-    isDownloading();
+    ui->downloadButton->setEnabled(false);
+    isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
 }
 
 void AppIntoPage::on_pushButton_3_clicked()

@@ -29,7 +29,7 @@ public:
     QString out;
     QString pkgName;
     bool close;
-
+    int download;
     void setValue(qint64);
     void setMax(qint64);
     void setName(QString);
