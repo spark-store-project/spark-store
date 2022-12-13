@@ -115,6 +115,33 @@ MainWindow::MainWindow(QWidget *parent)
                 i++;
             }
         }
+
+        for(int i = 0; i < ui->buttonGroup->buttons().length(); i++)
+        {
+            if(themeType == DGuiApplicationHelper::DarkType)
+            {
+                // 中文环境菜单文字居中，其他则左对齐
+                if(QLocale::system().name() == "zh_CN")
+                {
+                    ui->buttonGroup->buttons()[i]->setStyleSheet("color: #FFFFFF; border: 0px;");
+                }
+                else
+                {
+                    ui->buttonGroup->buttons()[i]->setStyleSheet("color: #FFFFFF; border: 0px; text-align: left; padding-left: 15px;");
+                }
+            }
+            else
+            {
+                if(QLocale::system().name() == "zh_CN")
+                {
+                    ui->buttonGroup->buttons()[i]->setStyleSheet("color: #252525; border: 0px;");
+                }
+                else
+                {
+                    ui->buttonGroup->buttons()[i]->setStyleSheet("color: #252525; border: 0px; text-align: left; padding-left: 15px;");
+                }
+            }
+        }
         ui->applistpage->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->applistpage_1->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->appintopage->setTheme(themeType == DGuiApplicationHelper::DarkType);
