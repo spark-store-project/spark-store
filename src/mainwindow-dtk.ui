@@ -157,7 +157,7 @@
          </size>
         </property>
         <property name="text">
-         <string>主页</string>
+         <string>Home</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -194,7 +194,7 @@
          </size>
         </property>
         <property name="text">
-         <string>网络</string>
+         <string>Network</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -222,7 +222,7 @@
          </size>
         </property>
         <property name="text">
-         <string>社交</string>
+         <string>Chat</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -250,7 +250,7 @@
          </size>
         </property>
         <property name="text">
-         <string>音乐</string>
+         <string>Music</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -278,7 +278,7 @@
          </size>
         </property>
         <property name="text">
-         <string>视频</string>
+         <string>Video</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -306,7 +306,7 @@
          </size>
         </property>
         <property name="text">
-         <string>图像</string>
+         <string>Picture</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -334,7 +334,7 @@
          </size>
         </property>
         <property name="text">
-         <string>游戏</string>
+         <string>Game</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -362,7 +362,7 @@
          </size>
         </property>
         <property name="text">
-         <string>办公</string>
+         <string>Office</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -390,7 +390,7 @@
          </size>
         </property>
         <property name="text">
-         <string>阅读</string>
+         <string>Reading</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -418,7 +418,7 @@
          </size>
         </property>
         <property name="text">
-         <string>开发</string>
+         <string>Development</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -446,7 +446,7 @@
          </size>
         </property>
         <property name="text">
-         <string>工具</string>
+         <string>Tool</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -474,7 +474,7 @@
          </size>
         </property>
         <property name="text">
-         <string>主题</string>
+         <string>Theme</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -502,7 +502,7 @@
          </size>
         </property>
         <property name="text">
-         <string>其他</string>
+         <string>Other</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -530,7 +530,7 @@
          </size>
         </property>
         <property name="text">
-         <string>更新</string>
+         <string>APP Upgrade</string>
         </property>
         <property name="checkable">
          <bool>false</bool>
