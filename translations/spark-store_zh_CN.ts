@@ -339,7 +339,7 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
         <source>Error happened in dpkg progress , you can try it again.</source>
-        <translation type="unfinished"></translation>
+        <translation>安装被中止，可重新安装。</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="150"/>
@@ -349,7 +349,7 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="156"/>
         <source>dpkg progress had been aborted，you can retry installation.</source>
-        <translation type="unfinished"></translation>
+        <translation>dpkg进程被中断，您可重试安装。</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="157"/>
