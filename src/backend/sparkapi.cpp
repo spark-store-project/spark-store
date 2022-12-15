@@ -6,7 +6,11 @@ QString SparkAPI::serverUrl = "";
 
 SparkAPI::SparkAPI(QObject *parent) : QObject(parent)
 {
-   SparkAPI::serverUrl = "https://cdn.d.store.deepinos.org.cn/";
+    QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
+    if(!readConfig.value("server/choose").toString().isEmpty() && readConfig.value("server/updated").toString() == "TRUE")
+    {
+        SparkAPI::setServerUrl(readConfig.value("server/choose").toString());
+    }
 }
 void SparkAPI::get(QUrl url)
 {

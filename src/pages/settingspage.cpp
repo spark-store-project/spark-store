@@ -6,6 +6,7 @@ SettingsPage::SettingsPage(QWidget *parent) :
     ui(new Ui::SettingsPage)
 {
     ui->setupUi(this);
+    configCanSave = false;
     initConfig();
 }
 
@@ -72,6 +73,7 @@ void SettingsPage::initConfig()
     QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
     if(!readConfig.value("server/choose").toString().isEmpty() && readConfig.value("server/updated").toString() == "TRUE")
     {
+        qDebug()<<readConfig.value("server/choose").toString();
         ui->comboBox_server->setCurrentText(readConfig.value("server/choose").toString());
         SparkAPI::setServerUrl(readConfig.value("server/choose").toString());
     }
@@ -104,7 +106,7 @@ void SettingsPage::on_pushButton_updateServer_clicked()
 void SettingsPage::on_comboBox_server_currentIndexChanged(const QString &arg1)
 {
     SparkAPI::setServerUrl(arg1);  // 服务器信息更新
-
+qDebug()<<arg1;
     const QString updatedInfo = "TRUE";
     if(configCanSave)
     {
