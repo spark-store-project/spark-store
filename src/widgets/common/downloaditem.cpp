@@ -165,7 +165,7 @@ void DownloadItem::install(int t)
             ui->widget_spinner->hide();
             DownloadItem::isInstall = false;
         });
-
+        emit finished();
         qDebug()<<ui->label_filename->text().toUtf8();
     }
 

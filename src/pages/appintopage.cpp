@@ -309,6 +309,10 @@ void AppIntoPage::on_downloadButton_clicked()
     {
         dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())]->install(0);
         isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
+        QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,[=](){
+            isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
+            disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr);
+        });
         return;
     }
     emit clickedDownloadBtn();
@@ -318,6 +322,10 @@ void AppIntoPage::on_downloadButton_clicked()
         dw->getDIList()[dw->allDownload - 1]->reinstall = true;
     }
     ui->downloadButton->setEnabled(false);
+    QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,[=](){
+        isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
+        disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr);
+    });
     isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
 }
 
