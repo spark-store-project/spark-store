@@ -762,7 +762,7 @@
                   </font>
                  </property>
                  <property name="text">
-                  <string>Description</string>
+                  <string>Introduction</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
