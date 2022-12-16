@@ -31,12 +31,20 @@ void AppListPage::getAppList(QString type)
     nowType=type;
     SparkAPI *api=new SparkAPI(this);
     QString url;
+    QString theme;
     if(isDark)
     {
-        url=api->getServerUrl()+"store/#/dark"+type;
+        theme="theme=dark";
     }else{
-        url=api->getServerUrl()+"store/#/"+type;
+        theme="theme=light";
     }
+    if(type=="")
+    {
+        url=api->getServerUrl()+"store/#/new/?"+theme;
+    }else{
+        url=api->getServerUrl()+"store/#/new/applist?type="+type+"&"+theme;
+    }
+
     ui->webEngineView->setUrl(url);
 }
 
@@ -46,12 +54,14 @@ void AppListPage::getSearchList(QString keyword)
     nowType=keyword;
     SparkAPI *api=new SparkAPI(this);
     QString url;
+    QString theme;
     if(isDark)
     {
-        url=api->getServerUrl()+"store/#/darksearch?keywords="+keyword;
+        theme="theme=dark";
     }else{
-        url=api->getServerUrl()+"store/#/search?keywords="+keyword;
+        theme="theme=light";
     }
+    url=api->getServerUrl()+"store/#/new/search?keywords="+keyword+"&"+theme;
     ui->webEngineView->setUrl(url);
 }
 
