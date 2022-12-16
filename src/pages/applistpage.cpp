@@ -40,9 +40,9 @@ void AppListPage::getAppList(QString type)
     }
     if(type=="")
     {
-        url=api->getServerUrl()+"store/#/new/?"+theme;
+        url=api->getServerUrl()+"store/#/flamescion/?"+theme;
     }else{
-        url=api->getServerUrl()+"store/#/new/applist?type="+type+"&"+theme;
+        url=api->getServerUrl()+"store/#/flamescion/applist?type="+type+"&"+theme;
     }
 
     ui->webEngineView->setUrl(url);
@@ -61,7 +61,7 @@ void AppListPage::getSearchList(QString keyword)
     }else{
         theme="theme=light";
     }
-    url=api->getServerUrl()+"store/#/new/search?keywords="+keyword+"&"+theme;
+    url=api->getServerUrl()+"store/#/flamescion/search?keywords="+keyword+"&"+theme;
     ui->webEngineView->setUrl(url);
 }
 
