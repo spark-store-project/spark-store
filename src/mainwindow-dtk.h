@@ -2,7 +2,6 @@
 #define MAINWINDOWDTK_H
 
 #include <DMainWindow>
-#include <DBlurEffectWidget>
 #include <DTitlebar>
 #include <DSearchEdit>
 #include <QGraphicsDropShadowEffect>
@@ -12,6 +11,7 @@
 #include <QDir>
 #include <QDesktopServices>
 
+#include "widgets/base/basewidgetopacity.h"
 #include "widgets/downloadlistwidget.h"
 #include "widgets/common/progressbutton.h"
 #include "utils/widgetanimation.h"
@@ -23,7 +23,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public DBlurEffectWidget
+class MainWindow : public BaseWidgetOpacity
 {
     Q_OBJECT
 
@@ -53,10 +53,6 @@ private slots:
     void onGetUrl(const QString &url);
     void on_pushButton_14_clicked();
 
-    // QWidget interface
-protected:
-    bool closeWindowAnimation = false;
-    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOWDTK_H

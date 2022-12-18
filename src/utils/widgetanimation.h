@@ -10,6 +10,8 @@ class WidgetAnimation
 public:
     WidgetAnimation();
     static void widgetShake(QWidget *pWidget, int nRange);
+
+    static QPropertyAnimation* createWidgetOpacity(QWidget *pWidget, bool isAppear);
     static void widgetOpacity(QWidget *pWidget, bool isAppear);
 };
 
