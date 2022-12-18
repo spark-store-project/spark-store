@@ -98,7 +98,7 @@ void SettingsPage::on_pushButton_updateServer_clicked()
         ui->pushButton_updateServer->setEnabled(true);
         ui->comboBox_server->setCurrentIndex(0);
 
-        readServerList();
+        initConfig();
     });
 }
 
