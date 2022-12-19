@@ -96,9 +96,8 @@ void SettingsPage::on_pushButton_updateServer_clicked()
         system("curl -o " + QDir::homePath().toUtf8() + "/.config/spark-store/server.list https://d.store.deepinos.org.cn/store/server-and-mirror.list");
 
         ui->pushButton_updateServer->setEnabled(true);
-        ui->comboBox_server->setCurrentIndex(0);
-
         readServerList();
+        ui->comboBox_server->setCurrentIndex(0);
     });
 }
 
