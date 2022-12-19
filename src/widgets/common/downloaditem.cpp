@@ -164,11 +164,11 @@ void DownloadItem::install(int t)
 
             ui->widget_spinner->hide();
             DownloadItem::isInstall = false;
+            emit finished();
         });
-        emit finished();
+        //        emit finished();
         qDebug()<<ui->label_filename->text().toUtf8();
     }
-
 }
 
 void DownloadItem::on_pushButton_install_clicked()
