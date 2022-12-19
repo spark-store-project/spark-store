@@ -13,6 +13,8 @@ BaseWidgetOpacity::BaseWidgetOpacity(QWidget *parent) : DBlurEffectWidget(parent
 void BaseWidgetOpacity::closeEvent(QCloseEvent *event)
 {
     if (!closeWindowAnimation) {
+        closeWindowAnimation = true;
+
         QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity");
         animation->setEasingCurve(QEasingCurve::OutQuart);
         animation->setDuration(500);
@@ -25,7 +27,6 @@ void BaseWidgetOpacity::closeEvent(QCloseEvent *event)
         });
 
         QObject::connect(animation, &QPropertyAnimation::finished, this, [=](){
-            closeWindowAnimation = true;
             this->close();
         });
 
