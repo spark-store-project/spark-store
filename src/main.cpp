@@ -13,7 +13,7 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "Version 4.0.0~test2";
+    static const QString version = "Version 4.0.0";
     static const QDate buildDate = QLocale( QLocale::English ).toDate( QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
      DAboutDialog dialog;
       a.setAboutDialog(&dialog);
       dialog.setLicense(QObject::tr("We publish this program under GPL V3"));
-      dialog.setVersion(DApplication::buildVersion(readConfig.value("build/version").toString()+"-"+readConfig.value("build/time").toString()));
+      dialog.setVersion(DApplication::buildVersion(readConfig.value("build/version").toString()+"-"+"Flamescion"+"-"+readConfig.value("build/time").toString()));
       dialog.setProductIcon(QIcon::fromTheme("spark-store"));  // 设置Logo
       dialog.setProductName(QLabel::tr("Spark Store"));
       dialog.setDescription(

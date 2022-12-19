@@ -25,7 +25,7 @@ void WidgetAnimation::widgetShake(QWidget *pWidget, int nRange)
     pAnimation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
-void WidgetAnimation::widgetOpacity(QWidget *pWidget, bool isAppear)
+QPropertyAnimation* WidgetAnimation::createWidgetOpacity(QWidget *pWidget, bool isAppear)
 {
     QPropertyAnimation *animation = new QPropertyAnimation(pWidget, "windowOpacity", pWidget);
     //设置动画效果
@@ -42,6 +42,11 @@ void WidgetAnimation::widgetOpacity(QWidget *pWidget, bool isAppear)
         animation->setKeyValueAt(0, 1);
         animation->setKeyValueAt(1, 0);
     }
+    return animation;
+}
+
+void WidgetAnimation::widgetOpacity(QWidget *pWidget, bool isAppear)
+{    
     // 开始动画
-    animation->start();
+    createWidgetOpacity(pWidget, isAppear)->start();
 }

@@ -58,7 +58,8 @@ SOURCES += \
         backend/downloadworker.cpp \
         pages/appintopage.cpp \
         widgets/big_image.cpp \
-        backend/image_show.cpp
+        backend/image_show.cpp \
+        widgets/base/basewidgetopacity.cpp
 
 HEADERS += \
         dbus/dbussparkstoreservice.h \
@@ -79,7 +80,8 @@ HEADERS += \
         backend/downloadworker.h \
         pages/appintopage.h \
         widgets/big_image.h \
-        backend/image_show.h
+        backend/image_show.h \
+        widgets/base/basewidgetopacity.h
 
 FORMS += \
         mainwindow-dtk.ui \

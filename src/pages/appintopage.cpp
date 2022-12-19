@@ -196,30 +196,28 @@ void AppIntoPage::openUrl(QUrl url)
 
 void AppIntoPage::isDownloading(QUrl url)
 {
-    if(dw->getUrlList().lastIndexOf(url) == -1)
-    {
+    if (dw->getUrlList().lastIndexOf(url) == -1) {
         ui->downloadButton->setEnabled(true);
         return;
-    }else{
+    } else {
         ui->downloadButton->setEnabled(false);
     }
-    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 2)
-    {
+
+    ui->pushButton_3->hide();
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 2) {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Download"));
     }
-    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 1)
-    {
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 1) {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Install"));
     }
-    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->isInstall)
-    {
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->isInstall) {
         ui->downloadButton->setEnabled(false);
         ui->downloadButton->setText(tr("Installing"));
+        return;
     }
-    if(dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 3)
-    {
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 3) {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Reinstall"));
         ui->downloadButton->show();
