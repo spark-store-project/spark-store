@@ -53,10 +53,14 @@ DownloadListWidget::DownloadListWidget(QWidget *parent) :
 
 DownloadListWidget::~DownloadListWidget()
 {
-    downloadController->stopDownload();
-    delete downloadController;
+    if (downloadController) {
+        downloadController->stopDownload();
+        downloadController->deleteLater();
+    }
+
     delete ui;
 }
+
 void DownloadListWidget::clearItem()
 {
     ui->listWidget->vScrollBar->scrollTop();
