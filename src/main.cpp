@@ -13,7 +13,7 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "Version 4.0.0";
+    static const QString version = "Version 4.0.1";
     static const QDate buildDate = QLocale( QLocale::English ).toDate( QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
 
@@ -29,11 +29,19 @@ int main(int argc, char *argv[])
     // 浏览器开启 GPU 支持
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blocklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode");
 
+    QVector<char*> fakeArgs(argc + 2);
+    fakeArgs[0] = argv[0];
+    fakeArgs[1] = "-platformtheme";
+    fakeArgs[2] = "deepin";
+    for(int i = 1; i < argc; i++) fakeArgs[i + 2] = argv[i];
+    int fakeArgc = argc + 2; // 为啥DApplication的argc要用引用啊？
+    DApplication a(fakeArgc, fakeArgs.data());
+
+
     //初始化日志模块 (默认日志位置 ~/.cache/deepin/spark-store)
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
-    DApplication a(argc, argv);
 
     //Wayland 环境下使用，防止子控件 Native 化
     if (!DPlatformWindowHandle::pluginVersion().isEmpty()) {
