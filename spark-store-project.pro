@@ -8,6 +8,7 @@ TARGET = spark-store
 TEMPLATE = subdirs
 
 CONFIG += ordered
+CONFIG += wayland-compositor
 
 SUBDIRS += \
         src/spark-dstore-patch \

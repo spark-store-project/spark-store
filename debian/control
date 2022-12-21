@@ -15,7 +15,9 @@ Build-Depends:
  libdtkgui-dev(>=5.0),
  libdtkwidget-dev(>=5.0),
  qttools5-private-dev,
- qtwebengine5-dev
+ qtwebengine5-dev,
+ qtwayland5,
+ qtwayland5-dev-tools
 Standards-Version: 3.0
 Homepage: https://www.spark-app.store/
 
