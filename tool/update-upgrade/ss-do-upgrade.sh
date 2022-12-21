@@ -57,7 +57,7 @@ done`
 	if [ -z "$PKG_UPGRADE_LIST" ] ; then
 		zenity --info --text "没有软件需要更新\n但是你并没有站在世界之巅" --title "星火商店更新检测服务" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 	else
-		PKG_UPGRADE_LIST=$(echo "$PKG_UPGRADE_LIST" | zenity --list --text="选择你想更新的应用" --column="是否更新" --column="包名" --column="新版本" --column="从该版本更新" --separator=" " --checklist --multiple --print-column=4 --height 350 --width 550 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg)
+		PKG_UPGRADE_LIST=$(echo "$PKG_UPGRADE_LIST" | zenity --list --text="选择你想更新的应用" --column="是否更新" --column="包名" --column="新版本" --column="从该版本更新" --separator=" " --checklist --multiple --print-column=2 --height 350 --width 550 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg)
 		## 如果没有选择，则直接退出
 		if [ -z "$PKG_UPGRADE_LIST" ] ; then
 			zenity --info --text "没有选中任何软件\n但是你并没有站在世界之巅" --title "星火商店更新检测服务" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
