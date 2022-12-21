@@ -13,7 +13,7 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "Version 4.0.1";
+    static const QString version = "Version 4.1.0";
     static const QDate buildDate = QLocale( QLocale::English ).toDate( QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
 
