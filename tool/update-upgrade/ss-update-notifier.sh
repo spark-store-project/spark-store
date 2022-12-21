@@ -12,7 +12,7 @@ function notify-send() {
     # Detect uid of the user
     local uid=$(id -u $user)
 
-    su -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus notify-send "$@"
+    sudo -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus notify-send "$@"
 }
 
 # 检测网络链接畅通
