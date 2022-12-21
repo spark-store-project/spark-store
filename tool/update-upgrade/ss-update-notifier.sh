@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 LANG=en.US
 
 function notify-send() {
@@ -48,18 +47,11 @@ fi
 
 curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
 # 每日更新星火源文件
-mkdir -p /etc/apt/preferences.d
-touch /etc/apt/preferences.d/sparkstore
-cat << EOF >/etc/apt/preferences.d/sparkstore
-Package: *
-Pin: origin *.deepinos.org.cn
-Pin-Priority: 100
 
-EOF
 
 updatetext=`aptss ssupdate`
 
-rm /etc/apt/preferences.d/sparkstore
+
 
 
 isupdate=`echo ${updatetext: -5}`
@@ -72,24 +64,43 @@ update_app_number=`echo ${updatetext%package*} #从右向左截取第一个 src 
 update_app_number=`echo ${update_app_number##*information...}`
 
 
-PKG_LIST="$(bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt list --upgradable -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"     -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" | awk 'BEGIN {FS="/"} {print $1}' | awk NR\>1)" 
+PKG_LIST="$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgradable-list)"
 
 
 
-for PKG_NAME in $PKG_LIST;do
-if [ "$(dpkg-query -W -f='${Status}' $PKG_NAME | grep hold)" != "" ];then
-       let update_app_number=$update_app_number-1
-	echo $update_app_number
-	echo $PKG_NAME 
-fi
+## 指定分隔符为 \n
+	IFS_OLD="$IFS"
+	IFS=$'\n'
+
+	## 获取用户选择的要更新的应用
+for line in $PKG_LIST ; do
+
+	PKG_NAME=$(echo $line | awk -F ' ' '{print $1}')
+	PKG_NEW_VER=$(echo $line | awk -F ' ' '{print $2}')
+	PKG_CUR_VER=$(echo $line | awk -F ' ' '{print $3}')
+
+
+	dpkg --compare-versions $PKG_NEW_VER le $PKG_CUR_VER
+
+	if [ $? -eq 0 ] ; then
+		let update_app_number=$update_app_number-1
+		continue
+	fi
+
+	### 检测是否是 hold 状态
+	PKG_STA=$(dpkg-query -W -f='${db:Status-Want}' $PKG_NAME)
+	if [ "$PKG_STA" = "hold" ] ; then	
+	let update_app_number=$update_app_number-1
+	fi
 done
 
 
 
-if [ $update_app_number -lt 1 ];then
+
+if [ $update_app_number -le 0 ];then
 exit
 fi
-#### 如果都是hold的那就直接退出，否则把剩余的给提醒了
+#### 如果都是hold或者版本一致的那就直接退出，否则把剩余的给提醒了
 
 notify-send -i spark-store "星火更新提醒" "星火商店仓库中有$update_app_number个软件包可以更新啦！请到星火商店的菜单处理"
 
