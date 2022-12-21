@@ -1,3 +1,9 @@
+spark-store (4.1.0) stable; urgency=medium
+
+  * feat: 现在可以支持UOS签名包问题了
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.0.1) stable; urgency=medium
 
   * feat: 提升Ubuntu下的显示效果
