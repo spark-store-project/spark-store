@@ -7,6 +7,8 @@
 #include <DAboutDialog>
 #include <QLabel>
 #include <DWidgetUtil>
+#include <DSysInfo>
+
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
@@ -21,10 +23,28 @@ int main(int argc, char *argv[])
     if (!QString(qgetenv("XDG_CURRENT_DESKTOP")).toLower().startsWith("deepin")) {
         setenv("XDG_CURRENT_DESKTOP", "Deepin", 1);
     }
+    bool isWayland = false;
+    auto e = QProcessEnvironment::systemEnvironment();
+    QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
+    QString WAYLAND_DISPLAY = e.value(QStringLiteral("WAYLAND_DISPLAY"));
+    if (XDG_SESSION_TYPE == QLatin1String("wayland") || WAYLAND_DISPLAY.contains(QLatin1String("wayland"), Qt::CaseInsensitive)){
+        isWayland = true;
+    }
+    qDebug() << "Wayland enabled:" << isWayland;
+
+    if(isWayland && !Dtk::Core::DSysInfo::isDDE()){
+        qputenv("QT_QPA_PLATFORM", "wayland");
+
+    }
+    else if (isWayland && Dtk::Core::DSysInfo::isDDE()){
+        qputenv("QT_QPA_PLATFORM", "dwayland");
+    }
+    else {
+        qputenv("QT_QPA_PLATFORM", "dxcb");
+    }
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling); // 开启 Hidpi 支持
-#ifndef DSTORE_NO_DXCBs
-    DApplication::loadDXcbPlugin(); // 加载 DXCB 插件
-#endif
+
+
 
     // 浏览器开启 GPU 支持
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blocklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode");
@@ -48,7 +68,7 @@ int main(int argc, char *argv[])
         a.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);
     }
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-    a.loadDXcbPlugin();
+    a.setApplicationDisplayName("Spark Store");
 
     a.loadTranslator(); // 载入翻译
 
@@ -125,6 +145,7 @@ int main(int argc, char *argv[])
         w.openUrl(QUrl(argv[1]));
     }
     w.show();
+    w.setWindowTitle("Spark Store");
 
     return a.exec();
 }
