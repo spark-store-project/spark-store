@@ -69,8 +69,13 @@ int main(int argc, char *argv[])
 
     QVector<char *> fakeArgs(argc + 2);
     fakeArgs[0] = argv[0];
-    fakeArgs[1] = "-platformtheme";
-    fakeArgs[2] = "deepin";
+    QString fakeArgs1 = "-platformtheme";
+    QByteArray fakeArgsTemp = fakeArgs1.toLatin1(); // must
+    fakeArgs[1] = fakeArgsTemp.data();
+    fakeArgs1 = "deepin";
+    fakeArgsTemp = fakeArgs1.toLatin1(); // must
+    fakeArgs[2] = fakeArgsTemp.data();
+
     for (int i = 1; i < argc; i++)
         fakeArgs[i + 2] = argv[i];
     int fakeArgc = argc + 2; // DApplication的argc要用引用，避免c++编译器优化
