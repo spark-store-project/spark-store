@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
     static const QString version = "Version 4.1.1";
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
+    QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
+    QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
 
     // 设置桌面环境环境变量
     bool isDeepinOS = true;
@@ -30,11 +32,22 @@ int main(int argc, char *argv[])
     auto e = QProcessEnvironment::systemEnvironment();
     QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
     QString WAYLAND_DISPLAY = e.value(QStringLiteral("WAYLAND_DISPLAY"));
+
     if (XDG_SESSION_TYPE == QLatin1String("wayland") || WAYLAND_DISPLAY.contains(QLatin1String("wayland"), Qt::CaseInsensitive))
     {
         isWayland = true;
     }
-    qDebug() << "Wayland enabled:" << isWayland;
+    setConfig->setValue("build/isWayland", isWayland);
+    setConfig->setValue("build/isDeepinOS", isDeepinOS);
+
+    // Check config file, if there is no wayland config, then set it to default, which means use wayland if possible.
+    if (!readConfig.contains("build/useWayland"))
+    {
+        setConfig->setValue("build/useWayland", true);
+    }
+
+    bool useWayland = readConfig.value("build/useWayland").toBool();
+    qDebug() << "System Wayland enabled:" << isWayland << ". Spark Wayland enabled:" << useWayland;
 
     // Set display backend
     if (isWayland && useWayland && !(Dtk::Core::DSysInfo::isDDE() || isDeepinOS))
@@ -77,16 +90,13 @@ int main(int argc, char *argv[])
 
     a.loadTranslator(); // 载入翻译
 
-    QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
-
     if (readConfig.value("build/version").toString() != version)
     {
         qDebug() << "Spark Store has been updated!";
-        QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
         setConfig->setValue("build/version", version);
         setConfig->setValue("build/time", buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString());
-        setConfig->deleteLater();
     }
+    setConfig->deleteLater();
 
     // Customized DAboutDialog
 

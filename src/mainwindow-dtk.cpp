@@ -3,6 +3,7 @@
 
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
+#include <DApplicationSettings>
 #include <QSizePolicy>
 
 #define AppPageApplist 0
@@ -63,8 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
                 {
                     qDebug() << "投稿器不存在，跳转页面";
                     openUrl(submitterSpk);
-                }
-            });
+                } });
 
     // 主题切换
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType)
@@ -153,6 +153,10 @@ MainWindow::MainWindow(QWidget *parent)
     downloadlistwidget->hide();
     backButtom->hide();
     ui->titlebar->setIcon(QIcon::fromTheme(":/icon/logo.svg"));
+
+    // Check wayland configs
+    QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
+
     QWidget *w_titlebar = new QWidget(ui->titlebar);
     QHBoxLayout *ly_titlebar = new QHBoxLayout(w_titlebar);
     QLabel *title = new QLabel(this);
@@ -160,7 +164,16 @@ MainWindow::MainWindow(QWidget *parent)
     searchEdit->setPlaceholderText(tr("Search or enter spk://"));
     ly_titlebar->addWidget(title);
     ly_titlebar->addWidget(backButtom);
-    ly_titlebar->addStretch(2.5);
+
+    if (!readConfig.value("build/isDeepinOS").toBool() && readConfig.value("build/useWayland").toBool())
+    {
+        ly_titlebar->addStretch(1);
+    }
+    else
+    {
+        ly_titlebar->addStretch(2);
+    }
+
     ly_titlebar->addWidget(searchEdit);
     ly_titlebar->addWidget(downloadButton);
     ly_titlebar->addStretch(1);
