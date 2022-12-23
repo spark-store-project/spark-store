@@ -20,9 +20,11 @@ int main(int argc, char *argv[])
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
 
     // 设置桌面环境环境变量
+    bool isDeepinOS = true;
     if (!QString(qgetenv("XDG_CURRENT_DESKTOP")).toLower().startsWith("deepin"))
     {
         setenv("XDG_CURRENT_DESKTOP", "Deepin", 1);
+        isDeepinOS = false;
     }
     bool isWayland = false;
     auto e = QProcessEnvironment::systemEnvironment();
@@ -34,11 +36,12 @@ int main(int argc, char *argv[])
     }
     qDebug() << "Wayland enabled:" << isWayland;
 
-    if (isWayland && !Dtk::Core::DSysInfo::isDDE())
+    // Set display backend
+    if (isWayland && useWayland && !(Dtk::Core::DSysInfo::isDDE() || isDeepinOS))
     {
         qputenv("QT_QPA_PLATFORM", "wayland");
     }
-    else if (isWayland && Dtk::Core::DSysInfo::isDDE())
+    else if (isWayland && useWayland && (Dtk::Core::DSysInfo::isDDE() && isDeepinOS))
     {
         qputenv("QT_QPA_PLATFORM", "dwayland");
     }
