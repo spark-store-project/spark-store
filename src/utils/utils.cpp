@@ -2,18 +2,17 @@
 
 Utils::Utils()
 {
-
 }
 
-//这个函数是chatGPT写的
-void Utils::sendNotification(QString icon,QString title,QString body)
+// Author: chatGPT
+void Utils::sendNotification(QString icon, QString title, QString body)
 {
     QDBusInterface iface("org.freedesktop.Notifications",
                          "/org/freedesktop/Notifications",
                          "org.freedesktop.Notifications");
 
     QVariantList args;
-    args << QCoreApplication::applicationName()  // the name of the application
+    args << QCoreApplication::applicationName() // the name of the application
          << (uint)0                             // replaces the previous notification with the same ID
          << icon                                // the application icon of the notification
          << title                               // the title of the notification

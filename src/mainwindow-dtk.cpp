@@ -11,14 +11,13 @@
 #define AppPageSettings 3
 
 MainWindow::MainWindow(QWidget *parent)
-    : BaseWidgetOpacity(parent)
-    , ui(new Ui::MainWindow)
+    : BaseWidgetOpacity(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     initConfig();
-    moveToCenter(this); //让窗口居中显示
+    moveToCenter(this); // 让窗口居中显示
 
-    WidgetAnimation::widgetOpacity(this,true);
+    WidgetAnimation::widgetOpacity(this, true);
 
     downloadlistwidget = new DownloadListWidget;
     downloadButton = new ProgressButton(ui->titlebar);
@@ -26,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->appintopage->setDownloadWidget(downloadlistwidget);
     ui->stackedWidget->setCurrentIndex(0);
     ui->titlebar->setBackgroundTransparent(true);
-    //ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
+    // ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
     setMaskAlpha(250);
 
     updateUi(0);
@@ -42,32 +41,34 @@ MainWindow::MainWindow(QWidget *parent)
     menu->addAction(actionSubmissionWithClient);
 
     ui->titlebar->setMenu(menu);
-    connect(actionSubmission, &QAction::triggered, this, [=]{QDesktopServices::openUrl(QUrl("https://upload.deepinos.org/"));});
-    connect(setting, &QAction::triggered, this, [=]{
+    connect(actionSubmission, &QAction::triggered, this, [=]
+            { QDesktopServices::openUrl(QUrl("https://upload.deepinos.org/")); });
+    connect(setting, &QAction::triggered, this, [=]
+            {
         switchPage(AppPageSettings);
-        ui->settingspage->updateUI();
-    });
-    connect(upgrade, &QAction::triggered, this, [=]{QProcess::startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh");});
+        ui->settingspage->updateUI(); });
+    connect(upgrade, &QAction::triggered, this, [=]
+            { QProcess::startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh"); });
     // 投稿器
     connect(actionSubmissionWithClient, &QAction::triggered, this, [=]
-        {
-            QString submitterSpk = "spk://store/tools/spark-store-submitter";
-            QFile actionSubmissionClientStatus("/opt/spark-store-submitter/bin/spark-store-submitter");
-            if (actionSubmissionClientStatus.exists())
             {
-                qDebug() << "投稿器存在";
-                QProcess::startDetached("/opt/spark-store-submitter/bin/spark-store-submitter");
-            }
-            else{
-                qDebug() << "投稿器不存在，跳转页面";
-                openUrl(submitterSpk);
-            }
+                QString submitterSpk = "spk://store/tools/spark-store-submitter";
+                QFile actionSubmissionClientStatus("/opt/spark-store-submitter/bin/spark-store-submitter");
+                if (actionSubmissionClientStatus.exists())
+                {
+                    qDebug() << "投稿器存在";
+                    QProcess::startDetached("/opt/spark-store-submitter/bin/spark-store-submitter");
+                }
+                else
+                {
+                    qDebug() << "投稿器不存在，跳转页面";
+                    openUrl(submitterSpk);
+                }
+            });
 
-        });
-
-
-    //主题切换
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType) {
+    // 主题切换
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType)
+            {
         if (themeType == DGuiApplicationHelper::DarkType) {
             //深色模式
             setMaskColor(QColor("#2a2b2b"));
@@ -123,32 +124,32 @@ MainWindow::MainWindow(QWidget *parent)
         ui->applistpage->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->applistpage_1->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->appintopage->setTheme(themeType == DGuiApplicationHelper::DarkType);
-        ui->settingspage->setTheme(themeType == DGuiApplicationHelper::DarkType);
-    });
+        ui->settingspage->setTheme(themeType == DGuiApplicationHelper::DarkType); });
 
-    //初始化标题栏控件
-    connect(downloadButton, &ProgressButton::clicked, [=]() {
+    // 初始化标题栏控件
+    connect(downloadButton, &ProgressButton::clicked, [=]()
+            {
         QPoint pos;
         pos.setX(downloadButton->mapToGlobal(QPoint(0, 0)).x() + downloadButton->width() / 2 - downloadlistwidget->width() / 2);
         pos.setY(downloadButton->mapToGlobal(QPoint(0, 0)).y() + downloadButton->height() + 5);
         downloadlistwidget->m_move(pos.x(), pos.y());
-        downloadlistwidget->show();
-    });
+        downloadlistwidget->show(); });
 
-    //appintopage按下下载按钮时标题栏下载列表按钮抖动
-    connect(ui->appintopage, &AppIntoPage::clickedDownloadBtn, [=]() {
-        WidgetAnimation::widgetShake(downloadButton,6);//第一个参数是抖动的控件，第二个参数是抖动范围（像素）
-    });
+    // appintopage按下下载按钮时标题栏下载列表按钮抖动
+    connect(ui->appintopage, &AppIntoPage::clickedDownloadBtn, [=]()
+            {
+                WidgetAnimation::widgetShake(downloadButton, 6); // 第一个参数是抖动的控件，第二个参数是抖动范围（像素）
+            });
 
-    connect(backButtom, &QPushButton::clicked, [=]() {
+    connect(backButtom, &QPushButton::clicked, [=]()
+            {
         ui->stackedWidget->setCurrentIndex(pageHistory.at(pageHistory.count() - 2));
         pageHistory.removeLast();
         if (pageHistory.count() > 1) {
             backButtom->show();
         } else {
             backButtom->hide();
-        }
-    });
+        } });
     downloadlistwidget->hide();
     backButtom->hide();
     ui->titlebar->setIcon(QIcon::fromTheme(":/icon/logo.svg"));
@@ -164,21 +165,23 @@ MainWindow::MainWindow(QWidget *parent)
     ly_titlebar->addWidget(downloadButton);
     ly_titlebar->addStretch(1);
     ui->titlebar->setCustomWidget(w_titlebar);
-    //侧边栏按钮
+    // 侧边栏按钮
     int i = 0;
-    while (i < ui->buttonGroup->buttons().size()) {
+    while (i < ui->buttonGroup->buttons().size())
+    {
         ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{qproperty-icon: url(data/images/userMangaer/teacher.png);}");
-        connect(ui->buttonGroup->buttons()[i], &QPushButton::toggled, [=](bool checked) {
+        connect(ui->buttonGroup->buttons()[i], &QPushButton::toggled, [=](bool checked)
+                {
             if (checked == true) {
                 searchEdit->clearEdit();
                 updateUi(i);
-            }
-        });
+            } });
         i++;
     }
 
     // 搜索事件
-    connect(searchEdit, &DSearchEdit::returnPressed, this, [=]() {
+    connect(searchEdit, &DSearchEdit::returnPressed, this, [=]()
+            {
         QString searchtext = searchEdit->text();
         if (!searchtext.isEmpty()) {
             if (searchtext.startsWith("spk://")) {
@@ -189,22 +192,17 @@ MainWindow::MainWindow(QWidget *parent)
                 switchPage(AppPageSearchlist);
             }
         }
-        this->setFocus();
-    });
+        this->setFocus(); });
 
-    connect(downloadlistwidget, &DownloadListWidget::downloadProgress, this, [=](int i) {
-        downloadButton->setProgress(i);
-    });
+    connect(downloadlistwidget, &DownloadListWidget::downloadProgress, this, [=](int i)
+            { downloadButton->setProgress(i); });
     // 列表点击事件
-    connect(ui->applistpage, &AppListPage::clicked, this, [=](QUrl spk) {
-        openUrl(spk);
-    });
-    connect(ui->applistpage_1, &AppListPage::clicked, this, [=](QUrl spk) {
-        openUrl(spk);
-    });
-    connect(ui->settingspage, &SettingsPage::openUrl, this, [=](QUrl spk) {
-        openUrl(spk);
-    });
+    connect(ui->applistpage, &AppListPage::clicked, this, [=](QUrl spk)
+            { openUrl(spk); });
+    connect(ui->applistpage_1, &AppListPage::clicked, this, [=](QUrl spk)
+            { openUrl(spk); });
+    connect(ui->settingspage, &SettingsPage::openUrl, this, [=](QUrl spk)
+            { openUrl(spk); });
     emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
 
     initDbus();
@@ -223,12 +221,12 @@ void MainWindow::initDbus()
 
     QDBusConnection::sessionBus().registerService("com.gitee.spark.store");
     QDBusConnection::sessionBus().registerObject("/com/gitee/spark/store", "com.gitee.spark.store", this);
-    connect(dbusInter,&DBusSparkStoreService::sigOpenUrl,this,&MainWindow::onGetUrl);
+    connect(dbusInter, &DBusSparkStoreService::sigOpenUrl, this, &MainWindow::onGetUrl);
 }
 
 void MainWindow::onGetUrl(const QString &url)
 {
-    if(url.left(6)=="spk://")
+    if (url.left(6) == "spk://")
     {
         openUrl(QUrl(url));
     }
@@ -237,11 +235,14 @@ void MainWindow::onGetUrl(const QString &url)
 
 void MainWindow::openUrl(QUrl url)
 {
-    if (url.toString().startsWith("spk://")) {
-        ui->appintopage->openUrl(QUrl(url.toString().replace("+","%2B")));
+    if (url.toString().startsWith("spk://"))
+    {
+        ui->appintopage->openUrl(QUrl(url.toString().replace("+", "%2B")));
         switchPage(AppPageAppdetail);
-    } else {
-        QDesktopServices::openUrl(QUrl(url.toString().replace("+","%2B")));
+    }
+    else
+    {
+        QDesktopServices::openUrl(QUrl(url.toString().replace("+", "%2B")));
     }
 }
 
@@ -252,50 +253,54 @@ void MainWindow::initConfig()
     dir.mkpath("/tmp/spark-store");
 }
 
-void MainWindow::switchPage(int now) //临时方案，回家后修改
+void MainWindow::switchPage(int now) // 临时方案，回家后修改
 {
     qDebug() << pageHistory.count();
-    if (pageHistory.count() >= 1) {
+    if (pageHistory.count() >= 1)
+    {
         backButtom->show();
-    } else {
+    }
+    else
+    {
         backButtom->hide();
     }
     ui->stackedWidget->setCurrentIndex(now);
     pageHistory << now;
 }
 
-//刷新界面
+// 刷新界面
 void MainWindow::updateUi(int now)
 {
     pageHistory.clear();
-        QStringList itemlist;
-        itemlist << ""
-                 << "network"
-                 << "chat"
-                 << "music"
-                 << "video"
-                 << "image_graphics"
-                 << "games"
-                 << "office"
-                 << "reading"
-                 << "development"
-                 << "tools"
-                 << "themes"
-                 << "others";
-        ui->applistpage->getAppList(itemlist[now]);
-        qDebug() << itemlist[now];
-        switchPage(AppPageApplist);
+    QStringList itemlist;
+    itemlist << ""
+             << "network"
+             << "chat"
+             << "music"
+             << "video"
+             << "image_graphics"
+             << "games"
+             << "office"
+             << "reading"
+             << "development"
+             << "tools"
+             << "themes"
+             << "others";
+    ui->applistpage->getAppList(itemlist[now]);
+    qDebug() << itemlist[now];
+    switchPage(AppPageApplist);
 }
 
 void MainWindow::on_pushButton_14_clicked()
 {
     QFile upgradeStatus("/tmp/spark-store/upgradeStatus.txt");
-    if (!upgradeStatus.exists()){
-        QtConcurrent::run([=]{
+    if (!upgradeStatus.exists())
+    {
+        QtConcurrent::run([=]
+                          {
             auto upgradeP = new QProcess();
             upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
             upgradeP->waitForStarted();
-            upgradeP->waitForFinished(-1);
-        });
+            upgradeP->waitForFinished(-1); });
     }
 }

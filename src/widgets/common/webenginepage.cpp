@@ -13,7 +13,8 @@ WebEnginePage::~WebEnginePage()
 
 void WebEnginePage::setUrl(const QUrl &url)
 {
-    if (m_currentUrl == url) {
+    if (m_currentUrl == url)
+    {
         return;
     }
 
@@ -32,7 +33,8 @@ QWebEnginePage *WebEnginePage::createWindow(QWebEnginePage::WebWindowType type)
 
 void WebEnginePage::slotUrlChanged(const QUrl &url)
 {
-    if (m_currentUrl == url) {
+    if (m_currentUrl == url)
+    {
         sender()->deleteLater();
         return;
     }

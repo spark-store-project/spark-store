@@ -3,23 +3,22 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 #include <QDebug>
-DownloadListWidget::DownloadListWidget(QWidget *parent) :
-    DBlurEffectWidget(parent),
-    ui(new Ui::DownloadListWidget)
+DownloadListWidget::DownloadListWidget(QWidget *parent) : DBlurEffectWidget(parent),
+                                                          ui(new Ui::DownloadListWidget)
 {
     ui->setupUi(this);
     installEventFilter(this);
-    this->setAttribute(Qt::WA_Hover,true);
+    this->setAttribute(Qt::WA_Hover, true);
     setFocus();
-    setFixedSize(500,400);
+    setFixedSize(500, 400);
     setMaskAlpha(250);
     ui->listWidget->hide();
     ui->widget->show();
     // 计算显示下载速度
     download_speed.setInterval(1000);
     download_speed.start();
-    connect(&download_speed,&QTimer::timeout,[=]()
-    {
+    connect(&download_speed, &QTimer::timeout, [=]()
+            {
         if(isdownload && theSpeed == "")
         {
             size1 = download_size;
@@ -47,13 +46,13 @@ DownloadListWidget::DownloadListWidget(QWidget *parent) :
             downloaditemlist[nowDownload - 1]->setSpeed(theSpeed);
         }else{
             emit downloadProgress(0);
-        }
-    });
+        } });
 }
 
 DownloadListWidget::~DownloadListWidget()
 {
-    if (downloadController) {
+    if (downloadController)
+    {
         downloadController->stopDownload();
         downloadController->deleteLater();
     }
@@ -64,41 +63,41 @@ DownloadListWidget::~DownloadListWidget()
 void DownloadListWidget::clearItem()
 {
     ui->listWidget->vScrollBar->scrollTop();
-    int n=ui->listWidget->count();
-    for(int i=0;i<n;i++)
+    int n = ui->listWidget->count();
+    for (int i = 0; i < n; i++)
     {
         QListWidgetItem *item = ui->listWidget->takeItem(0);
         QWidget *card = ui->listWidget->itemWidget(item);
         delete card;
-        card  = NULL;
+        card = NULL;
         delete item;
-        item  = NULL;
+        item = NULL;
     }
     ui->listWidget->clear();
 }
-void DownloadListWidget::addItem(QString name,QString fileName,QString pkgName,const QPixmap icon,QString downloadurl)
+void DownloadListWidget::addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl)
 {
-    if(fileName.isEmpty())
+    if (fileName.isEmpty())
     {
         return;
     }
     urList.append(downloadurl);
     allDownload += 1;
-    DownloadItem *di=new DownloadItem(this);
-    dlist<<downloadurl;
-    downloaditemlist<<di;
+    DownloadItem *di = new DownloadItem(this);
+    dlist << downloadurl;
+    downloaditemlist << di;
     di->setName(name);
     di->setFileName(fileName);
-    di->pkgName=pkgName;
+    di->pkgName = pkgName;
     di->seticon(icon);
-    QListWidgetItem* pItem = new QListWidgetItem();
+    QListWidgetItem *pItem = new QListWidgetItem();
     pItem->setSizeHint(QSize(240, 50));
     ui->listWidget->addItem(pItem);
     ui->listWidget->setItemWidget(pItem, di);
-    if(!isBusy)
+    if (!isBusy)
     {
         nowDownload += 1;
-        startRequest(urList.at(nowDownload - 1), fileName);     // 进行链接请求
+        startRequest(urList.at(nowDownload - 1), fileName); // 进行链接请求
     }
 }
 
@@ -120,10 +119,10 @@ void DownloadListWidget::startRequest(QUrl url, QString fileName)
     isdownload = true;
     downloaditemlist[allDownload - 1]->free = false;
 
-    downloadController = new DownloadController(this);  // 并发下载，在点击下载按钮的时候才会初始化
+    downloadController = new DownloadController(this); // 并发下载，在点击下载按钮的时候才会初始化
     connect(downloadController, &DownloadController::downloadProcess, this, &DownloadListWidget::updateDataReadProgress);
     connect(downloadController, &DownloadController::downloadFinished, this, &DownloadListWidget::httpFinished);
-    //connect(downloadController, &DownloadController::errorOccur, this, [=](QString msg){this->sendNotification(msg);});
+    // connect(downloadController, &DownloadController::errorOccur, this, [=](QString msg){this->sendNotification(msg);});
     downloadController->setFilename(fileName);
     downloadController->startDownload(url.toString());
 }
@@ -135,37 +134,37 @@ void DownloadListWidget::httpFinished() // 完成下载
     downloaditemlist[nowDownload - 1]->readyInstall();
     downloaditemlist[nowDownload - 1]->free = true;
     emit downloadFinished();
-    if(nowDownload < allDownload)
+    if (nowDownload < allDownload)
     {
         // 如果有排队则下载下一个
         qDebug() << "切换下一个下载...";
         nowDownload += 1;
-        while(downloaditemlist[nowDownload - 1]->close)
+        while (downloaditemlist[nowDownload - 1]->close)
         {
             nowDownload += 1;
-            if(nowDownload >= allDownload)
+            if (nowDownload >= allDownload)
             {
                 nowDownload = allDownload;
                 return;
             }
         }
         QString fileName = downloaditemlist[nowDownload - 1]->getName();
-        startRequest(urList.at(nowDownload-1), fileName);
+        startRequest(urList.at(nowDownload - 1), fileName);
     }
 }
 
 void DownloadListWidget::updateDataReadProgress(QString speedInfo, qint64 bytesRead, qint64 totalBytes)
 {
-    if(totalBytes <= 0)
+    if (totalBytes <= 0)
     {
         return;
     }
     theSpeed = speedInfo;
-    downloaditemlist[nowDownload - 1]->setMax(10000);   // 最大值
-    downloaditemlist[nowDownload - 1]->setValue(int(bytesRead * 100 / totalBytes) * 100);  // 当前值
+    downloaditemlist[nowDownload - 1]->setMax(10000);                                     // 最大值
+    downloaditemlist[nowDownload - 1]->setValue(int(bytesRead * 100 / totalBytes) * 100); // 当前值
     emit downloadProgress(int(bytesRead * 100 / totalBytes));
     download_size = bytesRead;
-    if(downloaditemlist[nowDownload - 1]->close)
+    if (downloaditemlist[nowDownload - 1]->close)
     {
         // 随时检测下载是否被取消
         downloadController->disconnect();
@@ -175,21 +174,23 @@ void DownloadListWidget::updateDataReadProgress(QString speedInfo, qint64 bytesR
     }
 }
 
-
-void DownloadListWidget::m_move(int x,int y)
+void DownloadListWidget::m_move(int x, int y)
 {
     m_rect.setX(x);
     m_rect.setY(y);
-    move(x,y);
+    move(x, y);
     return;
 }
 bool DownloadListWidget::eventFilter(QObject *watched, QEvent *event)
 {
-    if (Q_NULLPTR == watched) {
+    if (Q_NULLPTR == watched)
+    {
         return false;
     }
-    if (QEvent::ActivationChange == event->type()) {
-        if(QApplication::activeWindow() != this){
+    if (QEvent::ActivationChange == event->type())
+    {
+        if (QApplication::activeWindow() != this)
+        {
             this->close();
         }
     }

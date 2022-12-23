@@ -30,7 +30,6 @@ void DownloadController::setFilename(QString filename)
     this->filename = filename;
 }
 
-
 bool checkMeatlink(QString metaUrl)
 {
     QFile metaStatus("/tmp/spark-store/metaStatus.txt");
