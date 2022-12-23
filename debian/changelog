@@ -1,3 +1,12 @@
+spark-store (4.1.2) stable; urgency=medium
+
+  * feat: 初步的wayland支持
+  * fix: 首页的捐赠页面在中文环境下显示中文
+  * chore: 新增编译依赖
+
+-- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
+
 spark-store (4.1.1) stable; urgency=medium
 
   * fix:更新失效
