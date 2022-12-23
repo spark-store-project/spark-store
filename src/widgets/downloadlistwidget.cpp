@@ -7,6 +7,7 @@ DownloadListWidget::DownloadListWidget(QWidget *parent) : DBlurEffectWidget(pare
                                                           ui(new Ui::DownloadListWidget)
 {
     ui->setupUi(this);
+    setWindowTitle("Download list");
     installEventFilter(this);
     this->setAttribute(Qt::WA_Hover, true);
     setFocus();
