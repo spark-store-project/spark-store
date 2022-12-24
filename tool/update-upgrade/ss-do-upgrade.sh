@@ -12,6 +12,7 @@ else
 	zenity --error --text "检查更新进程出现错误！按确定查看报错，可用于反馈" --title "星火商店更新检测模块" --height 200 --width 350 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 	zenity --text-info --filename=/tmp/spark-store-app-ssupdate-log.txt --checkbox="我已复制了此文本框中的日志，且将会在反馈时附上。反馈渠道可以在右上角菜单的设置中找到" --title="反馈渠道在商店右上角的设置里" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 	pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
+    rm -f /tmp/spark-store/upgradeStatus.txt
 	exit
 fi
 
@@ -77,5 +78,5 @@ done`
 	fi
 fi
 
-rm -f touch /tmp/spark-store/upgradeStatus.txt
+rm -f  /tmp/spark-store/upgradeStatus.txt
 # 从最开头
