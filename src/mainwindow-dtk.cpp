@@ -10,6 +10,9 @@
 #define AppPageSearchlist 1
 #define AppPageAppdetail 2
 #define AppPageSettings 3
+#define WaylandSearchCenter 1
+#define OtherSearchCenter 2
+#define RightSearchSpace 1
 
 MainWindow::MainWindow(QWidget *parent)
     : BaseWidgetOpacity(parent), ui(new Ui::MainWindow)
@@ -163,16 +166,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     if (!readConfig.value("build/isDeepinOS").toBool() && readConfig.value("build/useWayland").toBool())
     {
-        ly_titlebar->addStretch(1);
+        // Wayland 搜索栏居中
+        ly_titlebar->addStretch(WaylandSearchCenter);
     }
     else
     {
-        ly_titlebar->addStretch(2);
+        // dwayland dxcb 搜索栏顶部右侧居中
+        ly_titlebar->addStretch(OtherSearchCenter);
     }
 
     ly_titlebar->addWidget(searchEdit);
     ly_titlebar->addWidget(downloadButton);
-    ly_titlebar->addStretch(1);
+    ly_titlebar->addStretch(RightSearchSpace);
     ui->titlebar->setCustomWidget(w_titlebar);
     // 侧边栏按钮
     int i = 0;
@@ -310,6 +315,7 @@ void MainWindow::on_pushButton_14_clicked()
             auto upgradeP = new QProcess();
             upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
             upgradeP->waitForStarted();
-            upgradeP->waitForFinished(-1); });
+            upgradeP->waitForFinished(-1);
+            upgradeP->deleteLater(); });
     }
 }
