@@ -80,8 +80,7 @@ MainWindow::MainWindow(QWidget *parent)
             downloadButton->setBackgroundColor(QColor("#444444"));
             downloadButton->setColor(QColor("#66CCFF"));
             ui->pushButton_14->setIcon(QIcon(":/icon/dark/update.svg"));
-            int i = 0;
-            while (i < ui->buttonGroup->buttons().size()) {
+            for (int i = 0; i < ui->buttonGroup->buttons().size(); i++) {
                 ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/dark/leftbutton_" + QString::number(i) + ".svg"));
                 if (QLocale::system().name() == "zh_CN") {
                     ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;}\
@@ -92,7 +91,6 @@ MainWindow::MainWindow(QWidget *parent)
                                                                   QPushButton:hover{background-color:#7a7a7a;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}\
                                                                   QPushButton:checked{background-color:#6e6e6e;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}");
                 }
-                i++;
             }
         } else {
             //亮色模式
@@ -105,8 +103,7 @@ MainWindow::MainWindow(QWidget *parent)
             downloadButton->setColor(QColor("#66CCFF"));
             downloadButton->setIcon(":/icon/light/download.svg");
             ui->pushButton_14->setIcon(QIcon(":/icon/light/update.svg"));
-            int i = 0;
-            while (i < ui->buttonGroup->buttons().size()) {
+            for (int i = 0; i < ui->buttonGroup->buttons().size(); i++) {
                 ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/light/leftbutton_" + QString::number(i) + ".svg"));
                 if (QLocale::system().name() == "zh_CN") {
                     ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;}\
@@ -117,7 +114,6 @@ MainWindow::MainWindow(QWidget *parent)
                                                                   QPushButton:hover{background-color:#eAeAeA;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}\
                                                                   QPushButton:checked{background-color:#dddddd;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}");
                 }
-                i++;
             }
         }
         ui->pushButton_14->setStyleSheet(ui->pushButton_4->styleSheet());
