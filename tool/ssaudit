@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Spark Store Install script.星火商店安装脚本"
+echo "Spark Store Audit script.星火商店审核脚本"
 
 
 #################检测文件是否存在
@@ -18,7 +18,7 @@ fi
 
 if [ "$(id -u)" != "0" ];then
 #############################无root权限时
-echo "请使用root启动ssinstall-audit"
+echo "请使用root启动ssaudit"
 exit 1
 fi
 
