@@ -1,13 +1,12 @@
 #include "image_show.h"
 
 #include <QHBoxLayout>
-#include <QScreen>  // Qt5 不再建议使用 QDesktopWidget
+#include <QScreen> // Qt5 不再建议使用 QDesktopWidget
 #include <QGuiApplication>
 
-image_show::image_show(QWidget *parent) :
-    QWidget(parent),
-    m_dialog(new big_image),
-    m_label(new QLabel)
+image_show::image_show(QWidget *parent) : QWidget(parent),
+                                          m_dialog(new big_image),
+                                          m_label(new QLabel)
 {
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(m_label);
@@ -27,7 +26,7 @@ void image_show::setImage(QPixmap image)
     desktop_w = QGuiApplication::primaryScreen()->geometry().width();
     desktop_h = QGuiApplication::primaryScreen()->geometry().height();
 
-    if(screen0.width() > (desktop_w - 20) || screen0.height() > (desktop_h - 20))
+    if (screen0.width() > (desktop_w - 20) || screen0.height() > (desktop_h - 20))
     {
         re_screen1 = screen0.scaled(QSize(desktop_w - 20, desktop_h - 20), Qt::KeepAspectRatio, Qt::SmoothTransformation);
         m_image = QPixmap::fromImage(re_screen1);
@@ -48,7 +47,7 @@ void image_show::mousePressEvent(QMouseEvent *)
     // 识别主屏幕尺寸并设置 widget 大小
     m_dialog->setFixedSize(desktop_w, desktop_h);
 
-    m_dialog->move(0,0);
+    m_dialog->move(0, 0);
 }
 image_show::~image_show()
 {

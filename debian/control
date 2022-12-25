@@ -15,7 +15,11 @@ Build-Depends:
  libdtkgui-dev(>=5.0),
  libdtkwidget-dev(>=5.0),
  qttools5-private-dev,
- qtwebengine5-dev
+ qtwebengine5-dev,
+ qtwayland5,
+ qtwayland5-dev-tools,
+ gcc,
+ g++
 Standards-Version: 3.0
 Homepage: https://www.spark-app.store/
 
@@ -28,12 +32,12 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  libqt5widgets5,
  libqt5network5,
  libqt5concurrent5,
+ qtwayland5,
  libdtkcore5,
  libdtkgui5,
  libdtkwidget5,
  curl,
  openssl,
- libssl-dev,
  dde-qt5integration,
  bubblewrap,
  aria2,

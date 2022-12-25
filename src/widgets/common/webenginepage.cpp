@@ -1,10 +1,26 @@
 #include "webenginepage.h"
 
 #include <QDesktopServices>
+#include <QWebEngineSettings>
+#include <QWebEngineProfile>
 
 WebEnginePage::WebEnginePage(QObject *parent)
     : QWebEnginePage(parent)
 {
+    QLocale ql;
+    switch (ql.language())
+    {
+    case QLocale::Chinese:
+    {
+        // 系统语言是中文，获取网页为中文 @momen @uniartisan
+        QWebEngineProfile *profile = QWebEngineProfile::defaultProfile();
+        qDebug() << profile->httpAcceptLanguage();
+        profile->setHttpAcceptLanguage("zh-CN,zh;q=0.8,en;q=0.6");
+    }
+    break;
+    default:
+        break;
+    }
 }
 
 WebEnginePage::~WebEnginePage()
@@ -13,7 +29,8 @@ WebEnginePage::~WebEnginePage()
 
 void WebEnginePage::setUrl(const QUrl &url)
 {
-    if (m_currentUrl == url) {
+    if (m_currentUrl == url)
+    {
         return;
     }
 
@@ -32,7 +49,8 @@ QWebEnginePage *WebEnginePage::createWindow(QWebEnginePage::WebWindowType type)
 
 void WebEnginePage::slotUrlChanged(const QUrl &url)
 {
-    if (m_currentUrl == url) {
+    if (m_currentUrl == url)
+    {
         sender()->deleteLater();
         return;
     }

@@ -6,13 +6,12 @@
 
 bool DownloadItem::isInstall = false;
 
-DownloadItem::DownloadItem(QWidget *parent) :
-    QWidget(parent),
-    reinstall(false),
-    close(false),
-    ui(new Ui::DownloadItem),
-    output_w(new DDialog),
-    textbrowser(new QTextBrowser)
+DownloadItem::DownloadItem(QWidget *parent) : QWidget(parent),
+                                              reinstall(false),
+                                              close(false),
+                                              ui(new Ui::DownloadItem),
+                                              output_w(new DDialog),
+                                              textbrowser(new QTextBrowser)
 {
     ui->setupUi(this);
 
@@ -34,7 +33,7 @@ void DownloadItem::setValue(qint64 value)
 {
     ui->progressBar->setValue(qint32(value));
     ui->label_2->setText(QString::number(double(value) / 100) + "% (" + speed + ")");
-    if(ui->label_2->text().left(4) == "100%")
+    if (ui->label_2->text().left(4) == "100%")
     {
         download = 1;
         ui->label_2->setText(tr("Download Complete."));
@@ -58,7 +57,7 @@ QString DownloadItem::getName()
 
 void DownloadItem::readyInstall()
 {
-    if(!close)
+    if (!close)
     {
         ui->progressBar->hide();
         ui->pushButton_install->setEnabled(true);
@@ -90,7 +89,7 @@ void DownloadItem::setSpeed(QString s)
 
 void DownloadItem::install(int t)
 {
-    if(!isInstall)
+    if (!isInstall)
     {
         isInstall = true;
         ui->pushButton_install->hide();
@@ -99,7 +98,7 @@ void DownloadItem::install(int t)
         ui->label_2->setText(tr("Installing"));
 
         QtConcurrent::run([=]()
-        {
+                          {
             QProcess installer;
             switch(t)
             {
@@ -164,10 +163,9 @@ void DownloadItem::install(int t)
 
             ui->widget_spinner->hide();
             DownloadItem::isInstall = false;
-            emit finished();
-        });
+            emit finished(); });
         //        emit finished();
-        qDebug()<<ui->label_filename->text().toUtf8();
+        qDebug() << ui->label_filename->text().toUtf8();
     }
 }
 

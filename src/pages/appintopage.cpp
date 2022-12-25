@@ -1,20 +1,19 @@
 #include "appintopage.h"
 #include "ui_appintopage.h"
-AppIntoPage::AppIntoPage(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::AppIntoPage)
+AppIntoPage::AppIntoPage(QWidget *parent) : QWidget(parent),
+                                            ui(new Ui::AppIntoPage)
 {
     ui->setupUi(this);
     ui->listWidget->setViewMode(QListView::IconMode);
     ui->listWidget->setMovement(QListView::Static);
     ui->listWidget->setMaximumHeight(200);
     ui->listWidget->setFlow(QListView::TopToBottom);
-    api1=new SparkAPI(this);
-    connect(api1,&SparkAPI::finishedRAW,[=](QString download_times){
+    api1 = new SparkAPI(this);
+    connect(api1, &SparkAPI::finishedRAW, [=](QString download_times)
+            {
         download_times.remove(QRegExp("\\n"));
         ui->download_times->setText(download_times);
-        qDebug()<<"Download Times:"+download_times;
-    });
+        qDebug()<<"Download Times:"+download_times; });
     clear();
 }
 
@@ -35,31 +34,31 @@ void AppIntoPage::clear()
     ui->downloadButton->hide();
     ui->downloadButton->setEnabled(true);
     ui->pushButton_3->hide();
-    int n=ui->listWidget->count();
-    for(int i=0;i<n;i++)
+    int n = ui->listWidget->count();
+    for (int i = 0; i < n; i++)
     {
         QListWidgetItem *item = ui->listWidget->takeItem(0);
         QWidget *card = ui->listWidget->itemWidget(item);
         delete card;
-        card  = NULL;
+        card = NULL;
         delete item;
-        item  = NULL;
+        item = NULL;
     }
     ui->listWidget->clear();
 }
 void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
 {
-    dw=w;
-    connect(w, &DownloadListWidget::downloadFinished, [=]() {
-        isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-    });
+    dw = w;
+    connect(w, &DownloadListWidget::downloadFinished, [=]()
+            { isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString()); });
 }
 void AppIntoPage::openUrl(QUrl url)
 {
-    spk=url;
-    SparkAPI *api=new SparkAPI(this);
+    spk = url;
+    SparkAPI *api = new SparkAPI(this);
     clear();
-    connect(api,&SparkAPI::finishedObject,[=](QJsonObject appinfo){
+    connect(api, &SparkAPI::finishedObject, [=](QJsonObject appinfo)
+            {
 
         info = appinfo;
 //        qDebug()<<url;
@@ -188,36 +187,42 @@ void AppIntoPage::openUrl(QUrl url)
         }
         this->sltAppinfoTags(&taglist);
         disconnect(api,&SparkAPI::finished,nullptr,nullptr);
-        api->deleteLater();
-    });
+        api->deleteLater(); });
     api->getAppInfo(url);
     api1->getAppDownloadTimes(url);
 }
 
 void AppIntoPage::isDownloading(QUrl url)
 {
-    if (dw->getUrlList().lastIndexOf(url) == -1) {
+    if (dw->getUrlList().lastIndexOf(url) == -1)
+    {
         ui->downloadButton->setEnabled(true);
         return;
-    } else {
+    }
+    else
+    {
         ui->downloadButton->setEnabled(false);
     }
 
     ui->pushButton_3->hide();
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 2) {
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 2)
+    {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Download"));
     }
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 1) {
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 1)
+    {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Install"));
     }
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->isInstall) {
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->isInstall)
+    {
         ui->downloadButton->setEnabled(false);
         ui->downloadButton->setText(tr("Installing"));
         return;
     }
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 3) {
+    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 3)
+    {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Reinstall"));
         ui->downloadButton->show();
@@ -227,37 +232,37 @@ void AppIntoPage::isDownloading(QUrl url)
 
 void AppIntoPage::sltAppinfoTags(QStringList *tagList)
 {
-    foreach(const QString &tag, *tagList)
+    foreach (const QString &tag, *tagList)
     {
-        if(tag=="community")
+        if (tag == "community")
         {
             ui->tag_community->show();
         }
-        else if(tag=="ubuntu")
+        else if (tag == "ubuntu")
         {
             ui->tag_ubuntu->show();
         }
-        else if(tag=="deepin")
+        else if (tag == "deepin")
         {
             ui->tag_deepin->show();
         }
-        else if(tag=="uos")
+        else if (tag == "uos")
         {
             ui->tag_uos->show();
         }
-        else if(tag=="dtk5")
+        else if (tag == "dtk5")
         {
             ui->tag_dtk5->show();
         }
-        else if(tag=="dwine2")
+        else if (tag == "dwine2")
         {
             ui->tag_dwine2->show();
         }
-        else if(tag=="dwine5")
+        else if (tag == "dwine5")
         {
             ui->tag_dwine5->show();
         }
-        else if(tag=="a2d")
+        else if (tag == "a2d")
         {
             ui->tag_a2d->show();
         }
@@ -265,9 +270,9 @@ void AppIntoPage::sltAppinfoTags(QStringList *tagList)
 }
 void AppIntoPage::setTheme(bool dark)
 {
-    if(dark)
+    if (dark)
     {
-        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4{background-color: #252525;border-radius:14px;border:1px solid rgb(64, 64, 64);}";
+        QString frameStyleSheet = "#frame,#frame_2,#frame_3,#frame_4{background-color: #252525;border-radius:14px;border:1px solid rgb(64, 64, 64);}";
         ui->frame->setStyleSheet(frameStyleSheet);
         ui->frame_2->setStyleSheet(frameStyleSheet);
         ui->frame_3->setStyleSheet(frameStyleSheet);
@@ -279,9 +284,11 @@ void AppIntoPage::setTheme(bool dark)
         ui->icon_4->setPixmap(QPixmap(":/icon/dark/text.svg"));
         ui->icon_5->setPixmap(QPixmap(":/icon/dark/folder.svg"));
         ui->icon_6->setPixmap(QPixmap(":/icon/dark/globe.svg"));
-    }else {
-        //亮色模式
-        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4{background-color: #fbfbfb;border-radius:14px;border:1px solid rgb(229,229,229);}";
+    }
+    else
+    {
+        // 亮色模式
+        QString frameStyleSheet = "#frame,#frame_2,#frame_3,#frame_4{background-color: #fbfbfb;border-radius:14px;border:1px solid rgb(229,229,229);}";
         ui->frame->setStyleSheet(frameStyleSheet);
         ui->frame_2->setStyleSheet(frameStyleSheet);
         ui->frame_3->setStyleSheet(frameStyleSheet);
@@ -293,7 +300,6 @@ void AppIntoPage::setTheme(bool dark)
         ui->icon_4->setPixmap(QPixmap(":/icon/light/text.svg"));
         ui->icon_5->setPixmap(QPixmap(":/icon/light/folder.svg"));
         ui->icon_6->setPixmap(QPixmap(":/icon/light/globe.svg"));
-
     }
 }
 AppIntoPage::~AppIntoPage()
@@ -303,34 +309,34 @@ AppIntoPage::~AppIntoPage()
 
 void AppIntoPage::on_downloadButton_clicked()
 {
-    if(ui->downloadButton->text() == tr("Install"))
+    if (ui->downloadButton->text() == tr("Install"))
     {
-        dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())]->install(0);
-        isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-        QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,[=](){
+        dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString())]->install(0);
+        isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
+        QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString())], &DownloadItem::finished, [=]()
+                         {
             isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-            disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr);
-        });
+            disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr); });
         return;
     }
     emit clickedDownloadBtn();
-    dw->addItem(info["Name"].toString(),info["Filename"].toString(),info["Pkgname"].toString(),iconpixmap,SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-    if(ui->downloadButton->text() == tr("Reinstall"))
+    dw->addItem(info["Name"].toString(), info["Filename"].toString(), info["Pkgname"].toString(), iconpixmap, SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
+    if (ui->downloadButton->text() == tr("Reinstall"))
     {
         dw->getDIList()[dw->allDownload - 1]->reinstall = true;
     }
     ui->downloadButton->setEnabled(false);
-    QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,[=](){
+    QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString())], &DownloadItem::finished, [=]()
+                     {
         isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-        disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr);
-    });
-    isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
+        disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr); });
+    isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
 }
 
 void AppIntoPage::on_pushButton_3_clicked()
 {
     QtConcurrent::run([=]()
-    {
+                      {
                                     ui->downloadButton->setEnabled(false);
                                     ui->pushButton_3->setEnabled(false);
 
@@ -352,18 +358,16 @@ void AppIntoPage::on_pushButton_3_clicked()
                                     }
 
                                     ui->downloadButton->setEnabled(true);
-                                    ui->pushButton_3->setEnabled(true);
-    });
+                                    ui->pushButton_3->setEnabled(true); });
 }
 
 void AppIntoPage::on_shareButton_clicked()
 {
     qDebug() << "Share" << spk;
-    Utils::sendNotification("spark-store",tr("Spark Store"),tr("The URL has been copied to the clipboard"));
+    Utils::sendNotification("spark-store", tr("Spark Store"), tr("The URL has been copied to the clipboard"));
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(spk.toString());
 }
-
 
 void AppIntoPage::on_updateButton_clicked()
 {
@@ -374,9 +378,9 @@ void AppIntoPage::on_updateButton_clicked()
         qDebug() << "反馈器存在";
         QProcess::startDetached("sh /opt/durapps/store.spark-app.feedback/launch.sh");
     }
-    else{
+    else
+    {
         qDebug() << "反馈器不存在，跳转页面";
         openUrl(feedbackSpk);
     }
 }
-
