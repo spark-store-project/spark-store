@@ -13,7 +13,7 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "Version 4.1.2";
+    static const QString version = "4.1.2";
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
     static const QString buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
@@ -35,15 +35,20 @@ int main(int argc, char *argv[])
         isWayland = true;
     }
 
+    // NOTE: 提前设置组织名称和应用名称，避免配置文件位置错误
+    DApplication::setOrganizationName("spark-union");
+    DApplication::setApplicationName("spark-store");
+    Application::checkAppConfigLocation(); // 检查 ~/.config/spark-union/spark-store 文件夹是否存在
+
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
     config.setValue("build/isWayland", isWayland);
     config.setValue("build/isDeepinOS", isDeepinOS);
-
     // Check config file, if there is no wayland config, then set it to default, which means use wayland if possible.
     if (!config.contains("build/useWayland"))
     {
         config.setValue("build/useWayland", true);
     }
+    config.sync(); // 写入更改至 config.ini，并同步最新内容
 
     bool useWayland = config.value("build/useWayland").toBool();
     qDebug() << "System Wayland enabled:" << isWayland << ". Spark Wayland enabled:" << useWayland;
@@ -112,7 +117,6 @@ int main(int argc, char *argv[])
         }
     }
     w.show();
-    w.setWindowTitle("Spark Store");
 
     return a.exec();
 }

@@ -21,7 +21,13 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle(QObject::tr("Spark Store"));
     initConfig();
 
-    WidgetAnimation::widgetOpacity(this, true);
+    // FIXME: wayland 不支持直接设置窗口透明度，需要调用 wayland 相关库（考虑抄控制中心“窗口移动时启用透明特效”代码？）
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    bool isWayland = config.value("build/isWayland").toBool();
+    if(!isWayland)
+    {
+        WidgetAnimation::widgetOpacity(this, true);
+    }
 
     searchEdit = new DSearchEdit(ui->titlebar);
     downloadlistwidget = new DownloadListWidget;
@@ -157,7 +163,7 @@ MainWindow::MainWindow(QWidget *parent)
     ly_titlebar->addWidget(backButtom);
 
     // Check wayland configs
-    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    // QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
     if (!config.value("build/isDeepinOS").toBool() && config.value("build/useWayland").toBool())
     {
         // Wayland 搜索栏居中

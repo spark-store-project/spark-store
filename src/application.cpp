@@ -22,7 +22,7 @@ Application::Application(int &argc, char **argv)
     loadTranslator(); // 载入翻译
 
     setOrganizationName("spark-union");
-    setApplicationName("spark-store"); // 影响 ~/.local/share/spark-union 下文件夹名称
+    setApplicationName("spark-store"); // 影响 ~/.config/spark-union ~/.local/share/spark-union 下文件夹名称
     setApplicationDisplayName(QObject::tr("Spark Store")); // 设置窗口显示标题 (Wayland 下会显示 Qt 原生标题栏)
     setProductName(QObject::tr("Spark Store"));
     setProductIcon(QIcon::fromTheme("spark-store"));
@@ -53,6 +53,15 @@ void Application::handleAboutAction()
     DApplication::handleAboutAction();
 }
 
+void Application::checkAppConfigLocation()
+{
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
+    if (!dir.exists()) {
+        qWarning() << "AppConfigLocation not existed, creating...";
+        dir.mkpath(dir.absolutePath());
+    }
+}
+
 void Application::setVersionAndBuildDateTime(const QString &version, const QString &buildDateTime)
 {
     m_version = version;
@@ -70,23 +79,16 @@ void Application::setVersionAndBuildDateTime(const QString &version, const QStri
     setApplicationVersion(DApplication::buildVersion(config.value("build/version").toString() + "-" + "Flamescion" + "-" + config.value("build/time").toString()));
 }
 
-void Application::checkAppConfigLocation()
-{
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
-    if (!dir.exists()) {
-        qWarning() << "AppConfigLocation not existed, creating...";
-        dir.mkpath(dir.absolutePath());
-    }
-}
-
 void Application::initAboutDialog()
 {
-    // Customized DAboutDialog
+    // 自定义 DAboutDialog
     DAboutDialog *dialog = new DAboutDialog(activeWindow());
     dialog->setProductName(productName());
     dialog->setProductIcon(productIcon());
     dialog->setVersion(translate("DAboutDialog", "Version: %1").arg(applicationVersion()));
-    // dialog->setCompanyLogo(QPixmap(":/icon/Logo-Spark.png")); // 根据 shenmo 要求，不显示组织 Logo
+    // 根据 shenmo 要求，不显示组织 Logo
+    // dialog->setCompanyLogo(QPixmap(":/icon/Logo-Spark.png"));
+    dialog->setCompanyLogo(QPixmap());
     dialog->setWebsiteName(QObject::tr("Spark Project"));
     dialog->setWebsiteLink(applicationHomePage());
     dialog->setDescription(applicationDescription());

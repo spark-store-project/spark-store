@@ -13,10 +13,11 @@ public:
     Application(int &argc, char **argv);
     void handleAboutAction() override;
 
+    static void checkAppConfigLocation();
+
     void setVersionAndBuildDateTime(const QString &version, const QString &buildDateTime);
 
 private:
-    void checkAppConfigLocation();
     void initAboutDialog();
 
 private:

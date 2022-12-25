@@ -207,7 +207,7 @@ void SettingsPage::on_pushButton_clear_clicked()
                       {
         ui->pushButton_clear->setEnabled(false);
 
-        QDir tmpdir("/tmp/spark-store");
+        QDir tmpdir(QString::fromUtf8(TMP_PATH));
         tmpdir.setFilter(QDir::Files);
         int quantity = int(tmpdir.count());
         for(int i = 0; i < quantity; i++)
