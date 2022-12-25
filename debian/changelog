@@ -2,7 +2,8 @@ spark-store (4.1.2) stable; urgency=medium
 
   * feat: 初步的wayland支持
   * fix: 首页的捐赠页面在中文环境下显示中文
-  * chore: 新增编译依赖
+  * chore: 新增编译依赖，测试安装时不会出现报错
+  * fix: 更新检测模块在aptss ssupdate操作失败后现在会正确地移除锁而不是错误的残留锁。
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
