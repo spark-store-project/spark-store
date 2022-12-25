@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1190</width>
-    <height>651</height>
+    <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,6 +33,12 @@
     <widget class="QWidget" name="mainpage" native="true">
      <property name="autoFillBackground">
       <bool>true</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">.QWidget#mainpage {
+    background: transparent;
+    border-radius: 14px;
+}</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">

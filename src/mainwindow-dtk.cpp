@@ -18,11 +18,12 @@ MainWindow::MainWindow(QWidget *parent)
     : BaseWidgetOpacity(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowTitle(QObject::tr("Spark Store"));
     initConfig();
-    moveToCenter(this); // 让窗口居中显示
 
     WidgetAnimation::widgetOpacity(this, true);
 
+    searchEdit = new DSearchEdit(ui->titlebar);
     downloadlistwidget = new DownloadListWidget;
     downloadButton = new ProgressButton(ui->titlebar);
     backButtom = new QPushButton(ui->titlebar);
@@ -75,9 +76,6 @@ MainWindow::MainWindow(QWidget *parent)
         if (themeType == DGuiApplicationHelper::DarkType) {
             //深色模式
             setMaskColor(QColor("#2a2b2b"));
-            this->setStyleSheet("#mainpage{background-color: transparent;border-radius:14px;}\
-                                QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color:#FFFFFF}\
-                                ");
             backButtom->setIcon(QIcon(":/icon/dark/back.svg"));
             downloadButton->setIcon(":/icon/dark/download.svg");
             downloadButton->setBackgroundColor(QColor("#444444"));
@@ -98,9 +96,6 @@ MainWindow::MainWindow(QWidget *parent)
         } else {
             //亮色模式
             setMaskColor(QColor("#f3f7f8"));
-            this->setStyleSheet("#mainpage{background-color: transparent;border-radius:14px;}\
-                                QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color:#000000}\
-                                ");
             backButtom->setIcon(QIcon(":/icon/light/back.svg"));
             downloadButton->setBackgroundColor(QColor("#e3e4e4"));
             downloadButton->setColor(QColor("#66CCFF"));
@@ -153,18 +148,17 @@ MainWindow::MainWindow(QWidget *parent)
     backButtom->hide();
     ui->titlebar->setIcon(QIcon::fromTheme(":/icon/logo.svg"));
 
-    // Check wayland configs
-    QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
-
     QWidget *w_titlebar = new QWidget(ui->titlebar);
     QHBoxLayout *ly_titlebar = new QHBoxLayout(w_titlebar);
-    QLabel *title = new QLabel(this);
+    QLabel *title = new QLabel(ui->titlebar);
     title->setText(tr("Spark Store"));
     searchEdit->setPlaceholderText(tr("Search or enter spk://"));
     ly_titlebar->addWidget(title);
     ly_titlebar->addWidget(backButtom);
 
-    if (!readConfig.value("build/isDeepinOS").toBool() && readConfig.value("build/useWayland").toBool())
+    // Check wayland configs
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    if (!config.value("build/isDeepinOS").toBool() && config.value("build/useWayland").toBool())
     {
         // Wayland 搜索栏居中
         ly_titlebar->addStretch(WaylandSearchCenter);
@@ -219,14 +213,16 @@ MainWindow::MainWindow(QWidget *parent)
             { openUrl(spk); });
     emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
 
-    initDbus();
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &MainWindow::onNewProcessInstance);
 }
 
 MainWindow::~MainWindow()
 {
-    delete searchEdit;
-    delete downloadlistwidget;
     delete ui;
+
+    if (downloadlistwidget) {
+        downloadlistwidget->deleteLater();
+    }
 }
 
 void MainWindow::initDbus()
@@ -240,11 +236,19 @@ void MainWindow::initDbus()
 
 void MainWindow::onGetUrl(const QString &url)
 {
-    if (url.left(6) == "spk://")
-    {
+    if (url.trimmed().startsWith("spk://")) {
         openUrl(QUrl(url));
     }
     activateWindow();
+}
+
+void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
+{
+    Q_UNUSED(pid)
+
+    if (arguments.size() > 1) {
+        onGetUrl(arguments.value(1));
+    }
 }
 
 void MainWindow::openUrl(QUrl url)
@@ -279,6 +283,7 @@ void MainWindow::switchPage(int now) // 临时方案，回家后修改
         backButtom->hide();
     }
     ui->stackedWidget->setCurrentIndex(now);
+    ui->stackedWidget->currentWidget()->setFocus();
     pageHistory << now;
 }
 

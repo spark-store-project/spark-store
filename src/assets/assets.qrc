@@ -1,43 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>icon/logo.svg</file>
-        <file>tags/a2d-small.png</file>
-        <file>tags/a2d.png</file>
-        <file>tags/community-small.png</file>
-        <file>tags/community.png</file>
-        <file>tags/community.svg</file>
-        <file>tags/deepin-small.png</file>
-        <file>tags/deepin.svg</file>
-        <file>tags/dtk-small.png</file>
-        <file>tags/dwine2-small.png</file>
-        <file>tags/dwine5-small.png</file>
-        <file>tags/dwine5.svg</file>
-        <file>tags/logo_icon.svg</file>
-        <file>tags/ubuntu-small.png</file>
-        <file>tags/ubuntu.png</file>
-        <file>tags/uos-authorize.svg</file>
-        <file>tags/uos-small.png</file>
-        <file>tags/uos.svg</file>
-        <file>icon/light/back.svg</file>
-        <file>icon/light/download.svg</file>
-        <file>icon/light/leftbutton_0.svg</file>
-        <file>icon/light/leftbutton_1.svg</file>
-        <file>icon/light/leftbutton_2.svg</file>
-        <file>icon/light/leftbutton_3.svg</file>
-        <file>icon/light/leftbutton_4.svg</file>
-        <file>icon/light/leftbutton_5.svg</file>
-        <file>icon/light/leftbutton_6.svg</file>
-        <file>icon/light/leftbutton_7.svg</file>
-        <file>icon/light/leftbutton_8.svg</file>
-        <file>icon/light/leftbutton_9.svg</file>
-        <file>icon/light/leftbutton_10.svg</file>
-        <file>icon/light/leftbutton_11.svg</file>
-        <file>icon/light/leftbutton_12.svg</file>
-        <file>icon/light/box.svg</file>
-        <file>icon/light/calendar.svg</file>
-        <file>icon/light/globe.svg</file>
-        <file>icon/light/folder.svg</file>
-        <file>icon/light/text.svg</file>
+        <file>icon/Logo-Spark.png</file>
         <file>icon/dark/back.svg</file>
         <file>icon/dark/box.svg</file>
         <file>icon/dark/calendar.svg</file>
@@ -58,7 +21,45 @@
         <file>icon/dark/leftbutton_11.svg</file>
         <file>icon/dark/leftbutton_12.svg</file>
         <file>icon/dark/text.svg</file>
-        <file>icon/light/update.svg</file>
         <file>icon/dark/update.svg</file>
+        <file>icon/light/back.svg</file>
+        <file>icon/light/download.svg</file>
+        <file>icon/light/leftbutton_0.svg</file>
+        <file>icon/light/leftbutton_1.svg</file>
+        <file>icon/light/leftbutton_2.svg</file>
+        <file>icon/light/leftbutton_3.svg</file>
+        <file>icon/light/leftbutton_4.svg</file>
+        <file>icon/light/leftbutton_5.svg</file>
+        <file>icon/light/leftbutton_6.svg</file>
+        <file>icon/light/leftbutton_7.svg</file>
+        <file>icon/light/leftbutton_8.svg</file>
+        <file>icon/light/leftbutton_9.svg</file>
+        <file>icon/light/leftbutton_10.svg</file>
+        <file>icon/light/leftbutton_11.svg</file>
+        <file>icon/light/leftbutton_12.svg</file>
+        <file>icon/light/box.svg</file>
+        <file>icon/light/calendar.svg</file>
+        <file>icon/light/globe.svg</file>
+        <file>icon/light/folder.svg</file>
+        <file>icon/light/text.svg</file>
+        <file>icon/light/update.svg</file>
+        <file>icon/logo.svg</file>
+        <file>tags/a2d-small.png</file>
+        <file>tags/a2d.png</file>
+        <file>tags/community-small.png</file>
+        <file>tags/community.png</file>
+        <file>tags/community.svg</file>
+        <file>tags/deepin-small.png</file>
+        <file>tags/deepin.svg</file>
+        <file>tags/dtk-small.png</file>
+        <file>tags/dwine2-small.png</file>
+        <file>tags/dwine5-small.png</file>
+        <file>tags/dwine5.svg</file>
+        <file>tags/logo_icon.svg</file>
+        <file>tags/ubuntu-small.png</file>
+        <file>tags/ubuntu.png</file>
+        <file>tags/uos-authorize.svg</file>
+        <file>tags/uos-small.png</file>
+        <file>tags/uos.svg</file>
     </qresource>
 </RCC>

@@ -55,7 +55,6 @@ DownloadListWidget::~DownloadListWidget()
     if (downloadController)
     {
         downloadController->stopDownload();
-        downloadController->deleteLater();
     }
 
     delete ui;

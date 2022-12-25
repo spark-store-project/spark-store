@@ -39,20 +39,20 @@ private:
     void switchPage(int now);
     void updateUi(int now);
 
-private:
-    QList<int> pageHistory;
-
-    DownloadListWidget *downloadlistwidget;
-    ProgressButton *downloadButton;
-    QPushButton *backButtom;
-    DSearchEdit *searchEdit = new DSearchEdit;
-    Ui::MainWindow *ui;
-
 private slots:
     //接受来自dbus的url
     void onGetUrl(const QString &url);
+    void onNewProcessInstance(qint64 pid, const QStringList &arguments);
     void on_pushButton_14_clicked();
 
+private:
+    QList<int> pageHistory;
+
+    Ui::MainWindow *ui;
+    DownloadListWidget *downloadlistwidget;
+    ProgressButton *downloadButton;
+    QPushButton *backButtom;
+    DSearchEdit *searchEdit;
 };
 
 #endif // MAINWINDOWDTK_H

@@ -2,14 +2,7 @@
 #define SETTINGSPAGE_H
 
 #include <QWidget>
-#include <QFile>
-#include <QDir>
-#include <QDebug>
-#include <QSettings>
-#include <QtConcurrent>
-#include "../backend/sparkapi.h"
-#include "utils/utils.h"
-#define TMP_PATH "/tmp/spark-store"
+#include <QUrl>
 
 namespace Ui {
 class SettingsPage;

@@ -272,7 +272,8 @@ void AppIntoPage::setTheme(bool dark)
 {
     if (dark)
     {
-        QString frameStyleSheet = "#frame,#frame_2,#frame_3,#frame_4{background-color: #252525;border-radius:14px;border:1px solid rgb(64, 64, 64);}";
+        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #252525; border-radius: 14px; border: 1px solid rgb(64, 64, 64);}\
+                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #FFFFFF}";
         ui->frame->setStyleSheet(frameStyleSheet);
         ui->frame_2->setStyleSheet(frameStyleSheet);
         ui->frame_3->setStyleSheet(frameStyleSheet);
@@ -284,11 +285,10 @@ void AppIntoPage::setTheme(bool dark)
         ui->icon_4->setPixmap(QPixmap(":/icon/dark/text.svg"));
         ui->icon_5->setPixmap(QPixmap(":/icon/dark/folder.svg"));
         ui->icon_6->setPixmap(QPixmap(":/icon/dark/globe.svg"));
-    }
-    else
-    {
-        // 亮色模式
-        QString frameStyleSheet = "#frame,#frame_2,#frame_3,#frame_4{background-color: #fbfbfb;border-radius:14px;border:1px solid rgb(229,229,229);}";
+    }else {
+        //亮色模式
+        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #fbfbfb; border-radius: 14px; border: 1px solid rgb(229,229,229);}\
+                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #000000}";
         ui->frame->setStyleSheet(frameStyleSheet);
         ui->frame_2->setStyleSheet(frameStyleSheet);
         ui->frame_3->setStyleSheet(frameStyleSheet);
@@ -336,29 +336,30 @@ void AppIntoPage::on_downloadButton_clicked()
 void AppIntoPage::on_pushButton_3_clicked()
 {
     QtConcurrent::run([=]()
-                      {
-                                    ui->downloadButton->setEnabled(false);
-                                    ui->pushButton_3->setEnabled(false);
+    {
+        ui->downloadButton->setEnabled(false);
+        ui->pushButton_3->setEnabled(false);
 
-                                    QProcess uninstall;
-                                    uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << info["Pkgname"].toString().toLower());
-                                    uninstall.waitForFinished(-1);
+        QProcess uninstall;
+        uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << info["Pkgname"].toString().toLower());
+        uninstall.waitForFinished(-1);
 
-                                    QProcess check;
-                                    check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-                                    check.waitForFinished(10*1000);
+        QProcess check;
+        check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
+        check.waitForFinished(10*1000);
 
-                                    if (check.readAllStandardOutput().isEmpty())
-                                    {
-                                        ui->downloadButton->setText(tr("Install"));
-                                        ui->pushButton_3->hide();
+        if (check.readAllStandardOutput().isEmpty())
+        {
+            ui->downloadButton->setText(tr("Install"));
+            ui->pushButton_3->hide();
 
-                                        updatesEnabled();
-                                        Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
-                                    }
+            updatesEnabled();
+            Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
+        }
 
-                                    ui->downloadButton->setEnabled(true);
-                                    ui->pushButton_3->setEnabled(true); });
+        ui->downloadButton->setEnabled(true);
+        ui->pushButton_3->setEnabled(true);
+    });
 }
 
 void AppIntoPage::on_shareButton_clicked()
