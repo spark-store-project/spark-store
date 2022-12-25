@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "Spark Store Install script.星火商店安装脚本"
+
+
+#################检测文件是否存在
+if [ $# -eq 0 ];then
+echo "没有接收到参数，退出"
+echo "用法：$0 deb路径"
+exit
+fi
+
+if [ ! -f "$1" ]
+then
+	echo "文件不存在"
+	exit 1
+fi
+
+if [ "$(id -u)" != "0" ];then
+#############################无root权限时
+echo "请使用root启动ssinstall-audit"
+exit 1
+fi
+
+###
+
+
+DEBPATH=`realpath $1`
+
+echo  ----------------------------------------------------------------------------------
+dpkg -i "$DEBPATH" || aptss install -yf 
+
+
