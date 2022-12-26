@@ -8,6 +8,7 @@
 #include <QDebug>
 
 #define TMP_PATH "/tmp/spark-store"
+#define DEFAULT_SERVER_URL "https://cdn.d.store.deepinos.org.cn/"
 
 bool SettingsPage::isdownload = false;
 
@@ -42,7 +43,7 @@ void SettingsPage::readServerList()
     // 判断文件是否存在
     if (!file.exists())
     {
-        ui->comboBox_server->addItem("https://d.store.deepinos.org.cn/");
+        ui->comboBox_server->addItem(DEFAULT_SERVER_URL);
         return;
     }
 
