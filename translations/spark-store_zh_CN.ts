@@ -483,7 +483,7 @@
     <message>
         <location filename="../src/application.cpp" line="31"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
-        <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火开发者&lt;/span&gt;</translation>
+        <translation type="unfinished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="92"/>
@@ -584,17 +584,17 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们并&lt;span style=&quot; font-weight:600;&quot;&gt;不是&lt;/span&gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&lt;/p&gt;&lt;p&gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&lt;/p&gt;&lt;p&gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&lt;/p&gt;&lt;p&gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们  &amp;lt;jifengshenmo@outlook.com&amp;gt; ，我们会第一时间删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&lt;/p&gt;&lt;p&gt;在 Spark IM 联系我们:&lt;a href=&quot;https://chat.shenmo.tech&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://chat.shenmo.tech&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;QQ 群：872690351&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="195"/>
+        <location filename="../src/pages/settingspage.cpp" line="196"/>
         <source>Updating, please wait...</source>
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="217"/>
+        <location filename="../src/pages/settingspage.cpp" line="218"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="217"/>
+        <location filename="../src/pages/settingspage.cpp" line="218"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>

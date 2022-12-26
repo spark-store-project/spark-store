@@ -32,7 +32,7 @@ Application::Application(int &argc, char **argv)
             "<span style=' font-size:10pt;font-weight:60;'>An appstore powered by community</span><br/>"
             "<a href='https://www.spark-app.store/'>https://www.spark-app.store</a><br/>"
             "<span style=' font-size:12pt;'>Spark developers</span>"));
-    setApplicationLicense(" <a href='https://www.gnu.org/licenses/gpl-3.0.html'>GPLv3</a> ");
+    setApplicationLicense(" <a href='https://gitee.com/deepin-community-store/spark-store/blob/Flamescion/LICENSE'>GPLv3</a> ");
 
     // 检查 ~/.config/spark-union/spark-store 文件夹是否存在
     checkAppConfigLocation();
