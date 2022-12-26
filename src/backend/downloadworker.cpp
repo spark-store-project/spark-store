@@ -215,7 +215,7 @@ void DownloadController::startDownload(const QString &url)
         * HD 70642 is a star with an exoplanetary companion in the southern constellation of Puppis. 
         */
         QProcess mailProcess;
-        mailProcess.start(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642", QStringList());
+        mailProcess.start(SenderdPath.toUtf8(), QStringList() << metaUrl << "HD70642");
         mailProcess.waitForStarted();
         mailProcess.waitForFinished(3000);
         mailProcess.deleteLater();
