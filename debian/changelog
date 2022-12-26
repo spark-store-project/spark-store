@@ -6,6 +6,10 @@ spark-store (4.1.2) stable; urgency=medium
   * chore: ssinstall现在拒绝安装验证失败的包，审核操作现在需要改用ssinstall-audit
   * fix: Ubuntu下下载列表无法关闭
   * fix: 修复进入详情页时焦点默认在分享链接按钮上的问题
+  * fix: 修复特定情况下的内存泄漏问题
+  * fix: 适配c11代码规范，消除qt编译警告
+  * fix: 默认服务器域名指向cdn域名
+  * fix: 消除内部函数的无用变量，限制作用域
 
   * chore: 添加 Application 类，继承 DApplication，将 main 函数中设置属性、关于信息等操作移至 Application 构造函数中进行
   * chore: 添加 setOrganizationName 操作，设置组织名称为 spark-union，与 SWRT 保持一致
