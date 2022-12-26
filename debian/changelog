@@ -2,9 +2,21 @@ spark-store (4.1.2) stable; urgency=medium
 
   * feat: 初步的wayland支持
   * fix: 首页的捐赠页面在中文环境下显示中文
-  * chore: 新增编译依赖，测试安装时不会出现报错
   * fix: 更新检测模块在aptss ssupdate操作失败后现在会正确地移除锁而不是错误的残留锁。
   * chore: ssinstall现在拒绝安装验证失败的包，审核操作现在需要改用ssinstall-audit
+  * fix: Ubuntu下下载列表无法关闭
+  * fix: 修复进入详情页时焦点默认在分享链接按钮上的问题
+
+  * chore: 添加 Application 类，继承 DApplication，将 main 函数中设置属性、关于信息等操作移至 Application 构造函数中进行
+  * chore: 添加 setOrganizationName 操作，设置组织名称为 spark-union，与 SWRT 保持一致
+  * chore: 设置组织名称后，QStandardPaths::AppConfigLocation 等路径相应改变，修改所有配置文件和缓存文件路径
+  * chore: 关于对话框设置父对象后，对话框背景色受主窗口样式表影响，移动部分控件样式表设置方式与位置
+  * chore: 去除 .pro 文件中无效的更新翻译文件脚本调用，整理 .pro 文件，添加编译时更新 ts 文件脚本调用
+  * chore: 继续修复偶现关闭客户端时崩溃问题（疑似 aria2c 进程未启动，pid 未初始化为随机值，执行 kill 操作时未判断导致）
+  * chore: 新增编译依赖，测试安装时不会出现报错
+  * chore: 暂时去除没有意义的 DBus 接口，使用 DGuiApplicationHelper::newProcessInstance 获取新进程的启动参数
+  * chore: 更新翻译文件，去除已经不存在的翻译
+
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
