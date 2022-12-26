@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="146"/>
-        <location filename="../src/pages/appintopage.cpp" line="211"/>
+        <location filename="../src/pages/appintopage.cpp" line="147"/>
+        <location filename="../src/pages/appintopage.cpp" line="212"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
@@ -179,42 +179,42 @@
         <translation>点击跳转</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="131"/>
-        <location filename="../src/pages/appintopage.cpp" line="227"/>
-        <location filename="../src/pages/appintopage.cpp" line="324"/>
+        <location filename="../src/pages/appintopage.cpp" line="132"/>
+        <location filename="../src/pages/appintopage.cpp" line="228"/>
+        <location filename="../src/pages/appintopage.cpp" line="325"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="138"/>
+        <location filename="../src/pages/appintopage.cpp" line="139"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="216"/>
-        <location filename="../src/pages/appintopage.cpp" line="312"/>
-        <location filename="../src/pages/appintopage.cpp" line="353"/>
+        <location filename="../src/pages/appintopage.cpp" line="217"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="354"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="221"/>
+        <location filename="../src/pages/appintopage.cpp" line="222"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="357"/>
-        <location filename="../src/pages/appintopage.cpp" line="368"/>
+        <location filename="../src/pages/appintopage.cpp" line="358"/>
+        <location filename="../src/pages/appintopage.cpp" line="369"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="357"/>
+        <location filename="../src/pages/appintopage.cpp" line="358"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="368"/>
+        <location filename="../src/pages/appintopage.cpp" line="369"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
