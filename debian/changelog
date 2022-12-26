@@ -3,7 +3,7 @@ spark-store (4.1.2) stable; urgency=medium
   * feat: 初步的wayland支持
   * fix: 首页的捐赠页面在中文环境下显示中文
   * fix: 更新检测模块在aptss ssupdate操作失败后现在会正确地移除锁而不是错误的残留锁。
-  * chore: ssinstall现在拒绝安装验证失败的包，审核操作现在需要改用ssinstall-audit
+  * chore: ssinstall现在拒绝安装验证失败的包，审核操作现在需要改用ssaudit
   * fix: Ubuntu下下载列表无法关闭
   * fix: 修复进入详情页时焦点默认在分享链接按钮上的问题
   * fix: 修复特定情况下的内存泄漏问题
