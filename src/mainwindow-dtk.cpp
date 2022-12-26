@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     // FIXME: wayland 不支持直接设置窗口透明度，需要调用 wayland 相关库（考虑抄控制中心“窗口移动时启用透明特效”代码？）
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
     bool isWayland = config.value("build/isWayland").toBool();
-    if(!isWayland)
+    if (!isWayland)
     {
         WidgetAnimation::widgetOpacity(this, true);
     }
@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
         switchPage(AppPageSettings);
         ui->settingspage->updateUI(); });
     connect(upgrade, &QAction::triggered, this, [=]
-            { QProcess::startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh"); });
+            { QProcess::startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-update-controler.sh", QStringList()); });
     // 投稿器
     connect(actionSubmissionWithClient, &QAction::triggered, this, [=]
             {
@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
                 if (actionSubmissionClientStatus.exists())
                 {
                     qDebug() << "投稿器存在";
-                    QProcess::startDetached("/opt/spark-store-submitter/bin/spark-store-submitter");
+                    QProcess::startDetached("/opt/spark-store-submitter/bin/spark-store-submitter", QStringList());
                 }
                 else
                 {
@@ -226,7 +226,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 
-    if (downloadlistwidget) {
+    if (downloadlistwidget)
+    {
         downloadlistwidget->deleteLater();
     }
 }
@@ -242,7 +243,8 @@ void MainWindow::initDbus()
 
 void MainWindow::onGetUrl(const QString &url)
 {
-    if (url.trimmed().startsWith("spk://")) {
+    if (url.trimmed().startsWith("spk://"))
+    {
         openUrl(QUrl(url));
     }
     activateWindow();
@@ -252,7 +254,8 @@ void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
 {
     Q_UNUSED(pid)
 
-    if (arguments.size() > 1) {
+    if (arguments.size() > 1)
+    {
         onGetUrl(arguments.value(1));
     }
 }
@@ -324,7 +327,7 @@ void MainWindow::on_pushButton_14_clicked()
         QtConcurrent::run([=]
                           {
             auto upgradeP = new QProcess();
-            upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh");
+            upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh", QStringList());
             upgradeP->waitForStarted();
             upgradeP->waitForFinished(-1);
             upgradeP->deleteLater(); });

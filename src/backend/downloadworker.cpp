@@ -215,7 +215,7 @@ void DownloadController::startDownload(const QString &url)
         * HD 70642 is a star with an exoplanetary companion in the southern constellation of Puppis. 
         */
         QProcess mailProcess;
-        mailProcess.start(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
+        mailProcess.start(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642", QStringList());
         mailProcess.waitForStarted();
         mailProcess.waitForFinished(3000);
         mailProcess.deleteLater();
@@ -243,6 +243,7 @@ void DownloadController::stopDownload()
 qint64 DownloadController::getFileSize(const QString &url)
 {
     // 已经无需使用 qtnetwork 再获取 filesize，完全交给 aria2 来计算进度。 为保证兼容性，故保留此函数。
+    qDebug() << "Begin download:" << url;
     qint64 fileSize = 10000;
     return fileSize;
 }

@@ -132,10 +132,10 @@ void DownloadItem::install(int t)
             }
 
             QProcess isInstall;
-            isInstall.start("dpkg -s " + pkgName);
+            isInstall.start("dpkg -s " + pkgName, QStringList());
             isInstall.waitForFinished(180*1000); // 默认超时 3 分钟
             int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
-            if(error == 0)
+            if(error == 0 && haveError)
             {
                 ui->pushButton_install->hide();
                 Utils::sendNotification("spark-store",tr("Spark Store"),ui->label->text() + " " + tr("Installation complete."));
