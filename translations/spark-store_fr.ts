@@ -441,32 +441,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="44"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="45"/>
         <source>Submit App</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="45"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="46"/>
         <source>Submit App with client(Recommanded)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="46"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="47"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="47"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="48"/>
         <source>APP Upgrade and Install Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="160"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="161"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="161"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="162"/>
         <source>Search or enter spk://</source>
         <translation type="unfinished"></translation>
     </message>
@@ -476,7 +476,7 @@
     <message>
         <location filename="../src/application.cpp" line="26"/>
         <location filename="../src/application.cpp" line="27"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="21"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="22"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
@@ -584,17 +584,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="196"/>
+        <location filename="../src/pages/settingspage.cpp" line="213"/>
         <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="218"/>
+        <location filename="../src/pages/settingspage.cpp" line="235"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="218"/>
+        <location filename="../src/pages/settingspage.cpp" line="235"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>

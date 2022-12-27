@@ -9,6 +9,7 @@
 
 #define TMP_PATH "/tmp/spark-store"
 #define DEFAULT_SERVER_URL "https://cdn.d.store.deepinos.org.cn/"
+#define DEFAULT_CHECK_DOMAIN "deepinos"
 
 bool SettingsPage::isdownload = false;
 
@@ -55,7 +56,11 @@ void SettingsPage::readServerList()
 
     // 创建 QTextStream 对象
     QTextStream textStream(&file);
-
+    if (!textStream.readAll().contains(DEFAULT_CHECK_DOMAIN)) // 校验配置文件有效性
+    {
+        return;
+    }
+    textStream.seek(0);                       // 回到开头
     QString lineData = textStream.readLine(); // 读取文件的第一行
     ui->comboBox_server->addItem(lineData);
     while (!lineData.isNull())
@@ -106,11 +111,23 @@ void SettingsPage::on_pushButton_updateServer_clicked()
     QtConcurrent::run([=]()
                       {
         ui->pushButton_updateServer->setEnabled(false);
-        ui->comboBox_server->clear();
+
 
         QFile::remove(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/server.list");
-        system("curl -o " + QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).toUtf8() + "/server.list https://d.store.deepinos.org.cn/store/server-and-mirror.list");
-
+        auto updateSuccess = system("curl -o " + QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).toUtf8() + "/server.list https://d.store.deepinos.org.cn/store/server-and-mirror.list");
+        qDebug() << "Update serverlist status:" << updateSuccess;
+        if (updateSuccess != 0) // 更新失败不换服务器配置
+        {
+            QFile file(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/server.list");
+            if (file.exists())
+            {
+                file.remove();
+            }
+            // FIXME: 向用户提示更新失败
+            ui->pushButton_updateServer->setEnabled(true);
+            return;
+        }
+        ui->comboBox_server->clear();
         ui->pushButton_updateServer->setEnabled(true);
         readServerList();
         ui->comboBox_server->setCurrentIndex(0); });
