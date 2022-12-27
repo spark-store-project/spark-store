@@ -13,6 +13,7 @@
 #define WaylandSearchCenter 1
 #define OtherSearchCenter 2
 #define RightSearchSpace 1
+#define UploadServerUrl "https://upload.deepinos.org/"
 
 MainWindow::MainWindow(QWidget *parent)
     : BaseWidgetOpacity(parent), ui(new Ui::MainWindow)
@@ -53,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->titlebar->setMenu(menu);
     connect(actionSubmission, &QAction::triggered, this, [=]
-            { QDesktopServices::openUrl(QUrl("https://upload.deepinos.org/")); });
+            { QDesktopServices::openUrl(QUrl(UploadServerUrl)); });
     connect(setting, &QAction::triggered, this, [=]
             {
         switchPage(AppPageSettings);
