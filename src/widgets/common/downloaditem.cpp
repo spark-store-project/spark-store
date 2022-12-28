@@ -119,7 +119,7 @@ void DownloadItem::install(int t)
             out = installer.readAllStandardOutput();
 
             QStringList everyOut = out.split("\n");
-            for(int i=0;i<everyOut.size();i++)
+            for (int i = 0; i < everyOut.size(); i++)
             {
                 if(everyOut[i].left(2) == "E:")
                 {
@@ -135,7 +135,7 @@ void DownloadItem::install(int t)
             isInstall.start("dpkg", QStringList() << "-s" << pkgName);
             isInstall.waitForFinished(180*1000); // 默认超时 3 分钟
             int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
-            if(error == 0 && haveError)
+            if (error == 0 && !haveError)
             {
                 ui->pushButton_install->hide();
                 Utils::sendNotification("spark-store",tr("Spark Store"),ui->label->text() + " " + tr("Installation complete."));
@@ -153,7 +153,7 @@ void DownloadItem::install(int t)
                 ui->pushButton_3->show();
             }
 
-            if(notRoot)
+            if (notRoot)
             {
                 Utils::sendNotification("spark-store",tr("Spark Store"),tr("dpkg progress had been aborted，you can retry installation."));
                 ui->label_2->setText(tr("dpkg progress had been aborted，you can retry installation"));
