@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="147"/>
-        <location filename="../src/pages/appintopage.cpp" line="212"/>
+        <location filename="../src/pages/appintopage.cpp" line="158"/>
+        <location filename="../src/pages/appintopage.cpp" line="224"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -179,42 +179,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="132"/>
-        <location filename="../src/pages/appintopage.cpp" line="228"/>
-        <location filename="../src/pages/appintopage.cpp" line="325"/>
+        <location filename="../src/pages/appintopage.cpp" line="97"/>
+        <source>Developer Mode Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="143"/>
+        <location filename="../src/pages/appintopage.cpp" line="240"/>
+        <location filename="../src/pages/appintopage.cpp" line="337"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="139"/>
+        <location filename="../src/pages/appintopage.cpp" line="150"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="217"/>
-        <location filename="../src/pages/appintopage.cpp" line="313"/>
-        <location filename="../src/pages/appintopage.cpp" line="354"/>
+        <location filename="../src/pages/appintopage.cpp" line="229"/>
+        <location filename="../src/pages/appintopage.cpp" line="325"/>
+        <location filename="../src/pages/appintopage.cpp" line="366"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="222"/>
+        <location filename="../src/pages/appintopage.cpp" line="234"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="358"/>
-        <location filename="../src/pages/appintopage.cpp" line="369"/>
+        <location filename="../src/pages/appintopage.cpp" line="370"/>
+        <location filename="../src/pages/appintopage.cpp" line="381"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="358"/>
+        <location filename="../src/pages/appintopage.cpp" line="370"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="369"/>
+        <location filename="../src/pages/appintopage.cpp" line="381"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>

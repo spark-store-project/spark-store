@@ -10,6 +10,8 @@
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
+#define UOSCheckFile "/var/lib/deepin/developer-mode/enabled"
+
 int main(int argc, char *argv[])
 {
     // Get build time
@@ -66,6 +68,27 @@ int main(int argc, char *argv[])
     {
         qputenv("QT_QPA_PLATFORM", "dxcb");
     }
+
+    // Check UOS developer mode.
+    QFile UOSDevelopFile(UOSCheckFile);
+    if (UOSDevelopFile.exists() && isDeepinOS)
+    {
+        config.setValue("UOS/isUOS", true);
+        QTextStream UOStextStream(&UOSDevelopFile);
+        QString lineData = UOStextStream.readLine();
+        bool devmode = lineData.toInt();
+        qDebug() << "UOS Developer Mode Status:" << devmode;
+        config.setValue("UOS/EnableDeveloperMode", devmode);
+    }
+    else
+    {
+        if (config.contains("UOS/isUOS"))
+        {
+            config.remove("UOS/isUOS");
+            config.remove("UOS/EnableDeveloperMode");
+        }
+    }
+    config.sync(); // 写入更改至 config.ini，并同步最新内容
 
     // 龙芯机器配置,使得 DApplication 能正确加载 QTWEBENGINE
     qputenv("DTK_FORCE_RASTER_WIDGETS", "FALSE");
