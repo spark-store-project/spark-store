@@ -322,15 +322,36 @@ void MainWindow::updateUi(int now)
 
 void MainWindow::on_pushButton_14_clicked()
 {
-    QFile upgradeStatus("/tmp/spark-store/upgradeStatus.txt");
-    if (!upgradeStatus.exists())
+    // Check UOS
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool())
     {
+        qDebug() << "UOS Developer Mode has not been enabled!";
         QtConcurrent::run([=]
                           {
+            auto upgradeP = new QProcess();
+            upgradeP->startDetached("zenity", QStringList() << "--info"
+                                                            << "--text"
+                                                            << "UOS专业模式未开启，相关功能被禁用"
+                                                            << "--title"
+                                                            << "功能禁用提示"
+                                                            );
+            upgradeP->waitForStarted();
+            upgradeP->waitForFinished(30);
+            upgradeP->deleteLater(); });
+    }
+    else
+    {
+        QFile upgradeStatus("/tmp/spark-store/upgradeStatus.txt");
+        if (!upgradeStatus.exists())
+        {
+            QtConcurrent::run([=]
+                              {
             auto upgradeP = new QProcess();
             upgradeP->startDetached("/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh", QStringList());
             upgradeP->waitForStarted();
             upgradeP->waitForFinished(-1);
             upgradeP->deleteLater(); });
-    }
+        }
+    } 
 }

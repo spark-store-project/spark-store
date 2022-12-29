@@ -89,81 +89,93 @@ void AppIntoPage::openUrl(QUrl url)
         ui->d_contributor->setText(info["Contributor"].toString());
         ui->label_2->setText(info["More"].toString());
 
-        QProcess isInstall;
-        bool isInstalled;
-        bool isUpdated;
-        QString packagename = info["Pkgname"].toString();
-        isInstall.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString());
-        qDebug() << info["Pkgname"].toString();
-        isInstall.waitForFinished(180*1000); // 默认超时 3 分钟
-        int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
-        if(error == 0)
+
+        // Check UOS
+        QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+        if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool()){
+            qDebug() << "UOS Developer Mode has not been enabled!";
+            ui->downloadButton->setText(tr("Developer Mode Disabled"));
+            ui->downloadButton->setEnabled(false);
+            ui->downloadButton->show();
+        }
+        else // 非 UOS 或 UOS 已经开启开发者模式
         {
-                    isInstalled = true;
+            QProcess isInstall;
+            bool isInstalled;
+            bool isUpdated;
+            QString packagename = info["Pkgname"].toString();
+            isInstall.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString());
+            qDebug() << info["Pkgname"].toString();
+            isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
+            int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
+            if (error == 0)
+            {
+                isInstalled = true;
 
-                    QProcess isUpdate;
-                    isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
-                                                               << "--show" << info["Pkgname"].toString());
-                    isUpdate.waitForFinished(180*1000); // 默认超时 3 分钟
-                    QString localVersion = isUpdate.readAllStandardOutput();
-                    localVersion.replace("'", "");
+                QProcess isUpdate;
+                isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
+                                                           << "--show" << info["Pkgname"].toString());
+                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                QString localVersion = isUpdate.readAllStandardOutput();
+                localVersion.replace("'", "");
 
-                    isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
-                    isUpdate.waitForFinished(180*1000); // 默认超时 3 分钟
-                    if(!isUpdate.exitCode())
-                    {
-                        isUpdated = true;
-                    }
-                    else
-                    {
-                        isUpdated = false;
-                    }
+                isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
+                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                if (!isUpdate.exitCode())
+                {
+                    isUpdated = true;
                 }
                 else
                 {
-                    isInstalled = false;
                     isUpdated = false;
                 }
-
-        if(isInstalled)
-        {
-            if(isUpdated)
-            {
-                ui->downloadButton->setText(tr("Reinstall"));
-                ui->downloadButton->setEnabled(true);
-                ui->downloadButton->show();
-                ui->pushButton_3->show();
             }
             else
             {
-                ui->downloadButton->setText(tr("Upgrade"));
+                isInstalled = false;
+                isUpdated = false;
+            }
+
+            if (isInstalled)
+            {
+                if (isUpdated)
+                {
+                    ui->downloadButton->setText(tr("Reinstall"));
+                    ui->downloadButton->setEnabled(true);
+                    ui->downloadButton->show();
+                    ui->pushButton_3->show();
+                }
+                else
+                {
+                    ui->downloadButton->setText(tr("Upgrade"));
+                    ui->downloadButton->setEnabled(true);
+                    ui->downloadButton->show();
+                    ui->pushButton_3->show();
+                }
+            }
+            else
+            {
+                ui->downloadButton->setText(tr("Download"));
+                isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
                 ui->downloadButton->setEnabled(true);
                 ui->downloadButton->show();
-                ui->pushButton_3->show();
             }
-        }
-        else
-        {
-            ui->downloadButton->setText(tr("Download"));
-            isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-            ui->downloadButton->setEnabled(true);
-            ui->downloadButton->show();
         }
 
         QStringList taglist = info["Tags"].toString().split(";");
         QString tmp=info["img_urls"].toString();
-        qDebug()<<tmp;
-        if(tmp.left(2)=="[\"")
+        qDebug() << tmp;
+        if (tmp.left(2) == "[\"")
         {
-            tmp.remove(0,2);
+            tmp.remove(0, 2);
         }
-        if(tmp.right(2)=="\"]")
+        if (tmp.right(2) == "\"]")
         {
-            tmp.remove(tmp.size()-2,tmp.size());
+            tmp.remove(tmp.size() - 2, tmp.size());
         }
         QStringList imglist = tmp.split("\",\"");
-        qDebug()<<imglist;
-        for(int i=0;i < imglist.size();i++)
+        qDebug() << imglist;
+        for (int i = 0; i < imglist.size(); i++)
         {
             QNetworkAccessManager *naManager;
             QNetworkRequest request;

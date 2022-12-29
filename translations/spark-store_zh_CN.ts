@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="147"/>
-        <location filename="../src/pages/appintopage.cpp" line="212"/>
+        <location filename="../src/pages/appintopage.cpp" line="158"/>
+        <location filename="../src/pages/appintopage.cpp" line="224"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
@@ -179,42 +179,47 @@
         <translation>点击跳转</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="132"/>
-        <location filename="../src/pages/appintopage.cpp" line="228"/>
-        <location filename="../src/pages/appintopage.cpp" line="325"/>
+        <location filename="../src/pages/appintopage.cpp" line="97"/>
+        <source>Developer Mode Disabled</source>
+        <translation>开发者模式未开启</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="143"/>
+        <location filename="../src/pages/appintopage.cpp" line="240"/>
+        <location filename="../src/pages/appintopage.cpp" line="337"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="139"/>
+        <location filename="../src/pages/appintopage.cpp" line="150"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="217"/>
-        <location filename="../src/pages/appintopage.cpp" line="313"/>
-        <location filename="../src/pages/appintopage.cpp" line="354"/>
+        <location filename="../src/pages/appintopage.cpp" line="229"/>
+        <location filename="../src/pages/appintopage.cpp" line="325"/>
+        <location filename="../src/pages/appintopage.cpp" line="366"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="222"/>
+        <location filename="../src/pages/appintopage.cpp" line="234"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="358"/>
-        <location filename="../src/pages/appintopage.cpp" line="369"/>
+        <location filename="../src/pages/appintopage.cpp" line="370"/>
+        <location filename="../src/pages/appintopage.cpp" line="381"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="358"/>
+        <location filename="../src/pages/appintopage.cpp" line="370"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="369"/>
+        <location filename="../src/pages/appintopage.cpp" line="381"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -483,7 +488,7 @@
     <message>
         <location filename="../src/application.cpp" line="31"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
-        <translation type="unfinished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
+        <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="92"/>
