@@ -71,12 +71,11 @@ int main(int argc, char *argv[])
 
     // Check UOS developer mode.
     QFile UOSDevelopFile(UOSCheckFile);
-    if (UOSDevelopFile.exists() && isDeepinOS)
+    if (isDeepinOS && UOSDevelopFile.exists() && UOSDevelopFile.open(QFile::ReadOnly | QFile::Text))
     {
         config.setValue("UOS/isUOS", true);
-        QTextStream UOStextStream(&UOSDevelopFile);
-        QString lineData = UOStextStream.readLine();
-        bool devmode = lineData.toInt();
+        QString lineData = UOSDevelopFile.readLine();
+        bool devmode = lineData.trimmed().toInt();
         qDebug() << "UOS Developer Mode Status:" << devmode;
         config.setValue("UOS/EnableDeveloperMode", devmode);
     }
@@ -88,6 +87,7 @@ int main(int argc, char *argv[])
             config.remove("UOS/EnableDeveloperMode");
         }
     }
+    UOSDevelopFile.close();
     config.sync(); // 写入更改至 config.ini，并同步最新内容
 
     // 龙芯机器配置,使得 DApplication 能正确加载 QTWEBENGINE
