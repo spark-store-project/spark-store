@@ -363,7 +363,7 @@ void AppIntoPage::on_pushButton_3_clicked()
 
         if (check.readAllStandardOutput().isEmpty())
         {
-            ui->downloadButton->setText(tr("Install"));
+            ui->downloadButton->setText(tr("Download"));
             ui->pushButton_3->hide();
 
             updatesEnabled();
