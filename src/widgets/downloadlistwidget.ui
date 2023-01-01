@@ -85,7 +85,7 @@ QListWidget::item::selected
 }</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAsNeeded</enum>
@@ -99,8 +99,14 @@ QListWidget::item::selected
      <property name="autoScrollMargin">
       <number>10</number>
      </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
      <property name="resizeMode">
       <enum>QListView::Fixed</enum>
+     </property>
+     <property name="spacing">
+      <number>4</number>
      </property>
     </widget>
    </item>

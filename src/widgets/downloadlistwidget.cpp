@@ -91,7 +91,7 @@ void DownloadListWidget::addItem(QString name, QString fileName, QString pkgName
     di->pkgName = pkgName;
     di->seticon(icon);
     QListWidgetItem *pItem = new QListWidgetItem();
-    pItem->setSizeHint(QSize(240, 50));
+    pItem->setSizeHint(QSize(240, 56)); // ui 中单个 downloaditem 高度固定 56px（上下 margin 8px，图片固定 48x48）
     ui->listWidget->addItem(pItem);
     ui->listWidget->setItemWidget(pItem, di);
     if (!isBusy)

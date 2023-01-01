@@ -22,6 +22,8 @@ DownloadItem::DownloadItem(QWidget *parent) : QWidget(parent),
     ui->pushButton_3->hide();
     ui->widget_spinner->start();
     ui->widget_spinner->hide();
+
+    ui->label->setElideMode(Qt::TextElideMode::ElideRight);
 }
 
 DownloadItem::~DownloadItem()
@@ -48,6 +50,7 @@ void DownloadItem::setMax(qint64 max)
 void DownloadItem::setName(QString name)
 {
     ui->label->setText(name);
+    ui->label->setToolTip(name);
 }
 
 QString DownloadItem::getName()

@@ -363,7 +363,7 @@ void AppIntoPage::on_pushButton_3_clicked()
 
         if (check.readAllStandardOutput().isEmpty())
         {
-            ui->downloadButton->setText(tr("Install"));
+            ui->downloadButton->setText(tr("Download"));
             ui->pushButton_3->hide();
 
             updatesEnabled();
@@ -386,11 +386,11 @@ void AppIntoPage::on_shareButton_clicked()
 void AppIntoPage::on_updateButton_clicked()
 {
     QString feedbackSpk = "spk://store/chat/store.spark-app.feedback";
-    QFile actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
-    if (actionSubmissionClientStatus.exists())
+    QFileInfo actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
+    if (actionSubmissionClientStatus.exists() && actionSubmissionClientStatus.isDir())
     {
         qDebug() << "反馈器存在";
-        QProcess::startDetached("sh /opt/durapps/store.spark-app.feedback/launch.sh", QStringList());
+        QProcess::startDetached("sh", QStringList() << "/opt/durapps/store.spark-app.feedback/launch.sh");
     }
     else
     {
