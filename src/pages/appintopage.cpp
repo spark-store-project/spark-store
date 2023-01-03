@@ -32,7 +32,7 @@ void AppIntoPage::clear()
     ui->author->clear();
     ui->label_2->clear();
     ui->downloadButton->hide();
-    ui->downloadButton->setEnabled(true);
+    ui->downloadButton->setEnabled(false);
     ui->pushButton_3->hide();
     int n = ui->listWidget->count();
     for (int i = 0; i < n; i++)
@@ -63,9 +63,8 @@ void AppIntoPage::openUrl(QUrl url)
         info = appinfo;
 //        qDebug()<<url;
         //获取图标
-        QNetworkAccessManager *naManager;
         QNetworkRequest request;
-        naManager=new QNetworkAccessManager(this);
+        QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
         qDebug()<<api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png";
         request.setUrl(QUrl(api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png"));
         request.setRawHeader("User-Agent", "Mozilla/5.0");
@@ -136,30 +135,33 @@ void AppIntoPage::openUrl(QUrl url)
                 isUpdated = false;
             }
 
-            if (isInstalled)
-            {
-                if (isUpdated)
+            QObject::connect(naManager, &QNetworkAccessManager::finished, [=]()
+                             {
+
+                if (isInstalled)
                 {
-                    ui->downloadButton->setText(tr("Reinstall"));
-                    ui->downloadButton->setEnabled(true);
-                    ui->downloadButton->show();
-                    ui->pushButton_3->show();
+                    if (isUpdated)
+                    {
+                        ui->downloadButton->setText(tr("Reinstall"));
+                        ui->downloadButton->setEnabled(true);
+                        ui->downloadButton->show();
+                        ui->pushButton_3->show();
+                    }
+                    else
+                    {
+                        ui->downloadButton->setText(tr("Upgrade"));
+                        ui->downloadButton->setEnabled(true);
+                        ui->downloadButton->show();
+                        ui->pushButton_3->show();
+                    }
                 }
                 else
                 {
-                    ui->downloadButton->setText(tr("Upgrade"));
+                    ui->downloadButton->setText(tr("Download"));
                     ui->downloadButton->setEnabled(true);
+                    isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
                     ui->downloadButton->show();
-                    ui->pushButton_3->show();
-                }
-            }
-            else
-            {
-                ui->downloadButton->setText(tr("Download"));
-                isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
-                ui->downloadButton->setEnabled(true);
-                ui->downloadButton->show();
-            }
+                } });
         }
 
         QStringList taglist = info["Tags"].toString().split(";");
@@ -177,14 +179,14 @@ void AppIntoPage::openUrl(QUrl url)
         qDebug() << imglist;
         for (int i = 0; i < imglist.size(); i++)
         {
-            QNetworkAccessManager *naManager;
             QNetworkRequest request;
-            naManager=new QNetworkAccessManager(this);
-            request.setUrl(QUrl(imglist[i].replace("+","%2B")));
+            QNetworkAccessManager *iconNaManager = new QNetworkAccessManager(this);
+            request.setUrl(QUrl(imglist[i].replace("+", "%2B")));
             request.setRawHeader("User-Agent", "Mozilla/5.0");
             request.setRawHeader("Content-Type", "charset='utf-8'");
-            naManager->get(request);
-            QObject::connect(naManager,&QNetworkAccessManager::finished,[=](QNetworkReply *reply){
+            iconNaManager->get(request);
+            QObject::connect(iconNaManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
+                             {
                     QByteArray jpegData = reply->readAll();
                     QPixmap pixmap;
                     pixmap.loadFromData(jpegData);
