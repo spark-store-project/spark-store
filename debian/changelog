@@ -10,6 +10,8 @@ spark-store (4.1.2) stable; urgency=medium
   * fix: 适配c11代码规范，消除qt编译警告
   * fix: 默认服务器域名指向cdn域名
   * fix: 消除内部函数的无用变量，限制作用域
+  * feat: aptss 除ssupdate外的操作时候如果检测到存在源文件存在则不再重复获取
+  * fix: 修复在apt list锁被锁定的时候异常弹出有更新可用
 
   * chore: 添加 Application 类，继承 DApplication，将 main 函数中设置属性、关于信息等操作移至 Application 构造函数中进行
   * chore: 添加 setOrganizationName 操作，设置组织名称为 spark-union，与 SWRT 保持一致

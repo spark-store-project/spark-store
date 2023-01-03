@@ -47,9 +47,19 @@ fi
 # 每日更新星火源文件
 curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
 
-sleep 10
 
-updatetext=`aptss ssupdate`
+
+updatetext=`aptss ssupdate 2>&1`
+
+until [ "`echo $updatetext | grep E: `" = "" ];do
+echo "更新出现异常状况，等待十五秒"
+sleep 15
+updatetext=`aptss ssupdate 2>&1`
+
+
+
+done
+
 isupdate=`echo ${updatetext: -5}`
 if [ "$isupdate" = "date." ] ; then
     exit 0
