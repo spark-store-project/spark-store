@@ -18,7 +18,8 @@ Build-Depends:
  qtwebengine5-dev,
  qtwayland5,
  qtwayland5-dev-tools,
- gcc
+ gcc,
+ g++
  
 Standards-Version: 3.0
 Homepage: https://www.spark-app.store/
@@ -42,7 +43,6 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  bubblewrap,
  aria2,
  gcc,
- g++,
  zenity
 Description: Spark Store
  A community powered app store, based on DTK.
