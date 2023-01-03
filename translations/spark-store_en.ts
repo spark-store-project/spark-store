@@ -10,8 +10,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="158"/>
-        <location filename="../src/pages/appintopage.cpp" line="224"/>
+        <location filename="../src/pages/appintopage.cpp" line="160"/>
+        <location filename="../src/pages/appintopage.cpp" line="226"/>
+        <location filename="../src/pages/appintopage.cpp" line="368"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -174,52 +175,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="88"/>
+        <location filename="../src/pages/appintopage.cpp" line="87"/>
         <source>Click Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="97"/>
+        <location filename="../src/pages/appintopage.cpp" line="96"/>
         <source>Developer Mode Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="143"/>
-        <location filename="../src/pages/appintopage.cpp" line="240"/>
-        <location filename="../src/pages/appintopage.cpp" line="337"/>
+        <location filename="../src/pages/appintopage.cpp" line="145"/>
+        <location filename="../src/pages/appintopage.cpp" line="242"/>
+        <location filename="../src/pages/appintopage.cpp" line="339"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="150"/>
+        <location filename="../src/pages/appintopage.cpp" line="152"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="229"/>
-        <location filename="../src/pages/appintopage.cpp" line="325"/>
-        <location filename="../src/pages/appintopage.cpp" line="366"/>
+        <location filename="../src/pages/appintopage.cpp" line="231"/>
+        <location filename="../src/pages/appintopage.cpp" line="327"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="234"/>
+        <location filename="../src/pages/appintopage.cpp" line="236"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="370"/>
-        <location filename="../src/pages/appintopage.cpp" line="381"/>
+        <location filename="../src/pages/appintopage.cpp" line="372"/>
+        <location filename="../src/pages/appintopage.cpp" line="383"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="370"/>
+        <location filename="../src/pages/appintopage.cpp" line="372"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="381"/>
+        <location filename="../src/pages/appintopage.cpp" line="383"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -253,99 +253,99 @@
 <context>
     <name>DownloadItem</name>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="20"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="32"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="50"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="74"/>
         <source>icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="82"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="134"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="106"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="121"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="198"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="226"/>
         <source>Waiting to download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="249"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="277"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="268"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="296"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.ui" line="287"/>
+        <location filename="../src/widgets/common/downloaditem.ui" line="315"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="39"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="41"/>
         <source>Download Complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="151"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="158"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="154"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="98"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="101"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="141"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
         <source>Installation complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="142"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="145"/>
         <source>Finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="152"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="151"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="154"/>
         <source>Error happened in dpkg progress , you can try it again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="152"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="155"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="158"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
         <source>dpkg progress had been aborted，you can retry installation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="159"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="162"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="179"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="182"/>
         <source>Download canceled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -363,7 +363,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/downloadlistwidget.ui" line="110"/>
+        <location filename="../src/widgets/downloadlistwidget.ui" line="116"/>
         <source>Open download directory</source>
         <translation type="unfinished"></translation>
     </message>
