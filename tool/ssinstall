@@ -79,13 +79,13 @@ dpkg -i "$DEBPATH" || aptss install -yf
 else
 
 
-zenity --info --icon-name=spark-store --height 270 --width 500 --text "软件包校验失败！这不应该发生！\n可能是因为软件包已损坏，星火仓库未同步，或者最坏的情况：恶意软件尝试利用自动安装来入侵系统！\n如果你不清楚发生了什么，请在接下来的认证窗口中选择取消认证\n执行 sudo aptss ssupdate 后再尝试安装。\n如果问题仍然存在，请在应用信息界面点击 应用反馈 来提交反馈给我们！\n\n如果你是审核人员，这是正常现象，在审核通过前星火仓库不会保存相关信息。请在接下来的弹窗中进行认证即可"
+zenity --info --icon-name=spark-store --height 270 --width 500 --text "软件包校验失败！这不应该发生！\n可能是因为软件包已损坏，星火仓库未同步，或者最坏的情况：恶意软件尝试利用自动安装来入侵系统！\n如果你不清楚发生了什么，请在接下来的认证窗口中选择取消认证\n执行 sudo aptss ssupdate 后再尝试安装。\n如果问题仍然存在，请在应用信息界面点击 应用反馈 来提交反馈给我们！\n\n 如果你是审核人员，请使用 ssaudit来替代ssinstall进行审核工作，因为现在ssinstall已经被用于免密安装。\n如果你正在尝试安装已经下架的星火应用，也可用ssaudit来替代ssinstall"
 
 echo "软件包校验失败！这不应该发生！"
 echo "执行 sudo aptss ssupdate 后再尝试安装。"
 echo "如果问题仍然存在，请在应用信息界面点击 应用反馈 来提交反馈给我们！"
-echo "如果你是审核人员，这是正常现象，在审核通过前星火仓库不会保存相关信息。请在接下来的弹窗中进行认证即可"
+echo "如果你是审核人员，请使用 ssaudit来替代ssinstall进行审核工作，因为现在ssinstall已经被用于免密安装"
+echo "如果你正在尝试安装已经下架的星火应用，也可用ssaudit来替代ssinstall"
 
-pkexec_as_current_user bash -c "dpkg -i "$DEBPATH" || aptss install -yf "
 
 fi
