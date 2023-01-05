@@ -61,9 +61,13 @@ fi
 
 if [ -e "/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages" ];then
 PACKAGES_DATA_PATH="/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages"
+echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是单目录仓库配置"
 else
 PACKAGES_DATA_PATH="/var/lib/apt/lists/d.store.deepinos.org.cn_Packages"
+echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是根目录仓库配置"
 fi
+
+
 
 echo "正在计算hash并与星火仓库匹配..."
 
