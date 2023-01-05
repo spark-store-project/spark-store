@@ -293,59 +293,65 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="41"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="43"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="44"/>
         <source>Download Complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="154"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="148"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="159"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="167"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="101"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="104"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="105"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="148"/>
         <source>Installation complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="145"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="150"/>
         <source>Finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="152"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="157"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="154"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="159"/>
         <source>Error happened in dpkg progress , you can try it again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="155"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="160"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="167"/>
         <source>dpkg progress had been aborted，you can retry installation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="162"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="168"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="169"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="182"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="189"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="190"/>
         <source>Download canceled</source>
         <translation type="unfinished"></translation>
     </message>

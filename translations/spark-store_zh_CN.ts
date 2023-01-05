@@ -293,59 +293,65 @@
         <translation>详情</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="41"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="43"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="44"/>
         <source>Download Complete.</source>
         <translation>下载完成.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="154"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="148"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="159"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="167"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="101"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="104"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="105"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="148"/>
         <source>Installation complete.</source>
         <translation>安装完成.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="145"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="149"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="150"/>
         <source>Finish</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="152"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="157"/>
         <source>Retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="154"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="159"/>
         <source>Error happened in dpkg progress , you can try it again.</source>
         <translation>安装被中止，可重新安装。</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="155"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="160"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation>dpkg出现错误，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="161"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="167"/>
         <source>dpkg progress had been aborted，you can retry installation.</source>
         <translation>dpkg进程被中断，您可重试安装。</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="162"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="168"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="169"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation>安装被中止，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="182"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="189"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="190"/>
         <source>Download canceled</source>
         <translation>下载已取消</translation>
     </message>

@@ -1,3 +1,9 @@
+spark-store (4.1.2~test2) stable; urgency=medium
+
+  *   * feat: ssinstall支持从单独文件夹中校验软件包
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.1.2~test1) stable; urgency=medium
 
   * feat: 初步的wayland支持
@@ -14,7 +20,7 @@ spark-store (4.1.2~test1) stable; urgency=medium
   * fix: 修复在apt list锁被锁定的时候异常弹出有更新可用
   * chore: 去除安装依赖:g++
   * fix: 修复下载列表中进度提示文字显示不完整的问题
-  * feat: ssinstall支持从单独文件夹中校验软件包
+
 
   * chore: 添加 Application 类，继承 DApplication，将 main 函数中设置属性、关于信息等操作移至 Application 构造函数中进行
   * chore: 添加 setOrganizationName 操作，设置组织名称为 spark-union，与 SWRT 保持一致
