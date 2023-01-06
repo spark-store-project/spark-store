@@ -28,6 +28,6 @@ fi
 DEBPATH=`realpath $1`
 
 echo  ----------------------------------------------------------------------------------
-dpkg -i "$DEBPATH" || aptss install -yf 
+aptss install -yf --reinstall "$DEBPATH"
 
 
