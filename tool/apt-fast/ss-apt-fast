@@ -207,7 +207,9 @@ fi
 msg_already_running()
 {
   msg "apt-fast already running!" "warning"
+  msg "apt-fast 已经在运行了" "warning"
   msg "Verify that all apt-fast processes are finished then remove $LCK_FILE.lock and try again." "hint"
+  msg "请确认所有的apt-fast进程已经结束，然后删除 $LCK_FILE.lock 后重试." "hint"
 }
 
 # Check if a lock file exists.
@@ -246,6 +248,7 @@ cleanup_dllist()
       if ! rm -f -- "$DLLIST" 2>/dev/null
       then
         msg "Could not clean up download list file." "warning"
+        msg "无法清除下载列表文件." "warning"
         CLEANUP_STATE=1
       fi
     fi
@@ -304,12 +307,14 @@ get_uris(){
     if ! mkdir -p -- "$(dirname "$DLLIST")"
     then
       msg "Could not create download file directory." "warning"
+      msg "无法创建下载文件夹" "warning"
       exit 1
     fi
   elif [ -f "$DLLIST" ]; then
     if ! rm -f -- "$DLLIST" 2>/dev/null && ! touch -- "$DLLIST" 2>/dev/null
     then
-      msg "Unable to write to download file. Try restarting with root permissions or run 'apt-fast clean' first." "warning"
+      msg "Unable to write to download file. Try restarting with root permissions or run 'aptss clean' first." "warning"
+      msg "无法下载文件。尝试使用root权限，或者运行 'aptss clean'" "warning"
       exit 1
     fi
   fi
@@ -398,6 +403,7 @@ get_uris(){
           checksum="$(echo "$patch_checksum" | cut -d' ' -f2)"
         else
           msg "Couldn't get supported checksum for $pkg_name ($pkg_version)." "warning"
+	  msg "无法获得 $pkg_name ($pkg_version) 的受支持的散列验证值" "warning"
           REMOVE_WORKING_MESSAGE=
         fi
       fi
@@ -436,6 +442,7 @@ display_downloadfile(){
     done <<<"$(echo -e "$DOWNLOAD_DISPLAY" | sort "${DISPLAY_SORT_OPTIONS[@]}")"
   fi
   msg "Download size: $(echo "$DOWNLOAD_SIZE" | numfmt --to=iec-i --suffix=B)" "normal"
+  msg "下载大小: $(echo "$DOWNLOAD_SIZE" | numfmt --to=iec-i --suffix=B)" "normal"
 }
 
 # Create and insert a PID number to lockfile.
@@ -479,6 +486,7 @@ if [ "$CMD" == "aria2c" ]; then
   done
   if [ -z "$HASH_SUPPORTED" ]; then
     msg "Couldn't find supported checksum algorithm from aria2c. Checksums disabled." "warning"
+    msg "无法找到aria2c支持的散列验证算法. 散列验证已被禁用." "warning"
   fi
 fi
 
@@ -533,6 +541,7 @@ fi
 if [ "$option" == "install" ]; then
   msg
   msg "Working... this may take a while." "normal"
+  msg "正在工作中，请稍等" "normal"
   REMOVE_WORKING_MESSAGE=y
 
   get_uris "$@"
@@ -600,6 +609,7 @@ elif [ "$option" == "clean" ]; then
 elif [ "$option" == "download" ]; then
   msg
   msg "Working... this may take a while." "normal"
+  msg "正在工作中，请稍等" "normal"
   REMOVE_WORKING_MESSAGE=y
 
   get_uris "$@"
@@ -618,6 +628,7 @@ elif [ "$option" == "download" ]; then
 elif [ "$option" == "source" ]; then
   msg
   msg "Working... this may take a while." "normal"
+  msg "正在工作中，请稍等" "normal"
   REMOVE_WORKING_MESSAGE=y
 
   get_uris "$@"
