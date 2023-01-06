@@ -78,7 +78,7 @@ if [ ! -z "$IS_MD5SUM_CHECKD" ];then
 
 echo "校验成功，开始安装"
 echo  ----------------------------------------------------------------------------------
-aptss install -yf --reinstall "$DEBPATH" 
+dpkg -i  "$DEBPATH"  || aptss install -yf 
 
 else
 
