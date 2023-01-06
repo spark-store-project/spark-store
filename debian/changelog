@@ -1,6 +1,41 @@
+spark-store (4.1.2) stable; urgency=medium
+
+  * feat: 初步的wayland支持
+  * fix: 首页的捐赠页面在中文环境下显示中文
+  * fix: 更新检测模块在aptss ssupdate操作失败后现在会正确地移除锁而不是错误的残留锁。
+  * chore: ssinstall现在拒绝安装验证失败的包，审核操作现在需要改用ssaudit
+  * fix: Ubuntu下下载列表无法关闭
+  * fix: 修复进入详情页时焦点默认在分享链接按钮上的问题
+  * fix: 修复特定情况下的内存泄漏问题
+  * fix: 适配c11代码规范，消除qt编译警告
+  * fix: 默认服务器域名指向cdn域名
+  * fix: 消除内部函数的无用变量，限制作用域
+  * feat: aptss 除ssupdate外的操作时候如果检测到存在源文件存在则不再重复获取
+  * fix: 修复在apt list锁被锁定的时候异常弹出有更新可用
+  * chore: 去除安装依赖:g++
+  * fix: 修复下载列表中进度提示文字显示不完整的问题
+  * feat: ssinstall支持从单独文件夹中校验软件包
+  * feat： 支持分单文件夹下载。具体内容参见：https://gitee.com/deepin-community-store/repo_auto_update_script/blob/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list
+  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo ，不过shenmo是自由的
+
+
+  * chore: 添加 Application 类，继承 DApplication，将 main 函数中设置属性、关于信息等操作移至 Application 构造函数中进行
+  * chore: 添加 setOrganizationName 操作，设置组织名称为 spark-union，与 SWRT 保持一致
+  * chore: 设置组织名称后，QStandardPaths::AppConfigLocation 等路径相应改变，修改所有配置文件和缓存文件路径
+  * chore: 关于对话框设置父对象后，对话框背景色受主窗口样式表影响，移动部分控件样式表设置方式与位置
+  * chore: 去除 .pro 文件中无效的更新翻译文件脚本调用，整理 .pro 文件，添加编译时更新 ts 文件脚本调用
+  * chore: 继续修复偶现关闭客户端时崩溃问题（疑似 aria2c 进程未启动，pid 未初始化为随机值，执行 kill 操作时未判断导致）
+  * chore: 新增编译依赖，测试安装时不会出现报错
+  * chore: 暂时去除没有意义的 DBus 接口，使用 DGuiApplicationHelper::newProcessInstance 获取新进程的启动参数
+  * chore: 更新翻译文件，去除已经不存在的翻译
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.1.2~test2) stable; urgency=medium
 
-  *   * feat: ssinstall支持从单独文件夹中校验软件包
+  * feat: ssinstall支持从单独文件夹中校验软件包
+  * feat： 支持分单文件夹下载。具体内容参见：https://gitee.com/deepin-community-store/repo_auto_update_script/blob/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list
+  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo ，不过shenmo是自由的
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
