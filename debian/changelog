@@ -1,6 +1,7 @@
 spark-store (4.1.2) stable; urgency=medium
 
   * feat: 初步的wayland支持
+  * feat: UOS下检测开发者模式是否开启，若未开启则拒绝安装
   * fix: 首页的捐赠页面在中文环境下显示中文
   * fix: 更新检测模块在aptss ssupdate操作失败后现在会正确地移除锁而不是错误的残留锁。
   * chore: ssinstall现在拒绝安装验证失败的包，审核操作现在需要改用ssaudit
@@ -29,6 +30,8 @@ spark-store (4.1.2) stable; urgency=medium
   * chore: 暂时去除没有意义的 DBus 接口，使用 DGuiApplicationHelper::newProcessInstance 获取新进程的启动参数
   * chore: 更新翻译文件，去除已经不存在的翻译
 
+
+
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
 spark-store (4.1.2~test2) stable; urgency=medium
@@ -42,6 +45,7 @@ spark-store (4.1.2~test2) stable; urgency=medium
 spark-store (4.1.2~test1) stable; urgency=medium
 
   * feat: 初步的wayland支持
+  * feat: UOS下检测开发者模式是否开启，若未开启则拒绝安装
   * fix: 首页的捐赠页面在中文环境下显示中文
   * fix: 更新检测模块在aptss ssupdate操作失败后现在会正确地移除锁而不是错误的残留锁。
   * chore: ssinstall现在拒绝安装验证失败的包，审核操作现在需要改用ssaudit
