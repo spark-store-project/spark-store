@@ -16,7 +16,6 @@ void SmoothListWidget::wheelEvent(QWheelEvent *e)
 }
 void SmoothListWidget::onSliderChanged(int p)
 {
-    int startRow = count();
     if (p == vScrollBar->maximum())
     {
         emit reachedBottom(); // 1

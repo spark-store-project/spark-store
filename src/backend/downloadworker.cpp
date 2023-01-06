@@ -1,9 +1,11 @@
 #include "downloadworker.h"
+
 #include <QEventLoop>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QDir>
 #include <QtConcurrent>
+#include <QStandardPaths>
 
 DownloadController::DownloadController(QObject *parent)
 {
@@ -48,7 +50,7 @@ bool checkMeatlink(QString metaUrl)
 
 void gennerateDomain(QVector<QString> &domains)
 {
-    QFile serverList(QDir::homePath().toUtf8() + "/.config/spark-store/server.list");
+    QFile serverList(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/server.list");
     if (serverList.open(QFile::ReadOnly))
     {
         QStringList list = QString(serverList.readAll()).trimmed().split("\n");
@@ -87,14 +89,17 @@ void DownloadController::startDownload(const QString &url)
     }
 
     QtConcurrent::run([=]()
-                      {
+    {
         QString metaUrl = url + ".metalink";
         qDebug() << "metalink" << metaUrl;
         bool useMetalink = false;
-        if (checkMeatlink(metaUrl)){
+        if (checkMeatlink(metaUrl))
+        {
             useMetalink = true;
             qDebug() << "useMetalink:" << useMetalink;
-        }else{
+        }
+        else
+        {
             gennerateDomain(domains);
             // qDebug() << domains << domains.size();
         }
@@ -111,10 +116,12 @@ void DownloadController::startDownload(const QString &url)
         QString aria2ConnectionMax = "--max-concurrent-downloads=16";
         QString aria2DNSCommand = "--async-dns-server=119.29.29.29,223.5.5.5";
 
-        if (useMetalink){
+        if (useMetalink)
+        {
             command.append(metaUrl.toUtf8());
         }
-        else{
+        else
+        {
             for (int i = 0; i < domains.size(); i++)
             {
                 command.append(replaceDomain(url, domains.at(i)).replace("+","%2B").toUtf8()); //对+进行转译，避免oss出错
@@ -133,7 +140,8 @@ void DownloadController::startDownload(const QString &url)
         command.append(aria2ConnectionPerServer.toUtf8());
         command.append(aria2ConnectionMax.toUtf8());
         command.append(aria2DNSCommand.toUtf8());
-        if (useMetalink){
+        if (useMetalink)
+        {
             command.append(aria2NoSeeds.toUtf8());
         }
         qDebug() << command;
@@ -144,8 +152,7 @@ void DownloadController::startDownload(const QString &url)
         cmd->start();
         cmd->waitForStarted(); //等待启动完成
 
-        QObject::connect(cmd, &QProcess::readyReadStandardOutput,
-        [&]()
+        QObject::connect(cmd, &QProcess::readyReadStandardOutput, [&]()
         {
             //通过读取输出计算下载速度
             QString message = cmd->readAllStandardOutput().data();
@@ -188,8 +195,7 @@ void DownloadController::startDownload(const QString &url)
                 emit downloadProcess(speedInfo, downloadSizeRecord, fileSize);
             }
         });
-        QObject::connect(cmd, &QProcess::readyReadStandardError,
-        [&]()
+        QObject::connect(cmd, &QProcess::readyReadStandardError, [&]()
         {
             emit errorOccur(cmd->readAllStandardError().data());
             return;
@@ -209,7 +215,7 @@ void DownloadController::startDownload(const QString &url)
         * HD 70642 is a star with an exoplanetary companion in the southern constellation of Puppis. 
         */
         QProcess mailProcess;
-        mailProcess.start(SenderdPath.toUtf8() + " " + metaUrl.toUtf8() + " " + "HD70642");
+        mailProcess.start(SenderdPath.toUtf8(), QStringList() << metaUrl << "HD70642");
         mailProcess.waitForStarted();
         mailProcess.waitForFinished(3000);
         mailProcess.deleteLater();
@@ -222,15 +228,22 @@ void DownloadController::startDownload(const QString &url)
  */
 void DownloadController::stopDownload()
 {
+    if (pidNumber < 0)
+    {
+        return;
+    }
+
     // 实现下载进程退出
     QString killCmd = QString("kill -9 %1").arg(pidNumber);
     system(killCmd.toUtf8());
     qDebug() << "kill aria2!";
+    pidNumber = -1;
 }
 
 qint64 DownloadController::getFileSize(const QString &url)
 {
     // 已经无需使用 qtnetwork 再获取 filesize，完全交给 aria2 来计算进度。 为保证兼容性，故保留此函数。
+    qDebug() << "Begin download:" << url;
     qint64 fileSize = 10000;
     return fileSize;
 }

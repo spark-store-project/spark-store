@@ -4,6 +4,7 @@ if [ "$1" = "remove" ] || [ "$1" = "purge" ];then
 # Remove residual symbol links
 rm /usr/local/bin/spark-store
 rm /usr/local/bin/ssinstall
+rm /usr/local/bin/ssaudit
 rm /usr/local/bin/spark-dstore-patch
 rm /usr/local/bin/ussinstall
 rm /usr/local/bin/ussremove

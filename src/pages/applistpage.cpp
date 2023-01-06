@@ -53,6 +53,7 @@ void AppListPage::getAppList(QString type)
     }
 
     ui->webEngineView->setUrl(url);
+    delete api;
 }
 
 void AppListPage::getSearchList(QString keyword)
@@ -72,6 +73,7 @@ void AppListPage::getSearchList(QString keyword)
     }
     url = api->getServerUrl() + "store/#/flamescion/search?keywords=" + keyword + "&" + theme;
     ui->webEngineView->setUrl(url);
+    delete api;
 }
 
 AppListPage::~AppListPage()

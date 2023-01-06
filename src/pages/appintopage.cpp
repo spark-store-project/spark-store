@@ -32,7 +32,7 @@ void AppIntoPage::clear()
     ui->author->clear();
     ui->label_2->clear();
     ui->downloadButton->hide();
-    ui->downloadButton->setEnabled(true);
+    ui->downloadButton->setEnabled(false);
     ui->pushButton_3->hide();
     int n = ui->listWidget->count();
     for (int i = 0; i < n; i++)
@@ -63,9 +63,8 @@ void AppIntoPage::openUrl(QUrl url)
         info = appinfo;
 //        qDebug()<<url;
         //获取图标
-        QNetworkAccessManager *naManager;
         QNetworkRequest request;
-        naManager=new QNetworkAccessManager(this);
+        QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
         qDebug()<<api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png";
         request.setUrl(QUrl(api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png"));
         request.setRawHeader("User-Agent", "Mozilla/5.0");
@@ -89,89 +88,105 @@ void AppIntoPage::openUrl(QUrl url)
         ui->d_contributor->setText(info["Contributor"].toString());
         ui->label_2->setText(info["More"].toString());
 
-        QProcess isInstall;
-        bool isInstalled;
-        bool isUpdated;
-        QString packagename = info["Pkgname"].toString();
-        isInstall.start("dpkg -s " + info["Pkgname"].toString());
-        qDebug()<<info["Pkgname"].toString();
-        isInstall.waitForFinished(180*1000); // 默认超时 3 分钟
-        int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
-        if(error == 0)
+
+        // Check UOS
+        QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+        if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool()){
+            qDebug() << "UOS Developer Mode has not been enabled!";
+            ui->downloadButton->setText(tr("Developer Mode Disabled"));
+            ui->downloadButton->setEnabled(false);
+            ui->downloadButton->show();
+        }
+        else // 非 UOS 或 UOS 已经开启开发者模式
         {
-                    isInstalled = true;
+            QProcess isInstall;
+            bool isInstalled;
+            bool isUpdated;
+            QString packagename = info["Pkgname"].toString();
+            isInstall.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString());
+            qDebug() << info["Pkgname"].toString();
+            isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
+            int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
+            if (error == 0)
+            {
+                isInstalled = true;
 
-                    QProcess isUpdate;
-                    isUpdate.start("dpkg-query --showformat='${Version}' --show " + info["Pkgname"].toString());
-                    isUpdate.waitForFinished(180*1000); // 默认超时 3 分钟
-                    QString localVersion = isUpdate.readAllStandardOutput();
-                    localVersion.replace("'", "");
+                QProcess isUpdate;
+                isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
+                                                           << "--show" << info["Pkgname"].toString());
+                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                QString localVersion = isUpdate.readAllStandardOutput();
+                localVersion.replace("'", "");
 
-                    isUpdate.start("dpkg --compare-versions " + localVersion + " ge " + info["Version"].toString());
-                    isUpdate.waitForFinished(180*1000); // 默认超时 3 分钟
-                    if(!isUpdate.exitCode())
+                isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
+                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                if (!isUpdate.exitCode())
+                {
+                    isUpdated = true;
+                }
+                else
+                {
+                    isUpdated = false;
+                }
+            }
+            else
+            {
+                isInstalled = false;
+                isUpdated = false;
+            }
+
+            QObject::connect(naManager, &QNetworkAccessManager::finished, [=]()
+                             {
+
+                if (isInstalled)
+                {
+                    if (isUpdated)
                     {
-                        isUpdated = true;
+                        ui->downloadButton->setText(tr("Reinstall"));
+                        ui->downloadButton->setEnabled(true);
+                        ui->downloadButton->show();
+                        ui->pushButton_3->show();
                     }
                     else
                     {
-                        isUpdated = false;
+                        ui->downloadButton->setText(tr("Upgrade"));
+                        ui->downloadButton->setEnabled(true);
+                        ui->downloadButton->show();
+                        ui->pushButton_3->show();
                     }
                 }
                 else
                 {
-                    isInstalled = false;
-                    isUpdated = false;
-                }
-
-        if(isInstalled)
-        {
-            if(isUpdated)
-            {
-                ui->downloadButton->setText(tr("Reinstall"));
-                ui->downloadButton->setEnabled(true);
-                ui->downloadButton->show();
-                ui->pushButton_3->show();
-            }
-            else
-            {
-                ui->downloadButton->setText(tr("Upgrade"));
-                ui->downloadButton->setEnabled(true);
-                ui->downloadButton->show();
-                ui->pushButton_3->show();
-            }
-        }
-        else
-        {
-            ui->downloadButton->setText(tr("Download"));
-            isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-            ui->downloadButton->setEnabled(true);
-            ui->downloadButton->show();
+                    ui->downloadButton->setText(tr("Download"));
+                    ui->downloadButton->setEnabled(true);
+                    isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
+                    ui->downloadButton->show();
+                } });
         }
 
         QStringList taglist = info["Tags"].toString().split(";");
         QString tmp=info["img_urls"].toString();
-        qDebug()<<tmp;
-        if(tmp.left(2)=="[\"")
+        qDebug() << tmp;
+        if (tmp.left(2) == "[\"")
         {
-            tmp.remove(0,2);
+            tmp.remove(0, 2);
         }
-        if(tmp.right(2)=="\"]")
+        if (tmp.right(2) == "\"]")
         {
-            tmp.remove(tmp.size()-2,tmp.size());
+            tmp.remove(tmp.size() - 2, tmp.size());
         }
         QStringList imglist = tmp.split("\",\"");
-        qDebug()<<imglist;
-        for(int i=0;i < imglist.size();i++)
+        qDebug() << imglist;
+        for (int i = 0; i < imglist.size(); i++)
         {
-            QNetworkAccessManager *naManager;
             QNetworkRequest request;
-            naManager=new QNetworkAccessManager(this);
-            request.setUrl(QUrl(imglist[i].replace("+","%2B")));
+            QNetworkAccessManager *iconNaManager = new QNetworkAccessManager(this);
+            request.setUrl(QUrl(imglist[i].replace("+", "%2B")));
             request.setRawHeader("User-Agent", "Mozilla/5.0");
             request.setRawHeader("Content-Type", "charset='utf-8'");
-            naManager->get(request);
-            QObject::connect(naManager,&QNetworkAccessManager::finished,[=](QNetworkReply *reply){
+            iconNaManager->get(request);
+            QObject::connect(iconNaManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
+                             {
                     QByteArray jpegData = reply->readAll();
                     QPixmap pixmap;
                     pixmap.loadFromData(jpegData);
@@ -272,7 +287,8 @@ void AppIntoPage::setTheme(bool dark)
 {
     if (dark)
     {
-        QString frameStyleSheet = "#frame,#frame_2,#frame_3,#frame_4{background-color: #252525;border-radius:14px;border:1px solid rgb(64, 64, 64);}";
+        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #252525; border-radius: 14px; border: 1px solid rgb(64, 64, 64);}\
+                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #FFFFFF}";
         ui->frame->setStyleSheet(frameStyleSheet);
         ui->frame_2->setStyleSheet(frameStyleSheet);
         ui->frame_3->setStyleSheet(frameStyleSheet);
@@ -284,11 +300,10 @@ void AppIntoPage::setTheme(bool dark)
         ui->icon_4->setPixmap(QPixmap(":/icon/dark/text.svg"));
         ui->icon_5->setPixmap(QPixmap(":/icon/dark/folder.svg"));
         ui->icon_6->setPixmap(QPixmap(":/icon/dark/globe.svg"));
-    }
-    else
-    {
-        // 亮色模式
-        QString frameStyleSheet = "#frame,#frame_2,#frame_3,#frame_4{background-color: #fbfbfb;border-radius:14px;border:1px solid rgb(229,229,229);}";
+    }else {
+        //亮色模式
+        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #fbfbfb; border-radius: 14px; border: 1px solid rgb(229,229,229);}\
+                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #000000}";
         ui->frame->setStyleSheet(frameStyleSheet);
         ui->frame_2->setStyleSheet(frameStyleSheet);
         ui->frame_3->setStyleSheet(frameStyleSheet);
@@ -336,29 +351,30 @@ void AppIntoPage::on_downloadButton_clicked()
 void AppIntoPage::on_pushButton_3_clicked()
 {
     QtConcurrent::run([=]()
-                      {
-                                    ui->downloadButton->setEnabled(false);
-                                    ui->pushButton_3->setEnabled(false);
+    {
+        ui->downloadButton->setEnabled(false);
+        ui->pushButton_3->setEnabled(false);
 
-                                    QProcess uninstall;
-                                    uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << info["Pkgname"].toString().toLower());
-                                    uninstall.waitForFinished(-1);
+        QProcess uninstall;
+        uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << info["Pkgname"].toString().toLower());
+        uninstall.waitForFinished(-1);
 
-                                    QProcess check;
-                                    check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-                                    check.waitForFinished(10*1000);
+        QProcess check;
+        check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
+        check.waitForFinished(10*1000);
 
-                                    if (check.readAllStandardOutput().isEmpty())
-                                    {
-                                        ui->downloadButton->setText(tr("Install"));
-                                        ui->pushButton_3->hide();
+        if (check.readAllStandardOutput().isEmpty())
+        {
+            ui->downloadButton->setText(tr("Download"));
+            ui->pushButton_3->hide();
 
-                                        updatesEnabled();
-                                        Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
-                                    }
+            updatesEnabled();
+            Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
+        }
 
-                                    ui->downloadButton->setEnabled(true);
-                                    ui->pushButton_3->setEnabled(true); });
+        ui->downloadButton->setEnabled(true);
+        ui->pushButton_3->setEnabled(true);
+    });
 }
 
 void AppIntoPage::on_shareButton_clicked()
@@ -372,11 +388,11 @@ void AppIntoPage::on_shareButton_clicked()
 void AppIntoPage::on_updateButton_clicked()
 {
     QString feedbackSpk = "spk://store/chat/store.spark-app.feedback";
-    QFile actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
-    if (actionSubmissionClientStatus.exists())
+    QFileInfo actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
+    if (actionSubmissionClientStatus.exists() && actionSubmissionClientStatus.isDir())
     {
         qDebug() << "反馈器存在";
-        QProcess::startDetached("sh /opt/durapps/store.spark-app.feedback/launch.sh");
+        QProcess::startDetached("sh", QStringList() << "/opt/durapps/store.spark-app.feedback/launch.sh");
     }
     else
     {

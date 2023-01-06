@@ -1,10 +1,24 @@
 #include "settingspage.h"
 #include "ui_settingspage.h"
+#include "../backend/sparkapi.h"
+#include "utils/utils.h"
+
+#include <QSettings>
+#include <QtConcurrent>
+#include <QDebug>
+
+#define TMP_PATH "/tmp/spark-store"
+#define DEFAULT_SERVER_URL "https://cdn.d.store.deepinos.org.cn/"
+#define DEFAULT_CHECK_DOMAIN "deepinos"
+
 bool SettingsPage::isdownload = false;
-SettingsPage::SettingsPage(QWidget *parent) : QWidget(parent),
-                                              ui(new Ui::SettingsPage)
+
+SettingsPage::SettingsPage(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::SettingsPage)
 {
     ui->setupUi(this);
+
     configCanSave = false;
     initConfig();
 }
@@ -25,22 +39,28 @@ void SettingsPage::setTheme(bool dark)
 void SettingsPage::readServerList()
 {
     // 读取服务器列表并初始化
-    QFile file(QDir::homePath().toUtf8() + "/.config/spark-store/server.list");
+    QFile file(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/server.list");
 
     // 判断文件是否存在
     if (!file.exists())
     {
-        ui->comboBox_server->addItem("https://d.store.deepinos.org.cn/");
+        ui->comboBox_server->addItem(DEFAULT_SERVER_URL);
+        return;
     }
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qDebug() << "无法读取server.list";
+        qWarning() << "无法读取 server.list";
+        return;
     }
 
-    // 创建QTextStream对象
+    // 创建 QTextStream 对象
     QTextStream textStream(&file);
-
+    if (!textStream.readAll().contains(DEFAULT_CHECK_DOMAIN)) // 校验配置文件有效性
+    {
+        return;
+    }
+    textStream.seek(0);                       // 回到开头
     QString lineData = textStream.readLine(); // 读取文件的第一行
     ui->comboBox_server->addItem(lineData);
     while (!lineData.isNull())
@@ -71,12 +91,12 @@ void SettingsPage::initConfig()
     readServerList();
 
     // 读取服务器URL并初始化菜单项的链接
-    QSettings readConfig(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
-    if (!readConfig.value("server/choose").toString().isEmpty() && readConfig.value("server/updated").toString() == "TRUE")
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    if (!config.value("server/choose").toString().isEmpty() && config.value("server/updated").toBool())
     {
-        qDebug() << readConfig.value("server/choose").toString();
-        ui->comboBox_server->setCurrentText(readConfig.value("server/choose").toString());
-        SparkAPI::setServerUrl(readConfig.value("server/choose").toString());
+        qDebug() << config.value("server/choose").toString();
+        ui->comboBox_server->setCurrentText(config.value("server/choose").toString());
+        SparkAPI::setServerUrl(config.value("server/choose").toString());
     }
     configCanSave = true; // 　防止触发保存配置信号
 }
@@ -91,11 +111,23 @@ void SettingsPage::on_pushButton_updateServer_clicked()
     QtConcurrent::run([=]()
                       {
         ui->pushButton_updateServer->setEnabled(false);
+
+
+        QFile::remove(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/server.list");
+        auto updateSuccess = system("curl -o " + QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).toUtf8() + "/server.list https://d.store.deepinos.org.cn/store/server-and-mirror.list");
+        qDebug() << "Update serverlist status:" << updateSuccess;
+        if (updateSuccess != 0) // 更新失败不换服务器配置
+        {
+            QFile file(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/server.list");
+            if (file.exists())
+            {
+                file.remove();
+            }
+            // FIXME: 向用户提示更新失败
+            ui->pushButton_updateServer->setEnabled(true);
+            return;
+        }
         ui->comboBox_server->clear();
-
-        QFile::remove(QDir::homePath().toUtf8() + "/.config/spark-store/server.list");
-        system("curl -o " + QDir::homePath().toUtf8() + "/.config/spark-store/server.list https://d.store.deepinos.org.cn/store/server-and-mirror.list");
-
         ui->pushButton_updateServer->setEnabled(true);
         readServerList();
         ui->comboBox_server->setCurrentIndex(0); });
@@ -105,14 +137,14 @@ void SettingsPage::on_comboBox_server_currentIndexChanged(const QString &arg1)
 {
     SparkAPI::setServerUrl(arg1); // 服务器信息更新
     qDebug() << arg1;
-    const QString updatedInfo = "TRUE";
-    if (configCanSave)
+    bool updatedInfo = true;
+    if(configCanSave)
     {
         // ui->label_setting1->show();
-        QSettings *setConfig = new QSettings(QDir::homePath() + "/.config/spark-store/config.ini", QSettings::IniFormat);
-        setConfig->setValue("server/choose", arg1);
-        setConfig->setValue("server/updated", updatedInfo);
-        setConfig->deleteLater();
+        QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+        config.setValue("server/choose", arg1);
+        config.setValue("server/updated", updatedInfo);
+        config.sync();
     }
 }
 
@@ -183,7 +215,8 @@ void SettingsPage::on_pushButton_updateApt_clicked()
         emit openUrl(QUrl("spk://store/tools/spark-store"));
         ui->label_aptserver->setText(tr(""));
 
-        ui->pushButton_updateApt->setEnabled(true); });
+        ui->pushButton_updateApt->setEnabled(true);
+    });
 }
 
 void SettingsPage::on_pushButton_clear_clicked()
@@ -192,7 +225,7 @@ void SettingsPage::on_pushButton_clear_clicked()
                       {
         ui->pushButton_clear->setEnabled(false);
 
-        QDir tmpdir("/tmp/spark-store");
+        QDir tmpdir(QString::fromUtf8(TMP_PATH));
         tmpdir.setFilter(QDir::Files);
         int quantity = int(tmpdir.count());
         for(int i = 0; i < quantity; i++)
@@ -207,13 +240,15 @@ void SettingsPage::on_pushButton_clear_clicked()
 void SettingsPage::on_pushButton_clearWebCache_clicked()
 {
     QtConcurrent::run([=]()
-                      {
-        QString dataLocal = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-        qDebug() << dataLocal;
-        QDir dataDir(dataLocal);
+    {
+        QString localDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/QtWebEngine";
+        qDebug() << localDataLocation;
+        QDir dataDir(localDataLocation);
         dataDir.removeRecursively();
-        dataLocal = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-        qDebug() << dataLocal;
-        QDir cacheDir(dataLocal);
-        cacheDir.removeRecursively(); });
+
+        QString cacheLocation = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/QtWebEngine";
+        qDebug() << cacheLocation;
+        QDir cacheDir(cacheLocation);
+        cacheDir.removeRecursively();
+    });
 }

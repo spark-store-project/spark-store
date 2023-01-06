@@ -20,10 +20,9 @@ Build-Depends:
  qtwayland5-dev-tools,
  gcc,
  g++
+ 
 Standards-Version: 3.0
 Homepage: https://www.spark-app.store/
-
-
 Package: spark-store
 Architecture: any
 Depends:${shlibs:Depends}, ${misc:Depends},
@@ -42,8 +41,6 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  bubblewrap,
  aria2,
  gcc,
- g++,
  zenity
 Description: Spark Store
  A community powered app store, based on DTK.
-Recommends: apt-fast

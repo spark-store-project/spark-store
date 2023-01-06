@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network concurrent webenginewidgets dbus svg
+QT       += core gui concurrent dbus network svg webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,77 +22,74 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-DEFINES += QT_APP_DEBUG
+# Disable qWarning / qDebug output in Release
+# CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
 
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dtkcore dtkgui dtkwidget
 
-# Disable qWarning / qDebug output in Release
-CONFIG(release, debug|release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
-
-# Update translation files
-CONFIG(release, debug|release): system(bash $${PWD}/translate_generation.sh)
-
-TRANSLATIONS += \
-    ../translations/spark-store_en.ts \
-    ../translations/spark-store_fr.ts \
-    ../translations/spark-store_zh_CN.ts
-
 SOURCES += \
-        dbus/dbussparkstoreservice.cpp \
-        main.cpp \
-        mainwindow-dtk.cpp \
+        backend/downloadworker.cpp \
+        backend/image_show.cpp \
         backend/sparkapi.cpp \
+        dbus/dbussparkstoreservice.cpp \
+        pages/appintopage.cpp \
+        pages/applistpage.cpp \
         pages/settingspage.cpp \
+        utils/httprequest.cpp \
         utils/utils.cpp \
         utils/widgetanimation.cpp \
-        widgets/common/progressbutton.cpp \
-        widgets/common/webenginepage.cpp \
-        widgets/common/webengineview.cpp \
-        widgets/downloadlistwidget.cpp \
+        widgets/base/basewidgetopacity.cpp \
         widgets/common/downloaditem.cpp \
+        widgets/common/progressbutton.cpp \
         widgets/common/smoothlistwidget.cpp \
         widgets/common/smoothscrollbar.cpp \
-        utils/httprequest.cpp \
-        pages/applistpage.cpp \
-        backend/downloadworker.cpp \
-        pages/appintopage.cpp \
+        widgets/common/webenginepage.cpp \
+        widgets/common/webengineview.cpp \
         widgets/big_image.cpp \
-        backend/image_show.cpp \
-        widgets/base/basewidgetopacity.cpp
+        widgets/downloadlistwidget.cpp \
+        application.cpp \
+        main.cpp \
+        mainwindow-dtk.cpp
 
 HEADERS += \
-        dbus/dbussparkstoreservice.h \
-        mainwindow-dtk.h \
+        backend/downloadworker.h \
+        backend/image_show.h \
         backend/sparkapi.h \
+        dbus/dbussparkstoreservice.h \
+        pages/appintopage.h \
+        pages/applistpage.h \
         pages/settingspage.h \
+        utils/httprequest.h \
         utils/utils.h \
         utils/widgetanimation.h \
-        widgets/common/progressbutton.h \
-        widgets/common/webenginepage.h \
-        widgets/common/webengineview.h \
-        widgets/downloadlistwidget.h \
+        widgets/base/basewidgetopacity.h \
         widgets/common/downloaditem.h \
+        widgets/common/progressbutton.h \
         widgets/common/smoothlistwidget.h \
         widgets/common/smoothscrollbar.h \
-        utils/httprequest.h \
-        pages/applistpage.h \
-        backend/downloadworker.h \
-        pages/appintopage.h \
+        widgets/common/webenginepage.h \
+        widgets/common/webengineview.h \
         widgets/big_image.h \
-        backend/image_show.h \
-        widgets/base/basewidgetopacity.h
+        widgets/downloadlistwidget.h \
+        application.h \
+        mainwindow-dtk.h
 
 FORMS += \
-        mainwindow-dtk.ui \
-        pages/settingspage.ui \
-        widgets/downloadlistwidget.ui \
-        widgets/common/downloaditem.ui \
+        pages/appintopage.ui \
         pages/applistpage.ui \
-        pages/appintopage.ui
+        pages/settingspage.ui \
+        widgets/common/downloaditem.ui \
+        widgets/downloadlistwidget.ui \
+        mainwindow-dtk.ui
 
 RESOURCES += \
         assets/assets.qrc
+
+TRANSLATIONS += \
+        ../translations/spark-store_en.ts \
+        ../translations/spark-store_fr.ts \
+        ../translations/spark-store_zh_CN.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

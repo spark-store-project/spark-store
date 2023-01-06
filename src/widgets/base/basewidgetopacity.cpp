@@ -1,6 +1,8 @@
 #include "basewidgetopacity.h"
 
 #include <QCloseEvent>
+#include <QSettings>
+#include <QStandardPaths>
 #include <QPropertyAnimation>
 
 BaseWidgetOpacity::BaseWidgetOpacity(QWidget *parent) : DBlurEffectWidget(parent)
@@ -12,6 +14,14 @@ BaseWidgetOpacity::BaseWidgetOpacity(QWidget *parent) : DBlurEffectWidget(parent
 /// @param event
 void BaseWidgetOpacity::closeEvent(QCloseEvent *event)
 {
+    // FIXME: wayland 不支持直接设置窗口透明度，需要调用 wayland 相关库（考虑抄控制中心“窗口移动时启用透明特效”代码？）
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    bool isWayland = config.value("build/isWayland").toBool();
+    if(isWayland)
+    {
+        return DBlurEffectWidget::closeEvent(event);
+    }
+
     if (!closeWindowAnimation)
     {
         closeWindowAnimation = true;

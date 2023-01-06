@@ -22,6 +22,9 @@ DownloadItem::DownloadItem(QWidget *parent) : QWidget(parent),
     ui->pushButton_3->hide();
     ui->widget_spinner->start();
     ui->widget_spinner->hide();
+
+    ui->label->setElideMode(Qt::TextElideMode::ElideRight);
+    ui->label_2->setElideMode(Qt::TextElideMode::ElideRight);
 }
 
 DownloadItem::~DownloadItem()
@@ -33,10 +36,12 @@ void DownloadItem::setValue(qint64 value)
 {
     ui->progressBar->setValue(qint32(value));
     ui->label_2->setText(QString::number(double(value) / 100) + "% (" + speed + ")");
+    ui->label_2->setToolTip(QString::number(double(value) / 100) + "% (" + speed + ")");
     if (ui->label_2->text().left(4) == "100%")
     {
         download = 1;
         ui->label_2->setText(tr("Download Complete."));
+        ui->label_2->setToolTip(tr("Download Complete."));
     }
 }
 
@@ -48,6 +53,7 @@ void DownloadItem::setMax(qint64 max)
 void DownloadItem::setName(QString name)
 {
     ui->label->setText(name);
+    ui->label->setToolTip(name);
 }
 
 QString DownloadItem::getName()
@@ -96,6 +102,7 @@ void DownloadItem::install(int t)
         ui->widget_spinner->show();
         qDebug() << "/tmp/spark-store/" + ui->label_filename->text().toUtf8();
         ui->label_2->setText(tr("Installing"));
+        ui->label_2->setToolTip(tr("Installing"));
 
         QtConcurrent::run([=]()
                           {
@@ -119,7 +126,7 @@ void DownloadItem::install(int t)
             out = installer.readAllStandardOutput();
 
             QStringList everyOut = out.split("\n");
-            for(int i=0;i<everyOut.size();i++)
+            for (int i = 0; i < everyOut.size(); i++)
             {
                 if(everyOut[i].left(2) == "E:")
                 {
@@ -132,14 +139,15 @@ void DownloadItem::install(int t)
             }
 
             QProcess isInstall;
-            isInstall.start("dpkg -s " + pkgName);
+            isInstall.start("dpkg", QStringList() << "-s" << pkgName);
             isInstall.waitForFinished(180*1000); // 默认超时 3 分钟
             int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
-            if(error == 0)
+            if (error == 0 && !haveError)
             {
                 ui->pushButton_install->hide();
                 Utils::sendNotification("spark-store",tr("Spark Store"),ui->label->text() + " " + tr("Installation complete."));
                 ui->label_2->setText(tr("Finish"));
+                ui->label_2->setToolTip(tr("Finish"));
                 download = 3;
                 ui->pushButton_3->show();
             }
@@ -150,13 +158,15 @@ void DownloadItem::install(int t)
                 download = 1;
                 Utils::sendNotification("spark-store",tr("Spark Store"),tr("Error happened in dpkg progress , you can try it again."));
                 ui->label_2->setText(tr("Error happened in dpkg progress , you can try it again"));
+                ui->label_2->setToolTip(tr("Error happened in dpkg progress , you can try it again"));
                 ui->pushButton_3->show();
             }
 
-            if(notRoot)
+            if (notRoot)
             {
                 Utils::sendNotification("spark-store",tr("Spark Store"),tr("dpkg progress had been aborted，you can retry installation."));
                 ui->label_2->setText(tr("dpkg progress had been aborted，you can retry installation"));
+                ui->label_2->setToolTip(tr("dpkg progress had been aborted，you can retry installation"));
                 ui->pushButton_install->show();
                 ui->pushButton_3->hide();
             }
@@ -177,6 +187,7 @@ void DownloadItem::on_pushButton_install_clicked()
 void DownloadItem::on_pushButton_2_clicked()
 {
     ui->label_2->setText(tr("Download canceled"));
+    ui->label_2->setToolTip(tr("Download canceled"));
     download = 2;
     ui->pushButton_2->setEnabled(false);
     ui->progressBar->hide();

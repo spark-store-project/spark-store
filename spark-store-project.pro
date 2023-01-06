@@ -14,13 +14,11 @@ SUBDIRS += \
         src/spark-dstore-patch \
         src/spark-store.pro
 
-#TRANSLATIONS += \
-#        translations/spark-store_fr.ts \
-#        translations/spark-store_en.ts \
-#        translations/spark-store_zh_CN.ts
-
 # Update translation files
-CONFIG(release, debug|release): system(bash $${PWD}/translate_generation.sh)
+CONFIG(release, debug|release) {
+    system(bash $${PWD}/translate_update.sh)
+    system(bash $${PWD}/translate_generation.sh)
+}
 
 # Rules for deployment
 tool.files += tool/*

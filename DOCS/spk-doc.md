@@ -2,6 +2,8 @@
 
 参数只有一个Url，该url应当遵循这种格式：`spk://<任意合法字符>/web分类/包名`
 
+目前第一字段不进行处理，以后可能会对此识别。在目前阶段，这个字段可以填写任意合法字符
+
 例如:
 
 [spk://abcdefg/games/store.spark-app.hmcl](spk://abcdefg/games/store.spark-app.hmcl)
@@ -15,11 +17,11 @@
 | 社交沟通 | chat           |
 | 音乐欣赏 | music          |
 | 视频播放 | video          |
-| 图形图像 | graphics       |
+| 图形图像 | image_graphics       |
 | 游戏娱乐 | games          |
 | 办公学习 | office         |
 | 阅读翻译 | reading        |
 | 编程开发 | development    |
 | 系统工具 | tools          |
-| 主题美化 | beautify       |
+| 主题美化 | themes       |
 | 其他应用 | others         |
