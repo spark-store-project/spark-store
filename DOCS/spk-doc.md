@@ -15,11 +15,11 @@
 | 社交沟通 | chat           |
 | 音乐欣赏 | music          |
 | 视频播放 | video          |
-| 图形图像 | graphics       |
+| 图形图像 | image_graphics       |
 | 游戏娱乐 | games          |
 | 办公学习 | office         |
 | 阅读翻译 | reading        |
 | 编程开发 | development    |
 | 系统工具 | tools          |
-| 主题美化 | beautify       |
+| 主题美化 | themes       |
 | 其他应用 | others         |
