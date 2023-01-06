@@ -16,7 +16,7 @@ spark-store (4.1.2) stable; urgency=medium
   * fix: 修复下载列表中进度提示文字显示不完整的问题
   * feat: ssinstall支持从单独文件夹中校验软件包
   * feat： 支持分单文件夹下载。具体内容参见：https://gitee.com/deepin-community-store/repo_auto_update_script/blob/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list
-  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo ，不过shenmo是自由的
+  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo?id=%e6%9b%b4%e6%96%b0%e6%97%a5%e5%bf%97%e8%a7%84%e5%88%99 ，不过shenmo是自由的
 
 
   * chore: 添加 Application 类，继承 DApplication，将 main 函数中设置属性、关于信息等操作移至 Application 构造函数中进行
