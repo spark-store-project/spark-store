@@ -2,7 +2,7 @@ spark-store (4.2~test2) stable; urgency=medium
 
   * 修复: 420t1版本中ssinstall有时会重新下载软件包的问题
   * 新增: 安装前会对软件包安装进行dry run以判断是否能正确安装
-  * 调整: aptss在进行任何操作前均检测是否存在包文件
+  * 调整: aptss在进行任何操作前均检测是否存在Packages文件
   * 调整: 修改apt-fast源代码以指定conf位置为/tmp/apt-fast,这部分不再使用bwrap模拟
   * 新增: aptss检测Package文件支持分目录（目前指定为store）
 
