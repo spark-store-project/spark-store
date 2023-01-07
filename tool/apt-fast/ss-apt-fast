@@ -161,7 +161,8 @@ VERBOSE_OUTPUT=
 _DOWNLOADER='aria2c --no-conf -c -j ${_MAXNUM} -x ${_MAXCONPERSRV} -s ${_SPLITCON} -i ${DLLIST} --min-split-size=${_MINSPLITSZ} --stream-piece-selector=${_PIECEALGO} --connect-timeout=600 --timeout=600 -m0'
 
 # Load config file.
-CONFFILE="/etc/apt-fast.conf"
+CONFFILE="/tmp/aptss-conf/apt-fast.conf"
+#### Spark Store apt-fast conf is in /tmp
 if [ -e "$CONFFILE" ]; then
     source "$CONFFILE"
 fi

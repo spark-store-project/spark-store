@@ -14,42 +14,39 @@ chmod -R 755 /tmp/aptss-conf
 fi
 
 
-
-
-if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] ; then
-
-if [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_Packages" ];then
+if [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_Packages" ] && [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages" ];then
 echo "接收星火仓库软件信息中..."
 aptss ssupdate
 fi
 
+SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
+
+
+
+if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] ; then
+
+
+
 ###执行
 bwrap --dev-bind / / \
-                   --bind '/tmp/aptss-conf/apt-fast.conf' /etc/apt-fast.conf \
                    --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                /opt/durapps/spark-store/bin/apt-fast/ss-apt-fast "$@" --allow-downgrades 
+                ${SS_APT_FAST} "$@" --allow-downgrades 
 
 
 elif [ "$1" = "download" ];then
 
 ###执行
 bwrap --dev-bind / / \
-                   --bind '/tmp/aptss-conf/apt-fast.conf' /etc/apt-fast.conf \
                    --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                /opt/durapps/spark-store/bin/apt-fast/ss-apt-fast "$@" --allow-downgrades 
+                ${SS_APT_FAST} "$@" --allow-downgrades 
 
 
 elif [ "$1" = "policy" ] || [ "$1" = "search" ];then
 
 
-if [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_Packages" ];then
-echo "接收星火仓库软件信息中..."
-aptss ssupdate
-fi
 
 ###执行
 bwrap --dev-bind / / \
-                   --bind '/tmp/aptss-conf/apt-fast.conf' /etc/apt-fast.conf \
                    --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
                 apt "$@" 
 
