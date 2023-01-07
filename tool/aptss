@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
 
 if [ ! -e "/tmp/aptss-conf/apt-fast.conf" ];then
 ###刷新apt-fast配置
@@ -16,10 +16,23 @@ fi
 
 if [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_Packages" ] && [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages" ];then
 echo "接收星火仓库软件信息中..."
-aptss ssupdate
+
+mkdir -p /tmp/aptss-conf/
+echo "从服务器获取配置和镜像列表..."
+echo "Getting server and mirror lists..."
+echo
+curl  --silent -o  /tmp/aptss-conf/apt-fast.conf "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/apt-fast.conf"
+chmod -R 755 /tmp/aptss-conf    
+
+sudo curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
+sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"  -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+
+#只更新星火源
+
+
 fi
 
-SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
+
 
 
 
