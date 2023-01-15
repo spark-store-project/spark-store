@@ -335,6 +335,8 @@ void MainWindow::on_pushButton_14_clicked()
                                                             << "UOS开发者模式未开启，相关功能被禁用"
                                                             << "--title"
                                                             << "功能禁用提示"
+                                                            << "--width"
+                                                            << "360"
                                                             );
             upgradeP->waitForStarted();
             upgradeP->waitForFinished(30);
