@@ -540,10 +540,10 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Wine app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="whatsThis">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Wine app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine5-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

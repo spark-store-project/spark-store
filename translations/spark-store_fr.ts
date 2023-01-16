@@ -109,12 +109,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="543"/>
-        <location filename="../src/pages/appintopage.ui" line="546"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/pages/appintopage.ui" line="549"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine5-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -142,6 +136,12 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="543"/>
+        <location filename="../src/pages/appintopage.ui" line="546"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Wine app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
