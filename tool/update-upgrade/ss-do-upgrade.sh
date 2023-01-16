@@ -64,8 +64,9 @@ done`
 			zenity --info --text "没有选中任何软件\n但是你并没有站在世界之巅" --title "星火商店更新检测服务" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 		else
 			### 更新用户选择的应用
-			pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE_LIST -y | zenity --progress --auto-close --no-cancel --pulsate --text="正在更新已选中的应用，请稍候..." --height 70 --width 400 --title="星火商店更新模块" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
-
+	for PKG_UPGRADE in $PKG_UPGRADE_LIST;do
+			pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text="正在更新 $PKG_UPGRADE ，请稍候..." --height 70 --width 400 --title="星火商店更新模块" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+	done
 			#### 更新成功
 			if [ -z "`cat /tmp/spark-store-app-upgrade-status.txt`" ] ; then
 				zenity --info --text "选中的软件已经更新完毕" --title "星火商店更新检测模块" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg

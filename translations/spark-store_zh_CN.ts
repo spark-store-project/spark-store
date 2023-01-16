@@ -109,10 +109,8 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="543"/>
-        <location filename="../src/pages/appintopage.ui" line="546"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine5 app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>这是一款 deepin-wine5 应用。星火商店会为你自动配置wine环境</translation>
+        <translation type="vanished">这是一款 deepin-wine5 应用。星火商店会为你自动配置wine环境</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="549"/>
@@ -138,6 +136,12 @@
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
         <translation>屏幕截图</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="543"/>
+        <location filename="../src/pages/appintopage.ui" line="546"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Wine app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>这是一款 Wine 应用。星火商店会为你自动配置wine环境</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="765"/>

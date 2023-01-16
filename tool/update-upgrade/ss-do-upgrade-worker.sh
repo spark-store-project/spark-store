@@ -28,7 +28,7 @@ case $1 in
 	;;
 
 	upgrade-app)
-		aptss install "${@:2}" --only-upgrade 2>&1 | tee /tmp/spark-store-app-upgrade-log.txt
+		aptss install "${@:2}" --only-upgrade  2>&1 | tee /tmp/spark-store-app-upgrade-log.txt
 		IS_UPGRADE_ERROR=`cat /tmp/spark-store-app-upgrade-log.txt | grep "Package manager quit with exit code."`
 		echo "$IS_UPGRADE_ERROR" > /tmp/spark-store-app-upgrade-status.txt
 	;;
