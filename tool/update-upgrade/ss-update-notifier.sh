@@ -3,16 +3,15 @@ LANGUAGE=en_US
 
 # 发送通知
 function notify-send() {
-    # Detect name of the display in use
-    local display=":$(ls /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
+
 
     # Detect user using the display
-    local user=$(who | grep '('$display')' | awk '{print $1}' | head -n 1)
+    local user=$(who | awk '{print $1}' | head -n 1)
 
     # Detect uid of the user
     local uid=$(id -u $user)
 
-    sudo -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus notify-send "$@"
+    sudo -u $user  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus notify-send "$@"
 }
 
 # 检测网络链接畅通
