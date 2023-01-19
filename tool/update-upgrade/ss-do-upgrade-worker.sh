@@ -32,6 +32,21 @@ case $1 in
 		IS_UPGRADE_ERROR=`cat /tmp/spark-store-app-upgrade-log.txt | grep "Package manager quit with exit code."`
 		echo "$IS_UPGRADE_ERROR" > /tmp/spark-store-app-upgrade-status.txt
 	;;
+	test-install-app)
+		try_run_output=$(aptss --dry-run install $@)
+		try_run_ret="$?"
+
+  if [ "$try_run_ret" -ne 0 ]
+  then
+    echo "Package manager quit with exit code.Here is the log" 
+    echo "包管理器以错误代码退出.日志如下" 
+    echo
+    echo -e "${try_run_output}"
+    exit "$try_run_ret"
+  fi
+
+	exit 0
+	;;
 	
 	clean-log)
 		rm -f /tmp/spark-store-app-ssupdate-status.txt /tmp/spark-store-app-ssupdate-log.txt /tmp/spark-store-app-upgrade-log.txt /tmp/spark-store-app-upgrade-status.txt

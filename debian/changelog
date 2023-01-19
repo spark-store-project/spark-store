@@ -1,3 +1,10 @@
+spark-store (4.2.1) stable; urgency=medium
+
+  * 调整：支持在安装前进行测试（ss-do-upgrade-worker）
+  * 修复： 因依赖不完全导致在LinuxMint下无法下载统计
+
+ --shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.2) stable; urgency=medium
 
   * 调整：UOS开发者模式提示现在不会那么挤了
