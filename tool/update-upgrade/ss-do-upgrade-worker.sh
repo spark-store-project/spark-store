@@ -33,7 +33,7 @@ case $1 in
 		echo "$IS_UPGRADE_ERROR" > /tmp/spark-store-app-upgrade-status.txt
 	;;
 	test-install-app)
-		try_run_output=$(aptss --dry-run install $@)
+		try_run_output=$(aptss --dry-run install $2)
 		try_run_ret="$?"
 
   if [ "$try_run_ret" -ne 0 ]
