@@ -41,6 +41,7 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  bubblewrap,
  aria2,
  gcc,
- zenity
+ zenity,
+ libc6-dev
 Description: Spark Store
  A community powered app store, based on DTK.
