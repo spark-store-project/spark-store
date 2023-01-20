@@ -43,10 +43,8 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="429"/>
-        <location filename="../src/pages/appintopage.ui" line="432"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 20.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持Ubuntu 20.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持Ubuntu 20.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="435"/>
@@ -136,6 +134,12 @@
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
         <translation>屏幕截图</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="429"/>
+        <location filename="../src/pages/appintopage.ui" line="432"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; {22.04&lt;?}</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="543"/>
