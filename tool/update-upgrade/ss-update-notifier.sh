@@ -15,6 +15,17 @@ if [ -e "${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then 
 echo "-----------------------------------------------------------------------------"
 }
 
+
+function update_transhell()
+{
+WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
+CURRENT_LANG="$(echo $LANG | cut -c -5)"
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell; fi
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_en_US.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell; fi
+
+}
 load_transhell
 
 #############################################################
@@ -117,7 +128,7 @@ IFS="$IFS_OLD"
 if [ $update_app_number -le 0 ] ; then
     exit 0
 fi
-load_transhell
+update_transhell
 
 ## 如果都是hold或者版本一致的那就直接退出，否则把剩余的给提醒了
 notify-send -a spark-store "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY}" "${TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE}"

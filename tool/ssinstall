@@ -1,5 +1,39 @@
 #!/bin/bash
 
+
+##load transhell
+function load_transhell()
+{
+WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
+CURRENT_LANG="$(echo $LANG | cut -c -5)"
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell; echo "Loading transhell from /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell ..."; fi
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell; echo "Loading transhell from /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell ..."; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_en_US.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell; echo "Loading transhell from ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell ..."; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell; echo "Loading transhell from ${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell ..."; fi
+
+echo "-----------------------------------------------------------------------------"
+}
+
+
+function update_transhell()
+{
+WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
+CURRENT_LANG="$(echo $LANG | cut -c -5)"
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell; fi
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_en_US.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell; fi
+
+}
+
+load_transhell
+
+
+
+
+
+
+
 echo "Spark Store Install script.星火商店安装脚本"
 
 function pkexec_as_current_user() {
@@ -32,13 +66,13 @@ fi
 
 if [ ! -f "$1" ]
 then
-	echo "文件不存在"
+	echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST}"
 	exit 1
 fi
 
 if [ "$(id -u)" != "0" ];then
 #############################无root权限时
-echo "请使用root启动ssinstall"
+echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
 exit 1
 fi
 
@@ -74,19 +108,26 @@ if [ ! -z "$IS_MD5SUM_CHECKD" ];then
 echo "校验成功，开始安装"
 echo  ----------------------------------------------------------------------------------
 
+try_run_output=$(aptss --dry-run install $DEBPATH)
+try_run_ret="$?"
+
+  if [ "$try_run_ret" -ne 0 ]
+  then
+    echo "Package manager quit with exit code.Here is the log" 
+    echo "包管理器以错误代码退出.日志如下" 
+    echo
+    echo -e "${try_run_output}"
+    exit "$try_run_ret"
+  fi
+
 
 dpkg -i  "$DEBPATH"  || aptss install -yf 
 
 else
 
 
-zenity --info --icon-name=spark-store --height 270 --width 500 --text "软件包校验失败！这不应该发生！\n可能是因为软件包已损坏，星火仓库未同步，或者最坏的情况：恶意软件尝试利用自动安装来入侵系统！\n如果你不清楚发生了什么，请在接下来的认证窗口中选择取消认证\n执行 sudo aptss ssupdate 后再尝试安装。\n如果问题仍然存在，请在应用信息界面点击 应用反馈 来提交反馈给我们！\n\n 如果你是审核人员，请使用 ssaudit来替代ssinstall进行审核工作，因为现在ssinstall已经被用于免密安装。\n如果你正在尝试安装已经下架的星火应用，也可用ssaudit来替代ssinstall"
+zenity --info --icon-name=spark-store --height 270 --width 500 --text "${TRANSHELL_CONTENT_HASH_CHECK_FAILED}"
 
-echo "软件包校验失败！这不应该发生！"
-echo "执行 sudo aptss ssupdate 后再尝试安装。"
-echo "如果问题仍然存在，请在应用信息界面点击 应用反馈 来提交反馈给我们！"
-echo "如果你是审核人员，请使用 ssaudit来替代ssinstall进行审核工作，因为现在ssinstall已经被用于免密安装"
-echo "如果你正在尝试安装已经下架的星火应用，也可用ssaudit来替代ssinstall"
-
+echo -e ${TRANSHELL_CONTENT_HASH_CHECK_FAILED}
 
 fi
