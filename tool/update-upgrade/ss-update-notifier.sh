@@ -1,12 +1,11 @@
 #!/bin/bash
 LANGUAGE=en_US
 
-
 ##load transhell
 function load_transhell()
 {
-WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
-CURRENT_LANG="$(echo $LANG | cut -c -5)"
+local WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
+local CURRENT_LANG="$(echo ${LANG%.*})"
 if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell; echo "Loading transhell from /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell ..."; fi
 if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell; echo "Loading transhell from /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell ..."; fi
 if [ -e "${WORK_PATH}/transhell/$(basename $0)_en_US.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell; echo "Loading transhell from ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell ..."; fi
@@ -15,17 +14,17 @@ if [ -e "${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then 
 echo "-----------------------------------------------------------------------------"
 }
 
-
 function update_transhell()
 {
-WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
-CURRENT_LANG="$(echo $LANG | cut -c -5)"
+local WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
+local CURRENT_LANG="$(echo ${LANG%.*})"
 if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell; fi
 if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell; fi
 if [ -e "${WORK_PATH}/transhell/$(basename $0)_en_US.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell; fi
 if [ -e "${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell; fi
 
 }
+
 load_transhell
 
 #############################################################
