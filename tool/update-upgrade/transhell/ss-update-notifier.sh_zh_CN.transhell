@@ -1,0 +1,5 @@
+#!/bin/bash
+TRANSHELL_CONTENT_NETWORK_FAIL="网络错误！为防止阻塞dpkg,停止"
+TRANSHELL_CONTENT_UPDATE_ERROR_AND_WAIT_15_SEC="更新出现异常状况，等待十五秒"
+TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY="星火更新提醒"
+TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE="星火商店仓库中有$update_app_number个软件包可以更新啦！请到星火商店的菜单处理"
