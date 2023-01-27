@@ -48,6 +48,9 @@ polkit-1.path = /usr/share/polkit-1/actions/
 icon.files += pkg/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 icon.path = /usr/share/icons/hicolor/scalable/apps
 
+ssinstall-transhell.files += pkg/usr/share/ssinstall/transhell
+ssinstall-transhell.path = /usr/share/ssinstall/transhell
+
 tmp.files += pkg/tmp/spark-store-install/feedback.sh
 tmp.path = /tmp/spark-store-install
 
@@ -56,7 +59,7 @@ INSTALLS += \
         qm \
         desktop \
         icon \
-#       preferences \
+        ssinstall-transhell \
 #       sourceslist \
         tmp \
         service \
