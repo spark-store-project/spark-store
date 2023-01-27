@@ -1,6 +1,25 @@
 #!/bin/bash
 LANGUAGE=en_US
 
+
+##load transhell
+function load_transhell()
+{
+WORK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")"  && pwd)"
+CURRENT_LANG="$(echo $LANG | cut -c -5)"
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell; echo "Loading transhell from /usr/share/$(basename $0)/transhell/$(basename $0)_en_US.transhell ..."; fi
+if [ -e "/usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell; echo "Loading transhell from /usr/share/$(basename $0)/transhell/$(basename $0)_$CURRENT_LANG.transhell ..."; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_en_US.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell; echo "Loading transhell from ${WORK_PATH}/transhell/$(basename $0)_en_US.transhell ..."; fi
+if [ -e "${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell" ]; then source ${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell; echo "Loading transhell from ${WORK_PATH}/transhell/$(basename $0)_$CURRENT_LANG.transhell ..."; fi
+
+echo "-----------------------------------------------------------------------------"
+}
+
+load_transhell
+
+#############################################################
+
+
 # 发送通知
 function notify-send() {
 
@@ -37,7 +56,7 @@ function network()
 
 network
 if [ $? -ne 0 ] ; then
-    echo "Network fail. Stop to avoid bother dpkg"
+    echo "$TRANSHELL_CONTENT_NETWORK_FAIL"
     exit -1
 fi
 
@@ -51,7 +70,7 @@ curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d
 updatetext=`aptss ssupdate 2>&1`
 
 until [ "`echo $updatetext | grep E: `" = "" ];do
-echo "更新出现异常状况，等待十五秒"
+echo "${TRANSHELL_CONTENT_UPDATE_ERROR_AND_WAIT_15_SEC}"
 sleep 15
 updatetext=`aptss ssupdate 2>&1`
 
@@ -95,10 +114,10 @@ done
 
 # 还原分隔符
 IFS="$IFS_OLD"
-
 if [ $update_app_number -le 0 ] ; then
     exit 0
 fi
+load_transhell
 
 ## 如果都是hold或者版本一致的那就直接退出，否则把剩余的给提醒了
-notify-send -a spark-store "星火更新提醒" "星火商店仓库中有$update_app_number个软件包可以更新啦！请到星火商店的菜单处理"
+notify-send -a spark-store "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY}" "${TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE}"

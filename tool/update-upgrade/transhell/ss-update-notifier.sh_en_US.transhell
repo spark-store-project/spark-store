@@ -1,0 +1,5 @@
+#!/bin/bash
+TRANSHELL_CONTENT_NETWORK_FAIL="Network fail. Stop to avoid bother dpkg"
+TRANSHELL_CONTENT_UPDATE_ERROR_AND_WAIT_15_SEC="Update error! Wait for 15 seconds..."
+TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY="Spark Store Upgrade Notifier"
+TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE="There are ${update_app_number} APPs available to upgrade! Please go to Spark Store to upgrade."
