@@ -49,7 +49,7 @@ icon.files += pkg/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 icon.path = /usr/share/icons/hicolor/scalable/apps
 
 ssinstall-transhell.files += pkg/usr/share/ssinstall/transhell
-ssinstall-transhell.path = /usr/share/ssinstall/transhell
+ssinstall-transhell.path = /usr/share/ssinstall/
 
 tmp.files += pkg/tmp/spark-store-install/feedback.sh
 tmp.path = /tmp/spark-store-install
