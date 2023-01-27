@@ -1,6 +1,6 @@
 spark-store (4.2.1) stable; urgency=medium
 
-  * 调整：支持在安装前进行测试（ss-do-upgrade-worker）
+  * 调整：支持在安装前进行测试（ss-do-upgrade-worker）,但是未实装到appinfo
   * 修复：因依赖不完全导致在LinuxMint下无法下载统计
   * 新增：脚本系列应用支持英文
 
