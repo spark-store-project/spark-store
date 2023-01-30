@@ -1,21 +1,15 @@
 #ifndef MAINWINDOWDTK_H
 #define MAINWINDOWDTK_H
 
+#include "widgets/base/basewidgetopacity.h"
+
 #include <DMainWindow>
 #include <DTitlebar>
+#include <DPushButton>
 #include <DSearchEdit>
-#include <QGraphicsDropShadowEffect>
 #include <DGuiApplicationHelper>
 
-#include <QPushButton>
-#include <QDir>
-#include <QDesktopServices>
-
-#include "widgets/base/basewidgetopacity.h"
-#include "widgets/downloadlistwidget.h"
-#include "widgets/common/progressbutton.h"
-#include "utils/widgetanimation.h"
-#include "dbus/dbussparkstoreservice.h"
+#include <QSystemTrayIcon>
 
 DWIDGET_USE_NAMESPACE
 
@@ -23,6 +17,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class ProgressButton;
+class DownloadListWidget;
 class MainWindow : public BaseWidgetOpacity
 {
     Q_OBJECT
@@ -34,8 +30,14 @@ public:
     void openUrl(const QString &url);
 
 private:
+    void initUI();
+    void initTitleBar();
+    void initTitleBarMenu();
+    void initLeftMenu();
+    void initTrayIcon();
+    void initConnections();
     void initDbus();
-    void initConfig();
+    void initTmpDir();
     void switchPage(int now);
     void updateUi(int now);
 
@@ -46,13 +48,16 @@ private slots:
     void on_pushButton_14_clicked();
 
 private:
-    QList<int> pageHistory;
-
     Ui::MainWindow *ui;
-    DownloadListWidget *downloadlistwidget;
-    ProgressButton *downloadButton;
-    QPushButton *backButtom;
+
+    DPushButton *backButton;
     DSearchEdit *searchEdit;
+    ProgressButton *downloadButton;
+    DownloadListWidget *downloadlistwidget;
+
+    QSystemTrayIcon *trayIcon = nullptr;
+
+    QList<int> pageHistory;
 };
 
 #endif // MAINWINDOWDTK_H

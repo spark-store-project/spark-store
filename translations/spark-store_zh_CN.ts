@@ -131,7 +131,7 @@
         <location filename="../src/pages/appintopage.ui" line="429"/>
         <location filename="../src/pages/appintopage.ui" line="432"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="543"/>
@@ -240,12 +240,12 @@
 <context>
     <name>DAboutDialog</name>
     <message>
-        <location filename="../src/application.cpp" line="88"/>
+        <location filename="../src/application.cpp" line="90"/>
         <source>Version: %1</source>
         <translation>版本：%1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="95"/>
+        <location filename="../src/application.cpp" line="97"/>
         <source>%1 is released under %2</source>
         <translation>%1遵循%2协议发布</translation>
     </message>
@@ -452,32 +452,32 @@
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="45"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="161"/>
         <source>Submit App</source>
         <translation>投递应用</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="46"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="162"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>使用本地投稿器投递应用（推荐）</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="47"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="163"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="48"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="164"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>应用更新和安装设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="161"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="123"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="162"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="128"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>
@@ -485,19 +485,19 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/application.cpp" line="26"/>
-        <location filename="../src/application.cpp" line="27"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="22"/>
+        <location filename="../src/application.cpp" line="28"/>
+        <location filename="../src/application.cpp" line="29"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="103"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="31"/>
+        <location filename="../src/application.cpp" line="33"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
         <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="92"/>
+        <location filename="../src/application.cpp" line="94"/>
         <source>Spark Project</source>
         <translation>星火计划</translation>
     </message>
@@ -505,6 +505,11 @@
         <location filename="../src/widgets/downloadlistwidget.cpp" line="10"/>
         <source>Download list</source>
         <translation>下载列表</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="217"/>
+        <source>Show MainWindow</source>
+        <translation>显示主窗口</translation>
     </message>
 </context>
 <context>
@@ -608,6 +613,19 @@
         <location filename="../src/pages/settingspage.cpp" line="235"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
+    </message>
+</context>
+<context>
+    <name>TitleBarMenu</name>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="218"/>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="219"/>
+        <source>Exit</source>
+        <translation>退出</translation>
     </message>
 </context>
 </TS>

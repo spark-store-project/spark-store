@@ -19,6 +19,8 @@ Application::Application(int &argc, char **argv)
     }
     setAttribute(Qt::AA_UseHighDpiPixmaps);
 
+    setQuitOnLastWindowClosed(false); // 启用托盘图标时，关闭窗口程序仍然运行
+
     loadTranslator(); // 载入翻译
 
     setOrganizationName("spark-union");

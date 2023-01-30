@@ -5,6 +5,10 @@
 #include <DApplicationSettings>
 #include <DWidgetUtil>
 
+#include <QDate>
+#include <QProcessEnvironment>
+#include <QSettings>
+#include <QFile>
 #include <QStandardPaths>
 
 DCORE_USE_NAMESPACE
@@ -124,7 +128,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    DGuiApplicationHelper::instance()->setPaletteType(DGuiApplicationHelper::LightType); // 固定主题为浅色主题
     DApplicationSettings settings; // 定义 DApplicationSettings，自动保存主题设置
 
     MainWindow w;
