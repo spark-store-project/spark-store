@@ -1,7 +1,7 @@
-From 9d1714ec7ceb3748bd151af059389ed10d37e676 Mon Sep 17 00:00:00 2001
+From 5c78aff9b5be86cf3d1874a71f2045b1362e0572 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Sun, 11 Dec 2022 22:27:23 +0800
-Subject: [PATCH 1/5] =?UTF-8?q?repo:=20=E4=B8=80=E6=AC=A1=E6=80=A7?=
+Subject: [PATCH 1/7] =?UTF-8?q?repo:=20=E4=B8=80=E6=AC=A1=E6=80=A7?=
  =?UTF-8?q?=E5=AF=BC=E5=85=A5=20spark=20=E9=AA=A8=E6=9E=B6=E4=BB=A5?=
  =?UTF-8?q?=E5=8F=98=E4=B8=BA=20cmake=20=E6=9E=84=E5=BB=BA?=
 MIME-Version: 1.0
@@ -1789,10 +1789,10 @@ index 0000000..0fa070b
 2.20.1
 
 
-From 1e1cb19995536d74626960ae863bf4c5cd9e3a4b Mon Sep 17 00:00:00 2001
+From 0ba6387230becafa5c91817b036084dd702c47c0 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Sun, 11 Dec 2022 22:37:26 +0800
-Subject: [PATCH 2/5] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20deb=20?=
+Subject: [PATCH 2/7] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20deb=20?=
  =?UTF-8?q?=E5=AE=89=E8=A3=85=E8=84=9A=E6=9C=AC=E7=9A=84=E9=97=AE=E9=A2=98?=
  =?UTF-8?q?=EF=BC=8C=E5=AE=8C=E6=88=90=20cmake=20=E5=8C=96=E6=9E=84?=
  =?UTF-8?q?=E5=BB=BA?=
@@ -1856,10 +1856,10 @@ index 2ab24e7..38ad2d7 100644
 2.20.1
 
 
-From 4f07b34bc268bc3c49ef1c51c524d50ccbbf6d07 Mon Sep 17 00:00:00 2001
+From bfef40012ff241f50d9448f2d4b787d22b24813a Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 12 Dec 2022 00:50:01 +0800
-Subject: [PATCH 3/5] =?UTF-8?q?docs:=20=E6=B7=BB=E5=8A=A0=20Spark=20?=
+Subject: [PATCH 3/7] =?UTF-8?q?docs:=20=E6=B7=BB=E5=8A=A0=20Spark=20?=
  =?UTF-8?q?=E6=9E=84=E5=BB=BA=20=E4=B8=8E=20CMake=20=E6=9E=84=E5=BB=BA?=
  =?UTF-8?q?=E7=B3=BB=E7=BB=9F=E9=A2=84=E8=A7=88=E6=96=87=E6=A1=A3?=
 MIME-Version: 1.0
@@ -2184,10 +2184,10 @@ index 0000000..a807009
 2.20.1
 
 
-From cb59139fcfd74b530a14f2a987aa38d28d403225 Mon Sep 17 00:00:00 2001
+From f07c4dd69ccbc74dbf44f6417ecbd076ac01b620 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Thu, 15 Dec 2022 19:59:46 +0800
-Subject: [PATCH 4/5] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
+Subject: [PATCH 4/7] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
  =?UTF-8?q?=E4=BA=8E=20Qt5=20Svg=20=E4=BE=9D=E8=B5=96=E7=9A=84=E6=9E=84?=
  =?UTF-8?q?=E5=BB=BA=E5=86=85=E5=AE=B9?=
 MIME-Version: 1.0
@@ -2236,10 +2236,10 @@ index b56399f..67e29b6 100644
 2.20.1
 
 
-From 72e5ca47cef718cdbd4ea45134d574874fb43ba9 Mon Sep 17 00:00:00 2001
+From dbd36f105e69ee736f19fa4d7632e3f12316955c Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 19 Dec 2022 02:58:17 +0800
-Subject: [PATCH 5/5] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
+Subject: [PATCH 5/7] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
  =?UTF-8?q?=E4=BA=8E=E6=94=AF=E6=8C=81=20BaseWidgetOpacity=20=E5=9F=BA?=
  =?UTF-8?q?=E7=A1=80=E7=B1=BB=E7=9A=84=E6=9E=84=E5=BB=BA?=
 MIME-Version: 1.0
@@ -2279,6 +2279,182 @@ index 14530e1..b5e32d8 100644
  
  
  spark_add_executable_path(spark-dstore-patch src/spark-dstore-patch)
+-- 
+2.20.1
+
+
+From 16b723cd1a37c49e9af668f5f97d17a2e383420a Mon Sep 17 00:00:00 2001
+From: zinface <zinface@163.com>
+Date: Mon, 30 Jan 2023 20:48:25 +0800
+Subject: [PATCH 6/7] =?UTF-8?q?spark:=20=E5=88=9B=E5=BB=BA=E6=96=B0?=
+ =?UTF-8?q?=E7=9A=84=E6=A8=A1=E5=9D=97=E7=94=A8=E4=BA=8E=20debian/changelo?=
+ =?UTF-8?q?g=20=E7=9A=84=E7=89=88=E6=9C=AC=E5=8F=B7=E9=87=8D=E5=86=99?=
+ =?UTF-8?q?=E8=A7=84=E5=88=99?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+1. SparkDebianChangelogVersion.cmake
+    在此文件中提供 spark_debian_changelog_override_version 宏：
+    基于指定的 debian/changelog 文件并用于读取最新版本号并覆盖到项目版本
+
+@Since: v4.0.0
+---
+ CMakeLists.txt                          |  4 ++
+ cmake/SparkDebianChangelogVersion.cmake | 58 +++++++++++++++++++++++++
+ 2 files changed, 62 insertions(+)
+ create mode 100644 cmake/SparkDebianChangelogVersion.cmake
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b5e32d8..73221bc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -11,6 +11,10 @@ include(cmake/SparkFindDtkConfig.cmake)         # 提供了 target_link_dtk 用
+ include(cmake/SparkTranslatorConfig.cmake)      # 提供了 qt5 ts转qm 的操作，最终生成 SPARK_QM_TRANSLATIONS 变量用于构建可执行文件时参与编译
+ include(cmake/SparkMacrosExtendConfig.cmake)    # 使用了 spark_ 宏基于已提供的宏参数自动展开构建可执行目标文件
+ include(cmake/SparkInstallMacrosConfig.cmake)   # 提供了 spark_install 开头的 macro 宏用于安装 target、file、program、directory、changelog 等内容
++include(cmake/SparkDebianChangelogVersion.cmake)# 提供了 spark_debian_ 开头的宏进行进行覆盖 PROJECT_VERSION
++
++# 在开始之前，使用项目中提供的 debian/changelog 进行重写本构建系统的 PROJECT_VERSION
++spark_debian_changelog_override_version(debian/changelog) 
+ 
+ # 资源文件路径
+ set(QRC_SOURCES "src/assets/assets.qrc")
+diff --git a/cmake/SparkDebianChangelogVersion.cmake b/cmake/SparkDebianChangelogVersion.cmake
+new file mode 100644
+index 0000000..9d8bca2
+--- /dev/null
++++ b/cmake/SparkDebianChangelogVersion.cmake
+@@ -0,0 +1,58 @@
++# SparkDebianChangelogVersion
++
++# 尝试读取 debian/changelog 文件的第一行数据，并查找
++# spark-store (4.2.2) stable; urgency=medium
++# 将 (version) 信息应用用于 PROJECT_VERSION
++
++
++macro(spark_debian_changelog_override_version _CHANGELOG_FILE_PATH)
++    set(CHANGELOG_FILE_PATH ${_CHANGELOG_FILE_PATH})
++    set(CHANGELOG_FILE_EXISTS FALSE)
++
++    # 首次判断，如果判断文件不存在，将尽可能的判断文件是存在的
++    if(NOT EXISTS ${CHANGELOG_FILE_PATH})
++        
++        # 在 CMake v3.19 起，可以使用 file(REAL_PATH <path> <out-var>) 进行获取 path 的绝对路径
++        if(CMAKE_VERSION GREATER_EQUAL 3.19)
++            file(REAL_PATH ${CHANGELOG_FILE_PATH} CHANGELOG_FILE_ABSOLUTE_PATH)
++            if(EXISTS ${CHANGELOG_FILE_ABSOLUTE_PATH})
++                set(CHANGELOG_FILE_EXISTS TRUE)
++                set(CHANGELOG_FILE_PATH ${CHANGELOG_FILE_ABSOLUTE_PATH})
++            endif(EXISTS ${CHANGELOG_FILE_ABSOLUTE_PATH})
++        endif(CMAKE_VERSION GREATER_EQUAL 3.19)
++
++        # 第二次判断与处理 使用 file(SIZE) 方式
++        if(NOT CHANGELOG_FILE_EXISTS)
++            file(SIZE ${CHANGELOG_FILE_PATH} CHANGELOG_FILE_SIZE)
++            if(CHANGELOG_FILE_SIZE GREATER 0)
++                set(CHANGELOG_FILE_EXISTS TRUE)
++            endif(CHANGELOG_FILE_SIZE GREATER 0)
++        endif(NOT CHANGELOG_FILE_EXISTS)
++
++        # 第三次判断与处理 使用路径拼接方式
++        if(NOT CHANGELOG_FILE_EXISTS)
++            if(EXISTS ${CMAKE_SOURCE_DIR}/${CHANGELOG_FILE_PATH})
++                set(CHANGELOG_FILE_PATH ${CMAKE_SOURCE_DIR}/${CHANGELOG_FILE_PATH})
++                set(CHANGELOG_FILE_EXISTS TRUE)
++            endif(EXISTS ${CMAKE_SOURCE_DIR}/${CHANGELOG_FILE_PATH})
++        endif(NOT CHANGELOG_FILE_EXISTS)
++    endif(NOT EXISTS ${CHANGELOG_FILE_PATH})
++
++    message("> V = ${CHANGELOG_FILE_PATH}")
++    if(CHANGELOG_FILE_EXISTS)
++        file(READ ${CHANGELOG_FILE_PATH} CHANGELOG_CONTENT LIMIT 20)
++
++        string(FIND ${CHANGELOG_CONTENT} "(" V_PRE) # +1 to V_BEGIN
++        string(FIND ${CHANGELOG_CONTENT} ")" V_END)
++
++        math(EXPR V_BEGIN  "${V_PRE}+1")
++        math(EXPR V_LENGTH "${V_END}-${V_BEGIN}")
++
++        string(SUBSTRING ${CHANGELOG_CONTENT} ${V_BEGIN} ${V_LENGTH} V)
++
++        message("> V = ${CHANGELOG_CONTENT}")
++        message("> V = [${V}]")
++
++        set(PROJECT_VERSION ${V})
++    endif(CHANGELOG_FILE_EXISTS)
++endmacro(spark_debian_changelog_override_version _CHANGELOG_FILE_PATH)
+-- 
+2.20.1
+
+
+From b16b02606c94cf3f3b23c8e59facd827b4ef38b6 Mon Sep 17 00:00:00 2001
+From: zinface <zinface@163.com>
+Date: Mon, 30 Jan 2023 21:23:15 +0800
+Subject: [PATCH 7/7] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkDebianChangelogVe?=
+ =?UTF-8?q?rsion.cmake=20=E6=A8=A1=E5=9D=97=E7=9A=84=E6=89=A9=E5=B1=95?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+1. 增加 SPARK_OVERRIDE_VERSION 的文件输出
+    以解决 Makefile 中无法明确多个 deb 包时无法确定最新版本的情况
+---
+ Makefile                                | 15 +++++++++++++--
+ cmake/SparkDebianChangelogVersion.cmake |  1 +
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index c673c76..81ca078 100644
+--- a/Makefile
++++ b/Makefile
+@@ -8,6 +8,17 @@ SUFFIX=_$(OSID)$(OSRELEASE)
+ endif
+ 
+ PROJECT_NAME=spark-store
++PROJECT_VERSION=*
++
++ifneq ($(wildcard build/SPARK_OVERRIDE_VERSION),)
++SPARK_OVERRIDE_VERSION=`cat build/SPARK_OVERRIDE_VERSION`
++.PHONY: override-version
++override-version:
++	@echo $(SPARK_OVERRIDE_VERSION)
++	@echo "wildcard - good: $(wildcard build/SPARK_OVERRIDE_VERSION)"
++	@echo "wildcard - bad.: $(wildcard build/SPARK_OVERRIDE_VERSIONS)"
++PROJECT_VERSION=$(SPARK_OVERRIDE_VERSION)-
++endif
+ 
+ all:
+ 	mkdir -p build
+@@ -44,7 +55,7 @@ debian-build-scripts:
+ package: release debian-build-scripts
+ 	cd build && make package
+ 	tree build/_CPack_Packages/Linux/DEB/$(PROJECT_NAME)-*
+-	dpkg-deb --contents build/$(PROJECT_NAME)_*$(CALENDAR)*$(SUFFIX).deb
++	dpkg-deb --contents build/$(PROJECT_NAME)_$(PROJECT_VERSION)$(CALENDAR)*$(SUFFIX).deb
+ 	# cd build/_CPack_Packages/Linux/DEB/$(PROJECT_NAME)_*$(CALENDAR)*$(SUFFIX).deb && find .
+ 
+ builddeps:
+@@ -54,7 +65,7 @@ cpus:
+ 	@echo "CPU数量: $(CPUS)"
+ 
+ copytosource:package
+-	cp build/$(PROJECT_NAME)_*$(CALENDAR)*.deb .
++	cp build/$(PROJECT_NAME)_$(PROJECT_VERSION)$(CALENDAR)*.deb .
+ 
+ # 进入 qdebug 模式，在 deepin 中默认被禁用，可 env | grep QT 查看，并在 /etc/X11/Xsession.d/00deepin-dde-env 配置中已定义
+ # 1. 禁止 qt 的 debug 打印: qt.*.debug=false
+diff --git a/cmake/SparkDebianChangelogVersion.cmake b/cmake/SparkDebianChangelogVersion.cmake
+index 9d8bca2..65e1c16 100644
+--- a/cmake/SparkDebianChangelogVersion.cmake
++++ b/cmake/SparkDebianChangelogVersion.cmake
+@@ -54,5 +54,6 @@ macro(spark_debian_changelog_override_version _CHANGELOG_FILE_PATH)
+         message("> V = [${V}]")
+ 
+         set(PROJECT_VERSION ${V})
++        file(WRITE ${CMAKE_BINARY_DIR}/SPARK_OVERRIDE_VERSION ${V})
+     endif(CHANGELOG_FILE_EXISTS)
+ endmacro(spark_debian_changelog_override_version _CHANGELOG_FILE_PATH)
 -- 
 2.20.1
 
