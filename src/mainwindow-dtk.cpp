@@ -200,11 +200,18 @@ MainWindow::MainWindow(QWidget *parent)
         QString searchtext = searchEdit->text();
         if (!searchtext.isEmpty()) {
             if (searchtext.startsWith("spk://")) {
-                openUrl(QUrl(searchtext));
+                openUrl(searchtext);
                 searchEdit->clearEdit();
             } else {
-                ui->applistpage_1->getSearchList(searchtext);
-                switchPage(AppPageSearchlist);
+                if (searchtext == "%")
+                {
+                    qWarning() << "keyword '%' matches too many results, which will cause QtWebEngine crash.";
+                }
+                else
+                {
+                    ui->applistpage_1->getSearchList(searchtext);
+                    switchPage(AppPageSearchlist);
+                }
             }
         }
         this->setFocus(); });
@@ -213,11 +220,11 @@ MainWindow::MainWindow(QWidget *parent)
             { downloadButton->setProgress(i); });
     // 列表点击事件
     connect(ui->applistpage, &AppListPage::clicked, this, [=](QUrl spk)
-            { openUrl(spk); });
+            { openUrl(spk.toString()); });
     connect(ui->applistpage_1, &AppListPage::clicked, this, [=](QUrl spk)
-            { openUrl(spk); });
+            { openUrl(spk.toString()); });
     connect(ui->settingspage, &SettingsPage::openUrl, this, [=](QUrl spk)
-            { openUrl(spk); });
+            { openUrl(spk.toString()); });
     emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &MainWindow::onNewProcessInstance);
@@ -246,7 +253,7 @@ void MainWindow::onGetUrl(const QString &url)
 {
     if (url.trimmed().startsWith("spk://"))
     {
-        openUrl(QUrl(url));
+        openUrl(url);
     }
     activateWindow();
 }
@@ -261,16 +268,27 @@ void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
     }
 }
 
-void MainWindow::openUrl(QUrl url)
+void MainWindow::openUrl(const QString &url)
 {
-    if (url.toString().startsWith("spk://"))
+    if (url.startsWith("spk://search/"))
     {
-        ui->appintopage->openUrl(QUrl(url.toString().replace("+", "%2B")));
+        QString keyword = url.mid(13);
+        if (keyword == "%")
+        {
+            qWarning() << "keyword '%' is not valid, which will cause QtWebEngine crash.";
+            return;
+        }
+        ui->applistpage_1->getSearchList(keyword);
+        switchPage(AppPageSearchlist);
+    }
+    else if (url.startsWith("spk://"))
+    {
+        ui->appintopage->openUrl(QUrl::fromUserInput(url));
         switchPage(AppPageAppdetail);
     }
     else
     {
-        QDesktopServices::openUrl(QUrl(url.toString().replace("+", "%2B")));
+        QDesktopServices::openUrl(QUrl::fromUserInput(url));
     }
 }
 
@@ -355,5 +373,5 @@ void MainWindow::on_pushButton_14_clicked()
             upgradeP->waitForFinished(-1);
             upgradeP->deleteLater(); });
         }
-    } 
+    }
 }

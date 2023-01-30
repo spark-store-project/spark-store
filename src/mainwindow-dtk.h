@@ -31,7 +31,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void openUrl(QUrl);
+    void openUrl(const QString &url);
 
 private:
     void initDbus();

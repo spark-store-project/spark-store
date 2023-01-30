@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
         QString arg1 = argv[1];
         if (arg1.trimmed().startsWith("spk://"))
         {
-            w.openUrl(QUrl(argv[1]));
+            w.openUrl(arg1);
         }
     }
     w.show();
