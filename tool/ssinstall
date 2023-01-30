@@ -17,19 +17,19 @@ function pkexec_as_current_user() {
     sudo -u $user  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus pkexec "$@"
 }
 
-function zenity() {
-    #Detect the name of the display in use
-    local display=":$(ls /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
+function zenity()
+{
+
 
     #Detect the user using such display
-    local user=$(who | grep '('$display')' | awk '{print $1}' | head -n 1)
+    local user=$(who  | awk '{print $1}' | head -n 1)
 
     #Detect the id of the user
     local uid=$(id -u $user)
 
-    sudo -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus zenity "$@"
-}
 
+    sudo -u $user  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus zenity "$@"
+}
 #################检测文件是否存在
 if [ $# -eq 0 ];then
 echo "没有接收到参数，退出"
