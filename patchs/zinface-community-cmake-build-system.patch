@@ -1,7 +1,7 @@
-From 5c78aff9b5be86cf3d1874a71f2045b1362e0572 Mon Sep 17 00:00:00 2001
+From abbfbf12c1ea9853039e6864d0ede91973189ce6 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Sun, 11 Dec 2022 22:27:23 +0800
-Subject: [PATCH 1/7] =?UTF-8?q?repo:=20=E4=B8=80=E6=AC=A1=E6=80=A7?=
+Subject: [PATCH 01/10] =?UTF-8?q?repo:=20=E4=B8=80=E6=AC=A1=E6=80=A7?=
  =?UTF-8?q?=E5=AF=BC=E5=85=A5=20spark=20=E9=AA=A8=E6=9E=B6=E4=BB=A5?=
  =?UTF-8?q?=E5=8F=98=E4=B8=BA=20cmake=20=E6=9E=84=E5=BB=BA?=
 MIME-Version: 1.0
@@ -1789,10 +1789,10 @@ index 0000000..0fa070b
 2.20.1
 
 
-From 0ba6387230becafa5c91817b036084dd702c47c0 Mon Sep 17 00:00:00 2001
+From d1974334ce60291894b53f6839b78f3147aaa233 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Sun, 11 Dec 2022 22:37:26 +0800
-Subject: [PATCH 2/7] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20deb=20?=
+Subject: [PATCH 02/10] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20deb=20?=
  =?UTF-8?q?=E5=AE=89=E8=A3=85=E8=84=9A=E6=9C=AC=E7=9A=84=E9=97=AE=E9=A2=98?=
  =?UTF-8?q?=EF=BC=8C=E5=AE=8C=E6=88=90=20cmake=20=E5=8C=96=E6=9E=84?=
  =?UTF-8?q?=E5=BB=BA?=
@@ -1856,10 +1856,10 @@ index 2ab24e7..38ad2d7 100644
 2.20.1
 
 
-From bfef40012ff241f50d9448f2d4b787d22b24813a Mon Sep 17 00:00:00 2001
+From 5a978c7db6c34d7dcd4aa56d94605e51245004a5 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 12 Dec 2022 00:50:01 +0800
-Subject: [PATCH 3/7] =?UTF-8?q?docs:=20=E6=B7=BB=E5=8A=A0=20Spark=20?=
+Subject: [PATCH 03/10] =?UTF-8?q?docs:=20=E6=B7=BB=E5=8A=A0=20Spark=20?=
  =?UTF-8?q?=E6=9E=84=E5=BB=BA=20=E4=B8=8E=20CMake=20=E6=9E=84=E5=BB=BA?=
  =?UTF-8?q?=E7=B3=BB=E7=BB=9F=E9=A2=84=E8=A7=88=E6=96=87=E6=A1=A3?=
 MIME-Version: 1.0
@@ -2184,10 +2184,10 @@ index 0000000..a807009
 2.20.1
 
 
-From f07c4dd69ccbc74dbf44f6417ecbd076ac01b620 Mon Sep 17 00:00:00 2001
+From 4b5b4bc91a42cc860efbe1728f2dba9f255ea954 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Thu, 15 Dec 2022 19:59:46 +0800
-Subject: [PATCH 4/7] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
+Subject: [PATCH 04/10] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
  =?UTF-8?q?=E4=BA=8E=20Qt5=20Svg=20=E4=BE=9D=E8=B5=96=E7=9A=84=E6=9E=84?=
  =?UTF-8?q?=E5=BB=BA=E5=86=85=E5=AE=B9?=
 MIME-Version: 1.0
@@ -2236,10 +2236,10 @@ index b56399f..67e29b6 100644
 2.20.1
 
 
-From dbd36f105e69ee736f19fa4d7632e3f12316955c Mon Sep 17 00:00:00 2001
+From ede820a7267afa113a2d8b4f93f45fa6c1b4b23b Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 19 Dec 2022 02:58:17 +0800
-Subject: [PATCH 5/7] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
+Subject: [PATCH 05/10] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
  =?UTF-8?q?=E4=BA=8E=E6=94=AF=E6=8C=81=20BaseWidgetOpacity=20=E5=9F=BA?=
  =?UTF-8?q?=E7=A1=80=E7=B1=BB=E7=9A=84=E6=9E=84=E5=BB=BA?=
 MIME-Version: 1.0
@@ -2283,10 +2283,10 @@ index 14530e1..b5e32d8 100644
 2.20.1
 
 
-From 16b723cd1a37c49e9af668f5f97d17a2e383420a Mon Sep 17 00:00:00 2001
+From b63790722efa275977b2033a1beeb21b730c1895 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 30 Jan 2023 20:48:25 +0800
-Subject: [PATCH 6/7] =?UTF-8?q?spark:=20=E5=88=9B=E5=BB=BA=E6=96=B0?=
+Subject: [PATCH 06/10] =?UTF-8?q?spark:=20=E5=88=9B=E5=BB=BA=E6=96=B0?=
  =?UTF-8?q?=E7=9A=84=E6=A8=A1=E5=9D=97=E7=94=A8=E4=BA=8E=20debian/changelo?=
  =?UTF-8?q?g=20=E7=9A=84=E7=89=88=E6=9C=AC=E5=8F=B7=E9=87=8D=E5=86=99?=
  =?UTF-8?q?=E8=A7=84=E5=88=99?=
@@ -2388,11 +2388,11 @@ index 0000000..9d8bca2
 2.20.1
 
 
-From b16b02606c94cf3f3b23c8e59facd827b4ef38b6 Mon Sep 17 00:00:00 2001
+From cca243c18b125a0e24a08c06a358ee04f0861884 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 30 Jan 2023 21:23:15 +0800
-Subject: [PATCH 7/7] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkDebianChangelogVe?=
- =?UTF-8?q?rsion.cmake=20=E6=A8=A1=E5=9D=97=E7=9A=84=E6=89=A9=E5=B1=95?=
+Subject: [PATCH 07/10] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkDebianChangelog?=
+ =?UTF-8?q?Version.cmake=20=E6=A8=A1=E5=9D=97=E7=9A=84=E6=89=A9=E5=B1=95?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -2455,6 +2455,142 @@ index 9d8bca2..65e1c16 100644
 +        file(WRITE ${CMAKE_BINARY_DIR}/SPARK_OVERRIDE_VERSION ${V})
      endif(CHANGELOG_FILE_EXISTS)
  endmacro(spark_debian_changelog_override_version _CHANGELOG_FILE_PATH)
+-- 
+2.20.1
+
+
+From f3595a55f567fc01a5928fea8e4b89f99cf8793e Mon Sep 17 00:00:00 2001
+From: zinface <zinface@163.com>
+Date: Mon, 30 Jan 2023 23:17:24 +0800
+Subject: [PATCH 08/10] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20v4.2.2=20?=
+ =?UTF-8?q?=E7=89=88=E6=9C=AC=E6=97=B6=E6=9C=9F=E6=96=B0=E5=A2=9E=E7=9A=84?=
+ =?UTF-8?q?=E5=AE=89=E8=A3=85=E6=96=87=E4=BB=B6?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+pkg/usr/share/ssinstall/transhell
+  -> /usr/share/ssinstall
+---
+ CMakeLists.txt                       | 5 +++++
+ cmake/SparkInstallMacrosConfig.cmake | 2 +-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 73221bc..22a788d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -86,6 +86,11 @@ spark_install_file(/usr/share/icons/hicolor/scalable/apps
+ spark_install_program(/tmp/spark-store-install
+     pkg/tmp/spark-store-install/feedback.sh)
+ 
++# 安装什么翻译？ Since: v4.2.2
++spark_install_directory(/usr/share/ssinstall
++    pkg/usr/share/ssinstall/transhell
++)
++
+ # 安装 qm 文件?
+ spark_install_file(/usr/share/spark-store/translations
+     ${SPARK_QM_TRANSLATIONS})
+diff --git a/cmake/SparkInstallMacrosConfig.cmake b/cmake/SparkInstallMacrosConfig.cmake
+index bbb958a..c7ea53b 100644
+--- a/cmake/SparkInstallMacrosConfig.cmake
++++ b/cmake/SparkInstallMacrosConfig.cmake
+@@ -79,7 +79,7 @@ macro(spark_install_directory INSTALL_DIRECTORY_DIR INSTALL_DIRECOTRY)
+         # message(FATAL_ERROR " directory: ${INSTALL_DIRECTORY_FIND_INDEX_SUBSTRING_FILE_GLOB_LIST_LENGTH}")
+ 
+     else()
+-        message(FATAL_ERROR "install： ${INSTALL_DIRECTORY_DIR}")
++        # message(FATAL_ERROR "install： ${INSTALL_DIRECTORY_DIR}")
+ 
+         install(DIRECTORY
+             ${INSTALL_DIRECOTRY} ${ARGN}
+-- 
+2.20.1
+
+
+From da9ef6f95ea7be97595b1e3285ac8e98a34c8c0a Mon Sep 17 00:00:00 2001
+From: zinface <zinface@163.com>
+Date: Mon, 30 Jan 2023 23:18:44 +0800
+Subject: [PATCH 09/10] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkTranslatorConfi?=
+ =?UTF-8?q?g.cmake=20=E6=A8=A1=E5=9D=97=E7=9A=84=E6=89=A9=E5=B1=95?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+1. 增加 SPARK_QM_TRANSLATIONS 的文件输出
+     无任何其它变动
+---
+ cmake/SparkTranslatorConfig.cmake | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/cmake/SparkTranslatorConfig.cmake b/cmake/SparkTranslatorConfig.cmake
+index 272dd9d..689e70d 100644
+--- a/cmake/SparkTranslatorConfig.cmake
++++ b/cmake/SparkTranslatorConfig.cmake
+@@ -12,6 +12,11 @@ endforeach(item IN LISTS SPARK_TRANSLATIONS)
+ qt5_add_translation(SPARK_QM_TRANSLATIONS 
+     ${SPARK_TRANSLATIONS})
+ 
++file(WRITE ${CMAKE_BINARY_DIR}/SPARK_QM_TRANSLATIONS "")
++foreach(item IN LISTS SPARK_QM_TRANSLATIONS)
++    file(APPEND ${CMAKE_BINARY_DIR}/SPARK_QM_TRANSLATIONS "${item}\n")
++endforeach(item IN LISTS SPARK_QM_TRANSLATIONS)
++
+ message("translator(ts -> qm):")
+ foreach(item IN LISTS SPARK_QM_TRANSLATIONS)
+     message("-> ${item}")
+-- 
+2.20.1
+
+
+From 22eea0e930a073cac8e6dd750b6389044668dcd6 Mon Sep 17 00:00:00 2001
+From: zinface <zinface@163.com>
+Date: Mon, 30 Jan 2023 23:20:12 +0800
+Subject: [PATCH 10/10] =?UTF-8?q?make:=20=E5=A4=84=E7=90=86=E9=BB=98?=
+ =?UTF-8?q?=E8=AE=A4=20make=20=E7=9B=AE=E6=A0=87=E4=B8=BA=20override-versi?=
+ =?UTF-8?q?on=20=E7=9A=84=E9=97=AE=E9=A2=98?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ Makefile | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 81ca078..076502c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -12,11 +12,6 @@ PROJECT_VERSION=*
+ 
+ ifneq ($(wildcard build/SPARK_OVERRIDE_VERSION),)
+ SPARK_OVERRIDE_VERSION=`cat build/SPARK_OVERRIDE_VERSION`
+-.PHONY: override-version
+-override-version:
+-	@echo $(SPARK_OVERRIDE_VERSION)
+-	@echo "wildcard - good: $(wildcard build/SPARK_OVERRIDE_VERSION)"
+-	@echo "wildcard - bad.: $(wildcard build/SPARK_OVERRIDE_VERSIONS)"
+ PROJECT_VERSION=$(SPARK_OVERRIDE_VERSION)-
+ endif
+ 
+@@ -82,4 +77,13 @@ copytosource:package
+ enter-qdebug-mode:
+ 	# 进入新的 bash 环境
+ 	@# export QT_LOGGING_RULES=".debug=true; qt.*.debug=false; dtk.*.debug=false; dde.*.debug=false; qtc*=false; " && bash
+-	export QT_LOGGING_RULES=".debug=true" && bash
+\ No newline at end of file
++	export QT_LOGGING_RULES=".debug=true" && bash
++
++
++ifneq ($(wildcard build/SPARK_OVERRIDE_VERSION),)
++.PHONY: override-version
++override-version:
++	@echo $(SPARK_OVERRIDE_VERSION)
++	@echo "wildcard - good: $(wildcard build/SPARK_OVERRIDE_VERSION)"
++	@echo "wildcard - bad.: $(wildcard build/SPARK_OVERRIDE_VERSIONS)"
++endif
+\ No newline at end of file
 -- 
 2.20.1
 
