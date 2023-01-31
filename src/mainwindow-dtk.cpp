@@ -74,10 +74,7 @@ void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
 {
     Q_UNUSED(pid)
 
-    if (arguments.size() > 1)
-    {
-        onGetUrl(arguments.value(1));
-    }
+    onGetUrl(arguments.value(1, ""));
 }
 
 void MainWindow::openUrl(const QString &url)
