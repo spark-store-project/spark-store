@@ -5,6 +5,10 @@
 #include <DApplicationSettings>
 #include <DWidgetUtil>
 
+#include <QDate>
+#include <QProcessEnvironment>
+#include <QSettings>
+#include <QFile>
 #include <QStandardPaths>
 
 DCORE_USE_NAMESPACE
@@ -15,7 +19,7 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "4.2.1";
+    static const QString version = "4.2.2";
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
     static const QString buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
@@ -124,7 +128,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    DGuiApplicationHelper::instance()->setPaletteType(DGuiApplicationHelper::LightType); // 固定主题为浅色主题
     DApplicationSettings settings; // 定义 DApplicationSettings，自动保存主题设置
 
     MainWindow w;
@@ -136,7 +139,7 @@ int main(int argc, char *argv[])
         QString arg1 = argv[1];
         if (arg1.trimmed().startsWith("spk://"))
         {
-            w.openUrl(QUrl(argv[1]));
+            w.openUrl(arg1);
         }
     }
     w.show();

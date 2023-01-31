@@ -240,12 +240,12 @@
 <context>
     <name>DAboutDialog</name>
     <message>
-        <location filename="../src/application.cpp" line="88"/>
+        <location filename="../src/application.cpp" line="90"/>
         <source>Version: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="95"/>
+        <location filename="../src/application.cpp" line="97"/>
         <source>%1 is released under %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -452,32 +452,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="45"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="161"/>
         <source>Submit App</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="46"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="162"/>
         <source>Submit App with client(Recommanded)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="47"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="163"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="48"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="164"/>
         <source>APP Upgrade and Install Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="161"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="123"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="162"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="128"/>
         <source>Search or enter spk://</source>
         <translation type="unfinished"></translation>
     </message>
@@ -485,25 +485,30 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/application.cpp" line="26"/>
-        <location filename="../src/application.cpp" line="27"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="22"/>
+        <location filename="../src/application.cpp" line="28"/>
+        <location filename="../src/application.cpp" line="29"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="103"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="31"/>
+        <location filename="../src/application.cpp" line="33"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="92"/>
+        <location filename="../src/application.cpp" line="94"/>
         <source>Spark Project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/widgets/downloadlistwidget.cpp" line="10"/>
         <source>Download list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="217"/>
+        <source>Show MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -607,6 +612,19 @@
     <message>
         <location filename="../src/pages/settingspage.cpp" line="235"/>
         <source>Temporary cache was cleaned</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TitleBarMenu</name>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="218"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow-dtk.cpp" line="219"/>
+        <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -14,7 +14,7 @@ class AppListPage : public QWidget
 
 public:
     void setTheme(bool dark);
-    void getSearchList(QString keyword);
+    void getSearchList(const QString &keyword);
     void getAppList(QString type);
     explicit AppListPage(QWidget *parent = nullptr);
     ~AppListPage();

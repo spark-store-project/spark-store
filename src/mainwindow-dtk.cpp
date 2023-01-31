@@ -1,10 +1,16 @@
 #include "mainwindow-dtk.h"
 #include "ui_mainwindow-dtk.h"
+#include "utils/widgetanimation.h"
+#include "widgets/common/progressbutton.h"
+#include "widgets/downloadlistwidget.h"
+#include "dbus/dbussparkstoreservice.h"
+#include "application.h"
 
+#include <DLabel>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
-#include <DApplicationSettings>
-#include <QSizePolicy>
+
+#include <QAbstractButton>
 
 #define AppPageApplist 0
 #define AppPageSearchlist 1
@@ -16,43 +22,160 @@
 #define UploadServerUrl "https://upload.deepinos.org/"
 
 MainWindow::MainWindow(QWidget *parent)
-    : BaseWidgetOpacity(parent), ui(new Ui::MainWindow)
+    : BaseWidgetOpacity(parent)
+    , ui(new Ui::MainWindow)
+    , downloadlistwidget(new DownloadListWidget)
+    , trayIcon(new QSystemTrayIcon(QIcon::fromTheme("spark-store"), this))
 {
     ui->setupUi(this);
-    setWindowTitle(QObject::tr("Spark Store"));
-    initConfig();
 
-    // FIXME: wayland 不支持直接设置窗口透明度，需要调用 wayland 相关库（考虑抄控制中心“窗口移动时启用透明特效”代码？）
-    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    bool isWayland = config.value("build/isWayland").toBool();
-    if (!isWayland)
+    initTmpDir();
+
+    initUI();
+    initConnections();
+
+    ui->appintopage->setDownloadWidget(downloadlistwidget);
+
+    emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+
+    downloadlistwidget->deleteLater();
+}
+
+void MainWindow::initDbus()
+{
+    DBusSparkStoreService *dbusInter = new DBusSparkStoreService(this);
+
+    QDBusConnection::sessionBus().registerService("com.gitee.spark.store");
+    QDBusConnection::sessionBus().registerObject("/com/gitee/spark/store", "com.gitee.spark.store", this);
+    connect(dbusInter, &DBusSparkStoreService::sigOpenUrl, this, &MainWindow::onGetUrl);
+}
+
+void MainWindow::onGetUrl(const QString &url)
+{
+    if (url.trimmed().startsWith("spk://"))
     {
-        WidgetAnimation::widgetOpacity(this, true);
+        openUrl(url);
     }
 
-    searchEdit = new DSearchEdit(ui->titlebar);
-    downloadlistwidget = new DownloadListWidget;
-    downloadButton = new ProgressButton(ui->titlebar);
-    backButtom = new QPushButton(ui->titlebar);
-    ui->appintopage->setDownloadWidget(downloadlistwidget);
-    ui->stackedWidget->setCurrentIndex(0);
-    ui->titlebar->setBackgroundTransparent(true);
-    // ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
+    showWindowAnimation = false;
+    closeWindowAnimation = false;
+
+    setWindowState(windowState() & Qt::WindowActive);
+    activateWindow();
+    show();
+}
+
+void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
+{
+    Q_UNUSED(pid)
+
+    if (arguments.size() > 1)
+    {
+        onGetUrl(arguments.value(1));
+    }
+}
+
+void MainWindow::openUrl(const QString &url)
+{
+    if (url.startsWith("spk://search/"))
+    {
+        QString keyword = url.mid(13);
+        if (keyword == "%")
+        {
+            qWarning() << "keyword '%' is not valid, which will cause QtWebEngine crash.";
+            return;
+        }
+        ui->applistpage_1->getSearchList(keyword);
+        switchPage(AppPageSearchlist);
+    }
+    else if (url.startsWith("spk://"))
+    {
+        ui->appintopage->openUrl(QUrl::fromUserInput(url));
+        switchPage(AppPageAppdetail);
+    }
+    else
+    {
+        QDesktopServices::openUrl(QUrl::fromUserInput(url));
+    }
+}
+
+void MainWindow::initUI()
+{
+    setWindowTitle(QObject::tr("Spark Store"));
     setMaskAlpha(250);
 
+    initTitleBar();
+    initLeftMenu();
+
+    ui->stackedWidget->setCurrentIndex(0);
     updateUi(0);
 
+    initTrayIcon();
+}
+
+void MainWindow::initTitleBar()
+{
+    ui->titlebar->setIcon(QIcon::fromTheme("spark-store"));
+    ui->titlebar->setBackgroundTransparent(true);
+    // ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
+
+    // 初始化标题栏控件
+    DLabel *title = new DLabel(ui->titlebar);
+    title->setText(tr("Spark Store"));
+
+    backButton = new DPushButton(ui->titlebar);
+
+    searchEdit = new DSearchEdit(ui->titlebar);
+    searchEdit->setPlaceholderText(tr("Search or enter spk://"));
+
+    downloadButton = new ProgressButton(ui->titlebar);
+
+    QWidget *w_titlebar = new QWidget(ui->titlebar);
+    QHBoxLayout *ly_titlebar = new QHBoxLayout(w_titlebar);
+    ly_titlebar->addWidget(title);
+    ly_titlebar->addWidget(backButton);
+    // Check wayland configs
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    if (!config.value("build/isDeepinOS").toBool() && config.value("build/useWayland").toBool())
+    {
+        // Wayland 搜索栏居中
+        ly_titlebar->addStretch(WaylandSearchCenter);
+    }
+    else
+    {
+        // dwayland dxcb 搜索栏顶部右侧居中
+        ly_titlebar->addStretch(OtherSearchCenter);
+    }
+    ly_titlebar->addWidget(searchEdit);
+    ly_titlebar->addWidget(downloadButton);
+    ly_titlebar->addStretch(RightSearchSpace);
+    ui->titlebar->setCustomWidget(w_titlebar);
+
+    initTitleBarMenu();
+
+    backButton->hide();
+    downloadlistwidget->hide();
+}
+
+void MainWindow::initTitleBarMenu()
+{
     QAction *actionSubmission = new QAction(tr("Submit App"), this);
     QAction *actionSubmissionWithClient = new QAction(tr("Submit App with client(Recommanded)"), this);
     QAction *setting = new QAction(tr("Settings"));
     QAction *upgrade = new QAction(tr("APP Upgrade and Install Settings"));
-    QMenu *menu = new QMenu;
+    QMenu *menu = new QMenu(ui->titlebar);
     menu->addAction(setting);
     menu->addAction(upgrade);
     menu->addAction(actionSubmission);
     menu->addAction(actionSubmissionWithClient);
 
     ui->titlebar->setMenu(menu);
+
     connect(actionSubmission, &QAction::triggered, this, [=]
             { QDesktopServices::openUrl(QUrl(UploadServerUrl)); });
     connect(setting, &QAction::triggered, this, [=]
@@ -76,14 +199,62 @@ MainWindow::MainWindow(QWidget *parent)
                     qDebug() << "投稿器不存在，跳转页面";
                     openUrl(submitterSpk);
                 } });
+}
 
+void MainWindow::initLeftMenu()
+{
+    // 侧边栏按钮
+    foreach (QAbstractButton *button, ui->buttonGroup->buttons())
+    {
+        button->setStyleSheet("QPushButton{qproperty-icon: url(data/images/userMangaer/teacher.png);}");
+        connect(button, &QPushButton::toggled, [=](bool checked)
+                {
+            if (checked == true) {
+                searchEdit->clearEdit();
+                updateUi(ui->buttonGroup->buttons().indexOf(button));
+            } });
+    }
+}
+
+void MainWindow::initTrayIcon()
+{
+    QMenu *menu = new QMenu(this);
+
+    QAction *showAction = new QAction(QObject::tr("Show MainWindow"), menu);
+    QAction *aboutAction = new QAction(qApp->translate("TitleBarMenu", "About"), menu);
+    QAction *exitAction = new QAction(qApp->translate("TitleBarMenu", "Exit"), menu);
+    menu->addAction(showAction);
+    menu->addAction(aboutAction);
+    menu->addAction(exitAction);
+    trayIcon->setContextMenu(menu);
+
+    connect(showAction, &QAction::triggered, this, [=]()
+            {
+        showWindowAnimation = false;
+        closeWindowAnimation = false;
+
+        setWindowState(windowState() & Qt::WindowActive);
+        activateWindow();
+        show(); });
+    connect(aboutAction, &QAction::triggered, this, [=]()
+            {
+        qobject_cast<Application *>(qApp)->handleAboutAction(); });
+    connect(exitAction, &QAction::triggered, this, [=]()
+            {
+        qobject_cast<Application *>(qApp)->quit(); });
+
+    trayIcon->show();
+}
+
+void MainWindow::initConnections()
+{
     // 主题切换
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType)
             {
         if (themeType == DGuiApplicationHelper::DarkType) {
             //深色模式
             setMaskColor(QColor("#2a2b2b"));
-            backButtom->setIcon(QIcon(":/icon/dark/back.svg"));
+            backButton->setIcon(QIcon(":/icon/dark/back.svg"));
             downloadButton->setIcon(":/icon/dark/download.svg");
             downloadButton->setBackgroundColor(QColor("#444444"));
             downloadButton->setColor(QColor("#66CCFF"));
@@ -103,7 +274,7 @@ MainWindow::MainWindow(QWidget *parent)
         } else {
             //亮色模式
             setMaskColor(QColor("#f3f7f8"));
-            backButtom->setIcon(QIcon(":/icon/light/back.svg"));
+            backButton->setIcon(QIcon(":/icon/light/back.svg"));
             downloadButton->setBackgroundColor(QColor("#e3e4e4"));
             downloadButton->setColor(QColor("#66CCFF"));
             downloadButton->setIcon(":/icon/light/download.svg");
@@ -127,7 +298,6 @@ MainWindow::MainWindow(QWidget *parent)
         ui->appintopage->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->settingspage->setTheme(themeType == DGuiApplicationHelper::DarkType); });
 
-    // 初始化标题栏控件
     connect(downloadButton, &ProgressButton::clicked, [=]()
             {
         QPoint pos;
@@ -142,57 +312,15 @@ MainWindow::MainWindow(QWidget *parent)
                 WidgetAnimation::widgetShake(downloadButton, 6); // 第一个参数是抖动的控件，第二个参数是抖动范围（像素）
             });
 
-    connect(backButtom, &QPushButton::clicked, [=]()
+    connect(backButton, &QPushButton::clicked, [=]()
             {
         ui->stackedWidget->setCurrentIndex(pageHistory.at(pageHistory.count() - 2));
         pageHistory.removeLast();
         if (pageHistory.count() > 1) {
-            backButtom->show();
+            backButton->show();
         } else {
-            backButtom->hide();
+            backButton->hide();
         } });
-    downloadlistwidget->hide();
-    backButtom->hide();
-    ui->titlebar->setIcon(QIcon::fromTheme(":/icon/logo.svg"));
-
-    QWidget *w_titlebar = new QWidget(ui->titlebar);
-    QHBoxLayout *ly_titlebar = new QHBoxLayout(w_titlebar);
-    QLabel *title = new QLabel(ui->titlebar);
-    title->setText(tr("Spark Store"));
-    searchEdit->setPlaceholderText(tr("Search or enter spk://"));
-    ly_titlebar->addWidget(title);
-    ly_titlebar->addWidget(backButtom);
-
-    // Check wayland configs
-    // QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    if (!config.value("build/isDeepinOS").toBool() && config.value("build/useWayland").toBool())
-    {
-        // Wayland 搜索栏居中
-        ly_titlebar->addStretch(WaylandSearchCenter);
-    }
-    else
-    {
-        // dwayland dxcb 搜索栏顶部右侧居中
-        ly_titlebar->addStretch(OtherSearchCenter);
-    }
-
-    ly_titlebar->addWidget(searchEdit);
-    ly_titlebar->addWidget(downloadButton);
-    ly_titlebar->addStretch(RightSearchSpace);
-    ui->titlebar->setCustomWidget(w_titlebar);
-    // 侧边栏按钮
-    int i = 0;
-    while (i < ui->buttonGroup->buttons().size())
-    {
-        ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{qproperty-icon: url(data/images/userMangaer/teacher.png);}");
-        connect(ui->buttonGroup->buttons()[i], &QPushButton::toggled, [=](bool checked)
-                {
-            if (checked == true) {
-                searchEdit->clearEdit();
-                updateUi(i);
-            } });
-        i++;
-    }
 
     // 搜索事件
     connect(searchEdit, &DSearchEdit::returnPressed, this, [=]()
@@ -200,11 +328,18 @@ MainWindow::MainWindow(QWidget *parent)
         QString searchtext = searchEdit->text();
         if (!searchtext.isEmpty()) {
             if (searchtext.startsWith("spk://")) {
-                openUrl(QUrl(searchtext));
+                openUrl(searchtext);
                 searchEdit->clearEdit();
             } else {
-                ui->applistpage_1->getSearchList(searchtext);
-                switchPage(AppPageSearchlist);
+                if (searchtext == "%")
+                {
+                    qWarning() << "keyword '%' matches too many results, which will cause QtWebEngine crash.";
+                }
+                else
+                {
+                    ui->applistpage_1->getSearchList(searchtext);
+                    switchPage(AppPageSearchlist);
+                }
             }
         }
         this->setFocus(); });
@@ -213,68 +348,35 @@ MainWindow::MainWindow(QWidget *parent)
             { downloadButton->setProgress(i); });
     // 列表点击事件
     connect(ui->applistpage, &AppListPage::clicked, this, [=](QUrl spk)
-            { openUrl(spk); });
+            { openUrl(spk.toString()); });
     connect(ui->applistpage_1, &AppListPage::clicked, this, [=](QUrl spk)
-            { openUrl(spk); });
+            { openUrl(spk.toString()); });
     connect(ui->settingspage, &SettingsPage::openUrl, this, [=](QUrl spk)
-            { openUrl(spk); });
-    emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
+            { openUrl(spk.toString()); });
+
+    // 托盘图标点击事件
+    connect(trayIcon, &QSystemTrayIcon::activated, this, [=](QSystemTrayIcon::ActivationReason reason)
+            {
+        switch (reason) {
+        case QSystemTrayIcon::Trigger:
+        {
+            showWindowAnimation = false;
+            closeWindowAnimation = false;
+
+            setWindowState(windowState() & Qt::WindowActive);
+            activateWindow();
+            show();
+
+            Q_FALLTHROUGH();
+        }
+        default:
+            break;
+        } });
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &MainWindow::onNewProcessInstance);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-
-    if (downloadlistwidget)
-    {
-        downloadlistwidget->deleteLater();
-    }
-}
-
-void MainWindow::initDbus()
-{
-    DBusSparkStoreService *dbusInter = new DBusSparkStoreService(this);
-
-    QDBusConnection::sessionBus().registerService("com.gitee.spark.store");
-    QDBusConnection::sessionBus().registerObject("/com/gitee/spark/store", "com.gitee.spark.store", this);
-    connect(dbusInter, &DBusSparkStoreService::sigOpenUrl, this, &MainWindow::onGetUrl);
-}
-
-void MainWindow::onGetUrl(const QString &url)
-{
-    if (url.trimmed().startsWith("spk://"))
-    {
-        openUrl(QUrl(url));
-    }
-    activateWindow();
-}
-
-void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
-{
-    Q_UNUSED(pid)
-
-    if (arguments.size() > 1)
-    {
-        onGetUrl(arguments.value(1));
-    }
-}
-
-void MainWindow::openUrl(QUrl url)
-{
-    if (url.toString().startsWith("spk://"))
-    {
-        ui->appintopage->openUrl(QUrl(url.toString().replace("+", "%2B")));
-        switchPage(AppPageAppdetail);
-    }
-    else
-    {
-        QDesktopServices::openUrl(QUrl(url.toString().replace("+", "%2B")));
-    }
-}
-
-void MainWindow::initConfig()
+void MainWindow::initTmpDir()
 {
     // 新建临时文件夹
     QDir dir;
@@ -286,11 +388,11 @@ void MainWindow::switchPage(int now) // 临时方案，回家后修改
     qDebug() << pageHistory.count();
     if (pageHistory.count() >= 1)
     {
-        backButtom->show();
+        backButton->show();
     }
     else
     {
-        backButtom->hide();
+        backButton->hide();
     }
     ui->stackedWidget->setCurrentIndex(now);
     ui->stackedWidget->currentWidget()->setFocus();
@@ -355,5 +457,5 @@ void MainWindow::on_pushButton_14_clicked()
             upgradeP->waitForFinished(-1);
             upgradeP->deleteLater(); });
         }
-    } 
+    }
 }

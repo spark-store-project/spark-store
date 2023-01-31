@@ -56,7 +56,7 @@ void AppListPage::getAppList(QString type)
     delete api;
 }
 
-void AppListPage::getSearchList(QString keyword)
+void AppListPage::getSearchList(const QString &keyword)
 {
     isSearch = true;
     nowType = keyword;
@@ -71,7 +71,7 @@ void AppListPage::getSearchList(QString keyword)
     {
         theme = "theme=light";
     }
-    url = api->getServerUrl() + "store/#/flamescion/search?keywords=" + keyword + "&" + theme;
+    url = api->getServerUrl() + "store/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme;
     ui->webEngineView->setUrl(url);
     delete api;
 }
