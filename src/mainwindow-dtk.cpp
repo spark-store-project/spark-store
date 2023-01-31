@@ -61,7 +61,13 @@ void MainWindow::onGetUrl(const QString &url)
     {
         openUrl(url);
     }
+
+    showWindowAnimation = false;
+    closeWindowAnimation = false;
+
+    setWindowState(windowState() & Qt::WindowActive);
     activateWindow();
+    show();
 }
 
 void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
@@ -227,7 +233,7 @@ void MainWindow::initTrayIcon()
         showWindowAnimation = false;
         closeWindowAnimation = false;
 
-        setWindowState(Qt::WindowActive);
+        setWindowState(windowState() & Qt::WindowActive);
         activateWindow();
         show(); });
     connect(aboutAction, &QAction::triggered, this, [=]()
@@ -357,7 +363,7 @@ void MainWindow::initConnections()
             showWindowAnimation = false;
             closeWindowAnimation = false;
 
-            setWindowState(Qt::WindowActive);
+            setWindowState(windowState() & Qt::WindowActive);
             activateWindow();
             show();
 
