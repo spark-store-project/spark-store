@@ -2,6 +2,8 @@ spark-store (4.2.2) stable; urgency=medium
 
   * 调整：脚本应用的transhell支持转为source导入
   * 修复：ssinstall弹窗支持wayland
+  * 新增：应用托盘，下载时候可以放心关闭窗口了
+  * 新增：支持spk://search/内容 格式链接
 
  --shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
