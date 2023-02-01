@@ -11,6 +11,7 @@
 #include <DGuiApplicationHelper>
 
 #include <QAbstractButton>
+#include <QtConcurrent>
 
 #define AppPageApplist 0
 #define AppPageSearchlist 1
