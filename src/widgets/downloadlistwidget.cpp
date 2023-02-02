@@ -54,36 +54,42 @@ DownloadListWidget::~DownloadListWidget()
 {
     if (downloadController)
     {
+        downloadController->disconnect();
         downloadController->stopDownload();
+        downloadController->deleteLater();
     }
 
+    clearItem();
     delete ui;
 }
 
 void DownloadListWidget::clearItem()
 {
-    ui->listWidget->vScrollBar->scrollTop();
-    int n = ui->listWidget->count();
-    for (int i = 0; i < n; i++)
-    {
-        QListWidgetItem *item = ui->listWidget->takeItem(0);
-        QWidget *card = ui->listWidget->itemWidget(item);
-        delete card;
-        card = NULL;
-        delete item;
-        item = NULL;
-    }
+    //    QListWidgetItem *item = nullptr;
+    //    while ((item = ui->listWidget->takeItem(0)) != nullptr)
+    //    {
+    //        QWidget *card = ui->listWidget->itemWidget(item);
+    //        if (card)
+    //        {
+    //            card->deleteLater();
+    //            card = nullptr;
+    //        }
+    //        delete item;
+    //        item = nullptr;
+    //    }
+
+    //    ui->listWidget->vScrollBar->scrollTop();
     ui->listWidget->clear();
 }
-void DownloadListWidget::addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl)
+DownloadItem* DownloadListWidget::addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl)
 {
     if (fileName.isEmpty())
     {
-        return;
+        return nullptr;
     }
     urList.append(downloadurl);
     allDownload += 1;
-    DownloadItem *di = new DownloadItem(this);
+    DownloadItem *di = new DownloadItem;
     dlist << downloadurl;
     downloaditemlist << di;
     di->setName(name);
@@ -99,6 +105,8 @@ void DownloadListWidget::addItem(QString name, QString fileName, QString pkgName
         nowDownload += 1;
         startRequest(urList.at(nowDownload - 1), fileName); // 进行链接请求
     }
+
+    return di;
 }
 
 QList<DownloadItem *> DownloadListWidget::getDIList()
@@ -119,7 +127,13 @@ void DownloadListWidget::startRequest(QUrl url, QString fileName)
     isdownload = true;
     downloaditemlist[allDownload - 1]->free = false;
 
-    downloadController = new DownloadController(this); // 并发下载，在点击下载按钮的时候才会初始化
+    if (downloadController)
+    {
+        downloadController->disconnect();
+        downloadController->stopDownload();
+        downloadController->deleteLater();
+    }
+    downloadController = new DownloadController; // 并发下载，在点击下载按钮的时候才会初始化
     connect(downloadController, &DownloadController::downloadProcess, this, &DownloadListWidget::updateDataReadProgress);
     connect(downloadController, &DownloadController::downloadFinished, this, &DownloadListWidget::httpFinished);
     // connect(downloadController, &DownloadController::errorOccur, this, [=](QString msg){this->sendNotification(msg);});
