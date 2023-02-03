@@ -1,5 +1,6 @@
-spark-store (4.2.3) stable; urgency=medium
+spark-store (4.2.3~test1) stable; urgency=medium
   * 修复：因判断安装状态错误创建多个相同任务的bug
+  * 测试中：尝试修复安装结束的闪退问题 https://gitee.com/deepin-community-store/spark-store/commit/cb093dcc2bb0a193db89aa0ce5f20ea9cc5d56eb
   
 --shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
