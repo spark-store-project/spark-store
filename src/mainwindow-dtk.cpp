@@ -216,8 +216,9 @@ void MainWindow::initLeftMenu()
 
 void MainWindow::initTrayIcon()
 {
-    QMenu *menu = new QMenu(this);
+    trayIcon->setToolTip(tr("Spark Store"));
 
+    QMenu *menu = new QMenu(this);
     QAction *showAction = new QAction(QObject::tr("Show MainWindow"), menu);
     QAction *aboutAction = new QAction(qApp->translate("TitleBarMenu", "About"), menu);
     QAction *exitAction = new QAction(qApp->translate("TitleBarMenu", "Exit"), menu);
