@@ -1,4 +1,5 @@
 #include "application.h"
+#include "mainwindow-dtk.h"
 
 #include <DPlatformWindowHandle>
 #include <DLog>
@@ -46,7 +47,7 @@ Application::Application(int &argc, char **argv)
 
 void Application::handleAboutAction()
 {
-    if (aboutDialog()) {
+    if (aboutDialog() && aboutDialog()->parent() == m_mainWindow) {
         DApplication::handleAboutAction();
         return;
     }
@@ -81,10 +82,30 @@ void Application::setVersionAndBuildDateTime(const QString &version, const QStri
     setApplicationVersion(DApplication::buildVersion(config.value("build/version").toString() + "-" + "Flamescion" + "-" + config.value("build/time").toString()));
 }
 
+void Application::setMainWindow(MainWindow *window)
+{
+    m_mainWindow = window;
+    if (aboutDialog() == nullptr || aboutDialog()->parent() != m_mainWindow)
+    {
+        initAboutDialog();
+    }
+}
+
 void Application::initAboutDialog()
 {
+    if (m_mainWindow == nullptr)
+    {
+        return;
+    }
+
+    if (aboutDialog())
+    {
+        aboutDialog()->deleteLater();
+        setAboutDialog(nullptr);
+    }
+
     // 自定义 DAboutDialog
-    DAboutDialog *dialog = new DAboutDialog(activeWindow());
+    DAboutDialog *dialog = new DAboutDialog(m_mainWindow);
     dialog->setProductName(productName());
     dialog->setProductIcon(productIcon());
     dialog->setVersion(translate("DAboutDialog", "Version: %1").arg(applicationVersion()));

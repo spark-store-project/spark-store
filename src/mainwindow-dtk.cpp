@@ -139,7 +139,7 @@ void MainWindow::initTitleBar()
     ly_titlebar->addWidget(backButton);
     // Check wayland configs
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    if (!config.value("build/isDeepinOS").toBool() && config.value("build/useWayland").toBool())
+    if (!config.value("runtime/isDDE").toBool() && config.value("runtime/useWayland").toBool())
     {
         // Wayland 搜索栏居中
         ly_titlebar->addStretch(WaylandSearchCenter);

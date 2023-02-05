@@ -7,6 +7,12 @@ class Utils
 {
 public:
     static void sendNotification(const QString &icon, const QString &title, const QString &body);
+    static bool isDDE();
+    static bool isWayland();
+    static void initConfig();
+    static bool isUOS();
+    static void setQPAPlatform();
+    static void checkUOSDeveloperMode();
 };
 
 #endif // UTILS_H

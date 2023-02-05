@@ -1,8 +1,5 @@
 #include "widgetanimation.h"
-
-WidgetAnimation::WidgetAnimation()
-{
-}
+#include "widgets/base/basewidgetopacity.h"
 
 void WidgetAnimation::widgetShake(QWidget *pWidget, int nRange)
 {
@@ -28,27 +25,35 @@ void WidgetAnimation::widgetShake(QWidget *pWidget, int nRange)
 QPropertyAnimation *WidgetAnimation::createWidgetOpacity(QWidget *pWidget, bool isAppear)
 {
     QPropertyAnimation *animation = new QPropertyAnimation(pWidget, "windowOpacity", pWidget);
-    // 设置动画效果
-    animation->setEasingCurve(QEasingCurve::Linear);
     // 设置动画时间（单位：毫秒）
     animation->setDuration(500);
-    // 设置动画步长值，以及在该位置时显示的透明度
     if (isAppear)
     {
-        animation->setKeyValueAt(0, 0);
-        // m_animation->setKeyValueAt(0.5, 0);
-        animation->setKeyValueAt(1, 1);
+        // 设置动画效果
+        animation->setEasingCurve(QEasingCurve::Linear);
+        // 设置动画步长值，以及在该位置时显示的透明度（即动画关键帧）
+        animation->setKeyValueAt(0.0, 0.0);
+        animation->setKeyValueAt(1.0, 1.0);
     }
     else
     {
-        animation->setKeyValueAt(0, 1);
-        animation->setKeyValueAt(1, 0);
+        animation->setEasingCurve(QEasingCurve::OutQuart);
+        animation->setKeyValueAt(0.0, 1.0);
+        animation->setKeyValueAt(1.0, 0.0);
+
+        QObject::connect(animation, &QPropertyAnimation::finished, pWidget, [=]() { pWidget->close(); });
     }
+
+    QObject::connect(animation, &QPropertyAnimation::valueChanged, pWidget, [=]()
+            {
+                pWidget->update(); // NOTE: 保证窗口透明度动画平滑
+            });
+
     return animation;
 }
 
 void WidgetAnimation::widgetOpacity(QWidget *pWidget, bool isAppear)
 {
-    // 开始动画
-    createWidgetOpacity(pWidget, isAppear)->start();
+    // 启动/关闭动画
+    createWidgetOpacity(pWidget, isAppear)->start(QPropertyAnimation::DeleteWhenStopped);
 }
