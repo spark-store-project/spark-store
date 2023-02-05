@@ -1,8 +1,13 @@
 spark-store (4.2.3~test1) stable; urgency=medium
+
   * 修复：因判断安装状态错误创建多个相同任务的bug
   * 测试中：尝试修复安装结束的闪退问题 https://gitee.com/deepin-community-store/spark-store/commit/cb093dcc2bb0a193db89aa0ce5f20ea9cc5d56eb
-  
---shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+  * 修复：Deepin 显示开发者模式未开启
+  * 修复：从托盘打开主窗口时透明度动画不流畅
+  * 修复：主窗口关闭后，从托盘打开关于窗口会被主窗口遮挡
+
+ -- shenmo <shenmo@spark-app.store>  Sun, 05 Feb 2023 23:00:00 +0800
+
 
 spark-store (4.2.2) stable; urgency=medium
 
@@ -11,7 +16,7 @@ spark-store (4.2.2) stable; urgency=medium
   * 新增：应用托盘，下载时候可以放心关闭窗口了
   * 新增：支持spk://search/内容 格式链接
 
- --shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
 
 spark-store (4.2.1) stable; urgency=medium
@@ -20,7 +25,8 @@ spark-store (4.2.1) stable; urgency=medium
   * 修复：因依赖不完全导致在LinuxMint下无法下载统计
   * 新增：脚本系列应用支持英文
 
- --shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.2) stable; urgency=medium
 
@@ -29,13 +35,15 @@ spark-store (4.2) stable; urgency=medium
   * 调整：dwine5标签的文案改为：Wine应用
   * 新增：更新软件时弹窗会显示正在更新的软件包名
 
- --shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.2~test3) stable; urgency=medium
 
   * 修复: aptss ssupdates
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.2~test2) stable; urgency=medium
 
@@ -44,7 +52,9 @@ spark-store (4.2~test2) stable; urgency=medium
   * 调整: aptss在进行任何操作前均检测是否存在Packages文件，若存在，则不进行ssupdate
   * 调整: 修改apt-fast源代码以指定conf位置为/tmp/apt-fast,这部分不再使用bwrap模拟
   * 新增: aptss检测Package文件支持分目录（目前指定为store）
+
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.2~test1) stable; urgency=medium
 
@@ -53,6 +63,7 @@ spark-store (4.2~test1) stable; urgency=medium
   * 修复: 修复部分情况下ssinstall实际未安装但是错误显示
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.1.2) stable; urgency=medium
 
@@ -86,9 +97,8 @@ spark-store (4.1.2) stable; urgency=medium
   * chore: 暂时去除没有意义的 DBus 接口，使用 DGuiApplicationHelper::newProcessInstance 获取新进程的启动参数
   * chore: 更新翻译文件，去除已经不存在的翻译
 
-
-
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.1.2~test2) stable; urgency=medium
 
@@ -97,6 +107,7 @@ spark-store (4.1.2~test2) stable; urgency=medium
   * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo ，不过shenmo是自由的
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.1.2~test1) stable; urgency=medium
 
@@ -126,7 +137,6 @@ spark-store (4.1.2~test1) stable; urgency=medium
   * chore: 新增编译依赖，测试安装时不会出现报错
   * chore: 暂时去除没有意义的 DBus 接口，使用 DGuiApplicationHelper::newProcessInstance 获取新进程的启动参数
   * chore: 更新翻译文件，去除已经不存在的翻译
-
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
@@ -211,6 +221,7 @@ spark-store (3.3.3~test3) stable; urgency=medium
   * 修复：右上角 更新和安装设置 菜单中进入更新列表失效
 
 -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (3.3.3~test2) stable; urgency=medium
 
