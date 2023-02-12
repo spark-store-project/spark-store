@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 export QT_SELECT=5
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 include /usr/share/dpkg/default.mk
 
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
