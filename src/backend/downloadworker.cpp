@@ -145,17 +145,19 @@ void DownloadController::startDownload(const QString &url)
             command.append(aria2NoSeeds.toUtf8());
         }
         qDebug() << command;
-        auto cmd = new QProcess(this);
-        cmd->setProcessChannelMode(QProcess::MergedChannels);
-        cmd->setProgram("aria2c");
-        cmd->setArguments(command);
-        cmd->start();
-        cmd->waitForStarted(); //等待启动完成
 
-        QObject::connect(cmd, &QProcess::readyReadStandardOutput, [&]()
+        bool downloadSuccess = true;
+        QProcess cmd;
+        cmd.setProcessChannelMode(QProcess::MergedChannels);
+        cmd.setProgram("aria2c");
+        cmd.setArguments(command);
+        cmd.start();
+        cmd.waitForStarted(-1); //等待启动完成
+
+        connect(&cmd, &QProcess::readyReadStandardOutput, [&]()
         {
             //通过读取输出计算下载速度
-            QString message = cmd->readAllStandardOutput().data();
+            QString message = cmd.readAllStandardOutput().data();
             // qDebug() << message;
             message = message.replace(" ", "");
             QStringList list;
@@ -195,17 +197,21 @@ void DownloadController::startDownload(const QString &url)
                 emit downloadProcess(speedInfo, downloadSizeRecord, fileSize);
             }
         });
-        QObject::connect(cmd, &QProcess::readyReadStandardError, [&]()
+        connect(&cmd, &QProcess::readyReadStandardError, [&]()
         {
-            emit errorOccur(cmd->readAllStandardError().data());
-            return;
+            emit errorOccur(cmd.readAllStandardError().data());
+            downloadSuccess = false;
+            cmd.close();
         });
 
-        auto pidNumber = cmd->processId();
-        this->pidNumber = pidNumber;
-        while (cmd->waitForFinished(-1))
+        pidNumber = cmd.processId();
+
+        cmd.waitForFinished(-1);
+        cmd.close();
+
+        if(!downloadSuccess)
         {
-            continue;
+            return;
         }
 
         // 统计下载量
@@ -218,7 +224,7 @@ void DownloadController::startDownload(const QString &url)
         mailProcess.start(SenderdPath.toUtf8(), QStringList() << metaUrl << "HD70642");
         mailProcess.waitForStarted();
         mailProcess.waitForFinished(3000);
-        mailProcess.deleteLater();
+        mailProcess.close();
 
         emit downloadFinished(); });
 }

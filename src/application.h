@@ -5,6 +5,7 @@
 
 DWIDGET_USE_NAMESPACE
 
+class MainWindow;
 class Application : public DApplication
 {
     Q_OBJECT
@@ -16,6 +17,7 @@ public:
     static void checkAppConfigLocation();
 
     void setVersionAndBuildDateTime(const QString &version, const QString &buildDateTime);
+    void setMainWindow(MainWindow *window);
 
 private:
     void initAboutDialog();
@@ -23,6 +25,8 @@ private:
 private:
     QString m_version;
     QString m_buildDateTime;
+
+    MainWindow *m_mainWindow = nullptr;
 };
 
 #endif // APPLICATION_H

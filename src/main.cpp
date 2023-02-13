@@ -1,5 +1,6 @@
 #include "application.h"
 #include "mainwindow-dtk.h"
+#include "utils/utils.h"
 
 #include <DSysInfo>
 #include <DApplicationSettings>
@@ -14,85 +15,24 @@
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
-#define UOSCheckFile "/var/lib/deepin/developer-mode/enabled"
-
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "4.2.2";
+    static const QString version = "4.2.3";
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
     static const QString buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
-
-    // 设置桌面环境环境变量
-    bool isDeepinOS = true;
-    if (!QString(qgetenv("XDG_CURRENT_DESKTOP")).toLower().startsWith("deepin"))
-    {
-        qputenv("XDG_CURRENT_DESKTOP", "Deepin");
-        isDeepinOS = false;
-    }
-
-    bool isWayland = false;
-    auto e = QProcessEnvironment::systemEnvironment();
-    QString XDG_SESSION_TYPE = e.value(QStringLiteral("XDG_SESSION_TYPE"));
-    QString WAYLAND_DISPLAY = e.value(QStringLiteral("WAYLAND_DISPLAY"));
-    if (XDG_SESSION_TYPE == QLatin1String("wayland") || WAYLAND_DISPLAY.contains(QLatin1String("wayland"), Qt::CaseInsensitive))
-    {
-        isWayland = true;
-    }
 
     // NOTE: 提前设置组织名称和应用名称，避免配置文件位置错误
     DApplication::setOrganizationName("spark-union");
     DApplication::setApplicationName("spark-store");
     Application::checkAppConfigLocation(); // 检查 ~/.config/spark-union/spark-store 文件夹是否存在
 
-    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    config.setValue("build/isWayland", isWayland);
-    config.setValue("build/isDeepinOS", isDeepinOS);
-    // Check config file, if there is no wayland config, then set it to default, which means use wayland if possible.
-    if (!config.contains("build/useWayland"))
-    {
-        config.setValue("build/useWayland", true);
-    }
-    config.sync(); // 写入更改至 config.ini，并同步最新内容
-
-    bool useWayland = config.value("build/useWayland").toBool();
-    qDebug() << "System Wayland enabled:" << isWayland << ". Spark Wayland enabled:" << useWayland;
+    // 初始化 config.ini 配置文件
+    Utils::initConfig();
 
     // Set display backend
-    if (isWayland && useWayland && !(Dtk::Core::DSysInfo::isDDE() || isDeepinOS))
-    {
-        qputenv("QT_QPA_PLATFORM", "wayland");
-    }
-    else if (isWayland && useWayland && (Dtk::Core::DSysInfo::isDDE() && isDeepinOS))
-    {
-        qputenv("QT_QPA_PLATFORM", "dwayland");
-    }
-    else
-    {
-        qputenv("QT_QPA_PLATFORM", "dxcb");
-    }
-
-    // Check UOS developer mode.
-    QFile UOSDevelopFile(UOSCheckFile);
-    if (isDeepinOS && UOSDevelopFile.exists() && UOSDevelopFile.open(QFile::ReadOnly | QFile::Text))
-    {
-        config.setValue("UOS/isUOS", true);
-        QString lineData = UOSDevelopFile.readLine();
-        bool devmode = lineData.trimmed().toInt();
-        qDebug() << "UOS Developer Mode Status:" << devmode;
-        config.setValue("UOS/EnableDeveloperMode", devmode);
-    }
-    else
-    {
-        if (config.contains("UOS/isUOS"))
-        {
-            config.remove("UOS/isUOS");
-            config.remove("UOS/EnableDeveloperMode");
-        }
-    }
-    UOSDevelopFile.close();
-    config.sync(); // 写入更改至 config.ini，并同步最新内容
+    Utils::setQPAPlatform();
 
     // 龙芯机器配置,使得 DApplication 能正确加载 QTWEBENGINE
     qputenv("DTK_FORCE_RASTER_WIDGETS", "FALSE");
@@ -131,6 +71,7 @@ int main(int argc, char *argv[])
     DApplicationSettings settings; // 定义 DApplicationSettings，自动保存主题设置
 
     MainWindow w;
+    a.setMainWindow(&w); // 设置应用程序主窗口，用于初始化关于对话框
     // 让打开时界面显示在正中
     Dtk::Widget::moveToCenter(&w);
 

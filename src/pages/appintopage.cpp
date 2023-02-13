@@ -1,82 +1,40 @@
 #include "appintopage.h"
 #include "ui_appintopage.h"
-AppIntoPage::AppIntoPage(QWidget *parent) : QWidget(parent),
-                                            ui(new Ui::AppIntoPage)
+#include "backend/sparkapi.h"
+#include "widgets/downloadlistwidget.h"
+#include "backend/image_show.h"
+#include "application.h"
+
+#include <QtConcurrent>
+#include <QClipboard>
+
+AppIntoPage::AppIntoPage(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::AppIntoPage)
+    , api(new SparkAPI(this))
 {
-    ui->setupUi(this);
-    ui->listWidget->setViewMode(QListView::IconMode);
-    ui->listWidget->setMovement(QListView::Static);
-    ui->listWidget->setMaximumHeight(200);
-    ui->listWidget->setFlow(QListView::TopToBottom);
-    api1 = new SparkAPI(this);
-    connect(api1, &SparkAPI::finishedRAW, [=](QString download_times)
-            {
-        download_times.remove(QRegExp("\\n"));
-        ui->download_times->setText(download_times);
-        qDebug()<<"Download Times:"+download_times; });
-    clear();
+    initUI();
+    initConnections();
 }
 
-void AppIntoPage::clear()
+AppIntoPage::~AppIntoPage()
 {
-    ui->tag_a2d->hide();
-    ui->tag_uos->hide();
-    ui->tag_dtk5->hide();
-    ui->tag_deepin->hide();
-    ui->tag_dwine2->hide();
-    ui->tag_dwine5->hide();
-    ui->tag_ubuntu->hide();
-    ui->tag_community->hide();
-    ui->icon->clear();
-    ui->title->clear();
-    ui->author->clear();
-    ui->label_2->clear();
-    ui->downloadButton->hide();
-    ui->downloadButton->setEnabled(false);
-    ui->pushButton_3->hide();
-    int n = ui->listWidget->count();
-    for (int i = 0; i < n; i++)
-    {
-        QListWidgetItem *item = ui->listWidget->takeItem(0);
-        QWidget *card = ui->listWidget->itemWidget(item);
-        delete card;
-        card = NULL;
-        delete item;
-        item = NULL;
-    }
-    ui->listWidget->clear();
+    delete ui;
 }
-void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
+
+void AppIntoPage::openUrl(const QUrl &url)
 {
-    dw = w;
-    connect(w, &DownloadListWidget::downloadFinished, [=]()
-            { isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString()); });
-}
-void AppIntoPage::openUrl(QUrl url)
-{
+    clear();
+
+    //    qDebug() << url;
     spk = url;
-    SparkAPI *api = new SparkAPI(this);
-    clear();
-    connect(api, &SparkAPI::finishedObject, [=](QJsonObject appinfo)
-            {
 
+    SparkAPI *api1 = new SparkAPI(this);
+    connect(api1, &SparkAPI::finishedObject, [=](const QJsonObject &appinfo)
+            {
         info = appinfo;
-//        qDebug()<<url;
-        //获取图标
-        QNetworkRequest request;
-        QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
-        qDebug()<<api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png";
-        request.setUrl(QUrl(api->getImgServerUrl()+"store"+url.path().replace("+","%2B") + "/icon.png"));
-        request.setRawHeader("User-Agent", "Mozilla/5.0");
-        request.setRawHeader("Content-Type", "charset='utf-8'");
-        naManager->get(request);
-        QObject::connect(naManager,&QNetworkAccessManager::finished,[=](QNetworkReply *reply){
-                QByteArray jpegData = reply->readAll();
-                iconpixmap.loadFromData(jpegData);
-                iconpixmap.scaled(210, 200, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-                ui->icon->setPixmap(iconpixmap);
-                ui->icon->setScaledContents(true);
-            });
+
+        // 显示基本信息
         ui->title->setText(info["Name"].toString());
         ui->version->setText(info["Version"].toString());
         ui->author->setText(info["Author"].toString());
@@ -84,10 +42,66 @@ void AppIntoPage::openUrl(QUrl url)
         ui->d_size->setText(info["Size"].toString());
         ui->d_update->setText(info["Update"].toString());
         ui->d_pkgname->setText(info["Pkgname"].toString());
-        ui->d_website->setText("<a href=\""+info["Website"].toString()+"\">"+tr("Click Open"));
+        ui->d_website->setText("<a href=\"" + info["Website"].toString() + "\">" + tr("Click Open"));
         ui->d_contributor->setText(info["Contributor"].toString());
         ui->label_2->setText(info["More"].toString());
 
+        // 显示 tags
+        QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
+        setAppinfoTags(taglist);
+
+        // 获取图标
+        QNetworkRequest request;
+        QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+        qDebug() << api->getImgServerUrl() + "store" + url.path() + "/icon.png";
+        request.setUrl(QUrl(api->getImgServerUrl() + "store" + url.path() + "/icon.png"));
+        request.setRawHeader("User-Agent", "Mozilla/5.0");
+        request.setRawHeader("Content-Type", "charset='utf-8'");
+        manager->get(request);
+        QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
+            {
+                QByteArray jpegData = reply->readAll();
+                iconpixmap.loadFromData(jpegData);
+                iconpixmap.scaled(210, 200, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+                ui->icon->setPixmap(iconpixmap);
+                ui->icon->setScaledContents(true);
+
+                manager->deleteLater(); });
+
+        // 获取截图
+        QJsonParseError error;
+        QJsonArray array = QJsonDocument::fromJson(info.value("img_urls").toString().toUtf8(), &error).array();
+        QStringList imglist;
+        foreach (const QJsonValue &value, array) {
+            QString imgUrl = value.toString();
+            imglist.append(imgUrl);
+        }
+        qDebug() << imglist;
+
+        for (int i = 0; i < imglist.size(); i++)
+        {
+            QNetworkRequest request;
+            QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+            request.setUrl(QUrl(imglist.value(i)));
+            request.setRawHeader("User-Agent", "Mozilla/5.0");
+            request.setRawHeader("Content-Type", "charset='utf-8'");
+            manager->get(request);
+            QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
+                {
+                    QByteArray jpegData = reply->readAll();
+                    QPixmap pixmap;
+                    pixmap.loadFromData(jpegData);
+                    pixmap.scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+                    image_show *img=new image_show(this);
+                    img->setImage(pixmap);
+                    //img->setScaledContents(true);
+                    QListWidgetItem* pItem = new QListWidgetItem();
+                    pItem->setSizeHint(QSize(280, 200));
+                    ui->listWidget->addItem(pItem);
+                    ui->listWidget->setItemWidget(pItem, img);
+
+                    manager->deleteLater(); });
+        }
 
         // Check UOS
         QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
@@ -135,108 +149,181 @@ void AppIntoPage::openUrl(QUrl url)
                 isUpdated = false;
             }
 
-            QObject::connect(naManager, &QNetworkAccessManager::finished, [=]()
-                             {
-
-                if (isInstalled)
+            if (isInstalled)
+            {
+                if (isUpdated)
                 {
-                    if (isUpdated)
-                    {
-                        ui->downloadButton->setText(tr("Reinstall"));
-                        ui->downloadButton->setEnabled(true);
-                        ui->downloadButton->show();
-                        ui->pushButton_3->show();
-                    }
-                    else
-                    {
-                        ui->downloadButton->setText(tr("Upgrade"));
-                        ui->downloadButton->setEnabled(true);
-                        ui->downloadButton->show();
-                        ui->pushButton_3->show();
-                    }
+                    ui->downloadButton->setText(tr("Reinstall"));
+                    ui->downloadButton->setEnabled(true);
+                    ui->downloadButton->show();
+                    ui->pushButton_3->show();
                 }
                 else
                 {
-                    ui->downloadButton->setText(tr("Download"));
+                    ui->downloadButton->setText(tr("Upgrade"));
                     ui->downloadButton->setEnabled(true);
-                    isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
                     ui->downloadButton->show();
-                } });
+                    ui->pushButton_3->show();
+                }
+            }
+            else
+            {
+                ui->downloadButton->setText(tr("Download"));
+                ui->downloadButton->setEnabled(true);
+                ui->downloadButton->show();
+            }
+
+            isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
         }
 
-        QStringList taglist = info["Tags"].toString().split(";");
-        QString tmp=info["img_urls"].toString();
-        qDebug() << tmp;
-        if (tmp.left(2) == "[\"")
-        {
-            tmp.remove(0, 2);
-        }
-        if (tmp.right(2) == "\"]")
-        {
-            tmp.remove(tmp.size() - 2, tmp.size());
-        }
-        QStringList imglist = tmp.split("\",\"");
-        qDebug() << imglist;
-        for (int i = 0; i < imglist.size(); i++)
-        {
-            QNetworkRequest request;
-            QNetworkAccessManager *iconNaManager = new QNetworkAccessManager(this);
-            request.setUrl(QUrl(imglist[i].replace("+", "%2B")));
-            request.setRawHeader("User-Agent", "Mozilla/5.0");
-            request.setRawHeader("Content-Type", "charset='utf-8'");
-            iconNaManager->get(request);
-            QObject::connect(iconNaManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
-                             {
-                    QByteArray jpegData = reply->readAll();
-                    QPixmap pixmap;
-                    pixmap.loadFromData(jpegData);
-                    pixmap.scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-                    image_show *img=new image_show(this);
-                    img->setImage(pixmap);
-                    //img->setScaledContents(true);
-                    QListWidgetItem* pItem = new QListWidgetItem();
-                    pItem->setSizeHint(QSize(280, 200));
-                    ui->listWidget->addItem(pItem);
-                    ui->listWidget->setItemWidget(pItem, img);
-                });
-        }
-        this->sltAppinfoTags(&taglist);
-        disconnect(api,&SparkAPI::finished,nullptr,nullptr);
-        api->deleteLater(); });
-    api->getAppInfo(url);
-    api1->getAppDownloadTimes(url);
+        api1->disconnect();
+        api1->deleteLater(); });
+
+    api1->getAppInfo(url);
+
+    api->getAppDownloadTimes(url);
 }
 
-void AppIntoPage::isDownloading(QUrl url)
+void AppIntoPage::clear()
 {
-    if (dw->getUrlList().lastIndexOf(url) == -1)
+    ui->tag_a2d->hide();
+    ui->tag_uos->hide();
+    ui->tag_dtk5->hide();
+    ui->tag_deepin->hide();
+    ui->tag_dwine2->hide();
+    ui->tag_dwine5->hide();
+    ui->tag_ubuntu->hide();
+    ui->tag_community->hide();
+    ui->icon->clear();
+    ui->title->clear();
+    ui->author->clear();
+    ui->label_2->clear();
+    ui->downloadButton->hide();
+    ui->downloadButton->setEnabled(false);
+    ui->pushButton_3->hide();
+
+    //    QListWidgetItem *item = nullptr;
+    //    while ((item = ui->listWidget->takeItem(0)) != nullptr)
+    //    {
+    //        QWidget *card = ui->listWidget->itemWidget(item);
+    //        if (card)
+    //        {
+    //            card->deleteLater();
+    //            card = nullptr;
+    //        }
+    //        delete item;
+    //        item = nullptr;
+    //    }
+
+    ui->listWidget->clear(); // NOTE: QListWidget::clear() 会析构所有 items
+}
+
+void AppIntoPage::setTheme(bool dark)
+{
+    if (dark)
+    {
+        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #252525; border-radius: 14px; border: 1px solid rgb(64, 64, 64);}\
+                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #FFFFFF}";
+        ui->frame->setStyleSheet(frameStyleSheet);
+        ui->frame_2->setStyleSheet(frameStyleSheet);
+        ui->frame_3->setStyleSheet(frameStyleSheet);
+        ui->frame_4->setStyleSheet(frameStyleSheet);
+
+        ui->icon_1->setPixmap(QPixmap(":/icon/dark/box.svg"));
+        ui->icon_2->setPixmap(QPixmap(":/icon/dark/box.svg"));
+        ui->icon_3->setPixmap(QPixmap(":/icon/dark/calendar.svg"));
+        ui->icon_4->setPixmap(QPixmap(":/icon/dark/text.svg"));
+        ui->icon_5->setPixmap(QPixmap(":/icon/dark/folder.svg"));
+        ui->icon_6->setPixmap(QPixmap(":/icon/dark/globe.svg"));
+    }
+    else
+    {
+        //亮色模式
+        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #fbfbfb; border-radius: 14px; border: 1px solid rgb(229,229,229);}\
+                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #000000}";
+        ui->frame->setStyleSheet(frameStyleSheet);
+        ui->frame_2->setStyleSheet(frameStyleSheet);
+        ui->frame_3->setStyleSheet(frameStyleSheet);
+        ui->frame_4->setStyleSheet(frameStyleSheet);
+
+        ui->icon_1->setPixmap(QPixmap(":/icon/light/box.svg"));
+        ui->icon_2->setPixmap(QPixmap(":/icon/light/box.svg"));
+        ui->icon_3->setPixmap(QPixmap(":/icon/light/calendar.svg"));
+        ui->icon_4->setPixmap(QPixmap(":/icon/light/text.svg"));
+        ui->icon_5->setPixmap(QPixmap(":/icon/light/folder.svg"));
+        ui->icon_6->setPixmap(QPixmap(":/icon/light/globe.svg"));
+    }
+}
+
+void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
+{
+    if (dw)
+    {
+        dw->deleteLater();
+        dw = nullptr;
+    }
+
+    dw = w;
+    connect(w, &DownloadListWidget::downloadFinished, [=]()
+    { isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString()); });
+}
+
+void AppIntoPage::initUI()
+{
+    ui->setupUi(this);
+
+    ui->listWidget->setViewMode(QListView::IconMode);
+    ui->listWidget->setFlow(QListView::TopToBottom);
+    ui->listWidget->setMovement(QListView::Static);
+    ui->listWidget->setMaximumHeight(200);
+
+    clear();
+}
+
+void AppIntoPage::initConnections()
+{
+    connect(api, &SparkAPI::finishedRAW, [=](QString download_times)
+            {
+        download_times = download_times.trimmed();
+        qDebug() << "Download Times:" + download_times;
+        ui->download_times->setText(download_times); });
+}
+
+void AppIntoPage::isDownloading(const QUrl &url)
+{
+    int index = dw->getUrlList().lastIndexOf(url);
+    if (index == -1)
     {
         ui->downloadButton->setEnabled(true);
         return;
     }
-    else
+
+    DownloadItem *item = dw->getDIList().at(index);
+    if (item == nullptr)
     {
-        ui->downloadButton->setEnabled(false);
+        ui->downloadButton->setEnabled(true);
+        return;
     }
 
+    ui->downloadButton->setEnabled(false);
     ui->pushButton_3->hide();
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 2)
+    if (item->download == 2)
     {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Download"));
     }
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 1)
+    if (item->download == 1)
     {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Install"));
     }
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->isInstall)
+    if (item->isInstall)
     {
         ui->downloadButton->setEnabled(false);
         ui->downloadButton->setText(tr("Installing"));
         return;
     }
-    if (dw->getDIList()[dw->getUrlList().lastIndexOf(url)]->download == 3)
+    if (item->download == 3)
     {
         ui->downloadButton->setEnabled(true);
         ui->downloadButton->setText(tr("Reinstall"));
@@ -245,9 +332,9 @@ void AppIntoPage::isDownloading(QUrl url)
     }
 }
 
-void AppIntoPage::sltAppinfoTags(QStringList *tagList)
+void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 {
-    foreach (const QString &tag, *tagList)
+    foreach (const QString &tag, tagList)
     {
         if (tag == "community")
         {
@@ -283,69 +370,42 @@ void AppIntoPage::sltAppinfoTags(QStringList *tagList)
         }
     }
 }
-void AppIntoPage::setTheme(bool dark)
-{
-    if (dark)
-    {
-        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #252525; border-radius: 14px; border: 1px solid rgb(64, 64, 64);}\
-                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #FFFFFF}";
-        ui->frame->setStyleSheet(frameStyleSheet);
-        ui->frame_2->setStyleSheet(frameStyleSheet);
-        ui->frame_3->setStyleSheet(frameStyleSheet);
-        ui->frame_4->setStyleSheet(frameStyleSheet);
-
-        ui->icon_1->setPixmap(QPixmap(":/icon/dark/box.svg"));
-        ui->icon_2->setPixmap(QPixmap(":/icon/dark/box.svg"));
-        ui->icon_3->setPixmap(QPixmap(":/icon/dark/calendar.svg"));
-        ui->icon_4->setPixmap(QPixmap(":/icon/dark/text.svg"));
-        ui->icon_5->setPixmap(QPixmap(":/icon/dark/folder.svg"));
-        ui->icon_6->setPixmap(QPixmap(":/icon/dark/globe.svg"));
-    }else {
-        //亮色模式
-        QString frameStyleSheet ="#frame,#frame_2,#frame_3,#frame_4 {background-color: #fbfbfb; border-radius: 14px; border: 1px solid rgb(229,229,229);}\
-                                  QLabel#cardtitle,QLabel#title,QLabel#title_1,QLabel#title_2,QLabel#title_3 {color: #000000}";
-        ui->frame->setStyleSheet(frameStyleSheet);
-        ui->frame_2->setStyleSheet(frameStyleSheet);
-        ui->frame_3->setStyleSheet(frameStyleSheet);
-        ui->frame_4->setStyleSheet(frameStyleSheet);
-
-        ui->icon_1->setPixmap(QPixmap(":/icon/light/box.svg"));
-        ui->icon_2->setPixmap(QPixmap(":/icon/light/box.svg"));
-        ui->icon_3->setPixmap(QPixmap(":/icon/light/calendar.svg"));
-        ui->icon_4->setPixmap(QPixmap(":/icon/light/text.svg"));
-        ui->icon_5->setPixmap(QPixmap(":/icon/light/folder.svg"));
-        ui->icon_6->setPixmap(QPixmap(":/icon/light/globe.svg"));
-    }
-}
-AppIntoPage::~AppIntoPage()
-{
-    delete ui;
-}
 
 void AppIntoPage::on_downloadButton_clicked()
 {
+    QString downloadUrl = SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString();
     if (ui->downloadButton->text() == tr("Install"))
     {
-        dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString())]->install(0);
-        isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
-        QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString())], &DownloadItem::finished, [=]()
-                         {
-            isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-            disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr); });
+        DownloadItem *item = dw->getDIList()[dw->getUrlList().lastIndexOf(downloadUrl)];
+        if (item == nullptr)
+        {
+            return;
+        }
+
+        connect(item, &DownloadItem::finished, [=]() { isDownloading(downloadUrl); });
+
+        item->install(0);
+        isDownloading(downloadUrl);
+
         return;
     }
+
     emit clickedDownloadBtn();
-    dw->addItem(info["Name"].toString(), info["Filename"].toString(), info["Pkgname"].toString(), iconpixmap, SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
+
+    DownloadItem *item = dw->addItem(info["Name"].toString(), info["Filename"].toString(), info["Pkgname"].toString(), iconpixmap, downloadUrl);
+    if (item == nullptr)
+    {
+        return;
+    }
+
     if (ui->downloadButton->text() == tr("Reinstall"))
     {
-        dw->getDIList()[dw->allDownload - 1]->reinstall = true;
+        item->reinstall = true;
     }
     ui->downloadButton->setEnabled(false);
-    QObject::connect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString())], &DownloadItem::finished, [=]()
-                     {
-        isDownloading(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString());
-        disconnect(dw->getDIList()[dw->getUrlList().lastIndexOf(SparkAPI::getServerUrl()+"store"+spk.path()+"/"+info["Filename"].toString())],&DownloadItem::finished,nullptr,nullptr); });
-    isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
+    connect(item, &DownloadItem::finished, [=]() { isDownloading(downloadUrl); });
+
+    isDownloading(downloadUrl);
 }
 
 void AppIntoPage::on_pushButton_3_clicked()
@@ -380,9 +440,9 @@ void AppIntoPage::on_pushButton_3_clicked()
 void AppIntoPage::on_shareButton_clicked()
 {
     qDebug() << "Share" << spk;
+    Application::clipboard()->setText(spk.toString());
+
     Utils::sendNotification("spark-store", tr("Spark Store"), tr("The URL has been copied to the clipboard"));
-    QClipboard *clipboard = QApplication::clipboard();
-    clipboard->setText(spk.toString());
 }
 
 void AppIntoPage::on_updateButton_clicked()

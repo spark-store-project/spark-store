@@ -89,7 +89,8 @@ RESOURCES += \
 TRANSLATIONS += \
         ../translations/spark-store_en.ts \
         ../translations/spark-store_fr.ts \
-        ../translations/spark-store_zh_CN.ts
+        ../translations/spark-store_zh_CN.ts \
+        ../translations/spark-store_zh_TW.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

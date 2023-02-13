@@ -11,6 +11,7 @@
 #include <DGuiApplicationHelper>
 
 #include <QAbstractButton>
+#include <QtConcurrent>
 
 #define AppPageApplist 0
 #define AppPageSearchlist 1
@@ -74,10 +75,7 @@ void MainWindow::onNewProcessInstance(qint64 pid, const QStringList &arguments)
 {
     Q_UNUSED(pid)
 
-    if (arguments.size() > 1)
-    {
-        onGetUrl(arguments.value(1));
-    }
+    onGetUrl(arguments.value(1, ""));
 }
 
 void MainWindow::openUrl(const QString &url)
@@ -141,7 +139,7 @@ void MainWindow::initTitleBar()
     ly_titlebar->addWidget(backButton);
     // Check wayland configs
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    if (!config.value("build/isDeepinOS").toBool() && config.value("build/useWayland").toBool())
+    if (!config.value("runtime/isDDE").toBool() && config.value("runtime/useWayland").toBool())
     {
         // Wayland 搜索栏居中
         ly_titlebar->addStretch(WaylandSearchCenter);
@@ -218,8 +216,9 @@ void MainWindow::initLeftMenu()
 
 void MainWindow::initTrayIcon()
 {
-    QMenu *menu = new QMenu(this);
+    trayIcon->setToolTip(tr("Spark Store"));
 
+    QMenu *menu = new QMenu(this);
     QAction *showAction = new QAction(QObject::tr("Show MainWindow"), menu);
     QAction *aboutAction = new QAction(qApp->translate("TitleBarMenu", "About"), menu);
     QAction *exitAction = new QAction(qApp->translate("TitleBarMenu", "Exit"), menu);

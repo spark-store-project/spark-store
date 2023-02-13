@@ -61,7 +61,7 @@ public:
 
 private:
     void paintEvent(QPaintEvent *event);
-    void onRaduisChanged(QVariant value);
+    void onRadiusChanged(QVariant value);
 
 private:
     class QVariantAnimation* m_waterDropAnimation;

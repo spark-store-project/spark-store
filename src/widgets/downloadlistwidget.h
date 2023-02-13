@@ -20,7 +20,7 @@ class DownloadListWidget : public DBlurEffectWidget
     Q_OBJECT
 
 public:
-    void addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl);
+    DownloadItem *addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl);
     int nowDownload = 0;
     int allDownload = 0;
     QList<DownloadItem *> getDIList();
@@ -35,7 +35,7 @@ private:
     QStringList dlist;
     QList<QUrl> urList;
     QList<DownloadItem *> downloaditemlist;
-    DownloadController *downloadController;
+    DownloadController *downloadController = nullptr;
     int nowdownload = 0;
     QString theSpeed;
     QTimer download_speed;

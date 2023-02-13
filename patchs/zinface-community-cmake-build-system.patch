@@ -1,7 +1,7 @@
-From abbfbf12c1ea9853039e6864d0ede91973189ce6 Mon Sep 17 00:00:00 2001
+From 2d49950909e0327b0ad72e008cb82ac97b7bae0e Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Sun, 11 Dec 2022 22:27:23 +0800
-Subject: [PATCH 01/10] =?UTF-8?q?repo:=20=E4=B8=80=E6=AC=A1=E6=80=A7?=
+Subject: [PATCH 01/11] =?UTF-8?q?repo:=20=E4=B8=80=E6=AC=A1=E6=80=A7?=
  =?UTF-8?q?=E5=AF=BC=E5=85=A5=20spark=20=E9=AA=A8=E6=9E=B6=E4=BB=A5?=
  =?UTF-8?q?=E5=8F=98=E4=B8=BA=20cmake=20=E6=9E=84=E5=BB=BA?=
 MIME-Version: 1.0
@@ -1789,10 +1789,10 @@ index 0000000..0fa070b
 2.20.1
 
 
-From d1974334ce60291894b53f6839b78f3147aaa233 Mon Sep 17 00:00:00 2001
+From d2524f967848e6ba0d2c8a097183264d0d197d68 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Sun, 11 Dec 2022 22:37:26 +0800
-Subject: [PATCH 02/10] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20deb=20?=
+Subject: [PATCH 02/11] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20deb=20?=
  =?UTF-8?q?=E5=AE=89=E8=A3=85=E8=84=9A=E6=9C=AC=E7=9A=84=E9=97=AE=E9=A2=98?=
  =?UTF-8?q?=EF=BC=8C=E5=AE=8C=E6=88=90=20cmake=20=E5=8C=96=E6=9E=84?=
  =?UTF-8?q?=E5=BB=BA?=
@@ -1856,10 +1856,10 @@ index 2ab24e7..38ad2d7 100644
 2.20.1
 
 
-From 5a978c7db6c34d7dcd4aa56d94605e51245004a5 Mon Sep 17 00:00:00 2001
+From 7cd97a939b63143921936b9db3978d14f18a4f33 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 12 Dec 2022 00:50:01 +0800
-Subject: [PATCH 03/10] =?UTF-8?q?docs:=20=E6=B7=BB=E5=8A=A0=20Spark=20?=
+Subject: [PATCH 03/11] =?UTF-8?q?docs:=20=E6=B7=BB=E5=8A=A0=20Spark=20?=
  =?UTF-8?q?=E6=9E=84=E5=BB=BA=20=E4=B8=8E=20CMake=20=E6=9E=84=E5=BB=BA?=
  =?UTF-8?q?=E7=B3=BB=E7=BB=9F=E9=A2=84=E8=A7=88=E6=96=87=E6=A1=A3?=
 MIME-Version: 1.0
@@ -2184,10 +2184,10 @@ index 0000000..a807009
 2.20.1
 
 
-From 4b5b4bc91a42cc860efbe1728f2dba9f255ea954 Mon Sep 17 00:00:00 2001
+From bb128568ab7d1463c0002ffff470ad5c93364c99 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Thu, 15 Dec 2022 19:59:46 +0800
-Subject: [PATCH 04/10] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
+Subject: [PATCH 04/11] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
  =?UTF-8?q?=E4=BA=8E=20Qt5=20Svg=20=E4=BE=9D=E8=B5=96=E7=9A=84=E6=9E=84?=
  =?UTF-8?q?=E5=BB=BA=E5=86=85=E5=AE=B9?=
 MIME-Version: 1.0
@@ -2236,10 +2236,10 @@ index b56399f..67e29b6 100644
 2.20.1
 
 
-From ede820a7267afa113a2d8b4f93f45fa6c1b4b23b Mon Sep 17 00:00:00 2001
+From 877a52f4b753f55e087a6c58794d690fabb6ddbb Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 19 Dec 2022 02:58:17 +0800
-Subject: [PATCH 05/10] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
+Subject: [PATCH 05/11] =?UTF-8?q?repo:=20=E6=9B=B4=E6=96=B0=E7=94=A8?=
  =?UTF-8?q?=E4=BA=8E=E6=94=AF=E6=8C=81=20BaseWidgetOpacity=20=E5=9F=BA?=
  =?UTF-8?q?=E7=A1=80=E7=B1=BB=E7=9A=84=E6=9E=84=E5=BB=BA?=
 MIME-Version: 1.0
@@ -2283,10 +2283,10 @@ index 14530e1..b5e32d8 100644
 2.20.1
 
 
-From b63790722efa275977b2033a1beeb21b730c1895 Mon Sep 17 00:00:00 2001
+From f89bb6a145f2a77fa0e1b55b3ad17ade69c53a69 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 30 Jan 2023 20:48:25 +0800
-Subject: [PATCH 06/10] =?UTF-8?q?spark:=20=E5=88=9B=E5=BB=BA=E6=96=B0?=
+Subject: [PATCH 06/11] =?UTF-8?q?spark:=20=E5=88=9B=E5=BB=BA=E6=96=B0?=
  =?UTF-8?q?=E7=9A=84=E6=A8=A1=E5=9D=97=E7=94=A8=E4=BA=8E=20debian/changelo?=
  =?UTF-8?q?g=20=E7=9A=84=E7=89=88=E6=9C=AC=E5=8F=B7=E9=87=8D=E5=86=99?=
  =?UTF-8?q?=E8=A7=84=E5=88=99?=
@@ -2388,10 +2388,10 @@ index 0000000..9d8bca2
 2.20.1
 
 
-From cca243c18b125a0e24a08c06a358ee04f0861884 Mon Sep 17 00:00:00 2001
+From b26bac7572ab7477ab4b94174fbdece759be8bc7 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 30 Jan 2023 21:23:15 +0800
-Subject: [PATCH 07/10] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkDebianChangelog?=
+Subject: [PATCH 07/11] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkDebianChangelog?=
  =?UTF-8?q?Version.cmake=20=E6=A8=A1=E5=9D=97=E7=9A=84=E6=89=A9=E5=B1=95?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2459,10 +2459,10 @@ index 9d8bca2..65e1c16 100644
 2.20.1
 
 
-From f3595a55f567fc01a5928fea8e4b89f99cf8793e Mon Sep 17 00:00:00 2001
+From 26f00f79a2b8613477059beb6c2f492bc24a7bb5 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 30 Jan 2023 23:17:24 +0800
-Subject: [PATCH 08/10] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20v4.2.2=20?=
+Subject: [PATCH 08/11] =?UTF-8?q?repo:=20=E5=A4=84=E7=90=86=20v4.2.2=20?=
  =?UTF-8?q?=E7=89=88=E6=9C=AC=E6=97=B6=E6=9C=9F=E6=96=B0=E5=A2=9E=E7=9A=84?=
  =?UTF-8?q?=E5=AE=89=E8=A3=85=E6=96=87=E4=BB=B6?=
 MIME-Version: 1.0
@@ -2509,10 +2509,10 @@ index bbb958a..c7ea53b 100644
 2.20.1
 
 
-From da9ef6f95ea7be97595b1e3285ac8e98a34c8c0a Mon Sep 17 00:00:00 2001
+From e4401b16037cb3b1b10c59f4c7a0fa3c2cd563b3 Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 30 Jan 2023 23:18:44 +0800
-Subject: [PATCH 09/10] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkTranslatorConfi?=
+Subject: [PATCH 09/11] =?UTF-8?q?spark:=20=E5=AF=B9=20SparkTranslatorConfi?=
  =?UTF-8?q?g.cmake=20=E6=A8=A1=E5=9D=97=E7=9A=84=E6=89=A9=E5=B1=95?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2544,10 +2544,10 @@ index 272dd9d..689e70d 100644
 2.20.1
 
 
-From 22eea0e930a073cac8e6dd750b6389044668dcd6 Mon Sep 17 00:00:00 2001
+From 2d8046099776e3909359ce49818ae28378af930c Mon Sep 17 00:00:00 2001
 From: zinface <zinface@163.com>
 Date: Mon, 30 Jan 2023 23:20:12 +0800
-Subject: [PATCH 10/10] =?UTF-8?q?make:=20=E5=A4=84=E7=90=86=E9=BB=98?=
+Subject: [PATCH 10/11] =?UTF-8?q?make:=20=E5=A4=84=E7=90=86=E9=BB=98?=
  =?UTF-8?q?=E8=AE=A4=20make=20=E7=9B=AE=E6=A0=87=E4=B8=BA=20override-versi?=
  =?UTF-8?q?on=20=E7=9A=84=E9=97=AE=E9=A2=98?=
 MIME-Version: 1.0
@@ -2591,6 +2591,39 @@ index 81ca078..076502c 100644
 +	@echo "wildcard - bad.: $(wildcard build/SPARK_OVERRIDE_VERSIONS)"
 +endif
 \ No newline at end of file
+-- 
+2.20.1
+
+
+From 043e6fb78e2bcb1a6fecefe2ba9aceb9df84e96e Mon Sep 17 00:00:00 2001
+From: zinface <zinface@163.com>
+Date: Sun, 5 Feb 2023 16:09:40 +0800
+Subject: [PATCH 11/11] =?UTF-8?q?spark:=20=E5=A4=84=E7=90=86=E7=89=88?=
+ =?UTF-8?q?=E6=9C=AC=E5=8F=B7=204.2.3~test1=20=E6=97=B6=E9=BB=98=E8=AE=A4?=
+ =?UTF-8?q?=E7=9A=84=E6=88=AA=E5=8F=96=E5=AD=97=E7=AC=A6=E6=95=B0=E8=BF=87?=
+ =?UTF-8?q?=E7=9F=AD=E9=97=AE=E9=A2=98?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ cmake/SparkDebianChangelogVersion.cmake | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/cmake/SparkDebianChangelogVersion.cmake b/cmake/SparkDebianChangelogVersion.cmake
+index 65e1c16..3ed5fa2 100644
+--- a/cmake/SparkDebianChangelogVersion.cmake
++++ b/cmake/SparkDebianChangelogVersion.cmake
+@@ -40,7 +40,8 @@ macro(spark_debian_changelog_override_version _CHANGELOG_FILE_PATH)
+ 
+     message("> V = ${CHANGELOG_FILE_PATH}")
+     if(CHANGELOG_FILE_EXISTS)
+-        file(READ ${CHANGELOG_FILE_PATH} CHANGELOG_CONTENT LIMIT 20)
++        file(READ ${CHANGELOG_FILE_PATH} CHANGELOG_CONTENT LIMIT 30)
++        # fix: spark-store (4.2.3~test1) 已经超过 20 字符位，所以使用 30 进行保守计算
+ 
+         string(FIND ${CHANGELOG_CONTENT} "(" V_PRE) # +1 to V_BEGIN
+         string(FIND ${CHANGELOG_CONTENT} ")" V_END)
 -- 
 2.20.1
 

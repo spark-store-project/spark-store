@@ -21,7 +21,7 @@ public:
 
 private:
     int threadNum;
-    int pidNumber = -1;
+    qint64 pidNumber = -1;
     QString filename;
     qint64 fileSize;
     QVector<QPair<qint64, qint64>> ranges;

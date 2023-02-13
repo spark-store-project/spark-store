@@ -9,7 +9,7 @@ ProgressButton::ProgressButton(QWidget *parent)
     : QWidget{parent}
 {
     // this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
+    // this->setAttribute(Qt::WA_TranslucentBackground, true);
     setMinimumWidth(36);
     setMinimumHeight(36);
     svgPath = "";
@@ -99,8 +99,8 @@ void ProgressButton::setProgress(int progress)
     {
         buttonState = state::closeProgress;
         update();
-        auto waterDrop = new WaterDrop();
-        waterDrop->move(this->mapToGlobal(this->rect().center()));
+        WaterDrop *waterDrop = new WaterDrop(parentWidget());
+        waterDrop->move(geometry().center());
         waterDrop->show();
     }
     repaint();
@@ -159,11 +159,13 @@ WaterDrop::WaterDrop(QWidget *parent)
     : QWidget(parent), m_waterDropAnimation(nullptr), m_animationRadius(0)
 {
     this->setFixedSize(QSize(RADIUS * 2, RADIUS * 2));
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
-    this->setAttribute(Qt::WA_TranslucentBackground);
-    this->setAttribute(Qt::WA_DeleteOnClose);
+    // this->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
+    // this->setAttribute(Qt::WA_TranslucentBackground);
+    // this->setAttribute(Qt::WA_DeleteOnClose);
     m_waterDropAnimation = new QVariantAnimation(this);
-    //    m_waterDropAnimation->setEasingCurve(QEasingCurve(static_cast<QEasingCurve::Type>(QRandomGenerator::global()->bounded(40))));
+    // m_waterDropAnimation->setEasingCurve(QEasingCurve(static_cast<QEasingCurve::Type>(QRandomGenerator::global()->bounded(40))));
+
+    connect(m_waterDropAnimation, &QVariantAnimation::finished, this, &WaterDrop::deleteLater);
 }
 
 // 把鼠标点击的点转换为圆心点坐标
@@ -179,9 +181,9 @@ void WaterDrop::show()
     m_waterDropAnimation->setEndValue(RADIUS);
     m_waterDropAnimation->setDuration(350);
 
-    connect(m_waterDropAnimation, &QVariantAnimation::valueChanged, this, &WaterDrop::onRaduisChanged);
+    connect(m_waterDropAnimation, &QVariantAnimation::valueChanged, this, &WaterDrop::onRadiusChanged);
     connect(m_waterDropAnimation, &QVariantAnimation::finished, this, &WaterDrop::close);
-    m_waterDropAnimation->start();
+    m_waterDropAnimation->start(QVariantAnimation::DeleteWhenStopped);
     QWidget::show();
 }
 
@@ -194,9 +196,11 @@ void WaterDrop::paintEvent(QPaintEvent *event)
     pen.setWidth(5);
     painter.setPen(pen);
     painter.drawEllipse(event->rect().center(), m_animationRadius, m_animationRadius);
+
+    QWidget::paintEvent(event);
 }
 
-void WaterDrop::onRaduisChanged(QVariant value)
+void WaterDrop::onRadiusChanged(QVariant value)
 {
     m_animationRadius = value.toInt();
     update();
