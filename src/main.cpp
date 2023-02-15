@@ -18,7 +18,6 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "4.2.3";
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
     static const QString buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
@@ -59,7 +58,7 @@ int main(int argc, char *argv[])
     int fakeArgc = argc + 2; // QCoreApplication 的 argc 要用引用，避免 c++ 编译器优化
     Application a(fakeArgc, fakeArgs.data());
     // 设置版本和构建时间
-    a.setVersionAndBuildDateTime(version, buildDateTime);
+    a.setBuildDateTime(buildDateTime);
 
     // 限制单实例运行
     if (!a.setSingleInstance("spark-store"))

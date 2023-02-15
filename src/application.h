@@ -3,6 +3,8 @@
 
 #include <DApplication>
 
+#include <QJsonObject>
+
 DWIDGET_USE_NAMESPACE
 
 class MainWindow;
@@ -16,13 +18,17 @@ public:
 
     static void checkAppConfigLocation();
 
-    void setVersionAndBuildDateTime(const QString &version, const QString &buildDateTime);
+    void setBuildDateTime(const QString &buildDateTime);
     void setMainWindow(MainWindow *window);
 
 private:
     void initAboutDialog();
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))
+    void initFeatureDisplayDialog();
+#endif
 
 private:
+    QJsonObject m_featuresJsonObj;
     QString m_version;
     QString m_buildDateTime;
 

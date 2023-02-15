@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <QObject>
+#include <QJsonObject>
 
 class Utils
 {
@@ -13,6 +14,7 @@ public:
     static bool isUOS();
     static void setQPAPlatform();
     static void checkUOSDeveloperMode();
+    static QJsonObject parseFeatureJsonFile();
 };
 
 #endif // UTILS_H

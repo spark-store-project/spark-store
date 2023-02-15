@@ -1,0 +1,26 @@
+{
+    "version": "4.2.3",
+    "title": "Features",
+    "title[zh_CN]": "版本特性",
+    "items": [
+        {
+            "icon": "/usr/share/icons/hicolor/scalable/apps/spark-store.svg",
+            "name": "Feature 1",
+            "name[zh_CN]": "特性 1",
+            "description": "Feature 1 detailed description...",
+            "description[zh_CN]": "特性 1 详细说明"
+        },
+        {
+            "icon": ":/icon/logo.svg",
+            "name": "Feature 2",
+            "description": "Feature 2 detailed description..."
+        },
+        {
+            "icon": "spark-store",
+            "name": "Fix 1",
+            "description": "Fix 1 detailed description..."
+        }
+    ],
+    "linkUrl": "https://gitee.com/deepin-community-store/spark-store/releases/latest",
+    "linkButtonVisible": true
+}
