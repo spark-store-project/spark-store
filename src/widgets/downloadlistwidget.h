@@ -27,7 +27,10 @@ public:
     QList<QUrl> getUrlList();
     void m_move(int x, int y);
     explicit DownloadListWidget(QWidget *parent = nullptr);
-    ~DownloadListWidget();
+    ~DownloadListWidget() override;
+
+protected:
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     int isdownload = false;
@@ -48,13 +51,13 @@ private:
     void clearItem();
     QRect m_rect;
     Ui::DownloadListWidget *ui;
-private slots:
-    bool eventFilter(QObject *, QEvent *);
-    void mouseMoveEvent(QMouseEvent *event);
-    void on_pushButton_clicked();
+
 signals:
     void downloadFinished();
     void downloadProgress(int i);
+
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // DOWNLOADLISTWIDGET_H

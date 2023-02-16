@@ -15,6 +15,7 @@ class Application : public DApplication
 public:
     Application(int &argc, char **argv);
     void handleAboutAction() override;
+    bool notify(QObject *receiver, QEvent *event) override;
 
     static void checkAppConfigLocation();
 

@@ -1,53 +1,62 @@
 #ifndef PROGRESSBUTTON_H
 #define PROGRESSBUTTON_H
 
-
-#include <QtWidgets/QWidget>
-
-#include <QPaintEvent>
-
+#include <QWidget>
 #include <QTimer>
-#include <QTimerEvent>
-#include<QColor>
-#include <QList>
-#include <QMouseEvent>
+#include <QVariantAnimation>
 
-
+class DownloadListWidget;
 class ProgressButton : public QWidget
 {
     Q_OBJECT
+
 public:
-    ProgressButton(QWidget *parent = nullptr);
+    explicit ProgressButton(QWidget *parent = nullptr);
+    ~ProgressButton() override;
+
     void setIcon(QString svgPATH);
     void setBackgroundColor(QColor color);
     void setColor(QColor color);
     void setProgress(int progress);
-    ~ProgressButton();
+
+    void setDownloadListWidget(DownloadListWidget *widget);
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+
 signals:
     void startProcessing();
     void clicked();
 
-protected:
-    void paintEvent(QPaintEvent *event)override;
-    void leaveEvent(QEvent *event)override;
-    void mousePressEvent(QMouseEvent *event)override;
+private slots:
+    void operationProcessing();
 
 private:
-    enum class state
+    enum state
     {
         normal,
         hover,
         openProgress,
         closeProgress,
         recovery
-    }
-    buttonState{state::normal};
+    };
+
+    DownloadListWidget *m_downloadListWidget = nullptr;
+
+    state buttonState{state::normal};
     QColor backColor;
     QColor color;
     QString svgPath;
     int widthChangeValue{0};
-    void operationProcessing();
     int progress{0};//处理百分比
+
+    bool m_mouseMoved = false;
+    bool m_isDownloadListWidgetVisible = true;
 };
 
 class WaterDrop : public QWidget
@@ -55,19 +64,19 @@ class WaterDrop : public QWidget
     Q_OBJECT
 
 public:
-    WaterDrop(QWidget *parent = Q_NULLPTR);
+    explicit WaterDrop(QWidget *parent = nullptr);
     void show();
     void move(const QPoint &point);
 
-private:
+protected:
     void paintEvent(QPaintEvent *event);
-    void onRadiusChanged(QVariant value);
+
+private slots:
+    void onRadiusChanged(const QVariant &value);
 
 private:
-    class QVariantAnimation* m_waterDropAnimation;
+    QVariantAnimation *m_waterDropAnimation = nullptr;
     int m_animationRadius;
 };
-
-
 
 #endif // PROGRESSBUTTON_H

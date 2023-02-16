@@ -132,6 +132,9 @@ void MainWindow::initTitleBar()
     searchEdit->setPlaceholderText(tr("Search or enter spk://"));
 
     downloadButton = new ProgressButton(ui->titlebar);
+    downloadButton->setDownloadListWidget(downloadlistwidget);
+    downloadButton->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
+    downloadlistwidget->setFocusProxy(downloadButton);
 
     QWidget *w_titlebar = new QWidget(ui->titlebar);
     QHBoxLayout *ly_titlebar = new QHBoxLayout(w_titlebar);
@@ -297,14 +300,6 @@ void MainWindow::initConnections()
         ui->appintopage->setTheme(themeType == DGuiApplicationHelper::DarkType);
         ui->settingspage->setTheme(themeType == DGuiApplicationHelper::DarkType); });
 
-    connect(downloadButton, &ProgressButton::clicked, [=]()
-            {
-        QPoint pos;
-        pos.setX(downloadButton->mapToGlobal(QPoint(0, 0)).x() + downloadButton->width() / 2 - downloadlistwidget->width() / 2);
-        pos.setY(downloadButton->mapToGlobal(QPoint(0, 0)).y() + downloadButton->height() + 5);
-        downloadlistwidget->m_move(pos.x(), pos.y());
-        downloadlistwidget->show(); });
-
     // appintopage按下下载按钮时标题栏下载列表按钮抖动
     connect(ui->appintopage, &AppIntoPage::clickedDownloadBtn, [=]()
             {
@@ -419,6 +414,34 @@ void MainWindow::updateUi(int now)
     ui->applistpage->getAppList(itemlist[now]);
     qDebug() << itemlist[now];
     switchPage(AppPageApplist);
+}
+
+void MainWindow::notify(QObject *receiver, QEvent *event)
+{
+    if (!receiver) {
+        return;
+    }
+
+    Dtk::Widget::DStyle *o_ptr = qobject_cast<Dtk::Widget::DStyle *>(receiver);
+    if (o_ptr) {
+        return;
+    }
+
+    if (receiver->inherits("QWidgetWindow")) {
+        return;
+    }
+
+    if (event->type() == QEvent::FocusIn) {
+        QList<QObject *> list = downloadButton->findChildren<QObject *>(QString(), Qt::FindChildrenRecursively);
+        list << downloadlistwidget->findChildren<QObject *>(QString(), Qt::FindChildrenRecursively);
+        if (receiver != downloadButton && receiver != downloadlistwidget && !list.contains(receiver)) {
+            downloadlistwidget->hide();
+        }
+    } else if (event->type() == QEvent::FocusOut) {
+        if (!downloadlistwidget->isActiveWindow() && !isActiveWindow()) {
+            downloadlistwidget->hide();
+        }
+    }
 }
 
 void MainWindow::on_pushButton_14_clicked()
