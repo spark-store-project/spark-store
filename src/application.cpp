@@ -51,9 +51,6 @@ Application::Application(int &argc, char **argv)
     // 获取版本特性信息
     m_featuresJsonObj = Utils::parseFeatureJsonFile();
     m_version = m_featuresJsonObj.value("version").toString(); // 获取版本号
-#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))
-    initFeatureDisplayDialog(); // 初始化版本特性对话框
-#endif
 }
 
 void Application::handleAboutAction()
@@ -64,7 +61,19 @@ void Application::handleAboutAction()
     }
 
     initAboutDialog();
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))
+    initFeatureDisplayDialog(); // 初始化版本特性对话框
+#endif
     DApplication::handleAboutAction();
+}
+
+bool Application::notify(QObject *receiver, QEvent *event)
+{
+    if (m_mainWindow) {
+        m_mainWindow->notify(receiver, event);
+    }
+
+    return DApplication::notify(receiver, event);
 }
 
 void Application::checkAppConfigLocation()
@@ -99,6 +108,12 @@ void Application::setMainWindow(MainWindow *window)
     {
         initAboutDialog();
     }
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))
+    if (featureDisplayDialog() == nullptr || featureDisplayDialog()->parent() != m_mainWindow)
+    {
+        initFeatureDisplayDialog(); // 初始化版本特性对话框
+    }
+#endif
 }
 
 void Application::initAboutDialog()
@@ -134,11 +149,6 @@ void Application::initAboutDialog()
     connect(aboutDialog(), &DAboutDialog::destroyed, this, [=]() {
         setAboutDialog(nullptr);
     });
-#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))
-    connect(aboutDialog(), &DAboutDialog::featureActivated, this, [=]() {
-        featureDisplayDialog()->show();
-    });
-#endif
 
     dialog->hide();
 }
@@ -194,6 +204,11 @@ void Application::initFeatureDisplayDialog()
     connect(featureDisplayDialog(), &DFeatureDisplayDialog::destroyed, this, [=]() {
         setFeatureDisplayDialog(nullptr);
     });
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))
+    connect(aboutDialog(), &DAboutDialog::featureActivated, this, [=]() {
+        featureDisplayDialog()->show();
+    });
+#endif
 
     dialog->hide();
 }

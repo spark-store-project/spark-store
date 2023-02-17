@@ -81,6 +81,7 @@ void DownloadListWidget::clearItem()
     //    ui->listWidget->vScrollBar->scrollTop();
     ui->listWidget->clear();
 }
+
 DownloadItem* DownloadListWidget::addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl)
 {
     if (fileName.isEmpty())
@@ -195,21 +196,7 @@ void DownloadListWidget::m_move(int x, int y)
     move(x, y);
     return;
 }
-bool DownloadListWidget::eventFilter(QObject *watched, QEvent *event)
-{
-    if (Q_NULLPTR == watched)
-    {
-        return false;
-    }
-    if (QEvent::ActivationChange == event->type())
-    {
-        if (QApplication::activeWindow() != this)
-        {
-            this->close();
-        }
-    }
-    return QWidget::eventFilter(watched, event);
-}
+
 void DownloadListWidget::mouseMoveEvent(QMouseEvent *event)
 {
     setGeometry(m_rect);
