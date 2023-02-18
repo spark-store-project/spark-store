@@ -1,8 +1,6 @@
 #ifndef APPINTOPAGE_H
 #define APPINTOPAGE_H
 
-#include "utils/utils.h"
-
 #include <QWidget>
 #include <QJsonObject>
 #include <QUrl>

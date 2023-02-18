@@ -3,6 +3,7 @@
 #include "utils/widgetanimation.h"
 #include "widgets/common/progressbutton.h"
 #include "widgets/downloadlistwidget.h"
+#include "widgets/common/downloaditem.h"
 #include "dbus/dbussparkstoreservice.h"
 #include "application.h"
 
@@ -10,6 +11,7 @@
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
 
+#include <QDesktopServices>
 #include <QAbstractButton>
 #include <QtConcurrent>
 
@@ -427,7 +429,8 @@ void MainWindow::notify(QObject *receiver, QEvent *event)
         return;
     }
 
-    if (receiver->inherits("QWidgetWindow")) {
+    if (receiver->inherits("QWidgetWindow")
+        || receiver->inherits("QStyleSheetStyle")) {
         return;
     }
 

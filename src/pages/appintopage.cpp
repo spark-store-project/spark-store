@@ -2,8 +2,10 @@
 #include "ui_appintopage.h"
 #include "backend/sparkapi.h"
 #include "widgets/downloadlistwidget.h"
+#include "widgets/common/downloaditem.h"
 #include "backend/image_show.h"
 #include "application.h"
+#include "utils/utils.h"
 
 #include <QtConcurrent>
 #include <QClipboard>
