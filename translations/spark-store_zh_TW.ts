@@ -240,12 +240,12 @@
 <context>
     <name>DAboutDialog</name>
     <message>
-        <location filename="../src/application.cpp" line="135"/>
+        <location filename="../src/application.cpp" line="133"/>
         <source>Version: %1</source>
         <translation>版本：%1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="145"/>
+        <location filename="../src/application.cpp" line="143"/>
         <source>%1 is released under %2</source>
         <translation>%1遵循%2协议发布</translation>
     </message>
@@ -498,7 +498,7 @@
         <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="142"/>
+        <location filename="../src/application.cpp" line="140"/>
         <source>Spark Project</source>
         <translation>星火计划</translation>
     </message>

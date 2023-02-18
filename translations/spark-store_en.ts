@@ -240,12 +240,12 @@
 <context>
     <name>DAboutDialog</name>
     <message>
-        <location filename="../src/application.cpp" line="135"/>
+        <location filename="../src/application.cpp" line="133"/>
         <source>Version: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="145"/>
+        <location filename="../src/application.cpp" line="143"/>
         <source>%1 is released under %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -498,7 +498,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="142"/>
+        <location filename="../src/application.cpp" line="140"/>
         <source>Spark Project</source>
         <translation type="unfinished"></translation>
     </message>

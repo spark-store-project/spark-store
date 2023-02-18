@@ -20,7 +20,7 @@ Build-Depends:
  qtwayland5-dev-tools,
  gcc,
  g++
-Standard-Version: 4.0.0
+Standards-Version: 4.0.0
 Homepage: https://www.spark-app.store/
 
 Package: spark-store
