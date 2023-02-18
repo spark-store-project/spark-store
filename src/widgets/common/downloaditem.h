@@ -34,7 +34,7 @@ public:
     void setMax(qint64);
     void setName(QString);
     QString getName();
-    void readyInstall();
+    int readyInstall();
 
     void setFileName(QString);
     void seticon(const QPixmap);

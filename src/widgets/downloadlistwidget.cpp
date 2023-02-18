@@ -3,6 +3,8 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 #include <QDebug>
+#include <QtConcurrent>
+
 DownloadListWidget::DownloadListWidget(QWidget *parent) : DBlurEffectWidget(parent),
                                                           ui(new Ui::DownloadListWidget)
 {
@@ -65,20 +67,6 @@ DownloadListWidget::~DownloadListWidget()
 
 void DownloadListWidget::clearItem()
 {
-    //    QListWidgetItem *item = nullptr;
-    //    while ((item = ui->listWidget->takeItem(0)) != nullptr)
-    //    {
-    //        QWidget *card = ui->listWidget->itemWidget(item);
-    //        if (card)
-    //        {
-    //            card->deleteLater();
-    //            card = nullptr;
-    //        }
-    //        delete item;
-    //        item = nullptr;
-    //    }
-
-    //    ui->listWidget->vScrollBar->scrollTop();
     ui->listWidget->clear();
 }
 
@@ -142,30 +130,47 @@ void DownloadListWidget::startRequest(QUrl url, QString fileName)
     downloadController->startDownload(url.toString());
 }
 
+
+/***************************************************************
+  *  @brief     下载列表完成下载的回调函数
+  *  @param     
+  *  @note      如果正在安装，则在新开的线程空间中等待上一个安装完
+  *  @Sample usage:     
+ **************************************************************/
 void DownloadListWidget::httpFinished() // 完成下载
 {
     isdownload = false;
     isBusy = false;
-    downloaditemlist[nowDownload - 1]->readyInstall();
-    downloaditemlist[nowDownload - 1]->free = true;
-    emit downloadFinished();
-    if (nowDownload < allDownload)
+
+    QtConcurrent::run([=]()
     {
-        // 如果有排队则下载下一个
-        qDebug() << "切换下一个下载...";
-        nowDownload += 1;
-        while (downloaditemlist[nowDownload - 1]->close)
+        while (downloaditemlist[nowDownload - 1]->readyInstall() == -1)
         {
-            nowDownload += 1;
-            if (nowDownload >= allDownload)
-            {
-                nowDownload = allDownload;
-                return;
-            }
+            continue;
         }
-        QString fileName = downloaditemlist[nowDownload - 1]->getName();
-        startRequest(urList.at(nowDownload - 1), fileName);
-    }
+
+        downloaditemlist[nowDownload - 1]->free = true;
+        emit downloadFinished();
+        if (nowDownload < allDownload)
+        {
+            // 如果有排队则下载下一个
+            qDebug() << "切换下一个下载...";
+            nowDownload += 1;
+            while (downloaditemlist[nowDownload - 1]->close)
+            {
+                nowDownload += 1;
+                if (nowDownload >= allDownload)
+                {
+                    nowDownload = allDownload;
+                    return;
+                }
+            }
+            QString fileName = downloaditemlist[nowDownload - 1]->getName();
+            startRequest(urList.at(nowDownload - 1), fileName);
+        }
+    });
+    
+    
 }
 
 void DownloadListWidget::updateDataReadProgress(QString speedInfo, qint64 bytesRead, qint64 totalBytes)
