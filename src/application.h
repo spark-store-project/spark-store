@@ -30,8 +30,6 @@ private:
 
 private:
     QJsonObject m_featuresJsonObj;
-    QString m_version;
-    QString m_buildDateTime;
 
     MainWindow *m_mainWindow = nullptr;
 };
