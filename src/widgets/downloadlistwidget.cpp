@@ -1,11 +1,14 @@
 #include "downloadlistwidget.h"
 #include "ui_downloadlistwidget.h"
-#include <QGraphicsOpacityEffect>
-#include <QPropertyAnimation>
-#include <QDebug>
+#include "widgets/common/downloaditem.h"
+#include "backend/sparkapi.h"
+#include "backend/downloadworker.h"
+#include "utils/utils.h"
+#include "application.h"
+
+#include <QDesktopServices>
 #include <QtConcurrent>
-
-
+#include <QDebug>
 
 DownloadListWidget::DownloadListWidget(QWidget *parent) : DBlurEffectWidget(parent),
                                                           ui(new Ui::DownloadListWidget)
@@ -118,13 +121,11 @@ void DownloadListWidget::startRequest(QUrl url, QString fileName)
     isdownload = true;
     downloaditemlist[allDownload - 1]->free = false;
 
-
     // 使用懒汉式单例来存储downloadController
     if (downloadController == nullptr)
     {
         downloadController = new DownloadController; // 并发下载，在第一次点击下载按钮的时候才会初始化
     }
-
 
     if (downloadController)
     {
@@ -138,7 +139,6 @@ void DownloadListWidget::startRequest(QUrl url, QString fileName)
     downloadController->setFilename(fileName);
     downloadController->startDownload(url.toString());
 }
-
 
 /***************************************************************
   *  @brief     下载列表完成下载的回调函数
@@ -178,8 +178,6 @@ void DownloadListWidget::httpFinished() // 完成下载
             startRequest(urList.at(nowDownload - 1), fileName);
         }
     });
-    
-    
 }
 
 void DownloadListWidget::updateDataReadProgress(QString speedInfo, qint64 bytesRead, qint64 totalBytes)

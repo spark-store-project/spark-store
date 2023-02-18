@@ -1,20 +1,19 @@
 #ifndef DOWNLOADLISTWIDGET_H
 #define DOWNLOADLISTWIDGET_H
 
+#include <DBlurEffectWidget>
+
 #include <QWidget>
 #include <QTimer>
-#include <DBlurEffectWidget>
-#include <QNetworkAccessManager>
-#include <QDesktopServices>
-#include "widgets/common/downloaditem.h"
-#include "backend/sparkapi.h"
-#include "backend/downloadworker.h"
-#include "utils/utils.h"
-DWIDGET_USE_NAMESPACE
+
 namespace Ui {
 class DownloadListWidget;
 }
 
+DWIDGET_USE_NAMESPACE
+
+class DownloadItem;
+class DownloadController;
 class DownloadListWidget : public DBlurEffectWidget
 {
     Q_OBJECT
