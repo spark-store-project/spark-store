@@ -14,8 +14,14 @@ SUBDIRS += \
         src/spark-dstore-patch \
         src/spark-store.pro
 
+# https://wiki.debian.org/Hardening
+QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
+QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
+QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
+QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
+
 # Update translation files
-CONFIG(release, debug|release) {
+CONFIG(release, debug | release) {
     system(bash $${PWD}/translate_update.sh)
     system(bash $${PWD}/translate_generation.sh)
 }
@@ -66,9 +72,3 @@ INSTALLS += \
         bash_completion \
         polkit-1 
 #   暂时不添加
-
-# https://wiki.debian.org/Hardening
-QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
-QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
-QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
-QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)

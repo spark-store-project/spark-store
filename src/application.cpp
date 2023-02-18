@@ -50,7 +50,6 @@ Application::Application(int &argc, char **argv)
 
     // 获取版本特性信息
     m_featuresJsonObj = Utils::parseFeatureJsonFile();
-    m_version = m_featuresJsonObj.value("version").toString(); // 获取版本号
 }
 
 void Application::handleAboutAction()
@@ -87,18 +86,16 @@ void Application::checkAppConfigLocation()
 
 void Application::setBuildDateTime(const QString &buildDateTime)
 {
-    m_buildDateTime = buildDateTime;
-
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    if (config.value("build/version").toString() != m_version) {
+    if (config.value("build/version").toString() != QString(APP_VERSION)) {
         qDebug() << "Spark Store has been updated!";
 
-        config.setValue("build/version", m_version);
-        config.setValue("build/time", m_buildDateTime);
+        config.setValue("build/version", QString(APP_VERSION));
+        config.setValue("build/time", buildDateTime);
         config.sync();
     }
 
-    setApplicationVersion(DApplication::buildVersion(config.value("build/version").toString() + "-" + "Flamescion" + "-" + config.value("build/time").toString()));
+    setApplicationVersion(DApplication::buildVersion(QString(APP_VERSION) + "-" + "Flamescion" + "-" + buildDateTime));
 }
 
 void Application::setMainWindow(MainWindow *window)
