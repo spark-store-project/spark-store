@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QtConcurrent>
 
+
+
 DownloadListWidget::DownloadListWidget(QWidget *parent) : DBlurEffectWidget(parent),
                                                           ui(new Ui::DownloadListWidget)
 {
@@ -58,7 +60,7 @@ DownloadListWidget::~DownloadListWidget()
     {
         downloadController->disconnect();
         downloadController->stopDownload();
-        downloadController->deleteLater();
+        // 这里没有释放 downloadController，使用懒汉式单例
     }
 
     clearItem();
@@ -116,13 +118,20 @@ void DownloadListWidget::startRequest(QUrl url, QString fileName)
     isdownload = true;
     downloaditemlist[allDownload - 1]->free = false;
 
+
+    // 使用懒汉式单例来存储downloadController
+    if (downloadController == nullptr)
+    {
+        downloadController = new DownloadController; // 并发下载，在第一次点击下载按钮的时候才会初始化
+    }
+
+
     if (downloadController)
     {
         downloadController->disconnect();
         downloadController->stopDownload();
-        downloadController->deleteLater();
     }
-    downloadController = new DownloadController; // 并发下载，在点击下载按钮的时候才会初始化
+
     connect(downloadController, &DownloadController::downloadProcess, this, &DownloadListWidget::updateDataReadProgress);
     connect(downloadController, &DownloadController::downloadFinished, this, &DownloadListWidget::httpFinished);
     // connect(downloadController, &DownloadController::errorOccur, this, [=](QString msg){this->sendNotification(msg);});
