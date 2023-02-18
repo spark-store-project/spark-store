@@ -61,8 +61,21 @@ QString DownloadItem::getName()
     return ui->label_filename->text();
 }
 
-void DownloadItem::readyInstall()
+
+/***************************************************************
+  *  @brief     告知界面，准备安装
+  *  @param     
+  *  @note      如果正在安装，返回-1
+  *  @Sample usage:     DownloadItem::install(0); 
+ **************************************************************/
+int DownloadItem::readyInstall()
 {
+    // 检查是否正在安装，如果是返回错误 -1
+    if (isInstall)
+    {
+        return -1;
+    }
+
     if (!close)
     {
         ui->progressBar->hide();
@@ -70,7 +83,9 @@ void DownloadItem::readyInstall()
         ui->pushButton_install->show();
         DownloadItem::install(0);
         ui->pushButton_2->hide();
+        return 1;
     }
+    return 0;
 }
 
 void DownloadItem::setFileName(QString fileName)
@@ -93,6 +108,12 @@ void DownloadItem::setSpeed(QString s)
     speed = s;
 }
 
+/***************************************************************
+  *  @brief     安装当前应用
+  *  @param     int t, t为安装方式，可以为 0,1,2 
+  *  @note      备注
+  *  @Sample usage:     DownloadItem::install(0); 
+ **************************************************************/
 void DownloadItem::install(int t)
 {
     if (!isInstall)
@@ -142,6 +163,12 @@ void DownloadItem::on_pushButton_3_clicked()
     output_w->show();
 }
 
+/***************************************************************
+  *  @brief     实际安装应用
+  *  @param     int t, t为安装方式，可以为 0,1,2 
+  *  @note      备注
+  *  @Sample usage:     slotAsyncInstall(0); 
+ **************************************************************/
 void DownloadItem::slotAsyncInstall(int t)
 {
     QProcess installer;
