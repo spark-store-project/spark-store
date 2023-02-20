@@ -1,3 +1,14 @@
+spark-store (4.2.3~test3) stable; urgency=medium
+
+  * 调整：打包时从 debian/changelog 自动获取构建版本号并写入关于窗口保证与deb一致
+  * 新增：支持 DTK 5.6.4 关于对话框“版本特性”显示功能。目前只在deepin编译安装时开启
+  * 修复：修复下载列表对话框中，点击某个 item 取消下载按钮后下载列表无法再次显示的问题
+  * 修复：多个应用安装可能会出现某一个应用没有安装
+  * 修复：修复下载按钮点击/双击/拖动时，主窗口动作与下载管理对话框动作同时触发问题 
+  * aptss 获取线路信息 转到从 d. 服务器获取
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.2.3~test2) stable; urgency=medium
 
   * 调整：开启安装包加固

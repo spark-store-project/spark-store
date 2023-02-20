@@ -6,8 +6,8 @@
             "icon": "/usr/share/icons/hicolor/scalable/apps/spark-store.svg",
             "name": "Feature 1",
             "name[zh_CN]": "特性 1",
-            "description": "Feature 1 detailed description...",
-            "description[zh_CN]": "特性 1 详细说明"
+            "description": "Please click the learn more button to check",
+            "description[zh_CN]": "请点击 了解更多 按钮来获取特性"
         },
         {
             "icon": ":/icon/logo.svg",
@@ -20,6 +20,6 @@
             "description": "Fix 1 detailed description..."
         }
     ],
-    "linkUrl": "https://gitee.com/deepin-community-store/spark-store/releases/latest",
+    "linkUrl": "https://gitee.com/deepin-community-store/spark-store/releases/4.2.3test3",
     "linkButtonVisible": true
 }
