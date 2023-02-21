@@ -1,3 +1,9 @@
+spark-store (4.2.3~test5) stable; urgency=medium
+
+  * 新增： aptss 检查package配置增加sdu
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.2.3~test4) stable; urgency=medium
 
   * 修复: aptss 无法安装
