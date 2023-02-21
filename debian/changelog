@@ -1,3 +1,9 @@
+spark-store (4.2.3~test4) stable; urgency=medium
+
+  * 修复: aptss 无法安装
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.2.3~test3) stable; urgency=medium
 
   * 调整：打包时从 debian/changelog 自动获取构建版本号并写入关于窗口保证与deb一致
