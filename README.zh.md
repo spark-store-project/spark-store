@@ -48,9 +48,15 @@ sudo apt install git qtbase5-dev debhelper pkg-config qtchooser libqt5core5a lib
 ```shell
 git clone https://gitee.com/deepin-community-store/spark-store.git
 cd spark-store
-dpkg-buildpackage
+dpkg-buildpackage -j
 ```
 
+或者： 编译并安装
+```shell
+git clone https://gitee.com/deepin-community-store/spark-store.git
+cd spark-store
+./build_and_install.sh
+```
 
 
 ## 🚀 协作
