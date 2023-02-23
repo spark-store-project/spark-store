@@ -20,7 +20,9 @@ public:
     static void checkAppConfigLocation();
 
     void setBuildDateTime(const QString &buildDateTime);
+
     void setMainWindow(MainWindow *window);
+    MainWindow *mainWindow();
 
 private:
     void initAboutDialog();

@@ -240,12 +240,12 @@
 <context>
     <name>DAboutDialog</name>
     <message>
-        <location filename="../src/application.cpp" line="133"/>
+        <location filename="../src/application.cpp" line="138"/>
         <source>Version: %1</source>
         <translation>版本：%1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="143"/>
+        <location filename="../src/application.cpp" line="148"/>
         <source>%1 is released under %2</source>
         <translation>%1遵循%2协议发布</translation>
     </message>
@@ -452,33 +452,33 @@
         <translation>軟體更新</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="170"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="186"/>
         <source>Submit App</source>
         <translation>上傳軟體</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="171"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="187"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>從客戶端上傳軟體(推薦的)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="172"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="188"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="173"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>軟體升級 和 安裝設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="129"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="224"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="145"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="240"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="134"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="150"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>
@@ -488,7 +488,7 @@
     <message>
         <location filename="../src/application.cpp" line="33"/>
         <location filename="../src/application.cpp" line="34"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="109"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="125"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -498,17 +498,17 @@
         <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="140"/>
+        <location filename="../src/application.cpp" line="145"/>
         <source>Spark Project</source>
         <translation>星火计划</translation>
     </message>
     <message>
-        <location filename="../src/widgets/downloadlistwidget.cpp" line="17"/>
+        <location filename="../src/widgets/downloadlistwidget.cpp" line="18"/>
         <source>Download list</source>
         <translation>下载列表</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="227"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="243"/>
         <source>Show MainWindow</source>
         <translation>显示主窗口</translation>
     </message>
@@ -619,12 +619,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="228"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="244"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="229"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="245"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>

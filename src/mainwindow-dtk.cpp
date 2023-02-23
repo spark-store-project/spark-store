@@ -104,6 +104,22 @@ void MainWindow::openUrl(const QString &url)
     }
 }
 
+bool MainWindow::isCloseWindowAnimation()
+{
+    return closeWindowAnimation;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    // 判断下载任务数量，如果没有要下载的，就直接退出主程序
+    if(!downloadlistwidget->isDownloadInProcess()){
+        // 已经全部下载完成
+        qApp->quit();
+    }
+
+    BaseWidgetOpacity::closeEvent(event);
+}
+
 void MainWindow::initUI()
 {
     setWindowTitle(QObject::tr("Spark Store"));

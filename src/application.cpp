@@ -113,6 +113,11 @@ void Application::setMainWindow(MainWindow *window)
 #endif
 }
 
+MainWindow *Application::mainWindow()
+{
+    return m_mainWindow;
+}
+
 void Application::initAboutDialog()
 {
     if (m_mainWindow == nullptr)

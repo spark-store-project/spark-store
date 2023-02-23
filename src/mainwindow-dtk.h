@@ -29,6 +29,11 @@ public:
 
     void openUrl(const QString &url);
 
+    bool isCloseWindowAnimation();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private:
     void initUI();
     void initTitleBar();

@@ -1,6 +1,7 @@
 #include "basewidgetopacity.h"
 #include "utils/widgetanimation.h"
 #include "utils/utils.h"
+#include "widgets/downloadlistwidget.h"
 
 #include <QSettings>
 #include <QStandardPaths>
@@ -43,6 +44,7 @@ void BaseWidgetOpacity::closeEvent(QCloseEvent *event)
     bool isWayland = Utils::isWayland();
     if (isWayland)
     {
+        closeWindowAnimation = true;
         return DBlurEffectWidget::closeEvent(event);
     }
 

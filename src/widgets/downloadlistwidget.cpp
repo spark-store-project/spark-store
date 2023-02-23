@@ -5,6 +5,7 @@
 #include "backend/downloadworker.h"
 #include "utils/utils.h"
 #include "application.h"
+#include "mainwindow-dtk.h"
 
 #include <QDesktopServices>
 #include <QtConcurrent>
@@ -70,6 +71,15 @@ DownloadListWidget::~DownloadListWidget()
     delete ui;
 }
 
+bool DownloadListWidget::isDownloadInProcess()
+{
+    if (toDownload > 0)
+    {
+        return true;
+    }
+    return false;
+}
+
 void DownloadListWidget::clearItem()
 {
     ui->listWidget->clear();
@@ -83,6 +93,7 @@ DownloadItem* DownloadListWidget::addItem(QString name, QString fileName, QStrin
     }
     urList.append(downloadurl);
     allDownload += 1;
+    toDownload += 1;
     DownloadItem *di = new DownloadItem;
     dlist << downloadurl;
     downloaditemlist << di;
@@ -126,8 +137,7 @@ void DownloadListWidget::startRequest(QUrl url, QString fileName)
     {
         downloadController = new DownloadController; // 并发下载，在第一次点击下载按钮的时候才会初始化
     }
-
-    if (downloadController)
+    else
     {
         downloadController->disconnect();
         downloadController->stopDownload();
@@ -153,9 +163,25 @@ void DownloadListWidget::httpFinished() // 完成下载
 
     QtConcurrent::run([=]()
     {
-        while (downloaditemlist[nowDownload - 1]->readyInstall() == -1)
+        while (downloaditemlist[nowDownload - 1]->readyInstall() == -1) // 安装当前应用，堵塞安装，后面的下载suspend
         {
             continue;
+        }
+        toDownload -= 1; // 安装完以后减少待安装数目
+        qDebug() << "Download: 还没有下载的数目：" << toDownload;
+
+        if(toDownload == 0){
+            Application *app = qobject_cast<Application *>(qApp);
+            MainWindow *mainWindow = app->mainWindow();
+            if(mainWindow->isCloseWindowAnimation() == true){
+                qDebug()<< "Download: 后台安装结束，退出程序";
+                qApp->quit();
+            }
+            else{
+                delete app;
+                delete mainWindow;
+            }
+
         }
 
         downloaditemlist[nowDownload - 1]->free = true;
@@ -163,7 +189,7 @@ void DownloadListWidget::httpFinished() // 完成下载
         if (nowDownload < allDownload)
         {
             // 如果有排队则下载下一个
-            qDebug() << "切换下一个下载...";
+            qDebug() << "Download: 切换下一个下载...";
             nowDownload += 1;
             while (downloaditemlist[nowDownload - 1]->close)
             {

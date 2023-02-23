@@ -22,11 +22,14 @@ public:
     DownloadItem *addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl);
     int nowDownload = 0;
     int allDownload = 0;
+    int toDownload = 0;
     QList<DownloadItem *> getDIList();
     QList<QUrl> getUrlList();
     void m_move(int x, int y);
     explicit DownloadListWidget(QWidget *parent = nullptr);
     ~DownloadListWidget() override;
+
+    bool isDownloadInProcess();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
