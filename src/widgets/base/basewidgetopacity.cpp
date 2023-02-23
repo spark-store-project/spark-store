@@ -1,7 +1,6 @@
 #include "basewidgetopacity.h"
 #include "utils/widgetanimation.h"
 #include "utils/utils.h"
-#include "widgets/downloadlistwidget.h"
 
 #include <QSettings>
 #include <QStandardPaths>

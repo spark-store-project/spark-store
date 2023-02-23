@@ -170,18 +170,15 @@ void DownloadListWidget::httpFinished() // 完成下载
         toDownload -= 1; // 安装完以后减少待安装数目
         qDebug() << "Download: 还没有下载的数目：" << toDownload;
 
-        if(toDownload == 0){
+        if (toDownload == 0)
+        {
             Application *app = qobject_cast<Application *>(qApp);
             MainWindow *mainWindow = app->mainWindow();
-            if(mainWindow->isCloseWindowAnimation() == true){
-                qDebug()<< "Download: 后台安装结束，退出程序";
+            if (mainWindow->isCloseWindowAnimation() == true)
+            {
+                qDebug() << "Download: 后台安装结束，退出程序";
                 qApp->quit();
             }
-            else{
-                delete app;
-                delete mainWindow;
-            }
-
         }
 
         downloaditemlist[nowDownload - 1]->free = true;
