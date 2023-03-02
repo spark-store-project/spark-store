@@ -24,7 +24,7 @@ override_dh_auto_configure:
 	-o $(CURDIR)/build/
 
 override_dh_auto_build:
-	make MAKEFLAGS="$(MAKEFLAGS)" -C $(CURDIR)/build
+	make -j$(JOBS) MAKEFLAGS="$(MAKEFLAGS)" -C $(CURDIR)/build 
 
 override_dh_auto_install:
 	make -C $(CURDIR)/build install \
