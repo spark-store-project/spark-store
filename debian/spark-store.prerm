@@ -1,4 +1,14 @@
-#!/bin/sh
+#!/bin/bash
+function notify-send()
+{
+    #Detect the user using such display
+    local user=$(who | awk '{print $1}' | head -n 1)
+
+    #Detect the id of the user
+    local uid=$(id -u $user)
+
+    sudo -u $user  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus notify-send "$@"
+}
 
 if [ "$1" = "remove" ] || [ "$1" = "purge" ] ; then
 	# Remove residual symbol links
@@ -32,5 +42,12 @@ if [ "$1" = "remove" ] || [ "$1" = "purge" ] ; then
 	apt-key del '9D9A A859 F750 24B1 A1EC  E16E 0E41 D354 A29A 440C'
 else
 	echo "非卸载操作，不进行配置清理"
-	(echo "关闭已有 spark-store..") && (pkill spark-store) || echo "继续安装 spark-store.."
+	
+	if [ ! -z "`pidof spark-store`" ];then 
+	echo "关闭已有 spark-store.."
+	pkill spark-store
+	notify-send "正在升级星火商店" "请在升级结束后重启星火商店" -i spark-store
+	else
+	echo "继续安装 spark-store.."
+	fi
 fi

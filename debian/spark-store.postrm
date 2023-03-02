@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Update certain caches
 update-icon-caches /usr/share/icons/hicolor || true
