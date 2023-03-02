@@ -43,7 +43,32 @@ int main(int argc, char *argv[])
     // 浏览器开启 GPU 支持
 #ifdef __sw_64__
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
+#elif __aarch64__
+    if (!Utils::isWayland()) {
+        QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
+        env = env.trimmed();
+        /**
+         * NOTE: 参考帮助手册代码，对于部分ARM CPU 设备，
+         * --disable-gpu 保证 X11 环境下网页正常显示
+         * --single-process 避免 X11 环境下 QtWebEngine 崩溃（可选）
+         */
+        env += " --disable-gpu";
+        qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
+
+        QSurfaceFormat format;
+        format.setRenderableType(QSurfaceFormat::OpenGLES);
+        QSurfaceFormat::setDefaultFormat(format);
+
+        /**
+         * NOTE: https://zhuanlan.zhihu.com/p/550285855
+         * 避免 X11 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
+         */
+        qputenv("QMLSCENE_DEVICE", "softwarecontext");
+        DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    }
 #endif
+
+
 
     /**
      * FIXME: 对于麒麟 CPU 设备，调用 QtWebEngine 会导致客户端崩溃；
