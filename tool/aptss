@@ -14,7 +14,7 @@ chmod -R 755 /tmp/aptss-conf
 fi
 
 
-if [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_Packages" ] && [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages" ] && [ ! -e "/var/lib/apt/lists/mirrors.sdu.edu.cn_spark-store-repository_store_Packages" ];then
+if [ ! -e "/var/lib/apt/lists/d.spark-app.store_store_Packages" ] && [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages" ] && [ ! -e "/var/lib/apt/lists/mirrors.sdu.edu.cn_spark-store-repository_store_Packages" ];then
 echo "接收星火仓库软件信息中..."
 
 mkdir -p /tmp/aptss-conf/
