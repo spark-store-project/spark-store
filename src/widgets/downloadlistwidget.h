@@ -1,20 +1,19 @@
 #ifndef DOWNLOADLISTWIDGET_H
 #define DOWNLOADLISTWIDGET_H
 
+#include <DBlurEffectWidget>
+
 #include <QWidget>
 #include <QTimer>
-#include <DBlurEffectWidget>
-#include <QNetworkAccessManager>
-#include <QDesktopServices>
-#include "widgets/common/downloaditem.h"
-#include "backend/sparkapi.h"
-#include "backend/downloadworker.h"
-#include "utils/utils.h"
-DWIDGET_USE_NAMESPACE
+
 namespace Ui {
 class DownloadListWidget;
 }
 
+DWIDGET_USE_NAMESPACE
+
+class DownloadItem;
+class DownloadController;
 class DownloadListWidget : public DBlurEffectWidget
 {
     Q_OBJECT
@@ -23,11 +22,17 @@ public:
     DownloadItem *addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl);
     int nowDownload = 0;
     int allDownload = 0;
+    int toDownload = 0;
     QList<DownloadItem *> getDIList();
     QList<QUrl> getUrlList();
     void m_move(int x, int y);
     explicit DownloadListWidget(QWidget *parent = nullptr);
-    ~DownloadListWidget();
+    ~DownloadListWidget() override;
+
+    bool isDownloadInProcess();
+
+protected:
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     int isdownload = false;
@@ -48,13 +53,13 @@ private:
     void clearItem();
     QRect m_rect;
     Ui::DownloadListWidget *ui;
-private slots:
-    bool eventFilter(QObject *, QEvent *);
-    void mouseMoveEvent(QMouseEvent *event);
-    void on_pushButton_clicked();
+
 signals:
     void downloadFinished();
     void downloadProgress(int i);
+
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // DOWNLOADLISTWIDGET_H

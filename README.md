@@ -51,7 +51,14 @@ Then
 ```shell
 git clone https://gitee.com/deepin-community-store/spark-store.git
 cd spark-store
-dpkg-buildpackage
+dpkg-buildpackage -j
+```
+
+Or:
+```shell
+git clone https://gitee.com/deepin-community-store/spark-store.git
+cd spark-store
+./build_and_install.sh
 ```
 
 

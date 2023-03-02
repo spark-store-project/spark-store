@@ -11,6 +11,7 @@
 #include <QSettings>
 #include <QFile>
 #include <QStandardPaths>
+#include <QSurfaceFormat>
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -18,7 +19,6 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     // Get build time
-    static const QString version = "4.2.3";
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
     static const QString buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
@@ -36,14 +36,46 @@ int main(int argc, char *argv[])
 
     // 龙芯机器配置,使得 DApplication 能正确加载 QTWEBENGINE
     qputenv("DTK_FORCE_RASTER_WIDGETS", "FALSE");
-//    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-features=UseModernMediaControls");
-//    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
+    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-features=UseModernMediaControls");
+    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
+
+
     // 浏览器开启 GPU 支持
 #ifdef __sw_64__
-    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blocklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode --no-sandbox");
-#else
-    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blocklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode");
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
 #endif
+
+    /**
+     * FIXME: 对于麒麟 CPU 设备，调用 QtWebEngine 会导致客户端崩溃；
+     * 暂时不对 CPU 进行判断，对 wayland 环境下统一处理
+     */
+    if (Utils::isWayland()) {
+        QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
+        env = env.trimmed();
+        /**
+         * NOTE: 参考帮助手册代码，对于麒麟 CPU 设备，
+         * --disable-gpu 保证 wayland 环境下网页正常显示
+         * --single-process 避免 wayland 环境下 QtWebEngine 崩溃（可选）
+         */
+        env += " --disable-gpu";
+        qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
+
+        /**
+         * NOTE: 参考帮助手册代码，对于麒麟 CPU 设备，
+         * 避免 wayland 环境下 QtWebEngine 崩溃
+         */
+        qputenv("QT_WAYLAND_SHELL_INTEGRATION", "kwayland-shell");
+        QSurfaceFormat format;
+        format.setRenderableType(QSurfaceFormat::OpenGLES);
+        QSurfaceFormat::setDefaultFormat(format);
+
+        /**
+         * NOTE: https://zhuanlan.zhihu.com/p/550285855
+         * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
+         */
+        qputenv("QMLSCENE_DEVICE", "softwarecontext");
+        DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    }
 
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling); // 开启 Hidpi 支持
 
@@ -59,7 +91,7 @@ int main(int argc, char *argv[])
     int fakeArgc = argc + 2; // QCoreApplication 的 argc 要用引用，避免 c++ 编译器优化
     Application a(fakeArgc, fakeArgs.data());
     // 设置版本和构建时间
-    a.setVersionAndBuildDateTime(version, buildDateTime);
+    a.setBuildDateTime(buildDateTime);
 
     // 限制单实例运行
     if (!a.setSingleInstance("spark-store"))

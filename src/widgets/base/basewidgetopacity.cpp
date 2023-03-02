@@ -43,6 +43,7 @@ void BaseWidgetOpacity::closeEvent(QCloseEvent *event)
     bool isWayland = Utils::isWayland();
     if (isWayland)
     {
+        closeWindowAnimation = true;
         return DBlurEffectWidget::closeEvent(event);
     }
 

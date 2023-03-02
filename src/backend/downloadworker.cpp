@@ -1,9 +1,7 @@
 #include "downloadworker.h"
 
-#include <QEventLoop>
 #include <QProcess>
 #include <QRegularExpression>
-#include <QDir>
 #include <QtConcurrent>
 #include <QStandardPaths>
 

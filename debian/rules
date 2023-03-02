@@ -1,14 +1,14 @@
 #!/usr/bin/make -f
 
-export QT_SELECT=5
+export QT_SELECT = qt5
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 include /usr/share/dpkg/default.mk
 
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
-DH_AUTO_ARGS = --parallel --buildsystem=qmake
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+#export DH_VERBOSE = 1
 
 %:
 	dh $@ --parallel
@@ -18,19 +18,17 @@ override_dh_auto_clean:
 
 override_dh_auto_configure:
 	mkdir -p $(CURDIR)/build
-	
-	dh_auto_configure MAKEFLAGS=-j$(JOBS) -- spark-store-project.pro \
+
+	qmake BUILD_VERSION=$(DEB_VERSION_UPSTREAM) spark-store-project.pro \
 	-spec linux-g++ CONFIG+=qtquickcompiler \
 	-o $(CURDIR)/build/
 
-
 override_dh_auto_build:
-	make -C $(CURDIR)/build -j$(JOBS)
+	make MAKEFLAGS="$(MAKEFLAGS)" -C $(CURDIR)/build 
 
 override_dh_auto_install:
 	make -C $(CURDIR)/build install \
 	INSTALL_ROOT=$(CURDIR)/debian/spark-store
-
 
 # Ignore the dpkg-shlibdeps: warning (it uses none of the library's symbols)
 # Qt Mutidedia lib will ref to network libraray.

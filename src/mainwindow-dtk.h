@@ -25,9 +25,14 @@ class MainWindow : public BaseWidgetOpacity
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
     void openUrl(const QString &url);
+
+    bool isCloseWindowAnimation();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 
 private:
     void initUI();
@@ -40,6 +45,9 @@ private:
     void initTmpDir();
     void switchPage(int now);
     void updateUi(int now);
+
+public slots:
+    void notify(QObject *receiver, QEvent *event);
 
 private slots:
     //接受来自dbus的url

@@ -1,21 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 case "$1" in
 	configure)
+		# Enable i386 arch
+		echo "Enabling i386 arch..."
+		dpkg --add-architecture i386
 
-	# Enable i386 arch
-	echo "Enable i386 arch..."
-	dpkg --add-architecture i386
+		# config for aptss
+		mkdir -p /etc/aptss/sources.list.d
+		ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
 
-        # config for aptss
-        mkdir -p /etc/aptss/sources.list.d
-        ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
-
-	#  Remove the sources.list file
-	if [ -e /etc/apt/sources.list.d/sparkstore.list ];then
-	rm /etc/apt/sources.list.d/sparkstore.list
-	fi
-        
+		#  Remove the sources.list file
+		rm -f /etc/apt/sources.list.d/sparkstore.list
 
 		# Check if /usr/local/bin existed
 		mkdir -p /usr/local/bin
@@ -28,33 +24,29 @@ case "$1" in
 		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/local/bin/ssaudit
 		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/local/bin/ss-apt-fast
-		
-     	       ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
+
+		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
 
 		# Create symbol links for SSINSTALL 
 		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 
+		# Compile sender module
 		echo "Compiling the Sender module..."
-
 		gcc -Wformat -Wformat-security -Werror=format-security /opt/durapps/spark-store/bin/ss-feedback/sender-d.sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
 
 		# Install key
 		mkdir -p /tmp/spark-store-install/
-		cp -f /opt/durapps/spark-store/bin/spark-store.asc  /tmp/spark-store-install/spark-store.asc
+		cp -f /opt/durapps/spark-store/bin/spark-store.asc /tmp/spark-store-install/spark-store.asc
 		gpg --dearmor /tmp/spark-store-install/spark-store.asc
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
-
-
-        	# Run apt update to avoid users being fucked up by the non-exist dependency problem
+		# Run apt update to avoid users being fucked up by the non-exist dependency problem
 		# Now abandoned as aptss now run ssupdate everytime
 		#aptss ssupdate
 
-
 		# Start upgrade detect service
 		systemctl enable spark-update-notifier
-		service spark-update-notifier start
-		
+		systemctl start spark-update-notifier
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
@@ -63,12 +55,10 @@ case "$1" in
 		update-mime-database /usr/share/mime || true
 
 		# Send email for statistics
-		# /tmp/spark-store-install/feedback.sh
+		#/tmp/spark-store-install/feedback.sh
 
 		# Remove temp dir
 		rm -rf /tmp/spark-store-install
-
-
 	;;
 
 	triggered)

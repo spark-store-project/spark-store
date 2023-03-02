@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QFile>
+#include <QJsonDocument>
 
 #define UOSDeveloperModeFile "/var/lib/deepin/developer-mode/enabled"
 
@@ -181,4 +182,34 @@ void Utils::checkUOSDeveloperMode()
     }
     file.close();
     config.sync(); // 写入更改至 config.ini，并同步最新内容
+}
+
+/**
+ * @brief Utils::parseFeatureJsonFile 解析版本特性 json 文件
+ * @return 返回 QJsonObject
+ */
+QJsonObject Utils::parseFeatureJsonFile()
+{
+    QFile file(":/json/features.json");
+    if (!file.open(QFile::ReadOnly))
+    {
+        qWarning() << Q_FUNC_INFO << "features.json open failed";
+        return QJsonObject();
+    }
+
+    QJsonParseError error;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll(), &error);
+    if (error.error != QJsonParseError::NoError || jsonDoc.isNull())
+    {
+        qWarning() << Q_FUNC_INFO << "features.json validate failed:" << error.errorString();
+        return QJsonObject();
+    }
+
+    if (jsonDoc.isEmpty() || !jsonDoc.isObject())
+    {
+        qWarning() << Q_FUNC_INFO << "features jsonDoc parse failed:" << jsonDoc;
+        return QJsonObject();
+    }
+
+    return jsonDoc.object();
 }
