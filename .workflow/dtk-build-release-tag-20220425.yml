@@ -33,8 +33,7 @@ stages:
           - rm -rf dtk-old-bundle
           - ''
           - 'mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" '
-          - sed -i 's/-j$(JOBS)/-j2/g' debian/rules
-          - dpkg-buildpackage -b -us -uc
+          - dpkg-buildpackage -j2 -b -us -uc
           - cd ..
           - ls -all
           - pwd

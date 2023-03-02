@@ -1,5 +1,6 @@
 spark-store (4.2.3) stable; urgency=medium
-
+  * 修复: 编译依赖不全
+  * 修复： prerm导致的dpkg崩溃
   * 新增： aptss 检查package配置增加sdu，store
   * 新增： 一键编译并安装脚本
   * 新增： 后台安装结束后退出任务栏驻留

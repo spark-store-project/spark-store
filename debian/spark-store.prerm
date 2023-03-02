@@ -45,8 +45,8 @@ else
 	
 	if [ ! -z "`pidof spark-store`" ];then 
 	echo "关闭已有 spark-store.."
-	pkill spark-store
 	notify-send "正在升级星火商店" "请在升级结束后重启星火商店" -i spark-store
+	killall spark-store
 	else
 	echo "继续安装 spark-store.."
 	fi
