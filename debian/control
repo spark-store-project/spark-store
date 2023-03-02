@@ -14,6 +14,7 @@ Build-Depends:
  libdtkcore-dev(>=5.0),
  libdtkgui-dev(>=5.0),
  libdtkwidget-dev(>=5.0),
+ libqt5svg5-dev,
  qttools5-private-dev,
  qtwebengine5-dev,
  qtwayland5,
