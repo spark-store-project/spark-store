@@ -1,6 +1,12 @@
 #  Spark App Store
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
+## Branch: Flamescion
+
+This branch is the main branch of Spark Store
+
+---
+
 Spark Store aims to collect Linux apps for the convieniece of Linux new comers
 
 The collecting process needs everyone's help
