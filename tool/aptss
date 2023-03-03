@@ -14,7 +14,7 @@ chmod -R 755 /tmp/aptss-conf
 fi
 
 
-if [ ! -e "/var/lib/apt/lists/d.spark-app.store_store_Packages" ] && [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages" ] && [ ! -e "/var/lib/apt/lists/mirrors.sdu.edu.cn_spark-store-repository_store_Packages" ];then
+if [ ! -e "/var/lib/apt/lists/d.spark-app.store_aarch64-store_Packages" ] && [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_aarch64-store_Packages" ] && [ ! -e "/var/lib/apt/lists/mirrors.sdu.edu.cn_spark-store-repository_aarch64-store_Packages" ];then
 echo "接收星火仓库软件信息中..."
 
 mkdir -p /tmp/aptss-conf/
@@ -24,7 +24,7 @@ echo
 curl  --silent -o  /tmp/aptss-conf/apt-fast.conf "https://d.store.deepinos.org.cn/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf    
 
-sudo curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore.list"
+sudo curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore-aarch64.list"
 sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"  -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 
 #只更新星火源
