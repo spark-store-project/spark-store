@@ -1,3 +1,8 @@
+spark-store (4.2.3.1) stable; urgency=medium
+  * 修复: ssinstall验证签名出错
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.2.3) stable; urgency=medium
   * 修复: 编译依赖不全
   * 修复： prerm导致的dpkg崩溃
