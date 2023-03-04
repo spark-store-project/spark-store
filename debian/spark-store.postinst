@@ -2,13 +2,20 @@
 
 case "$1" in
 	configure)
-		# Enable i386 arch
+
+		case `arch` in
+   		x86_64)
 		echo "Enabling i386 arch..."
 		dpkg --add-architecture i386
+		;;
+ 		*)
+		echo "Not amd64, skip enable i386 arch"
+		;;
+		esac
 
-		# config for aptss
-		mkdir -p /etc/aptss/sources.list.d
-		ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
+		
+
+
 
 		#  Remove the sources.list file
 		rm -f /etc/apt/sources.list.d/sparkstore.list
@@ -17,8 +24,6 @@ case "$1" in
 		mkdir -p /usr/local/bin
 
 		# Create symbol links for binary files
-		ln -s -f /opt/durapps/spark-store/bin/ussinstall /usr/local/bin/ussinstall
-		ln -s -f /opt/durapps/spark-store/bin/ussremove /usr/local/bin/ussremove
 		ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
 		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
 		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/local/bin/ssaudit
