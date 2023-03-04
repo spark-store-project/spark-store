@@ -95,7 +95,7 @@ void Application::setBuildDateTime(const QString &buildDateTime)
         config.sync();
     }
 
-    setApplicationVersion(DApplication::buildVersion(QString(APP_VERSION) + "-" + "Flamescion" + "-" + buildDateTime));
+    setApplicationVersion(DApplication::buildVersion(QString(APP_VERSION) + "-" + "Reason" + "-" + buildDateTime));
 }
 
 void Application::setMainWindow(MainWindow *window)
