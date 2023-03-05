@@ -37,19 +37,19 @@ void AppListPage::getAppList(QString type)
     QString theme;
     if (isDark)
     {
-        theme = "theme=dark";
+        theme = "dark";
     }
     else
     {
-        theme = "theme=light";
+        theme = "";
     }
     if (type == "")
     {
-        url = api->getServerUrl() + "store/#/flamescion/?" + theme;
+        url = api->getServerUrl() + "aarch64-store/#/"+ theme;
     }
     else
     {
-        url = api->getServerUrl() + "store/#/flamescion/applist?type=" + type + "&" + theme;
+        url = api->getServerUrl() + "aarch64-store/#/"+ theme + type;
     }
 
     ui->webEngineView->setUrl(url);
@@ -86,7 +86,7 @@ void AppListPage::on_webEngineView_urlChanged(const QUrl &arg1)
     if (arg1.path().right(8) == "app.json")
     {
         QString url = arg1.toString();
-        url = url.mid(url.indexOf("/store/"));
+        url = url.mid(url.indexOf("/aarch64-store/"));
         url = "spk:/" + url;
         url = url.mid(0, url.indexOf("/app.json"));
         qDebug() << "程序跳转链接地址：" << url;

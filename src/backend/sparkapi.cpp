@@ -54,7 +54,7 @@ void SparkAPI::getRAW(QUrl url)
 
 void SparkAPI::getAppList(QString type)
 {
-    get(QUrl(getServerUrl() + "store/" + type + "/applist.json"));
+    get(QUrl(getServerUrl() + "aarch64-store/" + type + "/applist.json"));
 }
 
 void SparkAPI::getSearchList(QString keyword)
@@ -64,12 +64,12 @@ void SparkAPI::getSearchList(QString keyword)
 
 void SparkAPI::getAppInfo(QUrl spk)
 {
-    get(QUrl(getServerUrl() + "store" + spk.path().replace("+", "%2B") + "/app.json"));
+    get(QUrl(getServerUrl() + "aarch64-store" + spk.path().replace("+", "%2B") + "/app.json"));
 }
 
 void SparkAPI::getAppDownloadTimes(QUrl spk)
 {
-    getRAW(QUrl(getServerUrl() + "store" + spk.path().replace("+", "%2B") + "/download-times.txt"));
+    getRAW(QUrl(getServerUrl() + "aarch64-store" + spk.path().replace("+", "%2B") + "/download-times.txt"));
 }
 
 QString SparkAPI::getServerUrl()
