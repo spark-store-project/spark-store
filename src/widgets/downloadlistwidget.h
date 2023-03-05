@@ -60,6 +60,7 @@ signals:
 
 private slots:
     void on_pushButton_clicked();
+    void slotInstallFinished(bool success);
 };
 
 #endif // DOWNLOADLISTWIDGET_H

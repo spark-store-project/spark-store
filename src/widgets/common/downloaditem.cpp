@@ -64,9 +64,9 @@ QString DownloadItem::getName()
 
 /***************************************************************
   *  @brief     告知界面，准备安装
-  *  @param     
+  *  @param
   *  @note      如果正在安装，返回-1
-  *  @Sample usage:     DownloadItem::install(0); 
+  *  @Sample usage:     DownloadItem::install(0);
  **************************************************************/
 int DownloadItem::readyInstall()
 {
@@ -110,9 +110,9 @@ void DownloadItem::setSpeed(QString s)
 
 /***************************************************************
   *  @brief     安装当前应用
-  *  @param     int t, t为安装方式，可以为 0,1,2 
+  *  @param     int t, t为安装方式，可以为 0,1,2
   *  @note      执行这个函数时，需要已经检查是否可以安装，但该函数仍然会再检测一次！
-  *  @Sample usage:     DownloadItem::install(0); 
+  *  @Sample usage:     DownloadItem::install(0);
  **************************************************************/
 void DownloadItem::install(int t)
 {
@@ -165,9 +165,9 @@ void DownloadItem::on_pushButton_3_clicked()
 
 /***************************************************************
   *  @brief     实际安装应用
-  *  @param     int t, t为安装方式，可以为 0,1,2 
+  *  @param     int t, t为安装方式，可以为 0,1,2
   *  @note      备注
-  *  @Sample usage:     slotAsyncInstall(0); 
+  *  @Sample usage:     slotAsyncInstall(0);
  **************************************************************/
 void DownloadItem::slotAsyncInstall(int t)
 {
@@ -238,5 +238,5 @@ void DownloadItem::slotAsyncInstall(int t)
 
     ui->widget_spinner->hide();
     DownloadItem::isInstall = false;
-    emit finished();
+    emit finished(error == 0 && !haveError && !notRoot);
 }
