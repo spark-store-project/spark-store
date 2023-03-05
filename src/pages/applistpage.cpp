@@ -53,14 +53,14 @@ void AppListPage::getAppList(QString type)
     }
     if (type == "")
     {
-        url = api->getServerUrl() + "store/#/flamescion/?" + theme;
+        url = api->getServerUrl() + api->getArchDir() + "/#/flamescion/?" + theme;
     #ifdef __aarch64__
         url = api->getServerUrl() + "aarch64-store/#/"+ theme;
     #endif
     }
     else
     {
-        url = api->getServerUrl() + "store/#/flamescion/applist?type=" + type + "&" + theme;
+        url = api->getServerUrl() + api->getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme;
     #ifdef __aarch64__
         url = api->getServerUrl() + "aarch64-store/#/"+ theme + type;
     #endif
@@ -85,7 +85,7 @@ void AppListPage::getSearchList(const QString &keyword)
     {
         theme = "theme=light";
     }
-    url = api->getServerUrl() + "store/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme;
+    url = api->getServerUrl() + api->getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme;
     ui->webEngineView->setUrl(url);
     delete api;
 }
