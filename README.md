@@ -6,7 +6,7 @@
 This branch is for aarch64-store support
 
 ---
-
+## You are informed that the aarch64 support is EXPERIMENTAL and there is NO GUARANTEE that this branch will be supported in the future
 
 Spark Store aims to collect Linux apps for the convieniece of Linux new comers
 
