@@ -53,14 +53,14 @@ void AppListPage::getAppList(QString type)
     }
     if (type == "")
     {
-        url = api->getServerUrl() + api->getArchDir() + "/#/flamescion/?" + theme;
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme;
     #ifdef __aarch64__
         url = api->getServerUrl() + "aarch64-store/#/"+ theme;
     #endif
     }
     else
     {
-        url = api->getServerUrl() + api->getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme;
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme;
     #ifdef __aarch64__
         url = api->getServerUrl() + "aarch64-store/#/"+ theme + type;
     #endif
@@ -85,7 +85,7 @@ void AppListPage::getSearchList(const QString &keyword)
     {
         theme = "theme=light";
     }
-    url = api->getServerUrl() + api->getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme;
+    url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme;
     ui->webEngineView->setUrl(url);
     delete api;
 }
@@ -97,16 +97,14 @@ AppListPage::~AppListPage()
 
 void AppListPage::on_webEngineView_urlChanged(const QUrl &arg1)
 {
-    SparkAPI *api = new SparkAPI(this);
     if (arg1.path().right(8) == "app.json")
     {
         QString url = arg1.toString();
-        url = url.mid(url.indexOf("/" + api->getArchDir() + "/"));
+        url = url.mid(url.indexOf("/" + SparkAPI::getArchDir() + "/"));
         url = "spk:/" + url;
         url = url.mid(0, url.indexOf("/app.json"));
         qDebug() << "程序跳转链接地址：" << url;
         ui->webEngineView->back();
         emit clicked(url);
     }
-    delete api;
 }

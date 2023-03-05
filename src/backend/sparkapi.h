@@ -25,7 +25,7 @@ public:
     void getRAW(QUrl url);
     void getAppList(QString type);
     void getAppInfo(QUrl spk);
-    QString getArchDir();
+    static QString getArchDir();
 
 signals:
     void finished(QJsonArray);

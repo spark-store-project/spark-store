@@ -55,8 +55,8 @@ void AppIntoPage::openUrl(const QUrl &url)
         // 获取图标
         QNetworkRequest request;
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        qDebug() << api->getImgServerUrl() + "aarch64-store" + url.path() + "/icon.png";
-        request.setUrl(QUrl(api->getImgServerUrl() + "aarch64-store" + url.path() + "/icon.png"));
+        qDebug() << api->getImgServerUrl() + SparkAPI::getArchDir() + url.path() + "/icon.png";
+        request.setUrl(QUrl(api->getImgServerUrl() + SparkAPI::getArchDir() + url.path() + "/icon.png"));
         request.setRawHeader("User-Agent", "Mozilla/5.0");
         request.setRawHeader("Content-Type", "charset='utf-8'");
         manager->get(request);
@@ -175,7 +175,7 @@ void AppIntoPage::openUrl(const QUrl &url)
                 ui->downloadButton->show();
             }
 
-            isDownloading(SparkAPI::getServerUrl() + "aarch64-store" + spk.path() + "/" + info["Filename"].toString());
+            isDownloading(SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString());
         }
 
         api1->disconnect();
@@ -267,7 +267,7 @@ void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
 
     dw = w;
     connect(w, &DownloadListWidget::downloadFinished, [=]()
-    { isDownloading(SparkAPI::getServerUrl() + "aarch64-store" + spk.path() + "/" + info["Filename"].toString()); });
+    { isDownloading(SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString()); });
 }
 
 void AppIntoPage::initUI()
@@ -375,7 +375,7 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 
 void AppIntoPage::on_downloadButton_clicked()
 {
-    QString downloadUrl = SparkAPI::getServerUrl() + "aarch64-store" + spk.path() + "/" + info["Filename"].toString();
+    QString downloadUrl = SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString();
     if (ui->downloadButton->text() == tr("Install"))
     {
         DownloadItem *item = dw->getDIList()[dw->getUrlList().lastIndexOf(downloadUrl)];
