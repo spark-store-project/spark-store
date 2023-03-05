@@ -1,6 +1,8 @@
 #include "applistpage.h"
 #include "ui_applistpage.h"
 
+
+
 AppListPage::AppListPage(QWidget *parent) : QWidget(parent),
                                             ui(new Ui::AppListPage)
 {
@@ -37,19 +39,31 @@ void AppListPage::getAppList(QString type)
     QString theme;
     if (isDark)
     {
+        theme = "theme=dark";
+    #ifdef __aarch64__
         theme = "dark";
+    #endif
     }
     else
     {
+        theme = "theme=light";
+    #ifdef __aarch64__
         theme = "";
+    #endif
     }
     if (type == "")
     {
+        url = api->getServerUrl() + "store/#/flamescion/?" + theme;
+    #ifdef __aarch64__
         url = api->getServerUrl() + "aarch64-store/#/"+ theme;
+    #endif
     }
     else
     {
+        url = api->getServerUrl() + "store/#/flamescion/applist?type=" + type + "&" + theme;
+    #ifdef __aarch64__
         url = api->getServerUrl() + "aarch64-store/#/"+ theme + type;
+    #endif
     }
 
     ui->webEngineView->setUrl(url);
@@ -83,14 +97,16 @@ AppListPage::~AppListPage()
 
 void AppListPage::on_webEngineView_urlChanged(const QUrl &arg1)
 {
+    SparkAPI *api = new SparkAPI(this);
     if (arg1.path().right(8) == "app.json")
     {
         QString url = arg1.toString();
-        url = url.mid(url.indexOf("/aarch64-store/"));
+        url = url.mid(url.indexOf("/" + api->getArchDir() + "/"));
         url = "spk:/" + url;
         url = url.mid(0, url.indexOf("/app.json"));
         qDebug() << "程序跳转链接地址：" << url;
         ui->webEngineView->back();
         emit clicked(url);
     }
+    delete api;
 }
