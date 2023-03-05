@@ -1,5 +1,7 @@
 spark-store (4.2.3.2~only-for-test1) stable; urgency=medium
   * 注意！！！！！！ 此版本仅为启动测试，还需要进一步完善——hardcode需要改善——关于web界面的调用方式需要在柚子做好之后修改成新的
+  * fix: hardcode
+  * fix: sender-d
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 

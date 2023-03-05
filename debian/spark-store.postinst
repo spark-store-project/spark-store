@@ -37,7 +37,7 @@ case "$1" in
 
 		# Compile sender module
 		echo "Compiling the Sender module..."
-		gcc -Wformat -Wformat-security -Werror=format-security /opt/durapps/spark-store/bin/ss-feedback/sender-d.sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
+		gcc -Wformat -Wformat-security -Werror=format-security /opt/durapps/spark-store/bin/ss-feedback/sender-d_$(arch).sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
 
 		# Install key
 		mkdir -p /tmp/spark-store-install/
