@@ -1,3 +1,8 @@
+spark-store (4.2.3.2~Reason4) stable; urgency=medium
+  * aptss不再使用bwrap
+
+
+
 spark-store (4.2.3.2~Reason3) stable; urgency=medium
   * 现在可在x86上编译，使用同一套代码
   * 暂时在aarch64上使用旧web----等待柚子

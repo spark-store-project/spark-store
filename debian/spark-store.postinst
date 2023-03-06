@@ -14,7 +14,7 @@ case "$1" in
 		esac
 
 		
-
+		mkdir -p /var/lib/aptss/lists
 
 
 		#  Remove the sources.list file

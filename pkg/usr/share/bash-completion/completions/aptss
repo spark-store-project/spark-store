@@ -63,7 +63,7 @@ _aptss()
     # Complete a -t<SPACE><TAB>
     case $prev in
         -t|--target-release)
-            COMPREPLY=( $( compgen -W "$( apt-cache policy -o Dir::Cache="/etc/aptss/" | egrep -o 'a=[^,]*|n=[^,]*' | cut -f2- -d= | sort -u)" -- "$cur" ) )
+            COMPREPLY=( $( compgen -W "$( apt-cache policy -o Dir::Cache="/var/lib/aptss/" | egrep -o 'a=[^,]*|n=[^,]*' | cut -f2- -d= | sort -u)" -- "$cur" ) )
             return 0
             ;;
     esac
@@ -185,12 +185,12 @@ _aptss()
                 return 0
                 ;;
             show|list|download|changelog|depends|rdepends)
-                    COMPREPLY=( $(  apt-cache --no-generate pkgnames "$cur" -o Dir::Cache="/etc/aptss/"  \
+                    COMPREPLY=( $(  apt-cache --no-generate pkgnames "$cur" -o Dir::Cache="/var/lib/aptss/"  \
                     2> /dev/null ) )
                 return 0
                 ;;
             install)
-                COMPREPLY=( $(  apt-cache --no-generate pkgnames "$cur" -o Dir::Cache="/etc/aptss/"  \
+                COMPREPLY=( $(  apt-cache --no-generate pkgnames "$cur" -o Dir::Cache="/var/lib/aptss/"  \
                     2> /dev/null ) )
                 if [[ "$cur" == ./* || "$cur" == /* ]]; then
                     _filedir "deb"
@@ -198,8 +198,8 @@ _aptss()
                 return 0
                 ;;
             source|build-dep|showsrc|policy)
-                COMPREPLY=( $(  apt-cache --no-generate pkgnames "$cur" -o Dir::Cache="/etc/aptss/"  \
-                    2> /dev/null ) $(  apt-cache dumpavail -o Dir::Cache="/etc/aptss/"  | \
+                COMPREPLY=( $(  apt-cache --no-generate pkgnames "$cur" -o Dir::Cache="/var/lib/aptss/"  \
+                    2> /dev/null ) $(  apt-cache dumpavail -o Dir::Cache="/var/lib/aptss/"  | \
                     command grep "^Source: $cur" | sort -u | cut -f2 -d" " ) )
                 return 0
                 ;;
