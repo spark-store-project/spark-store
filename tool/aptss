@@ -11,6 +11,9 @@ case `arch` in
 	;;
 esac
 
+is_empty_dir(){ 
+    return `ls -A $1|wc -w`
+}
 
 SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
 
@@ -20,6 +23,9 @@ echo "Please run me as root.请使用root权限启动"
 exit 1
 fi
 
+if is_empty_dir /etc/apt/sources.list.d/ ;then
+echo "sourecs.list.d dircetory is empty!"
+else
 ln -sf /etc/apt/sources.list.d/* /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d
 ###让这里和系统同步，先链接，然后清除无效链接
 for a in `find /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d -type l`  
@@ -29,7 +35,7 @@ for a in `find /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d -type l
           rm $a  
         fi  
     done 
-
+fi
 
 if [ ! -e "/tmp/aptss-conf/apt-fast.conf" ];then
 ###刷新apt-fast配置
