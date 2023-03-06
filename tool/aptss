@@ -14,6 +14,23 @@ esac
 
 SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
 
+if [ "$(id -u)" != "0" ];then
+#############################无root权限时
+echo "Please run me as root.请使用root权限启动"
+exit 1
+fi
+
+ln -sf /etc/apt/sources.list.d/* /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d
+###让这里和系统同步，先链接，然后清除无效链接
+for a in `find /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d -type l`  
+    do  
+        stat -L $a >/dev/null 2>/dev/null  
+        if [ $? -gt 0 ];then  
+          rm $a  
+        fi  
+    done 
+
+
 if [ ! -e "/tmp/aptss-conf/apt-fast.conf" ];then
 ###刷新apt-fast配置
 mkdir -p /tmp/aptss-conf/
@@ -36,8 +53,8 @@ echo
 curl  --silent -o  /tmp/aptss-conf/apt-fast.conf "https://d.store.deepinos.org.cn/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf    
 
-sudo curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
-sudo apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
+curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
+apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 
 #只更新星火源
 
@@ -80,14 +97,15 @@ echo
 curl  --silent -o  /tmp/aptss-conf/apt-fast.conf "https://d.store.deepinos.org.cn/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf    
 
-sudo curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
-sudo cp -r /var/lib/apt/lists/* /var/lib/aptss/lists/
-sudo apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
+cp -r /var/lib/apt/lists/* /var/lib/aptss/lists/
+
+apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list"
 
 #只更新星火源
 
 elif [ "$1" = "update" ];then
-sudo curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
+curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
 
 
 mkdir -p /tmp/aptss-conf/
