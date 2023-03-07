@@ -107,6 +107,14 @@ try_run_ret="$?"
 
 dpkg -i  "$DEBPATH"  || aptss install -yf 
 
+#### --delete
+if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ];then
+rm "$DEBPATH"
+echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
+else
+echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
+fi
+
 else
 
 
