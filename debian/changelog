@@ -1,7 +1,8 @@
 spark-store (4.2.3.2~Reason7) stable; urgency=medium
   * ssinstall发现无法验证时尝试update而不是ssupdate
   * 启动每日aptss update
-  * ssinstall在发现无法安装后
+  * ssinstall在发现无法安装后尝试先进行下aptss update
+  * 修复：安装商店后首次启动无法安装任何软件
 
  -- shenmo <shenmo@spark-app.store>  
 
