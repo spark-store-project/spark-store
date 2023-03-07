@@ -2,6 +2,7 @@ spark-store (4.2.3.2~Reason5) stable; urgency=medium
   * aptss 不再使用bwrap，去除依赖，支持容器中启动
   * aptss 支持非root模式启动
   * aptss 添加transhell支持
+  * 关于界面自动获取分支名称
 
  -- shenmo <shenmo@spark-app.store>  
 spark-store (4.2.3.2~Reason3) stable; urgency=medium
