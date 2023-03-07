@@ -1,8 +1,9 @@
-spark-store (4.2.3.2~Reason4) stable; urgency=medium
-  * aptss不再使用bwrap
+spark-store (4.2.3.2~Reason5) stable; urgency=medium
+  * aptss 不再使用bwrap，去除依赖，支持容器中启动
+  * aptss 支持非root模式启动
+  * aptss 添加transhell支持
 
-
-
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 spark-store (4.2.3.2~Reason3) stable; urgency=medium
   * 现在可在x86上编译，使用同一套代码
   * 暂时在aarch64上使用旧web----等待柚子
