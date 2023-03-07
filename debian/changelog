@@ -3,6 +3,7 @@ spark-store (4.2.3.2~Reason5) stable; urgency=medium
   * aptss 支持非root模式启动
   * aptss 添加transhell支持
   * 关于界面自动获取分支名称
+  * 现在安装成功则自动删除安装包
 
  -- shenmo <shenmo@spark-app.store>  
 spark-store (4.2.3.2~Reason3) stable; urgency=medium
