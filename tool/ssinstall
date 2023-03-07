@@ -64,7 +64,7 @@ DEBPATH=`realpath $1`
 
 if [ ! -e "/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages" ] && [ ! -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && [ ! -e "/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store-repository_${STORE_URL}_Packages" ];then
 echo "接收星火仓库软件信息中..."
-aptss ssupdate
+aptss update
 fi
 
 ### 选择包信息位置

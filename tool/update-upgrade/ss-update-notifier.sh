@@ -51,7 +51,7 @@ fi
 
 # 每日更新星火源文件
 
-
+aptss update
 
 updatetext=`aptss ssupdate 2>&1`
 

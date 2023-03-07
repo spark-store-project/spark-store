@@ -1,3 +1,10 @@
+spark-store (4.2.3.2~Reason6) stable; urgency=medium
+  * ssinstall发现无法验证时尝试update而不是ssupdate
+  * 启动每日aptss update
+
+ -- shenmo <shenmo@spark-app.store>  
+
+
 spark-store (4.2.3.2~Reason5) stable; urgency=medium
   * aptss 不再使用bwrap，去除依赖，支持容器中启动
   * aptss 支持非root模式启动
