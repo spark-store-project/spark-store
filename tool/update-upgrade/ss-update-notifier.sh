@@ -21,7 +21,7 @@ function notify-send() {
 }
 
 # 检测网络链接畅通
-function network()
+function network-check()
 {
     # 超时时间
     local timeout=15
@@ -41,7 +41,7 @@ function network()
     fi
 }
 
-network
+network-check
 if [ $? -ne 0 ] ; then
     echo "$TRANSHELL_CONTENT_NETWORK_FAIL"
     exit -1
