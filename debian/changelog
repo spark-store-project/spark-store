@@ -1,3 +1,8 @@
+spark-store (4.2.3.2~Reason8) stable; urgency=medium
+  * sender-d改用cpp重写，在aarch64上稳定运行
+
+ -- shenmo <shenmo@spark-app.store>  
+
 spark-store (4.2.3.2~Reason7) stable; urgency=medium
   * ssinstall发现无法验证时尝试update而不是ssupdate
   * 启动每日aptss update
