@@ -42,12 +42,13 @@ void image_show::setImage(QPixmap image)
 void image_show::mousePressEvent(QMouseEvent *)
 {
     m_dialog->setimage(m_image);
-    m_dialog->show();
 
     // 识别主屏幕尺寸并设置 widget 大小
     m_dialog->setFixedSize(qMin(desktop_w, m_image.width() + int(desktop_h / 16 * m_image.width() / m_image.height())), qMin(desktop_h, m_image.height() + int(desktop_h / 16)));
 
     m_dialog->move(QGuiApplication::screenAt(QCursor().pos())->geometry().center() - m_dialog->rect().center());
+
+    m_dialog->show();
 }
 image_show::~image_show()
 {
