@@ -92,7 +92,7 @@ if [ ! -z "$IS_MD5SUM_CHECKD" ];then
 echo "校验成功，开始安装"
 echo  ----------------------------------------------------------------------------------
 
-try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app $2)
+try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app $1)
 try_run_ret="$?"
 if [ "$try_run_ret" -ne 0 ];then
 exit $try_run_ret
