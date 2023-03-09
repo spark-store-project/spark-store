@@ -1,3 +1,9 @@
+spark-store (4.2.3.2~Reason9) stable; urgency=medium
+  * sender-d.sh
+
+ -- shenmo <shenmo@spark-app.store>  
+
+
 spark-store (4.2.3.2~Reason8) stable; urgency=medium
   * sender-d改用cpp重写，在aarch64上稳定运行
 
