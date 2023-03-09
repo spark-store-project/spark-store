@@ -102,7 +102,14 @@ int main(int argc, char *argv[])
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
 
-    DApplication::setAttribute(Qt::AA_EnableHighDpiScaling); // 开启 Hidpi 支持
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    {
+        // 开启 Hidpi 支持
+        qDebug() << "Enable HiDPI Support.";
+        DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+        DApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    }
+#endif
 
     // 强制使用 DTK 平台插件
     QVector<char *> fakeArgs(argc + 2);
