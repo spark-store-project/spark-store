@@ -22,9 +22,7 @@ if [ "$1" = "remove" ] || [ "$1" = "purge" ] ; then
 	rm -rf /etc/aptss/
 	rm -rf /var/lib/aptss/
 
-	# Remove Sender module
-	rm -f /opt/durapps/spark-store/bin/ss-feedback/sender-d
-	rm -f /opt/durapps/spark-store/bin/ss-feedback/sender-d_`arch`
+
 
 	# Remove residual symbol links to stop upgrade detect
 	rm -f /etc/xdg/autostart/spark-update-notifier.desktop

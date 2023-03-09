@@ -34,11 +34,7 @@ case "$1" in
 
 		# Create symbol links for SSINSTALL 
 		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
-		# Link sender module
-		echo "link the `arch` sender module... "
-		#gcc -Wformat -Wformat-security -Werror=format-security 
-		tar -xvf /opt/durapps/spark-store/bin/ss-feedback/sender-d_`arch`.tar.xz -C /opt/durapps/spark-store/bin/ss-feedback/
-		ln -sf /opt/durapps/spark-store/bin/ss-feedback/sender-d_`arch` /opt/durapps/spark-store/bin/ss-feedback/sender-d
+
 
 		
 		# Install key
