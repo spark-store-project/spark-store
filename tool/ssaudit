@@ -27,7 +27,7 @@ fi
 
 DEBPATH=`realpath $1`
 echo ------------------------------------------------------------
-try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app $1)
+try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app $DEBPATH)
 try_run_ret="$?"
 if [ "$try_run_ret" -ne 0 ];then
 exit $try_run_ret
