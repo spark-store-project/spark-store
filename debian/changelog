@@ -1,5 +1,6 @@
 spark-store (4.2.3.2~Reason9) stable; urgency=medium
   * sender-d.sh
+  * ssinstall和ssaudit的安装测试转到upgrade-worker
 
  -- shenmo <shenmo@spark-app.store>  
 
