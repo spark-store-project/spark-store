@@ -30,6 +30,7 @@ echo ------------------------------------------------------------
 try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app $DEBPATH)
 try_run_ret="$?"
 if [ "$try_run_ret" -ne 0 ];then
+echo "$try_run_output"
 exit $try_run_ret
 fi
 
