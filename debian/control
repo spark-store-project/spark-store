@@ -44,7 +44,6 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  zenity,
  libc6-dev,
  policykit-1,
- tar,
- xz-utils
+ libnotify-bin
 Description: Spark Store
  A community powered app store, based on DTK.
