@@ -1,3 +1,10 @@
+spark-store (4.2.3.2~Reason10) stable; urgency=medium
+  * 完成除web外大部分功能适配
+  * 修复依赖不完整的问题
+
+ -- shenmo <shenmo@spark-app.store>  
+
+
 spark-store (4.2.3.2~Reason9) stable; urgency=medium
   * sender-d.sh
   * ssinstall和ssaudit的安装测试转到upgrade-worker
