@@ -9,6 +9,9 @@
 
 #include <QtConcurrent>
 #include <QClipboard>
+#include <QFile>
+
+#include <DSysInfo>
 
 AppIntoPage::AppIntoPage(QWidget *parent)
     : QWidget(parent)
@@ -336,6 +339,9 @@ void AppIntoPage::isDownloading(const QUrl &url)
 
 void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 {
+    bool ubuntuSupport = false;
+    bool deepinSupport = false;
+    bool uosSupport = false;
     foreach (const QString &tag, tagList)
     {
         if (tag == "community")
@@ -345,14 +351,18 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
         else if (tag == "ubuntu")
         {
             ui->tag_ubuntu->show();
+            ubuntuSupport = true;
         }
         else if (tag == "deepin")
         {
             ui->tag_deepin->show();
+            deepinSupport = true;
         }
         else if (tag == "uos")
         {
             ui->tag_uos->show();
+            uosSupport = true;
+
         }
         else if (tag == "dtk5")
         {
@@ -371,6 +381,44 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
             ui->tag_a2d->show();
         }
     }
+    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport);
+}
+
+void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
+{
+    bool checkdeepin = (Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin && !deepinSupport);
+    bool checkuos = (Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos && !uosSupport);
+    bool isUbuntu = false;
+    if (!checkdeepin && !checkuos)
+    {
+        // 检查是否为 ubuntu 系统
+        QFile lsb("/etc/lsb-release");
+        if (lsb.open(QIODevice::ReadOnly) && lsb.readAll().contains("Ubuntu"))
+        {
+            isUbuntu = true;
+            lsb.close();
+        }
+    }
+    bool checkubuntu = (isUbuntu && !ubuntuSupport);
+
+    if (checkdeepin)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support deepin, there may be problems"));
+    }
+    else if (checkuos)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support UOS, there may be problems"));
+    }
+    else if (checkubuntu)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
+    }
+    else if (!isUbuntu)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
+    }
+
+    return;
 }
 
 void AppIntoPage::on_downloadButton_clicked()

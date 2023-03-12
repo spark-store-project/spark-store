@@ -29,6 +29,7 @@ private:
     void initConnections();
     void isDownloading(const QUrl &url);
     void setAppinfoTags(const QStringList &tagList);
+    void notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport);
 
 signals:
     void clickedDownloadBtn();

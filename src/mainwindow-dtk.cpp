@@ -397,7 +397,7 @@ void MainWindow::initTmpDir()
 
     // 检查写入权限
     QFileInfo info("/tmp/spark-store");
-    qDebug() << info.isWritable();
+
     if (info.isWritable() == false)
     {
         QtConcurrent::run([=]
