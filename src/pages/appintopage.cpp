@@ -393,7 +393,11 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
     {
         // 检查是否为 ubuntu 系统
         QFile lsb("/etc/lsb-release");
-        if (lsb.open(QIODevice::ReadOnly) && lsb.readAll().contains("Ubuntu"))
+        if (!lsb.open(QIODevice::ReadOnly))
+        {
+            qDebug() << "打开 /etc/lsb-release 失败";
+        }
+        else if (lsb.readAll().contains("Ubuntu"))
         {
             isUbuntu = true;
             lsb.close();
