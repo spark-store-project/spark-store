@@ -14,6 +14,7 @@
 #include <QDesktopServices>
 #include <QAbstractButton>
 #include <QtConcurrent>
+#include <unistd.h>
 
 #define AppPageApplist 0
 #define AppPageSearchlist 1
@@ -32,10 +33,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    initTmpDir();
-
     initUI();
     initConnections();
+
+    initTmpDir();
 
     ui->appintopage->setDownloadWidget(downloadlistwidget);
 
@@ -393,6 +394,28 @@ void MainWindow::initTmpDir()
     // 新建临时文件夹
     QDir dir;
     dir.mkpath("/tmp/spark-store");
+
+    // 检查写入权限
+    QFileInfo info("/tmp/spark-store");
+    qDebug() << info.isWritable();
+    if (info.isWritable() == false)
+    {
+        QtConcurrent::run([=]
+                          {
+            sleep(3);
+            auto upgradeP = new QProcess();
+            upgradeP->startDetached("zenity", QStringList() << "--warning"
+                                                            << "--text"
+                                                            << "用户未拥有 /tmp/spark-store 写入权限，星火商店会因此工作异常，请检查！"
+                                                            << "--title"
+                                                            << "权限受限提示"
+                                                            << "--width"
+                                                            << "360"
+                                                            );
+            upgradeP->waitForStarted();
+            upgradeP->waitForFinished(30);
+            upgradeP->deleteLater(); });
+    }
 }
 
 void MainWindow::switchPage(int now) // 临时方案，回家后修改
