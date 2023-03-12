@@ -12,7 +12,7 @@
         <location filename="../src/pages/appintopage.ui" line="244"/>
         <location filename="../src/pages/appintopage.cpp" line="176"/>
         <location filename="../src/pages/appintopage.cpp" line="318"/>
-        <location filename="../src/pages/appintopage.cpp" line="478"/>
+        <location filename="../src/pages/appintopage.cpp" line="482"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
@@ -187,7 +187,7 @@
     <message>
         <location filename="../src/pages/appintopage.cpp" line="161"/>
         <location filename="../src/pages/appintopage.cpp" line="334"/>
-        <location filename="../src/pages/appintopage.cpp" line="451"/>
+        <location filename="../src/pages/appintopage.cpp" line="455"/>
         <source>Reinstall</source>
         <translation>重新安裝</translation>
     </message>
@@ -198,7 +198,7 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="323"/>
-        <location filename="../src/pages/appintopage.cpp" line="427"/>
+        <location filename="../src/pages/appintopage.cpp" line="431"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -208,46 +208,46 @@
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="406"/>
         <location filename="../src/pages/appintopage.cpp" line="410"/>
         <location filename="../src/pages/appintopage.cpp" line="414"/>
         <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="422"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="406"/>
+        <location filename="../src/pages/appintopage.cpp" line="410"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
+        <location filename="../src/pages/appintopage.cpp" line="414"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
+        <location filename="../src/pages/appintopage.cpp" line="418"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="422"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
-        <location filename="../src/pages/appintopage.cpp" line="495"/>
+        <location filename="../src/pages/appintopage.cpp" line="486"/>
+        <location filename="../src/pages/appintopage.cpp" line="499"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
+        <location filename="../src/pages/appintopage.cpp" line="486"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="495"/>
+        <location filename="../src/pages/appintopage.cpp" line="499"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -327,9 +327,9 @@
         <translation>下載完成.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="216"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="227"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="235"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="218"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -340,40 +340,40 @@
         <translation>正在安裝</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="216"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="218"/>
         <source>Installation complete.</source>
         <translation>安裝完成.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="217"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="218"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="219"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="220"/>
         <source>Finish</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="225"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="227"/>
         <source>Retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="227"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
         <source>Error happened in dpkg progress , you can try it again.</source>
         <translation>安装被中止，可重新安装。</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="228"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="230"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="231"/>
         <source>Error happened in dpkg progress , you can try it again</source>
         <translation>dpkg出现错误，可重新安装</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="235"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <source>dpkg progress had been aborted，you can retry installation.</source>
         <translation>dpkg进程被中断，您可重试安装。</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="236"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
         <source>dpkg progress had been aborted，you can retry installation</source>
         <translation>安装被中止，可重新安装</translation>
     </message>
