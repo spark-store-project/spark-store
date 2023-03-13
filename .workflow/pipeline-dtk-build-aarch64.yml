@@ -18,7 +18,7 @@ stages:
         name: execute_by_docker
         displayName: 基于镜像的脚本执行
         certificate: ''
-        image: arm64v8/debian:buster
+        image: docker.io/arm64v8/debian:buster
         command:
           - '# 请在此输入您想执行的脚本'
           - echo 'Hello Gitee!'
