@@ -34,7 +34,7 @@ stages:
           - mv ../spark-store-git DEBIAN/root/build-spark/spark-store
           - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build-aarch64.sh && mv spark-build-aarch64.sh DEBIAN/root
           - mv /usr/bin/qemu-aarch64-static DEBIAN/
-          - chroot DEBIAN /qemu-aarch64-static bash /root/spark-build-aarch64.sh
+          - chroot DEBIAN /qemu-aarch64-static /bin/bash /root/spark-build-aarch64.sh
           - ''
           - ''
         artifacts:
