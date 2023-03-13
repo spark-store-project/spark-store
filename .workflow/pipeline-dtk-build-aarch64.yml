@@ -24,8 +24,8 @@ stages:
           - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
           - apt update
           - export DEBIAN_FRONTEND=noninteractive
-          - echo "安装wget qemu-user-binfmt"
-          - apt install wget qemu-user-binfmt xz-utils -y
+          - echo "安装wget qemu-user-static"
+          - apt install wget qemu-user-static xz-utils -y
           - mkdir ../spark-store-git
           - mv * ../spark-store-git
           - wget https://code.gitlink.org.cn/shenmo7192/debian-container-aarch64/raw/branch/master/DEBIANARM.tar.xz
