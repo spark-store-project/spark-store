@@ -27,14 +27,23 @@ fi
 
 DEBPATH=`realpath $1`
 echo ------------------------------------------------------------
-try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app $DEBPATH)
+try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
 try_run_ret="$?"
-if [ "$try_run_ret" -ne 0 ];then
-echo "$try_run_output"
-exit $try_run_ret
-fi
+
+  if [ "$try_run_ret" -ne 0 ]
+  then
+    echo "OMG-IT-GOES-WRONG"
+    echo -e "${try_run_output}"
+    exit "$try_run_ret"
+  fi
 
 
 dpkg -i  "$DEBPATH"  || aptss install -yf 
+install_ret="$?"
 
 
+  if [ "$install_ret" -ne 0 ]
+  then
+    echo "OMG-IT-GOES-WRONG"
+    exit "$install_ret"
+  fi
