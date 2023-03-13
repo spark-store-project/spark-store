@@ -1,9 +1,9 @@
 #  Spark App Store
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
-## Branch: Reason
+## Branch: Flamescion
 
-This branch is for aarch64-store support
+This branch is the main branch of Spark Store
 
 ---
 ## You are informed that the aarch64 support is EXPERIMENTAL and there is NO GUARANTEE that this branch will be supported in the future

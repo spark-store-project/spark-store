@@ -213,27 +213,27 @@
         <location filename="../src/pages/appintopage.cpp" line="418"/>
         <location filename="../src/pages/appintopage.cpp" line="422"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="410"/>
         <source>The current application does not support deepin, there may be problems</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="414"/>
         <source>The current application does not support UOS, there may be problems</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="418"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="422"/>
         <source>The current application does not support current platform, there may be problems</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="486"/>

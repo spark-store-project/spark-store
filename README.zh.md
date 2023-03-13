@@ -1,9 +1,9 @@
 #  星火应用商店
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
-## 分支：原理
+## 分支：火穗
 
-此分支用于aarch64-store支持
+此分支是星火应用商店的主分支
 
 ---
 ## 请注意，aarch64的支持是实验性的，并未确认持续支持！
