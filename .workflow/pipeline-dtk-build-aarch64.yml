@@ -25,7 +25,7 @@ stages:
           - apt update
           - export DEBIAN_FRONTEND=noninteractive
           - echo "安装wget qemu-user-binfmt"
-          - apt install wget qemu-user-binfmt -y
+          - apt install wget qemu-user-binfmt xz-utils -y
           - mkdir ../spark-store-git
           - mv * ../spark-store-git
           - wget https://code.gitlink.org.cn/shenmo7192/debian-container-aarch64/raw/branch/master/DEBIANARM.tar.xz
