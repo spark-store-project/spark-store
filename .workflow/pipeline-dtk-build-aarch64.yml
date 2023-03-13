@@ -24,16 +24,22 @@ stages:
           - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
           - apt update
           - export DEBIAN_FRONTEND=noninteractive
-          - echo "安装git wget qemu-user-binfmt"
-          - apt install git wget qemu-user-binfmt
+          - echo "安装wget qemu-user-binfmt"
+          - apt install wget qemu-user-binfmt
+          - mkdir ../spark-store
+          - mv * ../spark-store
+          - wget https://code.gitlink.org.cn/shenmo7192/debian-container-aarch64/raw/branch/master/DEBIANARM.tar.xz
+          - tar -xvf DEBIANARM.tar.xz
+          - mkdir -p DEBIAN/root/build-spark
+          - mv ../spark-store DEBIAN/root/build-spark
+          - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build-aarch64.sh && mv spark-build-aarch64.sh DEBIAN/root
+          - chroot DEBIAN bash /root/spark-build-aarch64.sh
           - ''
-          - git clone ???
-          - git clone https://gitlink.org.cn/shenmo7192/dtk-aarch64.git
           - ''
         artifacts:
           - name: BUILD_ARTIFACT
             path:
-              - ./target
+              - ./DEBIAN/root/build-spark/target
         notify: []
         strategy:
           retry: '0'
