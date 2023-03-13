@@ -18,10 +18,18 @@ stages:
         name: execute_by_docker
         displayName: 基于镜像的脚本执行
         certificate: ''
-        image: docker.io/arm64v8/debian:buster
+        image: docker.io/debian:buster
         command:
           - '# 请在此输入您想执行的脚本'
-          - echo 'Hello Gitee!'
+          - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+          - apt update
+          - export DEBIAN_FRONTEND=noninteractive
+          - echo "安装git wget qemu-user-binfmt"
+          - apt install git wget qemu-user-binfmt
+          - ''
+          - git clone ???
+          - git clone https://gitlink.org.cn/shenmo7192/dtk-aarch64.git
+          - ''
         artifacts:
           - name: BUILD_ARTIFACT
             path:
