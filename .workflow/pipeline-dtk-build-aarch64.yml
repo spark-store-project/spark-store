@@ -26,12 +26,12 @@ stages:
           - export DEBIAN_FRONTEND=noninteractive
           - echo "安装wget qemu-user-binfmt"
           - apt install wget qemu-user-binfmt -y
-          - mkdir ../spark-store
-          - mv * ../spark-store
+          - mkdir ../spark-store-git
+          - mv * ../spark-store-git
           - wget https://code.gitlink.org.cn/shenmo7192/debian-container-aarch64/raw/branch/master/DEBIANARM.tar.xz
           - tar -xvf DEBIANARM.tar.xz
           - mkdir -p DEBIAN/root/build-spark
-          - mv ../spark-store DEBIAN/root/build-spark
+          - mv ../spark-store-git DEBIAN/root/build-spark/spark-store
           - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build-aarch64.sh && mv spark-build-aarch64.sh DEBIAN/root
           - chroot DEBIAN bash /root/spark-build-aarch64.sh
           - ''
