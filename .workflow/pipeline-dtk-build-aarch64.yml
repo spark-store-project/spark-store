@@ -29,7 +29,7 @@ stages:
           - mkdir ../spark-store-git
           - mv * ../spark-store-git
           - wget https://code.gitlink.org.cn/shenmo7192/debian-container-aarch64/raw/branch/master/DEBIANARM.tar.xz
-          - tar -xvf DEBIANARM.tar.xz
+          - tar -xf DEBIANARM.tar.xz
           - mkdir -p DEBIAN/root/build-spark
           - mv ../spark-store-git DEBIAN/root/build-spark/spark-store
           - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build-aarch64.sh && mv spark-build-aarch64.sh DEBIAN/root
