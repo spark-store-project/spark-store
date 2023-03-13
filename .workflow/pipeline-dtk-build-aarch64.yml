@@ -2,7 +2,7 @@ version: '1.0'
 name: pipeline-dtk-build-aarch64
 displayName: dtk-build-aarch64
 triggers:
-  trigger: auto
+  trigger: manual
   push:
     tags:
       prefix:
