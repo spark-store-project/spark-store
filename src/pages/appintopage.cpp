@@ -386,8 +386,10 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
 {
-    bool checkdeepin = (Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin && !deepinSupport);
-    bool checkuos = (Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos && !uosSupport);
+    bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
+    bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
+    bool checkdeepin = (isDeepin && !deepinSupport);
+    bool checkuos = (isUOS && !uosSupport);
     bool isUbuntu = false;
     if (!checkdeepin && !checkuos)
     {
@@ -417,7 +419,7 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
     }
-    else if (!isUbuntu)
+    else if (!isUbuntu && !isDeepin && !isUOS)
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
     }
