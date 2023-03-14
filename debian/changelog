@@ -1,3 +1,9 @@
+spark-store (4.2.3.4~test1) stable; urgency=medium
+  * 修复：ssinstall校验失败的时候仍然提示安装成功
+  * 新增：ssinstall可以自动刷新ssupdate以防止仓库更新中导致的安装校验失败
+
+ -- shenmo <shenmo@spark-app.store> 
+
 spark-store (4.2.3.3) stable; urgency=medium
   * aptss 不再使用bwrap，去除依赖，支持容器中启动
   * aptss 支持非root模式启动
