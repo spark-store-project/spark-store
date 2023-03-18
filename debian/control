@@ -26,19 +26,14 @@ Homepage: https://www.spark-app.store/
 
 Package: spark-store
 Architecture: any
-Depends:${shlibs:Depends}, ${misc:Depends},
+Depends: ${misc:Depends},
  libqt5core5a,
  libqt5gui5,
  libqt5widgets5,
  libqt5network5,
  libqt5concurrent5,
- qtwayland5,
- libdtkcore5,
- libdtkgui5,
- libdtkwidget5,
  curl,
  openssl,
- dde-qt5integration,
  aria2,
  gcc,
  zenity,
