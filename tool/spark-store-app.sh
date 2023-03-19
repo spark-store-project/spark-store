@@ -1,3 +1,5 @@
+#!/bin/bash
+
 SELF=$(readlink -f "$0")
 HERE=${SELF%/*}
 
