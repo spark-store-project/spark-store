@@ -12,7 +12,7 @@
         <location filename="../src/pages/appintopage.ui" line="244"/>
         <location filename="../src/pages/appintopage.cpp" line="176"/>
         <location filename="../src/pages/appintopage.cpp" line="318"/>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
+        <location filename="../src/pages/appintopage.cpp" line="484"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
@@ -187,7 +187,7 @@
     <message>
         <location filename="../src/pages/appintopage.cpp" line="161"/>
         <location filename="../src/pages/appintopage.cpp" line="334"/>
-        <location filename="../src/pages/appintopage.cpp" line="455"/>
+        <location filename="../src/pages/appintopage.cpp" line="457"/>
         <source>Reinstall</source>
         <translation>重新安裝</translation>
     </message>
@@ -198,7 +198,7 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="323"/>
-        <location filename="../src/pages/appintopage.cpp" line="431"/>
+        <location filename="../src/pages/appintopage.cpp" line="433"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -208,46 +208,46 @@
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
-        <location filename="../src/pages/appintopage.cpp" line="422"/>
+        <location filename="../src/pages/appintopage.cpp" line="412"/>
+        <location filename="../src/pages/appintopage.cpp" line="416"/>
+        <location filename="../src/pages/appintopage.cpp" line="420"/>
+        <location filename="../src/pages/appintopage.cpp" line="424"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
+        <location filename="../src/pages/appintopage.cpp" line="412"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
+        <location filename="../src/pages/appintopage.cpp" line="416"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="420"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="422"/>
+        <location filename="../src/pages/appintopage.cpp" line="424"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="486"/>
-        <location filename="../src/pages/appintopage.cpp" line="499"/>
+        <location filename="../src/pages/appintopage.cpp" line="488"/>
+        <location filename="../src/pages/appintopage.cpp" line="501"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="486"/>
+        <location filename="../src/pages/appintopage.cpp" line="488"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="499"/>
+        <location filename="../src/pages/appintopage.cpp" line="501"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
