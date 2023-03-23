@@ -2,13 +2,20 @@
 
 case "$1" in
 	configure)
-		# Enable i386 arch
+
+		case `arch` in
+   		x86_64)
 		echo "Enabling i386 arch..."
 		dpkg --add-architecture i386
+		;;
+ 		*)
+		echo "Not amd64, skip enable i386 arch"
+		;;
+		esac
 
-		# config for aptss
-		mkdir -p /etc/aptss/sources.list.d
-		ln -s -f /etc/apt/sources.list /etc/aptss/sources.list
+		
+		mkdir -p /var/lib/aptss/lists
+
 
 		#  Remove the sources.list file
 		rm -f /etc/apt/sources.list.d/sparkstore.list
@@ -17,8 +24,6 @@ case "$1" in
 		mkdir -p /usr/local/bin
 
 		# Create symbol links for binary files
-		ln -s -f /opt/durapps/spark-store/bin/ussinstall /usr/local/bin/ussinstall
-		ln -s -f /opt/durapps/spark-store/bin/ussremove /usr/local/bin/ussremove
 		ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
 		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
 		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/local/bin/ssaudit
@@ -30,10 +35,8 @@ case "$1" in
 		# Create symbol links for SSINSTALL 
 		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 
-		# Compile sender module
-		echo "Compiling the Sender module..."
-		gcc -Wformat -Wformat-security -Werror=format-security /opt/durapps/spark-store/bin/ss-feedback/sender-d.sh.c -o /opt/durapps/spark-store/bin/ss-feedback/sender-d
 
+		
 		# Install key
 		mkdir -p /tmp/spark-store-install/
 		cp -f /opt/durapps/spark-store/bin/spark-store.asc /tmp/spark-store-install/spark-store.asc

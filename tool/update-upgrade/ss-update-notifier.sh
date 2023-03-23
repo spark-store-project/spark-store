@@ -21,7 +21,7 @@ function notify-send() {
 }
 
 # 检测网络链接畅通
-function network()
+function network-check()
 {
     # 超时时间
     local timeout=15
@@ -41,7 +41,7 @@ function network()
     fi
 }
 
-network
+network-check
 if [ $? -ne 0 ] ; then
     echo "$TRANSHELL_CONTENT_NETWORK_FAIL"
     exit -1
@@ -50,9 +50,8 @@ fi
 # The code above is modified from https://blog.csdn.net/yaxuan88521/article/details/120516298
 
 # 每日更新星火源文件
-curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list"
 
-
+aptss update
 
 updatetext=`aptss ssupdate 2>&1`
 

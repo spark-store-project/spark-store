@@ -91,11 +91,12 @@ void Application::setBuildDateTime(const QString &buildDateTime)
         qDebug() << "Spark Store has been updated!";
 
         config.setValue("build/version", QString(APP_VERSION));
+        config.setValue("build/branch",QString(APP_BRANCH));
         config.setValue("build/time", buildDateTime);
         config.sync();
     }
 
-    setApplicationVersion(DApplication::buildVersion(QString(APP_VERSION) + "-" + "Flamescion" + "-" + buildDateTime));
+    setApplicationVersion(DApplication::buildVersion(QString(APP_VERSION) + "-" + QString(APP_BRANCH) + "-" + buildDateTime));
 }
 
 void Application::setMainWindow(MainWindow *window)

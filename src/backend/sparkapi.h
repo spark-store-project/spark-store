@@ -25,6 +25,7 @@ public:
     void getRAW(QUrl url);
     void getAppList(QString type);
     void getAppInfo(QUrl spk);
+    static QString getArchDir();
 
 signals:
     void finished(QJsonArray);
@@ -33,6 +34,7 @@ signals:
 
 private:
     static QString serverUrl;
+    static QString serverUrlDir;
 };
 
 #endif // SPARKAPI_H

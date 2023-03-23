@@ -1,3 +1,75 @@
+spark-store (4.2.4) stable; urgency=medium
+  * 修复：ssinstall校验失败的时候仍然提示安装成功
+  * 新增：ssinstall可以自动刷新ssupdate以防止仓库更新中导致的安装校验失败
+  * 修复：在不受支持的平台安装应用时弹出提示不正确
+  
+ -- shenmo <shenmo@spark-app.store> 
+
+spark-store (4.2.3.3) stable; urgency=medium
+  * aptss 不再使用bwrap，去除依赖，支持容器中启动
+  * aptss 支持非root模式启动
+  * aptss 添加transhell支持
+  * 关于界面自动获取分支名称
+  * 现在安装成功则自动删除安装包
+  * 完成 arm 架构大部分功能适配
+  * 修复依赖不完整的问题
+  * 4.3 roadmap 实现，在浏览不支持的应用时会出现提示
+  * 4.3 roadmap 实现，在下载文件夹没有读写权限时会出现提示
+
+ -- shenmo <shenmo@spark-app.store> 
+
+
+spark-store (4.2.3.2~Reason10) stable; urgency=medium
+  * 完成除web外大部分功能适配
+  * 修复依赖不完整的问题
+
+ -- shenmo <shenmo@spark-app.store>  
+
+
+spark-store (4.2.3.2~Reason9) stable; urgency=medium
+  * sender-d.sh
+  * ssinstall和ssaudit的安装测试转到upgrade-worker
+
+ -- shenmo <shenmo@spark-app.store>  
+
+
+spark-store (4.2.3.2~Reason8) stable; urgency=medium
+  * sender-d改用cpp重写，在aarch64上稳定运行
+
+ -- shenmo <shenmo@spark-app.store>  
+
+
+spark-store (4.2.3.2~Reason7) stable; urgency=medium
+  * ssinstall发现无法验证时尝试update而不是ssupdate
+  * 启动每日aptss update
+  * ssinstall在发现无法安装后尝试先进行下aptss update
+  * 修复：安装商店后首次启动无法安装任何软件
+
+ -- shenmo <shenmo@spark-app.store>  
+
+
+spark-store (4.2.3.2~Reason5) stable; urgency=medium
+  * aptss 不再使用bwrap，去除依赖，支持容器中启动
+  * aptss 支持非root模式启动
+  * aptss 添加transhell支持
+  * 关于界面自动获取分支名称
+  * 现在安装成功则自动删除安装包
+
+ -- shenmo <shenmo@spark-app.store>  
+spark-store (4.2.3.2~Reason3) stable; urgency=medium
+  * 现在可在x86上编译，使用同一套代码
+  * 暂时在aarch64上使用旧web----等待柚子
+  * 空间，疾疫，现在是静谧
+
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+spark-store (4.2.3.2~only-for-test1) stable; urgency=medium
+  * 注意！！！！！！ 此版本仅为启动测试，还需要进一步完善——hardcode需要改善——关于web界面的调用方式需要在柚子做好之后修改成新的
+  * fix: hardcode
+  * fix: sender-d
+
+ -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 spark-store (4.2.3.1) stable; urgency=medium
   * 修复: ssinstall验证签名出错
 

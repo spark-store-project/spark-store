@@ -1,6 +1,13 @@
 #  星火应用商店
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
+## 分支：火穗
+
+此分支是星火应用商店的主分支
+
+---
+## 请注意，aarch64的支持是实验性的，并未确认持续支持！
+
 众所周知，国内的Linux应用比较少，wine应用难以获取，优质工具分散在民间各大论坛，无法形成合力，难以改善生态
 
 生态构建需要的不是某一方的单打独斗，而是人人行动起来，汇聚星火，产生燎原之势

@@ -1,12 +1,53 @@
 #!/bin/bash
 
+source /opt/durapps/spark-store/bin/bashimport/transhell.amber
+load_transhell
+
+case `arch` in
+   x86_64)
+	STORE_URL="store"
+	STORE_LIST_URL=""
+	;;
+   aarch64)
+	STORE_URL="aarch64-store"
+	STORE_LIST_URL="-aarch64"
+	;;
+esac
 SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
+
+
+is_empty_dir(){ 
+    return `ls -A $1|wc -w`
+}
+
+
+
+if [ "$(id -u)" != "0" ];then
+#############################无root权限时
+echo "${TRANSHELL_CONTENT_RUNNING_IN_NOT_ROOT_USER}"
+
+else
+
+if is_empty_dir /etc/apt/sources.list.d/ ;then
+echo "${TRANSHELL_CONTENT_INFO_SOURCES_LIST_D_IS_EMPTY}"
+else
+ln -sf /etc/apt/sources.list.d/* /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d
+###让这里和系统同步，先链接，然后清除无效链接
+for a in `find /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d -type l`  
+    do  
+        stat -L $a >/dev/null 2>/dev/null  
+        if [ $? -gt 0 ];then  
+          rm $a  
+        fi  
+    done 
+fi
+
+fi
 
 if [ ! -e "/tmp/aptss-conf/apt-fast.conf" ];then
 ###刷新apt-fast配置
 mkdir -p /tmp/aptss-conf/
-echo "从服务器获取配置和镜像列表..."
-echo "Getting server and mirror lists..."
+echo "${TRANSHELL_CONTENT_GETTING_SERVER_CONFIG_AND_MIRROR_LIST}"
 echo
 curl --progress-bar -o /tmp/aptss-conf/apt-fast.conf "https://d.store.deepinos.org.cn/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf
@@ -14,18 +55,16 @@ chmod -R 755 /tmp/aptss-conf
 fi
 
 
-if [ ! -e "/var/lib/apt/lists/d.spark-app.store_store_Packages" ] && [ ! -e "/var/lib/apt/lists/d.store.deepinos.org.cn_store_Packages" ] && [ ! -e "/var/lib/apt/lists/mirrors.sdu.edu.cn_spark-store-repository_store_Packages" ];then
-echo "接收星火仓库软件信息中..."
+if [ ! -e "/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages" ] && [ ! -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && [ ! -e "/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store-repository_${STORE_URL}_Packages" ];then
 
 mkdir -p /tmp/aptss-conf/
-echo "从服务器获取配置和镜像列表..."
-echo "Getting server and mirror lists..."
+echo "${TRANSHELL_CONTENT_GETTING_SERVER_CONFIG_AND_MIRROR_LIST}"
 echo
 curl  --silent -o  /tmp/aptss-conf/apt-fast.conf "https://d.store.deepinos.org.cn/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf    
 
-sudo curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore.list"
-sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"  -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
+apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 
 #只更新星火源
 
@@ -41,17 +80,15 @@ if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] ; 
 
 
 ###执行
-bwrap --dev-bind / / \
-                   --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                ${SS_APT_FAST} "$@" --allow-downgrades 
+
+                ${SS_APT_FAST} "$@" --allow-downgrades -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 
 
 elif [ "$1" = "download" ];then
 
 ###执行
-bwrap --dev-bind / / \
-                   --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                ${SS_APT_FAST} "$@" --allow-downgrades 
+
+                ${SS_APT_FAST} "$@" --allow-downgrades -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 
 
 elif [ "$1" = "policy" ] || [ "$1" = "search" ];then
@@ -59,47 +96,37 @@ elif [ "$1" = "policy" ] || [ "$1" = "search" ];then
 
 
 ###执行
-bwrap --dev-bind / / \
-                   --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                apt "$@" 
+                apt "$@"  -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 
 elif [ "$1" = "ssupdate" ];then
 
 mkdir -p /tmp/aptss-conf/
-echo "从服务器获取配置和镜像列表..."
-echo "Getting server and mirror lists..."
+echo "${TRANSHELL_CONTENT_GETTING_SERVER_CONFIG_AND_MIRROR_LIST}"
 echo
 curl  --silent -o  /tmp/aptss-conf/apt-fast.conf "https://d.store.deepinos.org.cn/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf    
 
-sudo curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore.list"
-sudo bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt update -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list"  -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+curl --silent -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
+
+
+apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list"
 
 #只更新星火源
 
 elif [ "$1" = "update" ];then
-sudo curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore.list"
+curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "https://d.store.deepinos.org.cn/sparkstore${STORE_LIST_URL}.list"
 
 
 mkdir -p /tmp/aptss-conf/
-echo "从服务器获取配置和镜像列表..."
-echo "Getting server and mirror lists..."
+echo "${TRANSHELL_CONTENT_GETTING_SERVER_CONFIG_AND_MIRROR_LIST}"
 echo
 curl --progress-bar -o /tmp/aptss-conf/apt-fast.conf "https://d.store.deepinos.org.cn/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf    
 ### 额外一份拿来给aptss自动补全用
-bwrap --dev-bind / / \
-		   --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                apt "$@" -o APT::Get::List-Cleanup="0" 
-
-bwrap --dev-bind / / \
-		   --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                apt "$@" -o APT::Get::List-Cleanup="0"  -o Dir::Cache="/etc/aptss/" 
+                apt "$@" -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 
 else
-	bwrap --dev-bind / / \
-		   --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list \
-                apt "$@"
+                apt "$@" -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 fi
 
 

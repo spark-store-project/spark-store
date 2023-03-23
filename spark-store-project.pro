@@ -57,6 +57,9 @@ icon.path = /usr/share/icons/hicolor/scalable/apps
 ssinstall-transhell.files += pkg/usr/share/ssinstall/transhell
 ssinstall-transhell.path = /usr/share/ssinstall/
 
+aptss-transhell.files += pkg/usr/share/aptss/transhell
+aptss-transhell.path = /usr/share/aptss/
+
 tmp.files += pkg/tmp/spark-store-install/feedback.sh
 tmp.path = /tmp/spark-store-install
 
@@ -66,6 +69,7 @@ INSTALLS += \
         desktop \
         icon \
         ssinstall-transhell \
+	aptss-transhell \
 #       sourceslist \
         tmp \
         service \

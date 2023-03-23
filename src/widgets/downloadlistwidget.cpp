@@ -91,10 +91,14 @@ DownloadItem* DownloadListWidget::addItem(QString name, QString fileName, QStrin
     {
         return nullptr;
     }
+
     urList.append(downloadurl);
     allDownload += 1;
     toDownload += 1;
+
     DownloadItem *di = new DownloadItem;
+    connect(di, &DownloadItem::finished, this, &DownloadListWidget::slotInstallFinished, Qt::QueuedConnection);
+
     dlist << downloadurl;
     downloaditemlist << di;
     di->setName(name);
@@ -167,22 +171,9 @@ void DownloadListWidget::httpFinished() // 完成下载
         {
             continue;
         }
-        toDownload -= 1; // 安装完以后减少待安装数目
-        qDebug() << "Download: 还没有下载的数目：" << toDownload;
-
-        if (toDownload == 0)
-        {
-            Application *app = qobject_cast<Application *>(qApp);
-            MainWindow *mainWindow = app->mainWindow();
-            if (mainWindow->isCloseWindowAnimation() == true)
-            {
-                qDebug() << "Download: 后台安装结束，退出程序";
-                qApp->quit();
-            }
-        }
-
         downloaditemlist[nowDownload - 1]->free = true;
         emit downloadFinished();
+
         if (nowDownload < allDownload)
         {
             // 如果有排队则下载下一个
@@ -240,4 +231,24 @@ void DownloadListWidget::mouseMoveEvent(QMouseEvent *event)
 void DownloadListWidget::on_pushButton_clicked()
 {
     QDesktopServices::openUrl(QUrl("file:///tmp/spark-store", QUrl::TolerantMode));
+}
+
+void DownloadListWidget::slotInstallFinished(bool success)
+{
+    // NOTE: 仅在安装成功后判断是否需要退出后台
+    if (success) {
+        toDownload -= 1; // 安装完以后减少待安装数目
+        qDebug() << "Download: 还没有下载的数目：" << toDownload;
+
+        if (toDownload == 0)
+        {
+            Application *app = qobject_cast<Application *>(qApp);
+            MainWindow *mainWindow = app->mainWindow();
+            if (mainWindow->isCloseWindowAnimation() == true)
+            {
+                qDebug() << "Download: 后台安装结束，退出程序";
+                qApp->quit();
+            }
+        }
+    }
 }

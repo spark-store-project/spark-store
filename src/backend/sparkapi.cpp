@@ -5,6 +5,11 @@
 #include <QDebug>
 
 QString SparkAPI::serverUrl = "";
+#ifdef __x86_64__
+    QString SparkAPI::serverUrlDir = "store";
+#elif __aarch64__
+    QString SparkAPI::serverUrlDir = "aarch64-store";
+#endif
 
 SparkAPI::SparkAPI(QObject *parent) : QObject(parent)
 {
@@ -54,7 +59,7 @@ void SparkAPI::getRAW(QUrl url)
 
 void SparkAPI::getAppList(QString type)
 {
-    get(QUrl(getServerUrl() + "store/" + type + "/applist.json"));
+    get(QUrl(getServerUrl() + SparkAPI::serverUrlDir + "/" + type + "/applist.json"));
 }
 
 void SparkAPI::getSearchList(QString keyword)
@@ -64,12 +69,17 @@ void SparkAPI::getSearchList(QString keyword)
 
 void SparkAPI::getAppInfo(QUrl spk)
 {
-    get(QUrl(getServerUrl() + "store" + spk.path().replace("+", "%2B") + "/app.json"));
+    get(QUrl(getServerUrl() + SparkAPI::serverUrlDir + spk.path().replace("+", "%2B") + "/app.json"));
+}
+
+QString SparkAPI::getArchDir()
+{
+    return SparkAPI::serverUrlDir;
 }
 
 void SparkAPI::getAppDownloadTimes(QUrl spk)
 {
-    getRAW(QUrl(getServerUrl() + "store" + spk.path().replace("+", "%2B") + "/download-times.txt"));
+    getRAW(QUrl(getServerUrl() + SparkAPI::serverUrlDir + spk.path().replace("+", "%2B") + "/download-times.txt"));
 }
 
 QString SparkAPI::getServerUrl()

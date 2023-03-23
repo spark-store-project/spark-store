@@ -39,10 +39,11 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  curl,
  openssl,
  dde-qt5integration,
- bubblewrap,
  aria2,
  gcc,
  zenity,
- libc6-dev
+ libc6-dev,
+ policykit-1,
+ libnotify-bin
 Description: Spark Store
  A community powered app store, based on DTK.

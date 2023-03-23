@@ -9,6 +9,9 @@
 
 #include <QtConcurrent>
 #include <QClipboard>
+#include <QFile>
+
+#include <DSysInfo>
 
 AppIntoPage::AppIntoPage(QWidget *parent)
     : QWidget(parent)
@@ -55,8 +58,8 @@ void AppIntoPage::openUrl(const QUrl &url)
         // 获取图标
         QNetworkRequest request;
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        qDebug() << api->getImgServerUrl() + "store" + url.path() + "/icon.png";
-        request.setUrl(QUrl(api->getImgServerUrl() + "store" + url.path() + "/icon.png"));
+        qDebug() << api->getImgServerUrl() + SparkAPI::getArchDir() + url.path() + "/icon.png";
+        request.setUrl(QUrl(api->getImgServerUrl() + SparkAPI::getArchDir() + url.path() + "/icon.png"));
         request.setRawHeader("User-Agent", "Mozilla/5.0");
         request.setRawHeader("Content-Type", "charset='utf-8'");
         manager->get(request);
@@ -175,7 +178,7 @@ void AppIntoPage::openUrl(const QUrl &url)
                 ui->downloadButton->show();
             }
 
-            isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString());
+            isDownloading(SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString());
         }
 
         api1->disconnect();
@@ -267,7 +270,7 @@ void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
 
     dw = w;
     connect(w, &DownloadListWidget::downloadFinished, [=]()
-    { isDownloading(SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString()); });
+    { isDownloading(SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString()); });
 }
 
 void AppIntoPage::initUI()
@@ -336,6 +339,9 @@ void AppIntoPage::isDownloading(const QUrl &url)
 
 void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 {
+    bool ubuntuSupport = false;
+    bool deepinSupport = false;
+    bool uosSupport = false;
     foreach (const QString &tag, tagList)
     {
         if (tag == "community")
@@ -345,14 +351,18 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
         else if (tag == "ubuntu")
         {
             ui->tag_ubuntu->show();
+            ubuntuSupport = true;
         }
         else if (tag == "deepin")
         {
             ui->tag_deepin->show();
+            deepinSupport = true;
         }
         else if (tag == "uos")
         {
             ui->tag_uos->show();
+            uosSupport = true;
+
         }
         else if (tag == "dtk5")
         {
@@ -371,11 +381,55 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
             ui->tag_a2d->show();
         }
     }
+    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport);
+}
+
+void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
+{
+    bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
+    bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
+    bool checkdeepin = (isDeepin && !deepinSupport);
+    bool checkuos = (isUOS && !uosSupport);
+    bool isUbuntu = false;
+    if (!checkdeepin && !checkuos)
+    {
+        // 检查是否为 ubuntu 系统
+        QFile lsb("/etc/lsb-release");
+        if (!lsb.open(QIODevice::ReadOnly))
+        {
+            qDebug() << "打开 /etc/lsb-release 失败";
+        }
+        else if (lsb.readAll().contains("Ubuntu"))
+        {
+            isUbuntu = true;
+            lsb.close();
+        }
+    }
+    bool checkubuntu = (isUbuntu && !ubuntuSupport);
+
+    if (checkdeepin)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support deepin, there may be problems"));
+    }
+    else if (checkuos)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support UOS, there may be problems"));
+    }
+    else if (checkubuntu)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
+    }
+    else if (!isUbuntu && !isDeepin && !isUOS)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
+    }
+
+    return;
 }
 
 void AppIntoPage::on_downloadButton_clicked()
 {
-    QString downloadUrl = SparkAPI::getServerUrl() + "store" + spk.path() + "/" + info["Filename"].toString();
+    QString downloadUrl = SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString();
     if (ui->downloadButton->text() == tr("Install"))
     {
         DownloadItem *item = dw->getDIList()[dw->getUrlList().lastIndexOf(downloadUrl)];

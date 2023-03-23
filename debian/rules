@@ -30,7 +30,9 @@ override_dh_auto_install:
 	make -C $(CURDIR)/build install \
 	INSTALL_ROOT=$(CURDIR)/debian/spark-store
 
+
 # Ignore the dpkg-shlibdeps: warning (it uses none of the library's symbols)
 # Qt Mutidedia lib will ref to network libraray.
 override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--warnings=0
+

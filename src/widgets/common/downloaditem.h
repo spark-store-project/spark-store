@@ -62,7 +62,7 @@ private slots:
     void slotAsyncInstall(int t);
 
 signals:
-    void finished();
+    void finished(bool success);
 };
 
 #endif // DOWNLOADITEM_H

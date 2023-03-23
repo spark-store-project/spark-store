@@ -12,7 +12,7 @@ case $1 in
 	;;
 
 	upgradable-list)
-		output=$(env LANGUAGE=en_US bwrap --dev-bind / / --bind '/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list' /etc/apt/sources.list.d/sparkstore.list apt list --upgradable -o Dir::Etc::sourcelist="sources.list.d/sparkstore.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" | awk NR\>1)
+		output=$(env LANGUAGE=en_US apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" | awk NR\>1)
 
 		IFS_OLD="$IFS"
 		IFS=$'\n'
@@ -33,18 +33,32 @@ case $1 in
 		echo "$IS_UPGRADE_ERROR" > /tmp/spark-store-app-upgrade-status.txt
 	;;
 	test-install-app)
-		try_run_output=$(aptss --dry-run install $2)
-		try_run_ret="$?"
 
-  if [ "$try_run_ret" -ne 0 ]
+try_run_output=$(aptss --dry-run install $2)
+try_run_ret="$?"
+
+if [ "$try_run_ret" -ne 0 ]
   then
     echo "Package manager quit with exit code.Here is the log" 
     echo "包管理器以错误代码退出.日志如下" 
     echo
     echo -e "${try_run_output}"
-    exit "$try_run_ret"
-  fi
+    echo "Will try after run aptss update"
+    echo "将会在aptss update之后再次尝试"
+    aptss update
+    echo ----------------------------------------------------------------------------
+	try_run_output=$(aptss --dry-run install $2)
+	try_run_ret="$?"
+  		if [ "$try_run_ret" -ne 0 ]
+  		then
+  		  echo "Package manager quit with exit code.Here is the log" 
+   		 echo "包管理器以错误代码退出.日志如下" 
+   		 echo
+    		echo -e "${try_run_output}"
+    		exit "$try_run_ret"
+ 		 fi
 
+fi
 	exit 0
 	;;
 	

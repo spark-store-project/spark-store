@@ -64,9 +64,9 @@ QString DownloadItem::getName()
 
 /***************************************************************
   *  @brief     告知界面，准备安装
-  *  @param     
+  *  @param
   *  @note      如果正在安装，返回-1
-  *  @Sample usage:     DownloadItem::install(0); 
+  *  @Sample usage:     DownloadItem::install(0);
  **************************************************************/
 int DownloadItem::readyInstall()
 {
@@ -110,9 +110,9 @@ void DownloadItem::setSpeed(QString s)
 
 /***************************************************************
   *  @brief     安装当前应用
-  *  @param     int t, t为安装方式，可以为 0,1,2 
+  *  @param     int t, t为安装方式，可以为 0,1,2
   *  @note      执行这个函数时，需要已经检查是否可以安装，但该函数仍然会再检测一次！
-  *  @Sample usage:     DownloadItem::install(0); 
+  *  @Sample usage:     DownloadItem::install(0);
  **************************************************************/
 void DownloadItem::install(int t)
 {
@@ -165,23 +165,26 @@ void DownloadItem::on_pushButton_3_clicked()
 
 /***************************************************************
   *  @brief     实际安装应用
-  *  @param     int t, t为安装方式，可以为 0,1,2 
+  *  @param     int t, t为安装方式，可以为 0,1,2
   *  @note      备注
-  *  @Sample usage:     slotAsyncInstall(0); 
+  *  @Sample usage:     slotAsyncInstall(0);
  **************************************************************/
 void DownloadItem::slotAsyncInstall(int t)
 {
     QProcess installer;
-    switch(t)
+    switch (t)
     {
     case 0:
-        installer.start("pkexec", QStringList() << "ssinstall" << "/tmp/spark-store/" + ui->label_filename->text().toUtf8());
+        installer.start("pkexec", QStringList() << "ssinstall"
+                                                << "/tmp/spark-store/" + ui->label_filename->text().toUtf8() << "--delete-after-install");
         break;
     case 1:
         installer.start("deepin-deb-installer", QStringList() << "/tmp/spark-store/" + ui->label_filename->text().toUtf8());
         break;
     case 2:
-        installer.start("pkexec", QStringList() << "gdebi" << "-n" << "/tmp/spark-store/" + ui->label_filename->text().toUtf8());
+        installer.start("pkexec", QStringList() << "gdebi"
+                                                << "-n"
+                                                << "/tmp/spark-store/" + ui->label_filename->text().toUtf8());
         break;
     }
 
@@ -191,13 +194,15 @@ void DownloadItem::slotAsyncInstall(int t)
     out = installer.readAllStandardOutput();
 
     QStringList everyOut = out.split("\n");
+    QString tempOutput;
     for (int i = 0; i < everyOut.size(); i++)
     {
-        if(everyOut[i].left(2) == "E:")
+        tempOutput = everyOut[i];
+        if (everyOut[i].left(2) == "E:" || tempOutput.contains("错误") || tempOutput.contains("exit code") || tempOutput.contains("OMG-IT-GOES-WRONG"))
         {
             haveError = true;
         }
-        if(everyOut[i].right(14) == "Not authorized")
+        if (tempOutput.contains("Not authorized"))
         {
             notRoot = true;
         }
@@ -205,12 +210,12 @@ void DownloadItem::slotAsyncInstall(int t)
 
     QProcess isInstall;
     isInstall.start("dpkg", QStringList() << "-s" << pkgName);
-    isInstall.waitForFinished(180*1000); // 默认超时 3 分钟
+    isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
     int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
     if (error == 0 && !haveError)
     {
         ui->pushButton_install->hide();
-        Utils::sendNotification("spark-store",tr("Spark Store"),ui->label->text() + " " + tr("Installation complete."));
+        Utils::sendNotification("spark-store", tr("Spark Store"), ui->label->text() + " " + tr("Installation complete."));
         ui->label_2->setText(tr("Finish"));
         ui->label_2->setToolTip(tr("Finish"));
         download = 3;
@@ -221,7 +226,7 @@ void DownloadItem::slotAsyncInstall(int t)
         ui->pushButton_install->show();
         ui->pushButton_install->setText(tr("Retry"));
         download = 1;
-        Utils::sendNotification("spark-store",tr("Spark Store"),tr("Error happened in dpkg progress , you can try it again."));
+        Utils::sendNotification("spark-store", tr("Spark Store"), tr("Error happened in dpkg progress , you can try it again."));
         ui->label_2->setText(tr("Error happened in dpkg progress , you can try it again"));
         ui->label_2->setToolTip(tr("Error happened in dpkg progress , you can try it again"));
         ui->pushButton_3->show();
@@ -229,7 +234,7 @@ void DownloadItem::slotAsyncInstall(int t)
 
     if (notRoot)
     {
-        Utils::sendNotification("spark-store",tr("Spark Store"),tr("dpkg progress had been aborted，you can retry installation."));
+        Utils::sendNotification("spark-store", tr("Spark Store"), tr("dpkg progress had been aborted，you can retry installation."));
         ui->label_2->setText(tr("dpkg progress had been aborted，you can retry installation"));
         ui->label_2->setToolTip(tr("dpkg progress had been aborted，you can retry installation"));
         ui->pushButton_install->show();
@@ -238,5 +243,9 @@ void DownloadItem::slotAsyncInstall(int t)
 
     ui->widget_spinner->hide();
     DownloadItem::isInstall = false;
-    emit finished();
+
+    installer.deleteLater();
+    isInstall.deleteLater();
+
+    emit finished(error == 0 && !haveError && !notRoot);
 }
