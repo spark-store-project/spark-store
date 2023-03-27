@@ -34,7 +34,7 @@ so_list=$(ldd /usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqwayland-xcompo
 cp -L -n $so_list $CURDIR/debian/spark-store/opt/durapps/spark-store/lib
 
 # cp -r /usr/share/libdtk*/ $CURDIR/debian/spark-store/opt/durapps/spark-store/ >/dev/null || :
-$CURDIR/linuxdeployqt $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store -appimage -bundle-non-qt-libs >/dev/null || :
+$CURDIR/linuxdeployqt $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store -unsupported-allow-new-glibc -appimage -bundle-non-qt-libs >/dev/null || :
 rm -rf $CURDIR/debian/spark-store/opt/durapps/AppRun  >/dev/null || :
 rm -rf $CURDIR/debian/spark-store/opt/durapps/spark-store/lib/libc.so*  >/dev/null || :
 rm -rf $CURDIR/debian/spark-store/opt/durapps/spark-store/lib/librt.so*  >/dev/null || :
