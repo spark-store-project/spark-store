@@ -114,7 +114,7 @@ void SettingsPage::on_pushButton_updateServer_clicked()
 
 
         QFile::remove(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/server.list");
-        auto updateSuccess = system("curl -o " + QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).toUtf8() + "/server.list https://d.store.deepinos.org.cn/store/server-and-mirror.list");
+        auto updateSuccess = system("curl -o " + QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).toUtf8() + "/server.list " /* 注意空格的问题 */ + DEFAULT_SERVER_URL + "store/server-and-mirror.list");
         qDebug() << "Update serverlist status:" << updateSuccess;
         if (updateSuccess != 0) // 更新失败不换服务器配置
         {
