@@ -19,6 +19,7 @@ Build-Depends:
  qtwebengine5-dev,
  qtwayland5,
  qtwayland5-dev-tools,
+ libfuse2,
  gcc,
  g++
 Standards-Version: 4.0.0
