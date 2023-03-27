@@ -25,7 +25,7 @@ stages:
           - apt update
           - export DEBIAN_FRONTEND=noninteractive
           - echo "安装git devscripts equivs ..."
-          - apt install git devscripts equivs curl -y >/dev/null 2>&1
+          - apt install git devscripts equivs curl libfuse2 -y >/dev/null 2>&1
           - git clone https://gitlink.org.cn/shenmo7192/dtk-old-bundle.git
           - cd dtk-old-bundle
           - apt install ./*.deb -y
