@@ -24,7 +24,7 @@ cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/styles $CURDIR/debian/spark-store
 
 
 # cp -r /usr/share/libdtk*/ $CURDIR/debian/spark-store/opt/durapps/spark-store/ >/dev/null || :
-$CURDIR/linuxdeployqt $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store -appimage >/dev/null || :
+$CURDIR/linuxdeployqt $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store -appimage -bundle-non-qt-libs >/dev/null || :
 rm -rf $CURDIR/debian/spark-store/opt/durapps/AppRun  >/dev/null || :
 rm -rf $CURDIR/debian/spark-store/opt/durapps/spark-store/lib/libc.so*  >/dev/null || :
 rm -rf $CURDIR/debian/spark-store/opt/durapps/spark-store/lib/librt.so*  >/dev/null || :
