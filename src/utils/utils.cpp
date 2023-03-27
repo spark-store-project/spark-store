@@ -140,17 +140,13 @@ void Utils::setQPAPlatform()
 
     qDebug() << "System Wayland enabled:" << isWayland << "Spark Wayland enabled:" << useWayland;
 
-    if (isWayland && useWayland && !(Dtk::Core::DSysInfo::isDeepin() || isDDE))
+    if (isWayland && useWayland)
     {
         qputenv("QT_QPA_PLATFORM", "wayland");
     }
-    else if (isWayland && useWayland && (Dtk::Core::DSysInfo::isDeepin() && isDDE))
-    {
-        qputenv("QT_QPA_PLATFORM", "dwayland");
-    }
     else
     {
-        qputenv("QT_QPA_PLATFORM", "dxcb");
+        qputenv("QT_QPA_PLATFORM", "xcb");
     }
 }
 
