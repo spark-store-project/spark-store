@@ -14,13 +14,13 @@ cp -L -n $so_list $CURDIR/debian/spark-store/opt/durapps/spark-store/lib
 # cp -L -n $so_list $CURDIR/debian/spark-store/opt/durapps/spark-store/lib
 
 
-# mkdir -p $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins
-# cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/platforms $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
-# cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/wayland-shell-integration $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
-# cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/iconengines $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
-# cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/imageformats $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
-# cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
-# cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/styles $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
+mkdir -p $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins
+cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/platforms $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
+cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/wayland-shell-integration $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
+cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/iconengines $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
+cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/imageformats $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
+cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
+cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/styles $CURDIR/debian/spark-store/opt/durapps/spark-store/plugins >/dev/null || :
 
 
 # cp -r /usr/share/libdtk*/ $CURDIR/debian/spark-store/opt/durapps/spark-store/ >/dev/null || :
