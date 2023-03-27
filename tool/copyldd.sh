@@ -24,6 +24,6 @@ cp -L -r /usr/lib/x86_64-linux-gnu/qt5/plugins/styles $CURDIR/debian/spark-store
 
 
 # cp -r /usr/share/libdtk*/ $CURDIR/debian/spark-store/opt/durapps/spark-store/ >/dev/null || :
-$CURDIR/linuxdeployqt $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store -unsupported-allow-new-glibc -appimage
+$CURDIR/linuxdeployqt $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store -appimage >/dev/null || :
 rm -rf $CURDIR/debian/spark-store/opt/durapps/AppRun
 rm -rf $CURDIR/debian/spark-store/opt/durapps/spark-store/lib/libc.so*
