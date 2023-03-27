@@ -6,7 +6,7 @@ script_dir=$(cd $(dirname $0);pwd)
 CURDIR=$(dirname $script_dir)
 
 mkdir -p $CURDIR/debian/spark-store/opt/durapps/spark-store/lddpath
-so_list=$(ldd $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store | awk '{if (match($3, "/")){ print $3}}' )
+so_list=$(ldd $CURDIR/debian/spark-store/opt/durapps/spark-store/bin/spark-store | awk '{if (match($3, "/")){ print $3}}' | grep dtk)
 
 cp -L -n $so_list $CURDIR/debian/spark-store/opt/durapps/spark-store/lddpath
 
