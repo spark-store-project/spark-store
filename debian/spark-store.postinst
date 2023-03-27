@@ -24,7 +24,7 @@ case "$1" in
 		mkdir -p /usr/local/bin
 
 		# Create symbol links for binary files
-		ln -s -f /opt/durapps/spark-store/spark-store-app.sh /usr/local/bin/spark-store
+		ln -s -f /opt/durapps/spark-store/bin/spark-store-app.sh /usr/local/bin/spark-store
 		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
 		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/local/bin/ssaudit
 		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
