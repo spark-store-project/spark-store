@@ -565,8 +565,8 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="143"/>
-        <source>Take effect when restart</source>
-        <translation>重启商店后生效</translation>
+        <source>Take effect immediately</source>
+        <translation>设置后立即生效</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="185"/>
