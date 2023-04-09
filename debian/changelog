@@ -1,3 +1,9 @@
+spark-store (4.2.5) stable; urgency=medium
+  * 修复：ssinstall在文件不存在时仍然报安装成功
+  * 修复：删除不再需要的依赖：libc6-dev
+  
+ -- shenmo <shenmo@spark-app.store> 
+
 spark-store (4.2.4) stable; urgency=medium
   * 修复：ssinstall校验失败的时候仍然提示安装成功
   * 新增：ssinstall可以自动刷新ssupdate以防止仓库更新中导致的安装校验失败
