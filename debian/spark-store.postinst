@@ -10,7 +10,7 @@ case "$1" in
 		;;
         aarch64)
         echo "Enabling armhf arch..."
-        sudo dpkg --add-architecture armhf
+        dpkg --add-architecture armhf
         ;;
  		*)
 		echo "Unknown architecture, skip enable 32-bit arch"
