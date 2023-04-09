@@ -8,8 +8,12 @@ case "$1" in
 		echo "Enabling i386 arch..."
 		dpkg --add-architecture i386
 		;;
+        aarch64)
+        echo "Enabling armhf arch..."
+        sudo dpkg --add-architecture armhf
+        ;;
  		*)
-		echo "Not amd64, skip enable i386 arch"
+		echo "Unknown architecture, skip enable 32-bit arch"
 		;;
 		esac
 
