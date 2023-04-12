@@ -1,6 +1,7 @@
 spark-store (4.2.5) stable; urgency=medium
   * 修复：ssinstall在文件不存在时仍然报安装成功
   * 修复：删除不再需要的依赖：libc6-dev
+  * 在aarch64架构安装时也启用32位支持
   
  -- shenmo <shenmo@spark-app.store> 
 
