@@ -565,7 +565,7 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="143"/>
-        <source>Take effect when restart</source>
+        <source>Take effect immediately</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

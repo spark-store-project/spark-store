@@ -42,7 +42,6 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  aria2,
  gcc,
  zenity,
- libc6-dev,
  policykit-1,
  libnotify-bin
 Description: Spark Store

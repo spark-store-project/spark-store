@@ -76,18 +76,21 @@ IS_MD5SUM_CHECKD=`cat $PACKAGES_DATA_PATH | grep $DEB_MD5SUM`
 if [ $# -eq 0 ];then
 echo "没有接收到参数，退出"
 echo "用法：$0 deb路径"
+echo "OMG-IT-GOES-WRONG"
 exit
 fi
 
 if [ ! -f "$1" ]
 then
 	echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST}"
+    echo "OMG-IT-GOES-WRONG"
 	exit 1
 fi
 
 if [ "$(id -u)" != "0" ];then
 #############################无root权限时
 echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
+echo "OMG-IT-GOES-WRONG"
 exit 1
 fi
 
