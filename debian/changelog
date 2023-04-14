@@ -1,3 +1,10 @@
+spark-store (4.2.5.1) stable; urgency=medium
+  * 调整：重写了spark-dstore-patch，速度提升，尤其对机械硬盘下
+  * 调整：优化了aptss源文件同步策略
+  
+ -- shenmo <shenmo@spark-app.store> 
+
+
 spark-store (4.2.5) stable; urgency=medium
   * 修复：ssinstall在文件不存在时仍然报安装成功
   * 修复：删除不再需要的依赖：libc6-dev
