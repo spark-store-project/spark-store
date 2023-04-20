@@ -93,5 +93,5 @@ update-desktop-database -q > /dev/null 2>&1 &
 update-mime-database -V /usr/share/mime > /dev/null 2>&1 &
 glib-compile-schemas /usr/share/glib-2.0/schemas/ > /dev/null 2>&1 & 
 
-
+wait
 echo "----------------Finished----------------"
