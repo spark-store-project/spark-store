@@ -74,7 +74,24 @@ for app in $(enumAppInfoList); do
 # remove broken links in /usr/share
 
 done
-find /usr/share -xtype l -delete
-find /etc/fonts/conf.d -xtype l -delete
 
+find /usr/share/applications -xtype l -delete &
+find /usr/share/icons -xtype l -delete &
+find /usr/share/mime/packages -xtype l -delete &
+find /usr/share/glib-2.0 -xtype l -delete &
+find /usr/share/dbus-1/services -xtype l -delete &
+find /usr/share/fcitx -xtype l -delete &
+find /usr/share/help -xtype l -delete &
+find /usr/share/locale -xtype l -delete &
+find /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/fcitx -xtype l -delete &
+find /usr/lib/mozilla/plugins -xtype l -delete &
+find /usr/share/polkit-1/actions -xtype l -delete &
+find /usr/share/polkit-1/fonts -xtype l -delete &
+find /etc/fonts/conf.d -xtype l -delete &
+update-icon-caches /usr/share/icons/* &
+update-desktop-database -q &
+update-mime-database -V /usr/share/mime &
+glib-compile-schemas /usr/share/glib-2.0/schemas/ &
+
+wait
 echo "----------------Finished----------------"
