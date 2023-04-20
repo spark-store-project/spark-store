@@ -76,31 +76,49 @@ done
 wait
 
 if [ "$1" = "--debug" ]; then
-    echo "Cleaning links..."
+    echo "Cleaning links and updating databases and caches..."
 fi
 
-
-find /usr/share/applications -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/icons -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/mime/packages -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/glib-2.0 -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/dbus-1/services -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/fcitx -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/help -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/locale -xtype l -delete > /dev/null 2>&1 &
-find /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/fcitx -xtype l -delete > /dev/null 2>&1 &
-find /usr/lib/mozilla/plugins -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/polkit-1/actions -xtype l -delete > /dev/null 2>&1 &
-find /usr/share/fonts -xtype l -delete > /dev/null 2>&1 &
-find /etc/fonts/conf.d -xtype l -delete > /dev/null 2>&1 &
-update-icon-caches /usr/share/icons/* > /dev/null 2>&1 &
-update-desktop-database -q > /dev/null 2>&1 &
-update-mime-database -V /usr/share/mime > /dev/null 2>&1 &
-glib-compile-schemas /usr/share/glib-2.0/schemas/ > /dev/null 2>&1 & 
 
 if [ "$1" = "--debug" ]; then
+    find /usr/share/applications -xtype l -delete &
+    find /usr/share/icons -xtype l -delete &
+    find /usr/share/mime/packages -xtype l -delete &
+    find /usr/share/glib-2.0 -xtype l -delete &
+    find /usr/share/dbus-1/services -xtype l -delete &
+    find /usr/share/fcitx -xtype l -delete &
+    find /usr/share/help -xtype l -delete &
+    find /usr/share/locale -xtype l -delete &
+    find /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/fcitx -xtype l -delete &
+    find /usr/lib/mozilla/plugins -xtype l -delete &
+    find /usr/share/polkit-1/actions -xtype l -delete &
+    find /usr/share/fonts -xtype l -delete &
+    find /etc/fonts/conf.d -xtype l -delete &
+    update-icon-caches /usr/share/icons/* &
+    update-desktop-database -q &
+    update-mime-database -V /usr/share/mime &
+    glib-compile-schemas /usr/share/glib-2.0/schemas/ &
     wait
+else
+    find /usr/share/applications -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/icons -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/mime/packages -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/glib-2.0 -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/dbus-1/services -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/fcitx -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/help -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/locale -xtype l -delete > /dev/null 2>&1 &
+    find /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/fcitx -xtype l -delete > /dev/null 2>&1 &
+    find /usr/lib/mozilla/plugins -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/polkit-1/actions -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/fonts -xtype l -delete > /dev/null 2>&1 &
+    find /etc/fonts/conf.d -xtype l -delete > /dev/null 2>&1 &
+    update-icon-caches /usr/share/icons/* > /dev/null 2>&1 &
+    update-desktop-database -q > /dev/null 2>&1 &
+    update-mime-database -V /usr/share/mime > /dev/null 2>&1 &
+    glib-compile-schemas /usr/share/glib-2.0/schemas/ > /dev/null 2>&1 &
 fi
+
 
 
 echo "----------------Finished----------------"
