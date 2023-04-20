@@ -75,6 +75,11 @@ for app in $(enumAppInfoList); do
 done
 wait
 
+if [ "$1" = "--debug" ]; then
+    echo "Cleaning links..."
+fi
+
+
 find /usr/share/applications -xtype l -delete > /dev/null 2>&1 &
 find /usr/share/icons -xtype l -delete > /dev/null 2>&1 &
 find /usr/share/mime/packages -xtype l -delete > /dev/null 2>&1 &
@@ -93,5 +98,9 @@ update-desktop-database -q > /dev/null 2>&1 &
 update-mime-database -V /usr/share/mime > /dev/null 2>&1 &
 glib-compile-schemas /usr/share/glib-2.0/schemas/ > /dev/null 2>&1 & 
 
-wait
+if [ "$1" = "--debug" ]; then
+    wait
+fi
+
+
 echo "----------------Finished----------------"
