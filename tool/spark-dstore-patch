@@ -86,12 +86,12 @@ find /usr/share/locale -xtype l -delete &
 find /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/fcitx -xtype l -delete &
 find /usr/lib/mozilla/plugins -xtype l -delete &
 find /usr/share/polkit-1/actions -xtype l -delete &
-find /usr/share/polkit-1/fonts -xtype l -delete &
+find /usr/share/fonts -xtype l -delete &
 find /etc/fonts/conf.d -xtype l -delete &
 update-icon-caches /usr/share/icons/* &
 update-desktop-database -q &
 update-mime-database -V /usr/share/mime &
 glib-compile-schemas /usr/share/glib-2.0/schemas/ &
 
-wait
+
 echo "----------------Finished----------------"
