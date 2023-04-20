@@ -66,14 +66,14 @@ linkApp() {
 
 # execute linkApp function for each app and print output
 for app in $(enumAppInfoList); do
-    linkApp "$app"
+    linkApp "$app" &
 
     if [ "$1" = "--debug" ]; then
-        echo "Linking complete for $app"
+        echo "Linking for $app"
     fi
 # remove broken links in /usr/share
-
 done
+wait
 
 find /usr/share/applications -xtype l -delete > /dev/null 2>&1 &
 find /usr/share/icons -xtype l -delete > /dev/null 2>&1 &
