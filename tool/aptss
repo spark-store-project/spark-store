@@ -28,19 +28,10 @@ echo "${TRANSHELL_CONTENT_RUNNING_IN_NOT_ROOT_USER}"
 
 else
 
-if is_empty_dir /etc/apt/sources.list.d/ ;then
-echo "${TRANSHELL_CONTENT_INFO_SOURCES_LIST_D_IS_EMPTY}"
-else
+
 ln -sf /etc/apt/sources.list.d/* /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d
 ###让这里和系统同步，先链接，然后清除无效链接
-for a in `find /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d -type l`  
-    do  
-        stat -L $a >/dev/null 2>/dev/null  
-        if [ $? -gt 0 ];then  
-          rm $a  
-        fi  
-    done 
-fi
+find /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d -xtype l -delete
 
 fi
 

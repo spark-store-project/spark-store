@@ -40,7 +40,7 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  openssl,
  dde-qt5integration,
  aria2,
- gcc,
+ gnupg,
  zenity,
  policykit-1,
  libnotify-bin
