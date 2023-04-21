@@ -199,24 +199,20 @@ void AppIntoPage::clear()
     ui->tag_community->hide();
     ui->icon->clear();
     ui->title->clear();
+    ui->version->clear();
     ui->author->clear();
+    ui->d_author->clear();
+    ui->d_size->clear();
+    ui->d_update->clear();
+    ui->d_pkgname->clear();
+    ui->d_website->clear();
+    ui->d_contributor->clear();
     ui->label_2->clear();
     ui->downloadButton->hide();
     ui->downloadButton->setEnabled(false);
     ui->pushButton_3->hide();
 
-    //    QListWidgetItem *item = nullptr;
-    //    while ((item = ui->listWidget->takeItem(0)) != nullptr)
-    //    {
-    //        QWidget *card = ui->listWidget->itemWidget(item);
-    //        if (card)
-    //        {
-    //            card->deleteLater();
-    //            card = nullptr;
-    //        }
-    //        delete item;
-    //        item = nullptr;
-    //    }
+
 
     ui->listWidget->clear(); // NOTE: QListWidget::clear() 会析构所有 items
 }
