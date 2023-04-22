@@ -1,3 +1,9 @@
+spark-store (4.2.6) stable; urgency=medium
+  * 修复：截图加载失败时点击闪退
+  
+ -- shenmo <shenmo@spark-app.store> 
+
+
 spark-store (4.2.5.1) stable; urgency=medium
   * 调整：重写了spark-dstore-patch，速度提升，尤其对机械硬盘下
   * 调整：优化了aptss源文件同步策略
