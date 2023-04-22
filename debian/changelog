@@ -1,3 +1,9 @@
+spark-store (4.2.6.1) stable; urgency=medium
+  * 修复：mint下更新检测不正常
+  
+ -- shenmo <shenmo@spark-app.store> 
+
+
 spark-store (4.2.6) stable; urgency=medium
   * 修复：截图加载失败时点击闪退
   
