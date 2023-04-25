@@ -40,30 +40,24 @@ void AppListPage::getAppList(QString type)
     if (isDark)
     {
         theme = "theme=dark";
-    #ifdef __aarch64__
-        theme = "dark";
-    #endif
     }
     else
     {
         theme = "theme=light";
-    #ifdef __aarch64__
-        theme = "";
-    #endif
     }
     if (type == "")
     {
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme;
-    #ifdef __aarch64__
-        url = api->getServerUrl() + "aarch64-store/#/"+ theme;
-    #endif
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=x86";
+        #ifdef __aarch64__
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=aarch64";
+        #endif
     }
     else
     {
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme;
-    #ifdef __aarch64__
-        url = api->getServerUrl() + "aarch64-store/#/"+ theme + type;
-    #endif
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=x86";
+        #ifdef __aarch64__
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=aarch64";
+        #endif
     }
 
     ui->webEngineView->setUrl(url);
@@ -85,7 +79,11 @@ void AppListPage::getSearchList(const QString &keyword)
     {
         theme = "theme=light";
     }
-    url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme;
+
+    url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=x86";
+    #ifdef __aarch64__
+    url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=aarch64";
+    #endif
     ui->webEngineView->setUrl(url);
     delete api;
 }
