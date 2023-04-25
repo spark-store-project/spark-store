@@ -47,11 +47,17 @@ void AppListPage::getAppList(QString type)
     }
     if (type == "")
     {
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme;
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=x86";
+        #ifdef __aarch64__
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=aarch64";
+        #endif
     }
     else
     {
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme;
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=x86";
+        #ifdef __aarch64__
+        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=aarch64";
+        #endif
     }
 
     ui->webEngineView->setUrl(url);
