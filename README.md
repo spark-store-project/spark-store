@@ -67,7 +67,9 @@ git clone https://gitee.com/deepin-community-store/spark-store.git
 cd spark-store
 ./build_and_install.sh
 ```
+## EULA
 
+This is our [EULA](https://genshin-impact.fandom.com/wiki/Eula)
 
 
 ## 🚀 Coorperation
