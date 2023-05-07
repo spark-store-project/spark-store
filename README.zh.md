@@ -65,6 +65,10 @@ cd spark-store
 ./build_and_install.sh
 ```
 
+## EULA
+
+这里是我们的[EULA](https://mzh.moegirl.org.cn/%E4%BC%98%E8%8F%88%C2%B7%E5%8A%B3%E4%BC%A6%E6%96%AF)
+
 
 ## 🚀 协作
 
