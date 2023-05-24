@@ -19,6 +19,8 @@ echo "Spark Store Install script.星火商店安装脚本"
 
 function pkexec_as_current_user() {
 
+    #Detect the user using such display
+    local user=$(who  | awk '{print $1}' | head -n 1)
     #Detect the id of the user
     local uid=$(id -u $user)
 
