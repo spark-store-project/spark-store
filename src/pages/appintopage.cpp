@@ -196,6 +196,7 @@ void AppIntoPage::clear()
     ui->tag_dwine2->hide();
     ui->tag_dwine5->hide();
     ui->tag_ubuntu->hide();
+    ui->tag_lingmo->hide();
     ui->tag_community->hide();
     ui->icon->clear();
     ui->title->clear();
@@ -334,6 +335,7 @@ void AppIntoPage::isDownloading(const QUrl &url)
 void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 {
     bool ubuntuSupport = false;
+    bool lingmoSupport = false;
     bool deepinSupport = false;
     bool uosSupport = false;
     foreach (const QString &tag, tagList)
@@ -346,6 +348,11 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
         {
             ui->tag_ubuntu->show();
             ubuntuSupport = true;
+        }
+        else if (tag == "lingmo")
+        {
+            ui->tag_lingmo->show();
+            lingmoSupport = true;
         }
         else if (tag == "deepin")
         {
@@ -375,15 +382,33 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
             ui->tag_a2d->show();
         }
     }
-    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport);
+    notifyUserUnsupportedTags(ubuntuSupport, lingmoSupport, deepinSupport, uosSupport);
 }
 
-void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
+void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool lingmoSupport, bool deepinSupport, bool uosSupport)
 {
     bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
     bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
     bool checkdeepin = (isDeepin && !deepinSupport);
     bool checkuos = (isUOS && !uosSupport);
+    bool isLingmo = false;
+    if (!checkdeepin && !checkuos)
+    {
+        // 检查是否为 Lingmo OS
+        QFile lsb("/etc/lsb-release");
+        //由于LingmoOS没有lsb-release，所以创建一个lsb，只供星火商店检测。
+        if (!lsb.open(QIODevice::ReadOnly))
+        {
+            qDebug() << "打开 /etc/lsb-release 失败";
+        }
+        else if (lsb.readAll().contains("Lingmo"))
+        {
+            isLingmo = true;
+            lsb.close();
+        }
+    }
+    bool checklingmo = (isLingmo && !lingmoSupport);
+
     bool isUbuntu = false;
     if (!checkdeepin && !checkuos)
     {
@@ -413,7 +438,11 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
     }
-    else if (!isUbuntu && !isDeepin && !isUOS)
+    else if (checklingmo)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support LingmoOS, there may be problems"));
+    }
+    else if (!isUbuntu && !isLingmo && !isDeepin && !isUOS)
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
     }
