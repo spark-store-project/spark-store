@@ -85,8 +85,6 @@ QString tags=json["Tags"].toString(); //Read the Tags
                 ui->tag_community->show();//Tags icon shows like this
             if(tagList[i]=="ubuntu")
                 ui->tag_ubuntu->show();
-            if(tagList[i]=="ubuntu")
-                ui->tag_ubuntu->show();
             if(tagList[i]=="deepin")
                 ui->tag_deepin->show();
             if(tagList[i]=="uos")
