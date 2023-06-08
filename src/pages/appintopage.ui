@@ -437,7 +437,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_lingmo">
+            <widget class="QLabel" name="tag_ubuntu">
              <property name="maximumSize">
               <size>
                <width>30</width>

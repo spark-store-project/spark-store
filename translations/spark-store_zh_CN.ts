@@ -47,12 +47,12 @@
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/ubuntu-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="448"/>
-        <Location filename="../src/pages/appintopage.ui" line="451"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Lingmo OS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持 Lingmo OS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
+    // <message>
+    //     <location filename="../src/pages/appintopage.ui" line="448"/>
+    //     <Location filename="../src/pages/appintopage.ui" line="451"/>
+    //     <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Lingmo OS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+    //     <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持 Lingmo OS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    // </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="448"/>
         <location filename="../src/pages/appintopage.ui" line="451"/>
