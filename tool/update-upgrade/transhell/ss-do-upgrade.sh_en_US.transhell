@@ -1,6 +1,6 @@
 #!/bin/bash
 TRANSHELL_CONTENT_UPDATE_CHEKING_PLEASE_WAIT="Checking for update, please wait..."
-TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL="Spark Store APP Upgrade model"
+TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL="Spark Store APP Upgrade module"
 TRANSHELL_CONTENT_CHECK_UPDATE_PROCESS_ERROR_PRESS_CONFIRM_TO_CHECK="Error occured in checking for update! Press Confirm to get the error log (Can be useful when feedback)"
 TRANSHELL_CONTENT_I_ALREDY_COPIED_THE_LOG_HERE_AND_WILL_USE_IT_TO_FEEDBACK="I already copied the log in the text box and I will attach it when feeding back. You can find feedback entry in the settings which is located in the top right of the store."
 TRANSHELL_CONTENT_FEEDBACK_CAN_BE_FOUND_IN_THE_SETTINGS="Feedback entry in the settings which is located in the top right of the store"
