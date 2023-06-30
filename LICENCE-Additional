@@ -1,0 +1,30 @@
+星火开源软件协议（Spark Opensource LICENSE）
+
+版权所有 (C) 2023 星火社区
+
+根据 GNU 通用公共许可证第三版（GPL v3），本软件是自由软件，您可以修改和再发布它。但是，为了维护原作者的权益并保护社区用户的权益，请遵守以下条款：
+
+1. 对本仓库下的所有文件生效：本许可证适用于本仓库（或项目）下的所有文件。任何使用、修改或再发布本软件的个人或组织都必须遵守本许可证。
+2. 版权声明和许可证文件：您不得移除、隐藏或更改本软件中包含的原作者的版权声明和许可证文件。保留原作者的权益信息对于维护开源软件生态系统至关重要。
+3. 版本标注：如果您对本软件做出修改并再发布，您必须在醒目位置标注此版本并非星火社区官方提供。这样可以避免误导使用者认为该软件为星火社区官方提供的版本。
+4. 商标使用：您不得在再发布版本中使用“星火应用商店”、“Spark Store”或星火应用商店的Logo等可能误导使用者此软件由星火社区官方提供的信息。
+5. 其他条款：除上述约定外，您应遵守 GPL v3 的所有其他条款和要求。
+
+GPLV3许可证的完整文本可以在以下链接找到：https://gitee.com/deepin-community-store/spark-store/blob/dev/LICENSE
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Spark Opensource LICENSE
+
+Copyright (C) 2023 The Spark Community
+
+This software is free software; you can modify and redistribute it under the terms of the GNU General Public License version 3 (GPL v3). However, to protect the rights of the original authors and the interests of the community users, please adhere to the following terms:
+
+1. Applicability to all files in this repository: This license applies to all files in this repository (or project). Any individuals or organizations that use, modify, or redistribute this software must comply with this license.
+2. Copyright notice and license files: You must not remove, hide, or modify the copyright notice and license files of the original authors included in this software. Preserving the rights information of the original authors is essential for maintaining the open-source software ecosystem.
+3. Version annotation: If you modify this software and redistribute it, you must prominently annotate that this version is not provided by the Spark community officially. This is to avoid misleading users into believing that the software is provided by the official Spark community.
+4. Trademark usage: You are not allowed to use terms such as "Spark App Store," "Spark Store," or the logo of Spark App Store in redistributed versions, as they may mislead users into believing that the software is provided by the official Spark community.
+5. Additional terms: Apart from the above provisions, you must comply with all other terms and requirements of GPL v3.
+
+You can find the full text of GPLV3 license at: https://gitee.com/deepin-community-store/spark-store/blob/dev/LICENSE
