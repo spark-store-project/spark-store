@@ -10,8 +10,7 @@
 4. 商标使用：您不得在再发布版本中使用“星火应用商店”、“Spark Store”或星火应用商店的Logo等可能误导使用者此软件由星火社区官方提供的信息。
 5. 其他条款：除上述约定外，您应遵守 GPL v3 的所有其他条款和要求。
 
-GPLV3许可证的完整文本可以在以下链接找到：https://gitee.com/deepin-community-store/spark-store/blob/dev/LICENSE
-
+GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/licenses/gpl-3.0.html
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -27,4 +26,4 @@ This software is free software; you can modify and redistribute it under the ter
 4. Trademark usage: You are not allowed to use terms such as "Spark App Store," "Spark Store," or the logo of Spark App Store in redistributed versions, as they may mislead users into believing that the software is provided by the official Spark community.
 5. Additional terms: Apart from the above provisions, you must comply with all other terms and requirements of GPL v3.
 
-You can find the full text of GPLV3 license at: https://gitee.com/deepin-community-store/spark-store/blob/dev/LICENSE
+You can find the full text of GPLV3 license at: https://www.gnu.org/licenses/gpl-3.0.html
