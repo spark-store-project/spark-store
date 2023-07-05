@@ -1,9 +1,9 @@
 #  Spark App Store
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
-## Branch: Reason
+## Branch: Flamescion
 
-This branch is for aarch64-store support
+This branch is the main branch of Spark Store
 
 ---
 ## You are informed that the aarch64 support is EXPERIMENTAL and there is NO GUARANTEE that this branch will be supported in the future
@@ -34,7 +34,7 @@ If you want to submit an APP to share with others，Please [Click here](https://
 
 If you simply want to install the Spark Store,just enter the  [Release] page, find the version you want and install.
 
-If you are using Debian11/Ubuntu 20.04, you will need extra dependency package. Available [here](https://code.gitlink.org.cn/shenmo7192/spark-store-dependencies/raw/branch/master/spark-store-dependencies-kylin.zip)
+If you are using Debian11/Ubuntu 20.04, you will need extra dependency package. Available [here](https://zunyun01.store.deepinos.org.cn/spark-store-dependencies-kylin.zip)
 
 ---
 #### Compile and developement
@@ -67,7 +67,9 @@ git clone https://gitee.com/deepin-community-store/spark-store.git
 cd spark-store
 ./build_and_install.sh
 ```
+## EULA
 
+This is our [EULA](https://genshin-impact.fandom.com/wiki/Eula)
 
 
 ## 🚀 Coorperation
@@ -76,12 +78,10 @@ We use Gitee as our code hosting platform. Please click here to contact us.
 
 https://gitee.com/deepin-community-store/spark-store
 
-### Rocket Chat
+### Forum
 
-https://chat.shenmo.tech/
+https://www.deepinos.org/
 
-PWA Client：
+#### QQ Group
 
-spk://store/chat/store.spark-app.feedback
-
-（Copy and paste to search bar or in browser address bar after installing Spark Store）
+https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/

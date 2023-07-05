@@ -1,0 +1,46 @@
+version: '1.0'
+name: pipeline-dtk-build-aarch64
+displayName: dtk-build-aarch64
+triggers:
+  trigger: manual
+  push:
+    tags:
+      prefix:
+        - ''
+stages:
+  - name: stage-2c12cce1
+    displayName: 编译
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: execute@docker
+        name: execute_by_docker
+        displayName: 基于镜像的脚本执行
+        certificate: ''
+        image: docker.io/debian:buster
+        command:
+          - '# 请在此输入您想执行的脚本'
+          - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+          - apt update
+          - export DEBIAN_FRONTEND=noninteractive
+          - echo "安装wget qemu-user-static"
+          - apt install wget qemu-user-static xz-utils -y
+          - mkdir ../spark-store-git
+          - mv * ../spark-store-git
+          - wget https://code.gitlink.org.cn/shenmo7192/debian-container-aarch64/raw/branch/master/DEBIANARM.tar.xz
+          - tar -xf DEBIANARM.tar.xz
+          - mkdir -p DEBIAN/root/build-spark
+          - mv ../spark-store-git DEBIAN/root/build-spark/spark-store
+          - wget https://gitee.com/deepin-community-store/repo_auto_update_script/raw/master/spark-build-aarch64.sh && mv spark-build-aarch64.sh DEBIAN/root
+          - mv /usr/bin/qemu-aarch64-static DEBIAN/
+          - chroot DEBIAN /qemu-aarch64-static /bin/bash /root/spark-build-aarch64.sh
+          - ''
+          - ''
+        artifacts:
+          - name: BUILD_ARTIFACT
+            path:
+              - ./DEBIAN/root/build-spark/target
+        notify: []
+        strategy:
+          retry: '0'

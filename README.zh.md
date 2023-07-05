@@ -1,9 +1,9 @@
 #  星火应用商店
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
-## 分支：原理
+## 分支：火穗
 
-此分支用于aarch64-store支持
+此分支是星火应用商店的主分支
 
 ---
 ## 请注意，aarch64的支持是实验性的，并未确认持续支持！
@@ -32,7 +32,7 @@
 
 如果想安装 `星火应用商店` ，请打开右侧的 [Release] 页面，找到最新版本，并选择适用于当前系统的安装包下载。
 
-如果你在使用 `Debian 11/Ubuntu 20.04`，你需要额外下载[依赖补充包](https://code.gitlink.org.cn/shenmo7192/spark-store-dependencies/raw/branch/master/spark-store-dependencies-kylin.zip)
+如果你在使用 `Debian 11/Ubuntu 20.04`，你需要额外下载[依赖补充包](https://zunyun01.store.deepinos.org.cn/spark-store-dependencies-kylin.zip)
 
 ---
 #### 编译安装
@@ -65,17 +65,19 @@ cd spark-store
 ./build_and_install.sh
 ```
 
+## EULA
+
+这里是我们的[EULA](https://mzh.moegirl.org.cn/%E4%BC%98%E8%8F%88%C2%B7%E5%8A%B3%E4%BC%A6%E6%96%AF)
+
 
 ## 🚀 协作
 
 非常感谢有兴趣的开发者或爱好者参与 `星火应用商店` 项目，分享你的见解与思路。
 
-### 交流平台
+### 论坛
 
-https://chat.shenmo.tech/
+https://www.deepinos.org/
 
-客户端PWA：
+#### QQ群：
 
-spk://store/chat/store.spark-app.feedback
-
-（安装星火商店后在浏览器打开或复制到搜索栏打开）
+https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/

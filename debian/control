@@ -40,9 +40,8 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  openssl,
  dde-qt5integration,
  aria2,
- gcc,
+ gnupg,
  zenity,
- libc6-dev,
  policykit-1,
  libnotify-bin
 Description: Spark Store

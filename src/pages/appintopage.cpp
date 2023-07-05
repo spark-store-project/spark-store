@@ -58,8 +58,9 @@ void AppIntoPage::openUrl(const QUrl &url)
         // 获取图标
         QNetworkRequest request;
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        qDebug() << api->getImgServerUrl() + SparkAPI::getArchDir() + url.path() + "/icon.png";
-        request.setUrl(QUrl(api->getImgServerUrl() + SparkAPI::getArchDir() + url.path() + "/icon.png"));
+        QString pkgUrlBase = api->getImgServerUrl() + SparkAPI::getArchDir() + url.path();
+        qDebug() << "Icon URL: " << pkgUrlBase + "/icon.png";
+        request.setUrl(QUrl(pkgUrlBase + "/icon.png"));
         request.setRawHeader("User-Agent", "Mozilla/5.0");
         request.setRawHeader("Content-Type", "charset='utf-8'");
         manager->get(request);
@@ -74,20 +75,13 @@ void AppIntoPage::openUrl(const QUrl &url)
                 manager->deleteLater(); });
 
         // 获取截图
-        QJsonParseError error;
-        QJsonArray array = QJsonDocument::fromJson(info.value("img_urls").toString().toUtf8(), &error).array();
-        QStringList imglist;
-        foreach (const QJsonValue &value, array) {
-            QString imgUrl = value.toString();
-            imglist.append(imgUrl);
-        }
-        qDebug() << imglist;
 
-        for (int i = 0; i < imglist.size(); i++)
+        for (int i = 0; i < 5 /* 魔法数字，最多五个截图 */; i++)
         {
+            QString imgUrl = pkgUrlBase + "/screen_" + QString::number(i + 1) + ".png";
             QNetworkRequest request;
             QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-            request.setUrl(QUrl(imglist.value(i)));
+            request.setUrl(QUrl(imgUrl));
             request.setRawHeader("User-Agent", "Mozilla/5.0");
             request.setRawHeader("Content-Type", "charset='utf-8'");
             manager->get(request);
@@ -95,17 +89,21 @@ void AppIntoPage::openUrl(const QUrl &url)
                 {
                     QByteArray jpegData = reply->readAll();
                     QPixmap pixmap;
-                    pixmap.loadFromData(jpegData);
-                    pixmap.scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-                    image_show *img=new image_show(this);
-                    img->setImage(pixmap);
-                    //img->setScaledContents(true);
-                    QListWidgetItem* pItem = new QListWidgetItem();
-                    pItem->setSizeHint(QSize(280, 200));
-                    ui->listWidget->addItem(pItem);
-                    ui->listWidget->setItemWidget(pItem, img);
+                    if (pixmap.loadFromData(jpegData))
+                    {
+                        pixmap.scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+                        image_show *img = new image_show(this);
+                        img->setImage(pixmap);
+                        // img->setScaledContents(true);
+                        QListWidgetItem *pItem = new QListWidgetItem();
+                        pItem->setSizeHint(QSize(280, 200));
+                        ui->listWidget->addItem(pItem);
+                        ui->listWidget->setItemWidget(pItem, img);
+                        qDebug() << imgUrl;
+                    }
 
-                    manager->deleteLater(); });
+                    manager->deleteLater(); 
+                });
         }
 
         // Check UOS
@@ -201,24 +199,20 @@ void AppIntoPage::clear()
     ui->tag_community->hide();
     ui->icon->clear();
     ui->title->clear();
+    ui->version->clear();
     ui->author->clear();
+    ui->d_author->clear();
+    ui->d_size->clear();
+    ui->d_update->clear();
+    ui->d_pkgname->clear();
+    ui->d_website->clear();
+    ui->d_contributor->clear();
     ui->label_2->clear();
     ui->downloadButton->hide();
     ui->downloadButton->setEnabled(false);
     ui->pushButton_3->hide();
 
-    //    QListWidgetItem *item = nullptr;
-    //    while ((item = ui->listWidget->takeItem(0)) != nullptr)
-    //    {
-    //        QWidget *card = ui->listWidget->itemWidget(item);
-    //        if (card)
-    //        {
-    //            card->deleteLater();
-    //            card = nullptr;
-    //        }
-    //        delete item;
-    //        item = nullptr;
-    //    }
+
 
     ui->listWidget->clear(); // NOTE: QListWidget::clear() 会析构所有 items
 }
@@ -386,8 +380,10 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
 {
-    bool checkdeepin = (Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin && !deepinSupport);
-    bool checkuos = (Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos && !uosSupport);
+    bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
+    bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
+    bool checkdeepin = (isDeepin && !deepinSupport);
+    bool checkuos = (isUOS && !uosSupport);
     bool isUbuntu = false;
     if (!checkdeepin && !checkuos)
     {
@@ -417,7 +413,7 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
     }
-    else if (!isUbuntu)
+    else if (!isUbuntu && !isDeepin && !isUOS)
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
     }

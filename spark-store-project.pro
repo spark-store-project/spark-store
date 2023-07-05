@@ -11,7 +11,6 @@ TEMPLATE = subdirs
 CONFIG += wayland-compositor
 
 SUBDIRS += \
-        src/spark-dstore-patch \
         src/spark-store.pro
 
 # https://wiki.debian.org/Hardening

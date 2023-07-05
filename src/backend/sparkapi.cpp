@@ -7,6 +7,7 @@
 QString SparkAPI::serverUrl = "";
 #ifdef __x86_64__
     QString SparkAPI::serverUrlDir = "store";
+
 #elif __aarch64__
     QString SparkAPI::serverUrlDir = "aarch64-store";
 #endif

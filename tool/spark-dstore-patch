@@ -1,0 +1,124 @@
+#!/bin/bash
+
+echo "----------------Running Spark DStore Patch----------------"
+#!/bin/bash
+
+
+enumAppInfoList() {
+    appInfoList=()
+    apps="/opt/apps"
+    list=$(ls $apps)
+    for appID in $list; do
+        appInfoList+=("$appID")
+    done
+    echo "${appInfoList[@]}"
+}
+linkDir() {
+    ensureTargetDir() {
+        targetFile=$1
+        t=$(dirname "$targetFile")
+        mkdir -p "$t"
+    }
+
+    source=$1
+    target=$2
+    sourceDir=$(dirname "$source")
+    targetDir=$(dirname "$target")
+    find "$source" -type f | while read sourceFile; do
+        targetFile="$targetDir/${sourceFile#$sourceDir/}"
+        if [ -L "$targetFile" ] && [ "$(readlink "$targetFile")" = "$sourceFile" ]; then
+            continue
+        else
+            rm -f "$targetFile"
+        fi
+
+        ensureTargetDir "$targetFile"
+        ln -s "$sourceFile" "$targetFile"
+    done
+}
+
+linkApp() {
+    appID=$1
+    appEntriesDir="/opt/apps/$appID/entries"
+    appLibsDir="/opt/apps/$appID/files/lib"
+    autoStartDir="$appEntriesDir/autostart"
+
+    if [ -d "$autoStartDir" ]; then
+        linkDir "$autoStartDir" "/etc/xdg/autostart"
+    fi
+
+    # link application
+    sysShareDir="/usr/share"
+    for folder in "$appEntriesDir/applications" "$appEntriesDir/icons" "$appEntriesDir/mime" "$appEntriesDir/glib-2.0" "$appEntriesDir/services" "$appEntriesDir/GConf" "$appEntriesDir/help" "$appEntriesDir/locale" "$appEntriesDir/fcitx"; do
+        if [ ! -d "$folder" ]; then
+            continue
+        fi
+        if [ "$folder" = "$appEntriesDir/polkit" ]; then
+            linkDir "$folder" "/usr/share/polkit-1"
+        elif [ "$folder" = "$appEntriesDir/fonts/conf" ]; then
+            linkDir "$folder" "/etc/fonts/conf.d"
+        else
+            linkDir "$folder" "$sysShareDir/${folder##*/}"
+        fi
+    done
+}
+
+
+# execute linkApp function for each app and print output
+for app in $(enumAppInfoList); do
+    linkApp "$app" &
+
+    if [ "$1" = "--debug" ]; then
+        echo "Linking for $app"
+    fi
+# remove broken links in /usr/share
+done
+wait
+
+if [ "$1" = "--debug" ]; then
+    echo "Cleaning links and updating databases and caches..."
+fi
+
+
+if [ "$1" = "--debug" ]; then
+    find /usr/share/applications -xtype l -delete &
+    find /usr/share/icons -xtype l -delete &
+    find /usr/share/mime/packages -xtype l -delete &
+    find /usr/share/glib-2.0 -xtype l -delete &
+    find /usr/share/dbus-1/services -xtype l -delete &
+    find /usr/share/fcitx -xtype l -delete &
+    find /usr/share/help -xtype l -delete &
+    find /usr/share/locale -xtype l -delete &
+    find /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/fcitx -xtype l -delete &
+    find /usr/lib/mozilla/plugins -xtype l -delete &
+    find /usr/share/polkit-1/actions -xtype l -delete &
+    find /usr/share/fonts -xtype l -delete &
+    find /etc/fonts/conf.d -xtype l -delete &
+    update-icon-caches /usr/share/icons/* &
+    update-desktop-database -q &
+    update-mime-database -V /usr/share/mime &
+    glib-compile-schemas /usr/share/glib-2.0/schemas/ &
+    wait
+else
+    find /usr/share/applications -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/icons -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/mime/packages -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/glib-2.0 -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/dbus-1/services -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/fcitx -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/help -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/locale -xtype l -delete > /dev/null 2>&1 &
+    find /usr/lib/`dpkg-architecture -qDEB_HOST_MULTIARCH`/fcitx -xtype l -delete > /dev/null 2>&1 &
+    find /usr/lib/mozilla/plugins -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/polkit-1/actions -xtype l -delete > /dev/null 2>&1 &
+    find /usr/share/fonts -xtype l -delete > /dev/null 2>&1 &
+    find /etc/fonts/conf.d -xtype l -delete > /dev/null 2>&1 &
+    update-icon-caches /usr/share/icons/* > /dev/null 2>&1 &
+    update-desktop-database -q > /dev/null 2>&1 &
+    update-mime-database -V /usr/share/mime > /dev/null 2>&1 &
+    glib-compile-schemas /usr/share/glib-2.0/schemas/ > /dev/null 2>&1 &
+fi
+
+
+
+echo "----------------Finished----------------"
