@@ -67,7 +67,9 @@ git clone https://gitee.com/deepin-community-store/spark-store.git
 cd spark-store
 ./build_and_install.sh
 ```
+## EULA
 
+This is our [EULA](https://genshin-impact.fandom.com/wiki/Eula)
 
 
 ## 🚀 Coorperation
@@ -76,12 +78,10 @@ We use Gitee as our code hosting platform. Please click here to contact us.
 
 https://gitee.com/deepin-community-store/spark-store
 
-### Rocket Chat
+### Forum
 
-https://chat.shenmo.tech/
+https://www.deepinos.org/
 
-PWA Client：
+#### QQ Group
 
-spk://store/chat/store.spark-app.feedback
-
-（Copy and paste to search bar or in browser address bar after installing Spark Store）
+https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/

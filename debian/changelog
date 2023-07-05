@@ -1,3 +1,10 @@
+spark-store (4.2.6.3) stable; urgency=medium
+  * 修复：部分下载统计线路失效
+  
+ -- shenmo <shenmo@spark-app.store> 
+
+
+
 spark-store (4.2.6.2) stable; urgency=medium
   * 新增：支持arm架构搜索
   

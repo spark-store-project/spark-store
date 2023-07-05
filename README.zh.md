@@ -65,17 +65,19 @@ cd spark-store
 ./build_and_install.sh
 ```
 
+## EULA
+
+这里是我们的[EULA](https://mzh.moegirl.org.cn/%E4%BC%98%E8%8F%88%C2%B7%E5%8A%B3%E4%BC%A6%E6%96%AF)
+
 
 ## 🚀 协作
 
 非常感谢有兴趣的开发者或爱好者参与 `星火应用商店` 项目，分享你的见解与思路。
 
-### 交流平台
+### 论坛
 
-https://chat.shenmo.tech/
+https://www.deepinos.org/
 
-客户端PWA：
+#### QQ群：
 
-spk://store/chat/store.spark-app.feedback
-
-（安装星火商店后在浏览器打开或复制到搜索栏打开）
+https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/
