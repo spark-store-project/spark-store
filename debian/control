@@ -43,6 +43,7 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  gnupg,
  zenity,
  policykit-1,
- libnotify-bin
+ libnotify-bin,
+ desktop-file-utils
 Description: Spark Store
  A community powered app store, based on DTK.
