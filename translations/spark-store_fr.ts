@@ -10,9 +10,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="176"/>
-        <location filename="../src/pages/appintopage.cpp" line="318"/>
-        <location filename="../src/pages/appintopage.cpp" line="484"/>
+        <location filename="../src/pages/appintopage.cpp" line="174"/>
+        <location filename="../src/pages/appintopage.cpp" line="312"/>
+        <location filename="../src/pages/appintopage.cpp" line="478"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -180,74 +180,74 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="115"/>
+        <location filename="../src/pages/appintopage.cpp" line="113"/>
         <source>Developer Mode Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="161"/>
-        <location filename="../src/pages/appintopage.cpp" line="334"/>
-        <location filename="../src/pages/appintopage.cpp" line="457"/>
+        <location filename="../src/pages/appintopage.cpp" line="159"/>
+        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="451"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="168"/>
+        <location filename="../src/pages/appintopage.cpp" line="166"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="323"/>
-        <location filename="../src/pages/appintopage.cpp" line="433"/>
+        <location filename="../src/pages/appintopage.cpp" line="317"/>
+        <location filename="../src/pages/appintopage.cpp" line="427"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="322"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="412"/>
-        <location filename="../src/pages/appintopage.cpp" line="416"/>
-        <location filename="../src/pages/appintopage.cpp" line="420"/>
-        <location filename="../src/pages/appintopage.cpp" line="424"/>
+        <location filename="../src/pages/appintopage.cpp" line="406"/>
+        <location filename="../src/pages/appintopage.cpp" line="410"/>
+        <location filename="../src/pages/appintopage.cpp" line="414"/>
+        <location filename="../src/pages/appintopage.cpp" line="418"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="412"/>
+        <location filename="../src/pages/appintopage.cpp" line="406"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="416"/>
+        <location filename="../src/pages/appintopage.cpp" line="410"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="420"/>
+        <location filename="../src/pages/appintopage.cpp" line="414"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="424"/>
+        <location filename="../src/pages/appintopage.cpp" line="418"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="488"/>
-        <location filename="../src/pages/appintopage.cpp" line="501"/>
+        <location filename="../src/pages/appintopage.cpp" line="482"/>
+        <location filename="../src/pages/appintopage.cpp" line="495"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="488"/>
+        <location filename="../src/pages/appintopage.cpp" line="482"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="501"/>
+        <location filename="../src/pages/appintopage.cpp" line="495"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -625,7 +625,8 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="325"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;Connect us on Spark IM: &lt;a href=&quot;https://chat.shenmo.tech&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://chat.shenmo.tech&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;Our QQ Group number:872690351&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
