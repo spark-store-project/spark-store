@@ -1,11 +1,7 @@
 #  Spark App Store
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
-## Branch: Flamescion
 
-This branch is the main branch of Spark Store
-
----
 ## You are informed that the aarch64 support is EXPERIMENTAL and there is NO GUARANTEE that this branch will be supported in the future
 
 Spark Store aims to collect Linux apps for the convieniece of Linux new comers
