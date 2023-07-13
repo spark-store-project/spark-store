@@ -10,9 +10,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="176"/>
-        <location filename="../src/pages/appintopage.cpp" line="318"/>
-        <location filename="../src/pages/appintopage.cpp" line="484"/>
+        <location filename="../src/pages/appintopage.cpp" line="174"/>
+        <location filename="../src/pages/appintopage.cpp" line="312"/>
+        <location filename="../src/pages/appintopage.cpp" line="478"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
@@ -180,74 +180,74 @@
         <translation>点击跳转</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="115"/>
+        <location filename="../src/pages/appintopage.cpp" line="113"/>
         <source>Developer Mode Disabled</source>
         <translation>开发者模式未开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="161"/>
-        <location filename="../src/pages/appintopage.cpp" line="334"/>
-        <location filename="../src/pages/appintopage.cpp" line="457"/>
+        <location filename="../src/pages/appintopage.cpp" line="159"/>
+        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="451"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="168"/>
+        <location filename="../src/pages/appintopage.cpp" line="166"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="323"/>
-        <location filename="../src/pages/appintopage.cpp" line="433"/>
+        <location filename="../src/pages/appintopage.cpp" line="317"/>
+        <location filename="../src/pages/appintopage.cpp" line="427"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="322"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="412"/>
-        <location filename="../src/pages/appintopage.cpp" line="416"/>
-        <location filename="../src/pages/appintopage.cpp" line="420"/>
-        <location filename="../src/pages/appintopage.cpp" line="424"/>
+        <location filename="../src/pages/appintopage.cpp" line="406"/>
+        <location filename="../src/pages/appintopage.cpp" line="410"/>
+        <location filename="../src/pages/appintopage.cpp" line="414"/>
+        <location filename="../src/pages/appintopage.cpp" line="418"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="412"/>
+        <location filename="../src/pages/appintopage.cpp" line="406"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation>当前应用不支持deepin，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="416"/>
+        <location filename="../src/pages/appintopage.cpp" line="410"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation>当前应用不支持UOS，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="420"/>
+        <location filename="../src/pages/appintopage.cpp" line="414"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation>当前应用不支持Ubuntu，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="424"/>
+        <location filename="../src/pages/appintopage.cpp" line="418"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation>当前应用不支持平台，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="488"/>
-        <location filename="../src/pages/appintopage.cpp" line="501"/>
+        <location filename="../src/pages/appintopage.cpp" line="482"/>
+        <location filename="../src/pages/appintopage.cpp" line="495"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="488"/>
+        <location filename="../src/pages/appintopage.cpp" line="482"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="501"/>
+        <location filename="../src/pages/appintopage.cpp" line="495"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -625,8 +625,9 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="325"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &amp;lt;jifengshenmo@outlook.com&amp;gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;Connect us on Spark IM: &lt;a href=&quot;https://chat.shenmo.tech&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://chat.shenmo.tech&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;Our QQ Group number:872690351&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们并&lt;span style=&quot; font-weight:600;&quot;&gt;不是&lt;/span&gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&lt;/p&gt;&lt;p&gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&lt;/p&gt;&lt;p&gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&lt;/p&gt;&lt;p&gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们  &amp;lt;jifengshenmo@outlook.com&amp;gt; ，我们会第一时间删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&lt;/p&gt;&lt;p&gt;在 Spark IM 联系我们:&lt;a href=&quot;https://chat.shenmo.tech&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://chat.shenmo.tech&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;QQ 群：872690351&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们并&lt;span style=&quot; font-weight:600;&quot;&gt;不是&lt;/span&gt;官方团队，和你一样，我们也只是众多Linux/deepin系统爱好者和用户之中的一员，我们开发并且运营这个“Spark应用商店”，是为了让社区的朋友们一起分享好用的软件，或者一起参与开发，让大家都用到最新的，最优秀的软件。&lt;/p&gt;&lt;p&gt;我们并没有因此盈利，所有开发和维护人员都不会获得报酬，我们的主要支出大部分依赖于社区对我们的捐助，很感谢大家，这部分捐助让我们并不需要耗费太多精力去担心资金问题。&lt;/p&gt;&lt;p&gt;我们的服务和开发的软件都是免费供给大家使用，交流，学习的，但是在您的使用过程中一定要遵守当地的法律法规，否则出现任何问题和我们无关。&lt;/p&gt;&lt;p&gt;如果商店中任何一部分有侵犯您权益的行为，请告知我们 &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; ，我们会第一时间删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想参与我们，不管是参与开发，设计，投递还是投稿作品，我们都欢迎你的加入。&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;请点击&lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;这里&lt;/span&gt;&lt;/a&gt;来联系我们，加群&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.cpp" line="213"/>
