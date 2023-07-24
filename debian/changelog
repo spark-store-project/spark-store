@@ -1,3 +1,8 @@
+spark-store (4.2.6.5) stable; urgency=medium
+  * 调整：ssaudit安装结束时会提示安装结束
+  
+ -- shenmo <shenmo@spark-app.store> 
+
 spark-store (4.2.6.4) stable; urgency=medium
   * 修复：关于页面的入口过时
   
