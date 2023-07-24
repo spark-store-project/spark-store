@@ -47,3 +47,4 @@ install_ret="$?"
     echo "OMG-IT-GOES-WRONG"
     exit "$install_ret"
   fi
+echo ---------------安装结束---------------
