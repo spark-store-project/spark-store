@@ -357,24 +357,16 @@
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
-        <source>Error happened in dpkg progress , you can try it again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="230"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="231"/>
-        <source>Error happened in dpkg progress , you can try it again</source>
+        <source>Error happened in dpkg progress , please check the install info or try to reinstall.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
-        <source>dpkg progress had been aborted，you can retry installation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
-        <source>dpkg progress had been aborted，you can retry installation</source>
+        <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

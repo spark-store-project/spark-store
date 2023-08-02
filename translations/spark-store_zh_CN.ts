@@ -357,25 +357,33 @@
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
-        <source>Error happened in dpkg progress , you can try it again.</source>
-        <translation>安装被中止，可重新安装。</translation>
-    </message>
-    <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="230"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="231"/>
-        <source>Error happened in dpkg progress , you can try it again</source>
-        <translation>dpkg出现错误，可重新安装</translation>
+        <source>Error happened in dpkg progress , please check the install info or try to reinstall.</source>
+        <translation>安装被中止，请检查安装详情或尝试重新安装</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
-        <source>dpkg progress had been aborted，you can retry installation.</source>
-        <translation>dpkg进程被中断，您可重试安装。</translation>
-    </message>
-    <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
+        <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
+        <translation>dpkg出现错误，请检查安装详情或尝试重新安装</translation>
+    </message>
+    <message>
+        <source>Error happened in dpkg progress , you can try it again.</source>
+        <translation type="vanished">安装被中止，可重新安装。</translation>
+    </message>
+    <message>
+        <source>Error happened in dpkg progress , you can try it again</source>
+        <translation type="vanished">dpkg出现错误，可重新安装</translation>
+    </message>
+    <message>
+        <source>dpkg progress had been aborted，you can retry installation.</source>
+        <translation type="vanished">dpkg进程被中断，您可重试安装。</translation>
+    </message>
+    <message>
         <source>dpkg progress had been aborted，you can retry installation</source>
-        <translation>安装被中止，可重新安装</translation>
+        <translation type="vanished">安装被中止，可重新安装</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
