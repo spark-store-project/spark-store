@@ -1,3 +1,11 @@
+spark-store (4.2.6.6) stable; urgency=medium
+  * 调整：文案修改：安装失败后引导查看详情而不是重新安装
+  * 修复：dpkg阻塞出现漏掉的安装失败，现在在安装后检测是否安装
+  * 修复：UOS专业版上安装成功仍然显示失败的问题：方式：忽略E:等消息，仅检查脚本报错
+  * 调整：卸载应用时采用autopurge以一并卸载依赖
+  
+ -- shenmo <shenmo@spark-app.store> 
+
 spark-store (4.2.6.5) stable; urgency=medium
   * 调整：ssaudit安装结束时会提示安装结束
   
