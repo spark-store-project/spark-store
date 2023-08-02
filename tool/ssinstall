@@ -113,7 +113,8 @@ if [  ! -z "$IS_MD5SUM_CHECKD" ];then
 
 echo "校验成功，开始安装"
 echo  ----------------------------------------------------------------------------------
-
+package_name=$(dpkg-deb -f "$DEBPATH" Package)
+echo "Package name is $package_name"
 try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
 try_run_ret="$?"
 
@@ -129,8 +130,18 @@ dpkg -i  "$DEBPATH"  || aptss install -yf
 
 #### --delete
 if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ];then
-rm "$DEBPATH"
+##check if is installed yet
+if dpkg -s "$package_name" >/dev/null 2>&1; then
+  echo "软件包已安装：$package_name"
+  rm "$DEBPATH"
 echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
+else
+  echo "软件包未安装：$package_name"
+  echo "安装异常！抛出错误"
+echo "OMG-IT-GOES-WRONG"
+fi
+
+
 else
 echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
 fi
