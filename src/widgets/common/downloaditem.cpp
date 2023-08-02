@@ -198,7 +198,7 @@ void DownloadItem::slotAsyncInstall(int t)
     for (int i = 0; i < everyOut.size(); i++)
     {
         tempOutput = everyOut[i];
-        if (everyOut[i].left(2) == "E:" || tempOutput.contains("错误") || tempOutput.contains("exit code") || tempOutput.contains("OMG-IT-GOES-WRONG"))
+        if (everyOut[i].left(2) == tempOutput.contains("OMG-IT-GOES-WRONG"))
         {
             haveError = true;
         }
@@ -226,17 +226,17 @@ void DownloadItem::slotAsyncInstall(int t)
         ui->pushButton_install->show();
         ui->pushButton_install->setText(tr("Retry"));
         download = 1;
-        Utils::sendNotification("spark-store", tr("Spark Store"), tr("Error happened in dpkg progress , you can try it again."));
-        ui->label_2->setText(tr("Error happened in dpkg progress , you can try it again"));
-        ui->label_2->setToolTip(tr("Error happened in dpkg progress , you can try it again"));
+        Utils::sendNotification("spark-store", tr("Spark Store"), tr("Error happened in dpkg progress , please check the install info or try to reinstall."));
+        ui->label_2->setText(tr("Error happened in dpkg progress , please check the install info or try to reinstall."));
+        ui->label_2->setToolTip(tr("Error happened in dpkg progress , please check the install info or try to reinstall."));
         ui->pushButton_3->show();
     }
 
     if (notRoot)
     {
-        Utils::sendNotification("spark-store", tr("Spark Store"), tr("dpkg progress had been aborted，you can retry installation."));
-        ui->label_2->setText(tr("dpkg progress had been aborted，you can retry installation"));
-        ui->label_2->setToolTip(tr("dpkg progress had been aborted，you can retry installation"));
+        Utils::sendNotification("spark-store", tr("Spark Store"), tr("dpkg progress had been aborted，please check the install info or try to reinstall."));
+        ui->label_2->setText(tr("dpkg progress had been aborted，please check the install info or try to reinstall."));
+        ui->label_2->setToolTip(tr("dpkg progress had been aborted，please check the install info or try to reinstall."));
         ui->pushButton_install->show();
         ui->pushButton_3->hide();
     }

@@ -466,7 +466,7 @@ void AppIntoPage::on_pushButton_3_clicked()
         ui->pushButton_3->setEnabled(false);
 
         QProcess uninstall;
-        uninstall.start("pkexec", QStringList() << "apt" << "purge" << "-y" << info["Pkgname"].toString().toLower());
+        uninstall.start("pkexec", QStringList() << "apt" << "autopurge" << "-y" << info["Pkgname"].toString().toLower());
         uninstall.waitForFinished(-1);
 
         QProcess check;
