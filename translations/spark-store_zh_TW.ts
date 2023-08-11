@@ -10,9 +10,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="174"/>
-        <location filename="../src/pages/appintopage.cpp" line="312"/>
-        <location filename="../src/pages/appintopage.cpp" line="478"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="483"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
@@ -175,79 +175,79 @@
         <translation>软件官网</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="50"/>
+        <location filename="../src/pages/appintopage.cpp" line="51"/>
         <source>Click Open</source>
         <translation>点击跳转</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="113"/>
+        <location filename="../src/pages/appintopage.cpp" line="114"/>
         <source>Developer Mode Disabled</source>
         <translation>开发者模式未开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="159"/>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
-        <location filename="../src/pages/appintopage.cpp" line="451"/>
+        <location filename="../src/pages/appintopage.cpp" line="160"/>
+        <location filename="../src/pages/appintopage.cpp" line="329"/>
+        <location filename="../src/pages/appintopage.cpp" line="456"/>
         <source>Reinstall</source>
         <translation>重新安裝</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="166"/>
+        <location filename="../src/pages/appintopage.cpp" line="167"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="317"/>
-        <location filename="../src/pages/appintopage.cpp" line="427"/>
+        <location filename="../src/pages/appintopage.cpp" line="318"/>
+        <location filename="../src/pages/appintopage.cpp" line="432"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="322"/>
+        <location filename="../src/pages/appintopage.cpp" line="323"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="406"/>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="411"/>
+        <location filename="../src/pages/appintopage.cpp" line="415"/>
+        <location filename="../src/pages/appintopage.cpp" line="419"/>
+        <location filename="../src/pages/appintopage.cpp" line="423"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="406"/>
+        <location filename="../src/pages/appintopage.cpp" line="411"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
+        <location filename="../src/pages/appintopage.cpp" line="415"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
+        <location filename="../src/pages/appintopage.cpp" line="419"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="423"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
-        <location filename="../src/pages/appintopage.cpp" line="495"/>
+        <location filename="../src/pages/appintopage.cpp" line="487"/>
+        <location filename="../src/pages/appintopage.cpp" line="500"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
+        <location filename="../src/pages/appintopage.cpp" line="487"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="495"/>
+        <location filename="../src/pages/appintopage.cpp" line="500"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -360,30 +360,14 @@
         <location filename="../src/widgets/common/downloaditem.cpp" line="230"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="231"/>
         <source>Error happened in dpkg progress , please check the install info or try to reinstall.</source>
-        <translation type="unfinished"></translation>
+        <translation>安裝被中止，請檢查安裝詳情或嘗試重新安裝</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
         <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error happened in dpkg progress , you can try it again.</source>
-        <translation type="vanished">安装被中止，可重新安装。</translation>
-    </message>
-    <message>
-        <source>Error happened in dpkg progress , you can try it again</source>
-        <translation type="vanished">dpkg出现错误，可重新安装</translation>
-    </message>
-    <message>
-        <source>dpkg progress had been aborted，you can retry installation.</source>
-        <translation type="vanished">dpkg进程被中断，您可重试安装。</translation>
-    </message>
-    <message>
-        <source>dpkg progress had been aborted，you can retry installation</source>
-        <translation type="vanished">安装被中止，可重新安装</translation>
+        <translation>dpkg出現錯誤，請檢查安裝詳情或嘗試重新安裝</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
@@ -593,62 +577,72 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="230"/>
+        <source>Other Settings</source>
+        <translation>其他設定</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="240"/>
+        <source>Enable notification for apps not compatible with current system</source>
+        <translation>開啟應用不相容當前系統提示</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="264"/>
         <source>Temp</source>
         <translation>缓存目录</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="243"/>
+        <location filename="../src/pages/settingspage.ui" line="277"/>
         <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
         <translation>因为这个目录位于/tmp下，所以即使你不手动清空的话，其也将在系统重启时自动清空。</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="250"/>
+        <location filename="../src/pages/settingspage.ui" line="284"/>
         <source>0B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="257"/>
+        <location filename="../src/pages/settingspage.ui" line="291"/>
         <source>Location：/tmp/spark-store</source>
         <translation>目录位置：/tmp/spark-store</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="277"/>
+        <location filename="../src/pages/settingspage.ui" line="311"/>
         <source>Clean</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="290"/>
+        <location filename="../src/pages/settingspage.ui" line="324"/>
         <source>Size:</source>
         <translation>目录大小：</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="297"/>
+        <location filename="../src/pages/settingspage.ui" line="331"/>
         <source>Clear Web Cache</source>
         <translation>清理网页缓存</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="318"/>
+        <location filename="../src/pages/settingspage.ui" line="352"/>
         <source>About us</source>
         <translation>关于我们</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="325"/>
+        <location filename="../src/pages/settingspage.ui" line="359"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我們並&lt;span style=&quot; font-weight:600;&quot;&gt;不是&lt;/span&gt;官方團隊，和你一樣，我們也只是眾多Linux/deepin系統愛好者和使用者之中的一員，我們開發並且運營這個“Spark應用商店”，是為了讓社羣的朋友們一起分享好用的軟體，或者一起參與開發，讓大家都用到最新的，最優秀的軟體。&lt;/p&gt;&lt;p&gt;我們並沒有因此盈利，所有開發和維護人員都不會獲得報酬，我們的主要支出大部分依賴於社羣對我們的捐助，很感謝大家，這部分捐助讓我們並不需要耗費太多精力去擔心資金問題。&lt;/p&gt;&lt;p&gt;我們的服務和開發的軟體都是免費供給大家使用，交流，學習的，但是在您的使用過程中一定要遵守當地的法律法規，否則出現任何問題和我們無關。&lt;/p&gt;&lt;p&gt;如果商店中任何一部分有侵犯您權益的行為，請告知我們 &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; ，我們會第一時間刪除侵權內容。&lt;/p&gt;&lt;p&gt;如果你也想參與我們，不管是參與開發，設計，投遞還是投稿作品，我們都歡迎你的加入。&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;請點選&lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;這裡&lt;/span&gt;&lt;/a&gt;來聯絡我們，加群&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="213"/>
+        <location filename="../src/pages/settingspage.cpp" line="217"/>
         <source>Updating, please wait...</source>
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="235"/>
+        <location filename="../src/pages/settingspage.cpp" line="239"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="235"/>
+        <location filename="../src/pages/settingspage.cpp" line="239"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>

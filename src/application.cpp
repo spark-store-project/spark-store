@@ -137,9 +137,9 @@ void Application::initAboutDialog()
     dialog->setProductName(productName());
     dialog->setProductIcon(productIcon());
     dialog->setVersion(translate("DAboutDialog", "Version: %1").arg(applicationVersion()));
-#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))
-    dialog->setVersion(applicationVersion());
-#endif
+    if (runtimeDtkVersion() >= DTK_VERSION_CHECK(5, 6, 4, 0)) {
+        dialog->setVersion(applicationVersion());
+    }
     // 根据 shenmo 要求，不显示组织 Logo
     // dialog->setCompanyLogo(QPixmap(":/icon/Logo-Spark.png"));
     dialog->setCompanyLogo(QPixmap());

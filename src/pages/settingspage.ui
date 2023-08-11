@@ -54,7 +54,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QScrollArea" name="scrollArea_2">
+       <widget class="QScrollArea" name="scrollArea">
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -67,21 +67,21 @@
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents_3">
+        <widget class="QWidget" name="scrollAreaWidgetContents">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>743</width>
-           <height>839</height>
+           <height>950</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_23">
           <item>
-           <widget class="QWidget" name="widget_6" native="true">
+           <widget class="QWidget" name="widget" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_22">
              <item>
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="label">
                <property name="font">
                 <font>
                  <pointsize>18</pointsize>
@@ -93,10 +93,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_7" native="true">
+              <widget class="QWidget" name="widget_2" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="label_2">
                   <property name="maximumSize">
                    <size>
                     <width>100</width>
@@ -132,7 +132,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_setting1">
+                 <widget class="QLabel" name="label_setting">
                   <property name="maximumSize">
                    <size>
                     <width>160</width>
@@ -145,7 +145,7 @@
                  </widget>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_3">
+                 <spacer name="horizontalSpacer">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -161,10 +161,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_8" native="true">
+              <widget class="QWidget" name="widget_3" native="true">
                <layout class="QGridLayout" name="gridLayout_3">
                 <item row="0" column="3">
-                 <spacer name="horizontalSpacer_4">
+                 <spacer name="horizontalSpacer_2">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -177,7 +177,7 @@
                  </spacer>
                 </item>
                 <item row="1" column="0" colspan="4">
-                 <widget class="QLabel" name="label_7">
+                 <widget class="QLabel" name="label_4">
                   <property name="styleSheet">
                    <string notr="true">color:#808080</string>
                   </property>
@@ -190,7 +190,7 @@
                  </widget>
                 </item>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_6">
+                 <widget class="QLabel" name="label_3">
                   <property name="text">
                    <string>Spark Store Update</string>
                   </property>
@@ -217,10 +217,44 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_9" native="true">
+           <widget class="QWidget" name="widget_7" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QLabel" name="label_11">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Other Settings</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_8" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QCheckBox" name="checkBox">
+                  <property name="text">
+                   <string>Enable notification for apps not compatible with current system</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_4" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_26">
              <item>
-              <widget class="QLabel" name="label_8">
+              <widget class="QLabel" name="label_5">
                <property name="font">
                 <font>
                  <pointsize>18</pointsize>
@@ -232,10 +266,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_10" native="true">
+              <widget class="QWidget" name="widget_5" native="true">
                <layout class="QGridLayout" name="gridLayout_4">
                 <item row="2" column="0" colspan="5">
-                 <widget class="QLabel" name="label_12">
+                 <widget class="QLabel" name="label_8">
                   <property name="styleSheet">
                    <string notr="true">color:#808080</string>
                   </property>
@@ -252,14 +286,14 @@
                  </widget>
                 </item>
                 <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="label_11">
+                 <widget class="QLabel" name="label_6">
                   <property name="text">
                    <string>Location：/tmp/spark-store</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="4">
-                 <spacer name="horizontalSpacer_5">
+                 <spacer name="horizontalSpacer_3">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -279,7 +313,7 @@
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QLabel" name="label_13">
+                 <widget class="QLabel" name="label_7">
                   <property name="maximumSize">
                    <size>
                     <width>80</width>
@@ -305,10 +339,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_2" native="true">
+           <widget class="QWidget" name="widget_6" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_25">
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="label_9">
                <property name="font">
                 <font>
                  <pointsize>18</pointsize>
@@ -320,7 +354,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="label_10">
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don't make a profit from this, all developers and maintainers don't get paid, and we rely on the community's donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you'd like to get involved with us too, whether you're involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -337,7 +371,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer_4">
+           <spacer name="verticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
