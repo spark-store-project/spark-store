@@ -1,69 +1,83 @@
 spark-store (4.2.6.6) stable; urgency=medium
+
   * 调整：文案修改：安装失败后引导查看详情而不是重新安装
   * 修复：dpkg阻塞出现漏掉的安装失败，现在在安装后检测是否安装
   * 修复：UOS专业版上安装成功仍然显示失败的问题：方式：忽略E:等消息，仅检查脚本报错
   * 调整：卸载应用时采用autopurge以一并卸载依赖
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.6.5) stable; urgency=medium
+
   * 调整：ssaudit安装结束时会提示安装结束
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.6.4) stable; urgency=medium
+
   * 修复：关于页面的入口过时
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.3) stable; urgency=medium
+
   * 修复：部分下载统计线路失效
   
- -- shenmo <shenmo@spark-app.store> 
-
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.2) stable; urgency=medium
+
   * 新增：支持arm架构搜索
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.1) stable; urgency=medium
+
   * 修复：mint下更新检测不正常
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6) stable; urgency=medium
+
   * 修复：截图加载失败时点击闪退
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.5.1) stable; urgency=medium
+
   * 调整：重写了spark-dstore-patch，速度提升，尤其对机械硬盘下
   * 调整：优化了aptss源文件同步策略
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.5) stable; urgency=medium
+
   * 修复：ssinstall在文件不存在时仍然报安装成功
   * 修复：删除不再需要的依赖：libc6-dev
   * 在aarch64架构安装时也启用32位支持
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.4) stable; urgency=medium
+
   * 修复：ssinstall校验失败的时候仍然提示安装成功
   * 新增：ssinstall可以自动刷新ssupdate以防止仓库更新中导致的安装校验失败
   * 修复：在不受支持的平台安装应用时弹出提示不正确
   
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.3.3) stable; urgency=medium
+
   * aptss 不再使用bwrap，去除依赖，支持容器中启动
   * aptss 支持非root模式启动
   * aptss 添加transhell支持
@@ -74,27 +88,30 @@ spark-store (4.2.3.3) stable; urgency=medium
   * 4.3 roadmap 实现，在浏览不支持的应用时会出现提示
   * 4.3 roadmap 实现，在下载文件夹没有读写权限时会出现提示
 
- -- shenmo <shenmo@spark-app.store> 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.3.2~Reason10) stable; urgency=medium
+
   * 完成除web外大部分功能适配
   * 修复依赖不完整的问题
 
- -- shenmo <shenmo@spark-app.store>  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.3.2~Reason9) stable; urgency=medium
+
   * sender-d.sh
   * ssinstall和ssaudit的安装测试转到upgrade-worker
 
- -- shenmo <shenmo@spark-app.store>  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.3.2~Reason8) stable; urgency=medium
+
   * sender-d改用cpp重写，在aarch64上稳定运行
 
- -- shenmo <shenmo@spark-app.store>  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.3.2~Reason7) stable; urgency=medium
@@ -103,35 +120,43 @@ spark-store (4.2.3.2~Reason7) stable; urgency=medium
   * ssinstall在发现无法安装后尝试先进行下aptss update
   * 修复：安装商店后首次启动无法安装任何软件
 
- -- shenmo <shenmo@spark-app.store>  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.3.2~Reason5) stable; urgency=medium
+
   * aptss 不再使用bwrap，去除依赖，支持容器中启动
   * aptss 支持非root模式启动
   * aptss 添加transhell支持
   * 关于界面自动获取分支名称
   * 现在安装成功则自动删除安装包
 
- -- shenmo <shenmo@spark-app.store>  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+
 spark-store (4.2.3.2~Reason3) stable; urgency=medium
+
   * 现在可在x86上编译，使用同一套代码
   * 暂时在aarch64上使用旧web----等待柚子
   * 空间，疾疫，现在是静谧
 
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
+
 spark-store (4.2.3.2~only-for-test1) stable; urgency=medium
+
   * 注意！！！！！！ 此版本仅为启动测试，还需要进一步完善——hardcode需要改善——关于web界面的调用方式需要在柚子做好之后修改成新的
   * fix: hardcode
   * fix: sender-d
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
+
 spark-store (4.2.3.1) stable; urgency=medium
   * 修复: ssinstall验证签名出错
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.2.3) stable; urgency=medium
   * 修复: 编译依赖不全
@@ -142,11 +167,13 @@ spark-store (4.2.3) stable; urgency=medium
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
+
 spark-store (4.2.3~test4) stable; urgency=medium
 
   * 修复: aptss 无法安装
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.2.3~test3) stable; urgency=medium
 
@@ -158,6 +185,7 @@ spark-store (4.2.3~test3) stable; urgency=medium
   * aptss 获取线路信息 转到从 d. 服务器获取
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
+
 
 spark-store (4.2.3~test2) stable; urgency=medium
 

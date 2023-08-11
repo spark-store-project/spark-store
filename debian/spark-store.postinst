@@ -4,22 +4,22 @@ case "$1" in
 	configure)
 
 		case `arch` in
-   		x86_64)
-		echo "Enabling i386 arch..."
-		dpkg --add-architecture i386
-		;;
-        aarch64)
-        echo "Enabling armhf arch..."
-        dpkg --add-architecture armhf
-        ;;
- 		*)
-		echo "Unknown architecture, skip enable 32-bit arch"
-		;;
+   			x86_64)
+				echo "Enabling i386 arch..."
+				dpkg --add-architecture i386
+			;;
+
+        		aarch64)
+        			echo "Enabling armhf arch..."
+        			dpkg --add-architecture armhf
+			;;
+
+ 			*)
+				echo "Unknown architecture, skip enable 32-bit arch"
+			;;
 		esac
 
-		
 		mkdir -p /var/lib/aptss/lists
-
 
 		#  Remove the sources.list file
 		rm -f /etc/apt/sources.list.d/sparkstore.list
@@ -39,8 +39,6 @@ case "$1" in
 		# Create symbol links for SSINSTALL 
 		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 
-
-		
 		# Install key
 		mkdir -p /tmp/spark-store-install/
 		cp -f /opt/durapps/spark-store/bin/spark-store.asc /tmp/spark-store-install/spark-store.asc
@@ -52,8 +50,21 @@ case "$1" in
 		#aptss ssupdate
 
 		# Start upgrade detect service
-		systemctl enable spark-update-notifier
-		systemctl start spark-update-notifier
+		systemctl daemon-reload
+		# Do NOT enable upgrade detect service if disabled by user 
+		if [ ! -f "/usr/lib/systemd/system/spark-update-notifier.service.bak" ] ; then
+			systemctl enable spark-update-notifier
+			systemctl start spark-update-notifier
+		else
+			if [ $(systemctl is-enabled spark-update-notifier.service) = "enabled" ] ; then
+				systemctl reenable spark-update-notifier
+				if [ $(systemctl is-active spark-update-notifier.service) = "active" ] ; then
+					systemctl restart spark-update-notifier
+				fi
+			fi
+
+			rm -f /usr/lib/systemd/system/spark-update-notifier.service.bak
+		fi
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
