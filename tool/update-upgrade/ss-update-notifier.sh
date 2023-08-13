@@ -114,7 +114,9 @@ update_transhell
 ## 如果不想提示就不提示
 
 user=$(who | awk '{print $1}' | head -n 1)
-if [ -e "$user/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify" ];then
+if [ -e "/home/$user/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify" ];then
+echo "他不想站在世界之巅，好吧"
+echo "Okay he don't want to be at the top of the world, okay"
 exit 
 else
 notify-send -a spark-store "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY}" "${TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE}"
