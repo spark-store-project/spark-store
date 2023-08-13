@@ -28,6 +28,16 @@ if [ "$1" = "remove" -o "$1" = "purge" ] ; then
 
 	# Remove residual symbol links to stop upgrade detect
 	rm -f /etc/xdg/autostart/spark-update-notifier.desktop
+	# Remove config files
+for username in `ls /home`      
+    do
+      echo /home/$username
+        if [ -d /home/$username/.config/spark-union/spark-store ]
+        then
+        rm -rf /home/$username/.config/spark-union/spark-store
+        fi
+    done
+
 
 	# Shutdown services
 	systemctl stop spark-update-notifier
@@ -49,18 +59,4 @@ else
 	fi
 fi
 
-if [ "$1" = "upgrade" ] ; then
-	echo "非卸载操作，不进行配置清理"
 
-	if [ -f "/usr/lib/systemd/system/spark-update-notifier.service" ] ; then
-		mv -f /usr/lib/systemd/system/spark-update-notifier.service /usr/lib/systemd/system/spark-update-notifier.service.bak
-	fi
-	
-	if [ ! -z "`pidof spark-store`" ] ; then 
-		echo "关闭已有 spark-store..."
-		notify-send "正在升级星火商店" "请在升级结束后重启星火商店" -i spark-store
-		killall spark-store
-	else
-		echo "继续安装 spark-store..."
-	fi
-fi

@@ -20,6 +20,8 @@ function notify-send() {
     sudo -u $user  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus notify-send "$@"
 }
 
+
+
 # 检测网络链接畅通
 function network-check()
 {
@@ -106,4 +108,14 @@ fi
 update_transhell
 
 ## 如果都是hold或者版本一致的那就直接退出，否则把剩余的给提醒了
+
+##TODO:除了apt-mark hold之外额外有一个禁止检查列表
+
+## 如果不想提示就不提示
+
+user=$(who | awk '{print $1}' | head -n 1)
+if [ -e "$user/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify" ];then
+exit 
+else
 notify-send -a spark-store "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY}" "${TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE}"
+fi

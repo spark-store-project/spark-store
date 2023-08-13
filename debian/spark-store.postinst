@@ -45,26 +45,13 @@ case "$1" in
 		gpg --dearmor /tmp/spark-store-install/spark-store.asc
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
-		# Run apt update to avoid users being fucked up by the non-exist dependency problem
-		# Now abandoned as aptss now run ssupdate everytime
-		#aptss ssupdate
+
 
 		# Start upgrade detect service
 		systemctl daemon-reload
-		# Do NOT enable upgrade detect service if disabled by user 
-		if [ ! -f "/usr/lib/systemd/system/spark-update-notifier.service.bak" ] ; then
-			systemctl enable spark-update-notifier
-			systemctl start spark-update-notifier
-		else
-			if [ $(systemctl is-enabled spark-update-notifier.service) = "enabled" ] ; then
-				systemctl reenable spark-update-notifier
-				if [ $(systemctl is-active spark-update-notifier.service) = "active" ] ; then
-					systemctl restart spark-update-notifier
-				fi
-			fi
+		systemctl enable spark-update-notifier
+		systemctl start spark-update-notifier
 
-			rm -f /usr/lib/systemd/system/spark-update-notifier.service.bak
-		fi
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true
