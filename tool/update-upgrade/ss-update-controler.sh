@@ -8,7 +8,7 @@ endloop=0
 #####################检测是否启动过了更新检测工具
 while [ $endloop -eq 0 ] ;do
 
-if [  -e /etc/systemd/system/multi-user.target.wants/spark-update-notifier.service ];then 
+if [  ! -e $HOME/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify ];then 
 text_update_open="${TRANSHELL_CONTENT_CLOSE}"
 #已经开启了就显示关闭
 else
@@ -21,14 +21,12 @@ option=`zenity --list --text="${TRANSHELL_CONTENT_WELCOME_AND_CHOOSE_ONE_TO_RUN}
 
 case $option in 
 	0)
-	if [  -e /etc/systemd/system/multi-user.target.wants/spark-update-notifier.service ];then 
-	zenity --info --icon-name=spark-store --height 150 --width 200 --text "${TRANSHELL_CONTENT_CLOSING_UPGRADE_CHECK}" --timeout=2 
-	pkexec systemctl disable spark-update-notifier
+	if [  ! -e $HOME/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify ];then 
+	mkdir -p $HOME/.config/spark-union/spark-store/
+	touch $HOME/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify
 	zenity --info --icon-name=spark-store --height 150 --width 200 --text "${TRANSHELL_CONTENT_CLOSED}" --timeout=2
 	else
-	zenity --info --icon-name=spark-store --height 150 --width 200 --text  "${TRANSHELL_CONTENT_OPENING_UPGRADE_CHECK}" --timeout=2 
-	pkexec systemctl enable spark-update-notifier
-	pkexec service spark-update-notifier start
+	rm -f  $HOME/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify
 	zenity --info --icon-name=spark-store --height 150 --width 200 --text "${TRANSHELL_CONTENT_OPENED}" --timeout=2
 	fi
 	;;

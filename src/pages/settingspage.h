@@ -30,6 +30,11 @@ private slots:
 
     void on_pushButton_clearWebCache_clicked();
 
+    void on_checkBox_clicked(bool checked);
+
+public:
+    static bool needUncompatibleNotification;
+
 private:
     static bool isdownload;
     bool configCanSave;

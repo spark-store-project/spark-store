@@ -10,9 +10,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="174"/>
-        <location filename="../src/pages/appintopage.cpp" line="312"/>
-        <location filename="../src/pages/appintopage.cpp" line="478"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="483"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -175,79 +175,79 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="50"/>
+        <location filename="../src/pages/appintopage.cpp" line="51"/>
         <source>Click Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="113"/>
+        <location filename="../src/pages/appintopage.cpp" line="114"/>
         <source>Developer Mode Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="159"/>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
-        <location filename="../src/pages/appintopage.cpp" line="451"/>
+        <location filename="../src/pages/appintopage.cpp" line="160"/>
+        <location filename="../src/pages/appintopage.cpp" line="329"/>
+        <location filename="../src/pages/appintopage.cpp" line="456"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="166"/>
+        <location filename="../src/pages/appintopage.cpp" line="167"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="317"/>
-        <location filename="../src/pages/appintopage.cpp" line="427"/>
+        <location filename="../src/pages/appintopage.cpp" line="318"/>
+        <location filename="../src/pages/appintopage.cpp" line="432"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="322"/>
+        <location filename="../src/pages/appintopage.cpp" line="323"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="406"/>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="411"/>
+        <location filename="../src/pages/appintopage.cpp" line="415"/>
+        <location filename="../src/pages/appintopage.cpp" line="419"/>
+        <location filename="../src/pages/appintopage.cpp" line="423"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="406"/>
+        <location filename="../src/pages/appintopage.cpp" line="411"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
+        <location filename="../src/pages/appintopage.cpp" line="415"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
+        <location filename="../src/pages/appintopage.cpp" line="419"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="423"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
-        <location filename="../src/pages/appintopage.cpp" line="495"/>
+        <location filename="../src/pages/appintopage.cpp" line="487"/>
+        <location filename="../src/pages/appintopage.cpp" line="500"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
+        <location filename="../src/pages/appintopage.cpp" line="487"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="495"/>
+        <location filename="../src/pages/appintopage.cpp" line="500"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -577,62 +577,72 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="230"/>
+        <source>Other Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="240"/>
+        <source>Enable notification for apps not compatible with current system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.ui" line="264"/>
         <source>Temp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="243"/>
+        <location filename="../src/pages/settingspage.ui" line="277"/>
         <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="250"/>
+        <location filename="../src/pages/settingspage.ui" line="284"/>
         <source>0B</source>
         <translation type="unfinished">0B</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="257"/>
+        <location filename="../src/pages/settingspage.ui" line="291"/>
         <source>Location：/tmp/spark-store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="277"/>
+        <location filename="../src/pages/settingspage.ui" line="311"/>
         <source>Clean</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="290"/>
+        <location filename="../src/pages/settingspage.ui" line="324"/>
         <source>Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="297"/>
+        <location filename="../src/pages/settingspage.ui" line="331"/>
         <source>Clear Web Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="318"/>
+        <location filename="../src/pages/settingspage.ui" line="352"/>
         <source>About us</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.ui" line="325"/>
+        <location filename="../src/pages/settingspage.ui" line="359"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="213"/>
+        <location filename="../src/pages/settingspage.cpp" line="217"/>
         <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="235"/>
+        <location filename="../src/pages/settingspage.cpp" line="239"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="235"/>
+        <location filename="../src/pages/settingspage.cpp" line="239"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
