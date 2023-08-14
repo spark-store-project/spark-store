@@ -41,7 +41,7 @@ fi
 
 
 echo $STORE_URL/$APP_LOCATION
-curl -X POST -H "Content-Type: application/json" -d '{"path": "$STORE_URL/$APP_LOCATION"}' http://zunyun01.store.deepinos.org.cn:38324/handle_post
+curl -X POST -H "Content-Type: application/json" -d '{"path": "'"${STORE_URL}/${APP_LOCATION}"'"}' http://zunyun01.store.deepinos.org.cn:38324/handle_post
 
 
 

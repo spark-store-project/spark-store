@@ -2,6 +2,7 @@ spark-store (4.2.7) stable; urgency=medium
 
   * 修复：更新星火商店后禁止更新提醒的配置失效
   * 新增：支持在设置中关闭平台不兼容提示
+  * 调整：更改了下载量统计的方式，减少漏数
   
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
