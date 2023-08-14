@@ -4,22 +4,22 @@ case "$1" in
 	configure)
 
 		case `arch` in
-   		x86_64)
-		echo "Enabling i386 arch..."
-		dpkg --add-architecture i386
-		;;
-        aarch64)
-        echo "Enabling armhf arch..."
-        dpkg --add-architecture armhf
-        ;;
- 		*)
-		echo "Unknown architecture, skip enable 32-bit arch"
-		;;
+   			x86_64)
+				echo "Enabling i386 arch..."
+				dpkg --add-architecture i386
+			;;
+
+        		aarch64)
+        			echo "Enabling armhf arch..."
+        			dpkg --add-architecture armhf
+			;;
+
+ 			*)
+				echo "Unknown architecture, skip enable 32-bit arch"
+			;;
 		esac
 
-		
 		mkdir -p /var/lib/aptss/lists
-
 
 		#  Remove the sources.list file
 		rm -f /etc/apt/sources.list.d/sparkstore.list
@@ -39,21 +39,19 @@ case "$1" in
 		# Create symbol links for SSINSTALL 
 		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
 
-
-		
 		# Install key
 		mkdir -p /tmp/spark-store-install/
 		cp -f /opt/durapps/spark-store/bin/spark-store.asc /tmp/spark-store-install/spark-store.asc
 		gpg --dearmor /tmp/spark-store-install/spark-store.asc
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
-		# Run apt update to avoid users being fucked up by the non-exist dependency problem
-		# Now abandoned as aptss now run ssupdate everytime
-		#aptss ssupdate
+
 
 		# Start upgrade detect service
+		systemctl daemon-reload
 		systemctl enable spark-update-notifier
 		systemctl start spark-update-notifier
+
 
 		# Update certain caches
 		update-icon-caches /usr/share/icons/hicolor || true

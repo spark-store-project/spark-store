@@ -11,6 +11,7 @@
 #define DEFAULT_SERVER_URL "https://cdn.d.store.deepinos.org.cn/"
 #define DEFAULT_CHECK_DOMAIN "deepinos"
 
+bool SettingsPage::needUncompatibleNotification = true;
 bool SettingsPage::isdownload = false;
 
 SettingsPage::SettingsPage(QWidget *parent)
@@ -99,6 +100,9 @@ void SettingsPage::initConfig()
         SparkAPI::setServerUrl(config.value("server/choose").toString());
     }
     configCanSave = true; // 　防止触发保存配置信号
+
+    needUncompatibleNotification = config.value("other/uncompatibleNotification", needUncompatibleNotification).toBool();
+    ui->checkBox->setChecked(needUncompatibleNotification);
 }
 
 SettingsPage::~SettingsPage()
@@ -251,4 +255,12 @@ void SettingsPage::on_pushButton_clearWebCache_clicked()
         QDir cacheDir(cacheLocation);
         cacheDir.removeRecursively();
     });
+}
+
+void SettingsPage::on_checkBox_clicked(bool checked)
+{
+    needUncompatibleNotification = checked;
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    config.setValue("other/uncompatibleNotification", needUncompatibleNotification);
+    config.sync();
 }

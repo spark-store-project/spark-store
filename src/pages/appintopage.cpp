@@ -6,6 +6,7 @@
 #include "backend/image_show.h"
 #include "application.h"
 #include "utils/utils.h"
+#include "pages/settingspage.h"
 
 #include <QtConcurrent>
 #include <QClipboard>
@@ -380,6 +381,10 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
 {
+    if (!SettingsPage::needUncompatibleNotification) {
+        return;
+    }
+
     bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
     bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
     bool checkdeepin = (isDeepin && !deepinSupport);
