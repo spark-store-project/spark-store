@@ -17,8 +17,6 @@ echo "Segment fault"
 exit -1
 fi
 
-mkdir -p /tmp/spark-store/mail-send-content
-cd /tmp/spark-store/mail-send-content
 
 APP_LOCATION=${1#*/$STORE_URL/}
 APP_LOCATION=${APP_LOCATION%/*}
@@ -41,42 +39,11 @@ fi
 
 
 
-MAIL_INFO_0=sparkstorefeedback@163.com:YWYGLQNOPLWNNJJY
-MAIL_INFO_1=ss_feedback@163.com:CCPFYUYHTLBVFTSM
-MAIL_INFO_2=spark_store_good@163.com:FIGNKXCLBGCYUDUF
-MAIL_INFO_3=wudibaolongzsoy@163.com:IOGHUIEDXXMGWJTI
-MAIL_INFO_4=suasnjaksf@163.com:KWUBIOYTGYIPVALZ
-# 
-MAIL_INFO_5=asdasdasdasd0827@163.com:TSSLXXCEAAATCZJJ
-MAIL_INFO_6=hjkhuiasndkj@163.com:XJZDDLHZYACGJVWM
-MAIL_INFO_7=xncniasudhqi@163.com:OZPUJHBMGLDWEGEI
-MAIL_INFO_8=ajhdiahiudqahwui@163.com:HFAJCJOCWIDZHGIG
-MAIL_INFO_9=xcvuyefbewr@163.com:LVXGTJVORDEDYWQI
 
-
-MAIL_INFO_RANDOM=MAIL_INFO_$(($RANDOM % 10)) 
-
-MAIL_INFO_RANDOM=`echo ${!MAIL_INFO_RANDOM}`
-# 把对应变量赋值过来
-
-MAIL_ADDRESS_FROM_INFO_RANDOM=`echo $MAIL_INFO_RANDOM | sed "{s/:.*//}" `
+echo $STORE_URL/$APP_LOCATION
+curl -X POST -H "Content-Type: application/json" -d '{"path": "$STORE_URL/$APP_LOCATION"}' http://zunyun01.store.deepinos.org.cn:38324/handle_post
 
 
 
-cat  << EOF > ./data.txt
-------------------------------------
-From:$MAIL_ADDRESS_FROM_INFO_RANDOM
-To:$MAIL_ADDRESS_FROM_INFO_RANDOM
-Subject: Download count command
-check=i love amber forever
-command:download_count
-APP_LOCATION=$STORE_URL/$APP_LOCATION
-------------------------------------
-
-EOF
-
-curl -s --url "smtp://smtp.163.com" --mail-from "$MAIL_ADDRESS_FROM_INFO_RANDOM" --mail-rcpt "$MAIL_ADDRESS_FROM_INFO_RANDOM" --upload-file  ./data.txt --user "$MAIL_INFO_RANDOM"
-
-rm /tmp/spark-store/mail-send-content/data.txt
 
 echo "Finished"
