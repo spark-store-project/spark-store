@@ -144,6 +144,14 @@ fi
 
 else
 echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
+if dpkg -s "$package_name" >/dev/null 2>&1; then
+  echo "软件包已安装：$package_name"
+else
+  echo "软件包未安装：$package_name"
+  echo "安装异常！抛出错误"
+echo "OMG-IT-GOES-WRONG"
+fi
+
 fi
 
 else
