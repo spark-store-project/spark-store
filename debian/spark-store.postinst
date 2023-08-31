@@ -10,8 +10,7 @@ case "$1" in
 			;;
 
         		aarch64)
-        			echo "Enabling armhf arch..."
-        			dpkg --add-architecture armhf
+        			echo "Will not enable armhf since 4271"
 			;;
 
  			*)
