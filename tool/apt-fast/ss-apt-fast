@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+#	
 # apt-fast v1.9
 # Use this just like aptitude or apt-get for faster package downloading.
 #
@@ -225,7 +225,9 @@ _create_lock()
 {
     eval "exec $LCK_FD>\"$LCK_FILE.lock\""
 
-    trap "cleanup_aptfast; exit_cleanup_state" EXIT
+#    trap "cleanup_aptfast; exit_cleanup_state" EXIT
+#    This will hide the exit code
+    trap "cleanup_aptfast" EXIT
     trap "cleanup_aptfast; exit 1" INT TERM
 
     flock -n $LCK_FD || { msg_already_running; exit 1; }
@@ -301,8 +303,10 @@ get_mirrors(){
 # Globals to save package name, version, size and overall size.
 DOWNLOAD_DISPLAY=
 DOWNLOAD_SIZE=0
+
 # Get the package URLs.
 get_uris(){
+
   if [ ! -d "$(dirname "$DLLIST")" ]
   then
     if ! mkdir -p -- "$(dirname "$DLLIST")"
@@ -449,6 +453,7 @@ display_downloadfile(){
 }
 
 # Create and insert a PID number to lockfile.
+
 _create_lock
 
 # Make sure aria2c (in general first parameter from _DOWNLOADER) is available.
@@ -548,7 +553,6 @@ if [ "$option" == "install" ]; then
   REMOVE_WORKING_MESSAGE=y
 
   get_uris "$@"
-
   [ -t 1 ] && [ -n "$REMOVE_WORKING_MESSAGE" ] && tput cuu 1 && tput el && tput cuu 1
   # Test /tmp/apt-fast.list file exists and not just the apt-fast comment line.
   # Then download all files from the list.
