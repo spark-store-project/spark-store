@@ -1,0 +1,12 @@
+[Desktop Entry]
+Categories=Development;
+Encoding=UTF-8
+Exec=/opt/durapps/spark-store/bin/open-in-terminal/open-in-terminal %U
+Icon=open-me-in-terminal
+MimeType=application/x-desktop
+Name=Open me in terminal
+Name[zh_CN]=在终端中打开
+NoDisplay=true
+StartupWMClass=在终端中打开
+Terminal=true
+Type=Application
