@@ -63,11 +63,13 @@ fi
 
 
 
-echo "正在计算hash并与星火仓库匹配..."
+echo "正在运行包验证..."
+echo "Running Spark Package Verify..."
 
-DEB_MD5SUM=`md5sum "$1" | cut -c -32`
+DEB_SHA512SUM=$(sha512sum "$1" | cut -d ' ' -f 1)
 
-IS_MD5SUM_CHECKD=`cat $PACKAGES_DATA_PATH | grep $DEB_MD5SUM`
+
+IS_SHA512SUM_CHECKD=`cat $PACKAGES_DATA_PATH | grep $DEB_SHA512SUM`
 
 
 }
@@ -103,13 +105,13 @@ DEBPATH=`realpath $1`
 
 hash_check "$DEBPATH"
 
-if [ -z "$IS_MD5SUM_CHECKD" ];then
+if [ -z "$IS_SHA512SUM_CHECKD" ];then
 echo "尝试更新仓库信息重新校验"
 aptss ssupdate
 hash_check "$DEBPATH"
 fi
 
-if [  ! -z "$IS_MD5SUM_CHECKD" ];then
+if [  ! -z "$IS_SHA512SUM_CHECKD" ];then
 
 echo "校验成功，开始安装"
 echo  ----------------------------------------------------------------------------------
