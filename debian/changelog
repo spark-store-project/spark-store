@@ -1,7 +1,7 @@
 spark-store (4.2.7.2) stable; urgency=medium
 
   * 新增：内置在终端打开功能
-  * 调整：散列验证更改为使用sha256
+  * 调整：散列验证更改为使用sha512
   
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
