@@ -1,12 +1,14 @@
 #### 调用参数(spk规则)
 
-参数只有一个Url，该url应当遵循这种格式：`spk://<任意合法字符>/web分类/包名`
+* store直达
 
-目前第一字段不进行处理，以后可能会对此识别。在目前阶段，这个字段可以填写任意合法字符
+该url应当遵循这种格式：`spk://store/web分类/包名`
+
+
 
 例如:
 
-[spk://abcdefg/games/store.spark-app.hmcl](spk://abcdefg/games/store.spark-app.hmcl)
+[spk://store/games/store.spark-app.hmcl](spk://store/games/store.spark-app.hmcl)
 
 
 可选的web分类：
@@ -25,3 +27,8 @@
 | 工具 | tools          |
 | 主题 | themes       |
 | 其他 | others         |
+
+
+* search搜索
+
+spk://search/pkgname

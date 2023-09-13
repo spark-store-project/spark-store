@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr">
+<TS version="2.1" language="es">
 <context>
     <name>AppIntoPage</name>
     <message>
         <location filename="../src/pages/appintopage.ui" line="14"/>
         <source>Form</source>
-        <translation>Type</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
@@ -14,12 +14,12 @@
         <location filename="../src/pages/appintopage.cpp" line="313"/>
         <location filename="../src/pages/appintopage.cpp" line="483"/>
         <source>Download</source>
-        <translation>Télécharger</translation>
+        <translation>Descargar</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="290"/>
         <source>Uninstall</source>
-        <translation>Désinstaller</translation>
+        <translation>Desinstalar</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="346"/>
@@ -29,13 +29,13 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="356"/>
         <source>Download Times</source>
-        <translation>Nombre de téléchargements</translation>
+        <translation>Número de descargas</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="410"/>
         <location filename="../src/pages/appintopage.ui" line="413"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app is developed by community user,we give this tag to honor those who contribute to the Linux Ecology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cette application a été développée par des utilisateurs de la communauté et nous avons donné ce label à ceux qui ont contribué à l&apos;écologie de Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Esta aplicación fue desarrollada por usuarios de la comunidad y la Etiquetamos en honor a aquellos que contribuyeron a la ecología de linux.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="416"/>
@@ -51,7 +51,7 @@
         <location filename="../src/pages/appintopage.ui" line="448"/>
         <location filename="../src/pages/appintopage.ui" line="451"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable de la home UOS 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capaz de UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="454"/>
@@ -62,7 +62,7 @@
         <location filename="../src/pages/appintopage.ui" line="467"/>
         <location filename="../src/pages/appintopage.ui" line="470"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app. Spark Store will automatically configure the wine kit for you.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Une application deepin-wine2. Le Spark Store configure automatiquement votre pack de vins.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app. La tienda Spark le configurará automáticamente un traje de vino.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="473"/>
@@ -73,7 +73,7 @@
         <location filename="../src/pages/appintopage.ui" line="486"/>
         <location filename="../src/pages/appintopage.ui" line="489"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is a  DTK5 app,which means it would have better effect on Deepin Desktop Environment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;C&apos;est une application dtk5, ce qui signifie qu&apos;elle fonctionnera mieux dans un environnement de bureau profond.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Esta es una aplicación dtk5, lo que significa que funcionará mejor en un entorno de escritorio profundo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="492"/>
@@ -84,7 +84,7 @@
         <location filename="../src/pages/appintopage.ui" line="505"/>
         <location filename="../src/pages/appintopage.ui" line="508"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable de la deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capaz de deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="511"/>
@@ -95,7 +95,7 @@
         <location filename="../src/pages/appintopage.ui" line="524"/>
         <location filename="../src/pages/appintopage.ui" line="527"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An Appimage to deb app.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Appimage pour l&apos;application DEB&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Appimage de la aplicación deb.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="530"/>
@@ -110,102 +110,102 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="602"/>
         <source>Share</source>
-        <translation>Au total</translation>
+        <translation>Comunión</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="609"/>
         <source>APP Feedback</source>
-        <translation>App feedback</translation>
+        <translation>Comentarios de la app</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="765"/>
         <source>Introduction</source>
-        <translation>Présentation</translation>
+        <translation>Introducción</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1068"/>
         <source>Description</source>
-        <translation>Description</translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
-        <translation>Captures d&apos;écran</translation>
+        <translation>Captura de pantalla</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="429"/>
         <location filename="../src/pages/appintopage.ui" line="432"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable de la Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capaz de Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="543"/>
         <location filename="../src/pages/appintopage.ui" line="546"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Wine app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;L&apos;application wine. Spark Store configure automatiquement le kit Wine pour vous&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La aplicación wine. Spark Store configurará automáticamente el kit Wine para usted&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1161"/>
         <source>Update</source>
-        <translation>Moderniser</translation>
+        <translation>Modernizar</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1190"/>
         <source>Contributor</source>
-        <translation>Contributeurs</translation>
+        <translation>Contribuyentes</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1197"/>
         <source>Pkgname</source>
-        <translation>Nom de l&apos;emballage</translation>
+        <translation>Nombre del embalaje</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1303"/>
         <source>Author</source>
-        <translation>Auteur</translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1339"/>
         <source>Size</source>
-        <translation>Taille</translation>
+        <translation>Tamaño</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="1375"/>
         <source>Website</source>
-        <translation>Site Web</translation>
+        <translation>Sitio web</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="51"/>
         <source>Click Open</source>
-        <translation>Cliquez sur Ouvrir</translation>
+        <translation>Haga clic en &quot;abrir&quot;</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="114"/>
         <source>Developer Mode Disabled</source>
-        <translation>Mode développeur désactivé</translation>
+        <translation>Se ha desactivado el modo desarrollador</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="160"/>
         <location filename="../src/pages/appintopage.cpp" line="329"/>
         <location filename="../src/pages/appintopage.cpp" line="456"/>
         <source>Reinstall</source>
-        <translation>Réinstaller</translation>
+        <translation>Reinstalación</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="167"/>
         <source>Upgrade</source>
-        <translation>Mise à niveau</translation>
+        <translation>Actualización</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="318"/>
         <location filename="../src/pages/appintopage.cpp" line="432"/>
         <source>Install</source>
-        <translation>Installation</translation>
+        <translation>Instalación</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="323"/>
         <source>Installing</source>
-        <translation>Installation en cours</translation>
+        <translation>Se está instalando</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="411"/>
@@ -213,43 +213,43 @@
         <location filename="../src/pages/appintopage.cpp" line="419"/>
         <location filename="../src/pages/appintopage.cpp" line="423"/>
         <source>Warning</source>
-        <translation>Avertissement</translation>
+        <translation>Aviso</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="411"/>
         <source>The current application does not support deepin, there may be problems</source>
-        <translation>L&apos;application actuelle ne supporte pas deepin, il peut y avoir un problème</translation>
+        <translation>La aplicación actual no admite deepin, puede haber problemas</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="415"/>
         <source>The current application does not support UOS, there may be problems</source>
-        <translation>L&apos;application actuelle ne prend pas en charge uos, il peut y avoir un problème</translation>
+        <translation>La aplicación actual no admite uos, puede haber problemas</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="419"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
-        <translation>L&apos;application actuelle ne supporte pas Ubuntu, il peut y avoir un problème</translation>
+        <translation>La aplicación actual no admite ubuntu, puede haber problemas</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="423"/>
         <source>The current application does not support current platform, there may be problems</source>
-        <translation>L&apos;application actuelle ne prend pas en charge la plate - forme actuelle, il peut y avoir un problème</translation>
+        <translation>La aplicación actual no admite la Plataforma actual, puede haber problemas</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="487"/>
         <location filename="../src/pages/appintopage.cpp" line="500"/>
         <source>Spark Store</source>
-        <translation>Le Spark store</translation>
+        <translation>SPARK Store</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="487"/>
         <source>Uninstall succeeded</source>
-        <translation>Désinstallation réussie</translation>
+        <translation>Desinstalación exitosa</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="500"/>
         <source>The URL has been copied to the clipboard</source>
-        <translation>L&apos;URL a été copiée dans le presse - papiers</translation>
+        <translation>La URL ha sido copiada al portapapeles</translation>
     </message>
 </context>
 <context>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../src/pages/applistpage.ui" line="14"/>
         <source>Form</source>
-        <translation>Type</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/pages/applistpage.ui" line="60"/>
         <source>about:blank</source>
-        <translation>Re: vide</translation>
+        <translation>Sobre: en blanco</translation>
     </message>
 </context>
 <context>
@@ -270,12 +270,12 @@
     <message>
         <location filename="../src/application.cpp" line="139"/>
         <source>Version: %1</source>
-        <translation>Version: %1</translation>
+        <translation>Versión %1</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="149"/>
         <source>%1 is released under %2</source>
-        <translation>%1 publié sous %2</translation>
+        <translation>%1 publicado bajo %2</translation>
     </message>
 </context>
 <context>
@@ -283,97 +283,97 @@
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="32"/>
         <source>Form</source>
-        <translation>Type</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="74"/>
         <source>icon</source>
-        <translation>Idoles</translation>
+        <translation>ídolo</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="134"/>
         <source>TextLabel</source>
-        <translation>Étiquettes de texte</translation>
+        <translation>Etiquetas de texto</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="121"/>
         <source>Name</source>
-        <translation>Le nom</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="226"/>
         <source>Waiting to download</source>
-        <translation>En attente de téléchargement</translation>
+        <translation>Esperando descargar</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="277"/>
         <source>Install</source>
-        <translation>Installation</translation>
+        <translation>Instalación</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="296"/>
         <source>Cancel</source>
-        <translation>Annulation</translation>
+        <translation>Cancelación</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="315"/>
         <source>Info</source>
-        <translation>Informations</translation>
+        <translation>Información</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="43"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="44"/>
         <source>Download Complete.</source>
-        <translation>Le téléchargement est terminé.</translation>
+        <translation>Descarga completada.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="218"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <source>Spark Store</source>
-        <translation>Le Spark store</translation>
+        <translation>SPARK Store</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="125"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="126"/>
         <source>Installing</source>
-        <translation>Installation en cours</translation>
+        <translation>Se está instalando</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="218"/>
         <source>Installation complete.</source>
-        <translation>L&apos;installation est terminée.</translation>
+        <translation>La instalación está completa.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="219"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="220"/>
         <source>Finish</source>
-        <translation>Terminé</translation>
+        <translation>Completado</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="227"/>
         <source>Retry</source>
-        <translation>Essayez à nouveau</translation>
+        <translation>Reinterpretar</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="230"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="231"/>
         <source>Error happened in dpkg progress , please check the install info or try to reinstall.</source>
-        <translation>Une erreur s&apos;est produite dans le processus dpkg, vérifiez les informations d&apos;installation ou essayez de réinstaller.</translation>
+        <translation>Se produjo un error durante el proceso dpkg, verifique la información de instalación o intente reinstalar.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
         <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
-        <translation>Le processus dpkg a été abandonné, vérifiez les informations d&apos;installation ou essayez de le réinstaller.</translation>
+        <translation>El proceso dpkg ha sido abortado, verifique la información de instalación o intente reinstalarlo.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="145"/>
         <source>Download canceled</source>
-        <translation>Le téléchargement a été annulé</translation>
+        <translation>Descarga cancelada</translation>
     </message>
 </context>
 <context>
@@ -381,17 +381,17 @@
     <message>
         <location filename="../src/widgets/downloadlistwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Type</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/widgets/downloadlistwidget.ui" line="41"/>
         <source>The list is currently empty. Go and download some softwares!</source>
-        <translation>La liste est actuellement vide. Allez télécharger quelques logiciels!</translation>
+        <translation>La lista está actualmente vacía. ¡Ve a descargar un poco de software!</translation>
     </message>
     <message>
         <location filename="../src/widgets/downloadlistwidget.ui" line="116"/>
         <source>Open download directory</source>
-        <translation>Ouvrir le catalogue de téléchargement</translation>
+        <translation>Abrir el catálogo de descargas</translation>
     </message>
 </context>
 <context>
@@ -399,108 +399,108 @@
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="14"/>
         <source>MainWindow</source>
-        <translation>Fenêtre principale</translation>
+        <translation>Ventana principal</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="166"/>
         <source>Home</source>
-        <translation>Maison</translation>
+        <translation>Casa</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="203"/>
         <source>Network</source>
-        <translation>Réseau</translation>
+        <translation>Red</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="231"/>
         <source>Chat</source>
-        <translation>Bavarder</translation>
+        <translation>Charla</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="259"/>
         <source>Music</source>
-        <translation>Musique</translation>
+        <translation>Música</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="287"/>
         <source>Video</source>
-        <translation>Vidéo</translation>
+        <translation>Vídeo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="315"/>
         <source>Picture</source>
-        <translation>Photos</translation>
+        <translation>Foto</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="343"/>
         <source>Game</source>
-        <translation>Jeux</translation>
+        <translation>Juego</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="371"/>
         <source>Office</source>
-        <translation>Bureaux</translation>
+        <translation>Oficina</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="399"/>
         <source>Reading</source>
-        <translation>Lire</translation>
+        <translation>Leer</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="427"/>
         <source>Development</source>
-        <translation>Développement</translation>
+        <translation>Desarrollo</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="455"/>
         <source>Tool</source>
-        <translation>Outils</translation>
+        <translation>Herramientas</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="483"/>
         <source>Theme</source>
-        <translation>Thèmes</translation>
+        <translation>Tema</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="511"/>
         <source>Other</source>
-        <translation>En outre</translation>
+        <translation>Además</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.ui" line="539"/>
         <source>APP Upgrade</source>
-        <translation>Mise à niveau app</translation>
+        <translation>Actualización de app</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="187"/>
         <source>Submit App</source>
-        <translation>Soumettre une application</translation>
+        <translation>Presentación de la aplicación</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="188"/>
         <source>Submit App with client(Recommanded)</source>
-        <translation>Soumettre une demande au client (recommandé)</translation>
+        <translation>Enviar la aplicación al cliente (recomendación)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="189"/>
         <source>Settings</source>
-        <translation>Paramètres</translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="190"/>
         <source>APP Upgrade and Install Settings</source>
-        <translation>Paramètres de mise à niveau et d&apos;installation de l&apos;app</translation>
+        <translation>Actualización e instalación de app</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="146"/>
         <location filename="../src/mainwindow-dtk.cpp" line="241"/>
         <source>Spark Store</source>
-        <translation>Le Spark store</translation>
+        <translation>SPARK Store</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="151"/>
         <source>Search or enter spk://</source>
-        <translation>Rechercher ou entrer SPK /</translation>
+        <translation>Buscar o introducir spk: /%</translation>
     </message>
 </context>
 <context>
@@ -510,7 +510,7 @@
         <location filename="../src/application.cpp" line="34"/>
         <location filename="../src/mainwindow-dtk.cpp" line="126"/>
         <source>Spark Store</source>
-        <translation>Le Spark store</translation>
+        <translation>SPARK Store</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="38"/>
@@ -520,17 +520,17 @@
     <message>
         <location filename="../src/application.cpp" line="146"/>
         <source>Spark Project</source>
-        <translation>Le projet Spark</translation>
+        <translation>Proyecto spark</translation>
     </message>
     <message>
         <location filename="../src/widgets/downloadlistwidget.cpp" line="18"/>
         <source>Download list</source>
-        <translation>Télécharger la Liste</translation>
+        <translation>Descargar lista</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="244"/>
         <source>Show MainWindow</source>
-        <translation>Afficher la fenêtre principale</translation>
+        <translation>Mostrar la ventana principal</translation>
     </message>
 </context>
 <context>
@@ -538,62 +538,62 @@
     <message>
         <location filename="../src/pages/settingspage.ui" line="14"/>
         <source>Form</source>
-        <translation>Type</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="91"/>
         <source>Line Settings</source>
-        <translation>Configuration de la ligne</translation>
+        <translation>Configuración de la línea</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="107"/>
         <source>Choose Line:</source>
-        <translation>Sélectionnez la ligne:</translation>
+        <translation>Selección de líneas:</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="130"/>
         <source>Refresh</source>
-        <translation>Rafraîchir</translation>
+        <translation>Refrescar</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="143"/>
         <source>Take effect immediately</source>
-        <translation>Entrée en vigueur immédiate</translation>
+        <translation>Entrada en vigor inmediata</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="185"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check update for Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vérifiez les mises à jour sur le Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Revisa las actualizaciones de la Spark Store. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="202"/>
         <source>Update</source>
-        <translation>Moderniser</translation>
+        <translation>Modernizar</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="195"/>
         <source>Spark Store Update</source>
-        <translation>Mise à jour du Spark store</translation>
+        <translation>Actualización de la tienda spark</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="230"/>
         <source>Other Settings</source>
-        <translation>Autres paramètres</translation>
+        <translation>Otras configuraciones</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="240"/>
         <source>Enable notification for apps not compatible with current system</source>
-        <translation>Activer les notifications pour les applications incompatibles avec le système actuel</translation>
+        <translation>Habilitar notificaciones para aplicaciones incompatibles con el sistema actual</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="264"/>
         <source>Temp</source>
-        <translation>Employés temporaires</translation>
+        <translation>Empleados temporales</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="277"/>
         <source>Since the dictionary is at /tmp,It would be cleaned automatically when  system reboot.</source>
-        <translation>Comme le dictionnaire se trouve dans / tmp, il est nettoyé automatiquement lorsque le système redémarre.</translation>
+        <translation>Debido a que el diccionario se encuentra en / tmp, se limpia automáticamente cuando el sistema se reinicia.</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="284"/>
@@ -603,27 +603,27 @@
     <message>
         <location filename="../src/pages/settingspage.ui" line="291"/>
         <source>Location：/tmp/spark-store</source>
-        <translation>Emplacement: / tmp / Spark stockage</translation>
+        <translation>Ubicación: / TMP / Spark Storage</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="311"/>
         <source>Clean</source>
-        <translation>Nettoyé</translation>
+        <translation>Limpio</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="324"/>
         <source>Size:</source>
-        <translation>Dimensions:</translation>
+        <translation>Tamaño:</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="331"/>
         <source>Clear Web Cache</source>
-        <translation>Effacer le cache Web</translation>
+        <translation>Borrar la caché web</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="352"/>
         <source>About us</source>
-        <translation>À propos de nous</translation>
+        <translation>Sobre nosotros</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="359"/>
@@ -634,17 +634,17 @@
     <message>
         <location filename="../src/pages/settingspage.cpp" line="217"/>
         <source>Updating, please wait...</source>
-        <translation>Mise à jour en cours, veuillez patienter...</translation>
+        <translation>Se está actualizando, por favor Espere...</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.cpp" line="239"/>
         <source>Spark Store</source>
-        <translation>Le Spark store</translation>
+        <translation>SPARK Store</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.cpp" line="239"/>
         <source>Temporary cache was cleaned</source>
-        <translation>Cache temporaire nettoyé</translation>
+        <translation>Se ha limpiado la caché temporal</translation>
     </message>
 </context>
 <context>
@@ -652,12 +652,12 @@
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="245"/>
         <source>About</source>
-        <translation>À propos</translation>
+        <translation>Sobre</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="246"/>
         <source>Exit</source>
-        <translation>Exportations</translation>
+        <translation>Exportaciones</translation>
     </message>
 </context>
 </TS>

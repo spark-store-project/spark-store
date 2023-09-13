@@ -41,16 +41,17 @@ qm.path = /usr/share/spark-store/translations
 bash_completion.files += pkg/usr/share/bash-completion/completions/aptss
 bash_completion.path = /usr/share/bash-completion/completions
 
-desktop.files += pkg/usr/share/applications/spark-store.desktop
+desktop.files += pkg/usr/share/applications/*.desktop
 desktop.path = /usr/share/applications
 
 service.files += pkg/usr/lib/systemd/system/spark-update-notifier.service
 service.path = /usr/lib/systemd/system/
 
-polkit-1.files +=pkg/usr/share/polkit-1/actions/store.spark-app.ss-do-upgrade-worker.policy
+polkit-1.files += pkg/usr/share/polkit-1/actions/store.spark-app.ss-do-upgrade-worker.policy
 polkit-1.path = /usr/share/polkit-1/actions/
 
-icon.files += pkg/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+icon.files += pkg/usr/share/icons/hicolor/scalable/apps/*.svg
+icon.files += pkg/usr/share/icons/hicolor/scalable/apps/*.png
 icon.path = /usr/share/icons/hicolor/scalable/apps
 
 ssinstall-transhell.files += pkg/usr/share/ssinstall/transhell
