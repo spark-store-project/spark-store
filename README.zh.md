@@ -2,7 +2,6 @@
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
 
-## 请注意，aarch64的支持是实验性的，并未确认持续支持！
 
 众所周知，国内的Linux应用比较少，wine应用难以获取，优质工具分散在民间各大论坛，无法形成合力，难以改善生态
 
@@ -33,6 +32,7 @@
 ---
 #### 编译安装
 
+ **dev分支用于开发，Flamescion分支是amd64,Reason分支是aarch64**。然而，绝大多数情况下，Flamescion和Reason的内容是一致的
 
 Deepin V20/UOS 21 系统下, 安装依赖
 
