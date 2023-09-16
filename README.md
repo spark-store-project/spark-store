@@ -2,7 +2,6 @@
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
 
-## You are informed that the aarch64 support is EXPERIMENTAL and there is NO GUARANTEE that this branch will be supported in the future
 
 Spark Store aims to collect Linux apps for the convieniece of Linux new comers
 
@@ -35,6 +34,7 @@ If you are using Debian11/Ubuntu 20.04, you will need extra dependency package. 
 ---
 #### Compile and developement
 
+ **dev branch is for development, Flamescion branch is for amd64 and Reason branch is for arrch64.** Although, for the most of the time, Flamescion branch is same as Reason.  
 
 For Deepin V20/UOS 21/ Debian 11
 
