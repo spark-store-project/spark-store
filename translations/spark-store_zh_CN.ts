@@ -279,6 +279,14 @@
     </message>
 </context>
 <context>
+    <name>DownloadController</name>
+    <message>
+        <location filename="../src/backend/downloadworker.cpp" line="176"/>
+        <source>Download Failed, please retry :(</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DownloadItem</name>
     <message>
         <location filename="../src/widgets/common/downloaditem.ui" line="32"/>

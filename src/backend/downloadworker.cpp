@@ -173,7 +173,7 @@ void DownloadController::startDownload(const QString &url)
                 failDownloadTimes += 1;
                 timeoutTimer->start(MAXWAITTIME); // 重新启动定时器
             } else{
-                emit errorOccur(cmd.readAllStandardError().data());
+                emit errorOccur(tr("Download Failed, please retry :(")); // 下载失败
                 downloadSuccess = false;
                 cmd.close();
                 cmd.terminate(); // 终止当前的下载进程
