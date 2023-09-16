@@ -2,6 +2,10 @@
 #include "mainwindow-dtk.h"
 #include "utils/utils.h"
 
+#include <signal.h>
+#include <execinfo.h>
+#include <unistd.h>
+
 #include <DSysInfo>
 #include <DApplicationSettings>
 #include <DWidgetUtil>
@@ -16,8 +20,27 @@
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
+
+void crashHandler(int sig) {
+    void *array[50];
+    size_t size;
+
+    // 获取所有活动的函数指针
+    size = backtrace(array, 50);
+
+    // 打印函数调用堆栈
+    fprintf(stderr, "Error: signal %d:\n", sig);
+    backtrace_symbols_fd(array, size, STDERR_FILENO);
+    exit(1);
+}
+
+
 int main(int argc, char *argv[])
 {
+    // 崩溃处理
+    signal(SIGSEGV, crashHandler);  // 注册SIGSEGV处理函数
+
+
     // Get build time
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
