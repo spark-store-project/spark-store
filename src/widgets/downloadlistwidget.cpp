@@ -169,6 +169,7 @@ void DownloadListWidget::httpFinished() // 完成下载
     {
         while (downloaditemlist[nowDownload - 1]->readyInstall() == -1) // 安装当前应用，堵塞安装，后面的下载suspend
         {
+            QThread::msleep(500);  // 休眠500ms，减少CPU负担
             continue;
         }
         downloaditemlist[nowDownload - 1]->free = true;
@@ -179,17 +180,15 @@ void DownloadListWidget::httpFinished() // 完成下载
             // 如果有排队则下载下一个
             qDebug() << "Download: 切换下一个下载...";
             nowDownload += 1;
-            while (downloaditemlist[nowDownload - 1]->close)
+            while (nowDownload < allDownload && downloaditemlist[nowDownload - 1]->close)
             {
                 nowDownload += 1;
-                if (nowDownload >= allDownload)
-                {
-                    nowDownload = allDownload;
-                    return;
-                }
             }
-            QString fileName = downloaditemlist[nowDownload - 1]->getName();
-            startRequest(urList.at(nowDownload - 1), fileName);
+            if (nowDownload < allDownload)
+            {
+                QString fileName = downloaditemlist[nowDownload - 1]->getName();
+                startRequest(urList.at(nowDownload - 1), fileName);
+            }
         }
     });
 }
@@ -236,19 +235,23 @@ void DownloadListWidget::on_pushButton_clicked()
 void DownloadListWidget::slotInstallFinished(bool success)
 {
     // NOTE: 仅在安装成功后判断是否需要退出后台
-    if (success) {
-        toDownload -= 1; // 安装完以后减少待安装数目
-        qDebug() << "Download: 还没有下载的数目：" << toDownload;
+    if (!success) {
+        qDebug() << "Download: install failed";
+        return;
+    }
 
-        if (toDownload == 0)
+    if (toDownload > 0) {
+        toDownload -= 1;
+        qDebug() << "Download: toDownload" << toDownload;
+    }
+
+    if (toDownload == 0) {
+        Application *app = qobject_cast<Application *>(qApp);
+        MainWindow *mainWindow = app->mainWindow();
+        if (mainWindow->isCloseWindowAnimation() == true)
         {
-            Application *app = qobject_cast<Application *>(qApp);
-            MainWindow *mainWindow = app->mainWindow();
-            if (mainWindow->isCloseWindowAnimation() == true)
-            {
-                qDebug() << "Download: 后台安装结束，退出程序";
-                qApp->quit();
-            }
+            qDebug() << "Download: 后台安装结束，退出程序";
+            qApp->quit();
         }
     }
 }

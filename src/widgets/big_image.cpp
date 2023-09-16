@@ -17,7 +17,8 @@ big_image::big_image(DBlurEffectWidget *parent) : DBlurEffectWidget(parent),
     layout->addWidget(m_image);
     layout->setMargin(0);
 
-    // m_image->setParent(this);
+    // Make sure the image has a parent so that it will be freed.
+    m_image->setParent(this);
     // m_image->setMaximumSize(1360,768);
     m_image->setAlignment(Qt::AlignCenter);
 }
