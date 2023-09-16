@@ -5,6 +5,10 @@
 #include <signal.h>
 #include <execinfo.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <fstream>
 
 #include <DSysInfo>
 #include <DApplicationSettings>
@@ -20,17 +24,82 @@
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
+static QString buildDateTime;
+
 
 void crashHandler(int sig) {
     void *array[50];
-    size_t size;
+    size_t size = backtrace(array, 50);
+    if (size == 0) {
+        perror("backtrace");
+        exit(1);
+    }
 
-    // 获取所有活动的函数指针
-    size = backtrace(array, 50);
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    char filename[128];
+    snprintf(filename, sizeof(filename), "/tmp/spark_store_crash_log_%04d%02d%02d_%02d%02d%02d.txt",
+             tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
-    // 打印函数调用堆栈
+    std::ofstream logFile(filename, std::ios::out);
+    if (!logFile.is_open()) {
+        perror("ofstream");
+        exit(1);
+    }
+
+    logFile << "Please send this log to the developer. QQ Group: 872690351\n";
+    logFile << "Build Date and Time: " << buildDateTime.toStdString() << "\n";
+    
+    FILE *fp = popen("uname -m", "r");
+    if (fp) {
+        char buffer[256];
+        if (fgets(buffer, sizeof(buffer), fp) != NULL) {
+            // 移除换行符
+            buffer[strcspn(buffer, "\n")] = 0;
+            logFile << "CPU Architecture: " << buffer << "\n";
+        }
+        pclose(fp);
+    } else {
+        logFile << "Failed to gather CPU architecture info.\n";
+    }
+
+
+
+
+    FILE *fp2 = popen("lsb_release -a", "r");
+    if (fp2) {
+        char buffer[256];
+        while (fgets(buffer, sizeof(buffer), fp2) != NULL) {
+            logFile << buffer;
+        }
+        pclose(fp2);
+    } else {
+        logFile << "Failed to gather distribution info.\n";
+    }
+
+
+    logFile << "Error: signal " << sig << ":\n";
+    for (size_t i = 0; i < size; i++) {
+        char **strings = backtrace_symbols(&array[i], 1);
+        if (strings != NULL && strings[0] != NULL) {
+            logFile << strings[0] << "\n";
+        } else {
+            logFile << "Failed to get symbol.\n";
+        }
+        free(strings);
+    }
+
+    logFile.close();
+
+    char openCmd[256];
+    snprintf(openCmd, sizeof(openCmd), "xdg-open %s", filename);
+    if (system(openCmd) == -1) {
+        perror("system");
+    }
+
     fprintf(stderr, "Error: signal %d:\n", sig);
     backtrace_symbols_fd(array, size, STDERR_FILENO);
+
     exit(1);
 }
 
@@ -44,7 +113,8 @@ int main(int argc, char *argv[])
     // Get build time
     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
-    static const QString buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
+    buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
+
 
     // NOTE: 提前设置组织名称和应用名称，避免配置文件位置错误
     DApplication::setOrganizationName("spark-union");
