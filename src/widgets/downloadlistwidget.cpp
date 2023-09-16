@@ -180,11 +180,11 @@ void DownloadListWidget::httpFinished() // 完成下载
             // 如果有排队则下载下一个
             qDebug() << "Download: 切换下一个下载...";
             nowDownload += 1;
-            while (nowDownload < allDownload && downloaditemlist[nowDownload - 1]->close)
+            while (nowDownload <= allDownload && downloaditemlist[nowDownload - 1]->close)
             {
                 nowDownload += 1;
             }
-            if (nowDownload < allDownload)
+            if (nowDownload <= allDownload)
             {
                 QString fileName = downloaditemlist[nowDownload - 1]->getName();
                 startRequest(urList.at(nowDownload - 1), fileName);
