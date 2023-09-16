@@ -3,6 +3,7 @@ spark-store (4.2.7.3) stable; urgency=medium
   * 修复：aptss现在会正确地透传错误码而不是exit 0
   * 修复：下载时如果卡0%(无法下载metalink)，会在超时后报错中断而不是一直傻等
   * 修复：排队下载时CPU占满单核的bug https://gitee.com/deepin-community-store/spark-store/issues/I7B91V
+  * 修复：在终端中打开的icon过大导致无法投稿到UOS
   
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
