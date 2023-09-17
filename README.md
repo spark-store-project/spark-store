@@ -11,11 +11,11 @@ We set up this APP Store and collect APPs/tools that everyone need widely. Also 
 
 All packages will be shared in our repository for users to get freely. 
 
-Distrobution supported：Deepin 20 ; Ubuntu 22.04 LTS / Ubuntu 20.04 LTS(May stop support in the future） ; UniontechOS Home 21
+Distrobution supported：
 
-*About OpenKylin and deepin 23*
+* amd64: deepin 20 / deepin 23 / Ubuntu 22.04 LTS / UniontechOS Home 21
+* arm64: UniontechOS Professional 1060 / Ubuntu 22.04 LTS / deepin 23
 
-The adaptation work is scheduled after their official release.
 
 You can track our Issue resoving progress here  https://gitee.com/deepin-community-store/spark-store/board
 
