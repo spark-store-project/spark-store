@@ -5,13 +5,16 @@
 #include <QtConcurrent>
 #include <QStandardPaths>
 
+#define DEFAULTURL "d.store.deepinos.org.cn"
+#define MAXWAITTIME 200000
+
 DownloadController::DownloadController(QObject *parent)
 {
     Q_UNUSED(parent)
 
     // 初始化默认域名
     domains.clear();
-    domains.append("d.store.deepinos.org.cn");
+    domains.append(DEFAULTURL);
 
     /*
     domains = {
@@ -37,7 +40,8 @@ bool checkMeatlink(QString metaUrl)
     {
         metaStatus.remove();
     }
-    system("curl -I -s --connect-timeout 5 " + metaUrl.toUtf8() + " -w  %{http_code}  |tail -n1 > /tmp/spark-store/metaStatus.txt");
+    QString cmd = QString("curl -I -s --connect-timeout 5 %1 -w  %{http_code}  |tail -n1 > /tmp/spark-store/metaStatus.txt").arg(metaUrl);
+    system(cmd.toUtf8().data());
     if (metaStatus.open(QFile::ReadOnly) && QString(metaStatus.readAll()).toUtf8() == "200")
     {
         metaStatus.remove();
@@ -68,8 +72,12 @@ void gennerateDomain(QVector<QString> &domains)
         }
         if (domains.size() == 0)
         {
-            domains.append("d.store.deepinos.org.cn");
+            domains.append(DEFAULTURL);
         }
+    }
+    else
+    {
+        domains.append(DEFAULTURL);
     }
 }
 
@@ -102,34 +110,36 @@ void DownloadController::startDownload(const QString &url)
             // qDebug() << domains << domains.size();
         }
 
-        QString aria2Command = "-d";
-        QString aria2Urls = "";
-        QString aria2Verbose = "--summary-interval=1";
-        QString aria2SizePerThreads = "--min-split-size=1M"; 
-        QString aria2NoConfig = "--no-conf";
-        QString aria2NoSeeds = "--seed-time=0";
+        QString aria2Command = "-d"; //下载目录
+        QString aria2Urls = ""; //下载地址
+        QString aria2Verbose = "--summary-interval=1"; //显示下载速度
+        QString aria2SizePerThreads = "--min-split-size=1M"; //最小分片大小
+        QString aria2NoConfig = "--no-conf"; //不使用配置文件
+        QString aria2NoSeeds = "--seed-time=0"; //不做种
         QStringList command;
-        QString downloadDir = "/tmp/spark-store/";
-        QString aria2ConnectionPerServer = "--max-connection-per-server=1";
-        QString aria2ConnectionMax = "--max-concurrent-downloads=16";
-        QString aria2DNSCommand = "--async-dns-server=119.29.29.29,223.5.5.5";
+        QString downloadDir = "/tmp/spark-store/"; //下载目录
+        QString aria2ConnectionPerServer = "--max-connection-per-server=1"; //每个服务器最大连接数
+        QString aria2ConnectionMax = "--max-concurrent-downloads=16"; //最大同时下载数
 
-        if (useMetalink)
+
+        if (useMetalink) //如果是metalink
         {
             command.append(metaUrl.toUtf8());
         }
         else
         {
-            for (int i = 0; i < domains.size(); i++)
+            for (int i = 0; i < domains.size(); i++) //遍历域名
             {
                 command.append(replaceDomain(url, domains.at(i)).replace("+","%2B").toUtf8()); //对+进行转译，避免oss出错
             }
         }
 
 
-        qint64 downloadSizeRecord = 0;
-        QString speedInfo = "";
-        QString percentInfo = "";
+        qint64 downloadSizeRecord = 0; //下载大小记录
+        qint8  failDownloadTimes = 0; // 记录重试次数
+        const qint8 maxRetryTimes = 3; //最大重试次数
+        QString speedInfo = ""; //显示下载速度
+        QString percentInfo = ""; //显示下载进度
         command.append(aria2Command.toUtf8());
         command.append(downloadDir.toUtf8());
         command.append(aria2Verbose.toUtf8());
@@ -137,7 +147,7 @@ void DownloadController::startDownload(const QString &url)
         command.append(aria2SizePerThreads.toUtf8());
         command.append(aria2ConnectionPerServer.toUtf8());
         command.append(aria2ConnectionMax.toUtf8());
-        command.append(aria2DNSCommand.toUtf8());
+
         if (useMetalink)
         {
             command.append(aria2NoSeeds.toUtf8());
@@ -152,11 +162,30 @@ void DownloadController::startDownload(const QString &url)
         cmd.start();
         cmd.waitForStarted(-1); //等待启动完成
 
+        // Timer
+        QTimer *timeoutTimer = new QTimer(this);
+        timeoutTimer->setSingleShot(true); // 单次触发
+        connect(timeoutTimer, &QTimer::timeout, [&]() {
+            if (failDownloadTimes < maxRetryTimes) {
+                qDebug() << "Download timeout, restarting...";
+                // 重新启动下载任务的代码
+                restartDownload(cmd, command); // 调用重新启动下载任务的函数
+                failDownloadTimes += 1;
+                timeoutTimer->start(MAXWAITTIME); // 重新启动定时器
+            } else{
+                emit errorOccur(tr("Download Failed, please retry :(")); // 下载失败
+                downloadSuccess = false;
+                cmd.close();
+                cmd.terminate(); // 终止当前的下载进程
+                cmd.waitForFinished(); // 等待进程结束
+            }
+        });
+
         connect(&cmd, &QProcess::readyReadStandardOutput, [&]()
         {
+            timeoutTimer->start(MAXWAITTIME); // 重置超时计时器，15秒超时
             //通过读取输出计算下载速度
             QString message = cmd.readAllStandardOutput().data();
-            // qDebug() << message;
             message = message.replace(" ", "");
             QStringList list;
             qint64 downloadSize = 0;
@@ -179,10 +208,10 @@ void DownloadController::startDownload(const QString &url)
                 speedInfo = message.mid(speedPlace1 + 3, speedPlace2 - speedPlace1 - 3);
                 speedInfo += "/s";
             }
-            // qDebug() << percentInfo << speedInfo;
             if (downloadSize >= downloadSizeRecord)
             {
                 downloadSizeRecord = downloadSize;
+                timeoutTimer->stop(); // 如果有进度，停止超时计时器
             }
             if (percentInfo == "OK")
             {
@@ -242,6 +271,15 @@ void DownloadController::stopDownload()
     system(killCmd.toUtf8());
     qDebug() << "kill aria2!";
     pidNumber = -1;
+}
+
+void DownloadController::restartDownload(QProcess &cmd, const QStringList &command)
+{
+    cmd.terminate(); // 终止当前的下载进程
+    cmd.waitForFinished(); // 等待进程结束
+    cmd.setArguments(command); // 重新设置参数
+    cmd.start(); // 重新启动下载
+    cmd.waitForStarted(-1); // 等待启动完成
 }
 
 qint64 DownloadController::getFileSize(const QString &url)
