@@ -2,7 +2,7 @@ version: '1.0'
 name: dtk-build-release-tag-20220425
 displayName: dtk-build-release-tag
 triggers:
-  trigger: auto
+  trigger: manual
   push:
     tags:
       prefix:
