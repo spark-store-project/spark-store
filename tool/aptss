@@ -76,6 +76,7 @@ if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] ; 
 ret="$?"
 if [ "$ret" -ne 0 ];then
 echo -e "\e[1;33m$TRANSHELL_CONTENT_PLEASE_USE_APTSS_INSTEAD_OF_APT\e[0m"
+exit $ret
 fi
 
 

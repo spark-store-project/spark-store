@@ -25,10 +25,12 @@ stages:
           - apt update
           - export DEBIAN_FRONTEND=noninteractive
           - echo "安装wget qemu-user-static"
-          - apt install wget qemu-user-static xz-utils -y
+          - apt install git wget qemu-user-static xz-utils binfmt-support -y
           - mkdir ../spark-store-git
           - mv * ../spark-store-git
-          - wget https://code.gitlink.org.cn/shenmo7192/debian-container-aarch64/raw/branch/master/DEBIANARM.tar.xz
+          - git clone https://gitlink.org.cn/shenmo7192/debian-container-aarch64.git
+          - mv debian-container-aarch64/DEBIANARM.tar.xz .
+          - rm -rf debian-container-aarch64
           - tar -xf DEBIANARM.tar.xz
           - mkdir -p DEBIAN/root/build-spark
           - mv ../spark-store-git DEBIAN/root/build-spark/spark-store
