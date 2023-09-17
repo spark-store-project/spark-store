@@ -18,9 +18,6 @@
 
 ## 关于协作：分支相关的文档见 [这里](https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo)
 
-*关于OpenKylin和deepin 23*
-
-支持计划将会在对应系统发布正式版之后开始评估和执行
 
 希望看到这里的人也可以加入我们的队伍，开发或者投递应用都很欢迎，共同构建Linux应用生态
 
