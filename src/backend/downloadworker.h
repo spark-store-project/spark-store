@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QVector>
+#include <QProcess>
 
 class DownloadController : public QObject
 {
@@ -14,6 +15,7 @@ public:
     void setFilename(QString filename);
     void startDownload(const QString &url);
     void stopDownload();
+    void restartDownload(QProcess &cmd, const QStringList &command);
     qint64 getFileSize(const QString& url);
     QString replaceDomain(const QString& url, const QString domain);
 

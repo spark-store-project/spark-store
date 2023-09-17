@@ -2,20 +2,22 @@
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
 
-## 请注意，aarch64的支持是实验性的，并未确认持续支持！
 
-众所周知，国内的Linux应用比较少，wine应用难以获取，优质工具分散在民间各大论坛，无法形成合力，难以改善生态
+国内的Linux应用比较少，wine应用难以获取，优质工具分散在民间各大论坛，无法形成合力，难以改善生态
 
 生态构建需要的不是某一方的单打独斗，而是人人行动起来，汇聚星火，产生燎原之势
 
 我们创建了这个应用商店，广泛收录大家需要的软件包，搜集优质小工具，主动适配wine应用，存放到储存库供大家获取
-我们支持：Deepin 20 ; Ubuntu 22.04 LTS / Ubuntu 20.04 LTS(将会逐渐停止支持） ; UOS Home 21
+
+发行版支持：
+
+* amd64: deepin 20 / deepin 23 / Ubuntu 22.04 / UOS家庭版20
+* arm64: UOS专业版1060 / Ubuntu 22.04 / deepin 23
+
+ **请注意：本程序不包含任何保证，若你要在UOS专业版上使用，请确保你打开了开发者模式且拥有排查错误的能力，风险自负！** 
 
 ## 关于协作：分支相关的文档见 [这里](https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo)
 
-*关于OpenKylin和deepin 23*
-
-支持计划将会在对应系统发布正式版之后开始评估和执行
 
 希望看到这里的人也可以加入我们的队伍，开发或者投递应用都很欢迎，共同构建Linux应用生态
 
@@ -33,6 +35,7 @@
 ---
 #### 编译安装
 
+ **dev分支用于开发，Flamescion分支是amd64,Reason分支是aarch64**。然而，绝大多数情况下，Flamescion和Reason的内容是一致的
 
 Deepin V20/UOS 21 系统下, 安装依赖
 

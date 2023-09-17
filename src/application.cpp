@@ -2,6 +2,8 @@
 #include "mainwindow-dtk.h"
 #include "utils/utils.h"
 
+#include <QDir>
+#include <QJsonArray>
 #include <DPlatformWindowHandle>
 #include <DLog>
 #include <DGuiApplicationHelper>
