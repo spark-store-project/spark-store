@@ -5,7 +5,7 @@ Priority: optional
 Build-Depends:
  debhelper (>= 9),
  pkg-config,
- qtchooser (>= 55-gc9562a1-1~),
+ qtchooser (>= 55-gc9562a1-1~) | qt5-default,
  libqt5core5a,
  libqt5gui5,
  libqt5widgets5,
