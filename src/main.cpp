@@ -69,12 +69,12 @@ void crashHandler(int sig) {
     logFile << "Gihub: https://github.com/spark-store-project/spark-store/issues\n";
     logFile << "Build Date and Time: " << buildDateTime.toStdString() << "\n";
     gatherInfo(popen("cat ~/.config/spark-union/spark-store/config.ini", "r"), logFile, "User Config File");
-    
+
     // Collecting System Information
-    gatherInfo(popen("uname -m", "r"), logFile, "CPU Architecture");
-    gatherInfo(popen("lsb_release -a", "r"), logFile, "Distribution info");
-    gatherInfo(popen("LANG=C lscpu", "r"), logFile, "All CPU Info");
-    gatherInfo(popen("free -h | grep Mem | awk '{print $2}'", "r"), logFile, "Memory Size");
+    gatherInfo(popen("LANG=en_US.UTF-8 uname -m", "r"), logFile, "CPU Architecture");
+    gatherInfo(popen("LANG=en_US.UTF-8 lsb_release -a", "r"), logFile, "Distribution info");
+    gatherInfo(popen("LANG=en_US.UTF-8 lscpu", "r"), logFile, "All CPU Info");
+    gatherInfo(popen("LANG=en_US.UTF-8 free -h | grep Mem | awk '{print $2}'", "r"), logFile, "Memory Size");
   
 
 
