@@ -9,14 +9,6 @@
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="175"/>
-        <location filename="../src/pages/appintopage.cpp" line="313"/>
-        <location filename="../src/pages/appintopage.cpp" line="483"/>
-        <source>Download</source>
-        <translation>Descargar</translation>
-    </message>
-    <message>
         <location filename="../src/pages/appintopage.ui" line="290"/>
         <source>Uninstall</source>
         <translation>Desinstalar</translation>
@@ -131,6 +123,14 @@
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
         <translation>Captura de pantalla</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="244"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="483"/>
+        <source>Download and Install</source>
+        <translation>Descargar e instalar</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="429"/>
@@ -268,14 +268,22 @@
 <context>
     <name>DAboutDialog</name>
     <message>
-        <location filename="../src/application.cpp" line="139"/>
+        <location filename="../src/application.cpp" line="141"/>
         <source>Version: %1</source>
         <translation>Versión %1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="149"/>
+        <location filename="../src/application.cpp" line="151"/>
         <source>%1 is released under %2</source>
         <translation>%1 publicado bajo %2</translation>
+    </message>
+</context>
+<context>
+    <name>DownloadController</name>
+    <message>
+        <location filename="../src/backend/downloadworker.cpp" line="176"/>
+        <source>Download Failed, please retry :(</source>
+        <translation>Descarga fall, por favor vuelva a intentarlo</translation>
     </message>
 </context>
 <context>
@@ -366,8 +374,8 @@
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
-        <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
-        <translation>El proceso dpkg ha sido abortado, verifique la información de instalación o intente reinstalarlo.</translation>
+        <source>dpkg progress had been aborted, please check the install info or try to reinstall.</source>
+        <translation>El proceso de DPKG ha sido interrumpido, compruebe la información de instalación o intente reinstalar.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
@@ -506,19 +514,19 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/application.cpp" line="33"/>
-        <location filename="../src/application.cpp" line="34"/>
+        <location filename="../src/application.cpp" line="35"/>
+        <location filename="../src/application.cpp" line="36"/>
         <location filename="../src/mainwindow-dtk.cpp" line="126"/>
         <source>Spark Store</source>
         <translation>SPARK Store</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="38"/>
+        <location filename="../src/application.cpp" line="40"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
         <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="146"/>
+        <location filename="../src/application.cpp" line="148"/>
         <source>Spark Project</source>
         <translation>Proyecto spark</translation>
     </message>

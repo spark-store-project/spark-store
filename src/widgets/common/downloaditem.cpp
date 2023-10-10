@@ -234,9 +234,9 @@ void DownloadItem::slotAsyncInstall(int t)
 
     if (notRoot)
     {
-        Utils::sendNotification("spark-store", tr("Spark Store"), tr("dpkg progress had been aborted，please check the install info or try to reinstall."));
-        ui->label_2->setText(tr("dpkg progress had been aborted，please check the install info or try to reinstall."));
-        ui->label_2->setToolTip(tr("dpkg progress had been aborted，please check the install info or try to reinstall."));
+        Utils::sendNotification("spark-store", tr("Spark Store"), tr("dpkg progress had been aborted, please check the install info or try to reinstall."));
+        ui->label_2->setText(tr("dpkg progress had been aborted, please check the install info or try to reinstall."));
+        ui->label_2->setToolTip(tr("dpkg progress had been aborted, please check the install info or try to reinstall."));
         ui->pushButton_install->show();
         ui->pushButton_3->hide();
     }

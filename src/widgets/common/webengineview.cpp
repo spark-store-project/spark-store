@@ -1,8 +1,6 @@
 #include "webengineview.h"
 #include "webenginepage.h"
 
-#include <QDesktopServices>
-
 WebEngineView::WebEngineView(QWidget *parent)
     : QWebEngineView(parent)
 {

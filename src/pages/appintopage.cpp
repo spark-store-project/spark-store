@@ -172,7 +172,7 @@ void AppIntoPage::openUrl(const QUrl &url)
             }
             else
             {
-                ui->downloadButton->setText(tr("Download"));
+                ui->downloadButton->setText(tr("Download and Install"));
                 ui->downloadButton->setEnabled(true);
                 ui->downloadButton->show();
             }
@@ -310,7 +310,7 @@ void AppIntoPage::isDownloading(const QUrl &url)
     if (item->download == 2)
     {
         ui->downloadButton->setEnabled(true);
-        ui->downloadButton->setText(tr("Download"));
+        ui->downloadButton->setText(tr("Download and Install"));
     }
     if (item->download == 1)
     {
@@ -480,7 +480,7 @@ void AppIntoPage::on_pushButton_3_clicked()
 
         if (check.readAllStandardOutput().isEmpty())
         {
-            ui->downloadButton->setText(tr("Download"));
+            ui->downloadButton->setText(tr("Download and Install"));
             ui->pushButton_3->hide();
 
             updatesEnabled();

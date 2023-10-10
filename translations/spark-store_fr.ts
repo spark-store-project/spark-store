@@ -9,14 +9,6 @@
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="175"/>
-        <location filename="../src/pages/appintopage.cpp" line="313"/>
-        <location filename="../src/pages/appintopage.cpp" line="483"/>
-        <source>Download</source>
-        <translation>Télécharger</translation>
-    </message>
-    <message>
         <location filename="../src/pages/appintopage.ui" line="290"/>
         <source>Uninstall</source>
         <translation>Désinstaller</translation>
@@ -131,6 +123,14 @@
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
         <translation>Captures d&apos;écran</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="244"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="483"/>
+        <source>Download and Install</source>
+        <translation>Télécharger et installer</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="429"/>
@@ -283,7 +283,7 @@
     <message>
         <location filename="../src/backend/downloadworker.cpp" line="176"/>
         <source>Download Failed, please retry :(</source>
-        <translation type="unfinished"></translation>
+        <translation>Le téléchargement a échoué, veuillez réessayer</translation>
     </message>
 </context>
 <context>
@@ -374,8 +374,8 @@
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
-        <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
-        <translation>Le processus dpkg a été abandonné, vérifiez les informations d&apos;installation ou essayez de le réinstaller.</translation>
+        <source>dpkg progress had been aborted, please check the install info or try to reinstall.</source>
+        <translation>La progression de DPKG a été interrompue, veuillez vérifier les informations d’installation ou essayer de réinstaller.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>

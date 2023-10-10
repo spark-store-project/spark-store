@@ -9,14 +9,6 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="175"/>
-        <location filename="../src/pages/appintopage.cpp" line="313"/>
-        <location filename="../src/pages/appintopage.cpp" line="483"/>
-        <source>Download</source>
-        <translation>下载</translation>
-    </message>
-    <message>
         <location filename="../src/pages/appintopage.ui" line="290"/>
         <source>Uninstall</source>
         <translation>卸载</translation>
@@ -126,6 +118,14 @@
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
         <translation>屏幕截图</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="244"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="483"/>
+        <source>Download and Install</source>
+        <translation>下载并安装</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="429"/>
@@ -283,7 +283,7 @@
     <message>
         <location filename="../src/backend/downloadworker.cpp" line="176"/>
         <source>Download Failed, please retry :(</source>
-        <translation type="unfinished"></translation>
+        <translation>下载失败，请重试</translation>
     </message>
 </context>
 <context>
@@ -368,14 +368,14 @@
         <location filename="../src/widgets/common/downloaditem.cpp" line="230"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="231"/>
         <source>Error happened in dpkg progress , please check the install info or try to reinstall.</source>
-        <translation>安装被中止，请检查安装详情或尝试重新安装</translation>
+        <translation>安装出现错误，请检查安装详情或尝试重新安装。</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
-        <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
-        <translation>dpkg出现错误，请检查安装详情或尝试重新安装</translation>
+        <source>dpkg progress had been aborted, please check the install info or try to reinstall.</source>
+        <translation>安装被中止，请检查安装详情或尝试重新安装。</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
