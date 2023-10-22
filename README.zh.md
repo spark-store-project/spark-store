@@ -77,6 +77,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 > appstore://deepin-home-appstore-client?app_detail_info/spark-store
 
+
     若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
