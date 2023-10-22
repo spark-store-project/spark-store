@@ -2,175 +2,162 @@
 [![star](https://gitee.com/deepin-community-store/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/stargazers)  [![fork](https://gitee.com/deepin-community-store/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/deepin-community-store/spark-store/members)
 
 
+## 简介
 
-国内的Linux应用比较少，wine应用难以获取，优质工具分散在民间各大论坛，无法形成合力，难以改善生态
-
-生态构建需要的不是某一方的单打独斗，而是人人行动起来，汇聚星火，产生燎原之势
-
-我们创建了这个应用商店，广泛收录大家需要的软件包，搜集优质小工具，主动适配wine应用，存放到储存库供大家获取
-
-发行版支持：
-
-* amd64: deepin 20 / deepin 23 / Ubuntu 22.04 / UOS家庭版20
-* arm64: UOS专业版1060 / Ubuntu 22.04 / deepin 23
-
- **请注意：本程序不包含任何保证，若你要在UOS专业版上使用，请确保你打开了开发者模式且拥有排查错误的能力，风险自负！** 
-
-## 关于协作：分支相关的文档见 [这里](https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo)
+欢迎来到星火应用商店！这是一个为Linux用户设计的应用商店，旨在解决Linux生态下应用分散、难以获取的问题。无论你是使用什么类型的Linux发行版，这里都有可能找到适合你的软件包。
 
 
-希望看到这里的人也可以加入我们的队伍，开发或者投递应用都很欢迎，共同构建Linux应用生态
+Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。优秀的开发和工具资源散布在各大社区和论坛之间，这种分散化让整个生态系统难以得到全面的提升。
 
-在这里追踪我们的Issue处理情况 https://gitee.com/deepin-community-store/spark-store/board
+生态系统的构建并非依赖个体的孤立努力，而需要全社区共同参与。只有当大家的“星火”聚集一处，方可引发“燎原之势”。
 
-如果有想要提交的软件包，请 [在这里投稿](https://upload.deepinos.org/index)
+为了改善这一现状，我们推出了这个应用商店。我们广泛地收录了各种用户需求的软件包，汇集了高质量的小工具，并主动对 Wine 应用进行了适配，一切都储存在我们的软件库中，以便用户方便地获取。
 
+**当前支持的Linux发行版包括：**
 
-## 🙌 简单的开始
+- **amd64架构：** deepin 20 / deepin 23 / Ubuntu 20.04 / Ubuntu 22.04 / UOS家庭版20
+- **arm64架构：** UOS专业版1060 / Ubuntu 22.04 / deepin 23
 
-如果想安装 `星火应用商店` ，请打开右侧的 [Release] 页面，找到最新版本，并选择适用于当前系统的安装包下载。
+> 特别说明：我们还支持所有版本高于Ubuntu 22.04的Ubuntu操作系统，例如Ubuntu 22.10、23.04、23.10等。
 
-如果你在使用 `Debian 11/Ubuntu 20.04`，你需要额外下载[依赖补充包](https://zunyun01.store.deepinos.org.cn/spark-store-dependencies-kylin.zip)
-
----
-#### 编译安装
-
- **dev分支用于开发，Flamescion分支是amd64,Reason分支是aarch64**。然而，绝大多数情况下，Flamescion和Reason的内容是一致的
-
-Deepin V20/UOS 21 系统下, 安装依赖
-
-```shell
-sudo apt install git qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev fakeroot qtwayland5 qtwayland5-dev-tools dde-qt5wayland-plugin libqt5svg5*
-
-```
-
-Ubuntu 22.04 系统下, 安装依赖
-```shell
-sudo apt install git qtbase5-dev debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev qtwayland5 qtwayland5-dev-tools libqt5svg5*
-
-```
-
-然后
-```shell
-git clone https://gitee.com/deepin-community-store/spark-store.git
-cd spark-store
-dpkg-buildpackage -j
-```
-
-或者： 编译并安装
-```shell
-git clone https://gitee.com/deepin-community-store/spark-store.git
-cd spark-store
-./build_and_install.sh
-```
-
-## EULA
-
-这里是我们的[EULA](https://mzh.moegirl.org.cn/%E4%BC%98%E8%8F%88%C2%B7%E5%8A%B3%E4%BC%A6%E6%96%AF)
+**重要须知：** 本软件不提供任何形式的保证。若您计划在UOS专业版上使用，请务必了解并启用开发者模式。请确保您具备基础的故障排查能力。需要明确的是，我们没有在UOS操作系统上进行广泛的测试。因此，使用星火客户端可能会导致一系列问题，如系统更新失败、数据丢失等，所有风险需由用户自行承担。
 
 
-## 🚀 协作
 
-非常感谢有兴趣的开发者或爱好者参与 `星火应用商店` 项目，分享你的见解与思路。
+## 关于团队协作：分支管理相关的详细文档可参见 [此链接](https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo)。
 
-### 论坛
+我们热忱欢迎您加入我们的开发团队。无论您是想参与开发，还是想提交应用，都能在这里找到属于您的一席之地，共同推动Linux应用生态的发展。
 
-https://www.deepinos.org/
+您可以通过以下链接，实时跟踪我们的Issue处理状态：[Gitee Issue看板](https://gitee.com/deepin-community-store/spark-store/board)。
 
-#### QQ群：
-
-https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/
+若您有软件包想要提交，敬请 [点击此处进行投稿](https://upload.deepinos.org/index)。
 
 
-## FAQ
-### 星火应用商店FAQ与支持指南
 
-#### 简介
-星火应用商店是一个面向 Linux 用户的应用商店，支持多种不同的 Linux 发行版。以下是一些常见问题及解决方案。请注意，该文档主要面向对 Linux 和 APT 软件包管理系统不熟悉的普通用户。
+
+## 目录
+
+- [确定你的系统架构](#确定你的系统架构)
+- [系统支持与安装指引](#系统支持与安装指引)
+  - [对于 Deepin / UOS 用户](#对于deepin用户)
+  - [对于 Ubuntu 用户](#对于ubuntu用户)
+  - [对于 Debian 用户](#对于debian用户)
+- [常见问题（FAQ）](#常见问题faq)
+- [联系与反馈](#联系与反馈)
 
 ---
 
-#### 交流与反馈
-**Q: 在哪进交流群？**  
-**A:** 你可以点击[这里](https://www.deepinos.org/)进入星火商店的主交流平台。  
-> ⚠️ 如果上面的链接无法使用，你还可以加入我们的 QQ 群作为备选方案，群号是 872690351 和 865927727。我们还提供论坛作为交流平台。
+## 确定你的系统架构
 
-arm64与amd64的区别
+在安装任何软件之前，你需要知道你的计算机运行的是哪种架构（如x86_64/amd64或aarch64/arm64）。
 
-arm64
+**如何检查：**
 
-* 全称: Advanced RISC Machine 64-bit
-* 主要用途: 主要应用于移动设备、嵌入式系统以及一些新型的服务器和桌面计算机。
-* 优势: 低功耗、高效率，适合用在电池驱动和热敏感的设备。
-* 主要生产商: 苹果、高通、海思、飞腾等。
+1. 打开Linux终端。
+2. 输入 `uname -m` 或 `arch` 并按回车。
 
-amd64
+你会看到一个输出，这就是你的系统架构。
 
-* 全称: AMD 64-bit, 也被称为 x86_64
-* 主要用途: 主要应用于桌面计算机、笔记本以及服务器。
-* 优势: 高性能，适用于计算密集型应用。
-* 主要生产商: Intel和AMD。
-* 两者最主要的不同在于指令集和应用场景。amd64通常用于高性能需求的计算机和服务器，而arm64则更多应用于功耗要求更严格的场合。
-
-查看方法：
-
-Linux：
-
-- 打开终端。
-- 输入 uname -m 或 arch 并按回车。
-- 你将看到你的处理器架构（可能是 x86_64, aarch64 等）。
----
-
-#### 国产架构支持
-**Q: 我是国产架构，怎么获取应用？**  
-**A:** 目前，星火商店支持**arm**架构的国产芯片。你可以下载适用于 arm64 架构的deb包（软件安装包）。  
-> ⚠️ 请注意，这是实验性的支持。如果遇到问题，请在星火交流平台、QQ群或论坛向我们反馈。
+- 如果看到 `x86_64`，你的系统是AMD64架构。
+- 如果看到 `aarch64`，你的系统是ARM64架构。
 
 ---
 
-#### 安装依赖问题
-**Q: 安装依赖包出现错误**  
-**A:** 如果你使用UOS或deepin，请不要安装依赖包。对于Kali Linux/Kdeneon等，暂时不支持，请自行编译安装。  
-> 💡 出现错误时，尝试运行 `sudo apt update` 后再尝试安装。如果问题仍然存在，请参考第一条，进入交流平台寻求帮助。
+## 系统支持与安装指引
+
+根据你的Linux发行版和系统架构，以下是安装星火应用商店的详细步骤。
+
+### 对于Deepin用户
+
+#### 对于 Deepin V20 用户
+
+1. **安装依赖**
+   
+    打开终端并执行：
+
+    ```shell
+    sudo apt install git qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev fakeroot qtwayland5 qtwayland5-dev-tools dde-qt5wayland-plugin libqt5svg5*
+    ```
+
+2. **下载并安装**
+
+    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
+
+    假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
+
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
+
+### 对于 Ubuntu 用户
+
+#### 对于 Ubuntu 20.04 用户
+
+1. **下载依赖包**
+* 请访问[星火应用商店依赖包下载页面](https://spark-app.store/download_dependencies_latest)， 下载最新的依赖包。
+* 请多次解压依赖包，直到你可以看到诸多以 deb 结尾的安装包。
+* 依据依赖包内的说明，一次性安装所有的依赖包。
+
+
+2. **下载并安装**
+
+请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载并安装。
+
+    假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
+
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
+
+#### 对于 Ubuntu 22.04 用户
+1. **安装依赖**
+
+    打开终端并执行：
+
+    ```shell
+    sudo apt install git qtbase5-dev debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev qtwayland5 qtwayland5-dev-tools libqt5svg5*
+    ```
+
+2. **下载并安装**
+
+    如果你是Ubuntu 22.04用户，请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载并安装。
+
+    假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
+
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
+
+### 对于Debian 11用户
+
+1. **下载依赖包**
+* 请访问[星火应用商店依赖包下载页面](https://spark-app.store/download_dependencies_latest)， 下载最新的依赖包。
+* 请多次解压依赖包，直到你可以看到诸多以 deb 结尾的安装包。
+* 依据依赖包内的说明，一次性安装所有的依赖包。
+
+2. **下载并安装**
+
+    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载，安装后即可使用。
 
 ---
 
-#### 投稿与应用更新
-**Q: 在哪里投稿？**  
-**A:** 你可以在应用商店界面的右上角菜单找到“投递应用”的选项。
+## 常见问题（FAQ）
+
+请参见[星火应用商店FAQ与支持指南](https://gitee.com/deepin-community-store/spark-store/blob/dev/FAQ.md)。
+
+在这里可以查阅[中文版本](https://gitee.com/deepin-community-store/spark-store/blob/dev/FAQ.zh.md)。
 
 ---
 
-#### 非deepin/UOS用户支持
-**Q: 我不是deepin/UOS用户，可以使用星火应用商店吗？**  
-**A:** 可以，如果你是使用 Ubuntu 22.04，请直接安装。对于 Ubuntu 20.04/Debian10/Debian11，请先安装依赖包。
+## 联系与反馈
+
+- 如果您有任何问题或建议，请通过邮件或在[Gitee页面](https://gitee.com/deepin-community-store/spark-store/issues)上提交问题。
+- 如果你想关注我们的开发进度，可以跳转[星火应用商店Board](https://gitee.com/deepin-community-store/spark-store/board)获取更多信息。
+- 我们的[论坛](https://www.deepinos.org/)
+- 我们的[QQ群](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)
+
 
 ---
-
-#### 安装方法
-**Q: 我可以用dpkg -i安装吗？**  
-**A:** 不可以！使用 `sudo apt install ./xxxx.deb` 来安装，或者使用gdebi等图形化的安装器。  
-> ⚠️ 直接使用dpkg是不会处理软件依赖的，这是一个常见的错误。
-
----
-
-#### 系统更新
-**Q: 星火商店会影响系统正常更新吗？**  
-**A:** 不会，星火商店已经将应用源与系统源分开，不会影响系统的正常更新。
-
----
-
-#### 报告问题和应用下架
-**Q: 有些应用已经过时或者失效了，我想让他下架**  
-**A:** 你可以前往 [这里](https://gitee.com/deepin-community-store/software_-issue) 报告问题。
-
----
-
-#### 安装星火应用商店
-如果你想安装星火应用商店，请打开[Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，找到最新版本，并选择适用于当前系统的安装包下载。
-
-> ⚠️ 特别提示: 如果你在使用 Debian10/Debian11 或 Ubuntu 20.04，你可能额外下载依赖补充包。您需要在下载完依赖包后，解压多次一直到看到内部的软件使用说明，对于 Ubuntu22.04 以后的操作系统版本，您无需安装依赖包，您需要按照上面的操作直接安装本体程序。
-
----
-
-
