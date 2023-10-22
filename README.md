@@ -60,84 +60,85 @@ You will see an output, and that's your system architecture.
 
 ### For Deepin Users
 
-#### For Deepin V20 Users
+#### For Deepin Users
 
-1. **Install Dependencies**
-  
-  Open terminal and execute:
+1. **Download and Install**
 
-  ```shell
-  sudo apt install git qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev fakeroot qtwayland5 qtwayland5-dev-tools dde-qt5wayland-plugin libqt5svg5*
-  ```
+   You can directly search for Spark App Store in the Deepin Store to install, or copy this link to open and install in your browser:
 
-2. **Download and Install**
+   > appstore://deepin-home-appstore-client?app_detail_info/spark-store
 
-  Please visit [Spark App Store's Release page](https://gitee.com/deepin-community-store/spark-store/releases) and download the latest version suitable for Deepin. Install it to use.
+   To use the latest version, please visit the [Spark App Store Release page](https://gitee.com/deepin-community-store/spark-store/releases) and download the latest version suitable for Deepin. Install to use.
 
-  Assuming you download it to the user directory under the Downloads folder, we recommend using APT tools for installation:
+   Assuming you've downloaded to the `Downloads` folder in your user directory, we recommend you use the APT tool to install:
 
-  ```shell
-  cd ~/Downloads
-  sudo apt install ./spark-store*.deb
-  ```
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
 
 ### For Ubuntu Users
 
 #### For Ubuntu 20.04 Users
 
 1. **Download Dependencies**
-* Visit [Spark App Store's dependency download page](https://spark-app.store/download_dependencies_latest), download the latest dependencies.
-* Unzip the dependencies multiple times until you can see many installation packages ending with .deb.
-* Install all dependencies at once, following the instructions in the dependency package.
+* Please visit the [Spark App Store Dependency Download page](https://spark-app.store/download_dependencies_latest) and download the latest dependency package.
+* Unzip the dependency package multiple times until you see multiple installation packages ending with `.deb`.
+* Follow the instructions in the dependency package to install all the dependencies at once.
 
 2. **Download and Install**
 
-  Visit [Spark App Store's Release page](https://gitee.com/deepin-community-store/spark-store/releases), download and install.
+   Visit the [Spark App Store Release page](https://gitee.com/deepin-community-store/spark-store/releases), download the installation package that matches your computer's architecture, and install it.
 
-  Assuming you download it to the user directory under the Downloads folder, we recommend using APT tools for installation:
+   Assuming you've downloaded to the `Downloads` folder in your user directory, we recommend you use the APT tool to install:
 
-  ```shell
-  cd ~/Downloads
-  sudo apt install ./spark-store*.deb
-  ```
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
 
-#### For Ubuntu 22.04 Users
+#### For Ubuntu 22.04 and Higher Version Users
 
-1. **Install Dependencies**
-
-  Open terminal and execute:
-
-  ```shell
-  sudo apt install git qtbase5-dev debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev qt
-
-webengine5-dev fakeroot qtwayland5 qtwayland5-dev-tools
-  ```
+1. **No Need to Install Dependencies**
 
 2. **Download and Install**
 
-  Visit [Spark App Store's Release page](https://gitee.com/deepin-community-store/spark-store/releases), download and install.
+   Visit the [Spark App Store Release page](https://gitee.com/deepin-community-store/spark-store/releases), download the installation package that matches your computer's architecture, and install it.
 
-  Assuming you download it to the user directory under the Downloads folder, we recommend using APT tools for installation:
+   Assuming you've downloaded to the `Downloads` folder in your user directory, we recommend you use the APT tool to install:
 
-  ```shell
-  cd ~/Downloads
-  sudo apt install ./spark-store*.deb
-  ```
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
 
-Certainly, here's the English translation of the additional text:
+### For Debian Users
 
----
-
-### For Debian 11 Users
+#### For Debian 11 Users
 
 1. **Download Dependencies**
-* Please visit the [Spark App Store's dependency download page](https://spark-app.store/download_dependencies_latest) to download the latest dependencies.
-* Unzip the dependencies multiple times until you see many installation packages ending with .deb.
-* Install all dependencies at once, following the instructions in the dependency package.
+* Please visit the [Spark App Store Dependency Download page](https://spark-app.store/download_dependencies_latest) and download the latest dependency package.
+* Unzip the dependency package multiple times until you see multiple installation packages ending with `.deb`.
+* Follow the instructions in the dependency package to install all the dependencies at once.
 
 2. **Download and Install**
 
-  Please visit the [Spark App Store's Release page](https://gitee.com/deepin-community-store/spark-store/releases) and download. Install it to use.
+   Please visit the [Spark App Store Release page](https://gitee.com/deepin-community-store/spark-store/releases) and download. Install to use.
+
+#### For Debian 12+ Users
+
+1. **No Need to Install Dependencies**
+
+2. **Download and Install**
+
+   Please visit the [Spark App Store Release page](https://gitee.com/deepin-community-store/spark-store/releases), download the installation package that matches your computer's architecture, and install it.
+
+   Assuming you've downloaded to the `Downloads` folder in your user directory, we recommend you use the APT tool to install:
+
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
 
 ---
 
