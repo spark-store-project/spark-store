@@ -30,7 +30,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 您可以通过以下链接，实时跟踪我们的Issue处理状态：[Gitee Issue看板](https://gitee.com/deepin-community-store/spark-store/board)。
 
-若您有软件包想要提交，敬请 [点击此处进行投稿](https://upload.deepinos.org/index)。
+若您有软件包想要提交，敬请 [点击此处进行投稿](https://deepin-community-store.gitee.io/spark-wiki/#/Submit/Submit)。
 
 
 
@@ -69,19 +69,13 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 ### 对于Deepin用户
 
-#### 对于 Deepin V20 用户
+#### 对于 Deepin  用户
 
-1. **安装依赖**
-   
-    打开终端并执行：
+1.  **下载并安装**
 
-    ```shell
-    sudo apt install git qt5-default debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev fakeroot qtwayland5 qtwayland5-dev-tools dde-qt5wayland-plugin libqt5svg5*
-    ```
+    您可直接在深度商店搜索 星火应用商店 安装，或点击此链接安装 [appstore://deepin-home-appstore-client?app_detail_info/spark-store](appstore://deepin-home-appstore-client?app_detail_info/spark-store)
 
-2. **下载并安装**
-
-    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
+    若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -112,13 +106,8 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
     ```
 
 #### 对于 Ubuntu 22.04 用户
-1. **安装依赖**
+1. **无需安装依赖包**
 
-    打开终端并执行：
-
-    ```shell
-    sudo apt install git qtbase5-dev debhelper pkg-config qtchooser libqt5core5a libqt5gui5 libqt5widgets5 libqt5network5 libqt5concurrent5 libdtkcore-dev libdtkgui-dev  libdtkwidget-dev qttools5-private-dev libnotify-dev qtwebengine5-dev qtwayland5 qtwayland5-dev-tools libqt5svg5*
-    ```
 
 2. **下载并安装**
 
