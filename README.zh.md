@@ -67,13 +67,13 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 根据你的Linux发行版和系统架构，以下是安装星火应用商店的详细步骤。
 
-### 对于Deepin用户
+### 对于 Deepin 用户
 
-#### 对于 Deepin  用户
+#### 对于 Deepin 用户
 
 1.  **下载并安装**
 
-    您可直接在深度商店搜索 星火应用商店 安装，或点击此链接安装 [appstore://deepin-home-appstore-client?app_detail_info/spark-store](appstore://deepin-home-appstore-client?app_detail_info/spark-store)
+    您可直接在深度商店搜索 星火应用商店 安装，或复制此链接到浏览器打开安装 appstore://deepin-home-appstore-client?app_detail_info/spark-store
 
     若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
 
@@ -96,7 +96,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 2. **下载并安装**
 
-请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -111,7 +111,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 2. **下载并安装**
 
-    如果你是Ubuntu 22.04用户，请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -120,7 +120,9 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
     sudo apt install ./spark-store*.deb
     ```
 
-### 对于Debian 11用户
+### 对于 Debian 用户
+
+#### 对于 Debian 11用户
 
 1. **下载依赖包**
 * 请访问[星火应用商店依赖包下载页面](https://spark-app.store/download_dependencies_latest)， 下载最新的依赖包。
@@ -131,6 +133,22 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
     请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载，安装后即可使用。
 
+
+#### 对于 Debian 12+ 用户
+
+1. **无需安装依赖包**
+
+
+2. **下载并安装**
+
+    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载并安装。
+
+    假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
+
+    ```shell
+    cd ~/Downloads
+    sudo apt install ./spark-store*.deb
+    ```
 ---
 
 ## 常见问题（FAQ）
