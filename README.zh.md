@@ -73,7 +73,9 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 1.  **下载并安装**
 
-    您可直接在深度商店搜索 星火应用商店 安装，或复制此链接到浏览器打开安装 appstore://deepin-home-appstore-client?app_detail_info/spark-store
+    您可直接在深度商店搜索 星火应用商店 安装，或复制此链接到浏览器打开安装 
+
+> appstore://deepin-home-appstore-client?app_detail_info/spark-store
 
     若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
 
