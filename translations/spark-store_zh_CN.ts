@@ -480,33 +480,33 @@
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="187"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
         <source>Submit App</source>
         <translation>投递应用</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="188"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>使用本地投稿器投递应用（推荐）</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="191"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="192"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>应用更新和安装设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="146"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="241"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="148"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="243"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="151"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="153"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>
@@ -516,7 +516,7 @@
     <message>
         <location filename="../src/application.cpp" line="35"/>
         <location filename="../src/application.cpp" line="36"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="126"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="128"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -536,7 +536,7 @@
         <translation>下载列表</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="244"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
         <source>Show MainWindow</source>
         <translation>显示主窗口</translation>
     </message>
@@ -658,12 +658,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="245"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="247"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="248"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>

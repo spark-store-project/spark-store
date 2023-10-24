@@ -35,6 +35,7 @@ PKGCONFIG += dtkcore dtkgui dtkwidget
 
 SOURCES += \
         backend/DataCollectorAndUploader.cpp \
+        backend/ThemeChecker.cpp \
         backend/downloadworker.cpp \
         backend/image_show.cpp \
         backend/sparkapi.cpp \
@@ -60,6 +61,7 @@ SOURCES += \
 
 HEADERS += \
         backend/DataCollectorAndUploader.h \
+        backend/ThemeChecker.h \
         backend/downloadworker.h \
         backend/image_show.h \
         backend/sparkapi.h \
