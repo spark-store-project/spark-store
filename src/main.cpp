@@ -22,6 +22,8 @@
 #include <QStandardPaths>
 #include <QSurfaceFormat>
 
+#include <backend/DataCollectorAndUploader.h>
+
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
@@ -123,6 +125,17 @@ int main(int argc, char *argv[])
 
     // 初始化 config.ini 配置文件
     Utils::initConfig();
+
+    // 回传版本信息，不涉及个人隐私
+    DataCollectorAndUploader uploader;
+    QObject::connect(&uploader, &DataCollectorAndUploader::uploadSuccessful, [](){
+        qDebug() << "Data uploaded successfully";
+    });
+    QObject::connect(&uploader, &DataCollectorAndUploader::uploadFailed, [](QString error){
+        qDebug() << "Upload failed with error: " << error;
+    });
+
+    uploader.collectAndUploadData();
 
     // Set display backend
     Utils::setQPAPlatform();

@@ -34,6 +34,7 @@ CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dtkcore dtkgui dtkwidget
 
 SOURCES += \
+        backend/DataCollectorAndUploader.cpp \
         backend/downloadworker.cpp \
         backend/image_show.cpp \
         backend/sparkapi.cpp \
@@ -58,6 +59,7 @@ SOURCES += \
         mainwindow-dtk.cpp
 
 HEADERS += \
+        backend/DataCollectorAndUploader.h \
         backend/downloadworker.h \
         backend/image_show.h \
         backend/sparkapi.h \
