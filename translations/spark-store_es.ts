@@ -480,33 +480,33 @@
         <translation>Actualización de app</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="187"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
         <source>Submit App</source>
         <translation>Presentación de la aplicación</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="188"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>Enviar la aplicación al cliente (recomendación)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="191"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="192"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>Actualización e instalación de app</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="146"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="241"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="148"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="243"/>
         <source>Spark Store</source>
         <translation>SPARK Store</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="151"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="153"/>
         <source>Search or enter spk://</source>
         <translation>Buscar o introducir spk: /%</translation>
     </message>
@@ -516,7 +516,7 @@
     <message>
         <location filename="../src/application.cpp" line="35"/>
         <location filename="../src/application.cpp" line="36"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="126"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="128"/>
         <source>Spark Store</source>
         <translation>SPARK Store</translation>
     </message>
@@ -536,7 +536,7 @@
         <translation>Descargar lista</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="244"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
         <source>Show MainWindow</source>
         <translation>Mostrar la ventana principal</translation>
     </message>
@@ -658,12 +658,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="245"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="247"/>
         <source>About</source>
         <translation>Sobre</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="248"/>
         <source>Exit</source>
         <translation>Exportaciones</translation>
     </message>

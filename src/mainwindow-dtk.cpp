@@ -141,7 +141,7 @@ void MainWindow::initTitleBar()
 {
     ui->titlebar->setIcon(QIcon::fromTheme("spark-store"));
     ui->titlebar->setBackgroundTransparent(true);
-    // ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
+    ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
 
     // 初始化标题栏控件
     DLabel *title = new DLabel(ui->titlebar);
@@ -323,14 +323,20 @@ void MainWindow::refreshTheme(bool isDarkMode)
 void MainWindow::onThemeChanged(bool isDark) {
     DGuiApplicationHelper::ColorType currentTheme = DGuiApplicationHelper::instance()->themeType();
 
-    // 检查是否用户手动设置为暗色模式
-    bool isUserSetDark = (currentTheme == DGuiApplicationHelper::DarkType);
-    bool isUserSetWhite = !(currentTheme == DGuiApplicationHelper::LightType);
+    // 检查当前外观设置 
+    bool isUserSetDark = (currentTheme == DGuiApplicationHelper::DarkType); //当前已经是深色模式
+    bool isUserSetWhite = (currentTheme == DGuiApplicationHelper::LightType); //当前已经是浅色模式
 
-    if (!isUserSetDark && !isUserSetWhite) {
+    // 检查 isDark 为 true 时， isUserSetDark 是否为 true
+    // 检查 isDark 为 false ， isUserSetWhite 是否为 ture
+    qDebug() << isUserSetDark << isUserSetWhite << isDark;
+
+
+    if ((isUserSetDark != isDark) || (isUserSetWhite == !isDark)) {
         // 否则，根据传入的 isDark 值设置
         refreshTheme(isDark);
     }
+
 }
 
 
