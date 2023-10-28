@@ -41,8 +41,6 @@ MainWindow::MainWindow(QWidget *parent)
     initTmpDir();
 
     ui->appintopage->setDownloadWidget(downloadlistwidget);
-
-    emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
 }
 
 MainWindow::~MainWindow()
@@ -135,13 +133,14 @@ void MainWindow::initUI()
     updateUi(0);
 
     initTrayIcon();
+
+    refreshTheme(ThemeChecker::instance()->useDarkTheme());
 }
 
 void MainWindow::initTitleBar()
 {
     ui->titlebar->setIcon(QIcon::fromTheme("spark-store"));
     ui->titlebar->setBackgroundTransparent(true);
-    ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
 
     // 初始化标题栏控件
     DLabel *title = new DLabel(ui->titlebar);
@@ -320,40 +319,10 @@ void MainWindow::refreshTheme(bool isDarkMode)
     ui->settingspage->setTheme(isDarkMode); 
 }
 
-void MainWindow::onThemeChanged(bool isDark) {
-    DGuiApplicationHelper::ColorType currentTheme = DGuiApplicationHelper::instance()->themeType();
-
-    // 检查当前外观设置 
-    bool isUserSetDark = (currentTheme == DGuiApplicationHelper::DarkType); //当前已经是深色模式
-    bool isUserSetWhite = (currentTheme == DGuiApplicationHelper::LightType); //当前已经是浅色模式
-
-    // 检查 isDark 为 true 时， isUserSetDark 是否为 true
-    // 检查 isDark 为 false ， isUserSetWhite 是否为 ture
-    qDebug() << isUserSetDark << isUserSetWhite << isDark;
-
-
-    if ((isUserSetDark != isDark) || (isUserSetWhite == !isDark)) {
-        // 否则，根据传入的 isDark 值设置
-        refreshTheme(isDark);
-    }
-
-}
-
-
 void MainWindow::initConnections()
 {
-    
     // 主题切换
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType)
-        {
-            bool isDarkMode = (themeType == DGuiApplicationHelper::ColorType::DarkType);   
-            refreshTheme(isDarkMode); 
-        });
-    
-    ThemeChecker *themeChecker = new ThemeChecker(this);
-    connect(themeChecker, SIGNAL(themeChanged(bool)), this, SLOT(onThemeChanged(bool)));
-
-   
+    connect(ThemeChecker::instance(), &ThemeChecker::themeChanged, this, &MainWindow::refreshTheme);
 
     // appintopage按下下载按钮时标题栏下载列表按钮抖动
     connect(ui->appintopage, &AppIntoPage::clickedDownloadBtn, [=]()

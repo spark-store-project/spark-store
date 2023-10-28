@@ -30,8 +30,7 @@ public:
     void openUrl(const QString &url);
 
     bool isCloseWindowAnimation();
-    void refreshTheme(bool isDarkMode);
-
+    Q_INVOKABLE void refreshTheme(bool isDarkMode);
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -50,7 +49,6 @@ private:
 
 public slots:
     void notify(QObject *receiver, QEvent *event);
-    void onThemeChanged(bool isDark);
 
 private slots:
     //接受来自dbus的url
