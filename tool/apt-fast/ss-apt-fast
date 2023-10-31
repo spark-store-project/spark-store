@@ -158,7 +158,7 @@ DOWNLOADBEFORE=
 VERBOSE_OUTPUT=
 
 # Download command.
-_DOWNLOADER='aria2c --no-conf -c -j ${_MAXNUM} -x ${_MAXCONPERSRV} -s ${_SPLITCON} -i ${DLLIST} --min-split-size=${_MINSPLITSZ} --stream-piece-selector=${_PIECEALGO} --connect-timeout=600 --timeout=600 -m0'
+_DOWNLOADER='aria2c --no-conf -c -j ${_MAXNUM} -x ${_MAXCONPERSRV} -s ${_SPLITCON} -i ${DLLIST} --min-split-size=${_MINSPLITSZ} --stream-piece-selector=${_PIECEALGO} --connect-timeout=60 --timeout=600 -m0'
 
 # Load config file.
 CONFFILE="/tmp/aptss-conf/apt-fast.conf"
@@ -207,17 +207,15 @@ fi
 
 msg_already_running()
 {
-  msg "apt-fast already running!" "warning"
-  msg "apt-fast 已经在运行了" "warning"
-  msg "Verify that all apt-fast processes are finished then remove $LCK_FILE.lock and try again." "hint"
-  msg "请确认所有的apt-fast进程已经结束，然后删除 $LCK_FILE.lock 后重试." "hint"
+  msg "Other aptss is running.  Waited $timer senconds..." "normal"
+  msg "有其他的aptss正在运行。已经等待了$timer秒" "normal"
 }
 
 # Check if a lock file exists.
-if [ -f "$LCK_FILE.lock" ]; then
-  msg_already_running
-  exit 1
-fi
+#if [ -f "$LCK_FILE.lock" ]; then
+#  msg_already_running
+#  exit 1
+#fi
 
 
 # create the lock file and lock it, die on failure
@@ -229,8 +227,13 @@ _create_lock()
 #    This will hide the exit code
     trap "cleanup_aptfast" EXIT
     trap "cleanup_aptfast; exit 1" INT TERM
-
-    flock -n $LCK_FD || { msg_already_running; exit 1; }
+	timer=0
+	until $(flock -xn $LCK_FD);do 
+	msg_already_running
+	sleep 1
+	let timer+=1
+	done
+	unset timer
 }
 
 # unlock and remove the lock file

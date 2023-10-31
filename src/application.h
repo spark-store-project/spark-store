@@ -30,6 +30,8 @@ private:
     void initFeatureDisplayDialog();
 #endif
 
+    void loadTranslator();
+
 private:
     QJsonObject m_featuresJsonObj;
 

@@ -9,14 +9,6 @@
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="175"/>
-        <location filename="../src/pages/appintopage.cpp" line="313"/>
-        <location filename="../src/pages/appintopage.cpp" line="483"/>
-        <source>Download</source>
-        <translation>Télécharger</translation>
-    </message>
-    <message>
         <location filename="../src/pages/appintopage.ui" line="290"/>
         <source>Uninstall</source>
         <translation>Désinstaller</translation>
@@ -131,6 +123,14 @@
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
         <translation>Captures d&apos;écran</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="244"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="483"/>
+        <source>Download and Install</source>
+        <translation>Télécharger et installer</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="429"/>
@@ -283,7 +283,7 @@
     <message>
         <location filename="../src/backend/downloadworker.cpp" line="176"/>
         <source>Download Failed, please retry :(</source>
-        <translation type="unfinished"></translation>
+        <translation>Le téléchargement a échoué, veuillez réessayer</translation>
     </message>
 </context>
 <context>
@@ -374,8 +374,8 @@
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
-        <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
-        <translation>Le processus dpkg a été abandonné, vérifiez les informations d&apos;installation ou essayez de le réinstaller.</translation>
+        <source>dpkg progress had been aborted, please check the install info or try to reinstall.</source>
+        <translation>La progression de DPKG a été interrompue, veuillez vérifier les informations d’installation ou essayer de réinstaller.</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="144"/>
@@ -480,33 +480,33 @@
         <translation>Mise à niveau app</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="187"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="188"/>
         <source>Submit App</source>
         <translation>Soumettre une application</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="188"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>Soumettre une demande au client (recommandé)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="191"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>Paramètres de mise à niveau et d&apos;installation de l&apos;app</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="146"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="241"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="147"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="242"/>
         <source>Spark Store</source>
         <translation>Le Spark store</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="151"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="152"/>
         <source>Search or enter spk://</source>
         <translation>Rechercher ou entrer SPK /</translation>
     </message>
@@ -536,7 +536,7 @@
         <translation>Télécharger la Liste</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="244"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="245"/>
         <source>Show MainWindow</source>
         <translation>Afficher la fenêtre principale</translation>
     </message>
@@ -658,12 +658,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="245"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="247"/>
         <source>Exit</source>
         <translation>Exportations</translation>
     </message>

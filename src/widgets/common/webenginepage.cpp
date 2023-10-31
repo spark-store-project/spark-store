@@ -7,20 +7,7 @@
 WebEnginePage::WebEnginePage(QObject *parent)
     : QWebEnginePage(parent)
 {
-    QLocale ql;
-    switch (ql.language())
-    {
-    case QLocale::Chinese:
-    {
-        // 系统语言是中文，获取网页为中文 @momen @uniartisan
-        QWebEngineProfile *profile = QWebEngineProfile::defaultProfile();
-        qDebug() << profile->httpAcceptLanguage();
-        profile->setHttpAcceptLanguage("zh-CN,zh;q=0.8,en;q=0.6");
-    }
-    break;
-    default:
-        break;
-    }
+    initHttpAcceptLanguage();
 }
 
 WebEnginePage::~WebEnginePage()
@@ -45,6 +32,18 @@ QWebEnginePage *WebEnginePage::createWindow(QWebEnginePage::WebWindowType type)
     WebEnginePage *page = new WebEnginePage(parent());
     connect(page, &WebEnginePage::urlChanged, this, &WebEnginePage::slotUrlChanged);
     return page;
+}
+
+void WebEnginePage::initHttpAcceptLanguage()
+{
+    switch (QLocale::system().language()) {
+    case QLocale::Chinese: {
+        // 系统语言是中文，获取网页为中文 @momen @uniartisan
+        profile()->setHttpAcceptLanguage("zh-CN,zh;q=0.8,en;q=0.6");
+    } break;
+    default:
+        break;
+    }
 }
 
 void WebEnginePage::slotUrlChanged(const QUrl &url)

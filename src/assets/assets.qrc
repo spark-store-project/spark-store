@@ -62,5 +62,6 @@
         <file>tags/uos-authorize.svg</file>
         <file>tags/uos-small.png</file>
         <file>tags/uos.svg</file>
+        <file>translations/qtwebengine_zh.qm</file>
     </qresource>
 </RCC>

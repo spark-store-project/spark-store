@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <fstream>
+#include <execinfo.h>
 
 #include <DSysInfo>
 #include <DApplicationSettings>
@@ -21,10 +22,27 @@
 #include <QStandardPaths>
 #include <QSurfaceFormat>
 
+#include <backend/DataCollectorAndUploader.h>
+
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
 
 static QString buildDateTime;
+
+
+void gatherInfo(FILE *fp, std::ofstream& logFile, const char* description) {
+    if (fp) {
+        char buffer[512];
+        logFile << description << ":\n";
+        while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+            buffer[strcspn(buffer, "\n")] = 0;
+            logFile << buffer << "\n";
+        }
+        pclose(fp);
+    } else {
+        logFile << "Failed to gather " << description << " info.\n";
+    }
+}
 
 
 void crashHandler(int sig) {
@@ -42,40 +60,24 @@ void crashHandler(int sig) {
              tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     std::ofstream logFile(filename, std::ios::out);
+
     if (!logFile.is_open()) {
         perror("ofstream");
         exit(1);
     }
 
     logFile << "Please send this log to the developer. QQ Group: 872690351\n";
+    logFile << "Gitee: https://gitee.com/deepin-community-store/spark-store/issues\n";
+    logFile << "Gihub: https://github.com/spark-store-project/spark-store/issues\n";
     logFile << "Build Date and Time: " << buildDateTime.toStdString() << "\n";
-    
-    FILE *fp = popen("uname -m", "r");
-    if (fp) {
-        char buffer[256];
-        if (fgets(buffer, sizeof(buffer), fp) != NULL) {
-            // 移除换行符
-            buffer[strcspn(buffer, "\n")] = 0;
-            logFile << "CPU Architecture: " << buffer << "\n";
-        }
-        pclose(fp);
-    } else {
-        logFile << "Failed to gather CPU architecture info.\n";
-    }
+    gatherInfo(popen("cat ~/.config/spark-union/spark-store/config.ini", "r"), logFile, "User Config File");
 
-
-
-
-    FILE *fp2 = popen("lsb_release -a", "r");
-    if (fp2) {
-        char buffer[256];
-        while (fgets(buffer, sizeof(buffer), fp2) != NULL) {
-            logFile << buffer;
-        }
-        pclose(fp2);
-    } else {
-        logFile << "Failed to gather distribution info.\n";
-    }
+    // Collecting System Information
+    gatherInfo(popen("LANG=en_US.UTF-8 uname -m", "r"), logFile, "CPU Architecture");
+    gatherInfo(popen("LANG=en_US.UTF-8 lsb_release -a", "r"), logFile, "Distribution info");
+    gatherInfo(popen("LANG=en_US.UTF-8 lscpu", "r"), logFile, "All CPU Info");
+    gatherInfo(popen("LANG=en_US.UTF-8 free -h | grep Mem | awk '{print $2}'", "r"), logFile, "Memory Size");
+  
 
 
     logFile << "Error: signal " << sig << ":\n";
@@ -123,6 +125,17 @@ int main(int argc, char *argv[])
 
     // 初始化 config.ini 配置文件
     Utils::initConfig();
+
+    // 回传版本信息，不涉及个人隐私
+    DataCollectorAndUploader uploader;
+    QObject::connect(&uploader, &DataCollectorAndUploader::uploadSuccessful, [](){
+        qDebug() << "Data uploaded successfully";
+    });
+    QObject::connect(&uploader, &DataCollectorAndUploader::uploadFailed, [](QString error){
+        qDebug() << "Upload failed with error: " << error;
+    });
+
+    uploader.collectAndUploadData();
 
     // Set display backend
     Utils::setQPAPlatform();

@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QFile>
+#include <QUuid>
 #include <QJsonDocument>
 
 #define UOSDeveloperModeFile "/var/lib/deepin/developer-mode/enabled"
@@ -96,6 +97,11 @@ void Utils::initConfig()
     {
         config.setValue("runtime/useWayland", useWayland);
     }
+
+    // check uuid
+    if (!config.contains("info/uuid")){
+        config.setValue("info/uuid", initUUID());
+    }
     config.sync(); // 写入更改至 config.ini，并同步最新内容
 
     checkUOSDeveloperMode(); // Check UOS developer mode
@@ -124,6 +130,14 @@ bool Utils::isUOS()
     config.sync(); // 写入更改至 config.ini，并同步最新内容
 
     return isUOS;
+}
+
+/**
+ * @brief Utils::initUUID 生成 UUID
+*/
+QString Utils::initUUID(){
+    QUuid uuid = QUuid::createUuid();
+    return uuid.toString();
 }
 
 /**

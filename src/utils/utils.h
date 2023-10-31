@@ -12,6 +12,7 @@ public:
     static bool isWayland();
     static void initConfig();
     static bool isUOS();
+    static QString initUUID();
     static void setQPAPlatform();
     static void checkUOSDeveloperMode();
     static QJsonObject parseFeatureJsonFile();

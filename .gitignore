@@ -53,3 +53,4 @@ debian/*.substvars
 debian/spark-store
 
 .vscode/*
+src/spark-store
