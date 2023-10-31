@@ -1,8 +1,9 @@
 spark-store (4.2.8) stable; urgency=medium
 
-  * 修复：ssinstall在aptss上锁时应当报错中断（WIP）
+  * 修复：在aptss上锁时支持等待释放锁而不是直接报错退出
   * 调整：下载安装按钮文案修改
   * 优化 KDE 深色模式支持实现方式 
+  * 新增：ssinstall现在会自动创建desktop文件
   
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 

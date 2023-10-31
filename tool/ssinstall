@@ -3,7 +3,7 @@
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
 
-case `arch` in
+case $(arch) in
    x86_64)
 	STORE_URL="store"
 	;;
@@ -12,156 +12,132 @@ case `arch` in
 	;;
 esac
 
-
-
-
-echo "Spark Store Install script.星火商店安装脚本"
+echo "Spark Store Install script. 星火商店安装脚本"
 
 function pkexec_as_current_user() {
-
-    #Detect the user using such display
-    local user=$(who  | awk '{print $1}' | head -n 1)
-    #Detect the id of the user
-    local uid=$(id -u $user)
-
-    sudo -u $user  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus pkexec "$@"
+    local user=$(who | awk '{print $1}' | head -n 1)
+    local uid=$(id -u "$user")
+    sudo -u "$user" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/"$uid"/bus pkexec "$@"
+}
+function create_desktop_file() {
+	if [ -e $(sudo -u "$user" xdg-user-dir)/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify ];then
+	echo "It is configured that do not create desktop file. Give up"
+	else
+	create_desktop_file
+	fi
+]
+function exec_create_desktop_file() {
+    local user=$(who | awk '{print $1}' | head -n 1)
+    for desktop_file_path in $(dpkg -L "$package_name" | grep .desktop); do
+	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
+	echo $desktop_file_path is checked and will be installed to desktop
+        sudo -u "$user" cp "$desktop_file_path" "$(sudo -u "$user" xdg-user-dir DESKTOP)/"
+	fi
+    done
 }
 
-function zenity()
-{
-
-
-    #Detect the user using such display
-    local user=$(who  | awk '{print $1}' | head -n 1)
-
-    #Detect the id of the user
-    local uid=$(id -u $user)
-
-
-    sudo -u $user  DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus zenity "$@"
+function zenity() {
+    local user=$(who | awk '{print $1}' | head -n 1)
+    local uid=$(id -u "$user")
+    sudo -u "$user" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/"$uid"/bus zenity "$@"
 }
 
-function hash_check()
-{
-if [ ! -e "/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && [ ! -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && [ ! -e "/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store-repository_${STORE_URL}_Packages" ];then
-echo "接收星火仓库软件信息中..."
-aptss ssupdate
-fi
+function hash_check() {
+    if [ ! -e "/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && \
+       [ ! -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && \
+       [ ! -e "/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store-repository_${STORE_URL}_Packages" ]; then
+        echo "接收星火仓库软件信息中..."
+        aptss ssupdate
+    fi
 
-### 选择包信息位置
+    if [ -e "/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages" ]; then
+        PACKAGES_DATA_PATH="/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages"
+        echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是星火域名单目录仓库配置"
+    elif [ -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ]; then
+        PACKAGES_DATA_PATH="/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages"
+        echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是星火域名单目录仓库配置"
+    else
+        PACKAGES_DATA_PATH="/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store-repository_${STORE_URL}_Packages"
+        echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是SDU镜像仓库配置"
+    fi
 
-if [ -e "/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages" ];then
-PACKAGES_DATA_PATH="/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages"
-echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是星火域名单目录仓库配置"
-elif [ -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ];then
-PACKAGES_DATA_PATH="/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages"
-echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是星火域名单目录仓库配置"
-else
-PACKAGES_DATA_PATH="/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store-repository_${STORE_URL}_Packages"
-echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是SDU镜像仓库配置"
-fi
+    echo "正在运行包验证..."
+    echo "Running Spark Package Verify..."
 
-
-
-echo "正在运行包验证..."
-echo "Running Spark Package Verify..."
-
-DEB_SHA512SUM=$(sha512sum "$1" | cut -d ' ' -f 1)
-
-
-IS_SHA512SUM_CHECKD=`cat $PACKAGES_DATA_PATH | grep $DEB_SHA512SUM`
-
-
+    DEB_SHA512SUM=$(sha512sum "$1" | cut -d ' ' -f 1)
+    IS_SHA512SUM_CHECKED=$(cat "$PACKAGES_DATA_PATH" | grep "$DEB_SHA512SUM")
 }
 
-##########################################################################
 
-#################检测文件是否存在
-if [ $# -eq 0 ];then
-echo "没有接收到参数，退出"
-echo "用法：$0 deb路径"
-echo "OMG-IT-GOES-WRONG"
-exit
-fi
 
-if [ ! -f "$1" ]
-then
-	echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST}"
+####################################
+
+if [ $# -eq 0 ]; then
+    echo "没有接收到参数，退出"
+    echo "用法：$0 deb路径"
     echo "OMG-IT-GOES-WRONG"
-	exit 1
+    exit
 fi
 
-if [ "$(id -u)" != "0" ];then
-#############################无root权限时
-echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
-echo "OMG-IT-GOES-WRONG"
-exit 1
+if [ ! -f "$1" ]; then
+    echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST}"
+    echo "OMG-IT-GOES-WRONG"
+    exit 1
 fi
 
-###
+if [ "$(id -u)" != "0" ]; then
+    echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
+    echo "OMG-IT-GOES-WRONG"
+    exit 1
+fi
 
-
-DEBPATH=`realpath $1`
+DEBPATH=$(realpath "$1")
 
 hash_check "$DEBPATH"
 
-if [ -z "$IS_SHA512SUM_CHECKD" ];then
-echo "尝试更新仓库信息重新校验"
-aptss ssupdate
-hash_check "$DEBPATH"
+if [ -z "$IS_SHA512SUM_CHECKED" ]; then
+    echo "尝试更新仓库信息重新校验"
+    aptss ssupdate
+    hash_check "$DEBPATH"
 fi
 
-if [  ! -z "$IS_SHA512SUM_CHECKD" ];then
+if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
+    echo "校验成功，开始安装"
+    echo "----------------------------------------------------------------------------------"
+    package_name=$(dpkg-deb -f "$DEBPATH" Package)
+    echo "Package name is $package_name"
+    try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
+    try_run_ret="$?"
 
-echo "校验成功，开始安装"
-echo  ----------------------------------------------------------------------------------
-package_name=$(dpkg-deb -f "$DEBPATH" Package)
-echo "Package name is $package_name"
-try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
-try_run_ret="$?"
+    if [ "$try_run_ret" -ne 0 ]; then
+        echo "OMG-IT-GOES-WRONG"
+        echo -e "${try_run_output}"
+        exit "$try_run_ret"
+    fi
 
-  if [ "$try_run_ret" -ne 0 ]
-  then
-    echo "OMG-IT-GOES-WRONG"
-    echo -e "${try_run_output}"
-    exit "$try_run_ret"
-  fi
+    dpkg -i "$DEBPATH" || aptss install -yf
 
-
-dpkg -i  "$DEBPATH"  || aptss install -yf 
-
-#### --delete
-if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ];then
-##check if is installed yet
-if dpkg -s "$package_name" >/dev/null 2>&1; then
-  echo "软件包已安装：$package_name"
-  rm "$DEBPATH"
-echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
-else
-  echo "软件包未安装：$package_name"
-  echo "安装异常！抛出错误"
-echo "OMG-IT-GOES-WRONG"
+    if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
+        if dpkg -s "$package_name" >/dev/null 2>&1; then
+            echo "软件包已安装：$package_name"
+            create_desktop_file
+            rm "$DEBPATH"
+            echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
+        else
+            echo "软件包未安装：$package_name"
+            echo "安装异常！抛出错误"
+            echo "OMG-IT-GOES-WRONG"
+        fi
+    else
+        echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
+        if dpkg -s "$package_name" >/dev/null 2>&1; then
+            echo "软件包已安装：$package_name"
+            create_desktop_file
+        else
+            echo "软件包未安装：$package_name"
+            echo "安装异常！抛出错误"
+            echo "OMG-IT-GOES-WRONG"
+        fi
+    fi
 fi
 
-
-else
-echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
-if dpkg -s "$package_name" >/dev/null 2>&1; then
-  echo "软件包已安装：$package_name"
-else
-  echo "软件包未安装：$package_name"
-  echo "安装异常！抛出错误"
-echo "OMG-IT-GOES-WRONG"
-fi
-
-fi
-
-else
-
-
-zenity --info --icon-name=spark-store --height 270 --width 500 --text "${TRANSHELL_CONTENT_HASH_CHECK_FAILED}"
-
-echo -e ${TRANSHELL_CONTENT_HASH_CHECK_FAILED}
-echo "OMG-IT-GOES-WRONG"
-
-fi
