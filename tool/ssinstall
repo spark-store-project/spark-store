@@ -102,8 +102,8 @@ if [ -z "$IS_SHA512SUM_CHECKED" ]; then
     hash_check "$DEBPATH"
 	if [ -z "$IS_SHA512SUM_CHECKED" ]; then
 	echo "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
-	zenity "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
-	echo "OMG-IT-GOES-WRONG"
+	zenity --info --icon-name=spark-store --height 270 --width 500 --text "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
+	echo -e "OMG-IT-GOES-WRONG"
 	exit 1
 	fi
 fi
