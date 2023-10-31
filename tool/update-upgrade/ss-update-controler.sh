@@ -24,7 +24,7 @@ fi
 
 update_transhell
 
-option=`zenity --list --text="${TRANSHELL_CONTENT_WELCOME_AND_CHOOSE_ONE_TO_RUN}" --column 数字 --column=${TRANSHELL_CONTENT_OPTIONS}  --print-column=2  --height 350 --width 760  0 "${TRANSHELL_CONTENT_OPEN_OR_CLOSE_UPGRADE_CHECK}" 1 "${CONTENT_SET_CREATE_DESKTOP}" 2 "${TRANSHELL_CONTENT_CHECK_FOR_UPDATE}" 3 "${TRANSHELL_CONTENT_EXIT}" --hide-column=1 --print-column=1` 
+option=$(zenity --list --text="${TRANSHELL_CONTENT_WELCOME_AND_CHOOSE_ONE_TO_RUN}" --column 数字 --column=${TRANSHELL_CONTENT_OPTIONS}  --print-column=2  --height 350 --width 760  0 "${TRANSHELL_CONTENT_OPEN_OR_CLOSE_UPGRADE_CHECK}" 1 "${CONTENT_SET_CREATE_DESKTOP}" 2 "${TRANSHELL_CONTENT_CHECK_FOR_UPDATE}" 3 "${TRANSHELL_CONTENT_EXIT}" --hide-column=1 --print-column=1)
 
 case $option in 
 	0)
@@ -45,6 +45,7 @@ case $option in
 	else
 	rm -f  $HOME/.config/spark-union/spark-store/ssshell-config-do-not-create-desktop
 	zenity --info --icon-name=spark-store --height 150 --width 200 --text "${TRANSHELL_CONTENT_OPENED}" --timeout=2
+	fi
 	;;
 	2)
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade.sh
