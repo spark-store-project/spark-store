@@ -101,9 +101,9 @@ if [ -z "$IS_SHA512SUM_CHECKED" ]; then
     aptss ssupdate
     hash_check "$DEBPATH"
 	if [ -z "$IS_SHA512SUM_CHECKED" ]; then
-	echo "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
+	echo -e "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
 	zenity --info --icon-name=spark-store --height 270 --width 500 --text "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
-	echo -e "OMG-IT-GOES-WRONG"
+	echo  "OMG-IT-GOES-WRONG"
 	exit 1
 	fi
 fi
