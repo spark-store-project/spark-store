@@ -30,6 +30,7 @@ public:
     void openUrl(const QString &url);
 
     bool isCloseWindowAnimation();
+    Q_INVOKABLE void refreshTheme(bool isDarkMode);
 
 protected:
     void closeEvent(QCloseEvent *event) override;

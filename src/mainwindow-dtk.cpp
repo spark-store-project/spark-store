@@ -16,6 +16,8 @@
 #include <QtConcurrent>
 #include <unistd.h>
 
+#include <backend/ThemeChecker.h>
+
 #define AppPageApplist 0
 #define AppPageSearchlist 1
 #define AppPageAppdetail 2
@@ -39,8 +41,6 @@ MainWindow::MainWindow(QWidget *parent)
     initTmpDir();
 
     ui->appintopage->setDownloadWidget(downloadlistwidget);
-
-    emit DGuiApplicationHelper::instance()->themeTypeChanged(DGuiApplicationHelper::instance()->themeType());
 }
 
 MainWindow::~MainWindow()
@@ -133,13 +133,14 @@ void MainWindow::initUI()
     updateUi(0);
 
     initTrayIcon();
+
+    refreshTheme(ThemeChecker::instance()->useDarkTheme());
 }
 
 void MainWindow::initTitleBar()
 {
     ui->titlebar->setIcon(QIcon::fromTheme("spark-store"));
     ui->titlebar->setBackgroundTransparent(true);
-    // ui->titlebar->setSwitchThemeMenuVisible(false); // 去除 dtk 标题栏主题切换菜单
 
     // 初始化标题栏控件
     DLabel *title = new DLabel(ui->titlebar);
@@ -267,57 +268,61 @@ void MainWindow::initTrayIcon()
     trayIcon->show();
 }
 
+void MainWindow::refreshTheme(bool isDarkMode)
+{
+    // 使用isDarkMode变量来判断是否是深色模式
+    if (isDarkMode) {
+        //深色模式
+        setMaskColor(QColor("#2a2b2b"));
+        backButton->setIcon(QIcon(":/icon/dark/back.svg"));
+        downloadButton->setIcon(":/icon/dark/download.svg");
+        downloadButton->setBackgroundColor(QColor("#444444"));
+        downloadButton->setColor(QColor("#66CCFF"));
+        ui->pushButton_14->setIcon(QIcon(":/icon/dark/update.svg"));
+        for (int i = 0; i < ui->buttonGroup->buttons().size(); i++) {
+            ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/dark/leftbutton_" + QString::number(i) + ".svg"));
+            if (QLocale::system().name() == "zh_CN") {
+                ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;}\
+                                                                QPushButton:hover{background-color:#7a7a7a;border:0px;border-radius:8px;}\
+                                                                QPushButton:checked{background-color:#6e6e6e;border:0px;border-radius:8px;}");
+            } else {
+                ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;text-align: left; padding-left: 15px;}\
+                                                                QPushButton:hover{background-color:#7a7a7a;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}\
+                                                                QPushButton:checked{background-color:#6e6e6e;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}");
+            }
+        }
+    } else {
+        //亮色模式
+        setMaskColor(QColor("#f3f7f8"));
+        backButton->setIcon(QIcon(":/icon/light/back.svg"));
+        downloadButton->setBackgroundColor(QColor("#e3e4e4"));
+        downloadButton->setColor(QColor("#66CCFF"));
+        downloadButton->setIcon(":/icon/light/download.svg");
+        ui->pushButton_14->setIcon(QIcon(":/icon/light/update.svg"));
+        for (int i = 0; i < ui->buttonGroup->buttons().size(); i++) {
+            ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/light/leftbutton_" + QString::number(i) + ".svg"));
+            if (QLocale::system().name() == "zh_CN") {
+                ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;}\
+                                                                QPushButton:hover{background-color:#eAeAeA;border:0px;border-radius:8px;}\
+                                                                QPushButton:checked{background-color:#dddddd;border:0px;border-radius:8px;}");
+            } else {
+                ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;text-align: left; padding-left: 15px;}\
+                                                                QPushButton:hover{background-color:#eAeAeA;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}\
+                                                                QPushButton:checked{background-color:#dddddd;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}");
+            }
+        }
+    }
+    ui->pushButton_14->setStyleSheet(ui->pushButton_4->styleSheet());
+    ui->applistpage->setTheme(isDarkMode);
+    ui->applistpage_1->setTheme(isDarkMode);
+    ui->appintopage->setTheme(isDarkMode);
+    ui->settingspage->setTheme(isDarkMode); 
+}
+
 void MainWindow::initConnections()
 {
     // 主题切换
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType)
-            {
-        if (themeType == DGuiApplicationHelper::DarkType) {
-            //深色模式
-            setMaskColor(QColor("#2a2b2b"));
-            backButton->setIcon(QIcon(":/icon/dark/back.svg"));
-            downloadButton->setIcon(":/icon/dark/download.svg");
-            downloadButton->setBackgroundColor(QColor("#444444"));
-            downloadButton->setColor(QColor("#66CCFF"));
-            ui->pushButton_14->setIcon(QIcon(":/icon/dark/update.svg"));
-            for (int i = 0; i < ui->buttonGroup->buttons().size(); i++) {
-                ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/dark/leftbutton_" + QString::number(i) + ".svg"));
-                if (QLocale::system().name() == "zh_CN") {
-                    ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;}\
-                                                                  QPushButton:hover{background-color:#7a7a7a;border:0px;border-radius:8px;}\
-                                                                  QPushButton:checked{background-color:#6e6e6e;border:0px;border-radius:8px;}");
-                } else {
-                    ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;text-align: left; padding-left: 15px;}\
-                                                                  QPushButton:hover{background-color:#7a7a7a;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}\
-                                                                  QPushButton:checked{background-color:#6e6e6e;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}");
-                }
-            }
-        } else {
-            //亮色模式
-            setMaskColor(QColor("#f3f7f8"));
-            backButton->setIcon(QIcon(":/icon/light/back.svg"));
-            downloadButton->setBackgroundColor(QColor("#e3e4e4"));
-            downloadButton->setColor(QColor("#66CCFF"));
-            downloadButton->setIcon(":/icon/light/download.svg");
-            ui->pushButton_14->setIcon(QIcon(":/icon/light/update.svg"));
-            for (int i = 0; i < ui->buttonGroup->buttons().size(); i++) {
-                ui->buttonGroup->buttons()[i]->setIcon(QIcon(":/icon/light/leftbutton_" + QString::number(i) + ".svg"));
-                if (QLocale::system().name() == "zh_CN") {
-                    ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;}\
-                                                                  QPushButton:hover{background-color:#eAeAeA;border:0px;border-radius:8px;}\
-                                                                  QPushButton:checked{background-color:#dddddd;border:0px;border-radius:8px;}");
-                } else {
-                    ui->buttonGroup->buttons()[i]->setStyleSheet("QPushButton{background-color:transparent;text-align: left; padding-left: 15px;}\
-                                                                  QPushButton:hover{background-color:#eAeAeA;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}\
-                                                                  QPushButton:checked{background-color:#dddddd;border:0px;border-radius:8px;text-align: left; padding-left: 15px;}");
-                }
-            }
-        }
-        ui->pushButton_14->setStyleSheet(ui->pushButton_4->styleSheet());
-        ui->applistpage->setTheme(themeType == DGuiApplicationHelper::DarkType);
-        ui->applistpage_1->setTheme(themeType == DGuiApplicationHelper::DarkType);
-        ui->appintopage->setTheme(themeType == DGuiApplicationHelper::DarkType);
-        ui->settingspage->setTheme(themeType == DGuiApplicationHelper::DarkType); });
+    connect(ThemeChecker::instance(), &ThemeChecker::themeChanged, this, &MainWindow::refreshTheme);
 
     // appintopage按下下载按钮时标题栏下载列表按钮抖动
     connect(ui->appintopage, &AppIntoPage::clickedDownloadBtn, [=]()

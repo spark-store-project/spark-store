@@ -93,7 +93,7 @@ void Application::setBuildDateTime(const QString &buildDateTime)
         qDebug() << "Spark Store has been updated!";
 
         config.setValue("build/version", QString(APP_VERSION));
-        config.setValue("build/branch",QString(APP_BRANCH));
+        config.setValue("build/branch", QString(APP_BRANCH));
         config.setValue("build/time", buildDateTime);
         config.sync();
     }
@@ -156,6 +156,17 @@ void Application::initAboutDialog()
     });
 
     dialog->hide();
+}
+
+void Application::loadTranslator()
+{
+    DApplication::loadTranslator();
+
+    if (QLocale::system().language() == QLocale::Chinese) {
+        QTranslator *webengineTranslator = new QTranslator(this);
+        webengineTranslator->load(QLocale(QLocale::Chinese), "qtwebengine", "_", ":/translations");
+        installTranslator(webengineTranslator);
+    }
 }
 
 #if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 4, 0))

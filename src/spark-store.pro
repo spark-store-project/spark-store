@@ -34,6 +34,8 @@ CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dtkcore dtkgui dtkwidget
 
 SOURCES += \
+        backend/DataCollectorAndUploader.cpp \
+        backend/ThemeChecker.cpp \
         backend/downloadworker.cpp \
         backend/image_show.cpp \
         backend/sparkapi.cpp \
@@ -58,6 +60,8 @@ SOURCES += \
         mainwindow-dtk.cpp
 
 HEADERS += \
+        backend/DataCollectorAndUploader.h \
+        backend/ThemeChecker.h \
         backend/downloadworker.h \
         backend/image_show.h \
         backend/sparkapi.h \
@@ -93,6 +97,7 @@ RESOURCES += \
 
 TRANSLATIONS += \
         ../translations/spark-store_en.ts \
+        ../translations/spark-store_es.ts \
         ../translations/spark-store_fr.ts \
         ../translations/spark-store_zh_CN.ts \
         ../translations/spark-store_zh_TW.ts

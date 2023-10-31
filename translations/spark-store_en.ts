@@ -9,14 +9,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="175"/>
-        <location filename="../src/pages/appintopage.cpp" line="313"/>
-        <location filename="../src/pages/appintopage.cpp" line="483"/>
-        <source>Download</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/pages/appintopage.ui" line="290"/>
         <source>Uninstall</source>
         <translation type="unfinished"></translation>
@@ -130,6 +122,14 @@
     <message>
         <location filename="../src/pages/appintopage.ui" line="903"/>
         <source>Screen capture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="244"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="313"/>
+        <location filename="../src/pages/appintopage.cpp" line="483"/>
+        <source>Download and Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -374,7 +374,7 @@
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
-        <source>dpkg progress had been aborted，please check the install info or try to reinstall.</source>
+        <source>dpkg progress had been aborted, please check the install info or try to reinstall.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -480,33 +480,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="187"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="188"/>
         <source>Submit App</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="188"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
         <source>Submit App with client(Recommanded)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="189"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="191"/>
         <source>APP Upgrade and Install Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="146"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="241"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="147"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="242"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="151"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="152"/>
         <source>Search or enter spk://</source>
         <translation type="unfinished"></translation>
     </message>
@@ -536,7 +536,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="244"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="245"/>
         <source>Show MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
@@ -658,12 +658,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="245"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="246"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="247"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>

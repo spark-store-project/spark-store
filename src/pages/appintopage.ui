@@ -241,7 +241,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Download</string>
+              <string>Download and Install</string>
              </property>
             </widget>
            </item>
