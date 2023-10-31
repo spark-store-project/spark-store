@@ -100,6 +100,12 @@ if [ -z "$IS_SHA512SUM_CHECKED" ]; then
     echo "尝试更新仓库信息重新校验"
     aptss ssupdate
     hash_check "$DEBPATH"
+	if [ -z "$IS_SHA512SUM_CHECKED" ]; then
+	echo "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
+	zenity "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
+	echo "OMG-IT-GOES-WRONG"
+	exit 1
+	fi
 fi
 
 if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
