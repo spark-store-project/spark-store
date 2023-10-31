@@ -12,7 +12,7 @@ case $(arch) in
 	;;
 esac
 
-echo "Spark Store Install script. 星火商店安装脚本"
+echo "Spark Store Install script. 星火商店审核脚本"
 
 function pkexec_as_current_user() {
     local user=$(who | awk '{print $1}' | head -n 1)
@@ -20,12 +20,13 @@ function pkexec_as_current_user() {
     sudo -u "$user" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/"$uid"/bus pkexec "$@"
 }
 function create_desktop_file() {
-	if [ -e $(sudo -u "$user" xdg-user-dir)/.config/spark-union/spark-store/ssshell-config-do-not-show-upgrade-notify ];then
+	local user=$(who | awk '{print $1}' | head -n 1)
+	if [ -e $(sudo -u "$user" xdg-user-dir)/.config/spark-union/spark-store/ssshell-config-do-not-create-desktop ];then
 	echo "It is configured that do not create desktop file. Give up"
 	else
-	create_desktop_file
+	exec_create_desktop_file
 	fi
-]
+}
 function exec_create_desktop_file() {
     local user=$(who | awk '{print $1}' | head -n 1)
     for desktop_file_path in $(dpkg -L "$package_name" | grep .desktop); do
@@ -130,5 +131,3 @@ DEBPATH=$(realpath "$1")
             echo "OMG-IT-GOES-WRONG"
         fi
     fi
-
-
