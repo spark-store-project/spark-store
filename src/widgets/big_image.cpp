@@ -1,6 +1,8 @@
 #include "big_image.h"
+#include "qapplication.h"
 
 #include <QHBoxLayout>
+#include <QScreen>
 #include <QtConcurrent>
 
 big_image::big_image(DBlurEffectWidget *parent) : DBlurEffectWidget(parent),
@@ -25,6 +27,8 @@ big_image::big_image(DBlurEffectWidget *parent) : DBlurEffectWidget(parent),
 
 void big_image::setimage(QPixmap image)
 {
+    QScreen *screen = QApplication::primaryScreen();
+    image.setDevicePixelRatio(screen->devicePixelRatio());
     m_image->setPixmap(image);
 }
 
