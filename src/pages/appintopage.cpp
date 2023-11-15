@@ -76,7 +76,6 @@ void AppIntoPage::openUrl(const QUrl &url)
                 manager->deleteLater(); });
 
         // 获取截图
-
         for (int i = 0; i < 5 /* 魔法数字，最多五个截图 */; i++)
         {
             QString imgUrl = pkgUrlBase + "/screen_" + QString::number(i + 1) + ".png";
@@ -98,7 +97,7 @@ void AppIntoPage::openUrl(const QUrl &url)
                         // img->setScaledContents(true);
                         QListWidgetItem *pItem = new QListWidgetItem();
                         pItem->setSizeHint(QSize(280, 200));
-                        ui->listWidget->addItem(pItem);
+                        ui->listWidget->insertItem(i, pItem);
                         ui->listWidget->setItemWidget(pItem, img);
                         qDebug() << imgUrl;
                     }

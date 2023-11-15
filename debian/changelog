@@ -1,3 +1,13 @@
+spark-store (4.2.9) stable; urgency=medium
+
+  * 修复：软件详情图片排序调整为服务器排序，而不是按加载顺序排序 
+  * 修复: build error on Deepin V23
+  * 修复：容器内无限等待
+  * 新增：高分屏截图支持
+  * 新增：更新界面支持显示软件名称
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 spark-store (4.2.8.1) stable; urgency=medium
 
   * 修复：A2D应用释放无效的Desktop到桌面上

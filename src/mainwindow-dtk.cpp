@@ -150,6 +150,8 @@ void MainWindow::initTitleBar()
 
     searchEdit = new DSearchEdit(ui->titlebar);
     searchEdit->setPlaceholderText(tr("Search or enter spk://"));
+    searchEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    searchEdit->lineEdit()->setFixedWidth(350);
 
     downloadButton = new ProgressButton(ui->titlebar);
     downloadButton->setDownloadListWidget(downloadlistwidget);

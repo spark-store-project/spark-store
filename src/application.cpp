@@ -14,6 +14,7 @@
 
 #include <QSettings>
 #include <QStandardPaths>
+#include <QTranslator>
 
 DCORE_USE_NAMESPACE
 

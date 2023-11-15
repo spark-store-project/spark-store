@@ -30,13 +30,13 @@ function create_desktop_file() {
 function exec_create_desktop_file() {
     local user=$(who | awk '{print $1}' | head -n 1)
     for desktop_file_path in $(dpkg -L "$package_name" |grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
+if [ "$(grep -m 1 '^NoDisplay=' "$desktop_file_path" | cut -d '=' -f 2)" = "true" ] ||  [ "$(grep -m 1 '^NoDisplay=' "$desktop_file_path" | cut -d '=' -f 2)" = "True" ];then
 	echo $desktop_file_path is checked and will be installed to desktop
         sudo -u "$user" cp "$desktop_file_path" "$(sudo -u "$user" xdg-user-dir DESKTOP)/"
 	fi
     done
 	for desktop_file_path in $(dpkg -L "$package_name" |grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
+	if [ "$(grep -m 1 '^NoDisplay=' "$desktop_file_path" | cut -d '=' -f 2)" = "true" ] ||  [ "$(grep -m 1 '^NoDisplay=' "$desktop_file_path" | cut -d '=' -f 2)" = "True" ];then
 	echo $desktop_file_path is checked and will be installed to desktop
         sudo -u "$user" cp "$desktop_file_path" "$(sudo -u "$user" xdg-user-dir DESKTOP)/"
 	fi
