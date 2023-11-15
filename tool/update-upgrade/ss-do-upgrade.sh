@@ -110,7 +110,7 @@ done)
 		else
 			### 更新用户选择的应用
 	for PKG_UPGRADE in $PKG_UPGRADE_LIST;do
-			$APP_UPGRADE=$(get_name_from_desktop_file $PKG_UPGRADE)
+			APP_UPGRADE="$(get_name_from_desktop_file $PKG_UPGRADE)"
 			update_transhell
 			pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text="${TRANSHELL_CONTENT_UPGRADING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 	done
