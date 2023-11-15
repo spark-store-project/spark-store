@@ -114,7 +114,11 @@ fi
 # permissions.
 # We need lock for non-root commands too, because we only have one download
 # list file.
-LCK_FILE="/tmp/apt-fast"
+if [ "$IS_ACE_ENV" != "" ];then
+LCK_FILE="/tmp/apt-fast-in-container.lock"
+else
+LCK_FILE="/tmp/apt-fast.lock"
+fi
 LCK_FD=99
 
 # Set default package manager, APT cache, temporary download dir,
@@ -130,7 +134,11 @@ else
 fi
 # Currently not needed.
 eval "$(apt-config shell LISTDIR Dir::State::lists/d)"
+if [ "$IS_ACE_ENV" != "" ];then
+DLLIST="/tmp/apt-fast-in-container.list"
+else
 DLLIST="/tmp/apt-fast.list"
+fi
 _MAXNUM=5
 _MAXCONPERSRV=10
 _SPLITCON=8
