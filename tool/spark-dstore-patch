@@ -39,7 +39,7 @@ linkDir() {
 
 linkApp() {
     appID=$1
-    appEntriesDir="/opt/apps/$appID/entries"
+    appEntriesDir="../../../opt/apps/$appID/entries"
     appLibsDir="/opt/apps/$appID/files/lib"
     autoStartDir="$appEntriesDir/autostart"
 
