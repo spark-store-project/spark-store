@@ -66,7 +66,7 @@ void DataCollectorAndUploader::collectData()
 
     // Initialize a network request
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QUrl url("http://zunyun01.store.deepinos.org.cn:12345");
+    QUrl url("https://status.deepinos.org.cn/upload");
 
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
