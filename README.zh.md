@@ -24,13 +24,13 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 
 
-## 关于团队协作：分支管理相关的详细文档可参见 [此链接](https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo)。
+## 关于团队协作：分支管理相关的详细文档可参见 [此链接](https://spark-store-project.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo)。
 
 我们热忱欢迎您加入我们的开发团队。无论您是想参与开发，还是想提交应用，都能在这里找到属于您的一席之地，共同推动Linux应用生态的发展。
 
-您可以通过以下链接，实时跟踪我们的Issue处理状态：[Gitee Issue看板](https://gitee.com/deepin-community-store/spark-store/board)。
+您可以通过以下链接，实时跟踪我们的Issue处理状态：[Gitee Issue看板](https://gitee.com/spark-store-project/spark-store/board)。
 
-若您有软件包想要提交，敬请 [点击此处进行投稿](https://deepin-community-store.gitee.io/spark-wiki/#/Submit/Submit)。
+若您有软件包想要提交，敬请 [点击此处进行投稿](https://spark-store-project.gitee.io/spark-wiki/#/Submit/Submit)。
 
 
 
@@ -98,7 +98,7 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
     > appstore://deepin-home-appstore-client?app_detail_info/spark-store
 
 
-    若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
+    若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -119,7 +119,7 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -134,7 +134,7 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -154,7 +154,7 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)并下载，安装后即可使用。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)并下载，安装后即可使用。
 
 
 #### 对于 Debian 12+ 用户
@@ -164,7 +164,7 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -176,16 +176,16 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 
 ## 常见问题（FAQ）
 
-请参见[星火应用商店FAQ与支持指南](https://gitee.com/deepin-community-store/spark-store/blob/dev/FAQ.md)。
+请参见[星火应用商店FAQ与支持指南](https://gitee.com/spark-store-project/spark-store/blob/dev/FAQ.md)。
 
-在这里可以查阅[中文版本](https://gitee.com/deepin-community-store/spark-store/blob/dev/FAQ.zh.md)。
+在这里可以查阅[中文版本](https://gitee.com/spark-store-project/spark-store/blob/dev/FAQ.zh.md)。
 
 ---
 
 ## 联系与反馈
 
-- 如果您有任何问题或建议，请通过邮件或在[Gitee页面](https://gitee.com/deepin-community-store/spark-store/issues)上提交问题。
-- 如果你想关注我们的开发进度，可以跳转[星火应用商店Board](https://gitee.com/deepin-community-store/spark-store/board)获取更多信息。
+- 如果您有任何问题或建议，请通过邮件或在[Gitee页面](https://gitee.com/spark-store-project/spark-store/issues)上提交问题。
+- 如果你想关注我们的开发进度，可以跳转[星火应用商店Board](https://gitee.com/spark-store-project/spark-store/board)获取更多信息。
 - 我们的[论坛](https://www.deepinos.org/)
 - 我们的[QQ群](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)
 - 商业支持请访问[火穗科技 Flamescion Inc.](http://flamescion.cn/)
