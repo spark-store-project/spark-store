@@ -30,6 +30,8 @@ private:
     void isDownloading(const QUrl &url);
     void setAppinfoTags(const QStringList &tagList);
     void notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport);
+    char*  rawHeaders;
+    QMap<int, QPixmap> imageMap;
 
 signals:
     void clickedDownloadBtn();
