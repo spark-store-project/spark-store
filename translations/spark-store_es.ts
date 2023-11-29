@@ -126,9 +126,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="180"/>
-        <location filename="../src/pages/appintopage.cpp" line="318"/>
-        <location filename="../src/pages/appintopage.cpp" line="488"/>
+        <location filename="../src/pages/appintopage.cpp" line="185"/>
+        <location filename="../src/pages/appintopage.cpp" line="323"/>
+        <location filename="../src/pages/appintopage.cpp" line="493"/>
         <source>Download and Install</source>
         <translation>Descargar e instalar</translation>
     </message>
@@ -175,79 +175,79 @@
         <translation>Sitio web</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="51"/>
+        <location filename="../src/pages/appintopage.cpp" line="56"/>
         <source>Click Open</source>
         <translation>Haga clic en &quot;abrir&quot;</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="119"/>
+        <location filename="../src/pages/appintopage.cpp" line="124"/>
         <source>Developer Mode Disabled</source>
         <translation>Se ha desactivado el modo desarrollador</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="165"/>
-        <location filename="../src/pages/appintopage.cpp" line="334"/>
-        <location filename="../src/pages/appintopage.cpp" line="461"/>
+        <location filename="../src/pages/appintopage.cpp" line="170"/>
+        <location filename="../src/pages/appintopage.cpp" line="339"/>
+        <location filename="../src/pages/appintopage.cpp" line="466"/>
         <source>Reinstall</source>
         <translation>Reinstalación</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="172"/>
+        <location filename="../src/pages/appintopage.cpp" line="177"/>
         <source>Upgrade</source>
         <translation>Actualización</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="323"/>
-        <location filename="../src/pages/appintopage.cpp" line="437"/>
+        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="442"/>
         <source>Install</source>
         <translation>Instalación</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="333"/>
         <source>Installing</source>
         <translation>Se está instalando</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="416"/>
-        <location filename="../src/pages/appintopage.cpp" line="420"/>
-        <location filename="../src/pages/appintopage.cpp" line="424"/>
-        <location filename="../src/pages/appintopage.cpp" line="428"/>
+        <location filename="../src/pages/appintopage.cpp" line="421"/>
+        <location filename="../src/pages/appintopage.cpp" line="425"/>
+        <location filename="../src/pages/appintopage.cpp" line="429"/>
+        <location filename="../src/pages/appintopage.cpp" line="433"/>
         <source>Warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="416"/>
+        <location filename="../src/pages/appintopage.cpp" line="421"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation>La aplicación actual no admite deepin, puede haber problemas</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="420"/>
+        <location filename="../src/pages/appintopage.cpp" line="425"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation>La aplicación actual no admite uos, puede haber problemas</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="424"/>
+        <location filename="../src/pages/appintopage.cpp" line="429"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation>La aplicación actual no admite ubuntu, puede haber problemas</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="428"/>
+        <location filename="../src/pages/appintopage.cpp" line="433"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation>La aplicación actual no admite la Plataforma actual, puede haber problemas</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="492"/>
-        <location filename="../src/pages/appintopage.cpp" line="505"/>
+        <location filename="../src/pages/appintopage.cpp" line="497"/>
+        <location filename="../src/pages/appintopage.cpp" line="510"/>
         <source>Spark Store</source>
         <translation>SPARK Store</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="492"/>
+        <location filename="../src/pages/appintopage.cpp" line="497"/>
         <source>Uninstall succeeded</source>
         <translation>Desinstalación exitosa</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="505"/>
+        <location filename="../src/pages/appintopage.cpp" line="510"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>La URL ha sido copiada al portapapeles</translation>
     </message>
@@ -635,9 +635,8 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="359"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Our services and software are free for individuals and non-profit organizations to use, communicate and learn, but you must comply with local laws and regulations in the process of use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from the Community version store, we rely on donations from the community for most of our operating expenses, and we appreciate that this allows us to spend less energy worrying about money. However, in order to better provide continuous service, Spark is only free for individual users to open the service warehouse, if you or your organization needs to provide commercial services or your organization is a for-profit organization, please contact us to obtain commercial authorization. &lt;/p&gt;&lt;p&gt;When using the Software, users or organizations are strictly forbidden to engage in any form of malicious behavior, including but not limited to malicious attacks, abuse, destruction, bulk crawling of the software warehouse, etc. The definition of malicious behavior is judged by the Spark community, and violators will be held legally responsible. Spark Community reserves the right to distribute the software packages it produces. &lt;/p&gt;&lt;p&gt;Any person or organization is prohibited from using the Spark Community software package for commercial purposes or redistributing it without the express authorization of the Spark Community. This clause is intended to ensure the spirit of open source while safeguarding the intellectual property rights of the Spark community. In addition to the above, if you use the Spark Store main program or part of its code, you are subject to all other terms and requirements of the GPL v3.&lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.cpp" line="217"/>
