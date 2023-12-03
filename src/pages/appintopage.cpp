@@ -58,7 +58,12 @@ void AppIntoPage::openUrl(const QUrl &url)
         ui->label_2->setText(info["More"].toString());
 
         // 显示 tags
-        QStringList taglist = info["Tags"].toString().split(";", Qt::SkipEmptyParts);
+        #if (DTK_VERSION >= DTK_VERSION_CHECK(5, 15, 0, 0))
+            QStringList taglist = info["Tags"].toString().split(";", Qt::SkipEmptyParts);
+        #else
+            QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
+        #endif
+
         setAppinfoTags(taglist);
 
         // 获取图标和截图
