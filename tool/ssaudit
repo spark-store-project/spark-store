@@ -38,6 +38,7 @@ function exec_create_desktop_file() {
 	for desktop_file_path in $(dpkg -L "$package_name" |grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
 	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
 	echo $desktop_file_path is checked and will be installed to desktop
+        chmod +x $desktop_file_path
         sudo -u "$user" cp "$desktop_file_path" "$(sudo -u "$user" xdg-user-dir DESKTOP)/"
 	fi
     done
