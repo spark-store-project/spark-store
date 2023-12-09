@@ -73,6 +73,22 @@ bool Utils::isWayland()
     return isWayland;
 }
 
+bool Utils::isPhytium()
+{
+    bool isPhytium = false;
+    QProcess process;
+    process.start("lscpu");
+    process.waitForFinished();
+
+
+    QString output = process.readAllStandardOutput();
+    if (output.contains(QLatin1String("Phytium")))
+    {
+        isPhytium = true;
+    }
+
+    return isPhytium;
+}
 /**
  * @brief Utils::initConfig 初始化 config.ini 配置文件，去除废弃字段
  */

@@ -121,9 +121,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="185"/>
-        <location filename="../src/pages/appintopage.cpp" line="323"/>
-        <location filename="../src/pages/appintopage.cpp" line="493"/>
+        <location filename="../src/pages/appintopage.cpp" line="190"/>
+        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="498"/>
         <source>Download and Install</source>
         <translation>下载并安装</translation>
     </message>
@@ -180,74 +180,74 @@
         <translation>点击跳转</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="124"/>
+        <location filename="../src/pages/appintopage.cpp" line="129"/>
         <source>Developer Mode Disabled</source>
         <translation>开发者模式未开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="170"/>
-        <location filename="../src/pages/appintopage.cpp" line="339"/>
-        <location filename="../src/pages/appintopage.cpp" line="466"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="344"/>
+        <location filename="../src/pages/appintopage.cpp" line="471"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="177"/>
+        <location filename="../src/pages/appintopage.cpp" line="182"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
-        <location filename="../src/pages/appintopage.cpp" line="442"/>
+        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <location filename="../src/pages/appintopage.cpp" line="447"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <location filename="../src/pages/appintopage.cpp" line="338"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="421"/>
-        <location filename="../src/pages/appintopage.cpp" line="425"/>
-        <location filename="../src/pages/appintopage.cpp" line="429"/>
-        <location filename="../src/pages/appintopage.cpp" line="433"/>
+        <location filename="../src/pages/appintopage.cpp" line="426"/>
+        <location filename="../src/pages/appintopage.cpp" line="430"/>
+        <location filename="../src/pages/appintopage.cpp" line="434"/>
+        <location filename="../src/pages/appintopage.cpp" line="438"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="421"/>
+        <location filename="../src/pages/appintopage.cpp" line="426"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation>当前应用不支持deepin，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="425"/>
+        <location filename="../src/pages/appintopage.cpp" line="430"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation>当前应用不支持UOS，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="429"/>
+        <location filename="../src/pages/appintopage.cpp" line="434"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation>当前应用不支持Ubuntu，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="433"/>
+        <location filename="../src/pages/appintopage.cpp" line="438"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation>当前应用不支持平台，安装后可能会出现问题</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="497"/>
-        <location filename="../src/pages/appintopage.cpp" line="510"/>
+        <location filename="../src/pages/appintopage.cpp" line="502"/>
+        <location filename="../src/pages/appintopage.cpp" line="515"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="497"/>
+        <location filename="../src/pages/appintopage.cpp" line="502"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="510"/>
+        <location filename="../src/pages/appintopage.cpp" line="515"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>

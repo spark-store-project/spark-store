@@ -160,7 +160,6 @@ int main(int argc, char *argv[])
          */
         env += " --disable-gpu";
         qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
-
         QSurfaceFormat format;
         format.setRenderableType(QSurfaceFormat::OpenGLES);
         QSurfaceFormat::setDefaultFormat(format);
@@ -172,15 +171,11 @@ int main(int argc, char *argv[])
         qputenv("QMLSCENE_DEVICE", "softwarecontext");
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
-#endif
-
-
-
     /**
      * FIXME: 对于麒麟 CPU 设备，调用 QtWebEngine 会导致客户端崩溃；
      * 暂时不对 CPU 进行判断，对 wayland 环境下统一处理
      */
-    if (Utils::isWayland()) {
+    else {
         QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
         env = env.trimmed();
         /**
@@ -199,14 +194,25 @@ int main(int argc, char *argv[])
         QSurfaceFormat format;
         format.setRenderableType(QSurfaceFormat::OpenGLES);
         QSurfaceFormat::setDefaultFormat(format);
+    }
+    if (Utils::isPhytium()){
+        QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
+        env = env.trimmed();
+        env += " --single-process";
+        qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
+    }
+#endif
 
-        /**
-         * NOTE: https://zhuanlan.zhihu.com/p/550285855
-         * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
-         */
+    /**
+     * NOTE: https://zhuanlan.zhihu.com/p/550285855
+     * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
+     */
+    if (Utils::isWayland()) {
         qputenv("QMLSCENE_DEVICE", "softwarecontext");
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
+
+
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     {
