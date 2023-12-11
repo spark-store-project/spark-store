@@ -39,7 +39,11 @@ linkDir() {
 
 linkApp() {
     appID=$1
+    if [ "$IS_ACE_ENV" = "1" ];then
     appEntriesDir="../../../opt/apps/$appID/entries"
+    else
+    appEntriesDir="/opt/apps/$appID/entries"
+    fi
     appLibsDir="/opt/apps/$appID/files/lib"
     autoStartDir="$appEntriesDir/autostart"
 
