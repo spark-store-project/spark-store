@@ -67,7 +67,7 @@ void crashHandler(int sig) {
     }
 
     logFile << "Please send this log to the developer. QQ Group: 872690351\n";
-    logFile << "Gitee: https://gitee.com/deepin-community-store/spark-store/issues\n";
+    logFile << "Gitee: https://gitee.com/spark-store-project/spark-store/issues\n";
     logFile << "Gihub: https://github.com/spark-store-project/spark-store/issues\n";
     logFile << "Build Date and Time: " << buildDateTime.toStdString() << "\n";
     gatherInfo(popen("cat ~/.config/spark-union/spark-store/config.ini", "r"), logFile, "User Config File");
