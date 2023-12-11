@@ -3,7 +3,7 @@
 export QT_SELECT = qt5
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 include /usr/share/dpkg/default.mk
-
+export DEB_VERSION = $(shell dpkg-parsechangelog -S Version)
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
