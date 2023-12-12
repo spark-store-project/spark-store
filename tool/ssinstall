@@ -126,6 +126,12 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     try_run_ret="$?"
 
     if [ "$try_run_ret" -ne 0 ]; then
+    aptss update
+    try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
+    try_run_ret="$?"
+    fi
+    
+     if [ "$try_run_ret" -ne 0 ]; then
         echo "OMG-IT-GOES-WRONG"
         echo -e "${try_run_output}"
         exit "$try_run_ret"
