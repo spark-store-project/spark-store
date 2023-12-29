@@ -22,15 +22,12 @@ AppIntoPage::AppIntoPage(QWidget *parent)
 {
     initUI();
     initConnections();
-    QString  headers = "Mozilla/5.0 Spark-Store/"+ QString(APP_VERSION)+" (Linux;  "+QSysInfo::prettyProductName().toUtf8()+";)";
-    QByteArray ba = headers.toLatin1(); // must
-    rawHeaders=ba.data();
+    m_userAgent = QString("Mozilla/5.0 Spark-Store/" + QString(APP_VERSION) + " (Linux;  " + QSysInfo::prettyProductName().toUtf8() + ";)").toLatin1();
 }
 
 AppIntoPage::~AppIntoPage()
 {
     delete ui;
-    free(rawHeaders);
 }
 
 void AppIntoPage::openUrl(const QUrl &url)
@@ -74,8 +71,8 @@ void AppIntoPage::openUrl(const QUrl &url)
         // 获取图标
         QNetworkRequest iconRequest;
         iconRequest.setUrl(QUrl(pkgUrlBase + "/icon.png"));
-        iconRequest.setRawHeader("User-Agent", rawHeaders);
-        iconRequest.setRawHeader("Content-Type", "charset='utf-8'");
+        iconRequest.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
+        iconRequest.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
 
         iconManager->get(iconRequest);
         QObject::connect(iconManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
@@ -97,8 +94,8 @@ void AppIntoPage::openUrl(const QUrl &url)
             QNetworkRequest request;
             QNetworkAccessManager *manager = new QNetworkAccessManager(this);
             request.setUrl(QUrl(imgUrl));
-            request.setRawHeader("User-Agent", rawHeaders);
-            request.setRawHeader("Content-Type", "charset='utf-8'");
+            request.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
+            request.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
             manager->get(request);
             QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
                 {

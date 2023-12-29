@@ -30,8 +30,6 @@ private:
     void isDownloading(const QUrl &url);
     void setAppinfoTags(const QStringList &tagList);
     void notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport);
-    char*  rawHeaders;
-    QMap<int, QPixmap> imageMap;
 
 signals:
     void clickedDownloadBtn();
@@ -51,6 +49,8 @@ private:
     QJsonObject info;
     QPixmap iconpixmap;
     QUrl spk;
+
+    QByteArray m_userAgent;
 };
 
 #endif // APPINTOPAGE_H
