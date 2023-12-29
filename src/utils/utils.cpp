@@ -73,6 +73,21 @@ bool Utils::isWayland()
     return isWayland;
 }
 
+/**
+ * @brief 判断是否使用 TreeLand 混合器
+ * @return bool true: 使用 TreeLand 混合器 false: 非 TreeLand 混合器
+ */
+bool Utils::isTreeLand()
+{
+    bool isTreeLand = false;
+    if (qgetenv("DDE_CURRENT_COMPOSITER").toLower() == "treeland"
+        || qgetenv("DESKTOP_SESSION").toLower() == "treeland") {
+        isTreeLand = true;
+    }
+
+    return isTreeLand;
+}
+
 bool Utils::isPhytium()
 {
     bool isPhytium = false;

@@ -10,6 +10,7 @@ public:
     static void sendNotification(const QString &icon, const QString &title, const QString &body);
     static bool isDDE();
     static bool isWayland();
+    static bool isTreeLand();
     static void initConfig();
     static bool isUOS();
     static bool isPhytium();
