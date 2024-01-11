@@ -27,6 +27,7 @@ Homepage: https://www.spark-app.store/
 
 Package: spark-store
 Architecture: any
+Provides: spark-store-console-in-container
 Depends:${shlibs:Depends}, ${misc:Depends},
  libqt5core5a,
  libqt5gui5,

@@ -1,14 +1,21 @@
 #include "httprequest.h"
 
-HttpRequest::HttpRequest()
+HttpRequest::HttpRequest(QObject *parent):QObject(parent)
 {
+    QString headers = "Mozilla/5.0 Spark-Store/"+ QString(APP_VERSION)+" (Linux;  "+QSysInfo::prettyProductName().toUtf8()+");";
+    QByteArray ba = headers.toLatin1();
+    rawHeaders = strdup(ba.data());
+}
+// 在析构函数中释放 rawHeaders 的内存
+HttpRequest::~HttpRequest()
+{
+    free(rawHeaders);
 }
 
 void HttpRequest::getRequest(QNetworkRequest request)
 {
     QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
-
-    request.setRawHeader("User-Agent", "Mozilla/5.0");
+    request.setRawHeader("User-Agent", rawHeaders);
     request.setRawHeader("Content-Type", "charset='utf-8'");
     request.setRawHeader("Content-Type", "application/json");
 
@@ -26,6 +33,7 @@ QString HttpRequest::postRequest(QString url, QString jsondata)
     QNetworkAccessManager *naManager = new QNetworkAccessManager(this);
     QUrl strUrl = url.replace("+", "%2B");
     request.setUrl(strUrl);
+    request.setRawHeader("User-Agent", rawHeaders);
     request.setRawHeader("Content-Type", "charset='utf-8'");
     request.setRawHeader("Content-Type", "application/json");
 

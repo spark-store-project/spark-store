@@ -6,9 +6,13 @@
 
 1. 对本仓库下的所有文件生效：本许可证适用于本仓库（或项目）下的所有文件。任何使用、修改或再发布本软件的个人或组织都必须遵守本许可证。
 2. 版权声明和许可证文件：您不得移除、隐藏或更改本软件中包含的原作者的版权声明和许可证文件。保留原作者的权益信息对于维护开源软件生态系统至关重要。
-3. 版本标注：如果您对本软件做出修改并再发布，您必须在醒目位置标注此版本并非星火社区官方提供。这样可以避免误导使用者认为该软件为星火社区官方提供的版本。
+3. 版本标注： 如果您对本软件做出修改并再发布，您必须在醒目位置标注此版本并非星火社区官方提供。这样可以避免误导使用者认为该软件为星火社区官方提供的版本。此软件仅授权用于个人非盈利用途，任何将其用于商业目的或在盈利性组织中使用的行为均需事先获得星火社区的书面许可。
 4. 商标使用：您不得在再发布版本中使用“星火应用商店”、“Spark Store”或星火应用商店的Logo等可能误导使用者此软件由星火社区官方提供的信息。
-5. 其他条款：除上述约定外，您应遵守 GPL v3 的所有其他条款和要求。
+5. 服务条款：您使用星火商店软件的行为将被视为您同意星火在不侵犯您隐私的前提下搜集版本、日志等信息，以便于星火社区更好地为您提供服务。
+6. 仓库版权条款：为了更好的提供持续性服务，星火仅对个人用户免费开放服务仓库，如您或您的组织需要提供商业服务或者您的组织为盈利性组织，请联系星火社区获取商业授权。
+7. 禁止恶意行为和批量爬取： 用户或组织在使用本软件时，严禁进行任何形式的恶意行为，包括但不限于恶意攻击、滥用、破坏、批量爬取软件仓库等。恶意行为的定义由星火社区自行判断，违反者将被追究法律责任。
+8. 分发与再分发权利： 星火社区保留对其制作的软件包的分发权利。未经明确授权，禁止任何个人或组织将星火社区软件包用于商业目的或在未获得星火社区许可的情况下进行再分发。此条款旨在确保开源精神的同时，维护星火社区的知识产权。
+9. 其他条款：除上述约定外，若您使用了星火商店的主程序或其部分代码，您应遵守 GPL v3 的所有其他条款和要求。
 
 GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,8 +26,12 @@ This software is free software; you can modify and redistribute it under the ter
 
 1. Applicability to all files in this repository: This license applies to all files in this repository (or project). Any individuals or organizations that use, modify, or redistribute this software must comply with this license.
 2. Copyright notice and license files: You must not remove, hide, or modify the copyright notice and license files of the original authors included in this software. Preserving the rights information of the original authors is essential for maintaining the open-source software ecosystem.
-3. Version annotation: If you modify this software and redistribute it, you must prominently annotate that this version is not provided by the Spark community officially. This is to avoid misleading users into believing that the software is provided by the official Spark community.
+3. Version annotation: If you modify and redistribute this software, you must mark in a prominent position that this version is not officially provided by the Spark community. This avoids misleading users into thinking that the software is an official version provided by the Spark community. This software is licensed for personal, non-profit use only, and any use of it for commercial purposes or in for-profit organizations requires the prior written permission of the Spark Community.
 4. Trademark usage: You are not allowed to use terms such as "Spark App Store," "Spark Store," or the logo of Spark App Store in redistributed versions, as they may mislead users into believing that the software is provided by the official Spark community.
-5. Additional terms: Apart from the above provisions, you must comply with all other terms and requirements of GPL v3.
+5. Terms of Service: Your use of the software of Spark Store will be deemed as your consent to collect version, log and other information on the premise of not violating your privacy, so as to facilitate the Spark community to provide you with better services.
+6. Warehouse copyright terms: In order to better provide continuous services, Spark is only free for individual users to open the service warehouse, if you or your organization needs to provide commercial services or your organization is a for-profit organization, please contact Spark community to obtain commercial authorization.
+7. Prohibited malicious behavior and mass crawling: Users or organizations are strictly prohibited to engage in any form of malicious behavior when using the software, including but not limited to malicious attacks, abuse, destruction, and mass crawling of software warehouses. The definition of malicious behavior is judged by the Spark community, and violators will be held legally responsible.
+8. Distribution and redistribution rights: Spark Community reserves the right to distribute the software packages it produces. Any person or organization is prohibited from using the Spark Community software package for commercial purposes or redistributing it without the express authorization of the Spark Community. This clause is intended to ensure the spirit of open source while safeguarding the intellectual property rights of the Spark community.
+9. Other Terms: In addition to the above, if you use the Spark Store main program or part of its code, you are subject to all other terms and requirements of GPL v3.
 
 You can find the full text of GPLV3 license at: https://www.gnu.org/licenses/gpl-3.0.html

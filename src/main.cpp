@@ -67,7 +67,7 @@ void crashHandler(int sig) {
     }
 
     logFile << "Please send this log to the developer. QQ Group: 872690351\n";
-    logFile << "Gitee: https://gitee.com/deepin-community-store/spark-store/issues\n";
+    logFile << "Gitee: https://gitee.com/spark-store-project/spark-store/issues\n";
     logFile << "Gihub: https://github.com/spark-store-project/spark-store/issues\n";
     logFile << "Build Date and Time: " << buildDateTime.toStdString() << "\n";
     gatherInfo(popen("cat ~/.config/spark-union/spark-store/config.ini", "r"), logFile, "User Config File");
@@ -140,81 +140,73 @@ int main(int argc, char *argv[])
     // Set display backend
     Utils::setQPAPlatform();
 
-    // 龙芯机器配置,使得 DApplication 能正确加载 QTWEBENGINE
+    // 龙芯机器配置,使得 DApplication 能正确加载 QtWebEngine
     qputenv("DTK_FORCE_RASTER_WIDGETS", "FALSE");
-    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-features=UseModernMediaControls");
-    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
-
 
     // 浏览器开启 GPU 支持
+    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-features=UseModernMediaControls");
+    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
 #ifdef __sw_64__
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
 #elif __aarch64__
+    QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
+    env = env.trimmed();
+    /**
+     * NOTE: 参考帮助手册代码，对于部分 ARM CPU 设备，
+     * --disable-gpu 保证网页正常显示
+     * --single-process 避免 QtWebEngine 崩溃（可选）
+     */
+    env += " --disable-gpu";
+    if (Utils::isPhytium()) {
+        env += " --single-process";
+    }
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
+
+    if (Utils::isWayland()) {
+        /**
+         * WARNING: DDM TreeLand 混合器下，设置
+         * QT_WAYLAND_SHELL_INTEGRATION 环境变量
+         * 会导致崩溃 By justforlxz
+         */
+        if (!Utils::isTreeLand()) {
+            /**
+             * NOTE: 参考帮助手册代码，对于麒麟 CPU 设备，
+             * 避免 wayland 环境下 QtWebEngine 崩溃
+             */
+            qputenv("QT_WAYLAND_SHELL_INTEGRATION", "kwayland-shell");
+        }
+
+    }
+    QSurfaceFormat format;
+    format.setRenderableType(QSurfaceFormat::OpenGLES);
+    QSurfaceFormat::setDefaultFormat(format);
+
+    /**
+     * NOTE: https://zhuanlan.zhihu.com/p/550285855
+     * 避免 X11 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
+     */
     if (!Utils::isWayland()) {
-        QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
-        env = env.trimmed();
-        /**
-         * NOTE: 参考帮助手册代码，对于部分ARM CPU 设备，
-         * --disable-gpu 保证 X11 环境下网页正常显示
-         * --single-process 避免 X11 环境下 QtWebEngine 崩溃（可选）
-         */
-        env += " --disable-gpu";
-        qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
-
-        QSurfaceFormat format;
-        format.setRenderableType(QSurfaceFormat::OpenGLES);
-        QSurfaceFormat::setDefaultFormat(format);
-
-        /**
-         * NOTE: https://zhuanlan.zhihu.com/p/550285855
-         * 避免 X11 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
-         */
         qputenv("QMLSCENE_DEVICE", "softwarecontext");
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
 #endif
 
-
-
     /**
-     * FIXME: 对于麒麟 CPU 设备，调用 QtWebEngine 会导致客户端崩溃；
-     * 暂时不对 CPU 进行判断，对 wayland 环境下统一处理
+     * NOTE: https://zhuanlan.zhihu.com/p/550285855
+     * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
      */
     if (Utils::isWayland()) {
-        QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
-        env = env.trimmed();
-        /**
-         * NOTE: 参考帮助手册代码，对于麒麟 CPU 设备，
-         * --disable-gpu 保证 wayland 环境下网页正常显示
-         * --single-process 避免 wayland 环境下 QtWebEngine 崩溃（可选）
-         */
-        env += " --disable-gpu";
-        qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
-
-        /**
-         * NOTE: 参考帮助手册代码，对于麒麟 CPU 设备，
-         * 避免 wayland 环境下 QtWebEngine 崩溃
-         */
-        qputenv("QT_WAYLAND_SHELL_INTEGRATION", "kwayland-shell");
-        QSurfaceFormat format;
-        format.setRenderableType(QSurfaceFormat::OpenGLES);
-        QSurfaceFormat::setDefaultFormat(format);
-
-        /**
-         * NOTE: https://zhuanlan.zhihu.com/p/550285855
-         * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
-         */
         qputenv("QMLSCENE_DEVICE", "softwarecontext");
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
 
+
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    {
-        // 开启 Hidpi 支持
-        qDebug() << "Enable HiDPI Support.";
-        DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-        DApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    }
+    // 开启 Hidpi 支持
+    qDebug() << "Enable HiDPI Support.";
+    DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    DApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 #endif
 
     // 强制使用 DTK 平台插件

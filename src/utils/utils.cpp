@@ -74,6 +74,37 @@ bool Utils::isWayland()
 }
 
 /**
+ * @brief 判断是否使用 TreeLand 混合器
+ * @return bool true: 使用 TreeLand 混合器 false: 非 TreeLand 混合器
+ */
+bool Utils::isTreeLand()
+{
+    bool isTreeLand = false;
+    if (qgetenv("DDE_CURRENT_COMPOSITER").toLower() == "treeland"
+        || qgetenv("DESKTOP_SESSION").toLower() == "treeland") {
+        isTreeLand = true;
+    }
+
+    return isTreeLand;
+}
+
+bool Utils::isPhytium()
+{
+    bool isPhytium = false;
+    QProcess process;
+    process.start("lscpu");
+    process.waitForFinished();
+
+
+    QString output = process.readAllStandardOutput();
+    if (output.contains(QLatin1String("Phytium")))
+    {
+        isPhytium = true;
+    }
+
+    return isPhytium;
+}
+/**
  * @brief Utils::initConfig 初始化 config.ini 配置文件，去除废弃字段
  */
 void Utils::initConfig()

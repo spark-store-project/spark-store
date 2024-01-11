@@ -13,6 +13,7 @@
 #include <QFile>
 
 #include <DSysInfo>
+#include <QAtomicInt>
 
 AppIntoPage::AppIntoPage(QWidget *parent)
     : QWidget(parent)
@@ -21,6 +22,7 @@ AppIntoPage::AppIntoPage(QWidget *parent)
 {
     initUI();
     initConnections();
+    m_userAgent = QString("Mozilla/5.0 Spark-Store/" + QString(APP_VERSION) + " (Linux;  " + QSysInfo::prettyProductName().toUtf8() + ";)").toLatin1();
 }
 
 AppIntoPage::~AppIntoPage()
@@ -53,37 +55,47 @@ void AppIntoPage::openUrl(const QUrl &url)
         ui->label_2->setText(info["More"].toString());
 
         // 显示 tags
-        QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
+        #if (DTK_VERSION >= DTK_VERSION_CHECK(5, 15, 0, 0))
+            QStringList taglist = info["Tags"].toString().split(";", Qt::SkipEmptyParts);
+        #else
+            QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
+        #endif
+
         setAppinfoTags(taglist);
 
-        // 获取图标
-        QNetworkRequest request;
-        QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+        // 获取图标和截图
         QString pkgUrlBase = api->getImgServerUrl() + SparkAPI::getArchDir() + url.path();
-        qDebug() << "Icon URL: " << pkgUrlBase + "/icon.png";
-        request.setUrl(QUrl(pkgUrlBase + "/icon.png"));
-        request.setRawHeader("User-Agent", "Mozilla/5.0");
-        request.setRawHeader("Content-Type", "charset='utf-8'");
-        manager->get(request);
-        QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
-            {
-                QByteArray jpegData = reply->readAll();
-                iconpixmap.loadFromData(jpegData);
-                iconpixmap.scaled(210, 200, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-                ui->icon->setPixmap(iconpixmap);
-                ui->icon->setScaledContents(true);
+        // 创建网络请求管理器
+        QNetworkAccessManager *iconManager = new QNetworkAccessManager(this);
 
-                manager->deleteLater(); });
+        // 获取图标
+        QNetworkRequest iconRequest;
+        iconRequest.setUrl(QUrl(pkgUrlBase + "/icon.png"));
+        iconRequest.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
+        iconRequest.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
 
-        // 获取截图
+        iconManager->get(iconRequest);
+        QObject::connect(iconManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
+        {
+            QByteArray jpegData = reply->readAll();
+            iconpixmap.loadFromData(jpegData);
+            iconpixmap = iconpixmap.scaled(210, 200, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+            ui->icon->setPixmap(iconpixmap);
+            ui->icon->setScaledContents(true);
+
+            iconManager->deleteLater();
+            reply->deleteLater();
+        });
+
+
         for (int i = 0; i < 5 /* 魔法数字，最多五个截图 */; i++)
         {
             QString imgUrl = pkgUrlBase + "/screen_" + QString::number(i + 1) + ".png";
             QNetworkRequest request;
             QNetworkAccessManager *manager = new QNetworkAccessManager(this);
             request.setUrl(QUrl(imgUrl));
-            request.setRawHeader("User-Agent", "Mozilla/5.0");
-            request.setRawHeader("Content-Type", "charset='utf-8'");
+            request.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
+            request.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
             manager->get(request);
             QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
                 {
@@ -105,6 +117,7 @@ void AppIntoPage::openUrl(const QUrl &url)
                     manager->deleteLater(); 
                 });
         }
+        
 
         // Check UOS
         QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);

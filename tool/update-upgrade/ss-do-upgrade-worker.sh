@@ -1,14 +1,17 @@
 #!/bin/bash
+
+
+case $1 in 
+	ssupdate)
 if [ "$(id -u)" != "0" ] ; then
 	pkexec "$0" "$@"
 	exit
 fi
-
-case $1 in 
-	ssupdate)
 		aptss ssupdate 2>&1 | tee /tmp/spark-store-app-ssupdate-log.txt
 		IS_SSUPDATE_ERROR=`cat /tmp/spark-store-app-ssupdate-log.txt | grep "E: "`
 		echo "$IS_SSUPDATE_ERROR" > /tmp/spark-store-app-ssupdate-status.txt
+		chmod 777 /tmp/spark-store-app-ssupdate-status.txt
+		chmod 777 /tmp/spark-store-app-ssupdate-log.txt
 	;;
 
 	upgradable-list)
@@ -28,11 +31,21 @@ case $1 in
 	;;
 
 	upgrade-app)
+if [ "$(id -u)" != "0" ] ; then
+	pkexec "$0" "$@"
+	exit
+fi
+
 		aptss install "${@:2}" --only-upgrade  2>&1 | tee /tmp/spark-store-app-upgrade-log.txt
+		chmod 777 /tmp/spark-store-app-upgrade-log.txt
 		IS_UPGRADE_ERROR=`cat /tmp/spark-store-app-upgrade-log.txt | grep "Package manager quit with exit code."`
 		echo "$IS_UPGRADE_ERROR" > /tmp/spark-store-app-upgrade-status.txt
 	;;
 	test-install-app)
+if [ "$(id -u)" != "0" ] ; then
+	pkexec "$0" "$@"
+	exit
+fi
 
 try_run_output=$(aptss --dry-run install $2)
 try_run_ret="$?"
@@ -63,6 +76,7 @@ fi
 	;;
 	
 	clean-log)
-		rm -f /tmp/spark-store-app-ssupdate-status.txt /tmp/spark-store-app-ssupdate-log.txt /tmp/spark-store-app-upgrade-log.txt /tmp/spark-store-app-upgrade-status.txt
+
+	rm -f /tmp/spark-store-app-ssupdate-status.txt /tmp/spark-store-app-ssupdate-log.txt /tmp/spark-store-app-upgrade-log.txt /tmp/spark-store-app-upgrade-status.txt
 	;;
 esac
