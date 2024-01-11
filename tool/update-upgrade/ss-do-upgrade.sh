@@ -49,17 +49,17 @@ touch /tmp/spark-store/upgradeStatus.txt
 pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --pulsate --no-cancel --text="${TRANSHELL_CONTENT_UPDATE_CHEKING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 
 if [ -z `cat /tmp/spark-store-app-ssupdate-status.txt` ] ; then
-	pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
+	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
 else
 	zenity --error --text "${TRANSHELL_CONTENT_CHECK_UPDATE_PROCESS_ERROR_PRESS_CONFIRM_TO_CHECK}" --title "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --height 200 --width 350 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 	zenity --text-info --filename=/tmp/spark-store-app-ssupdate-log.txt --checkbox="${TRANSHELL_CONTENT_I_ALREDY_COPIED_THE_LOG_HERE_AND_WILL_USE_IT_TO_FEEDBACK}" --title="${TRANSHELL_CONTENT_FEEDBACK_CAN_BE_FOUND_IN_THE_SETTINGS}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
-	pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
+	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
     rm -f /tmp/spark-store/upgradeStatus.txt
 	exit
 fi
 
 # 获取可更新应用列表
-PKG_LIST="$(pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgradable-list)"
+PKG_LIST="$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgradable-list)"
 ## 如果没更新，就弹出不需要更新
 if [ -z "$PKG_LIST" ] ; then
 	zenity --info --text "${TRANSHELL_CONTENT_NO_NEED_TO_UPGRADE}" --title "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
