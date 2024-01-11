@@ -49,6 +49,8 @@ private:
     QJsonObject info;
     QPixmap iconpixmap;
     QUrl spk;
+
+    QByteArray m_userAgent;
 };
 
 #endif // APPINTOPAGE_H

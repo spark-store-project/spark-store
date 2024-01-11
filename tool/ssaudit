@@ -38,6 +38,7 @@ function exec_create_desktop_file() {
 	for desktop_file_path in $(dpkg -L "$package_name" |grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
 	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
 	echo $desktop_file_path is checked and will be installed to desktop
+        chmod +x $desktop_file_path
         sudo -u "$user" cp "$desktop_file_path" "$(sudo -u "$user" xdg-user-dir DESKTOP)/"
 	fi
     done
@@ -106,8 +107,14 @@ DEBPATH=$(realpath "$1")
 
     package_name=$(dpkg-deb -f "$DEBPATH" Package)
     echo "Package name is $package_name"
+    
     try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
     try_run_ret="$?"
+    if [ "$try_run_ret" -ne 0 ]; then
+    aptss update
+    try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
+    try_run_ret="$?"
+    fi
 
     if [ "$try_run_ret" -ne 0 ]; then
         echo "OMG-IT-GOES-WRONG"

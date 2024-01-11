@@ -10,8 +10,11 @@
 class HttpRequest : public QObject
 {
     Q_OBJECT
+private:
+    char*  rawHeaders;
 public:
-    HttpRequest();
+    HttpRequest(QObject *parent = nullptr);
+    ~HttpRequest();
 
     void getRequest(QNetworkRequest request);
 

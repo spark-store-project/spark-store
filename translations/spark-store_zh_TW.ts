@@ -121,9 +121,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="174"/>
-        <location filename="../src/pages/appintopage.cpp" line="312"/>
-        <location filename="../src/pages/appintopage.cpp" line="482"/>
+        <location filename="../src/pages/appintopage.cpp" line="190"/>
+        <location filename="../src/pages/appintopage.cpp" line="328"/>
+        <location filename="../src/pages/appintopage.cpp" line="498"/>
         <source>Download and Install</source>
         <translation>下載並安裝</translation>
     </message>
@@ -175,79 +175,79 @@
         <translation>软件官网</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="51"/>
+        <location filename="../src/pages/appintopage.cpp" line="56"/>
         <source>Click Open</source>
         <translation>点击跳转</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="113"/>
+        <location filename="../src/pages/appintopage.cpp" line="129"/>
         <source>Developer Mode Disabled</source>
         <translation>开发者模式未开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="159"/>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
-        <location filename="../src/pages/appintopage.cpp" line="455"/>
+        <location filename="../src/pages/appintopage.cpp" line="175"/>
+        <location filename="../src/pages/appintopage.cpp" line="344"/>
+        <location filename="../src/pages/appintopage.cpp" line="471"/>
         <source>Reinstall</source>
         <translation>重新安裝</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="166"/>
+        <location filename="../src/pages/appintopage.cpp" line="182"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="317"/>
-        <location filename="../src/pages/appintopage.cpp" line="431"/>
+        <location filename="../src/pages/appintopage.cpp" line="333"/>
+        <location filename="../src/pages/appintopage.cpp" line="447"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="322"/>
+        <location filename="../src/pages/appintopage.cpp" line="338"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
-        <location filename="../src/pages/appintopage.cpp" line="422"/>
+        <location filename="../src/pages/appintopage.cpp" line="426"/>
+        <location filename="../src/pages/appintopage.cpp" line="430"/>
+        <location filename="../src/pages/appintopage.cpp" line="434"/>
+        <location filename="../src/pages/appintopage.cpp" line="438"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="410"/>
+        <location filename="../src/pages/appintopage.cpp" line="426"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="414"/>
+        <location filename="../src/pages/appintopage.cpp" line="430"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="418"/>
+        <location filename="../src/pages/appintopage.cpp" line="434"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="422"/>
+        <location filename="../src/pages/appintopage.cpp" line="438"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="486"/>
-        <location filename="../src/pages/appintopage.cpp" line="499"/>
+        <location filename="../src/pages/appintopage.cpp" line="502"/>
+        <location filename="../src/pages/appintopage.cpp" line="515"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="486"/>
+        <location filename="../src/pages/appintopage.cpp" line="502"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="499"/>
+        <location filename="../src/pages/appintopage.cpp" line="515"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -635,9 +635,8 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="359"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We are &lt;span style=&quot; font-weight:600;&quot;&gt;NOT&lt;/span&gt; the official team, just like you, we are just one of the many Linux/deepin system enthusiasts and users, we develop and run the &amp;quot;Spark Store&amp;quot;! &amp;quot;, is to bring the community together to share useful software, or to participate in development together, so that we all use the latest and greatest software. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from this, all developers and maintainers don&apos;t get paid, and we rely on the community&apos;s donations to us for most of our expenses, which we are grateful for and which allow us not to spend too much energy worrying about funding. &lt;/p&gt;&lt;p&gt;Our service and software are free for everyone to use, communicate, and learn, but you must comply with local laws and regulations in the process of your use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我們並&lt;span style=&quot; font-weight:600;&quot;&gt;不是&lt;/span&gt;官方團隊，和你一樣，我們也只是眾多Linux/deepin系統愛好者和使用者之中的一員，我們開發並且運營這個“Spark應用商店”，是為了讓社羣的朋友們一起分享好用的軟體，或者一起參與開發，讓大家都用到最新的，最優秀的軟體。&lt;/p&gt;&lt;p&gt;我們並沒有因此盈利，所有開發和維護人員都不會獲得報酬，我們的主要支出大部分依賴於社羣對我們的捐助，很感謝大家，這部分捐助讓我們並不需要耗費太多精力去擔心資金問題。&lt;/p&gt;&lt;p&gt;我們的服務和開發的軟體都是免費供給大家使用，交流，學習的，但是在您的使用過程中一定要遵守當地的法律法規，否則出現任何問題和我們無關。&lt;/p&gt;&lt;p&gt;如果商店中任何一部分有侵犯您權益的行為，請告知我們 &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; ，我們會第一時間刪除侵權內容。&lt;/p&gt;&lt;p&gt;如果你也想參與我們，不管是參與開發，設計，投遞還是投稿作品，我們都歡迎你的加入。&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;請點選&lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;這裡&lt;/span&gt;&lt;/a&gt;來聯絡我們，加群&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Our services and software are free for individuals and non-profit organizations to use, communicate and learn, but you must comply with local laws and regulations in the process of use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from the Community version store, we rely on donations from the community for most of our operating expenses, and we appreciate that this allows us to spend less energy worrying about money. However, in order to better provide continuous service, Spark is only free for individual users to open the service warehouse, if you or your organization needs to provide commercial services or your organization is a for-profit organization, please contact us to obtain commercial authorization. &lt;/p&gt;&lt;p&gt;When using the Software, users or organizations are strictly forbidden to engage in any form of malicious behavior, including but not limited to malicious attacks, abuse, destruction, bulk crawling of the software warehouse, etc. The definition of malicious behavior is judged by the Spark community, and violators will be held legally responsible. Spark Community reserves the right to distribute the software packages it produces. &lt;/p&gt;&lt;p&gt;Any person or organization is prohibited from using the Spark Community software package for commercial purposes or redistributing it without the express authorization of the Spark Community. This clause is intended to ensure the spirit of open source while safeguarding the intellectual property rights of the Spark community. In addition to the above, if you use the Spark Store main program or part of its code, you are subject to all other terms and requirements of the GPL v3.&lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们的服务和软件免费供个人和非营利组织使用、交流和学习，但您在使用过程中必须遵守当地的法律法规，否则出现的任何问题与我们无关。&lt;/p&gt;&lt;p&gt;我们不从社区版本商店中获利，我们的大部分运营费用依靠社区的捐赠，我们很感激这让我们可以花更少的精力担心钱。但是，为了更好地提供持续的服务，Spark只对个人用户免费开放服务仓库，如果您或您的组织需要提供商业服务或者您的组织是营利性组织，请联系我们获取商业授权。&lt;/p&gt;&lt;p&gt;严禁用户或组织在使用本软件时从事任何形式的恶意行为，包括但不限于恶意攻击、滥用、破坏、批量抓取软件仓库等。恶意行为的定义由Spark社区判断，违规者将承担法律责任。Spark Community保留发布其生成的软件包的权利。&lt;/p&gt;&lt;p&gt;未经Spark Community明确授权，禁止任何个人或组织将Spark Community软件包用于商业目的或重新分发。该条款旨在确保开源精神，同时保护Spark社区的知识产权。除此之外，如果您使用Spark Store主程序或其部分代码，则必须遵守GPL v3的所有其他条款和要求。&lt;span style=&quot; font - family:宋体;&quot; &lt;span style=&quot; font - family:宋体;color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt;我们会尽快删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想加入我们，无论你是参与开发、设计、推销还是提交作品，我们都欢迎你加入我们。&lt;br/&gt;&lt;/span&gt;我们的联系方法可以在&lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;找到&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.cpp" line="217"/>
