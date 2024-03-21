@@ -126,9 +126,9 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="190"/>
-        <location filename="../src/pages/appintopage.cpp" line="328"/>
-        <location filename="../src/pages/appintopage.cpp" line="498"/>
+        <location filename="../src/pages/appintopage.cpp" line="187"/>
+        <location filename="../src/pages/appintopage.cpp" line="325"/>
+        <location filename="../src/pages/appintopage.cpp" line="495"/>
         <source>Download and Install</source>
         <translation>Télécharger et installer</translation>
     </message>
@@ -175,79 +175,79 @@
         <translation>Site Web</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="56"/>
+        <location filename="../src/pages/appintopage.cpp" line="53"/>
         <source>Click Open</source>
         <translation>Cliquez sur Ouvrir</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="129"/>
+        <location filename="../src/pages/appintopage.cpp" line="126"/>
         <source>Developer Mode Disabled</source>
         <translation>Mode développeur désactivé</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="175"/>
-        <location filename="../src/pages/appintopage.cpp" line="344"/>
-        <location filename="../src/pages/appintopage.cpp" line="471"/>
+        <location filename="../src/pages/appintopage.cpp" line="172"/>
+        <location filename="../src/pages/appintopage.cpp" line="341"/>
+        <location filename="../src/pages/appintopage.cpp" line="468"/>
         <source>Reinstall</source>
         <translation>Réinstaller</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="182"/>
+        <location filename="../src/pages/appintopage.cpp" line="179"/>
         <source>Upgrade</source>
         <translation>Mise à niveau</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="333"/>
-        <location filename="../src/pages/appintopage.cpp" line="447"/>
+        <location filename="../src/pages/appintopage.cpp" line="330"/>
+        <location filename="../src/pages/appintopage.cpp" line="444"/>
         <source>Install</source>
         <translation>Installation</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="338"/>
+        <location filename="../src/pages/appintopage.cpp" line="335"/>
         <source>Installing</source>
         <translation>Installation en cours</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="426"/>
-        <location filename="../src/pages/appintopage.cpp" line="430"/>
-        <location filename="../src/pages/appintopage.cpp" line="434"/>
-        <location filename="../src/pages/appintopage.cpp" line="438"/>
+        <location filename="../src/pages/appintopage.cpp" line="423"/>
+        <location filename="../src/pages/appintopage.cpp" line="427"/>
+        <location filename="../src/pages/appintopage.cpp" line="431"/>
+        <location filename="../src/pages/appintopage.cpp" line="435"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="426"/>
+        <location filename="../src/pages/appintopage.cpp" line="423"/>
         <source>The current application does not support deepin, there may be problems</source>
         <translation>L&apos;application actuelle ne supporte pas deepin, il peut y avoir un problème</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="430"/>
+        <location filename="../src/pages/appintopage.cpp" line="427"/>
         <source>The current application does not support UOS, there may be problems</source>
         <translation>L&apos;application actuelle ne prend pas en charge uos, il peut y avoir un problème</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="434"/>
+        <location filename="../src/pages/appintopage.cpp" line="431"/>
         <source>The current application does not support Ubuntu, there may be problems</source>
         <translation>L&apos;application actuelle ne supporte pas Ubuntu, il peut y avoir un problème</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="438"/>
+        <location filename="../src/pages/appintopage.cpp" line="435"/>
         <source>The current application does not support current platform, there may be problems</source>
         <translation>L&apos;application actuelle ne prend pas en charge la plate - forme actuelle, il peut y avoir un problème</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="502"/>
-        <location filename="../src/pages/appintopage.cpp" line="515"/>
+        <location filename="../src/pages/appintopage.cpp" line="499"/>
+        <location filename="../src/pages/appintopage.cpp" line="512"/>
         <source>Spark Store</source>
         <translation>Le Spark store</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="502"/>
+        <location filename="../src/pages/appintopage.cpp" line="499"/>
         <source>Uninstall succeeded</source>
         <translation>Désinstallation réussie</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="515"/>
+        <location filename="../src/pages/appintopage.cpp" line="512"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>L&apos;URL a été copiée dans le presse - papiers</translation>
     </message>

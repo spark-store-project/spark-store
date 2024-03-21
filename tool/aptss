@@ -12,6 +12,10 @@ case `arch` in
 	STORE_URL="aarch64-store"
 	STORE_LIST_URL="-aarch64"
 	;;
+   loongarch64)
+   	STORE_URL="loongarch64-store"
+   	STORE_LIST_URL="-loongarch64"
+   	
 esac
 SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
 
