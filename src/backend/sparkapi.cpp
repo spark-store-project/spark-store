@@ -10,6 +10,8 @@ QString SparkAPI::serverUrl = "";
 
 #elif __aarch64__
     QString SparkAPI::serverUrlDir = "aarch64-store";
+#elif __loongarch__
+    QString SparkAPI::serverUrlDir = "loong64-store";
 #endif
 
 SparkAPI::SparkAPI(QObject *parent) : QObject(parent)
