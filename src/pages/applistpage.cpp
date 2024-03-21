@@ -50,6 +50,8 @@ void AppListPage::getAppList(QString type)
         url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=x86";
         #ifdef __aarch64__
         url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=aarch64";
+        #elif __loongarch__
+    	url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=loong64";
         #endif
     }
     else
@@ -57,6 +59,8 @@ void AppListPage::getAppList(QString type)
         url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=x86";
         #ifdef __aarch64__
         url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=aarch64";
+        #elif __loongarch__
+    	url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=loong64";
         #endif
     }
 
@@ -83,6 +87,8 @@ void AppListPage::getSearchList(const QString &keyword)
     url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=x86";
     #ifdef __aarch64__
     url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=aarch64";
+    #elif __loongarch__
+    url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=loong64";
     #endif
     ui->webEngineView->setUrl(url);
     delete api;
