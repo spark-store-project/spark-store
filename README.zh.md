@@ -17,6 +17,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 - **amd64架构：** deepin 20 / deepin 23 / Ubuntu 20.04 / Ubuntu 22.04 / UOS家庭版20
 - **arm64架构：** UOS专业版1060 / Ubuntu 22.04 / deepin 23
+- **loong64架构：** deepin 23
 
 > 特别说明：我们还支持所有版本高于Ubuntu 22.04的Ubuntu操作系统，例如Ubuntu 22.10、23.04、23.10等。
 
@@ -188,7 +189,6 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 - 如果你想关注我们的开发进度，可以跳转[星火应用商店Board](https://gitee.com/spark-store-project/spark-store/board)获取更多信息。
 - 我们的[论坛](https://www.deepinos.org/)
 - 我们的[QQ群](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)
-- 商业支持请访问[火穗科技 Flamescion Inc.](http://flamescion.cn/)
-
+- 商业支持请留言咨询~
 
 ---
