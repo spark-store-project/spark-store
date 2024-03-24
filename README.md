@@ -15,6 +15,7 @@ To improve this situation, we have launched this app store. We have broadly incl
 
 - **amd64 architecture:** deepin 20 / deepin 23 / Ubuntu 20.04 / Ubuntu 22.04 / UOS Home Edition 20
 - **arm64 architecture:** UOS Professional Edition 1060 / Ubuntu 22.04 / deepin 23
+- **loong64 architecture:** deepin 23
 
 > Special Note: We also support all versions of Ubuntu operating systems higher than Ubuntu 22.04, such as Ubuntu 22.10, 23.04, 23.10, etc.
 
@@ -177,6 +178,6 @@ You can also check the [Chinese version](https://gitee.com/spark-store-project/s
 - If you want to follow our development progress, you can go to the [Spark App Store Board](https://gitee.com/spark-store-project/spark-store/board) for more information.
 - Our [Forum](https://www.deepinos.org/)
 - Our [QQ Group](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)
-- For commercial support, please visit [Flamescion Inc.](http://flamescion.cn/)
+- For commercial support, please leave your issue~
 
 ---
