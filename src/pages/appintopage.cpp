@@ -133,7 +133,7 @@ void AppIntoPage::openUrl(const QUrl &url)
             bool isInstalled;
             bool isUpdated;
             QString packagename = info["Pkgname"].toString();
-            isInstall.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString());
+            isInstall.start("/opt/durapps/spark-store/bin/store-helper/check-is-installed", QStringList() <<  info["Pkgname"].toString());
             qDebug() << info["Pkgname"].toString();
             isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
             int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
