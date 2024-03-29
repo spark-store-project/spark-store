@@ -1,3 +1,10 @@
+spark-store (4.2.11) stable; urgency=medium
+
+  * 修复：判断是否安装状态错误
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+
 spark-store (4.2.10) stable; urgency=medium
 
   * 修复：部分发行版上无法启动自动创建的桌面图标
