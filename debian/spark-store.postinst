@@ -12,6 +12,10 @@ case "$1" in
         		aarch64)
         			echo "Will not enable armhf since 4271"
 			;;
+            loongarch64)
+				echo "Enabling ABI1(OldWorld) arch..."
+				dpkg --add-architecture loongarch64
+			;;
 
  			*)
 				echo "Unknown architecture, skip enable 32-bit arch"
