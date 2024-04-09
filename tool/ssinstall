@@ -79,6 +79,7 @@ function hash_check() {
     echo "Running Spark Package Verify..."
 
     DEB_SHA512SUM=$(sha512sum "$1" | cut -d ' ' -f 1)
+    unset IS_SHA512SUM_CHECKED
     IS_SHA512SUM_CHECKED=$(cat "$PACKAGES_DATA_PATH" | grep "$DEB_SHA512SUM")
 }
 
