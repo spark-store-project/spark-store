@@ -398,47 +398,47 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
 {
-    if (!SettingsPage::needUncompatibleNotification) {
-        return;
-    }
+//    if (!SettingsPage::needUncompatibleNotification) {
+//        return;
+//    }
 
-    bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
-    bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
-    bool checkdeepin = (isDeepin && !deepinSupport);
-    bool checkuos = (isUOS && !uosSupport);
-    bool isUbuntu = false;
-    if (!checkdeepin && !checkuos)
-    {
-        // 检查是否为 ubuntu 系统
-        QFile lsb("/etc/lsb-release");
-        if (!lsb.open(QIODevice::ReadOnly))
-        {
-            qDebug() << "打开 /etc/lsb-release 失败";
-        }
-        else if (lsb.readAll().contains("Ubuntu"))
-        {
-            isUbuntu = true;
-            lsb.close();
-        }
-    }
-    bool checkubuntu = (isUbuntu && !ubuntuSupport);
+//    bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
+//    bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
+//    bool checkdeepin = (isDeepin && !deepinSupport);
+//    bool checkuos = (isUOS && !uosSupport);
+//    bool isUbuntu = false;
+//    if (!checkdeepin && !checkuos)
+//    {
+//        // 检查是否为 ubuntu 系统
+//        QFile lsb("/etc/lsb-release");
+//        if (!lsb.open(QIODevice::ReadOnly))
+//        {
+//            qDebug() << "打开 /etc/lsb-release 失败";
+//        }
+//        else if (lsb.readAll().contains("Ubuntu"))
+//        {
+//            isUbuntu = true;
+//            lsb.close();
+//        }
+//    }
+//    bool checkubuntu = (isUbuntu && !ubuntuSupport);
 
-    if (checkdeepin)
-    {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support deepin, there may be problems"));
-    }
-    else if (checkuos)
-    {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support UOS, there may be problems"));
-    }
-    else if (checkubuntu)
-    {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
-    }
-    else if (!isUbuntu && !isDeepin && !isUOS)
-    {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
-    }
+//    if (checkdeepin)
+//    {
+//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support deepin, there may be problems"));
+//    }
+//    else if (checkuos)
+//    {
+//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support UOS, there may be problems"));
+//    }
+//    else if (checkubuntu)
+//    {
+//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
+//    }
+//    else if (!isUbuntu && !isDeepin && !isUOS)
+//    {
+//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
+//    }
 
     return;
 }
