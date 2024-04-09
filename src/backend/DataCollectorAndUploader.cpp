@@ -60,26 +60,26 @@ void DataCollectorAndUploader::collectData()
 
 
 
-    // Convert to byte array
-    QJsonDocument doc(json);
-    QByteArray jsonData = doc.toJson();
+//    // Convert to byte array
+//    QJsonDocument doc(json);
+//    QByteArray jsonData = doc.toJson();
 
-    // Initialize a network request
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QUrl url("https://status.deepinos.org.cn/upload");
+//    // Initialize a network request
+//    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+//    QUrl url("https://status.deepinos.org.cn/upload");
 
-    QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+//    QNetworkRequest request(url);
+//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    // Send the POST request
-    QNetworkReply *reply = manager->post(request, jsonData);
+//    // Send the POST request
+//    QNetworkReply *reply = manager->post(request, jsonData);
 
-    connect(reply, &QNetworkReply::finished, [=]() {
-        if (reply->error() == QNetworkReply::NoError) {
-            emit uploadSuccessful();
-        } else {
-            emit uploadFailed(reply->errorString());
-        }
-        reply->deleteLater();
-    });
+//    connect(reply, &QNetworkReply::finished, [=]() {
+//        if (reply->error() == QNetworkReply::NoError) {
+//            emit uploadSuccessful();
+//        } else {
+//            emit uploadFailed(reply->errorString());
+//        }
+//        reply->deleteLater();
+//    });
 }

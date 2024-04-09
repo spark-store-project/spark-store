@@ -208,34 +208,6 @@
         <translation>Installation en cours</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="428"/>
-        <location filename="../src/pages/appintopage.cpp" line="432"/>
-        <location filename="../src/pages/appintopage.cpp" line="436"/>
-        <location filename="../src/pages/appintopage.cpp" line="440"/>
-        <source>Warning</source>
-        <translation>Avertissement</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.cpp" line="428"/>
-        <source>The current application does not support deepin, there may be problems</source>
-        <translation>L&apos;application actuelle ne supporte pas deepin, il peut y avoir un problème</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.cpp" line="432"/>
-        <source>The current application does not support UOS, there may be problems</source>
-        <translation>L&apos;application actuelle ne prend pas en charge uos, il peut y avoir un problème</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.cpp" line="436"/>
-        <source>The current application does not support Ubuntu, there may be problems</source>
-        <translation>L&apos;application actuelle ne supporte pas Ubuntu, il peut y avoir un problème</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.cpp" line="440"/>
-        <source>The current application does not support current platform, there may be problems</source>
-        <translation>L&apos;application actuelle ne prend pas en charge la plate - forme actuelle, il peut y avoir un problème</translation>
-    </message>
-    <message>
         <location filename="../src/pages/appintopage.cpp" line="504"/>
         <location filename="../src/pages/appintopage.cpp" line="517"/>
         <source>Spark Store</source>
