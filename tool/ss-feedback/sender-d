@@ -1,5 +1,5 @@
 #!/bin/bash
-SPARK_CORE_SERVER_URL="https://d.store.deepinos.org.cn"
+SPARK_CORE_SERVER_URL="http://127.0.0.1"
 
 #用法：sender.sh 下载链接 HD70642
 

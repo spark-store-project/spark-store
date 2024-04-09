@@ -5,7 +5,7 @@
 #include <QtConcurrent>
 #include <QStandardPaths>
 
-#define DEFAULTURL "d.store.deepinos.org.cn"
+#define DEFAULTURL "127.0.0.1:8000"
 #define MAXWAITTIME 200000
 
 DownloadController::DownloadController(QObject *parent)
