@@ -25,7 +25,7 @@
 #define WaylandSearchCenter 1
 #define OtherSearchCenter 2
 #define RightSearchSpace 1
-#define UploadServerUrl "https://upload.deepinos.org/"
+#define UploadServerUrl "https://upload.deepinos.org.cn/"
 
 MainWindow::MainWindow(QWidget *parent)
     : BaseWidgetOpacity(parent)
