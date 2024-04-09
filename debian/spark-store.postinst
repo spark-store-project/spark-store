@@ -34,6 +34,8 @@ case "$1" in
 		ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
 		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
 		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/local/bin/ssaudit
+		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/bin/ssinstall
+		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/bin/ssaudit
 		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/local/bin/ss-apt-fast
 

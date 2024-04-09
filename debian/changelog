@@ -1,6 +1,7 @@
-spark-store (4.2.11) stable; urgency=medium
+spark-store (4.2.11~local) stable; urgency=medium
 
   * 修复：判断是否安装状态错误
+  * feat：从环境变量读取服务地址
   
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
