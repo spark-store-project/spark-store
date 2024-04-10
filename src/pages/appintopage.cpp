@@ -491,18 +491,18 @@ void AppIntoPage::on_pushButton_3_clicked()
         uninstall.start("host-spawn", QStringList() << "pkexec" << "apt" << "autopurge" << "-y" << info["Pkgname"].toString().toLower());
         uninstall.waitForFinished(-1);
 
-        QProcess check;
-        check.start("host-spawn", QStringList() << "dpkg" << "-s" << info["Pkgname"].toString().toLower());
-        check.waitForFinished(10*1000);
+//        QProcess check;
+//        check.start("host-spawn", QStringList() << "dpkg" << "-s" << info["Pkgname"].toString().toLower());
+//        check.waitForFinished(10*1000);
 
-        if (check.readAllStandardOutput().isEmpty())
-        {
+//        if (check.readAllStandardOutput().isEmpty())
+//        {
             ui->downloadButton->setText(tr("Download and Install"));
             ui->pushButton_3->hide();
 
             updatesEnabled();
             Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
-        }
+//        }
 
         ui->downloadButton->setEnabled(true);
         ui->pushButton_3->setEnabled(true);
