@@ -611,17 +611,17 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们的服务和软件免费供个人和非营利组织使用、交流和学习，但您在使用过程中必须遵守当地的法律法规，否则出现的任何问题与我们无关。&lt;/p&gt;&lt;p&gt;我们不从社区版本商店中获利，我们的大部分运营费用依靠社区的捐赠，我们很感激这让我们可以花更少的精力担心钱。但是，为了更好地提供持续的服务，Spark只对个人用户免费开放服务仓库，如果您或您的组织需要提供商业服务或者您的组织是营利性组织，请联系我们获取商业授权。&lt;/p&gt;&lt;p&gt;严禁用户或组织在使用本软件时从事任何形式的恶意行为，包括但不限于恶意攻击、滥用、破坏、批量抓取软件仓库等。恶意行为的定义由Spark社区判断，违规者将承担法律责任。Spark Community保留发布其生成的软件包的权利。&lt;/p&gt;&lt;p&gt;未经Spark Community明确授权，禁止任何个人或组织将Spark Community软件包用于商业目的或重新分发。该条款旨在确保开源精神，同时保护Spark社区的知识产权。除此之外，如果您使用Spark Store主程序或其部分代码，则必须遵守GPL v3的所有其他条款和要求。&lt;span style=&quot; font - family:宋体;&quot; &lt;span style=&quot; font - family:宋体;color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt;我们会尽快删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想加入我们，无论你是参与开发、设计、推销还是提交作品，我们都欢迎你加入我们。&lt;br/&gt;&lt;/span&gt;我们的联系方法可以在&lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;找到&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="217"/>
+        <location filename="../src/pages/settingspage.cpp" line="214"/>
         <source>Updating, please wait...</source>
         <translation>正在更新，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="239"/>
+        <location filename="../src/pages/settingspage.cpp" line="236"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="239"/>
+        <location filename="../src/pages/settingspage.cpp" line="236"/>
         <source>Temporary cache was cleaned</source>
         <translation>缓存目录已清空</translation>
     </message>

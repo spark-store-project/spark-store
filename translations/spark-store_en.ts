@@ -611,17 +611,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="217"/>
+        <location filename="../src/pages/settingspage.cpp" line="214"/>
         <source>Updating, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="239"/>
+        <location filename="../src/pages/settingspage.cpp" line="236"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="239"/>
+        <location filename="../src/pages/settingspage.cpp" line="236"/>
         <source>Temporary cache was cleaned</source>
         <translation type="unfinished"></translation>
     </message>
