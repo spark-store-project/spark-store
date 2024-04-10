@@ -209,7 +209,7 @@ void DownloadItem::slotAsyncInstall(int t)
     }
 
     QProcess isInstall;
-    isInstall.start("dpkg", QStringList() << "-s" << pkgName);
+    isInstall.start("host-spawn", QStringList() << "dpkg" << "-s" << pkgName);
     isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
     int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
     if (error == 0 && !haveError)

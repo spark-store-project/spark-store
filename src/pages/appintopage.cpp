@@ -146,13 +146,13 @@ void AppIntoPage::openUrl(const QUrl &url)
                 isInstalled = true;
 
                 QProcess isUpdate;
-                isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
+                isUpdate.start("host-spawn", QStringList() << "dpkg-query" << "--showformat='${Version}'"
                                                            << "--show" << info["Pkgname"].toString());
                 isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
                 QString localVersion = isUpdate.readAllStandardOutput();
                 localVersion.replace("'", "");
 
-                isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
+                isUpdate.start("host-spawn", QStringList() << "dpkg" << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
                 isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
                 if (!isUpdate.exitCode())
                 {
@@ -492,7 +492,7 @@ void AppIntoPage::on_pushButton_3_clicked()
         uninstall.waitForFinished(-1);
 
         QProcess check;
-        check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
+        check.start("host-spawn", QStringList() << "dpkg" << "-s" << info["Pkgname"].toString().toLower());
         check.waitForFinished(10*1000);
 
         if (check.readAllStandardOutput().isEmpty())
