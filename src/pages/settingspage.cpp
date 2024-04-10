@@ -9,7 +9,7 @@
 
 #define TMP_PATH "/tmp/spark-store"
 #define DEFAULT_SERVER_URL "http://127.0.0.1:8000/"
-#define DEFAULT_CHECK_DOMAIN "deepinos"
+
 
 bool SettingsPage::needUncompatibleNotification = true;
 bool SettingsPage::isdownload = false;
@@ -57,10 +57,7 @@ void SettingsPage::readServerList()
 
     // 创建 QTextStream 对象
     QTextStream textStream(&file);
-    if (!textStream.readAll().contains(DEFAULT_CHECK_DOMAIN)) // 校验配置文件有效性
-    {
-        return;
-    }
+
     textStream.seek(0);                       // 回到开头
     QString lineData = textStream.readLine(); // 读取文件的第一行
     ui->comboBox_server->addItem(lineData);
