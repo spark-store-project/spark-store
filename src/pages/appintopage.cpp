@@ -55,7 +55,7 @@ void AppIntoPage::openUrl(const QUrl &url)
         ui->label_2->setText(info["More"].toString());
 
         // 显示 tags
-        #if (DTK_VERSION >= DTK_VERSION_CHECK(5, 15, 0, 0))
+        #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
             QStringList taglist = info["Tags"].toString().split(";", Qt::SkipEmptyParts);
         #else
             QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
@@ -154,7 +154,7 @@ void AppIntoPage::openUrl(const QUrl &url)
 
                 isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
                 isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
-                if (!isUpdate.exitCode())
+                if (isUpdate.exitCode() == 0 && isUpdate.exitStatus() == QProcess::NormalExit)
                 {
                     isUpdated = true;
                 }
@@ -342,10 +342,27 @@ void AppIntoPage::isDownloading(const QUrl &url)
     }
     if (item->download == 3)
     {
-        ui->downloadButton->setEnabled(true);
-        ui->downloadButton->setText(tr("Reinstall"));
-        ui->downloadButton->show();
-        ui->pushButton_3->show();
+        QString packageName = info["Pkgname"].toString();
+        QProcess process;
+        process.start("/opt/durapps/spark-store/bin/store-helper/check-is-installed", {packageName});
+        process.waitForFinished(-1);
+
+        int exitCode = process.exitCode();
+        QProcess::ExitStatus exitStatus = process.exitStatus();
+        process.close();
+
+        if (exitCode == 0 && exitStatus == QProcess::NormalExit)
+        {
+            ui->downloadButton->setEnabled(true);
+            ui->downloadButton->setText(tr("Reinstall"));
+            ui->downloadButton->show();
+            ui->pushButton_3->show();
+        }
+        else
+        {
+            ui->downloadButton->setEnabled(true);
+            ui->downloadButton->setText(tr("Download and Install"));
+        }
     }
 }
 
@@ -490,22 +507,24 @@ void AppIntoPage::on_pushButton_3_clicked()
         QProcess uninstall;
         uninstall.start("pkexec", QStringList() << "apt" << "autopurge" << "-y" << info["Pkgname"].toString().toLower());
         uninstall.waitForFinished(-1);
+        uninstall.close();
 
         QProcess check;
         check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-        check.waitForFinished(10*1000);
+        check.waitForFinished(-1);
 
-        if (check.readAllStandardOutput().isEmpty())
+        if (check.exitCode() != 0 || check.exitStatus() != QProcess::NormalExit)
         {
             ui->downloadButton->setText(tr("Download and Install"));
             ui->pushButton_3->hide();
 
-            updatesEnabled();
             Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
         }
 
         ui->downloadButton->setEnabled(true);
         ui->pushButton_3->setEnabled(true);
+
+        check.close();
     });
 }
 
