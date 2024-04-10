@@ -26,7 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 VERSION = $$BUILD_VERSION
 isEmpty(VERSION): VERSION = 4.0.0
 DEFINES += APP_VERSION=\\\"'$${VERSION}'\\\"
-DEFINES += APP_BRANCH=\\\"'$$海军航空大学版'\\\"
+DEFINES += APP_BRANCH=\\\"'$$system(git symbolic-ref --short -q HEAD)'\\\"
 # Disable qWarning / qDebug output in Release
 #CONFIG(release, debug | release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
 
