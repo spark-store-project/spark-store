@@ -55,7 +55,7 @@ void AppIntoPage::openUrl(const QUrl &url)
         ui->label_2->setText(info["More"].toString());
 
         // 显示 tags
-        #if (DTK_VERSION >= DTK_VERSION_CHECK(5, 15, 0, 0))
+        #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
             QStringList taglist = info["Tags"].toString().split(";", Qt::SkipEmptyParts);
         #else
             QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
@@ -154,7 +154,7 @@ void AppIntoPage::openUrl(const QUrl &url)
 
                 isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
                 isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
-                if (!isUpdate.exitCode())
+                if (isUpdate.exitCode() == 0 && isUpdate.exitStatus() == QProcess::NormalExit)
                 {
                     isUpdated = true;
                 }
@@ -342,10 +342,27 @@ void AppIntoPage::isDownloading(const QUrl &url)
     }
     if (item->download == 3)
     {
-        ui->downloadButton->setEnabled(true);
-        ui->downloadButton->setText(tr("Reinstall"));
-        ui->downloadButton->show();
-        ui->pushButton_3->show();
+        QString packageName = info["Pkgname"].toString();
+        QProcess process;
+        process.start("/opt/durapps/spark-store/bin/store-helper/check-is-installed", {packageName});
+        process.waitForFinished(-1);
+
+        int exitCode = process.exitCode();
+        QProcess::ExitStatus exitStatus = process.exitStatus();
+        process.close();
+
+        if (exitCode == 0 && exitStatus == QProcess::NormalExit)
+        {
+            ui->downloadButton->setEnabled(true);
+            ui->downloadButton->setText(tr("Reinstall"));
+            ui->downloadButton->show();
+            ui->pushButton_3->show();
+        }
+        else
+        {
+            ui->downloadButton->setEnabled(true);
+            ui->downloadButton->setText(tr("Download and Install"));
+        }
     }
 }
 
@@ -398,47 +415,47 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
 {
-//    if (!SettingsPage::needUncompatibleNotification) {
-//        return;
-//    }
+    if (!SettingsPage::needUncompatibleNotification) {
+        return;
+    }
 
-//    bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
-//    bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
-//    bool checkdeepin = (isDeepin && !deepinSupport);
-//    bool checkuos = (isUOS && !uosSupport);
-//    bool isUbuntu = false;
-//    if (!checkdeepin && !checkuos)
-//    {
-//        // 检查是否为 ubuntu 系统
-//        QFile lsb("/etc/lsb-release");
-//        if (!lsb.open(QIODevice::ReadOnly))
-//        {
-//            qDebug() << "打开 /etc/lsb-release 失败";
-//        }
-//        else if (lsb.readAll().contains("Ubuntu"))
-//        {
-//            isUbuntu = true;
-//            lsb.close();
-//        }
-//    }
-//    bool checkubuntu = (isUbuntu && !ubuntuSupport);
+    bool isDeepin = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Deepin;
+    bool isUOS = Dtk::Core::DSysInfo::productType() == Dtk::Core::DSysInfo::Uos;
+    bool checkdeepin = (isDeepin && !deepinSupport);
+    bool checkuos = (isUOS && !uosSupport);
+    bool isUbuntu = false;
+    if (!checkdeepin && !checkuos)
+    {
+        // 检查是否为 ubuntu 系统
+        QFile lsb("/etc/lsb-release");
+        if (!lsb.open(QIODevice::ReadOnly))
+        {
+            qDebug() << "打开 /etc/lsb-release 失败";
+        }
+        else if (lsb.readAll().contains("Ubuntu"))
+        {
+            isUbuntu = true;
+            lsb.close();
+        }
+    }
+    bool checkubuntu = (isUbuntu && !ubuntuSupport);
 
-//    if (checkdeepin)
-//    {
-//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support deepin, there may be problems"));
-//    }
-//    else if (checkuos)
-//    {
-//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support UOS, there may be problems"));
-//    }
-//    else if (checkubuntu)
-//    {
-//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
-//    }
-//    else if (!isUbuntu && !isDeepin && !isUOS)
-//    {
-//        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
-//    }
+    if (checkdeepin)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support deepin, there may be problems"));
+    }
+    else if (checkuos)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support UOS, there may be problems"));
+    }
+    else if (checkubuntu)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
+    }
+    else if (!isUbuntu && !isDeepin && !isUOS)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
+    }
 
     return;
 }
@@ -490,22 +507,24 @@ void AppIntoPage::on_pushButton_3_clicked()
         QProcess uninstall;
         uninstall.start("pkexec", QStringList() << "apt" << "autopurge" << "-y" << info["Pkgname"].toString().toLower());
         uninstall.waitForFinished(-1);
+        uninstall.close();
 
         QProcess check;
         check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-        check.waitForFinished(10*1000);
+        check.waitForFinished(-1);
 
-        if (check.readAllStandardOutput().isEmpty())
+        if (check.exitCode() != 0 || check.exitStatus() != QProcess::NormalExit)
         {
             ui->downloadButton->setText(tr("Download and Install"));
             ui->pushButton_3->hide();
 
-            updatesEnabled();
             Utils::sendNotification("spark-store",tr("Spark Store"),tr("Uninstall succeeded"));
         }
 
         ui->downloadButton->setEnabled(true);
         ui->pushButton_3->setEnabled(true);
+
+        check.close();
     });
 }
 
@@ -532,3 +551,4 @@ void AppIntoPage::on_updateButton_clicked()
         openUrl(feedbackSpk);
     }
 }
+
