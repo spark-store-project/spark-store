@@ -1,4 +1,4 @@
-spark-store (4.2.11~chocolate) stable; urgency=medium
+spark-store (4.2.11~in-ace-release) stable; urgency=medium
 
   * 修复：判断是否安装状态错误
   

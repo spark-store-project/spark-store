@@ -175,7 +175,7 @@ void DownloadItem::slotAsyncInstall(int t)
     switch (t)
     {
     case 0:
-        installer.start("pkexec", QStringList() << "/usr/local/bin/ssinstall"
+        installer.start("host-spawn", QStringList() << "pkexec" << "/usr/local/bin/ssinstall"
                                                 << "/tmp/spark-store/" + ui->label_filename->text().toUtf8() << "--delete-after-install");
         break;
     case 1:

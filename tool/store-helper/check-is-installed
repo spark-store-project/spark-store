@@ -1,2 +1,2 @@
 #!/bin/bash
-dpkg -l | grep "^ii" | grep -w "$1" > /dev/null
+host-spawn $0 $@
