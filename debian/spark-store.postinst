@@ -12,6 +12,10 @@ case "$1" in
         		aarch64)
         			echo "Will not enable armhf since 4271"
 			;;
+            loongarch64)
+				echo "Enabling ABI1(OldWorld) arch..."
+				dpkg --add-architecture loongarch64
+			;;
 
  			*)
 				echo "Unknown architecture, skip enable 32-bit arch"
@@ -25,12 +29,15 @@ case "$1" in
 
 		# Check if /usr/local/bin existed
 		mkdir -p /usr/local/bin
-
+		## I hate /usr/local/bin. We will abandon them later
 		# Create symbol links for binary files
 		ln -s -f /opt/durapps/spark-store/bin/spark-store /usr/local/bin/spark-store
 		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/local/bin/ssinstall
 		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/local/bin/ssaudit
+		ln -s -f /opt/durapps/spark-store/bin/ssinstall /usr/bin/ssinstall
+		ln -s -f /opt/durapps/spark-store/bin/ssaudit /usr/bin/ssaudit
 		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/local/bin/spark-dstore-patch
+		ln -s -f /opt/durapps/spark-store/bin/spark-dstore-patch /usr/bin/spark-dstore-patch
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/local/bin/ss-apt-fast
 
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
@@ -66,18 +73,7 @@ case "$1" in
 	;;
 
 	triggered)
-		# Quit if deepin-app-store-tool existed
-		if [ -x "/usr/bin/deepin-app-store-tool" ] ; then 
-			exit 0
-		fi
+			spark-dstore-patch
 
-		# Trigger for UOS debs installation
-		echo '--------检测到Uniontech标准软件包，运行补丁以修正安装--------'
-		if [ -x "/usr/local/bin/spark-dstore-patch" ] ; then
-			/usr/local/bin/spark-dstore-patch
-			echo '-----------spark-dstore-patch补丁工具已运行完毕-----------'
-		else
-			echo '------------spark-dstore-patch补丁工具运行失败------------'
-		fi
 	;;
 esac

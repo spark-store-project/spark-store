@@ -80,8 +80,7 @@ bool Utils::isWayland()
 bool Utils::isTreeLand()
 {
     bool isTreeLand = false;
-    if (qgetenv("DDE_CURRENT_COMPOSITER").toLower() == "treeland"
-        || qgetenv("DESKTOP_SESSION").toLower() == "treeland") {
+    if (qgetenv("DDE_CURRENT_COMPOSITOR").toLower() == "treeland") {
         isTreeLand = true;
     }
 
@@ -185,14 +184,18 @@ void Utils::setQPAPlatform()
 
     qDebug() << "System Wayland enabled:" << isWayland << "Spark Wayland enabled:" << useWayland;
 
-    if (isWayland && useWayland && !(Dtk::Core::DSysInfo::isDeepin() || isDDE))
+    /**
+     * NOTE: https://github.com/linuxdeepin/developer-center/issues/7217#issuecomment-1922653903
+     * DDE Wayland has been deprecated, so using wayland plugin only
+     */
+    if (isWayland && useWayland /*&& !(Dtk::Core::DSysInfo::isDeepin() || isDDE)*/)
     {
         qputenv("QT_QPA_PLATFORM", "wayland");
     }
-    else if (isWayland && useWayland && (Dtk::Core::DSysInfo::isDeepin() && isDDE))
-    {
-        qputenv("QT_QPA_PLATFORM", "dwayland");
-    }
+    // else if (isWayland && useWayland && (Dtk::Core::DSysInfo::isDeepin() && isDDE))
+    // {
+    //     qputenv("QT_QPA_PLATFORM", "dwayland");
+    // }
     else
     {
         qputenv("QT_QPA_PLATFORM", "dxcb");

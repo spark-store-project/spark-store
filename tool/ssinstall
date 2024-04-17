@@ -10,6 +10,10 @@ case $(arch) in
    aarch64)
 	STORE_URL="aarch64-store"
 	;;
+   loongarch64)
+   	STORE_URL="loong64-store"
+   	STORE_LIST_URL="-loong64"
+   	;;
 esac
 
 echo "Spark Store Install script. 星火商店安装脚本"
@@ -75,6 +79,7 @@ function hash_check() {
     echo "Running Spark Package Verify..."
 
     DEB_SHA512SUM=$(sha512sum "$1" | cut -d ' ' -f 1)
+    unset IS_SHA512SUM_CHECKED
     IS_SHA512SUM_CHECKED=$(cat "$PACKAGES_DATA_PATH" | grep "$DEB_SHA512SUM")
 }
 
@@ -162,4 +167,3 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
         fi
     fi
 fi
-

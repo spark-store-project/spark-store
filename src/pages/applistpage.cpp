@@ -1,7 +1,8 @@
 #include "applistpage.h"
 #include "ui_applistpage.h"
 
-
+#define BUILD_URL(theme, arch) \
+    api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/" + (type.isEmpty() ? "?" : "applist?type=" + type + "&") + theme + "&arch=" + arch
 
 AppListPage::AppListPage(QWidget *parent) : QWidget(parent),
                                             ui(new Ui::AppListPage)
@@ -45,20 +46,14 @@ void AppListPage::getAppList(QString type)
     {
         theme = "theme=light";
     }
-    if (type == "")
-    {
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=x86";
-        #ifdef __aarch64__
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/?" + theme + "&" + "arch=aarch64";
-        #endif
-    }
-    else
-    {
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=x86";
-        #ifdef __aarch64__
-        url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/applist?type=" + type + "&" + theme + "&" + "arch=aarch64";
-        #endif
-    }
+    
+    #ifdef __aarch64__
+        url = BUILD_URL(theme, "aarch64");
+    #elif __loongarch__
+        url = BUILD_URL(theme, "loong64");
+    #else
+        url = BUILD_URL(theme, "x86");
+    #endif
 
     ui->webEngineView->setUrl(url);
     delete api;
@@ -83,6 +78,8 @@ void AppListPage::getSearchList(const QString &keyword)
     url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=x86";
     #ifdef __aarch64__
     url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=aarch64";
+    #elif __loongarch__
+    url = api->getServerUrl() + SparkAPI::getArchDir() + "/#/flamescion/search?keywords=" + QUrl::toPercentEncoding(keyword) + "&" + theme + "&" + "arch=loong64";
     #endif
     ui->webEngineView->setUrl(url);
     delete api;

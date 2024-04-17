@@ -9,6 +9,9 @@ case `arch` in
    aarch64)
 	STORE_URL="aarch64-store"
 	;;
+   loongarch64)
+   	STORE_URL="loong64-store"
+   	;;
 esac
 
 if [ -z $1 ] || [ "$2" != "HD70642" ];then

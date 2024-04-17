@@ -16,12 +16,15 @@ if [ "$1" = "remove" -o "$1" = "purge" ] ; then
 	echo "卸载操作，进行配置清理"
 
 	# Remove residual symbol links
-	rm -f /usr/local/bin/spark-store
-	rm -f /usr/local/bin/ssinstall
-	rm -f /usr/local/bin/ssaudit
-	rm -f /usr/local/bin/spark-dstore-patch
-	rm -f /usr/local/bin/ss-apt-fast
-	rm -f /usr/bin/aptss
+	unlink /usr/local/bin/spark-store
+	unlink /usr/local/bin/ssinstall
+	unlink /usr/local/bin/ssaudit
+	unlink /usr/bin/ssinstall
+	unlink /usr/bin/ssaudit
+	unlink /usr/local/bin/spark-dstore-patch
+	unlink /usr/bin/spark-dstore-patch
+	unlink /usr/local/bin/ss-apt-fast
+	unlink /usr/bin/aptss
 
 	rm -rf /etc/aptss/
 	rm -rf /var/lib/aptss/
