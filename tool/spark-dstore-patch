@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "----------------Running Spark DStore Patch----------------"
+
 
 
 
@@ -63,14 +63,16 @@ linkApp() {
     done
 }
 
+function exec_uos_package_link(){
 
-# execute linkApp function for each app and print output
 for app in $(enumAppInfoList); do
     linkApp "$app" &
 
 done
 wait
+}
 
+function exec_v23_icon_link(){
 # Fix v23 broken icon
 if [ ! -d "/usr/share/icons/hicolor/scalable/apps" ];then
 mkdir -p /usr/share/icons/hicolor/scalable/apps
@@ -83,7 +85,9 @@ if [  ! -e ${target_icon_path} ];then
 ln -sv $(realpath --relative-to=/usr/share/icons/hicolor/scalable/apps ${icon_root_icon_path}) /usr/share/icons/hicolor/scalable/apps
 fi
 done
+}
 
+function exec_link_clean(){
 # remove broken links in /usr/share
 
     find /usr/share/applications -xtype l -exec echo '{} is invalid now and going to be cleaned' \; -exec unlink  {} \; &
@@ -103,4 +107,16 @@ done
     update-desktop-database -q > /dev/null 2>&1 &
     update-mime-database -V /usr/share/mime > /dev/null 2>&1 &
     glib-compile-schemas /usr/share/glib-2.0/schemas/ > /dev/null 2>&1 &
+
+}
+
+
+#########################################################################################
+echo "----------------Running Spark DStore Patch----------------"
+if [ ! -e /usr/bin/deepin-app-store-tool ];then
+# execute linkApp function for each app and print output
+exec_uos_package_link
+fi
+exec_v23_icon_link
+exec_link_clean
 echo "----------------Finished----------------"

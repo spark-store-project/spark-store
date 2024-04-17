@@ -22,6 +22,7 @@ if [ "$1" = "remove" -o "$1" = "purge" ] ; then
 	unlink /usr/bin/ssinstall
 	unlink /usr/bin/ssaudit
 	unlink /usr/local/bin/spark-dstore-patch
+	unlink /usr/bin/spark-dstore-patch
 	unlink /usr/local/bin/ss-apt-fast
 	unlink /usr/bin/aptss
 
