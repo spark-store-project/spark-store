@@ -148,9 +148,51 @@ int main(int argc, char *argv[])
     // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
 #ifdef __sw_64__
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
+#elif __aarch64__
+    QString env = QString::fromUtf8(qgetenv("QTWEBENGINE_CHROMIUM_FLAGS"));
+    env = env.trimmed();
+    /**
+     * NOTE: 参考帮助手册代码，对于部分 ARM CPU 设备，
+     * --disable-gpu 保证网页正常显示
+     * --single-process 避免 QtWebEngine 崩溃（可选）
+     */
+    env += " --disable-gpu";
+    if (Utils::isPhytium()) {
+        env += " --single-process";
+    }
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", env.trimmed().toUtf8());
+
+    if (Utils::isWayland()) {
+        /**
+         * WARNING: DDM TreeLand 混合器下，设置
+         * QT_WAYLAND_SHELL_INTEGRATION 环境变量
+         * 会导致崩溃 By justforlxz
+         */
+        if (!Utils::isTreeLand()) {
+            /**
+             * NOTE: 参考帮助手册代码，对于麒麟 CPU 设备，
+             * 避免 wayland 环境下 QtWebEngine 崩溃
+             */
+            qputenv("QT_WAYLAND_SHELL_INTEGRATION", "kwayland-shell");
+        }
+
+    }
+    QSurfaceFormat format;
+    format.setRenderableType(QSurfaceFormat::OpenGLES);
+    QSurfaceFormat::setDefaultFormat(format);
+
+    /**
+     * NOTE: https://zhuanlan.zhihu.com/p/550285855
+     * 避免 X11 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
+     */
+    if (!Utils::isWayland()) {
+        qputenv("QMLSCENE_DEVICE", "softwarecontext");
+        DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    }
+#endif
 
 #endif
-qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--ignore-gpu-blocklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --enable-accelerated-video-decode");
+
     /**
      * NOTE: https://zhuanlan.zhihu.com/p/550285855
      * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
