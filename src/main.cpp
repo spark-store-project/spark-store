@@ -177,9 +177,6 @@ int main(int argc, char *argv[])
         }
 
     }
-    QSurfaceFormat format;
-    format.setRenderableType(QSurfaceFormat::OpenGLES);
-    QSurfaceFormat::setDefaultFormat(format);
 
     /**
      * NOTE: https://zhuanlan.zhihu.com/p/550285855
@@ -190,8 +187,6 @@ int main(int argc, char *argv[])
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
 #endif
-
-
 
     /**
      * NOTE: https://zhuanlan.zhihu.com/p/550285855
