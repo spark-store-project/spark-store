@@ -1,4 +1,4 @@
-#include "downloadworker.h"
+﻿#include "downloadworker.h"
 
 #include <QProcess>
 #include <QRegularExpression>
@@ -120,6 +120,8 @@ void DownloadController::startDownload(const QString &url)
         QString downloadDir = "/tmp/spark-store/"; //下载目录
         QString aria2ConnectionPerServer = "--max-connection-per-server=1"; //每个服务器最大连接数
         QString aria2ConnectionMax = "--max-concurrent-downloads=16"; //最大同时下载数
+        QString aria2Timeout = "--timeout=3"; // 3秒超时 not use see v.
+        QString aria2ConnectionTimeout = "--connect-timeout=1"; // 1 秒服务器连接超时(像 spark1.uniartisan.com、cdn.dl.uniartisan.com、momen.d.store.deepinos.org.cn 等服务器失效时不影响即时下载)
 
 
         if (useMetalink) //如果是metalink
@@ -147,6 +149,7 @@ void DownloadController::startDownload(const QString &url)
         command.append(aria2SizePerThreads.toUtf8());
         command.append(aria2ConnectionPerServer.toUtf8());
         command.append(aria2ConnectionMax.toUtf8());
+        command.append(aria2ConnectionTimeout.toUtf8());
 
         if (useMetalink)
         {
