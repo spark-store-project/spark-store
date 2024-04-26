@@ -410,7 +410,7 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
             ui->tag_a2d->show();
         }
     }
-    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport);
+ //   notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport);
 }
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
