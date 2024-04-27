@@ -13,8 +13,8 @@ case "$1" in
         			echo "Will not enable armhf since 4271"
 			;;
             loongarch64)
-				echo "Enabling ABI1(OldWorld) arch..."
-				dpkg --add-architecture loongarch64
+				echo "Nope we DO NOT WANT ABI1 now"
+				dpkg --remove-architecture loongarch64
 			;;
 
  			*)

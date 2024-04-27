@@ -1,3 +1,10 @@
+spark-store (4.2.12) stable; urgency=medium
+
+  * 修复：飞腾部分设备上白屏的问题
+  * 修复：下载开始时长时等待（降低链接超时时长）
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 spark-store (4.2.11) stable; urgency=medium
 
   * 修复：判断是否安装状态错误
