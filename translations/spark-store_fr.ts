@@ -636,7 +636,7 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="359"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright © 2024 Flamescion (Shenyang) Computer Software Development Co., Ltd. &lt;/p&gt;&lt;p&gt;Spark App Store Professional Edition v4.2 &lt;/p&gt;&lt;p&gt;This version is licensed to Naval Aeronautical University (NAU). &lt;/p&gt;&lt;p&gt;License Duration: Permanent &lt;/p&gt;&lt;p&gt;Service Duration: From May 7, 2024, for 365 days&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright © 2024 Flamescion (Shenyang) Computer Software Development Co., Ltd. &lt;/p&gt;&lt;p&gt;Spark App Store Professional Edition v4.2 &lt;/p&gt;&lt;p&gt;This version is licensed to this entity and its subsidiaries.&lt;/p&gt;&lt;p&gt;License Duration: Permanent &lt;/p&gt;&lt;p&gt;Service Duration: From May 7, 2024, for 365 days&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
