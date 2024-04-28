@@ -42,7 +42,7 @@ If you have a software package you'd like to submit, please [click here to submi
 
 ---
 
-## Read the copyright
+## Read [the copyright](LICENSE)
 
 Spark Opensource LICENSE
 
