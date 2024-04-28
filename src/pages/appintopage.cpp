@@ -114,10 +114,10 @@ void AppIntoPage::openUrl(const QUrl &url)
                         qDebug() << imgUrl;
                     }
 
-                    manager->deleteLater(); 
+                    manager->deleteLater();
                 });
         }
-        
+
 
         // Check UOS
         QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
@@ -538,17 +538,8 @@ void AppIntoPage::on_shareButton_clicked()
 
 void AppIntoPage::on_updateButton_clicked()
 {
-    QString feedbackSpk = "spk://store/chat/store.spark-app.feedback";
-    QFileInfo actionSubmissionClientStatus("/host/opt/durapps/store.spark-app.feedback");
-    if (actionSubmissionClientStatus.exists() && actionSubmissionClientStatus.isDir())
-    {
-        qDebug() << "反馈器存在";
-        QProcess::startDetached("sh", QStringList() << "/host/opt/durapps/store.spark-app.feedback/launch.sh");
-    }
-    else
-    {
-        qDebug() << "反馈器不存在，跳转页面";
-        openUrl(feedbackSpk);
-    }
+
+        QProcess::startDetached("host-spawn", QStringList() << "zenity" <<  "--info" << "--text=请点击左侧的Spk分享链接以向您所在部门的IT反馈" << "--width=200");
+
 }
 

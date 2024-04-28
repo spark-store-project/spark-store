@@ -110,12 +110,12 @@
         <translation>軟件錯誤回報</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1068"/>
+        <location filename="../src/pages/appintopage.ui" line="1071"/>
         <source>Description</source>
         <translation>軟體詳細資料</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="903"/>
+        <location filename="../src/pages/appintopage.ui" line="906"/>
         <source>Screen capture</source>
         <translation>軟體演示</translation>
     </message>
@@ -141,37 +141,37 @@
         <translation>这是一款 Wine 应用。星火商店会为你自动配置wine环境</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="765"/>
+        <location filename="../src/pages/appintopage.ui" line="768"/>
         <source>Introduction</source>
         <translation>軟體介紹</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1161"/>
+        <location filename="../src/pages/appintopage.ui" line="1164"/>
         <source>Update</source>
         <translation>更新时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1190"/>
+        <location filename="../src/pages/appintopage.ui" line="1193"/>
         <source>Contributor</source>
         <translation>投稿用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1197"/>
+        <location filename="../src/pages/appintopage.ui" line="1200"/>
         <source>Pkgname</source>
         <translation>软件包名</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1303"/>
+        <location filename="../src/pages/appintopage.ui" line="1306"/>
         <source>Author</source>
         <translation>软件作者</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1339"/>
+        <location filename="../src/pages/appintopage.ui" line="1342"/>
         <source>Size</source>
         <translation>软件大小</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1375"/>
+        <location filename="../src/pages/appintopage.ui" line="1378"/>
         <source>Website</source>
         <translation>软件官网</translation>
     </message>
@@ -282,7 +282,7 @@
 <context>
     <name>DownloadController</name>
     <message>
-        <location filename="../src/backend/downloadworker.cpp" line="176"/>
+        <location filename="../src/backend/downloadworker.cpp" line="180"/>
         <source>Download Failed, please retry :(</source>
         <translation>下載失敗，請重試</translation>
     </message>
@@ -523,8 +523,12 @@
     </message>
     <message>
         <location filename="../src/application.cpp" line="41"/>
+        <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;Professional application distribution solution&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Flamescion (Shenyang) Computer Software Development Co., Ltd.&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
-        <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
+        <translation type="vanished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="149"/>
@@ -636,8 +640,8 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="359"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Our services and software are free for individuals and non-profit organizations to use, communicate and learn, but you must comply with local laws and regulations in the process of use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from the Community version store, we rely on donations from the community for most of our operating expenses, and we appreciate that this allows us to spend less energy worrying about money. However, in order to better provide continuous service, Spark is only free for individual users to open the service warehouse, if you or your organization needs to provide commercial services or your organization is a for-profit organization, please contact us to obtain commercial authorization. &lt;/p&gt;&lt;p&gt;When using the Software, users or organizations are strictly forbidden to engage in any form of malicious behavior, including but not limited to malicious attacks, abuse, destruction, bulk crawling of the software warehouse, etc. The definition of malicious behavior is judged by the Spark community, and violators will be held legally responsible. Spark Community reserves the right to distribute the software packages it produces. &lt;/p&gt;&lt;p&gt;Any person or organization is prohibited from using the Spark Community software package for commercial purposes or redistributing it without the express authorization of the Spark Community. This clause is intended to ensure the spirit of open source while safeguarding the intellectual property rights of the Spark community. In addition to the above, if you use the Spark Store main program or part of its code, you are subject to all other terms and requirements of the GPL v3.&lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;我们的服务和软件免费供个人和非营利组织使用、交流和学习，但您在使用过程中必须遵守当地的法律法规，否则出现的任何问题与我们无关。&lt;/p&gt;&lt;p&gt;我们不从社区版本商店中获利，我们的大部分运营费用依靠社区的捐赠，我们很感激这让我们可以花更少的精力担心钱。但是，为了更好地提供持续的服务，Spark只对个人用户免费开放服务仓库，如果您或您的组织需要提供商业服务或者您的组织是营利性组织，请联系我们获取商业授权。&lt;/p&gt;&lt;p&gt;严禁用户或组织在使用本软件时从事任何形式的恶意行为，包括但不限于恶意攻击、滥用、破坏、批量抓取软件仓库等。恶意行为的定义由Spark社区判断，违规者将承担法律责任。Spark Community保留发布其生成的软件包的权利。&lt;/p&gt;&lt;p&gt;未经Spark Community明确授权，禁止任何个人或组织将Spark Community软件包用于商业目的或重新分发。该条款旨在确保开源精神，同时保护Spark社区的知识产权。除此之外，如果您使用Spark Store主程序或其部分代码，则必须遵守GPL v3的所有其他条款和要求。&lt;span style=&quot; font - family:宋体;&quot; &lt;span style=&quot; font - family:宋体;color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt;我们会尽快删除侵权内容。&lt;/p&gt;&lt;p&gt;如果你也想加入我们，无论你是参与开发、设计、推销还是提交作品，我们都欢迎你加入我们。&lt;br/&gt;&lt;/span&gt;我们的联系方法可以在&lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;找到&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright © 2024 Flamescion (Shenyang) Computer Software Development Co., Ltd. &lt;/p&gt;&lt;p&gt;Spark App Store Professional Edition v4.2 &lt;/p&gt;&lt;p&gt;This version is licensed to this entity and its subsidiaries.&lt;/p&gt;&lt;p&gt;License Duration: Permanent &lt;/p&gt;&lt;p&gt;Service Duration: From May 7, 2024, for 365 days&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.cpp" line="214"/>
