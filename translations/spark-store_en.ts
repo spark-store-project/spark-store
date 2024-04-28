@@ -128,7 +128,8 @@
         <location filename="../src/pages/appintopage.ui" line="244"/>
         <location filename="../src/pages/appintopage.cpp" line="192"/>
         <location filename="../src/pages/appintopage.cpp" line="330"/>
-        <location filename="../src/pages/appintopage.cpp" line="500"/>
+        <location filename="../src/pages/appintopage.cpp" line="364"/>
+        <location filename="../src/pages/appintopage.cpp" line="518"/>
         <source>Download and Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -186,8 +187,8 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="177"/>
-        <location filename="../src/pages/appintopage.cpp" line="346"/>
-        <location filename="../src/pages/appintopage.cpp" line="473"/>
+        <location filename="../src/pages/appintopage.cpp" line="357"/>
+        <location filename="../src/pages/appintopage.cpp" line="490"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
@@ -198,7 +199,7 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="335"/>
-        <location filename="../src/pages/appintopage.cpp" line="449"/>
+        <location filename="../src/pages/appintopage.cpp" line="466"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -208,18 +209,46 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="504"/>
-        <location filename="../src/pages/appintopage.cpp" line="517"/>
+        <location filename="../src/pages/appintopage.cpp" line="445"/>
+        <location filename="../src/pages/appintopage.cpp" line="449"/>
+        <location filename="../src/pages/appintopage.cpp" line="453"/>
+        <location filename="../src/pages/appintopage.cpp" line="457"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="445"/>
+        <source>The current application does not support deepin, there may be problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="449"/>
+        <source>The current application does not support UOS, there may be problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="453"/>
+        <source>The current application does not support Ubuntu, there may be problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="457"/>
+        <source>The current application does not support current platform, there may be problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="521"/>
+        <location filename="../src/pages/appintopage.cpp" line="536"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="504"/>
+        <location filename="../src/pages/appintopage.cpp" line="521"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="517"/>
+        <location filename="../src/pages/appintopage.cpp" line="536"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -253,7 +282,7 @@
 <context>
     <name>DownloadController</name>
     <message>
-        <location filename="../src/backend/downloadworker.cpp" line="176"/>
+        <location filename="../src/backend/downloadworker.cpp" line="180"/>
         <source>Download Failed, please retry :(</source>
         <translation type="unfinished"></translation>
     </message>
@@ -607,7 +636,7 @@
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="359"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Our services and software are free for individuals and non-profit organizations to use, communicate and learn, but you must comply with local laws and regulations in the process of use, otherwise any problems have nothing to do with us. &lt;/p&gt;&lt;p&gt;We don&apos;t make a profit from the Community version store, we rely on donations from the community for most of our operating expenses, and we appreciate that this allows us to spend less energy worrying about money. However, in order to better provide continuous service, Spark is only free for individual users to open the service warehouse, if you or your organization needs to provide commercial services or your organization is a for-profit organization, please contact us to obtain commercial authorization. &lt;/p&gt;&lt;p&gt;When using the Software, users or organizations are strictly forbidden to engage in any form of malicious behavior, including but not limited to malicious attacks, abuse, destruction, bulk crawling of the software warehouse, etc. The definition of malicious behavior is judged by the Spark community, and violators will be held legally responsible. Spark Community reserves the right to distribute the software packages it produces. &lt;/p&gt;&lt;p&gt;Any person or organization is prohibited from using the Spark Community software package for commercial purposes or redistributing it without the express authorization of the Spark Community. This clause is intended to ensure the spirit of open source while safeguarding the intellectual property rights of the Spark community. In addition to the above, if you use the Spark Store main program or part of its code, you are subject to all other terms and requirements of the GPL v3.&lt;/p&gt;&lt;p&gt;If any part of the store infringes your rights, please tell us &lt;a href=&quot;mailto:jifengshenmo@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;jifengshenmo@outlook.com&lt;/span&gt;&lt;/a&gt; we will remove the infringing content as soon as possible. &lt;/p&gt;&lt;p&gt;If you&apos;d like to get involved with us too, whether you&apos;re involved in development, design, pitching or submitting work, we welcome you to join us. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br/&gt;&lt;/span&gt;Our contact method can be found at &lt;a href=&quot;https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright © 2024 Flamescion (Shenyang) Computer Software Development Co., Ltd. &lt;/p&gt;&lt;p&gt;Spark App Store Professional Edition v4.2 &lt;/p&gt;&lt;p&gt;This version is licensed to Naval Aeronautical University (NAU). &lt;/p&gt;&lt;p&gt;License Duration: Permanent &lt;/p&gt;&lt;p&gt;Service Duration: From May 7, 2024, for 365 days&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
