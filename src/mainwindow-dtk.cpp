@@ -25,7 +25,7 @@
 #define WaylandSearchCenter 1
 #define OtherSearchCenter 2
 #define RightSearchSpace 1
-#define UploadServerUrl "https://upload.deepinos.org/"
+#define UploadServerUrl "https://upload.deepinos.org.cn/"
 
 MainWindow::MainWindow(QWidget *parent)
     : BaseWidgetOpacity(parent)
@@ -194,8 +194,8 @@ void MainWindow::initTitleBarMenu()
     QMenu *menu = new QMenu(ui->titlebar);
     menu->addAction(setting);
     menu->addAction(upgrade);
-    menu->addAction(actionSubmission);
-    menu->addAction(actionSubmissionWithClient);
+    //menu->addAction(actionSubmission);
+    //menu->addAction(actionSubmissionWithClient);
 
     ui->titlebar->setMenu(menu);
 
