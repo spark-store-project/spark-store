@@ -608,6 +608,9 @@
              <property name="text">
               <string>APP Feedback</string>
              </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -676,7 +679,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>482</width>
+           <width>485</width>
            <height>601</height>
           </rect>
          </property>

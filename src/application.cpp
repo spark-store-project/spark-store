@@ -36,13 +36,13 @@ Application::Application(int &argc, char **argv)
     setApplicationDisplayName(QObject::tr("Spark Store")); // 设置窗口显示标题 (Wayland 下会显示 Qt 原生标题栏)
     setProductName(QObject::tr("Spark Store"));
     setProductIcon(QIcon::fromTheme("spark-store"));
-    setApplicationHomePage("https://gitee.com/deepin-community-store");
+    setApplicationHomePage("https://www.spark-app.store");
     setApplicationDescription(
         QObject::tr(
-            "<span style=' font-size:10pt;font-weight:60;'>An appstore powered by community</span><br/>"
+            "<span style=' font-size:10pt;font-weight:60;'>Professional application distribution solution</span><br/>"
             "<a href='https://www.spark-app.store/'>https://www.spark-app.store</a><br/>"
-            "<span style=' font-size:12pt;'>Spark developers</span>"));
-    setApplicationLicense(" <a href='https://gitee.com/deepin-community-store/spark-store/blob/Flamescion/LICENSE'>GPLv3</a> ");
+            "<span style=' font-size:12pt;'>Flamescion (Shenyang) Computer Software Development Co., Ltd.</span>"));
+    setApplicationLicense(" <a href='https://gitee.com/spark-store-project/spark-store/blob/Flamescion/LICENSE'>Spark Opensource License</a> ");
 
     // 检查 ~/.config/spark-union/spark-store 文件夹是否存在
     checkAppConfigLocation();

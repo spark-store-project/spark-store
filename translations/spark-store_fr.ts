@@ -110,17 +110,17 @@
         <translation>App feedback</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="765"/>
+        <location filename="../src/pages/appintopage.ui" line="768"/>
         <source>Introduction</source>
         <translation>Présentation</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1068"/>
+        <location filename="../src/pages/appintopage.ui" line="1071"/>
         <source>Description</source>
         <translation>Description</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="903"/>
+        <location filename="../src/pages/appintopage.ui" line="906"/>
         <source>Screen capture</source>
         <translation>Captures d&apos;écran</translation>
     </message>
@@ -146,32 +146,32 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;L&apos;application wine. Spark Store configure automatiquement le kit Wine pour vous&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1161"/>
+        <location filename="../src/pages/appintopage.ui" line="1164"/>
         <source>Update</source>
         <translation>Moderniser</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1190"/>
+        <location filename="../src/pages/appintopage.ui" line="1193"/>
         <source>Contributor</source>
         <translation>Contributeurs</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1197"/>
+        <location filename="../src/pages/appintopage.ui" line="1200"/>
         <source>Pkgname</source>
         <translation>Nom de l&apos;emballage</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1303"/>
+        <location filename="../src/pages/appintopage.ui" line="1306"/>
         <source>Author</source>
         <translation>Auteur</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1339"/>
+        <location filename="../src/pages/appintopage.ui" line="1342"/>
         <source>Size</source>
         <translation>Taille</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1375"/>
+        <location filename="../src/pages/appintopage.ui" line="1378"/>
         <source>Website</source>
         <translation>Site Web</translation>
     </message>
@@ -523,8 +523,12 @@
     </message>
     <message>
         <location filename="../src/application.cpp" line="41"/>
+        <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;Professional application distribution solution&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Flamescion (Shenyang) Computer Software Development Co., Ltd.&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
-        <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</translation>
+        <translation type="vanished">&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="149"/>
