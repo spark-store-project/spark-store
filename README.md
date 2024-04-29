@@ -42,25 +42,9 @@ If you have a software package you'd like to submit, please [click here to submi
 
 ---
 
-## Read the copyright
+## Read [the copyright](LICENSE)
 
-Spark Opensource LICENSE
 
-Copyright (C) 2023 The Spark Community
-
-This software is free software; you can modify and redistribute it under the terms of the GNU General Public License version 3 (GPL v3). However, to protect the rights of the original authors and the interests of the community users, please adhere to the following terms:
-
-1. Applicability to all files in this repository: This license applies to all files in this repository (or project). Any individuals or organizations that use, modify, or redistribute this software must comply with this license.
-2. Copyright notice and license files: You must not remove, hide, or modify the copyright notice and license files of the original authors included in this software. Preserving the rights information of the original authors is essential for maintaining the open-source software ecosystem.
-3. Version annotation: If you modify and redistribute this software, you must mark in a prominent position that this version is not officially provided by the Spark community. This avoids misleading users into thinking that the software is an official version provided by the Spark community. This software is licensed for personal, non-profit use only, and any use of it for commercial purposes or in for-profit organizations requires the prior written permission of the Spark Community.
-4. Trademark usage: You are not allowed to use terms such as "Spark App Store," "Spark Store," or the logo of Spark App Store in redistributed versions, as they may mislead users into believing that the software is provided by the official Spark community.
-5. Terms of Service: Your use of the software of Spark Store will be deemed as your consent to collect version, log and other information on the premise of not violating your privacy, so as to facilitate the Spark community to provide you with better services.
-6. Warehouse copyright terms: In order to better provide continuous services, Spark is only free for individual users to open the service warehouse, if you or your organization needs to provide commercial services or your organization is a for-profit organization, please contact Spark community to obtain commercial authorization.
-7. Prohibited malicious behavior and mass crawling: Users or organizations are strictly prohibited to engage in any form of malicious behavior when using the software, including but not limited to malicious attacks, abuse, destruction, and mass crawling of software warehouses. The definition of malicious behavior is judged by the Spark community, and violators will be held legally responsible.
-8. Distribution and redistribution rights: Spark Community reserves the right to distribute the software packages it produces. Any person or organization is prohibited from using the Spark Community software package for commercial purposes or redistributing it without the express authorization of the Spark Community. This clause is intended to ensure the spirit of open source while safeguarding the intellectual property rights of the Spark community.
-9. Other Terms: In addition to the above, if you use the Spark Store main program or part of its code, you are subject to all other terms and requirements of GPL v3.
-
-You can find the full text of GPLV3 license at: https://www.gnu.org/licenses/gpl-3.0.html
 
 ## Determine your system architecture
 

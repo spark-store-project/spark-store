@@ -12,7 +12,9 @@
 6. 仓库版权条款：为了更好的提供持续性服务，星火仅对个人用户免费开放服务仓库，如您或您的组织需要提供商业服务或者您的组织为盈利性组织，请联系星火社区获取商业授权。
 7. 禁止恶意行为和批量爬取： 用户或组织在使用本软件时，严禁进行任何形式的恶意行为，包括但不限于恶意攻击、滥用、破坏、批量爬取软件仓库等。恶意行为的定义由星火社区自行判断，违反者将被追究法律责任。
 8. 分发与再分发权利： 星火社区保留对其制作的软件包的分发权利。未经明确授权，禁止任何个人或组织将星火社区软件包用于商业目的或在未获得星火社区许可的情况下进行再分发。此条款旨在确保开源精神的同时，维护星火社区的知识产权。
-9. 其他条款：除上述约定外，若您使用了星火商店的主程序或其部分代码，您应遵守 GPL v3 的所有其他条款和要求。
+9. 商业应用限制：您不得使用本软件的代码开发商业应用，也不得在商业应用中使用本软件的代码，除非获得星火社区和火穗（沈阳）计算机软件开发有限公司的书面许可。
+10. 其他条款：除上述约定外，若您使用了星火商店的主程序或其部分代码，您应遵守 GPL v3 的所有其他条款和要求。若本协议条款的内容与GPL V3中的内容不同的，以本协议条款为准
+11. 其他约定：本许可以简体中文版本为最准确释义
 
 GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,6 +34,8 @@ This software is free software; you can modify and redistribute it under the ter
 6. Warehouse copyright terms: In order to better provide continuous services, Spark is only free for individual users to open the service warehouse, if you or your organization needs to provide commercial services or your organization is a for-profit organization, please contact Spark community to obtain commercial authorization.
 7. Prohibited malicious behavior and mass crawling: Users or organizations are strictly prohibited to engage in any form of malicious behavior when using the software, including but not limited to malicious attacks, abuse, destruction, and mass crawling of software warehouses. The definition of malicious behavior is judged by the Spark community, and violators will be held legally responsible.
 8. Distribution and redistribution rights: Spark Community reserves the right to distribute the software packages it produces. Any person or organization is prohibited from using the Spark Community software package for commercial purposes or redistributing it without the express authorization of the Spark Community. This clause is intended to ensure the spirit of open source while safeguarding the intellectual property rights of the Spark community.
-9. Other Terms: In addition to the above, if you use the Spark Store main program or part of its code, you are subject to all other terms and requirements of GPL v3.
+9. Business Application Restriction: You are not permitted to utilize the code of this software for developing commercial applications, nor are you allowed to integrate the code of this software into commercial applications without obtaining written consent from both the Spark Community and Flamescion (Shenyang) Computer Software Development Co., Ltd.
+10. Other Terms: In addition to the above provisions, if you use the main program or any part of the code of Spark Store, you must comply with all other terms and requirements of GPL v3. In case of any inconsistency between the terms of this agreement and those of GPL v3, the terms of this agreement shall prevail.
+11. Additional Agreements: This license shall be interpreted most accurately in its Simplified Chinese version.
 
 You can find the full text of GPLV3 license at: https://www.gnu.org/licenses/gpl-3.0.html

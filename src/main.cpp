@@ -150,7 +150,9 @@ int main(int argc, char *argv[])
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
 #endif
 
-
+#ifdef __loongarch__
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
+#endif
     /**
      * NOTE: https://zhuanlan.zhihu.com/p/550285855
      * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
