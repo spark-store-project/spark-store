@@ -64,8 +64,8 @@ function hash_check() {
         aptss ssupdate
     fi
 
-    if [ -e "/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages" ]; then
-        PACKAGES_DATA_PATH="/var/lib/aptss/lists/cdn.d.store.deepinos.org.cn_${STORE_URL}_Packages"
+    if [ -e "/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages" ]; then
+        PACKAGES_DATA_PATH="/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages"
         echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是星火域名仓库配置"
     elif [ -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ]; then
         PACKAGES_DATA_PATH="/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages"
