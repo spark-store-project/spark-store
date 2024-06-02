@@ -1,5 +1,5 @@
 #!/bin/bash
-
+trap "rm -f  /tmp/spark-store/upgradeStatus.txt" EXIT
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
 
