@@ -171,7 +171,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 - 如果您有任何问题或建议，请通过邮件或在[Gitee页面](https://gitee.com/spark-store-project/spark-store/issues)上提交问题。
 - 如果你想关注我们的开发进度，可以跳转[星火应用商店Board](https://gitee.com/spark-store-project/spark-store/board)获取更多信息。
-- 我们的[论坛](https://www.deepinos.org/)
+- 我们的[论坛](https://bbs.spark-app.store/)
 - 我们的[QQ群](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)
 - 商业支持请留言咨询~
 

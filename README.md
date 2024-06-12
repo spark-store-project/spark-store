@@ -160,7 +160,7 @@ You can also check the [Chinese version](https://gitee.com/spark-store-project/s
 
 - If you have any questions or suggestions, please submit them via email or on our [Gitee page](https://gitee.com/spark-store-project/spark-store/issues).
 - If you want to follow our development progress, you can go to the [Spark App Store Board](https://gitee.com/spark-store-project/spark-store/board) for more information.
-- Our [Forum](https://www.deepinos.org/)
+- Our [Forum](https://bbs.spark-app.store/)
 - Our [QQ Group](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)
 - For commercial support, please leave your issue~
 
