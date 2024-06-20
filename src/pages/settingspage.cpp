@@ -134,7 +134,7 @@ void SettingsPage::on_pushButton_updateServer_clicked()
         ui->comboBox_server->setCurrentIndex(0); });
 }
 
-void SettingsPage::on_comboBox_server_currentIndexChanged(const QString &arg1)
+void SettingsPage::on_comboBox_server_currentTextChanged(const QString &arg1)
 {
     SparkAPI::setServerUrl(arg1); // 服务器信息更新
     qDebug() << arg1;

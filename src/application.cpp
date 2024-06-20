@@ -25,7 +25,6 @@ Application::Application(int &argc, char **argv)
     if (!DPlatformWindowHandle::pluginVersion().isEmpty()) {
         setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);
     }
-    setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     setQuitOnLastWindowClosed(false); // 启用托盘图标时，关闭窗口程序仍然运行
 
