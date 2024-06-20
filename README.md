@@ -21,13 +21,13 @@ To improve this situation, we have launched this app store. We have broadly incl
 
 **Important Notice:** This software does not provide any form of warranty. If you plan to use it on UOS Professional Edition, please make sure to understand and enable Developer Mode. Make sure you have basic troubleshooting capabilities. It should be clear that we have not conducted extensive testing on the UOS operating system. Therefore, using the Spark client may lead to a series of issues like failed system updates, data loss, etc., all risks to be borne by the user.
 
-## Team Collaboration: For detailed documentation related to branch management, please see [this link](https://spark-store-project.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo).
+## Team Collaboration: For detailed documentation related to branch management, please see [this link](https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo).
 
 We warmly welcome you to join our development team. Whether you want to participate in development or submit applications, you can find your place here to jointly promote the development of the Linux application ecosystem.
 
 You can track our Issue handling status in real-time through the following link: [Gitee Issue Board](https://gitee.com/spark-store-project/spark-store/board).
 
-If you have a software package you'd like to submit, please [click here to submit](https://upload.deepinos.org/index).
+If you have a software package you'd like to submit, please [click here to submit](https://upload.deepinos.org.cn/index).
 
 ## Contents
 
@@ -88,7 +88,7 @@ You will see an output, and that's your system architecture.
 #### For Ubuntu 20.04 Users
 
 1. **Download Dependencies**
-* Please visit the [Spark App Store Dependency Download page](https://spark-app.store/download_dependencies_latest) and download the latest dependency package.
+* Please visit the [Spark App Store Dependency Download page](https://gitee.com/spark-store-project/spark-store-dependencies/releases) and download the latest dependency package.
 * Unzip the dependency package multiple times until you see multiple installation packages ending with `.deb`.
 * Follow the instructions in the dependency package to install all the dependencies at once.
 
@@ -123,7 +123,7 @@ You will see an output, and that's your system architecture.
 #### For Debian 11 Users
 
 1. **Download Dependencies**
-* Please visit the [Spark App Store Dependency Download page](https://spark-app.store/download_dependencies_latest) and download the latest dependency package.
+* Please visit the [Spark App Store Dependency Download page](https://gitee.com/spark-store-project/spark-store-dependencies/releases) and download the latest dependency package.
 * Unzip the dependency package multiple times until you see multiple installation packages ending with `.deb`.
 * Follow the instructions in the dependency package to install all the dependencies at once.
 
