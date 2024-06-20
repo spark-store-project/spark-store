@@ -1,6 +1,9 @@
 #  星火应用商店
 [![star](https://gitee.com/spark-store-project/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/stargazers)  [![fork](https://gitee.com/spark-store-project/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/members)
 
+https://gitee.com/spark-store-project/spark-store/
+https://gitcode.com/spark-store-project/spark-store/
+https://github.com/spark-store-project/spark-store/
 
 ## 简介
 
@@ -25,7 +28,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 
 
-## 关于团队协作：分支管理相关的详细文档可参见 [此链接](https://spark-store-project.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo)。
+## 关于团队协作：分支管理相关的详细文档可参见 [此链接](https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo)。
 
 我们热忱欢迎您加入我们的开发团队。无论您是想参与开发，还是想提交应用，都能在这里找到属于您的一席之地，共同推动Linux应用生态的发展。
 
@@ -49,24 +52,8 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 ---
 
-## 阅读版权声明
-星火开源软件协议（Spark Opensource LICENSE）
+## 阅读[版权声明](LICENSE)
 
-版权所有 (C) 2023 星火社区
-
-根据 GNU 通用公共许可证第三版（GPL v3），本软件是自由软件，您可以修改和再发布它。但是，为了维护原作者的权益并保护社区用户的权益，您还需要遵守以下条款：
-
-1. 对本仓库下的所有文件生效：本许可证适用于本仓库（或项目）下的所有文件。任何使用、修改或再发布本软件的个人或组织都必须遵守本许可证。
-2. 版权声明和许可证文件：您不得移除、隐藏或更改本软件中包含的原作者的版权声明和许可证文件。保留原作者的权益信息对于维护开源软件生态系统至关重要。
-3. 版本标注： 如果您对本软件做出修改并再发布，您必须在醒目位置标注此版本并非星火社区官方提供。这样可以避免误导使用者认为该软件为星火社区官方提供的版本。此软件仅授权用于个人非盈利用途，任何将其用于商业目的或在盈利性组织中使用的行为均需事先获得星火社区的书面许可。
-4. 商标使用：您不得在再发布版本中使用“星火应用商店”、“Spark Store”或星火应用商店的Logo等可能误导使用者此软件由星火社区官方提供的信息。
-5. 服务条款：您使用星火商店软件的行为将被视为您同意星火在不侵犯您隐私的前提下搜集版本、日志等信息，以便于星火社区更好地为您提供服务。
-6. 仓库版权条款：为了更好的提供持续性服务，星火仅对个人用户免费开放服务仓库，如您或您的组织需要提供商业服务或者您的组织为盈利性组织，请联系星火社区获取商业授权。
-7. 禁止恶意行为和批量爬取： 用户或组织在使用本软件时，严禁进行任何形式的恶意行为，包括但不限于恶意攻击、滥用、破坏、批量爬取软件仓库等。恶意行为的定义由星火社区自行判断，违反者将被追究法律责任。
-8. 分发与再分发权利： 星火社区保留对其制作的软件包的分发权利。未经明确授权，禁止任何个人或组织将星火社区软件包用于商业目的或在未获得星火社区许可的情况下进行再分发。此条款旨在确保开源精神的同时，维护星火社区的知识产权。
-9. 其他条款：除上述约定外，若您使用了星火商店的主程序或其部分代码，您应遵守 GPL v3 的所有其他条款和要求。
-
-GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/licenses/gpl-3.0.html
 
 ## 确定你的系统架构
 
@@ -99,7 +86,7 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
     > appstore://deepin-home-appstore-client?app_detail_info/spark-store
 
 
-    若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
+    若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[从Gitcode下载](https://gitcode.com/spark-store-project/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -113,14 +100,14 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 #### 对于 Ubuntu 20.04 用户
 
 1. **下载依赖包**
-* 请访问[星火应用商店依赖包下载页面](https://spark-app.store/download_dependencies_latest)， 下载最新的依赖包。
+* 请访问[星火应用商店依赖包下载页面](https://gitee.com/spark-store-project/spark-store-dependencies/releases)， 下载最新的依赖包。
 * 请多次解压依赖包，直到你可以看到诸多以 deb 结尾的安装包。
 * 依据依赖包内的说明，一次性安装所有的依赖包。
 
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[从Gitcode下载](https://gitcode.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -135,7 +122,7 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[从Gitcode下载](https://gitcode.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -149,13 +136,13 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 #### 对于 Debian 11 用户
 
 1. **下载依赖包**
-* 请访问[星火应用商店依赖包下载页面](https://spark-app.store/download_dependencies_latest)， 下载最新的依赖包。
+* 请访问[星火应用商店依赖包下载页面](https://gitee.com/spark-store-project/spark-store-dependencies/releases)， 下载最新的依赖包。
 * 请多次解压依赖包，直到你可以看到诸多以 deb 结尾的安装包。
 * 依据依赖包内的说明，一次性安装所有的依赖包。
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)并下载，安装后即可使用。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[从Gitcode下载](https://gitcode.com/spark-store-project/spark-store/releases)并下载，安装后即可使用。
 
 
 #### 对于 Debian 12+ 用户
@@ -187,8 +174,8 @@ GPLV3许可证的完整文本可以在以下链接找到：https://www.gnu.org/l
 
 - 如果您有任何问题或建议，请通过邮件或在[Gitee页面](https://gitee.com/spark-store-project/spark-store/issues)上提交问题。
 - 如果你想关注我们的开发进度，可以跳转[星火应用商店Board](https://gitee.com/spark-store-project/spark-store/board)获取更多信息。
-- 我们的[论坛](https://www.deepinos.org/)
-- 我们的[QQ群](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)
+- 我们的[论坛](https://bbs.spark-app.store/)
+- 我们的QQ群 872690351
 - 商业支持请留言咨询~
 
 ---

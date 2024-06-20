@@ -442,19 +442,19 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
 
     if (checkdeepin)
     {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support deepin, there may be problems"));
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support or tested on deepin, there may be problems"));
     }
     else if (checkuos)
     {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support UOS, there may be problems"));
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support or tested on UOS, there may be problems"));
     }
     else if (checkubuntu)
     {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support Ubuntu, there may be problems"));
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support or tested on Ubuntu, there may be problems"));
     }
     else if (!isUbuntu && !isDeepin && !isUOS)
     {
-        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support current platform, there may be problems"));
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support or tested on current platform, there may be problems"));
     }
 
     return;

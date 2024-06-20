@@ -1,3 +1,18 @@
+spark-store (4.2.13) stable; urgency=medium
+
+* 未经测试文案修改
+* 龙芯平台并入主线
+* 修复：更新过程中中断无法再次启动更新检查
+* 调整：提高超时时长，适应较差的网络环境
+
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+spark-store (4.2.12.1) stable; urgency=medium
+
+  * 修复：龙芯自动--no-sandbox
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 spark-store (4.2.12) stable; urgency=medium
 
   * 修复：飞腾部分设备上白屏的问题
