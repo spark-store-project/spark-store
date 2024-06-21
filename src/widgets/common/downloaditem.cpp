@@ -198,7 +198,7 @@ void DownloadItem::slotAsyncInstall(int t)
     for (int i = 0; i < everyOut.size(); i++)
     {
         tempOutput = everyOut[i];
-        if (everyOut[i].left(2) == tempOutput.contains("OMG-IT-GOES-WRONG"))
+        if (tempOutput.contains("OMG-IT-GOES-WRONG"))
         {
             haveError = true;
         }
