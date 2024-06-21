@@ -22,7 +22,7 @@ public:
 private slots:
     void on_pushButton_updateServer_clicked();
 
-    void on_comboBox_server_currentIndexChanged(const QString &arg1);
+    void on_comboBox_server_currentTextChanged(const QString &arg1);
 
     void on_pushButton_updateApt_clicked();
 

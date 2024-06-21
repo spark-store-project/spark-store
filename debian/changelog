@@ -1,32 +1,41 @@
+spark-store (4.2.14) stable; urgency=medium
+
+  * Adapt to Qt6 and Dtk6
+
+ -- zty199 <46324746+zty199@users.noreply.github.com>  Thu, 21 Jun 2024 01:50:40 +0800
+
+
 spark-store (4.2.13) stable; urgency=medium
 
-* 未经测试文案修改
-* 龙芯平台并入主线
-* 修复：更新过程中中断无法再次启动更新检查
-* 调整：提高超时时长，适应较差的网络环境
+  * 未经测试文案修改
+  * 龙芯平台并入主线
+  * 修复：更新过程中中断无法再次启动更新检查
+  * 调整：提高超时时长，适应较差的网络环境
 
-  
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+
 spark-store (4.2.12.1) stable; urgency=medium
 
-  * 修复：龙芯自动--no-sandbox
-  
+  * 修复：龙芯自动 --no-sandbox
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.12) stable; urgency=medium
 
   * 修复：飞腾部分设备上白屏的问题
   * 修复：下载开始时长时等待（降低链接超时时长）
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.11) stable; urgency=medium
 
   * 修复：判断是否安装状态错误
   * 修改：部分组件重构提升清晰度
   * 修复：v23下部分应用图标失效
-  
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
@@ -36,7 +45,7 @@ spark-store (4.2.10) stable; urgency=medium
   * 修复：发行版统计信息
   * 修复：Gitee反馈链接错误
   * 修复：ACE下无法安装,支持ACE下软件更新
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
@@ -47,14 +56,16 @@ spark-store (4.2.9) stable; urgency=medium
   * 修复：容器内无限等待
   * 新增：高分屏截图支持
   * 新增：更新界面支持显示软件名称
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.8.1) stable; urgency=medium
 
   * 修复：A2D应用释放无效的Desktop到桌面上
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.8) stable; urgency=medium
 
@@ -62,8 +73,9 @@ spark-store (4.2.8) stable; urgency=medium
   * 调整：下载安装按钮文案修改
   * 优化 KDE 深色模式支持实现方式 
   * 新增：ssinstall现在会自动创建desktop文件
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
 
 spark-store (4.2.7.3) stable; urgency=medium
 
@@ -73,18 +85,16 @@ spark-store (4.2.7.3) stable; urgency=medium
   * 修复：在终端中打开的icon过大导致无法投稿到UOS
   * 修复：v23下编译出错
   * 薪怎：支持崩溃日志收集系统
-  
- -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.7.2) stable; urgency=medium
 
   * 新增：内置在终端打开功能
   * 调整：散列验证更改为使用sha512
-  
- -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.7.1) stable; urgency=medium
@@ -93,7 +103,7 @@ spark-store (4.2.7.1) stable; urgency=medium
   * 新增：在aptss的特定操作时添加了提示
   * 新增：在aptss提示加粗
   * 调整：ssinstall验证支持使用cdn.d.获取
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
@@ -102,7 +112,7 @@ spark-store (4.2.7) stable; urgency=medium
   * 修复：更新星火商店后禁止更新提醒的配置失效
   * 新增：支持在设置中关闭平台不兼容提示
   * 调整：更改了下载量统计的方式，减少漏数
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
@@ -112,49 +122,49 @@ spark-store (4.2.6.6) stable; urgency=medium
   * 修复：dpkg阻塞出现漏掉的安装失败，现在在安装后检测是否安装
   * 修复：UOS专业版上安装成功仍然显示失败的问题：方式：忽略E:等消息，仅检查脚本报错
   * 调整：卸载应用时采用autopurge以一并卸载依赖
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.5) stable; urgency=medium
 
   * 调整：ssaudit安装结束时会提示安装结束
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.4) stable; urgency=medium
 
   * 修复：关于页面的入口过时
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.3) stable; urgency=medium
 
   * 修复：部分下载统计线路失效
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.2) stable; urgency=medium
 
   * 新增：支持arm架构搜索
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6.1) stable; urgency=medium
 
   * 修复：mint下更新检测不正常
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
 spark-store (4.2.6) stable; urgency=medium
 
   * 修复：截图加载失败时点击闪退
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
@@ -162,7 +172,7 @@ spark-store (4.2.5.1) stable; urgency=medium
 
   * 调整：重写了spark-dstore-patch，速度提升，尤其对机械硬盘下
   * 调整：优化了aptss源文件同步策略
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
@@ -171,7 +181,7 @@ spark-store (4.2.5) stable; urgency=medium
   * 修复：ssinstall在文件不存在时仍然报安装成功
   * 修复：删除不再需要的依赖：libc6-dev
   * 在aarch64架构安装时也启用32位支持
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 
@@ -180,7 +190,7 @@ spark-store (4.2.4) stable; urgency=medium
   * 修复：ssinstall校验失败的时候仍然提示安装成功
   * 新增：ssinstall可以自动刷新ssupdate以防止仓库更新中导致的安装校验失败
   * 修复：在不受支持的平台安装应用时弹出提示不正确
-  
+
  -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 
 

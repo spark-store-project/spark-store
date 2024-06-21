@@ -3,48 +3,31 @@ Maintainer: shenmo <shenmo@spark-app.store>
 Section: utils
 Priority: optional
 Build-Depends:
- debhelper (>= 9),
+ cmake,
+ debhelper (>= 11),
  pkg-config,
- qtchooser (>= 55-gc9562a1-1~) | qt5-default,
- qtbase5-dev,
- libqt5core5a,
- libqt5gui5,
- libqt5widgets5,
- libqt5network5,
- libqt5concurrent5,
- libdtkcore-dev(>=5.0),
- libdtkgui-dev(>=5.0),
- libdtkwidget-dev(>=5.0),
- libqt5svg5-dev,
- qttools5-private-dev,
- qtwebengine5-dev,
- qtwayland5,
- qtwayland5-dev-tools,
- gcc,
- g++
+ qtchooser (>= 55-gc9562a1-1~),
+ qt6-base-dev,
+ qt6-svg-dev,
+ qt6-tools-dev,
+ qt6-webengine-dev,
+ libdtkcommon-dev,
+ libdtk6core-dev,
+ libdtk6gui-dev,
+ libdtk6widget-dev
 Standards-Version: 4.0.0
 Homepage: https://www.spark-app.store/
 
 Package: spark-store
 Architecture: any
 Provides: spark-store-console-in-container
-Depends:${shlibs:Depends}, ${misc:Depends},
- libqt5core5a,
- libqt5gui5,
- libqt5widgets5,
- libqt5network5,
- libqt5concurrent5,
- qtwayland5,
- libdtkcore5,
- libdtkgui5,
- libdtkwidget5,
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ dde-qt6integration,
  curl,
  openssl,
- dde-qt5integration,
  aria2,
  gnupg,
  zenity,
- policykit-1,
  libnotify-bin,
  desktop-file-utils,
  dpkg-dev
