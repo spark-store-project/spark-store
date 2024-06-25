@@ -107,10 +107,9 @@ echo "----------------Running Spark DStore Patch----------------"
 if [ ! -e /usr/bin/deepin-app-store-tool ]; then
     # execute linkApp function for each app and print output
     exec_uos_package_link
+    #exec_v23_icon_link
+    exec_link_clean
 fi
-
-exec_v23_icon_link
-exec_link_clean
 wait
 exec_uos_package_update
 echo "----------------Finished----------------"
