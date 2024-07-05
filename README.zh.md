@@ -32,7 +32,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 您可以通过以下链接，实时跟踪我们的Issue处理状态：[Gitee Issue看板](https://gitee.com/spark-store-project/spark-store/board)。
 
-若您有软件包想要提交，敬请 [点击此处进行投稿](https://spark-store-project.gitee.io/spark-wiki/#/Submit/Submit)。
+若您有软件包想要提交，敬请 [点击此处进行投稿](https://wiki.spark-app.store/#/Submit/Submit)。
 
 
 
