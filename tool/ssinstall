@@ -83,7 +83,13 @@ function hash_check() {
     IS_SHA512SUM_CHECKED=$(cat "$PACKAGES_DATA_PATH" | grep "$DEB_SHA512SUM")
 }
 
+function lock_file(){
+chattr +i "$1"
+}
 
+function unlock_file(){
+chattr -i "$1"
+}
 
 ####################################
 
@@ -121,6 +127,7 @@ if [ ! -f "$1" ]; then
     DEBPATH=$(realpath "$1")
 fi
 
+lock_file "$DEBPATH"
 
 hash_check "$DEBPATH"
 
@@ -157,6 +164,8 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     fi
 
     dpkg -i "$DEBPATH" || aptss install -yf
+
+unlock_file "$DEBPATH"
 
     if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
         if dpkg -s "$package_name" >/dev/null 2>&1; then
