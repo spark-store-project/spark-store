@@ -44,7 +44,7 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  aria2,
  gnupg,
  zenity,
- policykit-1,
+ policykit-1 | pkexec,
  libnotify-bin,
  desktop-file-utils,
  dpkg-dev
