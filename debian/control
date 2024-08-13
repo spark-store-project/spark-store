@@ -15,7 +15,7 @@ Build-Depends:
  libdtk6core-dev,
  libdtk6gui-dev,
  libdtk6widget-dev
-Standards-Version: 4.0.0
+Standards-Version: 4.1.7
 Homepage: https://www.spark-app.store/
 
 Package: spark-store

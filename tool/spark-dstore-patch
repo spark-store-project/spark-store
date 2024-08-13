@@ -109,7 +109,7 @@ if [ ! -e /usr/bin/deepin-app-store-tool ]; then
     exec_uos_package_link
     #exec_v23_icon_link
     exec_link_clean
+    wait
+    exec_uos_package_update
 fi
-wait
-exec_uos_package_update
 echo "----------------Finished----------------"
