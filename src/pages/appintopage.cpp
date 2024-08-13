@@ -119,9 +119,13 @@ void AppIntoPage::openUrl(const QUrl &url)
         }
         
 
+        /**
+         * NOTE: No need to judget developmode status
+         */
         // Check UOS
-        QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-        if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool()){
+        // QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+        // if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool()){
+        if (false) {
             qDebug() << "UOS Developer Mode has not been enabled!";
             ui->downloadButton->setText(tr("Developer Mode Disabled"));
             ui->downloadButton->setEnabled(false);
