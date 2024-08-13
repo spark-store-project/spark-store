@@ -7,40 +7,22 @@ Build-Depends:
  pkg-config,
  qtchooser (>= 55-gc9562a1-1~) | qt5-default,
  qtbase5-dev,
- libqt5core5a,
- libqt5gui5,
- libqt5widgets5,
- libqt5network5,
- libqt5concurrent5,
- libdtkcore-dev(>=5.0),
- libdtkgui-dev(>=5.0),
- libdtkwidget-dev(>=5.0),
  libqt5svg5-dev,
- qttools5-private-dev,
+ qttools5-dev-tools,
  qtwebengine5-dev,
- qtwayland5,
- qtwayland5-dev-tools,
- gcc,
- g++
-Standards-Version: 4.0.0
+ libdtkcore-dev (>= 5.0),
+ libdtkgui-dev (>= 5.0),
+ libdtkwidget-dev (>= 5.0)
+Standards-Version: 4.1.7
 Homepage: https://www.spark-app.store/
 
 Package: spark-store
 Architecture: any
 Provides: spark-store-console-in-container
-Depends:${shlibs:Depends}, ${misc:Depends},
- libqt5core5a,
- libqt5gui5,
- libqt5widgets5,
- libqt5network5,
- libqt5concurrent5,
- qtwayland5,
- libdtkcore5,
- libdtkgui5,
- libdtkwidget5,
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ dde-qt5integration,
  curl,
  openssl,
- dde-qt5integration,
  aria2,
  gnupg,
  zenity,
