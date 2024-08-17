@@ -73,6 +73,7 @@ void AppIntoPage::openUrl(const QUrl &url)
         iconRequest.setUrl(QUrl(pkgUrlBase + "/icon.png"));
         iconRequest.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
         iconRequest.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
+        iconRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
 
         iconManager->get(iconRequest);
         QObject::connect(iconManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
@@ -96,6 +97,7 @@ void AppIntoPage::openUrl(const QUrl &url)
             request.setUrl(QUrl(imgUrl));
             request.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
             request.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
+            request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
             manager->get(request);
             QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
                 {
@@ -114,10 +116,10 @@ void AppIntoPage::openUrl(const QUrl &url)
                         qDebug() << imgUrl;
                     }
 
-                    manager->deleteLater(); 
+                    manager->deleteLater();
                 });
         }
-        
+
 
         /**
          * NOTE: No need to judget developmode status
