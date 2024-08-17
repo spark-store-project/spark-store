@@ -83,7 +83,13 @@ function hash_check() {
     IS_SHA512SUM_CHECKED=$(cat "$PACKAGES_DATA_PATH" | grep "$DEB_SHA512SUM")
 }
 
+function lock_file(){
+chattr +i "$1"
+}
 
+function unlock_file(){
+chattr -i "$1"
+}
 
 ####################################
 
@@ -94,11 +100,7 @@ if [ $# -eq 0 ]; then
     exit
 fi
 
-if [ ! -f "$1" ]; then
-    echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST}"
-    echo "OMG-IT-GOES-WRONG"
-    exit 1
-fi
+
 
 if [ "$(id -u)" != "0" ]; then
     echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
@@ -106,7 +108,26 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-DEBPATH=$(realpath "$1")
+if [ ! -f "$1" ]; then
+    echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST},Trying to redownload"
+    FILEPATH=$(dirname "$1")
+    FILENAME=$(basename "$1")
+    PACKAGE_NAME=$(echo "$FILENAME" | sed -r 's/^([^_]+)_.*$/\1/')
+    VERSION=$(echo "$FILENAME" | sed -r 's/^[^_]+_([^_]+)_.*$/\1/')
+    pushd ${FILEPATH}
+    aptss download ${PACKAGE_NAME}=${VERSION}
+    popd
+    if [ ! -f "$1" ]; then
+    	echo "OMG-IT-GOES-WRONG"
+    	exit 1
+    else
+    	DEBPATH=$(realpath "$1")
+    fi
+    else
+    DEBPATH=$(realpath "$1")
+fi
+
+lock_file "$DEBPATH"
 
 hash_check "$DEBPATH"
 
@@ -143,6 +164,8 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     fi
 
     dpkg -i "$DEBPATH" || aptss install -yf
+
+unlock_file "$DEBPATH"
 
     if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
         if dpkg -s "$package_name" >/dev/null 2>&1; then
