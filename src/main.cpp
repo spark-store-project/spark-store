@@ -13,7 +13,6 @@
 
 #include <DSysInfo>
 #include <DApplicationSettings>
-#include <DWidgetUtil>
 
 #include <QDate>
 #include <QProcessEnvironment>
@@ -196,8 +195,6 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     a.setMainWindow(&w); // 设置应用程序主窗口，用于初始化关于对话框
-    // 让打开时界面显示在正中
-    Dtk::Widget::moveToCenter(&w);
 
     if (argc > 1)
     {

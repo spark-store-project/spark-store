@@ -48,6 +48,11 @@ MainWindow::~MainWindow()
     delete ui;
 
     downloadlistwidget->deleteLater();
+
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    config.setValue("window/width", width());
+    config.setValue("window/height", height());
+    config.sync();
 }
 
 void MainWindow::initDbus()
@@ -123,6 +128,17 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::initUI()
 {
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    QSize size;
+    size.rwidth() = config.value("window/width").toInt();
+    size.rheight() = config.value("window/height").toInt();
+    if (!size.isEmpty()) {
+        resize(size);
+    }
+
+    // 让打开时界面显示在正中
+    moveToCenter(this);
+
     setWindowTitle(QObject::tr("Spark Store"));
     setMaskAlpha(250);
 
@@ -495,9 +511,13 @@ void MainWindow::notify(QObject *receiver, QEvent *event)
 
 void MainWindow::on_pushButton_14_clicked()
 {
+    /**
+     * NOTE: No need to judget developmode status
+     */
     // Check UOS
-    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool())
+    // QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    // if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool())
+    if (false)
     {
         qDebug() << "UOS Developer Mode has not been enabled!";
         QtConcurrent::run([=]
