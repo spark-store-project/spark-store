@@ -7,7 +7,8 @@
 TARGET = spark-store
 TEMPLATE = subdirs
 
-CONFIG += ordered
+#CONFIG += ordered
+CONFIG += wayland-compositor
 
 SUBDIRS += \
         src/spark-store.pro
