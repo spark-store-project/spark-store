@@ -28,6 +28,7 @@ void SparkAPI::get(QUrl url)
     QNetworkRequest request;
     HttpRequest *httprequest = new HttpRequest;
     request.setUrl(QUrl(url.toString().replace("+", "%2B")));
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     connect(httprequest, &HttpRequest::finished, [=](QString data)
     {
         QByteArray arr = data.toUtf8();
@@ -53,6 +54,7 @@ void SparkAPI::getRAW(QUrl url)
     QNetworkRequest request;
     HttpRequest *httprequest = new HttpRequest;
     request.setUrl(QUrl(url.toString().replace("+", "%2B")));
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     connect(httprequest, &HttpRequest::finished, [=](QString data)
             {
             emit finishedRAW(data);
