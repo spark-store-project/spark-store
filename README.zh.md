@@ -26,7 +26,11 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 
 
-## 关于团队协作：分支管理相关的详细文档可参见 [此链接](https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo)。
+## 关于团队协作
+
+组织仓库链接：https://gitee.com/spark-store-project/spark-store https://gitcode.com/spark-store-project/spark-store https://github.com/spark-store-project/spark-store
+
+分支管理相关的详细文档可参见 [此链接](https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo)。
 
 我们热忱欢迎您加入我们的开发团队。无论您是想参与开发，还是想提交应用，都能在这里找到属于您的一席之地，共同推动Linux应用生态的发展。
 
