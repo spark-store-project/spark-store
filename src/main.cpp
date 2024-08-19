@@ -76,7 +76,7 @@ void crashHandler(int sig) {
     gatherInfo(popen("LANG=en_US.UTF-8 lsb_release -a", "r"), logFile, "Distribution info");
     gatherInfo(popen("LANG=en_US.UTF-8 lscpu", "r"), logFile, "All CPU Info");
     gatherInfo(popen("LANG=en_US.UTF-8 free -h | grep Mem | awk '{print $2}'", "r"), logFile, "Memory Size");
-  
+
 
 
     logFile << "Error: signal " << sig << ":\n";
@@ -145,6 +145,8 @@ int main(int argc, char *argv[])
     // 浏览器开启 GPU 支持
     // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-features=UseModernMediaControls");
     // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
+    // 全平台软件渲染Webkit
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu");
 #ifdef __sw_64__
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
 #endif
