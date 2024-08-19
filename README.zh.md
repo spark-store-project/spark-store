@@ -26,7 +26,16 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 
 
-## 关于团队协作：分支管理相关的详细文档可参见 [此链接](https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo)。
+## 关于团队协作
+
+组织仓库链接：
+https://gitee.com/spark-store-project/spark-store
+
+https://gitcode.com/spark-store-project/spark-store 
+
+https://github.com/spark-store-project/spark-store
+
+分支管理相关的详细文档可参见 [此链接](https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo)。
 
 我们热忱欢迎您加入我们的开发团队。无论您是想参与开发，还是想提交应用，都能在这里找到属于您的一席之地，共同推动Linux应用生态的发展。
 
@@ -84,7 +93,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
     > appstore://deepin-home-appstore-client?app_detail_info/spark-store
 
 
-    若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
+    若要使用最新版本，请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[Gitcode的Release页面](https://gitcode.com/spark-store-project/spark-store/releases)并下载适用于Deepin的最新版本。安装后即可使用。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -105,7 +114,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[Gitcode的Release页面](https://gitcode.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -120,7 +129,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[Gitcode的Release页面](https://gitcode.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
@@ -140,7 +149,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)并下载，安装后即可使用。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[Gitcode的Release页面](https://gitcode.com/spark-store-project/spark-store/releases)并下载，安装后即可使用。
 
 
 #### 对于 Debian 12+ 用户
@@ -150,7 +159,7 @@ Linux 应用的数量相对有限，Wine 软件的可获得性也颇为困难。
 
 2. **下载并安装**
 
-    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
+    请访问[星火应用商店的Release页面](https://gitee.com/spark-store-project/spark-store/releases)或[Gitcode的Release页面](https://gitcode.com/spark-store-project/spark-store/releases)，下载和您电脑相同架构的安装包并安装。
 
     假设您下载到用户目录下的 Downloads 文件夹， 我们推荐您使用 APT 工具安装：
 
