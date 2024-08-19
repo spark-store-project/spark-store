@@ -1,4 +1,10 @@
 
+spark-store (4.3.0) stable; urgency=medium
+
+* 修复部分客户端启动白屏
+
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
 spark-store (4.3) stable; urgency=medium
 
 * 修复客户端不支持301跳转的问题
