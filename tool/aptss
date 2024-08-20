@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SPARK_DOWNLOAD_SERVER_URL="https://d.store.deepinos.org.cn/"
-SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.store.deepinos.org.cn"
+SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
+SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell
 
