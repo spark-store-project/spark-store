@@ -72,7 +72,7 @@ fi
 
 
 
-if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] ; then
+if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] || [ "$1" = "dist-upgrade" ]; then
 
 
 
@@ -128,4 +128,3 @@ chmod -R 755 /tmp/aptss-conf
 else
                 /usr/bin/apt "$@" -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 fi
-
