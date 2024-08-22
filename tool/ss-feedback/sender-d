@@ -1,52 +1,17 @@
 #!/bin/bash
 
-#用法：sender.sh 下载链接 HD70642
+HERE=$(dirname $0)
 
-case `arch` in
+case `uname -m` in
    x86_64)
-	STORE_URL="store"
+	sender_appendix="amd64"
 	;;
    aarch64)
-	STORE_URL="aarch64-store"
+	sender_appendix="arm64"
 	;;
    loongarch64)
-   	STORE_URL="loong64-store"
+   	sender_appendix="loong64"
    	;;
 esac
 
-if [ -z $1 ] || [ "$2" != "HD70642" ];then
-echo "Segment fault"
-# 假的段错误
-exit -1
-fi
-
-
-APP_LOCATION=${1#*/$STORE_URL/}
-APP_LOCATION=${APP_LOCATION%/*}
-echo $APP_LOCATION
-
-APP_METALINK_FILE_NAME=${1##*/}
-#echo $APP_METALINK_FILE_NAME
-
-
-PIDS=$(pidof "spark-store")
-# 检查 metalink以防止未下载时刷分
-
-if [ ! -f /tmp/spark-store/$APP_METALINK_FILE_NAME ] || [ "$PIDS" = "" ];then
-sleep 1
-echo "发送！成功"
-exit
-# 其实是发送不成功的意思lolol
-fi
-
-
-
-
-
-echo $STORE_URL/$APP_LOCATION
-curl -X POST -H "Content-Type: application/json" -d '{"path": "'"${STORE_URL}/${APP_LOCATION}"'"}' http://zunyun01.store.deepinos.org.cn:38324/handle_post
-
-
-
-
-echo "Finished"
+${HERE}/sender-d-${sender_appendix}
