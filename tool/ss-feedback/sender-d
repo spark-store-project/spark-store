@@ -14,4 +14,4 @@ case `uname -m` in
    	;;
 esac
 
-${HERE}/sender-d-${sender_appendix}
+${HERE}/sender-d-${sender_appendix} $@
