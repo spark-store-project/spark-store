@@ -1,4 +1,30 @@
+spark-store (4.3.0-fix2) stable; urgency=medium
+
+* aptss配置调整
+
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+
+
 spark-store (4.3.0-fix1) stable; urgency=medium
+
+* 上游改为d.spark-app.store
+
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+spark-store (4.3) stable; urgency=medium
+
+* 修复客户端不支持301跳转的问题
+* 修复UOS下错误地提示开发者模式未启动
+* 现在会记住上次的窗口大小
+* 删除无用依赖，修复Debian 13依赖问题
+
+  
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+spark-store (4.2.14) stable; urgency=medium
+
 
 * 上游改为d.spark-app.store
 
@@ -666,221 +692,5 @@ spark-store (3.2.4~test2) stable; urgency=medium
 spark-store (3.2.4~test1) stable; urgency=medium
 
   * 客户端更新时不关闭免密码登录
-  * UOS合并正常aptss中
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.2.3) stable; urgency=medium
-
-  * 客户端异常退出时仍然占用资源问题修复
-  * 降低dtk依赖版本，Debian 11 stable可直接安装
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.2.2) stable; urgency=medium
-
-  * aptss will now refresh the system source before doing install,  policy....etc
-  * 启动客户端GPU加速支持
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.2.1) stable; urgency=medium
-
-  * 更改刷新系统源的功能
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.2) stable; urgency=medium
-
-  * 新增 下载量统计功能
-  * 新增 显示下载量
-  * 修复 spk链接生成错误
-  * 调整 启动时检测商店applist源
-  * 新增 applist cdn加速
-  * 调整 ssupdate不再更新/etc/aptss下的cache，如要如此，请使用aptss update
-  * 修复 在更新检测设置中的是否开启自动更新检测设置项的显示不随开启或关闭状态改变
-  * 修复 在检测更新时临时降低优先级到100，防止系统中有且版本一致的包被反复来回更新 
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.6) stable; urgency=medium
-
-  * 修复部分情况下无法选中正确的镜像源的问题
-  * 合入3.1.5以来的各项修改
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.5-5) stable; urgency=medium
-
-  * 从所有镜像源中选取最快镜像源高速下载
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.5-4) stable; urgency=medium
-
-  * 更改ss-apt-fast策略，现在只会在update，ssupdate和没有检测到配置文件的时候更新配置文件
-  * 新增ss-apt-fast别名：aptss 
-  * 更新检测服务优化：从分体改为一体
-  * aptss 支持自动补全
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.5-3) stable; urgency=medium
-
-  * 包内自带密钥
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.5-2) stable; urgency=medium
-
-  * 下载软件时跳过获取大小，修复部分软件无法下载的问题
-  * 修复 获取key时出错，指定使用http1.1
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.5-1) stable; urgency=medium
-
-  * 改变更新策略，UOS也下载加速，但是安装不加速
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.5) stable; urgency=medium
-
-  * 改变更新策略，现在支持应用在更新时引入新依赖
-  * ss-apt-fast现在默认允许降级，以与apt使用体验一致
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.4-2) stable; urgency=medium
-
-  * 客户端下载使用metalink来支持bt下载加速
-  * 修复使用更新和安装设置更新商店本体时出错
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.4-1) stable; urgency=medium
-
-  * 安装脚本和检测更新脚本检查网络时间超时时间延长至5s  
-  * 修复：ssinstall在没有安装apt-fast的情况下首次安装需要依赖的软件时安装失败 
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.4) stable; urgency=medium
-
-  * 发布正式版，同步到官网
-  * 修复安装时使用wget的问题
-  * 合并3.1.3-1和3.1.3-2的更改
-  * 屏蔽了ssinstall之外的安装方式
-  * 调整了报错框的形式
-  * 修复pkexec下ssinstall不处理依赖
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.3-2) stable; urgency=medium
-
-  * 调整 现在与系统更新分开，不再导致更新失败
-  * 支持直接更新软件源文件，不再让d.吃全部更新流量
-  * ss-apt-fast不再强制root权限
-  * 修改ss-apt-fast的策略，现在除了安装，下载和更新都改用apt
-  * ssinstall 现在也会在不适用ss-apt-fast的时候模拟源了（针对UOS）
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.3-1) stable; urgency=medium
-
-  * 修复 下载提前退出
-  * 移除 下载量显示
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.3) stable; urgency=medium
-
-  * Now uses aria2 to download softwares form all mirrors
-  * 新增：ssinstall现在会在没有apt-fast的时候自动安装
-  * 新增：ss-apt-fast现在会在没有apt-fast的时候自动安装
-  * 修改：删除ssinstall中无用的 || dpkg -P $1
-  * 新增：ss-apt-fast会先下载云上的conf以确保mirror是最新的
-  * 修复：去除wget指令
-
- -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.2) stable; urgency=medium
-
-  * Now let apt-fast method support all mirrors
-  * Now will download dependencies and upgrade with all mirrors
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.1) stable; urgency=medium
-
-  * Now will delete the link of policy file after uninstall or upgrade
-  * Now ss-update-controler will create symbol link instead of hard link
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.1.0) stable; urgency=medium
-
-  * Add pkexec policy: ssinstall. Only will be enabled after permitted.
-  * Modify ssinistall script: Now will ask for password when not run as root
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.0.3-13) stable; urgency=medium
-
-  * Update the ssinstall script. Now support apt-fast and will temporarily increase the spark store source priority to 500 to make depends install correctly
-  * Change the style of About Dialog
-  * Modified depends to avoid Deb installers can not handle "Provides"
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.0.3-12) stable; urgency=medium
-
-  * Rollback to use DApplication::loadDXcbPlugin() to make titlebar behave normally in ubuntu
-  * Now can run on Debian 11
-  * Now can run on Ubuntu 22.04
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.0.3-11) stable; urgency=medium
-
-  * Now support autoupdate
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.0.3-10) stable; urgency=medium
-
-  * Now also compile dstore patch
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
-
-spark-store (3.0.3-9) stable; urgency=medium
-
-  * Support dpkg-buildpackage
-
- -- shenmo <shenmo@spark-app.store>  Mon, 17 Jan 2022 00:00:00 +0800
-
+  * U
+  
