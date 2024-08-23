@@ -15,7 +15,8 @@ SOURCE_DATE_EPOCH := $(shell date +%s)
 
 %:
 	dh $@ --parallel
-
+override_dh_strip:
+	echo "Skip...dh_strip"
 override_dh_auto_clean:
 	rm -rf $(CURDIR)/build-$(DEB_HOST_MULTIARCH)
 
