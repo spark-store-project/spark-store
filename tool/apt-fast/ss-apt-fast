@@ -289,6 +289,7 @@ urldecode()
 }
 
 # Check if mirrors are available. And if so add all mirrors to download list.
+############ SPARK ADJUST: Now we ignore the first config for business request
 get_mirrors(){
   # Check all mirror lists.
   for mirrorstr in "${MIRRORS[@]}"; do
@@ -301,7 +302,7 @@ get_mirrors(){
       if [[ "$1" == "$mirror"* ]]; then
         filepath=${1#${mirror}}
         # Build list for aria download list.
-        list="${mirrors[*]}"
+        list="${mirrors[*]:1}"
         echo -e "${list// /${filepath}\\t}$filepath\n"
         return 0
       fi
@@ -310,7 +311,7 @@ get_mirrors(){
   # No other mirrors found.
   echo "$1"
 }
-
+##########SPARK ADJUST: END
 # Globals to save package name, version, size and overall size.
 DOWNLOAD_DISPLAY=
 DOWNLOAD_SIZE=0
