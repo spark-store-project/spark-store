@@ -1,3 +1,11 @@
+spark-store (4.3.0-fix3) stable; urgency=medium
+
+* 修复：创建快捷方式失效
+
+ -- shenmo <shenmo@spark-app.store>  Sun, 5 Mar 2022 11:45:14 +0800
+
+
+
 spark-store (4.3.0-fix2) stable; urgency=medium
 
 * aptss配置调整
