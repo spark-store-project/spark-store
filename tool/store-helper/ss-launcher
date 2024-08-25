@@ -1,0 +1,74 @@
+#!/bin/bash
+
+function scan_desktop_file(){
+unset desktop_file_path
+    for desktop_file_path in $(dpkg -L "$1" |grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
+	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
+	echo "$desktop_file_path is found"
+	fi
+    done
+	for desktop_file_path in $(dpkg -L "$1" |grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
+	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
+	echo $desktop_file_path is found
+	fi
+    done
+
+
+}
+
+function launch_app(){
+
+    # 检查是否传入了路径参数
+    if [ -z "$1" ]; then
+        echo "请传入文件路径作为参数"
+        exit 1
+    fi
+
+    DESKTOP_FILE_PATH=$1
+
+    if [[ $DESKTOP_FILE_PATH == file://* ]]; then
+        # 如果是，移除 'file://' 部分并输出结果
+        DESKTOP_FILE_PATH="${DESKTOP_FILE_PATH#file://}"
+    fi
+
+    # 获取文件内容中第一个 Exec= 后的命令
+    exec_command=$(grep -m 1 -oP "(?<=Exec=).*" "$DESKTOP_FILE_PATH")
+
+    # 删除 exec_command 中最后的 % 及其后面的内容
+    exec_command="${exec_command%\%*}"
+
+    # 打印提取的命令
+    echo "$exec_command"
+
+    # 在默认终端执行命令
+    eval "$exec_command"
+}
+
+if [ "$#" -lt 2 ];then
+echo "Usage: $0 check/launch packagename"
+exit -1
+fi 
+
+
+if [ "$1" = "check" ];then
+
+scan_desktop_file "$2"
+	if [ "$desktop_file_path" = "" ];then
+		echo "No desktop file found. exit -1"
+		exit -1
+	else
+		exit 0
+	fi
+
+
+
+elif [ "$1" = "launch" ];then 
+scan_desktop_file "$2"
+	if [  "$desktop_file_path" = "" ];then
+		echo "No desktop file found. exit -1"
+		exit -1
+	fi
+
+
+launch_app "${desktop_file_path}"
+fi
