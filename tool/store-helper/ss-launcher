@@ -56,19 +56,23 @@ unset desktop_file_path
 }
 
 function scan_desktop_file(){
-unset desktop_file_path
-    for desktop_file_path in $(dpkg -L "$1" |grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
-	echo "$desktop_file_path"
-	fi
+    unset desktop_file_path
+    local result=""
+    for desktop_file_path in $(dpkg -L "$1" | grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
+        if [ "$(grep NoDisplay=true $desktop_file_path)" = "" ]; then
+            result+="$desktop_file_path,"
+        fi
     done
-	for desktop_file_path in $(dpkg -L "$1" |grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
-	echo "$desktop_file_path"
-	fi
+    for desktop_file_path in $(dpkg -L "$1" | grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
+        if [ "$(grep NoDisplay=true $desktop_file_path)" = "" ]; then
+            result+="$desktop_file_path,"
+        fi
     done
-
-
+    # 去掉最后一个逗号
+    if [ -n "$result" ]; then
+        result=${result%,}
+    fi
+    echo "$result"
 }
 
 function launch_app(){
