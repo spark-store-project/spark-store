@@ -28,6 +28,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  zenity,
  policykit-1 | pkexec,
  libnotify-bin,
+ qtwayland5,
  desktop-file-utils,
  dpkg-dev
 Description: Spark Store
