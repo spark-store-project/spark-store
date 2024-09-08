@@ -3,6 +3,7 @@
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
 
+trap 'unlock_file $DEBPATH' EXIT
 case $(arch) in
    x86_64)
 	STORE_URL="store"
