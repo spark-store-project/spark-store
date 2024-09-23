@@ -73,6 +73,7 @@ void AppIntoPage::openUrl(const QUrl &url)
         iconRequest.setUrl(QUrl(pkgUrlBase + "/icon.png"));
         iconRequest.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
         iconRequest.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
+        iconRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
 
         iconManager->get(iconRequest);
         QObject::connect(iconManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
@@ -96,6 +97,7 @@ void AppIntoPage::openUrl(const QUrl &url)
             request.setUrl(QUrl(imgUrl));
             request.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
             request.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
+            request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
             manager->get(request);
             QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
                 {
@@ -114,10 +116,10 @@ void AppIntoPage::openUrl(const QUrl &url)
                         qDebug() << imgUrl;
                     }
 
-                    manager->deleteLater(); 
+                    manager->deleteLater();
                 });
         }
-        
+
 
         /**
          * NOTE: No need to judget developmode status
@@ -436,10 +438,19 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
         {
             qDebug() << "打开 /etc/lsb-release 失败";
         }
-        else if (lsb.readAll().contains("Ubuntu"))
-        {
-            isUbuntu = true;
-            lsb.close();
+        else {
+            QString lsbInfo = lsb.readAll();  // 因为使用 readAll 读取后会默认跳转到文件末尾导致读出的数据为空，所以用单独一个 string 存储
+            if (lsbInfo.contains("Ubuntu"))
+            {
+                isUbuntu = true;
+                lsb.close();
+            }
+            else if (lsbInfo.contains("GXDE"))
+            {
+                // GXDE 使用 Ubuntu 的 tag
+                isUbuntu = true;
+                lsb.close();
+            }
         }
     }
     bool checkubuntu = (isUbuntu && !ubuntuSupport);
