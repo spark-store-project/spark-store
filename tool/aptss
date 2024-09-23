@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SPARK_DOWNLOAD_SERVER_URL="https://d.store.deepinos.org.cn/"
-SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.store.deepinos.org.cn"
+SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
+SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell
 
@@ -72,7 +72,7 @@ fi
 
 
 
-if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] ; then
+if  [ "$1" = "install" ] || [ "$1" = "upgrade" ] || [ "$1" = "full-upgrade" ] || [ "$1" = "dist-upgrade" ]; then
 
 
 
@@ -128,4 +128,3 @@ chmod -R 755 /tmp/aptss-conf
 else
                 /usr/bin/apt "$@" -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
 fi
-

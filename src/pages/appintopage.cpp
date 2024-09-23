@@ -438,10 +438,19 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
         {
             qDebug() << "打开 /etc/lsb-release 失败";
         }
-        else if (lsb.readAll().contains("Ubuntu"))
-        {
-            isUbuntu = true;
-            lsb.close();
+        else {
+            QString lsbInfo = lsb.readAll();  // 因为使用 readAll 读取后会默认跳转到文件末尾导致读出的数据为空，所以用单独一个 string 存储
+            if (lsbInfo.contains("Ubuntu"))
+            {
+                isUbuntu = true;
+                lsb.close();
+            }
+            else if (lsbInfo.contains("GXDE"))
+            {
+                // GXDE 使用 Ubuntu 的 tag
+                isUbuntu = true;
+                lsb.close();
+            }
         }
     }
     bool checkubuntu = (isUbuntu && !ubuntuSupport);
