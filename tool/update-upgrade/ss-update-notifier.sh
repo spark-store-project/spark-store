@@ -1,5 +1,5 @@
 #!/bin/bash
-LANGUAGE=en_US
+export LANGUAGE=en_US
 
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
