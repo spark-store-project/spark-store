@@ -1,8 +1,13 @@
 #!/usr/bin/make -f
 
-export QT_SELECT = qt5
-export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 include /usr/share/dpkg/default.mk
+
+export QT_SELECT = qt6
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+DEB_CFLAGS ?= $(shell dpkg-buildflags --get CFLAGS)
+DEB_CPPFLAGS ?= $(shell dpkg-buildflags --get CPPFLAGS)
+DEB_CXXFLAGS ?= $(shell dpkg-buildflags --get CXXFLAGS)
 
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
@@ -16,24 +21,14 @@ SOURCE_DATE_EPOCH := $(shell date +%s)
 %:
 	dh $@ --parallel
 
-override_dh_auto_clean:
-	rm -rf $(CURDIR)/build-$(DEB_HOST_MULTIARCH)
-
 override_dh_auto_configure:
-	mkdir -p $(CURDIR)/build-$(DEB_HOST_MULTIARCH)
+	dh_auto_configure -- \
+	-DVERSION=$(DEB_VERSION_UPSTREAM) \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_C_FLAGS="$(DEB_CFLAGS) $(DEB_CPPFLAGS)" \
+	-DCMAKE_CXX_FLAGS="$(DEB_CXXFLAGS) $(DEB_CPPFLAGS)"
 
-	qmake BUILD_VERSION=$(DEB_VERSION_UPSTREAM) spark-store-project.pro \
-	-spec linux-g++ CONFIG+=force_debug_info \
-	-o $(CURDIR)/build-$(DEB_HOST_MULTIARCH)/
-
-override_dh_auto_build:
-	make -C $(CURDIR)/build-$(DEB_HOST_MULTIARCH) -j$(JOBS)
-
-override_dh_auto_install:
-	make -C $(CURDIR)/build-$(DEB_HOST_MULTIARCH) install \
-	INSTALL_ROOT=$(CURDIR)/debian/spark-store
-
-# Ignore the dpkg-shlibdeps: warning (it uses none of the library's symbols)
-# Qt Mutidedia lib will ref to network libraray.
+#Ignore the dpkg-shlibdeps: warning (it uses none of the library's symbols)
+#Qt Mutidedia lib will ref to network libraray.
 override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--warnings=0
