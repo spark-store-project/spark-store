@@ -47,8 +47,7 @@ for username in `ls /home`
 	# Stop update detect service
 	systemctl disable spark-update-notifier
 
-	# Clean the auto install polkit file if exist
-	rm -f /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
+
 
 	# Remove gpg key file
 	rm -f /etc/apt/trusted.gpg.d/spark-store.gpg
