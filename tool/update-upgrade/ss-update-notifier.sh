@@ -1,5 +1,5 @@
 #!/bin/bash
-export LANGUAGE=en_US
+
 
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
@@ -55,12 +55,12 @@ fi
 
 aptss update
 
-updatetext=`aptss ssupdate 2>&1`
+updatetext=`LANGUAGE=en_US aptss ssupdate 2>&1`
 
 until [ "`echo $updatetext | grep E: `" = "" ];do
 echo "${TRANSHELL_CONTENT_UPDATE_ERROR_AND_WAIT_15_SEC}"
 sleep 15
-updatetext=`aptss ssupdate 2>&1`
+updatetext=`LANGUAGE=en_US aptss ssupdate 2>&1`
 
 
 
