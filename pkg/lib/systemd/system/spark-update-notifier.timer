@@ -1,0 +1,11 @@
+[Unit]  
+Description=Timer for Spark Update Notifier  
+
+[Timer]  
+# 开机后第一次执行  
+OnBootSec=1min  
+# 每天执行一次  
+OnUnitActiveSec=1d  
+
+[Install]  
+WantedBy=timers.target
