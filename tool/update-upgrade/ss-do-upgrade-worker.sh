@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export LANGUAGE=en_US
 
 case $1 in 
 	ssupdate)
