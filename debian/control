@@ -3,18 +3,16 @@ Maintainer: shenmo <shenmo@spark-app.store>
 Section: utils
 Priority: optional
 Build-Depends:
- cmake,
- debhelper (>= 11),
+ debhelper (>= 9),
  pkg-config,
- qtchooser (>= 55-gc9562a1-1~),
- qt6-base-dev,
- qt6-svg-dev,
- qt6-tools-dev,
- qt6-webengine-dev,
- libdtkcommon-dev,
- libdtk6core-dev,
- libdtk6gui-dev,
- libdtk6widget-dev
+ qtchooser (>= 55-gc9562a1-1~) | qt5-default,
+ qtbase5-dev,
+ libqt5svg5-dev,
+ qttools5-dev-tools,
+ qtwebengine5-dev,
+ libdtkcore-dev (>= 5.0),
+ libdtkgui-dev (>= 5.0),
+ libdtkwidget-dev (>= 5.0)
 Standards-Version: 4.1.7
 Homepage: https://www.spark-app.store/
 
@@ -22,11 +20,10 @@ Package: spark-store
 Architecture: any
 Provides: spark-store-console-in-container
 Depends: ${shlibs:Depends}, ${misc:Depends},
- dde-qt6integration,
+ dde-qt5integration,
  curl,
  openssl,
  aria2,
- qtwayland5,
  gnupg,
  zenity,
  policykit-1 | pkexec,

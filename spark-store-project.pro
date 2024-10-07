@@ -10,7 +10,7 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += \
-        src/$${TARGET}.pro
+        src/spark-store.pro
 
 # https://wiki.debian.org/Hardening
 QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
@@ -26,31 +26,32 @@ CONFIG(release, debug | release) {
 
 # Rules for deployment
 tool.files += tool/*
-tool.path = /opt/durapps/$${TARGET}/bin/
+tool.path = /opt/durapps/$${TARGET}/bin
 
 qm.files += translations/*.qm
-qm.path = /usr/share/$${TARGET}/translations/
+qm.path = /usr/share/spark-store/translations
 
 #preferences.files += pkg/etc/apt/preferences.d/sparkstore
-#preferences.path = /etc/apt/preferences.d/
+#preferences.path = /etc/apt/preferences.d
 
 #sourceslist.files += pkg/etc/apt/sources.list.d/sparkstore.list
-#sourceslist.path = /etc/apt/sources.list.d/
+#sourceslist.path = /etc/apt/sources.list.d
 
 bash_completion.files += pkg/usr/share/bash-completion/completions/aptss
-bash_completion.path = /usr/share/bash-completion/completions/
+bash_completion.path = /usr/share/bash-completion/completions
 
 desktop.files += pkg/usr/share/applications/*.desktop
-desktop.path = /usr/share/applications/
+desktop.path = /usr/share/applications
 
 service.files += pkg/usr/lib/systemd/system/spark-update-notifier.service
-service.path = /lib/systemd/system/
+service.path = /usr/lib/systemd/system/
 
 polkit-1.files += pkg/usr/share/polkit-1/actions/*
 polkit-1.path = /usr/share/polkit-1/actions/
 
-icon.files += pkg/usr/share/icons
-icon.path = /usr/share/
+icon.files += pkg/usr/share/icons/hicolor/scalable/apps/*.svg
+icon.files += pkg/usr/share/icons/hicolor/scalable/apps/*.png
+icon.path = /usr/share/icons/hicolor/scalable/apps
 
 ssinstall-transhell.files += pkg/usr/share/ssinstall/transhell
 ssinstall-transhell.path = /usr/share/ssinstall/
@@ -59,7 +60,7 @@ aptss-transhell.files += pkg/usr/share/aptss/transhell
 aptss-transhell.path = /usr/share/aptss/
 
 tmp.files += pkg/tmp/spark-store-install/feedback.sh
-tmp.path = /tmp/spark-store-install/
+tmp.path = /tmp/spark-store-install
 
 INSTALLS += \
         tool \
@@ -73,3 +74,4 @@ INSTALLS += \
         service \
         bash_completion \
         polkit-1 
+#   暂时不添加

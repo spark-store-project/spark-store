@@ -158,7 +158,7 @@ void DownloadItem::on_pushButton_3_clicked()
     output_w->setMinimumHeight(600);
     output_w->setAttribute(Qt::WA_TranslucentBackground);
     output_w->setTitle(ui->label->text());
-    output_w->layout()->setContentsMargins(20, 20, 20, 20);
+    output_w->layout()->setMargin(20);
     output_w->layout()->addWidget(textbrowser);
     output_w->show();
 }

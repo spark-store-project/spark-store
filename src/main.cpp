@@ -12,6 +12,7 @@
 #include <execinfo.h>
 
 #include <DSysInfo>
+#include <DApplicationSettings>
 
 #include <QDate>
 #include <QProcessEnvironment>
@@ -146,10 +147,13 @@ int main(int argc, char *argv[])
     // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
     // 全平台软件渲染Webkit
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu");
-#if defined (__sw_64__) || defined (__loongarch__)
+#ifdef __sw_64__
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
 #endif
 
+#ifdef __loongarch__
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
+#endif
     /**
      * NOTE: https://zhuanlan.zhihu.com/p/550285855
      * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
@@ -158,6 +162,15 @@ int main(int argc, char *argv[])
         qputenv("QMLSCENE_DEVICE", "softwarecontext");
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
+
+
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    // 开启 Hidpi 支持
+    qDebug() << "Enable HiDPI Support.";
+    DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    DApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
 
     // 强制使用 DTK 平台插件
     QVector<char *> fakeArgs(argc + 2);
@@ -179,6 +192,8 @@ int main(int argc, char *argv[])
         qWarning() << "Another instance has already started, activating...";
         return -1;
     }
+
+    DApplicationSettings settings; // 定义 DApplicationSettings，自动保存主题设置
 
     MainWindow w;
     a.setMainWindow(&w); // 设置应用程序主窗口，用于初始化关于对话框

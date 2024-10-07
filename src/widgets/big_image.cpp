@@ -17,7 +17,7 @@ big_image::big_image(DBlurEffectWidget *parent) : DBlurEffectWidget(parent),
     QHBoxLayout *layout = new QHBoxLayout;
     setLayout(layout);
     layout->addWidget(m_image);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setMargin(0);
 
     // Make sure the image has a parent so that it will be freed.
     m_image->setParent(this);
