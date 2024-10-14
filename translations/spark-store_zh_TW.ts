@@ -124,7 +124,7 @@
         <location filename="../src/pages/appintopage.cpp" line="198"/>
         <location filename="../src/pages/appintopage.cpp" line="336"/>
         <location filename="../src/pages/appintopage.cpp" line="370"/>
-        <location filename="../src/pages/appintopage.cpp" line="530"/>
+        <location filename="../src/pages/appintopage.cpp" line="533"/>
         <source>Download and Install</source>
         <translation>下載並安裝</translation>
     </message>
@@ -188,7 +188,7 @@
     <message>
         <location filename="../src/pages/appintopage.cpp" line="183"/>
         <location filename="../src/pages/appintopage.cpp" line="363"/>
-        <location filename="../src/pages/appintopage.cpp" line="502"/>
+        <location filename="../src/pages/appintopage.cpp" line="505"/>
         <source>Reinstall</source>
         <translation>重新安裝</translation>
     </message>
@@ -199,7 +199,7 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.cpp" line="341"/>
-        <location filename="../src/pages/appintopage.cpp" line="478"/>
+        <location filename="../src/pages/appintopage.cpp" line="481"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
@@ -209,46 +209,46 @@
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="457"/>
-        <location filename="../src/pages/appintopage.cpp" line="461"/>
-        <location filename="../src/pages/appintopage.cpp" line="465"/>
-        <location filename="../src/pages/appintopage.cpp" line="469"/>
+        <location filename="../src/pages/appintopage.cpp" line="460"/>
+        <location filename="../src/pages/appintopage.cpp" line="464"/>
+        <location filename="../src/pages/appintopage.cpp" line="468"/>
+        <location filename="../src/pages/appintopage.cpp" line="472"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="457"/>
+        <location filename="../src/pages/appintopage.cpp" line="460"/>
         <source>The current application does not support or tested on deepin, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="461"/>
+        <location filename="../src/pages/appintopage.cpp" line="464"/>
         <source>The current application does not support or tested on UOS, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="465"/>
+        <location filename="../src/pages/appintopage.cpp" line="468"/>
         <source>The current application does not support or tested on Ubuntu, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="469"/>
+        <location filename="../src/pages/appintopage.cpp" line="472"/>
         <source>The current application does not support or tested on current platform, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="533"/>
-        <location filename="../src/pages/appintopage.cpp" line="548"/>
+        <location filename="../src/pages/appintopage.cpp" line="536"/>
+        <location filename="../src/pages/appintopage.cpp" line="551"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="533"/>
+        <location filename="../src/pages/appintopage.cpp" line="536"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="548"/>
+        <location filename="../src/pages/appintopage.cpp" line="551"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
