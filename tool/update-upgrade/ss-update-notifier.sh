@@ -1,5 +1,5 @@
 #!/bin/bash
-export LANGUAGE=en_US
+
 
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
@@ -55,25 +55,22 @@ fi
 
 aptss update
 
-updatetext=`aptss ssupdate 2>&1`
+updatetext=`LANGUAGE=en_US aptss ssupdate 2>&1`
 
 until [ "`echo $updatetext | grep E: `" = "" ];do
 echo "${TRANSHELL_CONTENT_UPDATE_ERROR_AND_WAIT_15_SEC}"
 sleep 15
-updatetext=`aptss ssupdate 2>&1`
+updatetext=`LANGUAGE=en_US aptss ssupdate 2>&1`
 
 
 
 done
 
-isupdate=`echo ${updatetext: -5}`
-if [ "$isupdate" = "date." ] ; then
+update_app_number=$(env LANGUAGE=en_US /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" 2>/dev/null | grep -c upgradable)
+
+if [ "$update_app_number" -le 0 ] ; then
     exit 0
 fi
-
-## 从这里开始，只有检测到了更新才会进行
-update_app_number=`echo ${updatetext%package*} #从右向左截取第一个 src 后的字符串`
-update_app_number=`echo ${update_app_number##*information...}`
 
 # 获取用户选择的要更新的应用
 PKG_LIST="$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgradable-list)"

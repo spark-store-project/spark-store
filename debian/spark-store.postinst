@@ -42,8 +42,7 @@ case "$1" in
 
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
 
-		# Create symbol links for SSINSTALL 
-		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
+
 
 		# Install key
 		mkdir -p /tmp/spark-store-install/
