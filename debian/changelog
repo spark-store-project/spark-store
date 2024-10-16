@@ -1,4 +1,4 @@
-spark-store (4.3.1) UNRELEASED; urgency=medium
+spark-store (4.3.1-1) UNRELEASED; urgency=medium
 
   * 修复自提权更新问题
   * 提升aptss稳定性

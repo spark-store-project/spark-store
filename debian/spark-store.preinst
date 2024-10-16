@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #检测网络链接畅通
 function network-check()
 {
@@ -24,5 +23,6 @@ function network-check()
 
 }
 
+
 #network-check
-#echo "不再检测网络"
+echo "不再检测网络"

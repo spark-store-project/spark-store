@@ -2,6 +2,7 @@
 
 case "$1" in
 	configure)
+
 		case `arch` in
    			x86_64)
 				echo "Enabling i386 arch..."
@@ -11,8 +12,7 @@ case "$1" in
         		aarch64)
         			echo "Will not enable armhf since 4271"
 			;;
-
-			loongarch64)
+            loongarch64)
 				echo "Nope we DO NOT WANT ABI1 now"
 				dpkg --remove-architecture loongarch64
 			;;
@@ -42,8 +42,7 @@ case "$1" in
 
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
 
-		# Create symbol links for SSINSTALL
-		ln -s -f  /opt/durapps/spark-store/bin/auto-install-policy/store.spark-app.ssinstall.policy /usr/share/polkit-1/actions/store.spark-app.ssinstall.policy
+
 
 		# Install key
 		mkdir -p /tmp/spark-store-install/
@@ -52,9 +51,11 @@ case "$1" in
 		cp -f /tmp/spark-store-install/spark-store.asc.gpg /etc/apt/trusted.gpg.d/spark-store.gpg
 
 
+
 		# Start upgrade detect service
 		systemctl daemon-reload
-		systemctl enable spark-update-notifier --now || true
+		systemctl enable spark-update-notifier
+		systemctl start spark-update-notifier
 
 
 		# Update certain caches
@@ -71,6 +72,7 @@ case "$1" in
 	;;
 
 	triggered)
-		spark-dstore-patch
+			spark-dstore-patch
+
 	;;
 esac
