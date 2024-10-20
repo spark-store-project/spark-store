@@ -52,7 +52,6 @@ private:
     QColor backColor;
     QColor color;
     QString svgPath;
-    int widthChangeValue{0};
     int progress{0};//处理百分比
 
     bool m_mouseMoved = false;
