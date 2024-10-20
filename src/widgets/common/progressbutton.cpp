@@ -9,10 +9,6 @@
 ProgressButton::ProgressButton(QWidget *parent)
     : QWidget{parent}
 {
-    // this->setWindowFlags(Qt::FramelessWindowHint);
-    // this->setAttribute(Qt::WA_TranslucentBackground, true);
-    setMinimumSize(36, 36);
-
     svgPath = "";
     backColor = Qt::transparent;
 
@@ -77,12 +73,9 @@ void ProgressButton::mousePressEvent(QMouseEvent *event)
 
 void ProgressButton::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (buttonState == state::hover || buttonState == state::normal)
-    {
-        widthChangeValue = (this->width() - 6) / 2;
-        update();
-    }
-    else if (buttonState == state::closeProgress)
+    if (buttonState == state::hover
+        || buttonState == state::normal
+        || buttonState == state::closeProgress)
     {
         update();
     }
@@ -135,15 +128,11 @@ void ProgressButton::paintEvent(QPaintEvent *event)
 
     if (buttonState == state::normal || buttonState == state::hover)
     {
-        int radius = (rect.height() - 6) / 2;
-        painter.translate(rect.center());
+        qreal radius = rect.height() / 2.0;
+        painter.translate(QRectF(rect).center());
         painter.setPen(Qt::transparent);
-        painter.setBrush(QColor(buttonState == state::normal ? color : color.darker()));
-        // painter.drawEllipse(QPoint(0, 0), radius, radius);
-
-        // radiu -= 3;
         painter.setBrush(backColor);
-        painter.drawEllipse(QPoint(0, 0), radius, radius);
+        painter.drawEllipse(QPointF(0, 0), radius, radius);
 
         QSvgRenderer m_svgRender;
         m_svgRender.load(svgPath);
@@ -151,42 +140,34 @@ void ProgressButton::paintEvent(QPaintEvent *event)
     }
     else if (buttonState == state::openProgress)
     {
-        painter.translate(rect.center());
-        int radius = (rect.height() - 6) / 2 - 3;
+        qreal radius = rect.height() / 2.0 - 1;
+        painter.translate(QRectF(rect).center());
+        painter.setPen(QPen(backColor.darker(), 2));
         painter.setBrush(backColor);
-        painter.setPen(QPen(backColor, 3));
-        painter.drawEllipse(QPoint(0, 0), radius, radius);
+        painter.drawEllipse(QPointF(0, 0), radius, radius);
 
-        painter.setPen(QPen(backColor, 3));
+        QRectF rectF = QRectF(-radius, -radius, radius * 2, radius * 2);
+        painter.setPen(QPen(color.darker(100), 2));
+        qreal angle = progress * 360 / 100 * 1.0;
+        painter.drawArc(rectF, 90 * 16, -qIntCast(angle * 16));
 
         QSvgRenderer m_svgRender;
         m_svgRender.load(svgPath);
         m_svgRender.render(&painter, QRectF(-radius / 2, -radius / 2, radius, radius));
-
-        QRect rect = QRect(-radius, -radius,
-                           radius * 2, radius * 2);
-
-        painter.setPen(QPen(color.darker(100), 3));
-        qreal angle = progress * 360 / 100 * 1.0;
-        painter.drawArc(rect.adjusted(-3, -3, 3, 3), 90 * 16, -qIntCast(angle * 16));
     }
     else if (buttonState == state::closeProgress)
     {
-        auto radius = (rect.height() - 6) / 2;
-        painter.translate(rect.center());
-        painter.setPen(Qt::transparent);
-        painter.setBrush(QColor(0, 0, 0, 63));
-        painter.drawEllipse(QPoint(0, 0), radius, radius);
-
-        radius -= 3;
+        qreal radius = rect.height() / 2.0 - 1;
+        painter.translate(QRectF(rect).center());
+        painter.setPen(QPen(color.darker(100), 2));
         painter.setBrush(backColor);
-        painter.drawEllipse(QPoint(0, 0), radius, radius);
+        painter.drawEllipse(QPointF(0, 0), radius, radius);
 
-        painter.setPen(QPen(color, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-        painter.drawLine(QPoint(-radius / 3, 0),
-                         QPoint(-radius / 5, radius / 3));
-        painter.drawLine(QPoint(-radius / 5, radius / 3),
-                         QPoint(radius / 4, -radius / 4));
+        painter.setPen(QPen(color, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+        painter.drawLine(QPointF(-radius / 3, 0),
+                         QPointF(-radius / 5, radius / 3));
+        painter.drawLine(QPointF(-radius / 5, radius / 3),
+                         QPointF(radius / 4, -radius / 4));
     }
     QWidget::paintEvent(event);
 }
@@ -212,7 +193,7 @@ WaterDrop::WaterDrop(QWidget *parent)
 // 把鼠标点击的点转换为圆心点坐标
 void WaterDrop::move(const QPoint &point)
 {
-    QPoint translatePoint = point - QPoint(RADIUS, RADIUS);
+    QPoint translatePoint = point - rect().center();
     QWidget::move(translatePoint);
 }
 
@@ -223,7 +204,7 @@ void WaterDrop::show()
     m_waterDropAnimation->setDuration(350);
 
     connect(m_waterDropAnimation, &QVariantAnimation::valueChanged, this, &WaterDrop::onRadiusChanged);
-    connect(m_waterDropAnimation, &QVariantAnimation::finished, this, &WaterDrop::close);
+    connect(m_waterDropAnimation, &QVariantAnimation::finished, this, &WaterDrop::deleteLater);
     m_waterDropAnimation->start(QVariantAnimation::DeleteWhenStopped);
     QWidget::show();
 }
