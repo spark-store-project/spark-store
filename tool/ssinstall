@@ -166,7 +166,7 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     fi
 
     dpkg --force-conflicts -i "$DEBPATH"
-    aptss install $DEBPATH -yf
+    aptss install "$DEBPATH" -yf
 
 unlock_file "$DEBPATH"
 

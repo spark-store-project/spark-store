@@ -123,7 +123,7 @@ DEBPATH=$(realpath "$1")
     fi
 
     dpkg --force-conflicts -i "$DEBPATH" 
-    aptss install $DEBPATH -yf
+    aptss install "$DEBPATH" -yf
 
     if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
         if dpkg -s "$package_name" >/dev/null 2>&1; then
