@@ -165,7 +165,7 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
         exit "$try_run_ret"
     fi
 
-    dpkg -i "$DEBPATH" || aptss install -yf
+    dpkg --force-conflicts -i "$DEBPATH" || aptss install $DEBPATH -yf
 
 unlock_file "$DEBPATH"
 
