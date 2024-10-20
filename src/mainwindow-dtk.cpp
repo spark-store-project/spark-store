@@ -22,9 +22,6 @@
 #define AppPageSearchlist 1
 #define AppPageAppdetail 2
 #define AppPageSettings 3
-#define WaylandSearchCenter 1
-#define OtherSearchCenter 2
-#define RightSearchSpace 1
 #define UploadServerUrl "https://upload.deepinos.org.cn/"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -126,6 +123,16 @@ void MainWindow::closeEvent(QCloseEvent *event)
     BaseWidgetOpacity::closeEvent(event);
 }
 
+void MainWindow::changeEvent(QEvent *event)
+{
+    if (event->type() != QEvent::StyleChange) {
+        return BaseWidgetOpacity::changeEvent(event);
+    }
+
+    BaseWidgetOpacity::changeEvent(event);
+    downloadButton->setFixedSize(searchEdit->sizeHint().height(), searchEdit->sizeHint().height());
+}
+
 void MainWindow::initUI()
 {
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
@@ -159,8 +166,9 @@ void MainWindow::initTitleBar()
     ui->titlebar->setBackgroundTransparent(true);
 
     // 初始化标题栏控件
-    DLabel *title = new DLabel(ui->titlebar);
-    title->setText(tr("Spark Store"));
+    DLabel *titleLabel = new DLabel(ui->titlebar);
+    titleLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    titleLabel->setText(tr("Spark Store"));
 
     backButton = new DPushButton(ui->titlebar);
 
@@ -170,34 +178,36 @@ void MainWindow::initTitleBar()
     searchEdit->lineEdit()->setFixedWidth(350);
 
     downloadButton = new ProgressButton(ui->titlebar);
+    downloadButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     downloadButton->setDownloadListWidget(downloadlistwidget);
     downloadButton->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
+    downloadButton->setFixedSize(searchEdit->sizeHint().height(), searchEdit->sizeHint().height());
     downloadlistwidget->setFocusProxy(downloadButton);
 
-    QWidget *w_titlebar = new QWidget(ui->titlebar);
-    QHBoxLayout *ly_titlebar = new QHBoxLayout(w_titlebar);
-    ly_titlebar->addWidget(title);
-    ly_titlebar->addWidget(backButton);
-    // Check wayland configs
-    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    if (!config.value("runtime/isDDE").toBool() && config.value("runtime/useWayland").toBool())
-    {
-        // Wayland 搜索栏居中
-        ly_titlebar->addStretch(WaylandSearchCenter);
-    }
-    else
-    {
-        // dwayland dxcb 搜索栏顶部右侧居中
-        ly_titlebar->addStretch(OtherSearchCenter);
-    }
-    ly_titlebar->addWidget(searchEdit);
-    ly_titlebar->addWidget(downloadButton);
-    ly_titlebar->addStretch(RightSearchSpace);
-    ui->titlebar->setCustomWidget(w_titlebar);
+    QWidget *customWidget = new QWidget(ui->titlebar);
+    customWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    ui->titlebar->setCustomWidget(customWidget);
+
+    QHBoxLayout *customWidgetLayout = new QHBoxLayout(customWidget);
+    customWidgetLayout->setContentsMargins(8, 0, 0, 0);
+    customWidgetLayout->setSpacing(8);
+    customWidgetLayout->addWidget(titleLabel, 0, Qt::AlignLeft);
+    customWidgetLayout->addWidget(backButton, 0, Qt::AlignLeft);
+    QWidget *centralWidget = new QWidget(customWidget);
+    centralWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    customWidgetLayout->addWidget(centralWidget, 1, Qt::AlignHCenter);
+
+    QHBoxLayout *centralLayout = new QHBoxLayout(centralWidget);
+    centralLayout->setContentsMargins(0, 0, 10, 0);
+    centralLayout->setSpacing(0);
+
+    centralLayout->addWidget(searchEdit, 0, Qt::AlignHCenter);
+    centralLayout->addSpacing(10);
+    centralLayout->addWidget(downloadButton, 0, Qt::AlignHCenter);
 
     initTitleBarMenu();
 
-    backButton->hide();
+    backButton->setDisabled(true);
     downloadlistwidget->hide();
 }
 
@@ -353,9 +363,9 @@ void MainWindow::initConnections()
         ui->stackedWidget->setCurrentIndex(pageHistory.at(pageHistory.count() - 2));
         pageHistory.removeLast();
         if (pageHistory.count() > 1) {
-            backButton->show();
+            backButton->setEnabled(true);
         } else {
-            backButton->hide();
+            backButton->setDisabled(true);
         } });
 
     // 搜索事件
@@ -446,11 +456,11 @@ void MainWindow::switchPage(int now) // 临时方案，回家后修改
     qDebug() << pageHistory.count();
     if (pageHistory.count() >= 1)
     {
-        backButton->show();
+        backButton->setEnabled(true);
     }
     else
     {
-        backButton->hide();
+        backButton->setDisabled(true);
     }
     ui->stackedWidget->setCurrentIndex(now);
     ui->stackedWidget->currentWidget()->setFocus();
