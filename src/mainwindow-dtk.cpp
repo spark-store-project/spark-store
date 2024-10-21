@@ -194,13 +194,12 @@ void MainWindow::initTitleBar()
     customWidgetLayout->addWidget(titleLabel, 0, Qt::AlignLeft);
     customWidgetLayout->addSpacing(8);
     customWidgetLayout->addWidget(backButton, 0, Qt::AlignLeft);
-    customWidgetLayout->setSpacing(20);
     QWidget *centralWidget = new QWidget(customWidget);
     centralWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     customWidgetLayout->addWidget(centralWidget, 1, Qt::AlignHCenter);
 
     QHBoxLayout *centralLayout = new QHBoxLayout(centralWidget);
-    centralLayout->setContentsMargins(0, 0, 20, 0);
+    centralLayout->setContentsMargins(20, 0, 10, 0);
     centralLayout->setSpacing(0);
 
     centralLayout->addWidget(searchEdit, 0, Qt::AlignHCenter);
