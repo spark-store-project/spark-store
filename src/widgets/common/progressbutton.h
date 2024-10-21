@@ -65,7 +65,7 @@ class WaterDrop : public QWidget
 public:
     explicit WaterDrop(QWidget *parent = nullptr);
     void show();
-    void move(const QPoint &point);
+    void move(const QPointF &point);
 
 protected:
     void paintEvent(QPaintEvent *event);
