@@ -123,7 +123,6 @@ DEBPATH=$(realpath "$1")
         exit "$try_run_ret"
     fi
 
-
     aptss install "$DEBPATH" -yf --reinstall
 
     if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
