@@ -1,6 +1,6 @@
 #!/bin/bash
 export LANGUAGE=en_US
-
+export DEBIAN_FRONTEND=noninteractive
 case $1 in 
 	ssupdate)
 if [ "$(id -u)" != "0" ] ; then

@@ -33,7 +33,7 @@ void ProgressButton::setProgress(int progress)
         buttonState = state::closeProgress;
         update();
         WaterDrop *waterDrop = new WaterDrop(parentWidget());
-        waterDrop->move(geometry().center());
+        waterDrop->move(QRectF(geometry()).center());
         waterDrop->show();
     }
     repaint();
@@ -124,12 +124,12 @@ void ProgressButton::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
-    QRect rect = event->rect();
+    QRectF rect = this->rect();
 
     if (buttonState == state::normal || buttonState == state::hover)
     {
-        qreal radius = rect.height() / 2.0;
-        painter.translate(QRectF(rect).center());
+        qreal radius = rect.height() / 2;
+        painter.translate(rect.center());
         painter.setPen(Qt::transparent);
         painter.setBrush(backColor);
         painter.drawEllipse(QPointF(0, 0), radius, radius);
@@ -140,8 +140,8 @@ void ProgressButton::paintEvent(QPaintEvent *event)
     }
     else if (buttonState == state::openProgress)
     {
-        qreal radius = rect.height() / 2.0 - 1;
-        painter.translate(QRectF(rect).center());
+        qreal radius = rect.height() / 2 - 1;
+        painter.translate(rect.center());
         painter.setPen(QPen(backColor.darker(), 2));
         painter.setBrush(backColor);
         painter.drawEllipse(QPointF(0, 0), radius, radius);
@@ -157,8 +157,8 @@ void ProgressButton::paintEvent(QPaintEvent *event)
     }
     else if (buttonState == state::closeProgress)
     {
-        qreal radius = rect.height() / 2.0 - 1;
-        painter.translate(QRectF(rect).center());
+        qreal radius = rect.height() / 2 - 1;
+        painter.translate(rect.center());
         painter.setPen(QPen(color.darker(100), 2));
         painter.setBrush(backColor);
         painter.drawEllipse(QPointF(0, 0), radius, radius);
@@ -176,7 +176,7 @@ void ProgressButton::operationProcessing()
 {
 }
 
-const int RADIUS = 60;
+const int RADIUS = 30;
 WaterDrop::WaterDrop(QWidget *parent)
     : QWidget(parent)
     , m_waterDropAnimation(new QVariantAnimation(this))
@@ -191,16 +191,16 @@ WaterDrop::WaterDrop(QWidget *parent)
 }
 
 // 把鼠标点击的点转换为圆心点坐标
-void WaterDrop::move(const QPoint &point)
+void WaterDrop::move(const QPointF &point)
 {
-    QPoint translatePoint = point - rect().center();
-    QWidget::move(translatePoint);
+    QPointF translatePoint = point - QRectF(rect()).center();
+    QWidget::move(qRound(translatePoint.x()), qRound(translatePoint.y()));
 }
 
 void WaterDrop::show()
 {
     m_waterDropAnimation->setStartValue(0);
-    m_waterDropAnimation->setEndValue(RADIUS);
+    m_waterDropAnimation->setEndValue(RADIUS - 2);
     m_waterDropAnimation->setDuration(350);
 
     connect(m_waterDropAnimation, &QVariantAnimation::valueChanged, this, &WaterDrop::onRadiusChanged);
@@ -213,10 +213,9 @@ void WaterDrop::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    QPen pen(QBrush(QColor("#ffff80")), 5.0);
-    pen.setWidth(5);
+    QPen pen(QBrush(QColor("#ffff80")), 4.0);
     painter.setPen(pen);
-    painter.drawEllipse(event->rect().center(), m_animationRadius, m_animationRadius);
+    painter.drawEllipse(QRectF(rect()).center(), m_animationRadius, m_animationRadius);
 
     QWidget::paintEvent(event);
 }
