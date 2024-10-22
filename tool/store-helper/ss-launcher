@@ -54,6 +54,7 @@ unset desktop_file_path
 
 
 }
+
 function scan_desktop_file(){
     unset desktop_file_path
     local result=""

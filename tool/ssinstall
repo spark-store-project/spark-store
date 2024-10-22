@@ -2,7 +2,9 @@
 
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
+export DEBIAN_FRONTEND=noninteractive
 
+trap 'unlock_file $DEBPATH' EXIT
 case $(arch) in
    x86_64)
 	STORE_URL="store"
@@ -164,7 +166,7 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
         exit "$try_run_ret"
     fi
 
-    dpkg -i "$DEBPATH" || aptss install -yf
+    aptss install "$DEBPATH" -yf --reinstall
 
 unlock_file "$DEBPATH"
 

@@ -7,7 +7,6 @@ trap "rm -f  /tmp/spark-store/upgradeStatus.txt" EXIT
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
 
-
 function get_name_from_desktop_file() {
 	local app_name_in_desktop
 	local name_orig
