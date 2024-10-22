@@ -2,6 +2,7 @@
 
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
+export DEBIAN_FRONTEND=noninteractive
 
 case $(arch) in
    x86_64)

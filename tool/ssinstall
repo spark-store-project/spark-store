@@ -2,6 +2,7 @@
 
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
+export DEBIAN_FRONTEND=noninteractive
 
 trap 'unlock_file $DEBPATH' EXIT
 case $(arch) in
