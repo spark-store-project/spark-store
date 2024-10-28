@@ -481,28 +481,28 @@
         <translation>Mise à niveau app</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="216"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="217"/>
         <source>Submit App</source>
         <translation>Soumettre une application</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="217"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="218"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>Soumettre une demande au client (recommandé)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="218"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="219"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="219"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="220"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>Paramètres de mise à niveau et d&apos;installation de l&apos;app</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="171"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="270"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="271"/>
         <source>Spark Store</source>
         <translation>Le Spark store</translation>
     </message>
@@ -537,7 +537,7 @@
         <translation>Télécharger la Liste</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="273"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="274"/>
         <source>Show MainWindow</source>
         <translation>Afficher la fenêtre principale</translation>
     </message>
@@ -658,12 +658,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="274"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="275"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="275"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="276"/>
         <source>Exit</source>
         <translation>Exportations</translation>
     </message>

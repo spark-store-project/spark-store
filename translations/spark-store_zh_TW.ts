@@ -481,28 +481,28 @@
         <translation>軟體更新</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="216"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="217"/>
         <source>Submit App</source>
         <translation>上傳軟體</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="217"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="218"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>從客戶端上傳軟體(推薦的)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="218"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="219"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="219"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="220"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>軟體升級 和 安裝設定</translation>
     </message>
     <message>
         <location filename="../src/mainwindow-dtk.cpp" line="171"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="270"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="271"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -537,7 +537,7 @@
         <translation>下载列表</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="273"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="274"/>
         <source>Show MainWindow</source>
         <translation>显示主窗口</translation>
     </message>
@@ -658,12 +658,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="274"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="275"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="275"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="276"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>

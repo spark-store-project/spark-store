@@ -1,7 +1,11 @@
 #!/bin/bash
 if [ "$(id -u)" != "0" ] ; then
-	pkexec "$0" "$@"
-	exit
+    if [[ IS_ACE_ENV="1" ]];then
+        /opt/durapps/spark-store/bin/store-helper/pass-auth.sh "$0" "$@"
+    else
+	   pkexec "$0" "$@"
+	   exit
+    fi
 fi
 trap "rm -f  /tmp/spark-store/upgradeStatus.txt" EXIT
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
