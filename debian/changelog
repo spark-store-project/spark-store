@@ -1,7 +1,9 @@
-spark-store (4.3.3) UNRELEASED; urgency=medium
+spark-store (4.3.3.1) UNRELEASED; urgency=medium
 
-  * 修复: 需要输入密码更新
-  * 修复: 安装速度慢
+  * 修复点击更新需要输入密码的问题
+  * 修复安装速度下降的问题
+  * 修复闪退问题
+  * 修复错误地展示已安装
 
  -- shenmo <shenmo@spark-app.store>  Tue, 24 Sep 2024 11:27:08 +0800
 
