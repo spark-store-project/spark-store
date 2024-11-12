@@ -24,15 +24,17 @@ stages:
           - '# 换源'
           - apt update
           - export DEBIAN_FRONTEND=noninteractive
-          - echo "安装git devscripts equivs curl..."
-          - 'apt install git devscripts equivs curl -y '
+          - echo "安装依赖..."
+          - 'apt install libgsettings-qt-dev -y '
+          - 'apt install debhelper git curl fakeroot qtbase5-dev zlib1g-dev qt5-default  -y '
           - git clone https://gitlink.org.cn/shenmo7192/dtk-old-bundle.git
           - cd dtk-old-bundle
           - apt install ./*.deb -y
           - cd ..
           - rm -rf dtk-old-bundle
           - ''
-          - 'mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" '
+          - '#mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" '
+          - apt build-dep .
           - dpkg-buildpackage -j2 -b -us -uc
           - cd ..
           - ls -all
