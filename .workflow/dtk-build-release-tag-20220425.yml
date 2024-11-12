@@ -37,7 +37,7 @@ stages:
           - apt build-dep . -y
           - strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
           - uname -a
-          - dpkg-buildpackage -j2 -b -us -uc
+          - dpkg-buildpackage -j1 -b -us -uc
           - cd ..
           - ls -all
           - pwd
