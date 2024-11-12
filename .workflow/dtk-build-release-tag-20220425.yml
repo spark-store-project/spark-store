@@ -18,22 +18,26 @@ stages:
         name: execute_by_docker
         displayName: 基于镜像的DTK构建
         certificate: ''
-        image: docker.io/debian:buster
+        image: docker.jianmuhub.com/library/debian:buster
         command:
           - sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
           - '# 换源'
           - apt update
           - export DEBIAN_FRONTEND=noninteractive
-          - echo "安装git devscripts equivs curl..."
-          - 'apt install git devscripts equivs curl -y '
+          - echo "安装依赖..."
+          - 'apt install libgsettings-qt-dev -y '
+          - 'apt install debhelper git curl fakeroot qtbase5-dev zlib1g-dev qt5-default  -y '
           - git clone https://gitlink.org.cn/shenmo7192/dtk-old-bundle.git
           - cd dtk-old-bundle
           - apt install ./*.deb -y
           - cd ..
           - rm -rf dtk-old-bundle
           - ''
-          - 'mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" '
-          - dpkg-buildpackage -j2 -b -us -uc
+          - '#mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" '
+          - apt build-dep . -y
+          - strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+          - uname -a
+          - dpkg-buildpackage -j1 -b -us -uc
           - cd ..
           - ls -all
           - pwd
