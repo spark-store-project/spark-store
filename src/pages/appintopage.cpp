@@ -287,8 +287,10 @@ void AppIntoPage::setDownloadWidget(DownloadListWidget *w)
     }
 
     dw = w;
-    connect(w, &DownloadListWidget::downloadFinished, [=]()
-    { isDownloading(SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString()); });
+    connect(w, &DownloadListWidget::downloadFinished, this, [=]() {
+            isDownloading(SparkAPI::getServerUrl() + SparkAPI::getArchDir() + spk.path() + "/" + info["Filename"].toString());
+        },
+            Qt::QueuedConnection);
 }
 
 void AppIntoPage::initUI()
@@ -486,7 +488,10 @@ void AppIntoPage::on_downloadButton_clicked()
             return;
         }
 
-        connect(item, &DownloadItem::finished, [=]() { isDownloading(downloadUrl); });
+        connect(item, &DownloadItem::finished, this, [=]() {
+                isDownloading(downloadUrl);
+            },
+                Qt::QueuedConnection);
 
         item->install(0);
         isDownloading(downloadUrl);
@@ -507,7 +512,10 @@ void AppIntoPage::on_downloadButton_clicked()
         item->reinstall = true;
     }
     ui->downloadButton->setEnabled(false);
-    connect(item, &DownloadItem::finished, [=]() { isDownloading(downloadUrl); });
+    connect(item, &DownloadItem::finished, this, [=]() {
+        isDownloading(downloadUrl);
+    },
+        Qt::QueuedConnection);
 
     isDownloading(downloadUrl);
 }
