@@ -1,4 +1,5 @@
 #!/bin/bash
+xhost +
 if [ "$(id -u)" != "0" ] ; then
     if [ "$IS_ACE_ENV" = "1" ];then
         /opt/durapps/spark-store/bin/store-helper/pass-auth.sh "$0" "$@"
@@ -8,7 +9,7 @@ if [ "$(id -u)" != "0" ] ; then
     fi
 fi
 
-xhost +
+
 trap "rm -f  /tmp/spark-store/upgradeStatus.txt" EXIT
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
