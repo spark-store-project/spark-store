@@ -7,6 +7,7 @@ if [ "$(id -u)" != "0" ] ; then
 	   exit
     fi
 fi
+xhost +
 trap "rm -f  /tmp/spark-store/upgradeStatus.txt" EXIT
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
