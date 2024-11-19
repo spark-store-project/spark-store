@@ -32,6 +32,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  policykit-1 | pkexec,
  libnotify-bin,
  desktop-file-utils,
- dpkg-dev
+ dpkg-dev,
+ lsb-release,
 Description: Spark Store
  A community powered app store, based on DTK.
