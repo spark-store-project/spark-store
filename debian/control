@@ -30,6 +30,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libnotify-bin,
  qtwayland5,
  desktop-file-utils,
- dpkg-dev
+ dpkg-dev,
+ lsb-release,
 Description: Spark Store
  A community powered app store, based on DTK.
