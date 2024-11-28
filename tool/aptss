@@ -3,6 +3,7 @@
 SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
 SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
+source /opt/durapps/spark-store/bin/bashimport/log.amber
 load_transhell
 
 case `arch` in
@@ -28,13 +29,13 @@ is_empty_dir(){
 
 function update_list(){
 curl --progress-bar -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "${SPARK_DOWNLOAD_SERVER_URL}/sparkstore${STORE_LIST_URL}.list"
-echo "sparkstore${STORE_LIST_URL}.list update done"  
+log.info "sparkstore${STORE_LIST_URL}.list update done"  
 }
 
 function update_conf(){
 mkdir -p /tmp/aptss-conf/
 curl  --progress-bar -o  /tmp/aptss-conf/apt-fast.conf "${SPARK_DOWNLOAD_SERVER_URL}/apt-fast.conf"
-echo "apt-fast.conf update done"
+log.info "apt-fast.conf update done"
 chmod -R 755 /tmp/aptss-conf  
 }
 

@@ -57,7 +57,7 @@ echo ${app_name_in_desktop}
 touch /tmp/spark-store/upgradeStatus.txt
 
 # 执行 apt update
-pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --pulsate --no-cancel --text="${TRANSHELL_CONTENT_UPDATE_CHEKING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate 2>&1 > /dev/null | zenity --progress --auto-close --pulsate --no-cancel --text="${TRANSHELL_CONTENT_UPDATE_CHEKING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 
 if [ -z `cat /tmp/spark-store-app-ssupdate-status.txt` ] ; then
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
@@ -127,15 +127,11 @@ done)
     update_transhell
 
     # 启动升级任务
-    (pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE -y) &
+    (pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE -y 2>&1 > /dev/null ) &
     cmd_pid=$!
-
-    # 动态更新zenity的进度和文本
-    while kill -0 $cmd_pid 2> /dev/null; do
-        # 动态修改zenity的文本
-        echo "# ${TRANSHELL_CONTENT_UPGRADING_PLEASE_WAIT}"
-        sleep 0.1
-    done
+    # 动态修改zenity的文本
+    echo "# ${TRANSHELL_CONTENT_UPGRADING_PLEASE_WAIT}"
+    wait
 done) | zenity --progress --auto-close --no-cancel --pulsate --text="Preparing..." --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 
 
