@@ -120,15 +120,28 @@ done)
 			zenity --info --text "${TRANSHELL_CONTENT_NO_APP_IS_CHOSEN}" --title "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 		else
 			### 更新用户选择的应用
-	(
-#for PKG_UPGRADE in $PKG_UPGRADE_LIST;do
-#			APP_UPGRADE="$(get_name_from_desktop_file $PKG_UPGRADE)"
-			pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE_LIST -y) &
-           cmd_pid=$!
-           (while kill -0 $cmd_pid 2> /dev/null; do
-                sleep 1
-            done) | zenity --progress --auto-close --no-cancel --pulsate --text="${TRANSHELL_CONTENT_UPGRADING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
-            wait
+
+
+(for PKG_UPGRADE in $PKG_UPGRADE_LIST; do
+    APP_UPGRADE="$(get_name_from_desktop_file $PKG_UPGRADE)"
+    update_transhell
+
+    # 启动升级任务
+    (pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE -y) &
+    cmd_pid=$!
+
+    # 动态更新zenity的进度和文本
+    while kill -0 $cmd_pid 2> /dev/null; do
+        # 动态修改zenity的文本
+        echo "# ${TRANSHELL_CONTENT_UPGRADING_PLEASE_WAIT}"
+        sleep 0.1
+    done
+done) | zenity --progress --auto-close --no-cancel --pulsate --text="Preparing..." --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+
+
+
+	 
+
 
 			#### 更新成功
 			if [ -z "`cat /tmp/spark-store-app-upgrade-status.txt`" ] ; then
