@@ -46,7 +46,7 @@ if [ ! -e "/tmp/aptss-conf/apt-fast.conf" ];then
 mkdir -p /tmp/aptss-conf/
 echo -e "\e[1;32m${TRANSHELL_CONTENT_GETTING_SERVER_CONFIG_AND_MIRROR_LIST}\e[0m"
 echo
-curl --progress-bar -o /tmp/aptss-conf/apt-fast.conf "${SPARK_DOWNLOAD_SERVER_URL}/apt-fast.conf"
+curl --silent -o /tmp/aptss-conf/apt-fast.conf "${SPARK_DOWNLOAD_SERVER_URL}/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf
 
 fi
@@ -107,9 +107,9 @@ elif [ "$1" = "update" ];then
 
 echo -e "\e[1;32m${TRANSHELL_CONTENT_GETTING_SERVER_CONFIG_AND_MIRROR_LIST}\e[0m"
 echo
-curl --progress-bar -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "${SPARK_DOWNLOAD_SERVER_URL}/sparkstore${STORE_LIST_URL}.list"
+curl --silent -o /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "${SPARK_DOWNLOAD_SERVER_URL}/sparkstore${STORE_LIST_URL}.list"
 mkdir -p /tmp/aptss-conf/
-curl --progress-bar -o /tmp/aptss-conf/apt-fast.conf "${SPARK_DOWNLOAD_SERVER_URL}/apt-fast.conf"
+curl --silent -o /tmp/aptss-conf/apt-fast.conf "${SPARK_DOWNLOAD_SERVER_URL}/apt-fast.conf"
 chmod -R 755 /tmp/aptss-conf    
 ### 额外一份拿来给aptss自动补全用
 
