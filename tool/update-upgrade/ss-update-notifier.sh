@@ -122,5 +122,5 @@ if [ -e "/home/$user/.config/spark-union/spark-store/ssshell-config-do-not-show-
     echo "Okay he don't want to be at the top of the world, okay"
     exit
 else
-    notify-send -a spark-store "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY}" "${TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE}"
+    notify-send -a spark-store "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_NOTIFY}" "${TRANSHELL_CONTENT_THERE_ARE_APPS_TO_UPGRADE}" || true # Some machine don't have bus, or who command just print nothing.
 fi
