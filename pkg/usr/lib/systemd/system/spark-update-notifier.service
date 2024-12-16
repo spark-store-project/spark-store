@@ -2,13 +2,14 @@
 Description=Spark Store update notifier
 After=apt-daily.service network.target network-online.target systemd-networkd.service NetworkManager.service connman.service
 
-
 [Service]
 Type=simple
-RemainAfterExit=yes 
+RemainAfterExit=yes
 ExecStart=/opt/durapps/spark-store/bin/update-upgrade/ss-update-notifier.sh
 Restart=on-failure
-RestartSec=10
+RestartSec=15  # 可以设置为更长的重试间隔，比如 15 秒或 30 秒
+StartLimitIntervalSec=1h  # 设置为 1 小时的时间窗口
+StartLimitBurst=3  # 最大允许失败次数为 3 次
 
 [Install]
 WantedBy=multi-user.target
