@@ -51,7 +51,7 @@ for username in `ls /home`
 
 	# Remove gpg key file
 	rm -f /etc/apt/trusted.gpg.d/spark-store.gpg
-	apt-key del '9D9A A859 F750 24B1 A1EC  E16E 0E41 D354 A29A 440C'
+	apt-key del '9D9A A859 F750 24B1 A1EC  E16E 0E41 D354 A29A 440C' || true
 else
 	
 	if [ ! -z "`pidof spark-store`" ] ; then

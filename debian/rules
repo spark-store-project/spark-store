@@ -36,4 +36,6 @@ override_dh_auto_install:
 # Ignore the dpkg-shlibdeps: warning (it uses none of the library's symbols)
 # Qt Mutidedia lib will ref to network libraray.
 override_dh_shlibdeps:
-	dh_shlibdeps --dpkg-shlibdeps-params=--warnings=0
+	dh_shlibdeps --dpkg-shlibdeps-params=--warnings=0 --exclude=opt/durapps/spark-store/bin/ss-feedback/
+override_dh_strip:
+	dh_strip --exclude=opt/durapps/spark-store/bin/ss-feedback/

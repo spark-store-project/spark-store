@@ -37,7 +37,9 @@ stages:
           - apt build-dep . -y
           - strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
           - uname -a
-          - dpkg-buildpackage -j1 -b -us -uc
+          - sed -i 's/dh \$@ --parallel/dh \$@/' debian/rules
+          - '# Gitee的配置太低了'
+          - dpkg-buildpackage  -b -us -uc
           - cd ..
           - ls -all
           - pwd

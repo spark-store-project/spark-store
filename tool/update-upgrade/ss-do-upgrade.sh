@@ -3,10 +3,13 @@ if [ "$(id -u)" != "0" ] ; then
     if [ "$IS_ACE_ENV" = "1" ];then
         /opt/durapps/spark-store/bin/store-helper/pass-auth.sh "$0" "$@"
     else
+       xhost +
 	   pkexec "$0" "$@"
 	   exit
     fi
 fi
+
+
 trap "rm -f  /tmp/spark-store/upgradeStatus.txt" EXIT
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
@@ -54,7 +57,7 @@ echo ${app_name_in_desktop}
 touch /tmp/spark-store/upgradeStatus.txt
 
 # 执行 apt update
-pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate | zenity --progress --auto-close --pulsate --no-cancel --text="${TRANSHELL_CONTENT_UPDATE_CHEKING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh ssupdate 2>&1 > /dev/null | zenity --progress --auto-close --pulsate --no-cancel --text="${TRANSHELL_CONTENT_UPDATE_CHEKING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 
 if [ -z `cat /tmp/spark-store-app-ssupdate-status.txt` ] ; then
 	/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh clean-log
@@ -117,11 +120,25 @@ done)
 			zenity --info --text "${TRANSHELL_CONTENT_NO_APP_IS_CHOSEN}" --title "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
 		else
 			### 更新用户选择的应用
-	for PKG_UPGRADE in $PKG_UPGRADE_LIST;do
-			APP_UPGRADE="$(get_name_from_desktop_file $PKG_UPGRADE)"
-			update_transhell
-			pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE -y | zenity --progress --auto-close --no-cancel --pulsate --text="${TRANSHELL_CONTENT_UPGRADING_PLEASE_WAIT}" --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
-	done
+
+
+(for PKG_UPGRADE in $PKG_UPGRADE_LIST; do
+    APP_UPGRADE="$(get_name_from_desktop_file $PKG_UPGRADE)"
+    update_transhell
+
+    # 启动升级任务
+    (pkexec /opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh upgrade-app $PKG_UPGRADE -y 2>&1 > /dev/null ) &
+    cmd_pid=$!
+    # 动态修改zenity的文本
+    echo "# ${TRANSHELL_CONTENT_UPGRADING_PLEASE_WAIT}"
+    wait
+done) | zenity --progress --auto-close --no-cancel --pulsate --text="Preparing..." --height 70 --width 400 --title="${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
+
+
+
+	 
+
+
 			#### 更新成功
 			if [ -z "`cat /tmp/spark-store-app-upgrade-status.txt`" ] ; then
 				zenity --info --text "${TRANSHELL_CONTENT_CHOSEN_APP_UPGRADE_FINISHED}" --title "${TRANSHELL_CONTENT_SPARK_STORE_UPGRADE_MODEL}" --height 150 --width 300 --window-icon=/usr/share/icons/hicolor/scalable/apps/spark-store.svg
