@@ -1,4 +1,8 @@
 #!/bin/bash
+if [[ "$UID" != "0" ]];then
+pkexec "$0" "$@"
+exit
+fi
 SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
 SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
