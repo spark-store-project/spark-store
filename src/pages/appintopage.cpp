@@ -180,7 +180,19 @@ void AppIntoPage::openUrl(const QUrl &url)
             {
                 if (isUpdated)
                 {
-                    ui->downloadButton->setText(tr("Reinstall"));
+                    QProcess process;
+                    QStringList arguments;
+                    arguments << "check" << info["Pkgname"].toString();
+                    process.start("/opt/durapps/spark-store/bin/store-helper/ss-launcher", arguments);
+                    if (process.waitForFinished()) {
+                            exitCode = process.exitCode();
+                            exitStatus = process.exitStatus();
+                            if (exitCode != 0){
+                                ui->downloadButton->setText(tr("Reinstall"));
+                            }else{
+                                ui->downloadButton->setText(tr("Launch"));
+                            }
+                    }
                     ui->downloadButton->setEnabled(true);
                     ui->downloadButton->show();
                     ui->pushButton_3->show();
@@ -357,14 +369,25 @@ void AppIntoPage::isDownloading(const QUrl &url)
 
         int exitCode = process.exitCode();
         QProcess::ExitStatus exitStatus = process.exitStatus();
-        process.close();
 
         if (exitCode == 0 && exitStatus == QProcess::NormalExit)
         {
+            QStringList arguments;
+            arguments << "check" << info["Pkgname"].toString();
+            process.start("/opt/durapps/spark-store/bin/store-helper/ss-launcher", arguments);
+            if (process.waitForFinished()) {
+                    exitCode = process.exitCode();
+                    exitStatus = process.exitStatus();
+                    if (exitCode != 0){
+                        ui->downloadButton->setText(tr("Reinstall"));
+                    }else{
+                        ui->downloadButton->setText(tr("Launch"));
+                    }
+            }
             ui->downloadButton->setEnabled(true);
-            ui->downloadButton->setText(tr("Reinstall"));
             ui->downloadButton->show();
             ui->pushButton_3->show();
+            process.close();
         }
         else
         {
@@ -498,6 +521,15 @@ void AppIntoPage::on_downloadButton_clicked()
 
         return;
     }
+    else if (ui->downloadButton->text() == tr("Launch"))
+    {
+        QString scriptPath = "/opt/durapps/spark-store/bin/store-helper/ss-launcher";
+        QStringList arguments;
+        arguments << "launch" << info["Pkgname"].toString();
+        QProcess process;
+        process.startDetached(scriptPath, arguments);
+        return;
+    }
 
     emit clickedDownloadBtn();
 
@@ -506,7 +538,6 @@ void AppIntoPage::on_downloadButton_clicked()
     {
         return;
     }
-
     if (ui->downloadButton->text() == tr("Reinstall"))
     {
         item->reinstall = true;
