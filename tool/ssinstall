@@ -123,6 +123,7 @@ if [ ! -f "$1" ]; then
     PACKAGE_NAME=$(echo "$FILENAME" | sed -r 's/^([^_]+)_.*$/\1/')
     VERSION=$(echo "$FILENAME" | sed -r 's/^[^_]+_([^_]+)_.*$/\1/')
     pushd ${FILEPATH}
+    aptss ssupdate
     aptss download ${PACKAGE_NAME}=${VERSION}
     popd
     if [ ! -f "$1" ]; then
