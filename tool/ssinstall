@@ -1,10 +1,5 @@
 #!/bin/bash
-if [[ "$UID" != "0" ]];then
-pkexec "$0" "$@"
-exit
-fi
-SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
-SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
+
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 load_transhell_debug
 export DEBIAN_FRONTEND=noninteractive
@@ -65,7 +60,7 @@ function zenity() {
 }
 
 function hash_check() {
-if [ ! -e "/var/lib/aptss/lists/${SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL}_${STORE_URL}_Packages" ] && \
+    if [ ! -e "/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages" ] && \
        [ ! -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && \
        [ ! -e "/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store_${STORE_URL}_Packages" ]; then
         echo "接收星火仓库软件信息中..."
@@ -123,8 +118,7 @@ if [ ! -f "$1" ]; then
     PACKAGE_NAME=$(echo "$FILENAME" | sed -r 's/^([^_]+)_.*$/\1/')
     VERSION=$(echo "$FILENAME" | sed -r 's/^[^_]+_([^_]+)_.*$/\1/')
     pushd ${FILEPATH}
-    aptss ssupdate
-    aptss download ${PACKAGE_NAME}=${VERSION}
+    aptss download ${PACKAGE_NAME}
     popd
     if [ ! -f "$1" ]; then
     	echo "OMG-IT-GOES-WRONG"
