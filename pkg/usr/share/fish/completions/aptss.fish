@@ -1,36 +1,66 @@
 # 清除已有的 aptss 补全（如果有的话）
 complete -c aptss -e
 
-# 禁用默认的文件补全
+# 禁用默认的文件补全（避免显示当前目录文件）
 complete -c aptss -f
 
 ########################################################################
-# aptss Fish 补全脚本（中文说明版）
+# aptss Fish 补全脚本（中文说明版，软件包补全显示简介）
 #
-# 该脚本参考了 Debian 的 aptss bash 补全和 apt 的 Fish 补全，
-# 并将子命令的说明翻译为中文。
+# 说明：
+# 1. 子命令和选项的说明采用中文显示。
+# 2. 软件包补全部分不再调用 apt-cache，而是解析 aptss 自有的软件源索引文件，
+#    从 /var/lib/aptss/lists/*Packages（或 *Sources）中提取软件包名称及简介信息。
+#
+# 注意：如果你的 aptss 软件源索引文件位置或格式有变化，请相应修改下面的 awk 命令。
 ########################################################################
 
 ### 辅助函数
 
-# 输出所有可用的包名（调用 apt-cache 并指定 aptss 的缓存目录）
+# 解析 /var/lib/aptss/lists/*Packages 文件，输出符合当前输入前缀的“软件包<TAB>简介”
 function __fish_aptss_print_packages
-    apt-cache --no-generate pkgnames -o Dir::Cache="/var/lib/aptss/" 2>/dev/null
+    set cur (commandline -ct)
+    # 将所有匹配的 Packages 文件拼接后，用 awk 分段解析（RS="" 表示以空行为分段）
+    awk -v cur="$cur" '
+      BEGIN { RS=""; FS="\n" }
+      {
+         pkg = ""; desc = "";
+         for(i=1; i<=NF; i++){
+            if($i ~ /^Package: /) { pkg = substr($i, 10) }  # “Package: ”共9个字符
+            else if($i ~ /^Description: /) { desc = substr($i, 14) }  # “Description: ”共13个字符
+         }
+         if(pkg != "" && (cur == "" || pkg ~ ("^" cur))) {
+             print pkg "\t" desc
+         }
+      }
+    ' /var/lib/aptss/lists/*Packages 2>/dev/null
 end
 
-# 输出所有可用的源包（从 apt-cache dumpavail 中提取 Source 字段）
-function __fish_aptss_print_sources
-    apt-cache dumpavail -o Dir::Cache="/var/lib/aptss/" 2>/dev/null | \
-        grep "^Source:" | cut -d' ' -f2 | sort -u
+# 解析已安装软件包（这里仍使用 dpkg-query，如果需要使用 aptss 数据，可另外构造）
+function __fish_aptss_print_installed_packages
+    set cur (commandline -ct)
+    dpkg-query -W -f='${Package}\t${Description}\n' 2>/dev/null | grep -i "^$cur"
 end
 
-# 输出 target-release 备选项（从 apt-cache policy 中提取）
-function __fish_aptss_target_release
-    apt-cache policy -o Dir::Cache="/var/lib/aptss/" | \
-        grep -oE 'a=[^,]*|n=[^,]*' | cut -d= -f2 | sort -u
+# 解析 /var/lib/aptss/lists/*Sources 文件，输出源代码包信息（如果存在）
+function __fish_aptss_print_source_packages
+    set cur (commandline -ct)
+    awk -v cur="$cur" '
+      BEGIN { RS=""; FS="\n" }
+      {
+         pkg = ""; desc = "";
+         for(i=1; i<=NF; i++){
+            if($i ~ /^Package: /) { pkg = substr($i, 10) }
+            else if($i ~ /^Description: /) { desc = substr($i, 14) }
+         }
+         if(pkg != "" && (cur == "" || pkg ~ ("^" cur))) {
+             print pkg "\t" desc
+         }
+      }
+    ' /var/lib/aptss/lists/*Sources 2>/dev/null
 end
 
-# 翻译子命令为中文说明
+# 翻译子命令为中文说明（用于补全时显示在括号内）
 function __fish_translate_aptss_cmd
     switch $argv[1]
         case ssupdate
@@ -93,17 +123,17 @@ end
 # 所有子命令列表
 set -g __aptss_commands ssupdate list search show showsrc install remove purge autoremove update upgrade full-upgrade dist-upgrade edit-sources help source build-dep clean autoclean download changelog moo depends rdepends policy
 
-# 需要补全包名的子命令（例如安装、显示、搜索等）
+# 需要补全二进制软件包名称的子命令（例如 install、show、search、download、changelog、depends、rdepends）
 set -l __aptss_pkg_subcmds install show search download changelog depends rdepends
 
-# 需要补全“已安装”包的子命令（如 remove、purge、autoremove）
+# 需要补全已安装软件包的子命令（例如 remove、purge、autoremove）
 set -l __aptss_installed_pkg_subcmds remove purge autoremove
 
-# 需要补全源包的子命令（结合 apt-cache dumpavail）
+# 需要补全源代码包的子命令（例如 source、build-dep、showsrc、policy）
 set -l __aptss_src_pkg_subcmds source build-dep showsrc policy
 
 ### 子命令补全
-# 当未输入子命令时，显示所有候选子命令，并使用中文说明
+# 未输入子命令时，显示所有候选子命令，并在括号中显示中文说明
 for cmd in $__aptss_commands
     set desc (__fish_translate_aptss_cmd $cmd)
     complete -c aptss -a $cmd -d "$desc" -n "not __fish_seen_subcommand_from $__aptss_commands"
@@ -198,19 +228,15 @@ complete -c aptss -n '
     end
 ' -a '(__fish_aptss_target_release)' -d '目标版本'
 
-### 包名补全
-# 对于需要包名参数的子命令，调用 __fish_aptss_print_packages
-complete -c aptss -n "__fish_seen_subcommand_from $__aptss_pkg_subcmds" -a '(__fish_aptss_print_packages)' -d '软件包名称'
+### 软件包补全
+# 对于需要二进制软件包名称的子命令，调用 __fish_aptss_print_packages，
+# 输出的每一行格式为 "包名<TAB>简介"，Fish 会将 TAB 后内容显示为注释。
+complete -c aptss -n "__fish_seen_subcommand_from $__aptss_pkg_subcmds" -a '(__fish_aptss_print_packages)'
 
-# 对于 remove、purge、autoremove 命令，补全“已安装”包
-complete -c aptss -n "__fish_seen_subcommand_from $__aptss_installed_pkg_subcmds" -a '(__fish_aptss_print_packages)' -d '已安装软件包'
+# 对于 remove、purge、autoremove 命令，补全已安装的软件包（使用 dpkg-query 输出）
+complete -c aptss -n "__fish_seen_subcommand_from $__aptss_installed_pkg_subcmds" -a '(__fish_aptss_print_installed_packages)' -d '已安装软件包'
 
-# 对于 source、build-dep、showsrc、policy 命令，组合补全包名及源包名称
-complete -c aptss -n "__fish_seen_subcommand_from $__aptss_src_pkg_subcmds" -a '(__fish_aptss_print_packages; __fish_aptss_print_sources)' -d '源代码包'
-
-### 文件补全
-# 对于 install 命令：若参数看似为文件路径，则仅补全 .deb 文件
-complete -c aptss -n '__fish_seen_subcommand_from install; and test (string match -q "/*" (commandline -ct))' -a "(_filedir -X '*.deb')" -d 'Deb 安装包'
-
-# 对于 edit-sources 命令：补全 /etc/apt/sources.list 与 /etc/apt/sources.list.d 下的 .list 文件
-complete -c aptss -n "__fish_seen_subcommand_from edit-sources" -a "(__fish_complete_path /etc/apt/sources.list /etc/apt/sources.list.d/*.list)" -d '软件源文件'
+# 对于 source、build-dep、showsrc、policy 命令，补全源代码包，
+# 如果存在对应的 Sources 索引文件，则调用 __fish_aptss_print_source_packages，
+# 否则可考虑默认使用二进制包的索引。
+complete -c aptss -n "__fish_seen_subcommand_from $__aptss_src_pkg_subcmds" -a '(__fish_aptss_print_source_packages)' -d '源代码包'
