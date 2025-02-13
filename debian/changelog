@@ -1,6 +1,8 @@
 spark-store (4.4.0) UNRELEASED; urgency=medium
 
-  * 支持从商店中直接启动
+  * 支持从商店中直接启动应用
+  * ssinstall 修复安装时不再指定版本号以避免出现问题
+  * aptss支持fish补全
 
  -- shenmo <shenmo@spark-app.store>  Tue, 24 Sep 2024 11:27:08 +0800
 
