@@ -41,12 +41,13 @@ function log.debug() { log.log "debug" $@; }
 
 function scan_desktop_file_log(){
 unset desktop_file_path
+package_name=$1
     for desktop_file_path in $(dpkg -L "$1" |grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
 	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
 	log.info "$desktop_file_path is found."
 	fi
     done
-	for desktop_file_path in $(dpkg -L "$1" |grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
+	for desktop_file_path in $(dpkg -L "$1" |grep /opt/apps/$package_name/entries/applications/ | awk '/\.desktop$/ {print}'); do
 	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
 	log.info "$desktop_file_path is found."
 	fi
@@ -100,7 +101,7 @@ function launch_app(){
     log.info "Command is $exec_command"
 
     # 在默认终端执行命令
-    eval "$exec_command"
+    bash -c $exec_command
 }
 
 if [ "$#" -lt 2 ];then
