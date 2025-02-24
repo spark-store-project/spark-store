@@ -121,10 +121,10 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="192"/>
-        <location filename="../src/pages/appintopage.cpp" line="330"/>
-        <location filename="../src/pages/appintopage.cpp" line="364"/>
-        <location filename="../src/pages/appintopage.cpp" line="518"/>
+        <location filename="../src/pages/appintopage.cpp" line="210"/>
+        <location filename="../src/pages/appintopage.cpp" line="350"/>
+        <location filename="../src/pages/appintopage.cpp" line="395"/>
+        <location filename="../src/pages/appintopage.cpp" line="572"/>
         <source>Download and Install</source>
         <translation>下載並安裝</translation>
     </message>
@@ -181,74 +181,81 @@
         <translation>点击跳转</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="126"/>
+        <location filename="../src/pages/appintopage.cpp" line="132"/>
         <source>Developer Mode Disabled</source>
         <translation>开发者模式未开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="177"/>
-        <location filename="../src/pages/appintopage.cpp" line="357"/>
-        <location filename="../src/pages/appintopage.cpp" line="490"/>
+        <location filename="../src/pages/appintopage.cpp" line="191"/>
+        <location filename="../src/pages/appintopage.cpp" line="382"/>
+        <location filename="../src/pages/appintopage.cpp" line="541"/>
         <source>Reinstall</source>
         <translation>重新安裝</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="184"/>
+        <location filename="../src/pages/appintopage.cpp" line="193"/>
+        <location filename="../src/pages/appintopage.cpp" line="384"/>
+        <location filename="../src/pages/appintopage.cpp" line="524"/>
+        <source>Launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="202"/>
         <source>Upgrade</source>
         <translation>升级</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="335"/>
-        <location filename="../src/pages/appintopage.cpp" line="466"/>
+        <location filename="../src/pages/appintopage.cpp" line="355"/>
+        <location filename="../src/pages/appintopage.cpp" line="506"/>
         <source>Install</source>
         <translation>安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="340"/>
+        <location filename="../src/pages/appintopage.cpp" line="360"/>
         <source>Installing</source>
         <translation>正在安装</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="445"/>
-        <location filename="../src/pages/appintopage.cpp" line="449"/>
-        <location filename="../src/pages/appintopage.cpp" line="453"/>
-        <location filename="../src/pages/appintopage.cpp" line="457"/>
+        <location filename="../src/pages/appintopage.cpp" line="485"/>
+        <location filename="../src/pages/appintopage.cpp" line="489"/>
+        <location filename="../src/pages/appintopage.cpp" line="493"/>
+        <location filename="../src/pages/appintopage.cpp" line="497"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="445"/>
+        <location filename="../src/pages/appintopage.cpp" line="485"/>
         <source>The current application does not support or tested on deepin, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="449"/>
+        <location filename="../src/pages/appintopage.cpp" line="489"/>
         <source>The current application does not support or tested on UOS, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="453"/>
+        <location filename="../src/pages/appintopage.cpp" line="493"/>
         <source>The current application does not support or tested on Ubuntu, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="457"/>
+        <location filename="../src/pages/appintopage.cpp" line="497"/>
         <source>The current application does not support or tested on current platform, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="521"/>
-        <location filename="../src/pages/appintopage.cpp" line="536"/>
+        <location filename="../src/pages/appintopage.cpp" line="575"/>
+        <location filename="../src/pages/appintopage.cpp" line="590"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="521"/>
+        <location filename="../src/pages/appintopage.cpp" line="575"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="536"/>
+        <location filename="../src/pages/appintopage.cpp" line="590"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -269,12 +276,12 @@
 <context>
     <name>DAboutDialog</name>
     <message>
-        <location filename="../src/application.cpp" line="141"/>
+        <location filename="../src/application.cpp" line="142"/>
         <source>Version: %1</source>
         <translation>版本：%1</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="151"/>
+        <location filename="../src/application.cpp" line="152"/>
         <source>%1 is released under %2</source>
         <translation>%1遵循%2协议发布</translation>
     </message>
@@ -411,103 +418,103 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="166"/>
+        <location filename="../src/mainwindow-dtk.ui" line="116"/>
         <source>Home</source>
         <translation>首頁</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="203"/>
+        <location filename="../src/mainwindow-dtk.ui" line="153"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="231"/>
+        <location filename="../src/mainwindow-dtk.ui" line="181"/>
         <source>Chat</source>
         <translation>聊天</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="259"/>
+        <location filename="../src/mainwindow-dtk.ui" line="209"/>
         <source>Music</source>
         <translation>音樂</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="287"/>
+        <location filename="../src/mainwindow-dtk.ui" line="237"/>
         <source>Video</source>
         <translation>播放</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="315"/>
+        <location filename="../src/mainwindow-dtk.ui" line="265"/>
         <source>Picture</source>
         <translation>圖片</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="343"/>
+        <location filename="../src/mainwindow-dtk.ui" line="293"/>
         <source>Game</source>
         <translation>遊戲</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="371"/>
+        <location filename="../src/mainwindow-dtk.ui" line="321"/>
         <source>Office</source>
         <translation>辦公</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="399"/>
+        <location filename="../src/mainwindow-dtk.ui" line="349"/>
         <source>Reading</source>
         <translation>閱讀</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="427"/>
+        <location filename="../src/mainwindow-dtk.ui" line="377"/>
         <source>Development</source>
         <translation>開發</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="455"/>
+        <location filename="../src/mainwindow-dtk.ui" line="405"/>
         <source>Tool</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="483"/>
+        <location filename="../src/mainwindow-dtk.ui" line="433"/>
         <source>Theme</source>
         <translation>主題</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="511"/>
+        <location filename="../src/mainwindow-dtk.ui" line="461"/>
         <source>Other</source>
         <translation>其他</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.ui" line="539"/>
+        <location filename="../src/mainwindow-dtk.ui" line="489"/>
         <source>APP Upgrade</source>
         <translation>軟體更新</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="190"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="217"/>
         <source>Submit App</source>
         <translation>上傳軟體</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="191"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="218"/>
         <source>Submit App with client(Recommanded)</source>
         <translation>從客戶端上傳軟體(推薦的)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="192"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="219"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="193"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="220"/>
         <source>APP Upgrade and Install Settings</source>
         <translation>軟體升級 和 安裝設定</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="147"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="244"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="171"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="271"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="152"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="176"/>
         <source>Search or enter spk://</source>
         <translation>搜索或打开链接</translation>
     </message>
@@ -515,19 +522,19 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/application.cpp" line="35"/>
         <location filename="../src/application.cpp" line="36"/>
-        <location filename="../src/mainwindow-dtk.cpp" line="126"/>
+        <location filename="../src/application.cpp" line="37"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="149"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="40"/>
+        <location filename="../src/application.cpp" line="41"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;Spark developers&lt;/span&gt;</source>
         <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;一款由社区提供的应用商店&lt;/span&gt;&lt;br/&gt;&lt;a href=&apos;https://www.spark-app.store/&apos;&gt;https://www.spark-app.store&lt;/a&gt;&lt;br/&gt;&lt;span style=&apos; font-size:12pt;&apos;&gt;星火计划开发者&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../src/application.cpp" line="148"/>
+        <location filename="../src/application.cpp" line="149"/>
         <source>Spark Project</source>
         <translation>星火计划</translation>
     </message>
@@ -537,7 +544,7 @@
         <translation>下载列表</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="247"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="274"/>
         <source>Show MainWindow</source>
         <translation>显示主窗口</translation>
     </message>
@@ -658,12 +665,12 @@
 <context>
     <name>TitleBarMenu</name>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="248"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="275"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow-dtk.cpp" line="249"/>
+        <location filename="../src/mainwindow-dtk.cpp" line="276"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
