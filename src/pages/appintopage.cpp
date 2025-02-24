@@ -73,7 +73,7 @@ void AppIntoPage::openUrl(const QUrl &url)
         iconRequest.setUrl(QUrl(pkgUrlBase + "/icon.png"));
         iconRequest.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
         iconRequest.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
-        iconRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+
 
         iconManager->get(iconRequest);
         QObject::connect(iconManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
