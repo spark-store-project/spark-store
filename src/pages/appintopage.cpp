@@ -231,6 +231,7 @@ void AppIntoPage::clear()
     ui->tag_deepin->hide();
     ui->tag_dwine2->hide();
     ui->tag_dwine5->hide();
+    ui->tag_debian->hide();
     ui->tag_ubuntu->hide();
     ui->tag_community->hide();
     ui->icon->clear();
@@ -402,11 +403,17 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
     bool ubuntuSupport = false;
     bool deepinSupport = false;
     bool uosSupport = false;
+    bool debianSupport = false;
     foreach (const QString &tag, tagList)
     {
         if (tag == "community")
         {
             ui->tag_community->show();
+        }
+        else if (tag == "debian")
+        {
+            ui->tag_debian->show();
+            debianSupport = true;
         }
         else if (tag == "ubuntu")
         {
@@ -441,10 +448,10 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
             ui->tag_a2d->show();
         }
     }
-    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport);
+    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport ,debianSupport);
 }
 
-void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport)
+void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport, bool debianSupport)
 {
     if (!SettingsPage::needUncompatibleNotification) {
         return;
@@ -455,30 +462,21 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
     bool checkdeepin = (isDeepin && !deepinSupport);
     bool checkuos = (isUOS && !uosSupport);
     bool isUbuntu = false;
+    bool isDebian = false;
     if (!checkdeepin && !checkuos)
     {
-        // 检查是否为 ubuntu 系统
-        QFile lsb("/etc/lsb-release");
-        if (!lsb.open(QIODevice::ReadOnly))
-        {
-            qDebug() << "打开 /etc/lsb-release 失败";
-        }
-        else {
-            QString lsbInfo = lsb.readAll();  // 因为使用 readAll 读取后会默认跳转到文件末尾导致读出的数据为空，所以用单独一个 string 存储
-            if (lsbInfo.contains("Ubuntu"))
-            {
-                isUbuntu = true;
-                lsb.close();
-            }
-            else if (lsbInfo.contains("GXDE"))
-            {
-                // GXDE 使用 Ubuntu 的 tag
-                isUbuntu = true;
-                lsb.close();
-            }
+        // 使用更可靠的/etc/os-release检测
+        QFile osRelease("/etc/os-release");
+        if (osRelease.open(QIODevice::ReadOnly)) {
+            QString content = osRelease.readAll();
+            isUbuntu = content.contains("ID=ubuntu");
+            isDebian = content.contains("ID=debian") || content.contains("ID_LIKE=debian"); // 合并Debian系检测
+            osRelease.close();
         }
     }
+
     bool checkubuntu = (isUbuntu && !ubuntuSupport);
+    bool checkdebian = (isDebian && !debianSupport);
 
     if (checkdeepin)
     {
@@ -492,12 +490,17 @@ void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSuppo
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support or tested on Ubuntu, there may be problems"));
     }
-    else if (!isUbuntu && !isDeepin && !isUOS)
+    else if (checkdebian)
+    {
+        Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support or tested on Debian, there may be problems"));
+    }
+    if (!isUbuntu && !isDeepin && !isUOS && !isDebian)
     {
         Utils::sendNotification("spark-store", tr("Warning"), tr("The current application does not support or tested on current platform, there may be problems"));
     }
 
     return;
+
 }
 
 void AppIntoPage::on_downloadButton_clicked()

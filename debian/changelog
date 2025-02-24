@@ -6,6 +6,7 @@ spark-store (4.5.0) UNRELEASED; urgency=medium
   * 修复: distrobox下无法正常校验应用hash
   * aptss 4.5.0
   * 应用更新新增进度条
+  * 支持识别Debian
 
  -- shenmo <shenmo@spark-app.store>  Tue, 24 Sep 2024 11:27:08 +0800
 
