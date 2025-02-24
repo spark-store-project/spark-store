@@ -97,7 +97,6 @@ void AppIntoPage::openUrl(const QUrl &url)
             request.setUrl(QUrl(imgUrl));
             request.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
             request.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
-            request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
             manager->get(request);
             QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
                 {
