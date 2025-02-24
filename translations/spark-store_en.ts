@@ -126,10 +126,10 @@
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="244"/>
-        <location filename="../src/pages/appintopage.cpp" line="198"/>
-        <location filename="../src/pages/appintopage.cpp" line="338"/>
-        <location filename="../src/pages/appintopage.cpp" line="372"/>
-        <location filename="../src/pages/appintopage.cpp" line="541"/>
+        <location filename="../src/pages/appintopage.cpp" line="210"/>
+        <location filename="../src/pages/appintopage.cpp" line="350"/>
+        <location filename="../src/pages/appintopage.cpp" line="395"/>
+        <location filename="../src/pages/appintopage.cpp" line="572"/>
         <source>Download and Install</source>
         <translation type="unfinished"></translation>
     </message>
@@ -186,69 +186,76 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="183"/>
-        <location filename="../src/pages/appintopage.cpp" line="365"/>
-        <location filename="../src/pages/appintopage.cpp" line="510"/>
+        <location filename="../src/pages/appintopage.cpp" line="191"/>
+        <location filename="../src/pages/appintopage.cpp" line="382"/>
+        <location filename="../src/pages/appintopage.cpp" line="541"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="190"/>
+        <location filename="../src/pages/appintopage.cpp" line="193"/>
+        <location filename="../src/pages/appintopage.cpp" line="384"/>
+        <location filename="../src/pages/appintopage.cpp" line="524"/>
+        <source>Launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.cpp" line="202"/>
         <source>Upgrade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="343"/>
-        <location filename="../src/pages/appintopage.cpp" line="483"/>
+        <location filename="../src/pages/appintopage.cpp" line="355"/>
+        <location filename="../src/pages/appintopage.cpp" line="506"/>
         <source>Install</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="348"/>
+        <location filename="../src/pages/appintopage.cpp" line="360"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="462"/>
-        <location filename="../src/pages/appintopage.cpp" line="466"/>
-        <location filename="../src/pages/appintopage.cpp" line="470"/>
-        <location filename="../src/pages/appintopage.cpp" line="474"/>
+        <location filename="../src/pages/appintopage.cpp" line="485"/>
+        <location filename="../src/pages/appintopage.cpp" line="489"/>
+        <location filename="../src/pages/appintopage.cpp" line="493"/>
+        <location filename="../src/pages/appintopage.cpp" line="497"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="462"/>
+        <location filename="../src/pages/appintopage.cpp" line="485"/>
         <source>The current application does not support or tested on deepin, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="466"/>
+        <location filename="../src/pages/appintopage.cpp" line="489"/>
         <source>The current application does not support or tested on UOS, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="470"/>
+        <location filename="../src/pages/appintopage.cpp" line="493"/>
         <source>The current application does not support or tested on Ubuntu, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="474"/>
+        <location filename="../src/pages/appintopage.cpp" line="497"/>
         <source>The current application does not support or tested on current platform, there may be problems</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="544"/>
-        <location filename="../src/pages/appintopage.cpp" line="559"/>
+        <location filename="../src/pages/appintopage.cpp" line="575"/>
+        <location filename="../src/pages/appintopage.cpp" line="590"/>
         <source>Spark Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="544"/>
+        <location filename="../src/pages/appintopage.cpp" line="575"/>
         <source>Uninstall succeeded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="559"/>
+        <location filename="../src/pages/appintopage.cpp" line="590"/>
         <source>The URL has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>

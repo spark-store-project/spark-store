@@ -1,3 +1,14 @@
+spark-store (4.5.0) UNRELEASED; urgency=medium
+
+  * 支持从商店中直接启动应用
+  * ssinstall 修复安装时不再指定版本号以避免出现问题
+  * aptss支持fish补全
+  * 修复: distrobox下无法正常校验应用hash
+  * aptss 4.5.0
+  * 应用更新新增进度条
+
+ -- shenmo <shenmo@spark-app.store>  Tue, 24 Sep 2024 11:27:08 +0800
+
 spark-store (4.3.3.2) UNRELEASED; urgency=medium
 
   * 提升升级工具体验，不再反复弹窗

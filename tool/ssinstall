@@ -118,7 +118,7 @@ if [ ! -f "$1" ]; then
     PACKAGE_NAME=$(echo "$FILENAME" | sed -r 's/^([^_]+)_.*$/\1/')
     VERSION=$(echo "$FILENAME" | sed -r 's/^[^_]+_([^_]+)_.*$/\1/')
     pushd ${FILEPATH}
-    aptss download ${PACKAGE_NAME}=${VERSION}
+    aptss download ${PACKAGE_NAME}
     popd
     if [ ! -f "$1" ]; then
     	echo "OMG-IT-GOES-WRONG"
