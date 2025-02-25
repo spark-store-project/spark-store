@@ -433,7 +433,7 @@ get_uris(){
     msg "Package manager quit with exit code.Here is the log" "warning"
     msg "包管理器以错误代码退出.日志如下" "warning"
     msg "${uris_full}"
-    exit"$CLEANUP_STATE"
+    exit "$CLEANUP_STATE"
   fi
   prepare_auth
  local tmpdir=$(mktemp -d) || {
