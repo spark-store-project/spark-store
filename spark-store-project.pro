@@ -40,6 +40,9 @@ qm.path = /usr/share/spark-store/translations
 bash_completion.files += pkg/usr/share/bash-completion/completions/aptss
 bash_completion.path = /usr/share/bash-completion/completions
 
+fish_completion.files += pkg/usr/share/fish/completions/aptss.fish
+fish_completion.path = /usr/share/fish/completions/
+
 desktop.files += pkg/usr/share/applications/*.desktop
 desktop.path = /usr/share/applications
 
@@ -73,5 +76,6 @@ INSTALLS += \
         tmp \
         service \
         bash_completion \
+        fish_completion \
         polkit-1 
 #   暂时不添加

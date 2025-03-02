@@ -25,7 +25,7 @@ To improve this situation, we have launched this app store. We have broadly incl
 
 We warmly welcome you to join our development team. Whether you want to participate in development or submit applications, you can find your place here to jointly promote the development of the Linux application ecosystem.
 
-You can track our Issue handling status in real-time through the following link: [Gitee Issue Board](https://gitee.com/spark-store-project/spark-store/board).
+You can track our Issue handling status in real-time through the following link: [Issue Board](https://gitee.com/spark-store-project/spark-store/board).
 
 If you have a software package you'd like to submit, please [click here to submit](https://upload.deepinos.org.cn/index).
 
@@ -158,7 +158,7 @@ You can also check the [Chinese version](https://gitee.com/spark-store-project/s
 
 ## Contact and Feedback
 
-- If you have any questions or suggestions, please submit them via email or on our [Gitee page](https://gitee.com/spark-store-project/spark-store/issues).
+- If you have any questions or suggestions, please submit them via email or on our [Issue Page](https://gitee.com/spark-store-project/spark-store/issues).
 - If you want to follow our development progress, you can go to the [Spark App Store Board](https://gitee.com/spark-store-project/spark-store/board) for more information.
 - Our [Forum](https://bbs.spark-app.store/)
 - Our [QQ Group](https://blog.shenmo.tech/post/%E6%95%85%E9%9A%9C%E5%85%AC%E5%91%8A/)

@@ -39,7 +39,7 @@ https://github.com/spark-store-project/spark-store
 
 我们热忱欢迎您加入我们的开发团队。无论您是想参与开发，还是想提交应用，都能在这里找到属于您的一席之地，共同推动Linux应用生态的发展。
 
-您可以通过以下链接，实时跟踪我们的Issue处理状态：[Gitee Issue看板](https://gitee.com/spark-store-project/spark-store/board)。
+您可以通过以下链接，实时跟踪我们的Issue处理状态：[Issue看板](https://gitee.com/spark-store-project/spark-store/board)。
 
 若您有软件包想要提交，敬请 [点击此处进行投稿](https://wiki.spark-app.store/#/Submit/Submit)。
 
@@ -179,7 +179,7 @@ https://github.com/spark-store-project/spark-store
 
 ## 联系与反馈
 
-- 如果您有任何问题或建议，请通过邮件或在[Gitee页面](https://gitee.com/spark-store-project/spark-store/issues)上提交问题。
+- 如果您有任何问题或建议，请通过邮件或在[Issue 页面](https://gitee.com/spark-store-project/spark-store/issues)上提交问题。
 - 如果你想关注我们的开发进度，可以跳转[星火应用商店Board](https://gitee.com/spark-store-project/spark-store/board)获取更多信息。
 - 我们的[论坛](https://bbs.spark-app.store/)
 - 我们的QQ群 872690351
