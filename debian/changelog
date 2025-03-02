@@ -1,3 +1,11 @@
+spark-store (4.5.1) UNRELEASED; urgency=medium
+
+  * 修复 aptss 部分报错
+  * 重新设计了 Tag 区的展示方式
+  * 新增 Fish 补全
+  
+ -- shenmo <shenmo@spark-app.store>  Tue, 24 Sep 2024 11:27:08 +0800
+
 spark-store (4.5.0) UNRELEASED; urgency=medium
 
   * 支持从商店中直接启动应用
