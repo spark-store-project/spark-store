@@ -8,7 +8,7 @@ The Spark App Store is an application store aimed at Linux users and supports mu
 
 ### Communication and Feedback
 **Q: Where can I join the community group?**  
-**A:** You can click [here](https://www.deepinos.org/) to enter the main communication platform of the Spark Store.  
+**A:** You can click [here](https://bbs.spark-app.store/) to enter the main communication platform of the Spark Store.  
 > ⚠️ If the above link doesn't work, you can also join our QQ groups as an alternative. The group numbers are 872690351 and 865927727. We also offer forums for communication.
 
 #### Differences Between arm64 and amd64
