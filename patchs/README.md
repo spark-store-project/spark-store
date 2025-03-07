@@ -5,7 +5,7 @@
     > 用于 zinface-community-cmake-build-system.patch 补丁化构建方式
 
     ```shell
-    git clone https://gitee.com/deepin-community-store/spark-store
+    git clone https://gitee.com/spark-store-project/spark-store
     cd spark-store
     git am < patchs/zinface-community-cmake-build-system.patch
     make package

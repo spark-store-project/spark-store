@@ -7,7 +7,7 @@ import json
 sha = os.getenv("GIT_COMMIT")
 # sha = '48fed26c51a8c42554e45f72f43e49703e04c97f'
 #get sha from environment 
-url = "https://gitee.com/api/v5/repos/deepin-community-store/spark-store/commits/{}/comments".format(sha)
+url = "https://gitee.com/api/v5/repos/spark-store-project/spark-store/commits/{}/comments".format(sha)
 
 token = os.getenv("gitee_token")
 
