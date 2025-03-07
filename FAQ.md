@@ -79,12 +79,12 @@ Linux:
 
 ### Reporting Issues and Removing Apps
 **Q: Some apps are outdated or inactive, and I want them removed**  
-**A:** You can report issues [here](https://gitee.com/deepin-community-store/software_-issue).
+**A:** You can report issues [here](https://gitee.com/spark-store-project/software_-issue).
 
 ---
 
 ### Installing Spark App Store
-If you wish to install the Spark App Store, please visit the [Release page](https://gitee.com/deepin-community-store/spark-store/releases), find the latest version, and choose the package suitable for your current system.
+If you wish to install the Spark App Store, please visit the [Release page](https://gitee.com/spark-store-project/spark-store/releases), find the latest version, and choose the package suitable for your current system.
 
 > ⚠️ Special Note: If you are using Debian10/Debian11 or Ubuntu 20.04, you may need to download additional dependency packages. After downloading, unzip multiple times until you see the software user guide. For operating systems later than Ubuntu 22.04, you do not need to install dependency packages. Just follow the steps above to install the main program directly.
 
