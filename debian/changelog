@@ -200,7 +200,7 @@ spark-store (4.2.7.3) stable; urgency=medium
 
   * 修复：aptss现在会正确地透传错误码而不是exit 0
   * 修复：下载时如果卡0%(无法下载metalink)，会在超时后报错中断而不是一直傻等
-  * 修复：排队下载时CPU占满单核的bug https://gitee.com/deepin-community-store/spark-store/issues/I7B91V
+  * 修复：排队下载时CPU占满单核的bug https://gitee.com/spark-store-project/spark-store/issues/I7B91V
   * 修复：在终端中打开的icon过大导致无法投稿到UOS
   * 修复：v23下编译出错
   * 薪怎：支持崩溃日志收集系统
@@ -437,7 +437,7 @@ spark-store (4.2.3~test2) stable; urgency=medium
 spark-store (4.2.3~test1) stable; urgency=medium
 
   * 修复：因判断安装状态错误创建多个相同任务的bug
-  * 测试中：尝试修复安装结束的闪退问题 https://gitee.com/deepin-community-store/spark-store/commit/cb093dcc2bb0a193db89aa0ce5f20ea9cc5d56eb
+  * 测试中：尝试修复安装结束的闪退问题 https://gitee.com/spark-store-project/spark-store/commit/cb093dcc2bb0a193db89aa0ce5f20ea9cc5d56eb
   * 修复：Deepin 显示开发者模式未开启
   * 修复：从托盘打开主窗口时透明度动画不流畅
   * 修复：主窗口关闭后，从托盘打开关于窗口会被主窗口遮挡
@@ -519,8 +519,8 @@ spark-store (4.1.2) stable; urgency=medium
   * chore: 去除安装依赖:g++
   * fix: 修复下载列表中进度提示文字显示不完整的问题
   * feat: ssinstall支持从单独文件夹中校验软件包
-  * feat： 支持分单文件夹下载。具体内容参见：https://gitee.com/deepin-community-store/repo_auto_update_script/blob/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list
-  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo?id=%e6%9b%b4%e6%96%b0%e6%97%a5%e5%bf%97%e8%a7%84%e5%88%99 ，不过shenmo是自由的
+  * feat： 支持分单文件夹下载。具体内容参见：https://gitee.com/spark-store-project/repo_auto_update_script/blob/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list
+  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo?id=%e6%9b%b4%e6%96%b0%e6%97%a5%e5%bf%97%e8%a7%84%e5%88%99 ，不过shenmo是自由的
 
 
   * chore: 添加 Application 类，继承 DApplication，将 main 函数中设置属性、关于信息等操作移至 Application 构造函数中进行
@@ -539,8 +539,8 @@ spark-store (4.1.2) stable; urgency=medium
 spark-store (4.1.2~test2) stable; urgency=medium
 
   * feat: ssinstall支持从单独文件夹中校验软件包
-  * feat： 支持分单文件夹下载。具体内容参见：https://gitee.com/deepin-community-store/repo_auto_update_script/blob/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list
-  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://deepin-community-store.gitee.io/spark-wiki/#/Dev/Spark-Store-Git-Repo ，不过shenmo是自由的
+  * feat： 支持分单文件夹下载。具体内容参见：https://gitee.com/spark-store-project/repo_auto_update_script/blob/master/mirror-list-for-apt-fast/sources.list.d/sparkstore.list
+  * info: 非常感谢 @jwyh 对星火商店代码仓库设计了很多标准，参见 https://wiki.spark-app.store/#/Dev/Spark-Store-Git-Repo ，不过shenmo是自由的
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
@@ -751,7 +751,7 @@ spark-store (3.2.4) stable; urgency=medium
 
 spark-store (3.2.4~test4) stable; urgency=medium
 
-  * 现在在商店启动后点击spk链接仍会正常启动 https://gitee.com/deepin-community-store/spark-store/commit/dd6780d636042bf12d77414e6f1552cc7d1ed24c
+  * 现在在商店启动后点击spk链接仍会正常启动 https://gitee.com/spark-store-project/spark-store/commit/dd6780d636042bf12d77414e6f1552cc7d1ed24c
 
  -- shenmo <shenmo@spark-app.store>  Fri, 30 Jan 2022 00:00:00 +0800
 
