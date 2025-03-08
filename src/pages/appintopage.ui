@@ -364,6 +364,19 @@
           </layout>
          </item>
          <item>
+          <spacer name="verticalSpacer_9">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <spacer name="horizontalSpacer_6">
@@ -383,7 +396,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -392,8 +405,8 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/ubuntu.png&quot; height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/ubuntu.png</pixmap>
              </property>
             </widget>
            </item>
@@ -402,7 +415,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -411,8 +424,8 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/uos-authorize.svg&quot; height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/uos.png</pixmap>
              </property>
             </widget>
            </item>
@@ -421,7 +434,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -430,21 +443,27 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 23&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/deepin.svg&quot; height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/deepin.png</pixmap>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="tag_debian">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Debian Stable&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Debian Stable&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/debian.svg&quot; height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/debian.png</pixmap>
              </property>
             </widget>
            </item>
@@ -462,22 +481,6 @@
             </spacer>
            </item>
           </layout>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_9">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_13">
@@ -499,7 +502,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -508,8 +511,8 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An Appimage to deb app.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/a2d.png&quot;height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/a2d.png</pixmap>
              </property>
             </widget>
            </item>
@@ -518,7 +521,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -527,8 +530,8 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app is developed by community user,we give this tag to honor those who contribute to the Linux Ecology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/community.svg&quot; height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/community.png</pixmap>
              </property>
             </widget>
            </item>
@@ -537,7 +540,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -546,8 +549,8 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is a  DTK5 app,which means it would have better effect on Deepin Desktop Environment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/logo_icon.svg&quot; height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/dtk.png</pixmap>
              </property>
             </widget>
            </item>
@@ -556,7 +559,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -565,8 +568,8 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app. Spark Store will automatically configure the wine kit for you.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine2-small.png&quot; height=40 width=40 &gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/dwine2.png</pixmap>
              </property>
             </widget>
            </item>
@@ -575,7 +578,7 @@
              <property name="maximumSize">
               <size>
                <width>40</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
              <property name="toolTip">
@@ -584,8 +587,8 @@
              <property name="whatsThis">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Wine app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine5.svg&quot; height=40 width=40 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/dwine5.png</pixmap>
              </property>
             </widget>
            </item>
@@ -1449,6 +1452,8 @@ QListWidget::item::selected
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../assets/assets.qrc"/>
+ </resources>
  <connections/>
 </ui>
