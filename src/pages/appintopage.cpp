@@ -561,7 +561,7 @@ void AppIntoPage::on_pushButton_3_clicked()
         ui->pushButton_3->setEnabled(false);
 
         QProcess uninstall;
-        uninstall.start("pkexec", QStringList() << "apt" << "autopurge" << "-y" << info["Pkgname"].toString().toLower());
+        uninstall.start("pkexec", QStringList() << "/opt/durapps/spark-store/bin/store-helper/uninstaller" << info["Pkgname"].toString().toLower());
         uninstall.waitForFinished(-1);
         uninstall.close();
 
