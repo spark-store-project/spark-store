@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
+
 load_transhell_debug
 export DEBIAN_FRONTEND=noninteractive
 
@@ -94,6 +95,35 @@ function unlock_file(){
 chattr -i "$1"
 }
 
+function ensure_aptss_exist(){
+
+    if command -v aptss &>/dev/null; then
+        aptss update
+    else
+        local deb_file="/tmp/spark-store-console-in-container_latest_all.deb"
+        
+        # Download package
+        if ! wget -O "$deb_file" "https://amber-ce-resource.spark-app.store/store/depends/spark-store-console-in-container_latest_all.deb"; then
+            echo "下载 .deb 安装包失败" >&2
+            return 1
+        fi
+
+        # Install package
+        if ! apt install -y "$deb_file"; then
+            echo "安装 .deb 包失败" >&2
+            rm -f "$deb_file"
+            return 1
+        fi
+        rm -f "$deb_file"
+
+        # Verify installation
+        if ! command -v aptss &>/dev/null; then
+            echo "成功安装但未找到 aptss 命令" >&2
+            return 1
+        fi
+    fi
+}
+export -f ensure_aptss_exist
 ####################################
 
 if [ $# -eq 0 ]; then
@@ -153,7 +183,7 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     echo "Package name is $package_name"
     try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
     try_run_ret="$?"
-
+# 安装失败后进行 aptss update 刷新，随后尝试安装
     if [ "$try_run_ret" -ne 0 ]; then
     aptss update
     try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
@@ -161,14 +191,42 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     fi
     
      if [ "$try_run_ret" -ne 0 ]; then
-        echo "OMG-IT-GOES-WRONG"
-        echo -e "${try_run_output}"
-        exit "$try_run_ret"
-    fi
+
+      if [[ "$IS_ACE_ENV" == "" ]];then ## 如果已经在ACE里面则不进入分支
+        if command -v bookworm-run ;then
+            echo "----------------------------------------"
+            echo "Attention: USING ACE BOOKWORM TO INSTALL"
+            echo "----------------------------------------"
+            bookworm-run ensure_aptss_exist
+                    try_run_output=$(bookworm-run aptss install --dry-run "$DEBPATH")
+                    try_run_ret="$?"
+                if [ "$try_run_ret" -ne 0 ]; then
+                    bookworm-run aptss update
+                    try_run_output=$(bookworm-run aptss install --dry-run "$DEBPATH")
+                    try_run_ret="$?"
+                fi
+            if [ "$try_run_ret" -ne 0 ]; then
+                    echo "OMG-IT-GOES-WRONG"
+                    echo -e "${try_run_output}"
+                    echo "----------------------------------------"
+            	    echo "Attention: USING ACE BOOKWORM TO INSTALL"
+                    echo "----------------------------------------"
+                    exit "$try_run_ret"
+            fi
+            bookworm-run   dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
+        fi
+
+        else
+          
+            echo "OMG-IT-GOES-WRONG"
+            echo -e "${try_run_output}"
+            exit "$try_run_ret"
+        fi
+    else
 
     dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
-
-unlock_file "$DEBPATH"
+    fi
+### 退出阶段
 
     if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
         if dpkg -s "$package_name" >/dev/null 2>&1; then
