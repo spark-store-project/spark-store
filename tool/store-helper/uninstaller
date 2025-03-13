@@ -1,0 +1,14 @@
+#!/bin/bash
+dpkg -l | grep "^ii  $1 " > /dev/null
+RET="$?"
+if [[ "$RET" == "0" ]] ;then
+apt autopurge $1 -y
+else
+
+if command -v bookworm-run > /dev/null;then
+    echo "Try ACE Bookworm"
+    bookworm-run apt autopurge $1 -y
+
+fi
+fi
+exit "$RET"
