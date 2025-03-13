@@ -596,5 +596,5 @@ void AppIntoPage::on_shareButton_clicked()
 void AppIntoPage::on_updateButton_clicked()
 {
     QString feedbackURL = "https://bbs.spark-app.store/";
-    QProcess::startDetached("xdg-open", feedbackURL);
+    QProcess::startDetached("xdg-open", QStringList{feedbackURL});
 }
