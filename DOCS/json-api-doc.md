@@ -30,7 +30,7 @@
 `{SOURCE_URL}/{ARCH}/{CATOGARY}/applist.json`
 说明：SOURCE_URL：线路链接，目前推荐 https://cdn.d.store.deepinos.org.cn，你也可以使用其他的星火线路
 ARCH：架构文件夹 x86是store或amd64-store，arm是aarch64-store。特别的，如果你使用非https://cdn.d.store.deepinos.org.cn的线路，你可能会发现amd64-store会返回404，因为不是所有的服务器都支持软连接
-CATOGARY：分类目录。参考 https://gitee.com/deepin-community-store/spark-store/blob/dev/DOCS/spk-doc.md 中 store 直达的对应关系
+CATOGARY：分类目录。参考 https://gitee.com/spark-store-project/spark-store/blob/dev/DOCS/spk-doc.md 中 store 直达的对应关系
 
 例子：https://cdn.d.store.deepinos.org.cn/aarch64-store/tools/applist.json
 

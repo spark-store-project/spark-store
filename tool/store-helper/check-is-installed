@@ -1,2 +1,10 @@
 #!/bin/bash
 dpkg -l | grep "^ii  $1 " > /dev/null
+RET="$?"
+if [[ "$RET" != "0" ]] && command -v bookworm-run > /dev/null;then
+    echo "Try ACE Bookworm"
+    bookworm-run dpkg -l | grep "^ii  $1 " > /dev/null
+    RET="$?"
+    exit "$RET"
+fi
+exit "$RET"

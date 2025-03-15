@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: spark-store
-Source: https://gitee.com/deepin-community-store/spark-store
+Source: https://gitee.com/spark-store-project/spark-store
 
 Files: *
 Copyright: The Spark Project Developers
