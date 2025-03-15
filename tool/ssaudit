@@ -200,7 +200,7 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
                     echo "----------------------------------------"
                     exit "$try_run_ret"
             fi
-            bookworm-run   dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
+            bookworm-run   'dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf '
         fi
 
         else
