@@ -562,7 +562,7 @@ void AppIntoPage::on_pushButton_3_clicked()
         ui->pushButton_3->setEnabled(false);
 
         QProcess uninstall;
-        uninstall.start("pkexec", QStringList() << "apt" << "autopurge" << "-y" << info["Pkgname"].toString().toLower());
+        uninstall.start("pkexec", QStringList() << "/opt/durapps/spark-store/bin/store-helper/uninstaller" << info["Pkgname"].toString().toLower());
         uninstall.waitForFinished(-1);
         uninstall.close();
 
@@ -595,16 +595,6 @@ void AppIntoPage::on_shareButton_clicked()
 
 void AppIntoPage::on_updateButton_clicked()
 {
-    QString feedbackSpk = "spk://store/chat/store.spark-app.feedback";
-    QFileInfo actionSubmissionClientStatus("/opt/durapps/store.spark-app.feedback");
-    if (actionSubmissionClientStatus.exists() && actionSubmissionClientStatus.isDir())
-    {
-        qDebug() << "反馈器存在";
-        QProcess::startDetached("sh", QStringList() << "/opt/durapps/store.spark-app.feedback/launch.sh");
-    }
-    else
-    {
-        qDebug() << "反馈器不存在，跳转页面";
-        openUrl(feedbackSpk);
-    }
+    QString feedbackURL = "https://bbs.spark-app.store/";
+    QProcess::startDetached("xdg-open", QStringList{feedbackURL});
 }

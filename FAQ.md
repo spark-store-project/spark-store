@@ -8,7 +8,7 @@ The Spark App Store is an application store aimed at Linux users and supports mu
 
 ### Communication and Feedback
 **Q: Where can I join the community group?**  
-**A:** You can click [here](https://www.deepinos.org/) to enter the main communication platform of the Spark Store.  
+**A:** You can click [here](https://bbs.spark-app.store/) to enter the main communication platform of the Spark Store.  
 > ⚠️ If the above link doesn't work, you can also join our QQ groups as an alternative. The group numbers are 872690351 and 865927727. We also offer forums for communication.
 
 #### Differences Between arm64 and amd64
@@ -79,12 +79,12 @@ Linux:
 
 ### Reporting Issues and Removing Apps
 **Q: Some apps are outdated or inactive, and I want them removed**  
-**A:** You can report issues [here](https://gitee.com/deepin-community-store/software_-issue).
+**A:** You can report issues [here](https://gitee.com/spark-store-project/software_-issue).
 
 ---
 
 ### Installing Spark App Store
-If you wish to install the Spark App Store, please visit the [Release page](https://gitee.com/deepin-community-store/spark-store/releases), find the latest version, and choose the package suitable for your current system.
+If you wish to install the Spark App Store, please visit the [Release page](https://gitee.com/spark-store-project/spark-store/releases), find the latest version, and choose the package suitable for your current system.
 
 > ⚠️ Special Note: If you are using Debian10/Debian11 or Ubuntu 20.04, you may need to download additional dependency packages. After downloading, unzip multiple times until you see the software user guide. For operating systems later than Ubuntu 22.04, you do not need to install dependency packages. Just follow the steps above to install the main program directly.
 

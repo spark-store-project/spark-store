@@ -8,7 +8,7 @@
 
 ### 交流与反馈
 **Q: 在哪进交流群？**  
-**A:** 你可以点击[这里](https://www.deepinos.org/)进入星火商店的主交流平台。  
+**A:** 你可以点击[这里](https://bbs.spark-app.store/)进入星火商店的主交流平台。  
 > ⚠️ 如果上面的链接无法使用，你还可以加入我们的 QQ 群作为备选方案，群号是 872690351 和 865927727。我们还提供论坛作为交流平台。
 
 arm64与amd64的区别
@@ -78,12 +78,12 @@ Linux：
 
 ### 报告问题和应用下架
 **Q: 有些应用已经过时或者失效了，我想让他下架**  
-**A:** 你可以前往 [这里](https://gitee.com/deepin-community-store/software_-issue) 报告问题。
+**A:** 你可以前往 [这里](https://gitee.com/spark-store-project/software_-issue) 报告问题。
 
 ---
 
 ### 安装星火应用商店
-如果你想安装星火应用商店，请打开[Release页面](https://gitee.com/deepin-community-store/spark-store/releases)，找到最新版本，并选择适用于当前系统的安装包下载。
+如果你想安装星火应用商店，请打开[Release页面](https://gitee.com/spark-store-project/spark-store/releases)，找到最新版本，并选择适用于当前系统的安装包下载。
 
 > ⚠️ 特别提示: 如果你在使用 Debian10/Debian11 或 Ubuntu 20.04，你可能额外下载依赖补充包。您需要在下载完依赖包后，解压多次一直到看到内部的软件使用说明，对于 Ubuntu22.04 以后的操作系统版本，您无需安装依赖包，您需要按照上面的操作直接安装本体程序。
 

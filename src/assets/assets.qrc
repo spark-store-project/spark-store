@@ -45,24 +45,33 @@
         <file>icon/light/update.svg</file>
         <file>icon/logo.svg</file>
         <file>json/features.json</file>
-        <file>tags/a2d-small.png</file>
+        <file>tags/a2d_full.svg</file>
         <file>tags/a2d.png</file>
-        <file>tags/community-small.png</file>
+        <file>tags/a2d.svg</file>
+        <file>tags/community_full.svg</file>
         <file>tags/community.png</file>
         <file>tags/community.svg</file>
-        <file>tags/deepin-small.png</file>
+        <file>tags/debian_full.svg</file>
+        <file>tags/debian.png</file>
+        <file>tags/debian.svg</file>
+        <file>tags/deepin_full.svg</file>
+        <file>tags/deepin.png</file>
         <file>tags/deepin.svg</file>
-        <file>tags/dtk-small.png</file>
-        <file>tags/dwine2-small.png</file>
-        <file>tags/dwine5-small.png</file>
+        <file>tags/dtk_full.svg</file>
+        <file>tags/dtk.png</file>
+        <file>tags/dtk.svg</file>
+        <file>tags/dwine2_full.svg</file>
+        <file>tags/dwine2.png</file>
+        <file>tags/dwine2.svg</file>
+        <file>tags/dwine5_full.svg</file>
+        <file>tags/dwine5.png</file>
         <file>tags/dwine5.svg</file>
-        <file>tags/logo_icon.svg</file>
-        <file>tags/ubuntu-small.png</file>
+        <file>tags/ubuntu_full.svg</file>
         <file>tags/ubuntu.png</file>
-        <file>tags/uos-authorize.svg</file>
-        <file>tags/uos-small.png</file>
+        <file>tags/ubuntu.svg</file>
+        <file>tags/uos_full.svg</file>
+        <file>tags/uos.png</file>
         <file>tags/uos.svg</file>
         <file>translations/qtwebengine_zh.qm</file>
-        <file>tags/debian.svg</file>
     </qresource>
 </RCC>
