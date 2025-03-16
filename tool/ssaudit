@@ -170,17 +170,18 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     echo "Package name is $package_name"
     try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
     try_run_ret="$?"
-# 安装失败后进行 aptss update 刷新，随后尝试安装
+# 安装失败后进行 aptss update 刷新，随后尝试在主机安装
     if [ "$try_run_ret" -ne 0 ]; then
     aptss update
     try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
     try_run_ret="$?"
     fi
     
-     if [ "$try_run_ret" -ne 0 ]; then
+     if [ "$try_run_ret" -ne 0 ]; then ## 若安装检测仍然失败
 
       if [[ "$IS_ACE_ENV" == "" ]];then ## 如果已经在ACE里面则不进入分支
-        if command -v bookworm-run ;then
+
+        if command -v bookworm-run ;then ## 如果 bookworm-run 可用则进行安装
             echo "----------------------------------------"
             echo "Attention: USING ACE BOOKWORM TO INSTALL"
             echo "----------------------------------------"
@@ -203,13 +204,14 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
             bookworm-run   dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
         fi
 
-        else
+       else # 如果在主机安装失败且未安装ACE，报错退出并推荐安装 ACE 
           
             echo "OMG-IT-GOES-WRONG"
             echo -e "${try_run_output}"
+            echo "您可在商店安装 ACE Bookworm 兼容环境后重试安装  https://bbs.deepin.org.cn/post/285056 "
             exit "$try_run_ret"
-        fi
-    else
+       fi
+    else ## 如果主机安装检测成功了，进入主机安装分支
 
     dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
     fi

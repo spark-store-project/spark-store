@@ -221,7 +221,7 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
           
             echo "OMG-IT-GOES-WRONG"
             echo -e "${try_run_output}"
-            echo "您可在商店安装 ACE Bookworm 兼容环境后重试安装"
+            echo "您可在商店安装 ACE Bookworm 兼容环境后重试安装  https://bbs.deepin.org.cn/post/285056 "
             exit "$try_run_ret"
        fi
     else ## 如果主机安装检测成功了，进入主机安装分支
