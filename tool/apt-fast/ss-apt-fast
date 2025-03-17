@@ -367,15 +367,15 @@ prepare_auth(){
       AUTH_INFO_PARSED+=("$machine $login $password")
     done <<< "$auth_info"
   done
+  if [ "${#AUTH_INFO_PARSED[@]}" -eq 0 ]; then
+    # acts like auth disabled when no auth info is provided to improve performance
+    APT_FAST_APT_AUTH=0
+  fi
 }
 
 # Gets URI as parameter and tries to add basic http credentials. Will fail on
 # credentials that contain characters that need URL-encoding.
 get_auth(){
-  if [ "$APT_FAST_APT_AUTH" -eq 0 ]; then
-    echo "$1"
-    return
-  fi
   for auth_info in "${AUTH_INFO_PARSED[@]}"; do
     # convert to array, don't escape variable here
     auth_info_arr=($auth_info)
@@ -453,7 +453,15 @@ get_uris(){
     uri="$(get_auth "${uri//"'"/}")"
     IFS=':' read -r hash_algo checksum _ <<<"$checksum_string"
 
-    filename_decoded="$(urldecode "$filename")"
+    if [[ "$filename" == *%* ]]; then
+      # decode url string
+      # translates %xx but must not convert '+' in spaces
+      filename_decoded="$(printf '%b' "${filename//%/\\x}")"
+    else
+      # most filenames do not contain %, so skip decoding them to improve the performance.
+      # the overhead of decoding is >1ms due to the use of subshell and printf, while the one of assignment is ~1us.
+      filename_decoded="$filename"
+    fi
     IFS='_' read -r pkg_name_decoded pkg_version_decoded _ <<<"$filename_decoded"
     
 
@@ -590,10 +598,10 @@ display_downloadfile(){
     while IFS=' ' read -r pkg ver size _; do
         [ -z "$pkg" ] && continue
         printf '%s%-40s %-20s %10s\n' "$aptfast_prefix" "$pkg" "$ver" "$size"
-    done <<<"$(echo -e "$DOWNLOAD_DISPLAY" | sort "${DISPLAY_SORT_OPTIONS[@]}")"
+    done <<<"$(echo -e "$DOWNLOAD_DISPLAY" | sort "${DISPLAY_SORT_OPTIONS[@]}" | numfmt "${DISPLAY_NUMFMT_OPTIONS[@]}" --field=3)"
   fi
-  msg "Download size: $(echo "$DOWNLOAD_SIZE" | numfmt --to=iec-i --suffix=B)" "normal"
-  msg "下载大小: $(echo "$DOWNLOAD_SIZE" | numfmt --to=iec-i --suffix=B)" "normal"
+  msg "Download size: $(echo "$DOWNLOAD_SIZE" | numfmt "${DISPLAY_NUMFMT_OPTIONS[@]}")" "normal"
+  msg "下载大小: $(echo "$DOWNLOAD_SIZE" | numfmt "${DISPLAY_NUMFMT_OPTIONS[@]}")" "normal"
 }
 
 
