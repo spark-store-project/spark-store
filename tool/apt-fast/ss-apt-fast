@@ -450,7 +450,8 @@ get_uris(){
 
     IFS=' ' read -r uri filename filesize checksum_string _ <<<"$pkg_uri_info"
     [ -z "$uri" ] && continue
-    uri="$(get_auth "${uri//"'"/}")"
+    uri="${uri//"'"/}"
+    [ "$APT_FAST_APT_AUTH" -ne 0 ] && uri="$(get_auth "$uri")"
     IFS=':' read -r hash_algo checksum _ <<<"$checksum_string"
 
     if [[ "$filename" == *%* ]]; then
@@ -466,8 +467,7 @@ get_uris(){
     
 
 
-    display_line="${display_line}$pkg_name_decoded $pkg_version_decoded"
-    display_line="${display_line} $(echo "$filesize" | numfmt --to=iec-i --suffix=B)\n"
+    display_line+="$pkg_name_decoded $pkg_version_decoded $filesize\n"
 
     ## whole uri comes encoded (urlencoded). Filename must NOT be decoded because
     # plain aptitude do not decode it when download and install it. Therefore, we
