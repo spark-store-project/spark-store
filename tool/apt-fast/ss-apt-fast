@@ -430,52 +430,40 @@ get_uris(){
   CLEANUP_STATE="$?"
   if [ "$CLEANUP_STATE" -ne 0 ]
   then
-    msg "Package manager quit with exit code.Here is the log" "warning"
+    msg "Package manager quit with exit code. Here is the log" "warning"
     msg "包管理器以错误代码退出.日志如下" "warning"
     msg "${uris_full}"
     exit "$CLEANUP_STATE"
   fi
   prepare_auth
- local tmpdir=$(mktemp -d) || {
+  local tmpdir
+  tmpdir=$(mktemp -d) || {
     msg "Failed to create tmp dir" "warning"
     msg "无法创建临时目录" "warning"
     exit 1
   }
   ## --print-uris format is:
   # 'fileurl' filename filesize checksum_hint:filechecksum
+  # 修改：process_package函数增加第二个参数表示当前线程的临时输出文件
   process_package() {
-    local pkg_uri_info="$@"
-
-    local display_line=""   # 添加局部变量并初始化为空
-
+    local pkg_uri_info="$1"
+    local thread_file="$2"
+    local display_line=""   # 初始化显示信息为空
     IFS=' ' read -r uri filename filesize checksum_string _ <<<"$pkg_uri_info"
-    [ -z "$uri" ] && continue
+    [ -z "$uri" ] && return
     uri="${uri//"'"/}"
     [ "$APT_FAST_APT_AUTH" -ne 0 ] && uri="$(get_auth "$uri")"
     IFS=':' read -r hash_algo checksum _ <<<"$checksum_string"
 
     if [[ "$filename" == *%* ]]; then
       # decode url string
-      # translates %xx but must not convert '+' in spaces
       filename_decoded="$(printf '%b' "${filename//%/\\x}")"
     else
-      # most filenames do not contain %, so skip decoding them to improve the performance.
-      # the overhead of decoding is >1ms due to the use of subshell and printf, while the one of assignment is ~1us.
       filename_decoded="$filename"
     fi
     IFS='_' read -r pkg_name_decoded pkg_version_decoded _ <<<"$filename_decoded"
     
-
-
     display_line+="$pkg_name_decoded $pkg_version_decoded $filesize\n"
-
-    ## whole uri comes encoded (urlencoded). Filename must NOT be decoded because
-    # plain aptitude do not decode it when download and install it. Therefore, we
-    # will have ugly named packages at /var/cache/apt/archives but is the standard
-    # behavior.
-    # But package version must be decoded, otherways package=version calls will
-    # not work.
-
     if [ -n "$HASH_SUPPORTED" ]; then
       case "$hash_algo" in
         SHA512) [ -z "$SHA512_SUPPORTED" ] && hash_algo= || hash_algo=sha-512 ;;
@@ -530,30 +518,27 @@ get_uris(){
       hash_algo=
     fi
 
+    # 原来利用文件锁写入，现在改为写入当前线程的临时文件
+    {
+      get_mirrors "$uri"
+      [ -n "$hash_algo" ] && echo " checksum=$hash_algo=$checksum"
+      echo " out=$filename"
+    } >> "$thread_file"
 
-    # 使用文件锁安全写入下载列表
-    (
-      flock -x 200 # 获取排他锁
-      {
-        get_mirrors "$uri"
-        [ -n "$hash_algo" ] && echo " checksum=$hash_algo=$checksum"
-        echo " out=$filename"
-      } >> "$DLLIST"
-    ) 200>>"$DLLIST" # 使用文件描述符200关联锁文件
-
-    # 将显示信息和文件大小存入临时文件
-    echo "$display_line" >> "$tmpdir/display"
+    echo -e "$display_line" >> "$tmpdir/display"
     echo "$filesize" >> "$tmpdir/sizes"
   }
 
-  # 主并行处理逻辑（新增线程控制）
+  # 主并行处理逻辑
   mapfile -t pkg_uri_list < <(echo "$uris_full" | grep -E "^'(http(s|)|(s|)ftp)://")
   total_pkgs=${#pkg_uri_list[@]}
   threads=${THREADS:-4}  # 默认4线程
   per_thread=$(( (total_pkgs + threads - 1) / threads ))  # 向上取整
 
-  # 分割任务到不同线程
+  # 分配任务到不同线程，每个线程使用自己的临时文件
   for ((i=0; i<threads; i++)); do
+    thread_file="${DLLIST}.thread.${i}"
+    > "$thread_file"  # 清空或创建临时文件
     start=$((i * per_thread))
     end=$((start + per_thread -1))
     [ $end -ge $total_pkgs ] && end=$((total_pkgs -1))
@@ -562,13 +547,22 @@ get_uris(){
     (
       for ((j=start; j<=end; j++)); do
         [ -z "${pkg_uri_list[j]}" ] && continue
-        process_package "${pkg_uri_list[j]}"
+        process_package "${pkg_uri_list[j]}" "$thread_file"
       done
     ) &
   done
 
   # 等待所有后台任务完成
   wait
+
+  # 合并所有线程的临时文件到最终的 $DLLIST 中（保留之前添加的 header）
+  for ((i=0; i<threads; i++)); do
+    thread_file="${DLLIST}.thread.${i}"
+    if [ -f "$thread_file" ]; then
+      cat "$thread_file" >> "$DLLIST"
+      rm -f "$thread_file"
+    fi
+  done
 
   # 合并显示信息
   if [ -f "$tmpdir/display" ]; then
@@ -582,10 +576,8 @@ get_uris(){
 
   # 清理临时目录
   rm -rf "$tmpdir"
-  
-  #cat "$DLLIST"
-  #exit
 }
+
 
 
 display_downloadfile(){
@@ -598,10 +590,10 @@ display_downloadfile(){
     while IFS=' ' read -r pkg ver size _; do
         [ -z "$pkg" ] && continue
         printf '%s%-40s %-20s %10s\n' "$aptfast_prefix" "$pkg" "$ver" "$size"
-    done <<<"$(echo -e "$DOWNLOAD_DISPLAY" | sort "${DISPLAY_SORT_OPTIONS[@]}" | numfmt "${DISPLAY_NUMFMT_OPTIONS[@]}" --field=3)"
+    done <<<"$(echo -e "$DOWNLOAD_DISPLAY" | sort "${DISPLAY_SORT_OPTIONS[@]}" | numfmt --to=iec-i --suffix=B --field=3)"
   fi
-  msg "Download size: $(echo "$DOWNLOAD_SIZE" | numfmt "${DISPLAY_NUMFMT_OPTIONS[@]}")" "normal"
-  msg "下载大小: $(echo "$DOWNLOAD_SIZE" | numfmt "${DISPLAY_NUMFMT_OPTIONS[@]}")" "normal"
+  msg "Download size: $(echo "$DOWNLOAD_SIZE" | numfmt --to=iec-i --suffix=B)" "normal"
+  msg "下载大小: $(echo "$DOWNLOAD_SIZE" | numfmt --to=iec-i --suffix=B)" "normal"
 }
 
 
@@ -835,3 +827,4 @@ else
 fi
 
 # After error or all done remove our lockfile (done with EXIT trap)
+
