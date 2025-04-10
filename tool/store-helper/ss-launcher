@@ -101,7 +101,7 @@ function launch_app(){
     log.info "Command is $exec_command"
 
     # 在默认终端执行命令
-    bash -c $exec_command
+    bash -c "$exec_command"
 }
 
 if [ "$#" -lt 2 ];then
