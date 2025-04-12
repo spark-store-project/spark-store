@@ -234,6 +234,7 @@ if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
         if dpkg -s "$package_name" >/dev/null 2>&1; then
             echo "软件包已安装：$package_name"
             create_desktop_file
+            unlock_file $DEBPATH
             rm "$DEBPATH"
             echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
         else
