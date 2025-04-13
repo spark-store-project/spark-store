@@ -7,7 +7,7 @@ source /opt/durapps/spark-store/bin/bashimport/log.amber
 load_transhell
 
 case `arch` in
-   x86_64)
+   x86_64 | i686 | i386)
 	STORE_URL="store"
 	STORE_LIST_URL=""
 	;;

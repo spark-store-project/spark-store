@@ -186,12 +186,21 @@ VERBOSE_OUTPUT=
 # Download command.
 _DOWNLOADER='aria2c --no-conf -c -j ${_MAXNUM} -x ${_MAXCONPERSRV} -s ${_SPLITCON} -i ${DLLIST} --min-split-size=${_MINSPLITSZ} --stream-piece-selector=${_PIECEALGO} --connect-timeout=60 --timeout=600 -m0'
 
-# Load config file.
-CONFFILE="/tmp/aptss-conf/apt-fast.conf"
-#### Spark Store apt-fast conf is in /tmp
-if [ -e "$CONFFILE" ]; then
-    source "$CONFFILE"
-fi
+# 定义默认的配置文件列表（按加载顺序排列）
+CONFIG_FILES=(
+    "/tmp/aptss-conf/apt-fast.conf"  # 原始配置文件位置
+    "/etc/aptss/apt-fast.conf"             # 系统级配置
+)
+
+
+# 按顺序加载所有配置文件
+for conf_file in "${CONFIG_FILES[@]}"; do
+    if [ -e "$conf_file" ]; then
+        source "$conf_file"
+    fi
+done
+
+
 
 # no proxy as default
 ftp_proxy=
