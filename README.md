@@ -152,7 +152,7 @@ You will see an output, and that's your system architecture.
 
 Please refer to the [Spark App Store FAQ and Support Guide](https://gitee.com/spark-store-project/spark-store/blob/dev/FAQ.md).
 
-You can also check the [Chinese version](https://gitee.com/spark-store-project/spark-store/blob/dev/FAQ.zh.md) here.
+To customly configure aptss, refer to [aptss](https://gitee.com/GXDE-OS/aptss)
 
 ---
 
