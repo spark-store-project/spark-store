@@ -171,9 +171,11 @@ https://github.com/spark-store-project/spark-store
 
 ## 常见问题（FAQ）
 
-请参见[星火应用商店FAQ与支持指南](https://gitee.com/spark-store-project/spark-store/blob/dev/FAQ.md)。
+请参见[星火应用商店FAQ与支持指南](https://gitee.com/spark-store-project/spark-store/blob/dev/FAQ.zh.md)。
 
-在这里可以查阅[中文版本](https://gitee.com/spark-store-project/spark-store/blob/dev/FAQ.zh.md)。
+自定义配置 aptss config 请参阅 [aptss](https://gitee.com/GXDE-OS/aptss)
+
+
 
 ---
 
