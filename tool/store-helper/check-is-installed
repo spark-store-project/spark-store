@@ -1,10 +1,42 @@
 #!/bin/bash
-dpkg -l | grep "^ii  $1 " > /dev/null
+dpkg -s "$1" > /dev/null
 RET="$?"
-if [[ "$RET" != "0" ]] && command -v bookworm-run > /dev/null;then
-    echo "Try ACE Bookworm"
-    bookworm-run dpkg -l | grep "^ii  $1 " > /dev/null
-    RET="$?"
-    exit "$RET"
-fi
+    if [[ "$RET" != "0" ]] &&[[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中
+        # 定义按顺序尝试的ACE环境（命令:推荐安装包）
+        declare -a ace_commands_order=(
+            "bookworm-run:amber-ce-bookworm"
+            "trixie-run:amber-ce-trixie"
+            "deepin23-run:amber-ce-deepin23"
+        )
+for ace_entry in "${ace_commands_order[@]}"; do
+            ace_cmd=${ace_entry%%:*}
+            if command -v "$ace_cmd" >/dev/null 2>&1; then
+                echo "----------------------------------------"
+                echo "正在检查 $ace_cmd 环境的安装..."
+                echo "----------------------------------------"
+                
+                # 在ACE环境中执行安装检测
+                $ace_cmd dpkg -l | grep "^ii  $1 " > /dev/null
+                try_run_ret="$?"
+                
+
+                # 最终检测结果处理
+                if [ "$try_run_ret" -eq 0 ]; then
+                    echo "----------------------------------------"
+                    echo "在 $ace_cmd 环境中找到了安装"
+                    echo "----------------------------------------"
+                    exit $try_run_ret
+                else
+                    echo "----------------------------------------"
+                    echo "在 $ace_cmd 环境中未能找到安装，继续查找"
+                    echo "----------------------------------------"
+                fi
+            fi
+        done
+                    echo "----------------------------------------"
+                    echo "所有已安装的 ACE 环境中未能找到安装，退出"
+                    echo "----------------------------------------"
+                    exit "$RET"
+     fi
+## 如果在ACE环境中或者未出错
 exit "$RET"

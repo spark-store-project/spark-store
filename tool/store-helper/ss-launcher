@@ -1,142 +1,132 @@
 #!/bin/bash
-# ===== Log =====
-# log.info xxx
-# log.warn xxx
-# log.info xxx
-# log.debug xxx
-# 带颜色的echo
-function log.color_output() {
-    local color=$1
-    shift 1
 
-    echo >&2 -e "\033[${color}m$@\033[0m"
-    return 0
+# ===== ACE环境配置 =====
+declare -a ace_commands_order=(
+    "bookworm-run:amber-ce-bookworm"
+    "trixie-run:amber-ce-trixie"
+    "deepin23-run:amber-ce-deepin23"
+)
+
+# ===== 日志和函数 =====
+[ -f /opt/durapps/spark-store/bin/bashimport/log.amber ] && \
+    source /opt/durapps/spark-store/bin/bashimport/log.amber || {
+    log.info() { echo "INFO: $*"; }
+    log.warn() { echo "WARN: $*"; }
+    log.error() { echo "ERROR: $*"; }
+    log.debug() { echo "DEBUG: $*"; }
 }
 
-# Log is named without prefix "utils." for convenience
-# Usage: log.log <level> ...content
-function log.log() {
-    if [[ $# < 2 ]]; then
-        return -1
-    fi
-
-    local level=$1
-    shift 1
-
-    case $level in
-    error) log.color_output "0;31" "[ERROR] $@" ;;
-    warn) log.color_output "1;33" "[WARN] $@" ;;
-    info) log.color_output "1;37" "[INFO] $@" ;;
-    debug) log.color_output "1;30" "[DEBUG] $@" ;;
-    esac
-
-    return 0
-}
-
-function log.error() { log.log "error" "$@"; }
-function log.warn() { log.log "warn" $@; }
-function log.info() { log.log "info" $@; }
-function log.debug() { log.log "debug" $@; }
-
-
-function scan_desktop_file_log(){
-unset desktop_file_path
-package_name=$1
-    for desktop_file_path in $(dpkg -L "$1" |grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
-	log.info "$desktop_file_path is found."
-	fi
-    done
-	for desktop_file_path in $(dpkg -L "$1" |grep /opt/apps/$package_name/entries/applications/ | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
-	log.info "$desktop_file_path is found."
-	fi
-    done
-
-
-}
-
-function scan_desktop_file(){
+# ===== 功能函数 =====
+function scan_desktop_file_log() {
     unset desktop_file_path
-    local result=""
-    for desktop_file_path in $(dpkg -L "$1" | grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
-        if [ "$(grep NoDisplay=true $desktop_file_path)" = "" ]; then
-            result+="$desktop_file_path,"
-        fi
-    done
-    for desktop_file_path in $(dpkg -L "$1" | grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
-        if [ "$(grep NoDisplay=true $desktop_file_path)" = "" ]; then
-            result+="$desktop_file_path,"
-        fi
-    done
-    # 去掉最后一个逗号
-    if [ -n "$result" ]; then
-        result=${result%,}
-    fi
-    echo "$result"
+    local package_name=$1
+    # 标准desktop文件检测
+    while IFS= read -r path; do
+        [ -z "$(grep 'NoDisplay=true' "$path")" ] && {
+            log.info "Found valid desktop file: $path"
+            desktop_file_path="$path"
+            return 0
+        }
+    done < <(dpkg -L "$package_name" 2>/dev/null | grep -E '/usr/share/applications/.*\.desktop$|/opt/apps/.*/entries/applications/.*\.desktop$')
+
+    # 深度环境特殊处理
+    while IFS= read -r path; do
+        [ -z "$(grep 'NoDisplay=true' "$path")" ] && {
+            log.info "Found deepin desktop file: $path"
+            desktop_file_path="$path"
+            return 0
+        }
+    done < <(find /opt/apps/$package_name -path '*/entries/applications/*.desktop' 2>/dev/null)
+    return 1
 }
 
-function launch_app(){
+function scan_desktop_file() {
+    local package_name=$1 result=""
+    # 标准结果收集
+    while IFS= read -r path; do
+        [ -z "$(grep 'NoDisplay=true' "$path")" ] && result+="$path,"
+    done < <(dpkg -L "$package_name" 2>/dev/null | grep -E '/usr/share/applications/.*\.desktop$|/opt/apps/.*/entries/applications/.*\.desktop$')
+    
+    # 深度环境补充扫描
+    while IFS= read -r path; do
+        [ -z "$(grep 'NoDisplay=true' "$path")" ] && result+="$path,"
+    done < <(find /opt/apps/$package_name -path '*/entries/applications/*.desktop' 2>/dev/null)
+    
+    echo "${result%,}"
+}
 
-    # 检查是否传入了路径参数
-    if [ -z "$1" ]; then
-        log.error "请传入文件路径作为参数"
+function launch_app() {
+    local DESKTOP_FILE_PATH="${1#file://}"
+    # 提取并净化Exec命令
+    exec_command=$(grep -m1 '^Exec=' "$DESKTOP_FILE_PATH" | cut -d= -f2- | sed 's/%.//g')
+    [ -z "$exec_command" ] && return 1
+    log.info "Launching: $exec_command"
+    # 图形环境启动优化
+    if [ -n "$DISPLAY" ]; then
+        nohup env DISPLAY=$DISPLAY XAUTHORITY=${XAUTHORITY:-~/.Xauthority} ${SHELL:-bash} -c "$exec_command" >/dev/null 2>&1 &
+    else
+        nohup ${SHELL:-bash} -c "$exec_command" >/dev/null 2>&1 &
+    fi
+}
+
+# ===== ACE环境执行器 =====
+function ace_runner() {
+    local command_type=$1 package_name=$2
+    for ace_entry in "${ace_commands_order[@]}"; do
+        local ace_cmd=${ace_entry%%:*}
+        command -v "$ace_cmd" >/dev/null || continue
+        
+        log.info "Checking in $ace_cmd environment..."
+        if output=$($ace_cmd "$0" "$command_type" "$package_name" 2>/dev/null); then
+            [ "$command_type" = "list" ] && echo "$output"
+            exit 0
+        fi
+    done
+    return 1
+}
+
+# ===== 主逻辑 =====
+[ $# -lt 2 ] && {
+    log.error "Usage: $0 {check|launch|list|start} package_name/desktop_file"
+    exit 1
+}
+
+case $1 in
+check)
+    # 当前环境检查
+    if scan_desktop_file_log "$2"; then
+        exit 0
+    else
+        # 非ACE环境下执行ACE环境扫描
+        [ -z "$IS_ACE_ENV" ] && ace_runner check "$2"
         exit 1
     fi
+    ;;
 
-    DESKTOP_FILE_PATH=$1
-
-    if [[ $DESKTOP_FILE_PATH == file://* ]]; then
-        # 如果是，移除 'file://' 部分并输出结果
-        DESKTOP_FILE_PATH="${DESKTOP_FILE_PATH#file://}"
+list)
+    # 当前环境列表
+    if result=$(scan_desktop_file "$2"); then
+        echo "$result"
+        exit 0
+    else
+        # 非ACE环境下执行ACE环境扫描
+        [ -z "$IS_ACE_ENV" ] && ace_runner list "$2"
+        exit 1
     fi
+    ;;
 
-    # 获取文件内容中第一个 Exec= 后的命令
-    exec_command=$(grep -m 1 -oP "(?<=Exec=).*" "$DESKTOP_FILE_PATH")
-
-    # 删除 exec_command 中最后的 % 及其后面的内容
-    exec_command="${exec_command%\%*}"
-
-    # 打印提取的命令
-    log.info "Command is $exec_command"
-
-    # 在默认终端执行命令
-    bash -c "$exec_command"
-}
-
-if [ "$#" -lt 2 ];then
-log.info "Usage: $0 check/launch/list/start packagename/desktop-file"
-exit -1
-fi 
-
-
-if [ "$1" = "check" ];then
-
-scan_desktop_file_log "$2"
-	if [ "$desktop_file_path" = "" ];then
-		log.error "No desktop file found. exit -1"
-		exit -1
-	else
-		exit 0
-	fi
-
-elif [ "$1" = "list" ];then 
-scan_desktop_file "$2"
-	if [ "$desktop_file_path" = "" ];then
-		exit -1
-	else
-		exit 0
-	fi
-elif [ "$1" = "launch" ];then 
-scan_desktop_file_log "$2"
-	if [  "$desktop_file_path" = "" ];then
-		log.error "No desktop file found. exit -1"
-		exit -1
-	fi
-
-
-launch_app "${desktop_file_path}"
-
-elif [ "$1" = "start" ];then 
-launch_app "${desktop_file_path}"
-fi
+launch|start)
+    # 当前环境启动
+    if scan_desktop_file_log "$2" && launch_app "$desktop_file_path"; then
+        exit 0
+    else
+        # 非ACE环境下通过ACE环境启动
+        [ -z "$IS_ACE_ENV" ] && ace_runner launch "$2"
+        exit 1
+    fi
+    ;;
+*)
+    log.error "Invalid command: $1"
+    exit 2
+    ;;
+esac
