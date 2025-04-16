@@ -218,7 +218,7 @@ if [ "$try_run_ret" -ne 0 ]; then ## 若安装检测仍然失败
                     echo "----------------------------------------"
                     echo "在 $ace_cmd 环境中预检成功，开始安装..."
                     echo "----------------------------------------"
-                    $ace_cmd 'dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf'
+                    $ace_cmd 'dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yfq'
                     success=true
                     break # 跳出循环
                 else
@@ -242,7 +242,7 @@ if [ "$try_run_ret" -ne 0 ]; then ## 若安装检测仍然失败
         exit "$try_run_ret"
     fi
 else ## 如果主机安装检测成功
-    dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
+    dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yfq 
 fi
 
 ### 退出阶段保持不变 ###
