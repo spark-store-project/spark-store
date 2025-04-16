@@ -1,14 +1,54 @@
 #!/bin/bash
-dpkg -l | grep "^ii  $1 " > /dev/null
+# ===== ACE环境配置 =====
+declare -a ace_commands_order=(
+    "bookworm-run:amber-ce-bookworm"
+    "trixie-run:amber-ce-trixie"
+    "deepin23-run:amber-ce-deepin23"
+)
+
+# ===== 日志和函数 =====
+[ -f /opt/durapps/spark-store/bin/bashimport/log.amber ] && \
+    source /opt/durapps/spark-store/bin/bashimport/log.amber || {
+    log.info() { echo "INFO: $*"; }
+    log.warn() { echo "WARN: $*"; }
+    log.error() { echo "ERROR: $*"; }
+    log.debug() { echo "DEBUG: $*"; }
+}
+
+dpkg -s "$1" > /dev/null
 RET="$?"
 if [[ "$RET" == "0" ]] ;then
 apt autopurge $1 -y
 else
 
-if command -v bookworm-run > /dev/null;then
-    echo "Try ACE Bookworm"
-    bookworm-run apt autopurge $1 -y
+for ace_entry in "${ace_commands_order[@]}"; do
+            ace_cmd=${ace_entry%%:*}
+            if command -v "$ace_cmd" >/dev/null 2>&1; then
+                echo "----------------------------------------"
+                echo "正在检查 $ace_cmd 环境的安装..."
+                echo "----------------------------------------"
+                
+                # 在ACE环境中执行安装检测
+                $ace_cmd dpkg -l | grep "^ii  $1 " > /dev/null
+                try_run_ret="$?"
+                
 
-fi
-fi
+                # 最终检测结果处理
+                if [ "$try_run_ret" -eq 0 ]; then
+                    echo "----------------------------------------"
+                    echo "在 $ace_cmd 环境中找到了安装"
+                    echo "----------------------------------------"
+                    $ace_cmd apt autopurge $1 -y
+                else
+                    echo "----------------------------------------"
+                    echo "在 $ace_cmd 环境中未能找到安装，继续查找"
+                    echo "----------------------------------------"
+                fi
+            fi
+        done
+                    echo "----------------------------------------"
+                    echo "所有已安装的 ACE 环境中未能找到安装，退出"
+                    echo "----------------------------------------"
+                    exit "$RET"
+     fi
 exit "$RET"

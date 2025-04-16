@@ -1,5 +1,6 @@
 #!/bin/bash
-
+SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
+SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 
 load_transhell_debug
@@ -61,15 +62,15 @@ function zenity() {
 }
 
 function hash_check() {
-    if [ ! -e "/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages" ] && \
+    if [ ! -e "/var/lib/aptss/lists/${SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL}_${STORE_URL}_Packages" ] && \
        [ ! -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && \
        [ ! -e "/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store_${STORE_URL}_Packages" ]; then
         echo "接收星火仓库软件信息中..."
         aptss ssupdate
     fi
 
-    if [ -e "/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages" ]; then
-        PACKAGES_DATA_PATH="/var/lib/aptss/lists/d.spark-app.store_${STORE_URL}_Packages"
+    if [ -e "/var/lib/aptss/lists/${SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL}_${STORE_URL}_Packages" ]; then
+        PACKAGES_DATA_PATH="/var/lib/aptss/lists/${SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL}_${STORE_URL}_Packages"
         echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是星火域名仓库配置"
     elif [ -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ]; then
         PACKAGES_DATA_PATH="/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages"
@@ -179,78 +180,107 @@ fi
 if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
     echo "校验成功，开始安装"
     echo "----------------------------------------------------------------------------------"
-    package_name=$(dpkg-deb -f "$DEBPATH" Package)
-    echo "Package name is $package_name"
-    try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
-    try_run_ret="$?"
-# 安装失败后进行 aptss update 刷新，随后尝试在主机安装
-    if [ "$try_run_ret" -ne 0 ]; then
+package_name=$(dpkg-deb -f "$DEBPATH" Package)
+echo "Package name is $package_name"
+try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
+try_run_ret="$?"
+# 安装失败后进行 aptss 刷新，随后尝试在主机安装
+if [ "$try_run_ret" -ne 0 ]; then
     aptss update
     try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
     try_run_ret="$?"
-    fi
-    
-     if [ "$try_run_ret" -ne 0 ]; then ## 若安装检测仍然失败
+fi
 
-      if [[ "$IS_ACE_ENV" == "" ]];then ## 如果已经在ACE里面则不进入分支
+if [ "$try_run_ret" -ne 0 ]; then ## 若安装检测仍然失败
+    if [[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中
+        # 定义按顺序尝试的ACE环境（命令:推荐安装包）
+        declare -a ace_commands_order=(
+            "bookworm-run:amber-ce-bookworm"
+            "trixie-run:amber-ce-trixie"
+            "deepin23-run:amber-ce-deepin23"
+        )
+        
+        success=false
+        recommendation_msg=""
+        # 收集所有推荐信息
+        for ace_entry in "${ace_commands_order[@]}"; do
+            recommendation_msg+="您可安装 ${ace_entry%%:*} 兼容环境后重试: ${ace_entry#*:}\n"
+        done
 
-        if command -v bookworm-run ;then ## 如果 bookworm-run 可用则进行安装
-            echo "----------------------------------------"
-            echo "Attention: USING ACE BOOKWORM TO INSTALL"
-            echo "----------------------------------------"
-            bookworm-run ensure_aptss_exist
-                    try_run_output=$(bookworm-run aptss install --dry-run "$DEBPATH")
-                    try_run_ret="$?"
+        # 按顺序尝试每个ACE环境
+        for ace_entry in "${ace_commands_order[@]}"; do
+            ace_cmd=${ace_entry%%:*}
+            if command -v "$ace_cmd" >/dev/null 2>&1; then
+                echo "----------------------------------------"
+                echo "正在尝试使用 $ace_cmd 环境安装..."
+                echo "----------------------------------------"
+                
+                # 在ACE环境中执行安装检测
+                $ace_cmd ensure_aptss_exist
+                try_run_output=$($ace_cmd aptss install --dry-run "$DEBPATH" 2>&1)
+                try_run_ret="$?"
+                
+                # 如果首次检测失败则更新后重试
                 if [ "$try_run_ret" -ne 0 ]; then
-                    bookworm-run aptss update
-                    try_run_output=$(bookworm-run aptss install --dry-run "$DEBPATH")
+                    $ace_cmd aptss update
+                    try_run_output=$($ace_cmd aptss install --dry-run "$DEBPATH" 2>&1)
                     try_run_ret="$?"
                 fi
-            if [ "$try_run_ret" -ne 0 ]; then
-                    echo "OMG-IT-GOES-WRONG"
+
+                # 最终检测结果处理
+                if [ "$try_run_ret" -eq 0 ]; then
+                    echo "----------------------------------------"
+                    echo "在 $ace_cmd 环境中预检成功，开始安装..."
+                    echo "----------------------------------------"
+                    $ace_cmd 'dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yfq'
+                    success=true
+                    break # 跳出循环
+                else
+                    echo "----------------------------------------"
+                    echo "在 $ace_cmd 环境中安装预检失败，错误信息："
                     echo -e "${try_run_output}"
                     echo "----------------------------------------"
-            	    echo "Attention: USING ACE BOOKWORM TO INSTALL"
-                    echo "----------------------------------------"
-                    exit "$try_run_ret"
+                fi
             fi
-            bookworm-run   'dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf '
-        fi
+        done
 
-       else # 如果在主机安装失败且未安装ACE，报错退出并推荐安装 ACE 
-          
+        if ! $success; then
             echo "OMG-IT-GOES-WRONG"
             echo -e "${try_run_output}"
-            echo "您可在商店安装 ACE Bookworm 兼容环境后重试安装  https://bbs.deepin.org.cn/post/285056 "
+            echo -e "所有ACE环境尝试失败，推荐安装以下任一兼容环境:\n${recommendation_msg}"
             exit "$try_run_ret"
-       fi
-    else ## 如果主机安装检测成功了，进入主机安装分支
-
-    dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
-    fi
-### 退出阶段
-
-    if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
-        if dpkg -s "$package_name" >/dev/null 2>&1; then
-            echo "软件包已安装：$package_name"
-            create_desktop_file
-            unlock_file $DEBPATH
-            rm "$DEBPATH"
-            echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
-        else
-            echo "软件包未安装：$package_name"
-            echo "安装异常！抛出错误"
-            echo "OMG-IT-GOES-WRONG"
         fi
+    else # 已经在ACE环境中仍失败直接退出
+        echo "OMG-IT-GOES-WRONG"
+        echo -e "${try_run_output}"
+        exit "$try_run_ret"
+    fi
+else ## 如果主机安装检测成功
+    dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yfq
+fi
+
+### 退出阶段保持不变 ###
+if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
+    if dpkg -s "$package_name" >/dev/null 2>&1; then
+        echo "软件包已安装：$package_name"
+        create_desktop_file
+        unlock_file $DEBPATH
+        rm "$DEBPATH"
+        echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
     else
-        echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
-        if dpkg -s "$package_name" >/dev/null 2>&1; then
-            echo "软件包已安装：$package_name"
-            create_desktop_file
-        else
-            echo "软件包未安装：$package_name"
-            echo "安装异常！抛出错误"
-            echo "OMG-IT-GOES-WRONG"
-        fi
+        echo "软件包未安装：$package_name"
+        echo "安装异常！抛出错误"
+        echo "OMG-IT-GOES-WRONG"
     fi
+else
+    echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
+    if dpkg -s "$package_name" >/dev/null 2>&1; then
+        echo "软件包已安装：$package_name"
+        create_desktop_file
+    else
+        echo "软件包未安装：$package_name"
+        echo "安装异常！抛出错误"
+        echo "OMG-IT-GOES-WRONG"
+    fi
+fi
 fi
