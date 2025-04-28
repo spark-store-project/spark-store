@@ -142,18 +142,18 @@ int main(int argc, char *argv[])
     // 龙芯机器配置,使得 DApplication 能正确加载 QtWebEngine
     qputenv("DTK_FORCE_RASTER_WIDGETS", "FALSE");
 
+    // 设置 QtWebEngine 环境变量
+    QStringList chromium_flags;
     // 浏览器开启 GPU 支持
-    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-features=UseModernMediaControls");
-    // qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-web-security");
+    // chromium_flags.append("--disable-features=UseModernMediaControls");
+    // chromium_flags.append("--disable-web-security");
     // 全平台软件渲染Webkit
-    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu");
-#ifdef __sw_64__
-    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
+    chromium_flags.append("--disable-gpu");
+#if defined __sw_64__ || __loongarch__
+    chromium_flags.append("--no-sandbox");
 #endif
+    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", chromium_flags.join(" ").toUtf8());
 
-#ifdef __loongarch__
-    qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox");
-#endif
     /**
      * NOTE: https://zhuanlan.zhihu.com/p/550285855
      * 避免 wayland 环境下从 QtWebEngine 后退回到 QWidget 时黑屏闪烁
@@ -162,8 +162,6 @@ int main(int argc, char *argv[])
         qputenv("QMLSCENE_DEVICE", "softwarecontext");
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
-
-
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     // 开启 Hidpi 支持
