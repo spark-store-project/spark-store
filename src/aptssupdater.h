@@ -13,6 +13,8 @@ public:
     QStringList getUpdateablePackages(); // 查询可更新包列表及更新内容
     qint64 getTotalDownloadSize();       // 获取更新总大小预估
     QStringList getPackageSizes();       // 获取每个包的大小
+    QStringList getDesktopAppNames();  // 获取桌面应用名称列表
+    
 signals:
 };
 

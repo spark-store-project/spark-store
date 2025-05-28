@@ -2,11 +2,14 @@
 #include <QProcess>
 #include <QTextStream>
 #include <QRegularExpression>
+#include <QFile>
+
 aptssUpdater::aptssUpdater(QWidget *parent)
     : QWidget(parent)
 {
 
 }
+
 QStringList aptssUpdater::getUpdateablePackages()
 {
     QStringList packageDetails;
@@ -35,6 +38,7 @@ QStringList aptssUpdater::getUpdateablePackages()
 
     return packageDetails;
 }
+
 QStringList aptssUpdater::getPackageSizes()
 {
     QStringList packageSizes;
@@ -64,4 +68,34 @@ QStringList aptssUpdater::getPackageSizes()
     }
 
     return packageSizes;
+}
+
+QStringList aptssUpdater::getDesktopAppNames()
+{
+    QStringList appNames;
+    QStringList updateablePackages = getUpdateablePackages();
+
+    for (const QString &packageDetail : updateablePackages) {
+        // 提取包名（忽略版本信息）
+        QString packageName = packageDetail.split(' ').first();
+        QString desktopFilePath = QString("/usr/share/applications/%1.desktop").arg(packageName);
+
+        QFile desktopFile(desktopFilePath);
+        if (desktopFile.exists() && desktopFile.open(QIODevice::ReadOnly)) {
+            QTextStream stream(&desktopFile);
+            while (!stream.atEnd()) {
+                QString line = stream.readLine();
+                if (line.startsWith("Name=")) {
+                    QString appName = line.mid(5); // 提取 Name 属性值
+                    appNames << appName;
+                    break;
+                }
+            }
+            desktopFile.close();
+        } else {
+            appNames << QString("未找到 .desktop 文件: %1").arg(packageName);
+        }
+    }
+
+    return appNames;
 }
