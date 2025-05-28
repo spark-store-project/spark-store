@@ -14,12 +14,14 @@ void MainWindow::checkUpdates()
 
     // 获取可更新包列表
     QStringList updateablePackages = updater.getUpdateablePackages();
+    QStringList packageSizes = updater.getPackageSizes();
+
     qDebug() << "可更新包列表:";
-    for (const QString &package : updateablePackages) {
-        qDebug() << package;
+    for (int i = 0; i < updateablePackages.size(); ++i) {
+        QString packageInfo = updateablePackages.at(i);
+        QString packageSize = (i < packageSizes.size()) ? packageSizes.at(i) : "未知大小";
+        qDebug() << QString("%1 (%2)").arg(packageInfo, packageSize);
     }
-
-
 }
 
 MainWindow::~MainWindow()
