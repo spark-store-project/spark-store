@@ -30,8 +30,8 @@ QStringList aptssUpdater::getUpdateablePackages()
 
         if (match.hasMatch()) {
             QString packageName = match.captured(1);
-            QString currentVersion = match.captured(2);
-            QString updateVersion = match.captured(3);
+            QString updateVersion = match.captured(2);
+            QString currentVersion = match.captured(3);
             packageDetails << QString("%1 (%2 -> %3)").arg(packageName, currentVersion, updateVersion);
         }
     }
