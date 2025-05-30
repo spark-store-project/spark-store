@@ -144,6 +144,7 @@ fi
 
 if [ ! -f "$1" ]; then
     echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST},Trying to redownload"
+    aptss update
     FILEPATH=$(dirname "$1")
     FILENAME=$(basename "$1")
     PACKAGE_NAME=$(echo "$FILENAME" | sed -r 's/^([^_]+)_.*$/\1/')
