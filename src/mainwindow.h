@@ -20,5 +20,6 @@ public:
 private:
     Ui::MainWindow *ui;
     void checkUpdates();
+    void initStyle();
 };
 #endif // MAINWINDOW_H

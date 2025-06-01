@@ -8,6 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
     checkUpdates();
     ui->setupUi(this);
 }
+//初始化控件样式
+void MainWindow::initStyle()
+{
+
+}
 void MainWindow::checkUpdates()
 {
     aptssUpdater updater;
