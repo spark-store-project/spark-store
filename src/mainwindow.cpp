@@ -7,10 +7,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     checkUpdates();
     ui->setupUi(this);
+    initStyle();
 }
 //初始化控件样式
 void MainWindow::initStyle()
 {
+    ui->plainTextEdit->setStyleSheet(
+        "QPlainTextEdit {"
+        "    background-color: #FFFFFF;"
+        "    border: 1px solid #E5E7EB;"
+        "    border-radius: 4px;"
+        "}"
+    );
 
 }
 void MainWindow::checkUpdates()
