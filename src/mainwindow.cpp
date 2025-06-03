@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 //初始化控件样式
 void MainWindow::initStyle()
 {
+    //查询框样式
     ui->plainTextEdit->setStyleSheet(R"(
         QPlainTextEdit {
             background-color: #FFFFFF;
@@ -27,6 +28,31 @@ void MainWindow::initStyle()
 
     ui->plainTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->plainTextEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    //筛选框样式
+    ui->FilterComboBox->setStyleSheet(R"(
+    QComboBox {
+        background-color: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        border-radius: 4px;
+        color: #4B5563;
+        padding: 4px 8px;
+    }
+
+    QComboBox::drop-down {
+        border: none;
+        width: 20px;
+    }
+
+    QComboBox QAbstractItemView {
+        background-color: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        color: #4B5563;
+        selection-background-color: #F3F4F6;
+        selection-color: #111827;
+    }
+)");
+
 
 }
 void MainWindow::checkUpdates()
