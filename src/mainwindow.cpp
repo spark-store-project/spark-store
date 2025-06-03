@@ -17,8 +17,15 @@ void MainWindow::initStyle()
         "    background-color: #FFFFFF;"
         "    border: 1px solid #E5E7EB;"
         "    border-radius: 4px;"
+        "    padding-top: 8px;"      // 上内边距
+        "    padding-bottom: 8px;"   // 下内边距
+        "    font-size: 9px;"       // 字体大小可调
+        "    line-height: 1.4;"      // 可略调行距（非必须）"
+        "    color: #9CA3AF;" 
         "}"
     );
+    ui->plainTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->plainTextEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 }
 void MainWindow::checkUpdates()
