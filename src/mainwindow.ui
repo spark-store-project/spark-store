@@ -147,6 +147,12 @@
                 </size>
                </property>
                <property name="plainText">
+                <string/>
+               </property>
+               <property name="tabStopDistance">
+                <double>81.000000000000000</double>
+               </property>
+               <property name="placeholderText">
                 <string>搜索软件...</string>
                </property>
               </widget>
