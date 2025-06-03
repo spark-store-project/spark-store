@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    checkUpdates();
+    // checkUpdates();
     ui->setupUi(this);
     initStyle();
 }
@@ -84,7 +84,16 @@ void MainWindow::initStyle()
         }
     )");
 
+    //设置背景填充颜色
+    ui->backgroundWidget->setStyleSheet(R"(
+        QWidget {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+        }
+    )");
 
+    //设置主背景颜色
+    this->setStyleSheet("background-color: #F8FAFC;");
 
 }
 void MainWindow::checkUpdates()
