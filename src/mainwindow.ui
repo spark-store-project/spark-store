@@ -181,7 +181,7 @@
               <height>40</height>
              </size>
             </property>
-            <widget class="QComboBox" name="comboBox">
+            <widget class="QComboBox" name="FilterComboBox">
              <property name="geometry">
               <rect>
                <x>0</x>
@@ -219,7 +219,7 @@
               </property>
              </item>
             </widget>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="updatePushButton">
              <property name="geometry">
               <rect>
                <x>118</x>
