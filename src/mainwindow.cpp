@@ -31,32 +31,59 @@ void MainWindow::initStyle()
 
     //筛选框样式
     ui->FilterComboBox->setStyleSheet(R"(
-    QComboBox {
-        background-color: #FFFFFF;
-        border: 1px solid #E5E7EB;
-        border-radius: 4px;
-        color: #4B5563;
-        padding: 4px 8px;
-    }
+        QComboBox {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+            color: #4B5563;
+            padding: 4px 8px;
+        }
 
-    QComboBox::drop-down {
-        border: none;
-        width: 20px;
-    }
+        QComboBox::drop-down {
+            border: none;
+            width: 20px;
+        }
 
-    QComboBox::down-arrow {
-        image: url(:/resources/down_arrow.svg);
-        width: 12px;
-        height: 16px;
-    }
-    QComboBox QAbstractItemView {
-        background-color: #FFFFFF;
-        border: 1px solid #E5E7EB;
-        color: #4B5563;
-        selection-background-color: #F3F4F6;
-        selection-color: #111827;
-    }
-)");
+        QComboBox::down-arrow {
+            image: url(:/resources/down_arrow.svg);
+            width: 12px;
+            height: 16px;
+        }
+        QComboBox QAbstractItemView {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            color: #4B5563;
+            selection-background-color: #F3F4F6;
+            selection-color: #111827;
+        }
+    )");
+
+    //更新软件按钮样式
+    ui->updatePushButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            padding: 6px 12px;
+            text-align: center;
+        }
+
+        QPushButton:hover {
+            background-color: #1D4ED8; /* 深一点的 hover 效果，可选 */
+        }
+
+        QPushButton:pressed {
+            background-color: #1E40AF; /* 按下效果，可选 */
+        }
+
+        QPushButton:disabled {
+            background-color: #A5B4FC;
+            color: #F9FAFB;
+        }
+    )");
+
 
 
 }
