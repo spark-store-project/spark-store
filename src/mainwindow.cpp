@@ -44,6 +44,11 @@ void MainWindow::initStyle()
         width: 20px;
     }
 
+    QComboBox::down-arrow {
+        image: url(:/resources/down_arrow.svg);
+        width: 12px;
+        height: 16px;
+    }
     QComboBox QAbstractItemView {
         background-color: #FFFFFF;
         border: 1px solid #E5E7EB;
