@@ -14,30 +14,34 @@ QStringList aptssUpdater::getUpdateablePackages()
 {
     QStringList packageDetails;
     QProcess process;
-    process.start("bash", QStringList() << "-c" << "aptss list --upgradable");
-    process.waitForFinished();
+    QString command = R"(env LANGUAGE=en_US /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" | awk 'NR>1')";
+    
+    process.start("bash", QStringList() << "-c" << command);
+    if (!process.waitForFinished()) {
+        qWarning() << "Process failed to finish.";
+        return packageDetails;
+    }
 
     QString output = process.readAllStandardOutput();
-    QTextStream stream(&output);
+    QStringList lines = output.split('\n', Qt::SkipEmptyParts);
 
-    // 跳过第一行（提示信息）
-    stream.readLine();
+    for (const QString &line : lines) {
+        // 示例行格式:
+        // code/unknown 1.100.3-1748872405 amd64 [upgradable from: 1.100.2-1747260578]
 
-    while (!stream.atEnd()) {
-        QString line = stream.readLine();
-        QRegularExpression regex(R"((\S+)/\S+\s+(\S+)\s+\S+\s+\[可从该版本升级：(.+)\])");
+        QRegularExpression regex(R"(([\w\-\+\.]+)/\S+\s+([^\s]+)\s+\S+\s+\[upgradable from: ([^\]]+)\])");
         QRegularExpressionMatch match = regex.match(line);
-
         if (match.hasMatch()) {
-            QString packageName = match.captured(1);
-            QString updateVersion = match.captured(2);
-            QString currentVersion = match.captured(3);
-            packageDetails << QString("%1 (%2 -> %3)").arg(packageName, currentVersion, updateVersion);
+            QString name = match.captured(1);
+            QString newVersion = match.captured(2);
+            QString oldVersion = match.captured(3);
+            packageDetails << QString("%1: %2 → %3").arg(name, oldVersion, newVersion);
         }
     }
 
     return packageDetails;
 }
+
 
 QStringList aptssUpdater::getPackageSizes()
 {
