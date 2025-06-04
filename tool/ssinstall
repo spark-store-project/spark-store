@@ -21,6 +21,28 @@ case $(arch) in
 esac
 
 echo "Spark Store Install script. 星火商店安装脚本"
+parse_args() {
+    while [ $# -gt 0 ]; do
+        case "$1" in
+        -h | --help)
+            help
+            exit 0
+            ;;
+        --delete-after-install)
+            DELETE_AFTER_INSTALL="1"
+            shift
+            ;;
+        *)
+            DEBPATH="$1"
+            ;;
+        esac
+        shift
+    done
+}
+
+parse_args "$@"
+
+# 包含自动识别安装需求和用户交互业务代码
 
 function pkexec_as_current_user() {
     local user=$(who | awk '{print $1}' | head -n 1)
@@ -133,6 +155,7 @@ if [ $# -eq 0 ]; then
     echo "OMG-IT-GOES-WRONG"
     exit
 fi
+
 
 
 
