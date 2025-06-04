@@ -25,18 +25,33 @@ QStringList aptssUpdater::getUpdateablePackages()
     QString output = process.readAllStandardOutput();
     QStringList lines = output.split('\n', Qt::SkipEmptyParts);
 
-    for (const QString &line : lines) {
-        // 示例行格式:
-        // code/unknown 1.100.3-1748872405 amd64 [upgradable from: 1.100.2-1747260578]
-
-        QRegularExpression regex(R"(([\w\-\+\.]+)/\S+\s+([^\s]+)\s+\S+\s+\[upgradable from: ([^\]]+)\])");
-        QRegularExpressionMatch match = regex.match(line);
-        if (match.hasMatch()) {
-            QString name = match.captured(1);
-            QString newVersion = match.captured(2);
-            QString oldVersion = match.captured(3);
-            packageDetails << QString("%1: %2 → %3").arg(name, oldVersion, newVersion);
+    // 创建临时文件
+    QTemporaryFile tempFile;
+    tempFile.setAutoRemove(false);
+    if (tempFile.open()) {
+        QTextStream stream(&tempFile);
+        
+        for (const QString &line : lines) {
+            QRegularExpression regex(R"(([\w\-\+\.]+)/\S+\s+([^\s]+)\s+\S+\s+\[upgradable from: ([^\]]+)\])");
+            QRegularExpressionMatch match = regex.match(line);
+            if (match.hasMatch()) {
+                QString name = match.captured(1);
+                QString newVersion = match.captured(2);
+                QString oldVersion = match.captured(3);
+                
+                // 写入内存列表
+                packageDetails << QString("%1: %2 → %3").arg(name, oldVersion, newVersion);
+                
+                // 写入临时文件（原始数据）
+                stream << name << "|" << oldVersion << "|" << newVersion << "\n";
+            }
         }
+        tempFile.close();
+        m_tempFilePath = tempFile.fileName();
+        qDebug()<< "临时文件路径：" << m_tempFilePath;
+        
+    } else {
+        qWarning() << "无法创建临时文件";
     }
 
     return packageDetails;
@@ -45,61 +60,10 @@ QStringList aptssUpdater::getUpdateablePackages()
 
 QStringList aptssUpdater::getPackageSizes()
 {
-    QStringList packageSizes;
-    QProcess process;
-    process.start("bash", QStringList() << "-c" << "aptss upgrade --assume-no");
 
-    // 自动回复 "n" 以跳过交互式提示
-    if (process.waitForStarted()) {
-        process.write("n\n");
-    }
-
-    process.waitForFinished();
-
-    QString output = process.readAllStandardOutput();
-    QTextStream stream(&output);
-
-    while (!stream.atEnd()) {
-        QString line = stream.readLine();
-        QRegularExpression regex(R"((\S+)\s+\S+\s+(\d+(?:\.\d+)?(?:KiB|MiB)))");
-        QRegularExpressionMatch match = regex.match(line);
-
-        if (match.hasMatch()) {
-            QString packageName = match.captured(1);
-            QString packageSize = match.captured(2);
-            packageSizes << QString("%1: %2").arg(packageName, packageSize);
-        }
-    }
-
-    return packageSizes;
 }
 
 QStringList aptssUpdater::getDesktopAppNames()
 {
-    QStringList appNames;
-    QStringList updateablePackages = getUpdateablePackages();
 
-    for (const QString &packageDetail : updateablePackages) {
-        // 提取包名（忽略版本信息）
-        QString packageName = packageDetail.split(' ').first();
-        QString desktopFilePath = QString("/usr/share/applications/%1.desktop").arg(packageName);
-
-        QFile desktopFile(desktopFilePath);
-        if (desktopFile.exists() && desktopFile.open(QIODevice::ReadOnly)) {
-            QTextStream stream(&desktopFile);
-            while (!stream.atEnd()) {
-                QString line = stream.readLine();
-                if (line.startsWith("Name=")) {
-                    QString appName = line.mid(5); // 提取 Name 属性值
-                    appNames << appName;
-                    break;
-                }
-            }
-            desktopFile.close();
-        } else {
-            appNames << QString("未找到 .desktop 文件: %1").arg(packageName);
-        }
-    }
-
-    return appNames;
 }
