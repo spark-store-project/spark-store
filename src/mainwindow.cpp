@@ -12,6 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
 //初始化控件样式
 void MainWindow::initStyle()
 {
+    //设置窗口标题
+    this->setWindowTitle("软件更新中心");
+
     //查询框样式
     ui->plainTextEdit->setStyleSheet(R"(
         QPlainTextEdit {
