@@ -95,13 +95,14 @@ QStringList aptssUpdater::getDesktopAppNames()
                         packageName);  // 新增包名参数
         
     }
-    
+    qDebug()<< "应用名称列表：" << appNames;
     return appNames;
 }
 
 bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QStringList &appNames, const QString &lang, const QString &packageName)
 {
     bool hasFoundName = false;
+    QString lastValidName; 
     QRegularExpression noDisplayRe("^NoDisplay=(true|True)");
     QRegularExpression nameRe("^Name\\[?" + lang + "?\\]?=(.*)");
     QRegularExpression nameOrigRe("^Name=(.*)");
@@ -113,7 +114,7 @@ bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QStringLis
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) continue;
 
         bool skip = false;
-        QString name;
+        QString currentName;
         
         QTextStream in(&file);
         while (!in.atEnd()) {
@@ -128,31 +129,37 @@ bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QStringLis
             }
             
             // 优先匹配本地化名称
-            if (name.isEmpty()) {
+            if (currentName.isEmpty()) {
                 QRegularExpressionMatch match = nameRe.match(line);
                 if (match.hasMatch()) {
-                    name = match.captured(1);
+                    currentName = match.captured(1);
                     continue;
                 }
                 
                 // 匹配原始名称
                 match = nameOrigRe.match(line);
                 if (match.hasMatch()) {
-                    name = match.captured(1);
+                    currentName = match.captured(1);
                 }
             }
         }
         
-        if (!skip && !name.isEmpty() && !appNames.contains(name)) {
-            appNames << name;
-            hasFoundName = true;  // 标记已找到有效名称
+        if (!skip && !currentName.isEmpty()) {
+            lastValidName = currentName;  // 只更新最后一个有效名称
         }
     }
 
-    // 如果没有找到任何名称，则使用包名
-    if (!hasFoundName && !appNames.contains(packageName)) {
+    // 处理最终的有效名称
+    if (!lastValidName.isEmpty()) {
+        if (!appNames.contains(lastValidName)) {
+            appNames << lastValidName;
+        }
+        return true;
+    }
+    
+    // 回退到包名
+    if (!appNames.contains(packageName)) {
         appNames << packageName;
     }
-
-    return hasFoundName;
+    return false;
 }
