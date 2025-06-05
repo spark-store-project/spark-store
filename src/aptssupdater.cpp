@@ -3,6 +3,7 @@
 #include <QTextStream>
 #include <QRegularExpression>
 #include <QFile>
+#include <qdebug.h>
 
 aptssUpdater::aptssUpdater(QWidget *parent)
     : QWidget(parent)
@@ -66,8 +67,54 @@ QStringList aptssUpdater::getUpdateablePackages()
 
 QStringList aptssUpdater::getPackageSizes()
 {
+    QStringList packageSizes;
+    QProcess process;
 
+    // 使用绝对路径 + 自动输入N跳过交互
+    QString command = R"(echo N | /opt/durapps/spark-store/bin/aptss upgrade --assume-no)";
+
+    process.start("bash", QStringList() << "-c" << command);
+    if (!process.waitForFinished()) {
+        qWarning() << "获取包大小失败：进程未完成";
+        return packageSizes;
+    }
+
+    QString output = process.readAllStandardOutput() + process.readAllStandardError();
+
+    // 清理颜色控制字符（ANSI 转义序列）
+    output.remove(QRegularExpression(R"(\x1B\[[0-9;]*[a-zA-Z])"));  // \x1B is ESC
+
+    QStringList lines = output.split('\n', Qt::SkipEmptyParts);
+
+    // 从 getUpdateablePackages 获取包名
+    QStringList updateablePackages;
+    for (const QString &pkgInfo : getUpdateablePackages()) {
+        QString pkgName = pkgInfo.section(":", 0, 0).trimmed();
+        updateablePackages << pkgName;
+    }
+
+    // 匹配 [apt-fast xx:xx:xx] 行，提取内容
+    QRegularExpression sizeLineRegex(R"(\[apt-fast [^\]]+\](\S+)\s+\S+\s+(\d+(\.\d+)?[KMG]?iB))");
+
+    for (const QString &line : lines) {
+        QRegularExpressionMatch match = sizeLineRegex.match(line.trimmed());
+        if (match.hasMatch()) {
+            QString name = match.captured(1);
+            QString size = match.captured(2);
+
+            if (updateablePackages.contains(name)) {
+                packageSizes << QString("%1: %2").arg(name, size);
+            }
+        }
+    }
+
+    qDebug() << "包大小列表：" << packageSizes;
+    return packageSizes;
 }
+
+
+
+
 
 QStringList aptssUpdater::getDesktopAppNames()
 {

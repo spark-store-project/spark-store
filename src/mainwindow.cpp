@@ -106,6 +106,7 @@ void MainWindow::checkUpdates()
     // 获取可更新包列表
     // QStringList updateablePackages = updater.getUpdateablePackages();
     QStringList appName = updater.getDesktopAppNames();
+    updater.getPackageSizes();
     
 }
 
