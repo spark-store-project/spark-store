@@ -13,6 +13,9 @@ readonly ACE_ENVIRONMENTS_FOR_AUTOINSTALL=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
 )
+# 全局变量初始化（位于 parse_args 前）
+ACE_PARAMS=()
+
 # 生成ACE环境参数帮助信息
 function generate_ace_help() {
     local help_text=""
@@ -54,50 +57,52 @@ function show_help() {
 }
 # 参数解析
 function parse_args() {
-    while [ $# -gt 0 ]; do
-        case "$1" in
-            -h|--help)
-                show_help
-                exit 0
-                ;;
-            --delete-after-install)
-                DELETE_AFTER_INSTALL="1"
-                shift
-                ;;
-            --native)
-                FORCE_NATIVE="1"
-                shift
-                ;;
-            --no-create-desktop-entry)
-                NO_CREATE_DESKTOP="1"
-                shift
-                ;;
-            --force-create-desktop-entry)
-                FORCE_CREATE_DESKTOP="1"
-                shift
-                ;;
-            *)
-                # 检查是否为ACE环境参数
-                local is_ace_param=0
-                for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
-                    local ace_param="--${ace_entry#*:}"
-                    if [ "$1" = "$ace_param" ]; then
-                        FORCE_ACE_ENV="${ace_entry%%:*}"
-                        is_ace_param=1
-                        shift
-                        break
-                    fi
-                done
-                
-                # 如果不是ACE参数，则视为DEB路径
-                if [ "$is_ace_param" -eq 0 ]; then
-                    DEBPATH="$1"
-                    shift
-                fi
-                ;;
-        esac
-    done
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -h|--help)
+        show_help
+        exit 0
+        ;;
+      --delete-after-install)
+        DELETE_AFTER_INSTALL="1"
+        shift
+        ;;
+      --native)
+        FORCE_NATIVE="1"
+        shift
+        ;;
+      --no-create-desktop-entry)
+        NO_CREATE_DESKTOP="1"
+        shift
+        ;;
+      --force-create-desktop-entry)
+        FORCE_CREATE_DESKTOP="1"
+        shift
+        ;;
+      *)
+        # 检查是否为ACE环境参数
+        local is_ace_param=0
+        for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+          local ace_param="--${ace_entry#*:}"
+          if [ "$1" = "$ace_param" ]; then
+            # 将ACE环境命令名加入数组
+            ACE_PARAMS+=("${ace_entry%%:*}")
+            is_ace_param=1
+            shift
+            break
+          fi
+        done
+
+        # 如果不是ACE环境参数，则视为DEB路径
+        if [ "$is_ace_param" -eq 0 ]; then
+          DEBPATH="$1"
+          shift
+        fi
+        ;;
+    esac
+  done
 }
+
 
 # 验证当前用户
 function validate_user() {
@@ -418,36 +423,72 @@ function main_install() {
     
     package_name=$(dpkg-deb -f "$DEBPATH" Package)
     local install_success=1
-    
-    if [ -n "$FORCE_ACE_ENV" ]; then
-        # 查找对应的ACE环境包名
-        local ace_env_pkg=""
-        for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
-            if [ "${ace_entry%%:*}" = "$FORCE_ACE_ENV" ]; then
-                ace_env_pkg="${ace_entry#*:}"
-                break
-            fi
-        done
-        
-        # 强制使用指定的ACE环境安装
-        if command -v "$FORCE_ACE_ENV" >/dev/null 2>&1; then
-            install_in_ace_env "$FORCE_ACE_ENV" "$DEBPATH" "$ace_env_pkg"
-            install_success=$?
-            if [ "$install_success" -eq 0 ]; then
-                create_desktop_in_ace "$FORCE_ACE_ENV" "$package_name"
-            fi
-        else
-            echo "指定的ACE环境 $FORCE_ACE_ENV 不可用"
-            echo "OMG-IT-GOES-WRONG"
-            exit 1
-        fi
-    else
-        # 自动选择安装方式
-        auto_try_install "$DEBPATH"
-        install_success=$?
+ if [ "$FORCE_NATIVE" -eq 1 ]; then
+    # 优先使用主机安装，忽略所有ACE参数
+    echo "忽略ACE，使用主机安装 $package_name"
+    install_in_host "$DEBPATH"
+    install_success=$?
+    # 安装成功后在主机创建桌面快捷方式
+    if [ "$install_success" -eq 0 ]; then
+      create_desktop_file
     fi
-    
-    post_install_cleanup "$install_success" "$DEBPATH" "$package_name"
+
+  elif [ ${#ACE_PARAMS[@]} -gt 0 ]; then
+    # 用户指定了一个或多个ACE环境，且未要求原生安装
+    echo "使用ACE环境安装，已指定环境: ${ACE_PARAMS[*]}"
+
+    # 查找第一个已安装的ACE环境
+    chosen_env=""
+    for env_cmd in "${ACE_PARAMS[@]}"; do
+      if command -v "$env_cmd" >/dev/null 2>&1; then
+        chosen_env="$env_cmd"
+        break
+      fi
+    done
+    # 如果没有安装任何环境，则使用第一个指定的环境
+    if [ -z "$chosen_env" ]; then
+      chosen_env="${ACE_PARAMS[0]}"
+      echo "未发现已安装的ACE环境，准备安装 $chosen_env..."
+      # 查找对应的ACE环境软件包名
+      for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+        if [ "${ace_entry%%:*}" = "$chosen_env" ]; then
+          ace_pkg="${ace_entry#*:}"
+          break
+        fi
+      done
+      # 安装ACE环境（示例使用aptss工具，可根据实际情况调整）
+      aptss install "$ace_pkg" -y
+    fi
+
+    # 再次确认ACE环境命令是否可用
+    if command -v "$chosen_env" >/dev/null 2>&1; then
+      # 查找软件包名（仅首次查找即可）
+      for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+        if [ "${ace_entry%%:*}" = "$chosen_env" ]; then
+          ace_pkg="${ace_entry#*:}"
+          break
+        fi
+      done
+      echo "在 ACE 环境 $chosen_env 中安装 $package_name"
+      install_in_ace_env "$chosen_env" "$DEBPATH" "$ace_pkg"
+      install_success=$?
+      if [ "$install_success" -eq 0 ]; then
+        create_desktop_in_ace "$chosen_env" "$package_name"
+      fi
+    else
+      echo "指定的ACE环境 $chosen_env 不可用"
+      echo "OMG-IT-GOES-WRONG"
+      exit 1
+    fi
+
+  else
+    # 未指定ACE环境和--native，使用自动安装逻辑（先主机再ACE）
+    echo "自动选择安装方式"
+    auto_try_install "$DEBPATH"
+    install_success=$?
+  fi
+
+  post_install_cleanup "$install_success" "$DEBPATH" "$package_name"
 }
 
 # 执行主函数
