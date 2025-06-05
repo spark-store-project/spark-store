@@ -39,6 +39,12 @@ QStringList aptssUpdater::getUpdateablePackages()
                 QString newVersion = match.captured(2);
                 QString oldVersion = match.captured(3);
                 
+                // 检查版本是否相同，相同则跳过
+                if (newVersion == oldVersion) {
+                    qDebug() << "跳过版本相同的包:" << name << "(" << oldVersion << "→" << newVersion << ")";
+                    continue;
+                }
+                
                 // 写入内存列表
                 packageDetails << QString("%1: %2 → %3").arg(name, oldVersion, newVersion);
                 
