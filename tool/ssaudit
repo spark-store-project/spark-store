@@ -151,9 +151,7 @@ function hash_check() {
 
 # 确保aptss存在
 function ensure_aptss_exist() {
-    if command -v aptss &>/dev/null; then
-        aptss update
-    else
+    if ! command -v aptss &>/dev/null; then
         local deb_file="/tmp/spark-store-console-in-container_latest_all.deb"
         
         if ! wget -O "$deb_file" "https://amber-ce-resource.spark-app.store/store/depends/spark-store-console-in-container_latest_all.deb"; then
@@ -264,19 +262,36 @@ function install_in_ace_env() {
     echo "----------------------------------------"
     
     # 在ACE环境中执行安装
-    if ! $ace_cmd "ensure_aptss_exist && { dpkg -i '$deb_path' || aptss install '$deb_path' -yfq; }"; then
-        return 1
+    if $ace_cmd "ensure_aptss_exist && { dpkg -i '$deb_path' || aptss install '$deb_path' -yfq; }"; then
+        return 0
+    else
+        # 如果第一次安装失败，执行aptss update后再试一次
+        echo "第一次安装失败，正在更新仓库信息后重试..."
+        $ace_cmd "aptss update"
+        if $ace_cmd "dpkg -i '$deb_path' || aptss install '$deb_path' -yfq"; then
+            return 0
+        else
+            return 1
+        fi
     fi
-    
-    return 0
 }
 
 # 在主机安装
 function install_in_host() {
     local deb_path="$1"
     
-    dpkg -i "$deb_path" || aptss install "$deb_path" -yfq
-    return $?
+    if dpkg -i "$deb_path" || aptss install "$deb_path" -yfq; then
+        return 0
+    else
+        # 如果第一次安装失败，执行aptss update后再试一次
+        echo "第一次安装失败，正在更新仓库信息后重试..."
+        aptss update
+        if dpkg -i "$deb_path" || aptss install "$deb_path" -yfq; then
+            return 0
+        else
+            return 1
+        fi
+    fi
 }
 
 # 自动尝试在各种环境中安装
