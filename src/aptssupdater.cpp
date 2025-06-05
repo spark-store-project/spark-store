@@ -76,32 +76,44 @@ QStringList aptssUpdater::getDesktopAppNames()
     
     foreach (const QString &package, packages) {
         QString packageName = package.split(":")[0];
+        QString finalName = packageName; // 默认使用包名
         
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
         dpkgProcess.waitForFinished();
         QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
 
-        // 检查常规应用目录
-        checkDesktopFiles(files.filter("/usr/share/applications/"), 
-                       appNames, 
-                       lang, 
-                       packageName);  // 新增包名参数
+        // 先检查常规应用目录
+        QStringList regularDesktopFiles = files.filter("/usr/share/applications/");
+        QString regularAppName;
+        if (!regularDesktopFiles.isEmpty()) {
+            checkDesktopFiles(regularDesktopFiles, regularAppName, lang, packageName);
+        }
         
-        // 检查特殊目录（/opt/apps）
-        checkDesktopFiles(files.filter(QRegularExpression(QString("/opt/apps/%1/entries/applications").arg(packageName))),
-                        appNames,
-                        lang,
-                        packageName);  // 新增包名参数
+        // 如果常规目录没有找到，再检查特殊目录
+        if (regularAppName.isEmpty()) {
+            QStringList specialDesktopFiles = files.filter(QRegularExpression(QString("/opt/apps/%1/entries/applications").arg(packageName)));
+            QString specialAppName;
+            if (!specialDesktopFiles.isEmpty()) {
+                checkDesktopFiles(specialDesktopFiles, specialAppName, lang, packageName);
+                if (!specialAppName.isEmpty()) {
+                    finalName = specialAppName;
+                }
+            }
+        } else {
+            finalName = regularAppName;
+        }
         
+        // 输出格式为[软件名|包名]
+        appNames << QString("[%1|%2]").arg(finalName, packageName);
     }
     qDebug()<< "应用名称列表：" << appNames;
     return appNames;
 }
 
-bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QStringList &appNames, const QString &lang, const QString &packageName)
+
+bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QString &appName, const QString &lang, const QString &packageName)
 {
-    bool hasFoundName = false;
     QString lastValidName; 
     QRegularExpression noDisplayRe("^NoDisplay=(true|True)");
     QRegularExpression nameRe("^Name\\[?" + lang + "?\\]?=(.*)");
@@ -145,21 +157,17 @@ bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QStringLis
         }
         
         if (!skip && !currentName.isEmpty()) {
-            lastValidName = currentName;  // 只更新最后一个有效名称
+            lastValidName = currentName;
         }
     }
 
     // 处理最终的有效名称
     if (!lastValidName.isEmpty()) {
-        if (!appNames.contains(lastValidName)) {
-            appNames << lastValidName;
-        }
+        appName = lastValidName;  // 直接赋值而不是使用<<
         return true;
     }
     
     // 回退到包名
-    if (!appNames.contains(packageName)) {
-        appNames << packageName;
-    }
+    appName = packageName;
     return false;
 }

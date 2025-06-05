@@ -18,11 +18,7 @@ public:
     QString m_tempFilePath;
 signals:
 private:
-    bool checkDesktopFiles(const QStringList &desktopFiles, 
-                         QStringList &appNames, 
-                         const QString &lang,
-                         const QString &packageName); // 新增包名参数
-
+bool checkDesktopFiles(const QStringList &desktopFiles, QString &appName, const QString &lang, const QString &packageName);
 };
 
 #endif // APTSSUPDATER_H
