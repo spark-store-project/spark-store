@@ -8,7 +8,7 @@
 aptssUpdater::aptssUpdater(QWidget *parent)
     : QWidget(parent)
 {
-
+    packageName = getUpdateablePackages();
 }
 
 QStringList aptssUpdater::getUpdateablePackages()
@@ -86,9 +86,9 @@ QStringList aptssUpdater::getPackageSizes()
 
     QStringList lines = output.split('\n', Qt::SkipEmptyParts);
 
-    // 从 getUpdateablePackages 获取包名
+    // 从 packageName 获取包名
     QStringList updateablePackages;
-    for (const QString &pkgInfo : getUpdateablePackages()) {
+    for (const QString &pkgInfo : packageName) {
         QString pkgName = pkgInfo.section(":", 0, 0).trimmed();
         updateablePackages << pkgName;
     }
@@ -125,7 +125,7 @@ QStringList aptssUpdater::getDesktopAppNames()
     QString lang = QLocale().name().replace("_", "-");
 
     // 遍历所有可更新包（复用已有的临时文件数据）
-    QStringList packages = getUpdateablePackages();
+    QStringList packages = packageName;
     
     foreach (const QString &package, packages) {
         QString packageName = package.split(":")[0];
