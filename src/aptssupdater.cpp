@@ -224,3 +224,8 @@ bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QString &a
     appName = packageName;
     return false;
 }
+
+QStringList aptssUpdater::getPackageIcons()
+{
+ 
+}
