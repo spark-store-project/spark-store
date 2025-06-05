@@ -65,5 +65,94 @@ QStringList aptssUpdater::getPackageSizes()
 
 QStringList aptssUpdater::getDesktopAppNames()
 {
+    QStringList appNames;
+    QProcess dpkgProcess;
+    
+    // 获取当前系统语言环境
+    QString lang = QLocale().name().replace("_", "-");
 
+    // 遍历所有可更新包（复用已有的临时文件数据）
+    QStringList packages = getUpdateablePackages();
+    
+    foreach (const QString &package, packages) {
+        QString packageName = package.split(":")[0];
+        
+        // 获取包文件列表
+        dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
+        dpkgProcess.waitForFinished();
+        QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
+
+        // 检查常规应用目录
+        checkDesktopFiles(files.filter("/usr/share/applications/"), 
+                       appNames, 
+                       lang, 
+                       packageName);  // 新增包名参数
+        
+        // 检查特殊目录（/opt/apps）
+        checkDesktopFiles(files.filter(QRegularExpression(QString("/opt/apps/%1/entries/applications").arg(packageName))),
+                        appNames,
+                        lang,
+                        packageName);  // 新增包名参数
+        
+    }
+    
+    return appNames;
+}
+
+bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QStringList &appNames, const QString &lang, const QString &packageName)
+{
+    bool hasFoundName = false;
+    QRegularExpression noDisplayRe("^NoDisplay=(true|True)");
+    QRegularExpression nameRe("^Name\\[?" + lang + "?\\]?=(.*)");
+    QRegularExpression nameOrigRe("^Name=(.*)");
+
+    foreach (const QString &filePath, desktopFiles) {
+        if (!filePath.endsWith(".desktop")) continue;
+
+        QFile file(filePath);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) continue;
+
+        bool skip = false;
+        QString name;
+        
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine().trimmed();
+            
+            // 检查NoDisplay属性
+            if (line.startsWith("NoDisplay=")) {
+                if (noDisplayRe.match(line).hasMatch()) {
+                    skip = true;
+                    break;
+                }
+            }
+            
+            // 优先匹配本地化名称
+            if (name.isEmpty()) {
+                QRegularExpressionMatch match = nameRe.match(line);
+                if (match.hasMatch()) {
+                    name = match.captured(1);
+                    continue;
+                }
+                
+                // 匹配原始名称
+                match = nameOrigRe.match(line);
+                if (match.hasMatch()) {
+                    name = match.captured(1);
+                }
+            }
+        }
+        
+        if (!skip && !name.isEmpty() && !appNames.contains(name)) {
+            appNames << name;
+            hasFoundName = true;  // 标记已找到有效名称
+        }
+    }
+
+    // 如果没有找到任何名称，则使用包名
+    if (!hasFoundName && !appNames.contains(packageName)) {
+        appNames << packageName;
+    }
+
+    return hasFoundName;
 }

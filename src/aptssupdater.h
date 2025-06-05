@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QStringList>
 #include <QTemporaryFile>
+#include <QLocale>
 class aptssUpdater : public QWidget
 {
     Q_OBJECT
@@ -16,6 +17,12 @@ public:
     QStringList getDesktopAppNames();  // 获取桌面应用名称列表
     QString m_tempFilePath;
 signals:
+private:
+    bool checkDesktopFiles(const QStringList &desktopFiles, 
+                         QStringList &appNames, 
+                         const QString &lang,
+                         const QString &packageName); // 新增包名参数
+
 };
 
 #endif // APTSSUPDATER_H
