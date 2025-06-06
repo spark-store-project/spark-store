@@ -5,8 +5,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    checkUpdates();
     ui->setupUi(this);
+    checkUpdates();
     initStyle();
 }
 //初始化控件样式
@@ -104,7 +104,6 @@ void MainWindow::checkUpdates()
     aptssUpdater updater;
 
     // 获取可更新包列表
-    // QStringList updateablePackages = updater.getUpdateablePackages();
     updater.getUpdateInfoAsJson();
     
 }
