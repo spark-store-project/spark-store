@@ -227,5 +227,75 @@ bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QString &a
 
 QStringList aptssUpdater::getPackageIcons()
 {
- 
+    QStringList packageIcons;
+    QProcess dpkgProcess;
+    
+    // 遍历所有可更新包
+    QStringList packages = packageName;
+    
+    foreach (const QString &package, packages) {
+        QString packageName = package.split(":")[0];
+        QString iconPath = ":/resources/default_icon.svg"; // 默认图标
+        
+        // 获取包文件列表
+        dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
+        dpkgProcess.waitForFinished();
+        QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
+        
+        // 查找.desktop文件
+        QStringList desktopFiles = files.filter(QRegularExpression("/(usr/share|opt/apps)/.*\\.desktop$"));
+        
+        // 从.desktop文件中提取图标
+        foreach (const QString &desktopFile, desktopFiles) {
+            QFile file(desktopFile);
+            if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream in(&file);
+                while (!in.atEnd()) {
+                    QString line = in.readLine().trimmed();
+                    if (line.startsWith("Icon=")) {
+                        QString iconName = line.mid(5).trimmed();
+                        
+                        // 处理相对图标名（如Icon=vscode）
+                        if (!iconName.contains('/')) {
+                            // 查找标准图标路径
+                            QStringList iconPaths = {
+                                QString("/usr/share/pixmaps/%1.png").arg(iconName),
+                                QString("/usr/share/icons/hicolor/48x48/apps/%1.png").arg(iconName),
+                                QString("/usr/share/icons/hicolor/scalable/apps/%1.svg").arg(iconName),
+                                QString("/opt/apps/%1/entries/icons/hicolor/48x48/apps/%2.png").arg(packageName, iconName)
+                            };
+                            
+                            foreach (const QString &path, iconPaths) {
+                                if (QFile::exists(path)) {
+                                    iconPath = path;
+                                    break;
+                                }
+                            }
+                        } else {
+                            // 已经是绝对路径
+                            if (QFile::exists(iconName)) {
+                                iconPath = iconName;
+                            }
+                        }
+                        break;
+                    }
+                }
+                file.close();
+            }
+        }
+        
+        // 如果.desktop中没有找到图标，尝试直接查找包中的图标文件
+        if (iconPath == ":/resources/default_icon.svg") {
+            QStringList iconFiles = files.filter(QRegularExpression("/(usr/share/pixmaps|usr/share/icons|opt/apps/.*/entries/icons)/.*\\.(png|svg)$"));
+            if (!iconFiles.isEmpty()) {
+                iconPath = iconFiles.first();
+            }
+        }
+        
+        qDebug() << "包名:" << packageName << "图标路径:" << iconPath;
+        packageIcons << QString("%1: %2").arg(packageName, iconPath);
+    }
+    
+    return packageIcons;
 }
+
