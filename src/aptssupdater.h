@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QTemporaryFile>
 #include <QLocale>
+#include <QJsonObject>
+#include <QJsonArray>
 class aptssUpdater : public QWidget
 {
     Q_OBJECT
@@ -15,6 +17,7 @@ public:
     QStringList getPackageSizes();       // 获取每个包的大小
     QStringList getDesktopAppNames();  // 获取桌面应用名称列表
     QStringList getPackageIcons();    // 获取包图标列表
+    QJsonArray getUpdateInfoAsJson(); // 获取更新信息的 JSON 格式
     QString m_tempFilePath;
 signals:
 private:

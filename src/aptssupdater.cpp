@@ -299,3 +299,90 @@ QStringList aptssUpdater::getPackageIcons()
     return packageIcons;
 }
 
+
+QJsonArray aptssUpdater::getUpdateInfoAsJson()
+{
+    QJsonArray jsonArray;
+    
+    // 获取所有需要的信息
+    QStringList packages = getUpdateablePackages();
+    QStringList sizes = getPackageSizes();
+    QStringList names = getDesktopAppNames();
+    QStringList icons = getPackageIcons();
+    
+    // 创建包名到各种信息的映射
+    QHash<QString, QHash<QString, QString>> packageInfo;
+    
+    // 解析包版本信息
+    for (const QString &pkg : packages) {
+        QStringList parts = pkg.split(": ");
+        if (parts.size() >= 2) {
+            QString packageName = parts[0];
+            QStringList versions = parts[1].split(" → ");
+            if (versions.size() == 2) {
+                packageInfo[packageName]["current_version"] = versions[0];
+                packageInfo[packageName]["new_version"] = versions[1];
+            }
+        }
+    }
+    
+    // 解析包大小信息
+    for (const QString &sizeInfo : sizes) {
+        QStringList parts = sizeInfo.split(": ");
+        if (parts.size() == 2) {
+            QString packageName = parts[0];
+            packageInfo[packageName]["size"] = parts[1];
+        }
+    }
+    
+    // 解析应用名称信息
+    for (const QString &nameInfo : names) {
+        if (nameInfo.startsWith("[") && nameInfo.endsWith("]")) {
+            QString content = nameInfo.mid(1, nameInfo.length() - 2);
+            QStringList parts = content.split("|");
+            if (parts.size() == 2) {
+                QString displayName = parts[0];
+                QString packageName = parts[1];
+                packageInfo[packageName]["display_name"] = displayName;
+            }
+        }
+    }
+    
+    // 解析图标信息
+    for (const QString &iconInfo : icons) {
+        QStringList parts = iconInfo.split(": ");
+        if (parts.size() == 2) {
+            QString packageName = parts[0];
+            packageInfo[packageName]["icon"] = parts[1].trimmed();
+        }
+    }
+    
+    // 构建JSON数组
+    for (const QString &packageName : packageInfo.keys()) {
+        QJsonObject jsonObj;
+        jsonObj["package"] = packageName;
+        
+        // 使用显示名称(如果有)，否则使用包名
+        if (packageInfo[packageName].contains("display_name")) {
+            jsonObj["name"] = packageInfo[packageName]["display_name"];
+        } else {
+            jsonObj["name"] = packageName;
+        }
+        
+        jsonObj["current_version"] = packageInfo[packageName]["current_version"];
+        jsonObj["new_version"] = packageInfo[packageName]["new_version"];
+        jsonObj["icon"] = packageInfo[packageName]["icon"];
+        jsonObj["ignored"] = false; // 默认不忽略
+        
+        // 如果有大小信息也加入
+        if (packageInfo[packageName].contains("size")) {
+            jsonObj["size"] = packageInfo[packageName]["size"];
+        }
+        
+        jsonArray.append(jsonObj);
+    }
+    qDebug()<<jsonArray;
+    return jsonArray;
+}
+
+
