@@ -25,6 +25,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         aptssupdater.h aptssupdater.cpp
         icons.qrc
+        appdelegate.h appdelegate.cpp
+        applistmodel.h applistmodel.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Spark-Update-Tool APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
