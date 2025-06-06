@@ -305,7 +305,6 @@ QJsonArray aptssUpdater::getUpdateInfoAsJson()
     QJsonArray jsonArray;
     
     // 获取所有需要的信息
-    QStringList packages = getUpdateablePackages();
     QStringList sizes = getPackageSizes();
     QStringList names = getDesktopAppNames();
     QStringList icons = getPackageIcons();
@@ -314,7 +313,7 @@ QJsonArray aptssUpdater::getUpdateInfoAsJson()
     QHash<QString, QHash<QString, QString>> packageInfo;
     
     // 解析包版本信息
-    for (const QString &pkg : packages) {
+    for (const QString &pkg : packageName) {
         QStringList parts = pkg.split(": ");
         if (parts.size() >= 2) {
             QString packageName = parts[0];
