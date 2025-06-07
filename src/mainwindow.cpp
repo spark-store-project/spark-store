@@ -4,8 +4,21 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_model(new AppListModel(this))
+    , m_delegate(new AppDelegate(this))
 {
     ui->setupUi(this);
+
+    // 创建 QListView 并设置父控件为 ui->appWidget
+    listView = new QListView(ui->appWidget);
+    listView->setModel(m_model);
+    listView->setItemDelegate(m_delegate);
+
+    // 设置 QListView 填充 ui->appWidget
+    QVBoxLayout *layout = new QVBoxLayout(ui->appWidget);
+    layout->addWidget(listView);
+    layout->setContentsMargins(0, 0, 0, 0);
+
     checkUpdates();
     initStyle();
 }
@@ -102,9 +115,8 @@ void MainWindow::initStyle()
 void MainWindow::checkUpdates()
 {
     aptssUpdater updater;
-
-    // 获取可更新包列表
-    updater.getUpdateInfoAsJson();
+    QJsonArray updateInfo = updater.getUpdateInfoAsJson();
+    m_model->setUpdateData(updateInfo);
     
 }
 

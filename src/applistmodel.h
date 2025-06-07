@@ -1,15 +1,26 @@
 #ifndef APPLISTMODEL_H
 #define APPLISTMODEL_H
 
-#include <QObject>
+#include <QAbstractListModel>
+#include <QJsonArray>
+// 添加 QJsonObject 头文件
+#include <QJsonObject>
 
-class AppListModel : public QObject
+class AppListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
     explicit AppListModel(QObject *parent = nullptr);
 
-signals:
+    // 重写方法
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+    // 设置更新数据
+    void setUpdateData(const QJsonArray &data);
+
+private:
+    QJsonArray m_data;
 };
 
 #endif // APPLISTMODEL_H

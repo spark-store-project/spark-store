@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include "aptssupdater.h"
+#include "applistmodel.h"
+#include "appdelegate.h"
+#include <QListView>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -21,5 +25,8 @@ private:
     Ui::MainWindow *ui;
     void checkUpdates();
     void initStyle();
+    AppListModel *m_model;
+    AppDelegate *m_delegate;
+    QListView *listView; // 声明 QListView 指针
 };
 #endif // MAINWINDOW_H
