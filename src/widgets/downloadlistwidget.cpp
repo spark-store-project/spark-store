@@ -85,7 +85,9 @@ void DownloadListWidget::clearItem()
     ui->listWidget->clear();
 }
 
-DownloadItem* DownloadListWidget::addItem(QString name, QString fileName, QString pkgName, const QPixmap icon, QString downloadurl)
+DownloadItem* DownloadListWidget::addItem(QString name, QString fileName, QString pkgName,
+                                          const QPixmap icon, QString downloadurl,
+                                          const QString &installExtraArg)
 {
     if (fileName.isEmpty())
     {
@@ -104,6 +106,7 @@ DownloadItem* DownloadListWidget::addItem(QString name, QString fileName, QStrin
     di->setName(name);
     di->setFileName(fileName);
     di->pkgName = pkgName;
+    di->installExtraArg = installExtraArg;
     di->seticon(icon);
     QListWidgetItem *pItem = new QListWidgetItem();
     pItem->setSizeHint(QSize(240, 56)); // ui 中单个 downloaditem 高度固定 56px（上下 margin 8px，图片固定 48x48）

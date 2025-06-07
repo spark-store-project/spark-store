@@ -535,7 +535,27 @@ void AppIntoPage::on_downloadButton_clicked()
 
     emit clickedDownloadBtn();
 
-    DownloadItem *item = dw->addItem(info["Name"].toString(), info["Filename"].toString(), info["Pkgname"].toString(), iconpixmap, downloadUrl);
+    // 处理 tags，设置 installExtraArg
+    QString installExtraArg;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    QStringList taglist = info["Tags"].toString().split(";", Qt::SkipEmptyParts);
+#else
+    QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
+#endif
+    if (taglist.contains("native")) {
+        installExtraArg = "--native";
+    } else if (taglist.contains("amber-ce-bookworm")) {
+        installExtraArg = "--amber-ce-bookworm";
+    } else if (taglist.contains("amber-ce-trixie")) {
+        installExtraArg = "--amber-ce-trixie";
+    } else if (taglist.contains("amber-ce-sid")) {
+        installExtraArg = "--amber-ce-sid";
+    } else if (taglist.contains("amber-ce-deepin23")) {
+        installExtraArg = "--amber-ce-deepin23";
+    }
+
+    DownloadItem *item = dw->addItem(info["Name"].toString(), info["Filename"].toString(), info["Pkgname"].toString(),
+                                     iconpixmap, downloadUrl, installExtraArg);
     if (item == nullptr)
     {
         return;
@@ -551,21 +571,6 @@ void AppIntoPage::on_downloadButton_clicked()
         Qt::QueuedConnection);
 
     isDownloading(downloadUrl);
-
-    // 处理 tags，设置 installExtraArg
-    QString tags = info["Tags"].toString();
-    QStringList taglist = tags.split(";", Qt::SkipEmptyParts);
-    if (taglist.contains("native")) {
-        item->installExtraArg = "--native";
-    } else if (taglist.contains("amber-ce-bookworm")) {
-        item->installExtraArg = "--amber-ce-bookworm";
-    } else if (taglist.contains("amber-ce-trixie")) {
-        item->installExtraArg = "--amber-ce-trixie";
-    } else if (taglist.contains("amber-ce-sid")) {
-        item->installExtraArg = "--amber-ce-sid";
-    } else if (taglist.contains("amber-ce-deepin23")) {
-        item->installExtraArg = "--amber-ce-deepin23";
-    }
 }
 
 void AppIntoPage::on_pushButton_3_clicked()

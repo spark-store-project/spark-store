@@ -252,8 +252,5 @@ void DownloadItem::slotAsyncInstall(int t)
     ui->widget_spinner->hide();
     DownloadItem::isInstall = false;
 
-    installer.deleteLater();
-    isInstall.deleteLater();
-
     emit finished(error == 0 && !haveError && !notRoot);
 }
