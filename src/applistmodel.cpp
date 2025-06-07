@@ -27,6 +27,8 @@ QVariant AppListModel::data(const QModelIndex &index, int role) const
         return obj["new_version"].toString();
     case Qt::UserRole + 4: // 图标路径
         return obj["icon"].toString();
+    case Qt::UserRole + 5: // 文件大小
+        return obj["size"].toVariant();
     default:
         return QVariant();
     }
