@@ -551,6 +551,21 @@ void AppIntoPage::on_downloadButton_clicked()
         Qt::QueuedConnection);
 
     isDownloading(downloadUrl);
+
+    // 处理 tags，设置 installExtraArg
+    QString tags = info["Tags"].toString();
+    QStringList taglist = tags.split(";", Qt::SkipEmptyParts);
+    if (taglist.contains("native")) {
+        item->installExtraArg = "--native";
+    } else if (taglist.contains("amber-ce-bookworm")) {
+        item->installExtraArg = "--amber-ce-bookworm";
+    } else if (taglist.contains("amber-ce-trixie")) {
+        item->installExtraArg = "--amber-ce-trixie";
+    } else if (taglist.contains("amber-ce-sid")) {
+        item->installExtraArg = "--amber-ce-sid";
+    } else if (taglist.contains("amber-ce-deepin23")) {
+        item->installExtraArg = "--amber-ce-deepin23";
+    }
 }
 
 void AppIntoPage::on_pushButton_3_clicked()

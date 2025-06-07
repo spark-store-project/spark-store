@@ -175,8 +175,16 @@ void DownloadItem::slotAsyncInstall(int t)
     switch (t)
     {
     case 0:
-        installer.start("pkexec", QStringList() << "/usr/local/bin/ssinstall"
-                                                << "/tmp/spark-store/" + ui->label_filename->text().toUtf8() << "--delete-after-install");
+        {
+            QStringList args;
+            args << "/usr/local/bin/ssinstall"
+                 << "/tmp/spark-store/" + ui->label_filename->text().toUtf8();
+            if (!installExtraArg.isEmpty()) {
+                args << installExtraArg;
+            }
+            args << "--delete-after-install";
+            installer.start("pkexec", args);
+        }
         break;
     case 1:
         installer.start("deepin-deb-installer", QStringList() << "/tmp/spark-store/" + ui->label_filename->text().toUtf8());

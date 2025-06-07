@@ -43,6 +43,9 @@ public:
 
     void install(int);
 
+    // 新增：安装时额外参数
+    QString installExtraArg;
+
 private:
     Ui::DownloadItem *ui;
 
