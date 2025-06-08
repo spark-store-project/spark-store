@@ -1,9 +1,27 @@
 #include "appdelegate.h"
 #include <QIcon>
 #include <QDebug>
+#include "downloadmanager.h"
+#include <QProgressBar>
+#include <QPushButton>
+#include <QApplication> // 包含 QApplication 头文件
 
-AppDelegate::AppDelegate(QObject *parent) : QStyledItemDelegate(parent) {}
-
+AppDelegate::AppDelegate(QObject *parent) : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this))
+{
+    connect(m_downloadManager, &DownloadManager::downloadProgress, this, [this](int progress) {
+        m_progress = progress;
+        emit updateDisplay(); // 触发重绘
+    });
+    connect(m_downloadManager, &DownloadManager::downloadFinished, this, [this](bool success) {
+        m_isDownloading = false;
+        emit updateDisplay(); // 触发重绘
+        if (success) {
+            qDebug() << "下载完成";
+        } else {
+            qDebug() << "下载失败";
+        }
+    });
+}
 void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     painter->save();
@@ -64,17 +82,37 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
                     //   QString("更新说明：%1\n包大小：%2").arg(description, size));
                     QString("包大小：%1").arg(size));
 
-    // 更新按钮（样式占位）
-    QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(QColor("#267AFF"));
-    painter->drawRoundedRect(buttonRect, 6, 6);
-    painter->setPen(Qt::white);
-    painter->drawText(buttonRect, Qt::AlignCenter, "更新");
+    if (m_isDownloading) {
+        // 进度条
+        QRect progressRect(rect.right() - 180, rect.top() + (rect.height() - 20) / 2, 100, 20);
+        QStyleOptionProgressBar progressBarOption;
+        progressBarOption.rect = progressRect;
+        progressBarOption.minimum = 0;
+        progressBarOption.maximum = 100;
+        progressBarOption.progress = m_progress;
+        progressBarOption.text = QString("%1%").arg(m_progress);
+        progressBarOption.textVisible = true;
+        QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
+
+        // 取消按钮
+        QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
+        QStyleOptionButton cancelButtonOption;
+        cancelButtonOption.rect = cancelButtonRect;
+        cancelButtonOption.text = "取消";
+        cancelButtonOption.state |= QStyle::State_Enabled;
+        QApplication::style()->drawControl(QStyle::CE_PushButton, &cancelButtonOption, painter);
+    } else {
+        // 更新按钮
+        QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(QColor("#267AFF"));
+        painter->drawRoundedRect(buttonRect, 6, 6);
+        painter->setPen(Qt::white);
+        painter->drawText(buttonRect, Qt::AlignCenter, "更新");
+    }
 
     painter->restore();
 }
-
 
 QSize AppDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -84,8 +122,33 @@ QSize AppDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInde
 bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
     if (event->type() == QEvent::MouseButtonRelease) {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        QRect rect = option.rect;
+        if (m_isDownloading) {
+            // 取消按钮区域
+            QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
+            if (cancelButtonRect.contains(mouseEvent->pos())) {
+                // 修正方法调用，假设 DownloadManager 有 killProcess 方法
+                if (m_downloadManager->isRunning()) { 
+                    m_downloadManager->killProcess(); 
+                    m_isDownloading = false;
+                    emit updateDisplay(); // 触发重绘
+                }
+                return true;
+            }
+        } else {
+            // 更新按钮区域
+            QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+            if (buttonRect.contains(mouseEvent->pos())) {
+                QString appName = index.data(Qt::DisplayRole).toString();
+                m_isDownloading = true;
+                m_progress = 0;
+                m_downloadManager->startDownload(appName);
+                emit updateDisplay(); // 触发重绘
+                return true;
+            }
+        }
         qDebug() << "点击了第" << index.row() << "行";
-        return true;
     }
     return QStyledItemDelegate::editorEvent(event, model, option, index);
 }

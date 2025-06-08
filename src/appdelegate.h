@@ -3,8 +3,10 @@
 
 #include <QStyledItemDelegate>
 #include <QPainter>
-// 添加 QEvent 头文件
 #include <QEvent>
+#include <QMouseEvent> 
+// 前向声明 DownloadManager 类
+class DownloadManager; 
 
 class AppDelegate : public QStyledItemDelegate
 {
@@ -16,6 +18,14 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
+
+signals:
+    void updateDisplay(); // 声明更新显示的信号
+
+private:
+    DownloadManager *m_downloadManager; // 声明下载管理器指针
+    int m_progress = 0; // 声明下载进度
+    bool m_isDownloading = false; // 声明下载状态
 };
 
 #endif // APPDELEGATE_H
