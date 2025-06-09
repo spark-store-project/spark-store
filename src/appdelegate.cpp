@@ -140,10 +140,11 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QS
             // 更新按钮区域
             QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
             if (buttonRect.contains(mouseEvent->pos())) {
-                QString appName = index.data(Qt::DisplayRole).toString();
+                // 修改这里：使用Qt::UserRole +1获取包名
+                QString packageName = index.data(Qt::UserRole + 1).toString();
                 m_isDownloading = true;
                 m_progress = 0;
-                m_downloadManager->startDownload(appName);
+                m_downloadManager->startDownload(packageName);
                 emit updateDisplay(); // 触发重绘
                 return true;
             }
