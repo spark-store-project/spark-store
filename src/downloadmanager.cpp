@@ -19,11 +19,12 @@ DownloadManager::~DownloadManager()
 void DownloadManager::startDownload(const QString &appName)
 {
     // 输出开始下载的日志
-    qDebug() << "开始下载应用:" << appName;
-    QString command = QString("aptss download --print-uris %1").arg(appName);
-    // 输出执行的命令日志
-    qDebug() << "执行命令:" << command;
-    m_process->start(command);
+    QString program = "aptss";
+    QStringList arguments;
+    arguments << "download" << "--print-uris" << appName;
+    
+    qDebug() << "执行命令:" << program << arguments.join(" ");
+    m_process->start(program, arguments);
 }
 
 void DownloadManager::onProcessReadyRead()
