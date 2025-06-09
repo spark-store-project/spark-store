@@ -12,7 +12,13 @@ DownloadManager::~DownloadManager()
 {
     if (m_process->state() == QProcess::Running) {
         m_process->kill();
-        m_process->waitForFinished();
+        // 原代码
+        // m_process->waitForFinished();
+        
+        // 修改后增加超时处理
+        if (!m_process->waitForFinished(5000)) {
+            qWarning() << "进程终止超时";
+        }
     }
 }
 
