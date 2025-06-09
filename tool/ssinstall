@@ -258,6 +258,10 @@ function install_in_ace_env() {
     local deb_path="$2"
     local ace_env_pkg="${3#*:}"
     
+    if [ "$IS_ACE_ENV" != "" ]; then
+        echo "无法在ACE中安装ACE包"
+        return 1
+    fi
     if ! ensure_ace_env "$ace_env_pkg"; then
         return 1
     fi
@@ -315,8 +319,8 @@ function auto_try_install() {
         return 0
     fi
     
-    # 如果主机安装失败且不在强制本地模式，尝试ACE环境
-    if [ "$FORCE_NATIVE" -eq 0 ]; then
+    # 如果主机安装失败，并非在ACE内运行且不在强制本地模式，尝试ACE环境
+    if [ "$FORCE_NATIVE" -eq 0 ] || [ "$IS_ACE_ENV" = "" ]; then
         for ace_entry in "${ACE_ENVIRONMENTS_FOR_AUTOINSTALL[@]}"; do
             local ace_cmd=${ace_entry%%:*}
             local ace_env_pkg=${ace_entry#*:}
@@ -391,7 +395,9 @@ function lock_file() {
 }
 
 function unlock_file() {
+    if [ -e "$1" ];then    
     chattr -i "$1"
+    fi
 }
 
 # 主安装流程
