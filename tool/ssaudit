@@ -280,6 +280,7 @@ function install_in_ace_env() {
     fi
     
     # dry-run成功后执行实际安装
+    $ace_cmd "aptss install store.spark-app.app-runtime-base --no-install-recommends -yfq"
     if $ace_cmd "dpkg -i '$deb_path' || aptss install '$deb_path' -yfq"; then
         return 0
     else
