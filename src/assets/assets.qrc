@@ -73,5 +73,6 @@
         <file>tags/uos.png</file>
         <file>tags/uos.svg</file>
         <file>translations/qtwebengine_zh.qm</file>
+        <file>icon/sparky.png</file>
     </qresource>
 </RCC>
