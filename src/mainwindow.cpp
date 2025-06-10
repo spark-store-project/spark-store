@@ -111,6 +111,40 @@ void MainWindow::initStyle()
     //设置主背景颜色
     this->setStyleSheet("background-color: #F8FAFC;");
 
+    // 添加滚动条样式
+    listView->setStyleSheet(R"(
+        QScrollBar:vertical {
+            background: #F3F4F6;
+            width: 8px;
+            margin: 0px;
+        }
+        QScrollBar::handle:vertical {
+            background: #D1D5DB;
+            border-radius: 4px;
+            min-height: 30px;
+        }
+        QScrollBar::handle:vertical:hover {
+            background: #9CA3AF;
+        }
+        QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+            background: none;
+            height: 0px;
+        }
+        
+        QScrollBar:horizontal {
+            background: #F3F4F6;
+            height: 8px;
+            margin: 0px;
+        }
+        QScrollBar::handle:horizontal {
+            background: #D1D5DB;
+            border-radius: 4px;
+            min-width: 30px;
+        }
+        QScrollBar::handle:horizontal:hover {
+            background: #9CA3AF;
+        }
+    )");
 }
 void MainWindow::checkUpdates()
 {
