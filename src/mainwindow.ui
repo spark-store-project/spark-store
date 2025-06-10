@@ -268,11 +268,11 @@
        </item>
        <item>
         <widget class="QWidget" name="appWidget" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>598</width>
-           <height>1328</height>
-          </size>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
         </widget>
        </item>
