@@ -8,6 +8,8 @@
 #include <QSettings>
 #include <QProcess>
 #include <QDebug>
+#include <QFile>
+#include <QTextStream>
 
 DataCollectorAndUploader::DataCollectorAndUploader(QObject *parent) : QObject(parent)
 {
@@ -23,25 +25,26 @@ void DataCollectorAndUploader::collectData()
     QString distributor_id;
     QString release;
     QString architecture;
-    
+
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
     QString version = config.value("build/version").toString();
     QString uuid = config.value("info/uuid").toString();
 
-
-    // Execute lsb_release --all and capture the output
-    QProcess lsbProcess;
-    lsbProcess.start("lsb_release", QStringList() << "--all");
-    lsbProcess.waitForFinished();
-    QString lsbOutput = lsbProcess.readAllStandardOutput();
-
-    QStringList lines = lsbOutput.split('\n');
-    for (const QString &line : lines) {
-        if (line.contains("Distributor ID:")) {
-            distributor_id = line.split(":").last().trimmed();
-        } else if (line.contains("Release:")) {
-            release = line.split(":").last().trimmed();
+    // Read /etc/os-release file
+    QFile osReleaseFile("/etc/os-release");
+    if (osReleaseFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&osReleaseFile);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            if (line.startsWith("ID=")) {
+                distributor_id = line.mid(3).remove('"').trimmed();
+            } else if (line.startsWith("VERSION_ID=")) {
+                release = line.mid(11).remove('"').trimmed();
+            }
         }
+        osReleaseFile.close();
+    } else {
+        qWarning() << "Could not open /etc/os-release file";
     }
 
     // Execute uname -m to get the architecture
@@ -57,8 +60,6 @@ void DataCollectorAndUploader::collectData()
     json.insert("Architecture", architecture);
     json.insert("Store_Version", version);
     json.insert("UUID", uuid);
-
-
 
     // Convert to byte array
     QJsonDocument doc(json);
