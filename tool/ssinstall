@@ -340,6 +340,7 @@ function auto_try_install() {
     
     # 首先尝试在主机安装
     if install_in_host "$deb_path"; then
+        create_desktop_file
         return 0
     fi
     
