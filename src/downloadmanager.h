@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QProcess>
 
 class DownloadManager : public QObject
 {
@@ -11,19 +12,17 @@ class DownloadManager : public QObject
 public:
     explicit DownloadManager(QObject *parent = nullptr);
     void startDownload(const QString &url, const QString &outputPath);
-    void cancelDownload(); // 添加取消下载的方法
 
 signals:
     void downloadProgress(int progress); // 下载进度信号
     void downloadFinished(bool success); // 下载完成信号
 
 private slots:
-    void onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
-    void onDownloadFinished();
+    void onAria2Progress(); // 处理 aria2 的进度
+    void onAria2Finished(int exitCode, QProcess::ExitStatus exitStatus); // 处理 aria2 完成事件
 
 private:
-    QNetworkAccessManager m_networkManager;
-    QNetworkReply *m_reply = nullptr;
+    QProcess m_aria2Process; // 用于运行 aria2 的进程
 };
 
 #endif // DOWNLOADMANAGER_H

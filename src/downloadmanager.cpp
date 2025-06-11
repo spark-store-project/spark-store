@@ -1,68 +1,47 @@
 #include "downloadmanager.h"
 #include <QFile>
 #include <QDebug>
+#include <QRegularExpression>
+#include <QFileInfo> // 添加 QFileInfo 头文件
 
 DownloadManager::DownloadManager(QObject *parent) : QObject(parent) {}
 
 void DownloadManager::startDownload(const QString &url, const QString &outputPath)
 {
-    qDebug() << "接收到的下载 URL:" << url; // 检查 URL 是否正确传递
+    QString metalinkUrl = url + ".metalink"; // 构造 Metalink URL
+    qDebug() << "开始下载 Metalink 文件:" << metalinkUrl;
 
-    // 验证 URL 是否包含协议
-    QUrl metalinkUrl(url + ".metalink");
-    if (!metalinkUrl.isValid() || metalinkUrl.scheme().isEmpty()) {
-        qWarning() << "无效的 URL:" << metalinkUrl.toString();
-        emit downloadFinished(false);
-        return;
-    }
+    QStringList arguments;
+    arguments << "--enable-rpc=false" << "--console-log-level=warn"
+              << "--summary-interval=1" << "--dir=" + QFileInfo(outputPath).absolutePath()
+              << "--out=" + QFileInfo(outputPath).fileName() << metalinkUrl;
 
-    QNetworkRequest request(metalinkUrl);
-    m_reply = m_networkManager.get(request);
+    connect(&m_aria2Process, &QProcess::readyReadStandardOutput, this, &DownloadManager::onAria2Progress);
+    connect(&m_aria2Process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &DownloadManager::onAria2Finished);
 
-    connect(m_reply, &QNetworkReply::downloadProgress, this, &DownloadManager::onDownloadProgress);
-    connect(m_reply, &QNetworkReply::finished, this, &DownloadManager::onDownloadFinished);
-
-    // 保存路径
-    m_reply->setProperty("outputPath", outputPath);
+    m_aria2Process.start("aria2c", arguments);
 }
 
-void DownloadManager::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
+void DownloadManager::onAria2Progress()
 {
-    if (bytesTotal > 0) {
-        int progress = static_cast<int>((bytesReceived * 100) / bytesTotal);
-        emit downloadProgress(progress);
+    QString output = m_aria2Process.readAllStandardOutput();
+    QRegularExpression regex(R"(Download Progress: (\d+)%.*)");
+    QRegularExpressionMatch match = regex.match(output);
+
+    if (match.hasMatch()) {
+        int progress = match.captured(1).toInt();
+        emit downloadProgress(progress); // 发送进度信号
+        qDebug() << "下载进度:" << progress << "%";
     }
 }
 
-void DownloadManager::onDownloadFinished()
+void DownloadManager::onAria2Finished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    if (m_reply->error() == QNetworkReply::NoError) {
-        QString outputPath = m_reply->property("outputPath").toString();
-        QFile file(outputPath);
-        if (file.open(QIODevice::WriteOnly)) {
-            file.write(m_reply->readAll());
-            file.close();
-            qDebug() << "文件已保存到路径:" << outputPath; // 输出保存路径
-            emit downloadFinished(true);
-        } else {
-            qWarning() << "无法保存文件到路径:" << outputPath;
-            emit downloadFinished(false);
-        }
+    if (exitCode == 0 && exitStatus == QProcess::NormalExit) {
+        qDebug() << "下载完成";
+        emit downloadFinished(true); // 发送完成信号
     } else {
-        qWarning() << "下载失败:" << m_reply->errorString();
-        emit downloadFinished(false);
-    }
-
-    m_reply->deleteLater();
-    m_reply = nullptr;
-}
-
-void DownloadManager::cancelDownload()
-{
-    if (m_reply) {
-        m_reply->abort(); // 取消当前下载
-        m_reply->deleteLater();
-        m_reply = nullptr;
-        emit downloadFinished(false); // 发送下载失败信号
+        qWarning() << "下载失败，退出代码:" << exitCode;
+        emit downloadFinished(false); // 发送失败信号
     }
 }

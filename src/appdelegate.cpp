@@ -129,8 +129,6 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QS
             // 取消按钮区域
             QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
             if (cancelButtonRect.contains(mouseEvent->pos())) {
-                // 修正方法调用，假设 DownloadManager 有 cancelDownload 方法
-                m_downloadManager->cancelDownload(); 
                 m_isDownloading = false;
                 emit updateDisplay(); // 触发重绘
                 return true;
@@ -141,19 +139,26 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QS
             if (buttonRect.contains(mouseEvent->pos())) {
                 QString packageName = index.data(Qt::UserRole + 1).toString();
                 QString downloadUrl = index.data(Qt::UserRole + 7).toString();
-
-                qDebug() << "从模型中获取的包名:" << packageName;
-                qDebug() << "从模型中获取的下载 URL:" << downloadUrl; // 检查模型中是否正确传递 URL
-
-                if (downloadUrl.isEmpty()) {
-                    qWarning() << "下载 URL 为空，无法开始下载，包名:" << packageName;
-                    return false;
-                }
-
                 QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
 
                 m_isDownloading = true;
                 m_progress = 0;
+
+                connect(m_downloadManager, &DownloadManager::downloadProgress, this, [this](int progress) {
+                    m_progress = progress;
+                    emit updateDisplay(); // 更新界面显示
+                });
+
+                connect(m_downloadManager, &DownloadManager::downloadFinished, this, [this](bool success) {
+                    m_isDownloading = false;
+                    emit updateDisplay(); // 更新界面显示
+                    if (success) {
+                        qDebug() << "下载完成";
+                    } else {
+                        qDebug() << "下载失败";
+                    }
+                });
+
                 m_downloadManager->startDownload(downloadUrl, outputPath);
                 emit updateDisplay(); // 触发重绘
                 return true;
