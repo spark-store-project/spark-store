@@ -460,7 +460,7 @@ function main_install() {
     
     package_name=$(dpkg-deb -f "$DEBPATH" Package)
     local install_success=1
- if [ "$FORCE_NATIVE" -eq 1 ]; then
+ if [ "$FORCE_NATIVE" -eq 1 ] || [ "$IS_ACE_ENV" = "1" ]; then
     # 优先使用主机安装，忽略所有ACE参数
     echo "忽略ACE，使用主机安装 $package_name"
     install_in_host "$DEBPATH"
@@ -470,7 +470,7 @@ function main_install() {
       create_desktop_file
     fi
 
-  elif [ ${#ACE_PARAMS[@]} -gt 0 ]; then
+  elif [ ${#ACE_PARAMS[@]} -gt 0 ] && [ "$IS_ACE_ENV" != "" ]; then
     # 用户指定了一个或多个ACE环境，且未要求原生安装
     echo "使用ACE环境安装，已指定环境: ${ACE_PARAMS[*]}"
 
