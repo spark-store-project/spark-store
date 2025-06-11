@@ -1,7 +1,8 @@
 spark-store (4.8.0~test1) UNRELEASED; urgency=medium
 
-  * ssinstall升级，支持安装到ACE和自动安装到ACE
+  * ssinstall重写，支持安装到ACE和自动安装到ACE，支持只允许安装到本地
   * 商店支持展示ACE标识，支持识别 native amber-ce-bookworm amber-ce-trixie
+  * 投稿器支持新版spec
   
  -- shenmo <shenmo@spark-app.store>  Tue, 24 Sep 2024 11:27:08 +0800
 
