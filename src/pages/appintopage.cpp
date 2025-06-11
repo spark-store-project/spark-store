@@ -235,6 +235,9 @@ void AppIntoPage::clear()
     ui->tag_debian->hide();
     ui->tag_ubuntu->hide();
     ui->tag_community->hide();
+    ui->tag_native->hide();
+    ui->tag_amber_ce_bookworm->hide();
+    ui->tag_amber_ce_trixie->hide();
     ui->icon->clear();
     ui->title->clear();
     ui->version->clear();
@@ -405,32 +408,16 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
     bool deepinSupport = false;
     bool uosSupport = false;
     bool debianSupport = false;
+    bool hasAmberTag = false;
+
     foreach (const QString &tag, tagList)
     {
-        if (tag == "community")
+        if (tag.isEmpty()) {
+            continue;
+        }
+        else if (tag == "community")
         {
             ui->tag_community->show();
-        }
-        else if (tag == "debian")
-        {
-            ui->tag_debian->show();
-            debianSupport = true;
-        }
-        else if (tag == "ubuntu")
-        {
-            ui->tag_ubuntu->show();
-            ubuntuSupport = true;
-        }
-        else if (tag == "deepin")
-        {
-            ui->tag_deepin->show();
-            deepinSupport = true;
-        }
-        else if (tag == "uos")
-        {
-            ui->tag_uos->show();
-            uosSupport = true;
-
         }
         else if (tag == "dtk5")
         {
@@ -448,9 +435,52 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
         {
             ui->tag_a2d->show();
         }
+        else if (tag == "native")
+        {
+            ui->tag_native->show();
+        }
+        else if (tag == "amber-ce-bookworm")
+        {
+            ui->tag_amber_ce_bookworm->show();
+            hasAmberTag = true;
+        }
+        else if (tag == "amber-ce-trixie")
+        {
+            ui->tag_amber_ce_trixie->show();
+            hasAmberTag = true;
+        }
+        else if (!hasAmberTag)  // Only process distro tags if we haven't found an amber tag
+        {
+
+            if (tag == "debian")
+            {
+                ui->tag_debian->show();
+                debianSupport = true;
+            }
+            else if (tag == "ubuntu")
+            {
+                ui->tag_ubuntu->show();
+                ubuntuSupport = true;
+            }
+            else if (tag == "deepin")
+            {
+                ui->tag_deepin->show();
+                deepinSupport = true;
+            }
+            else if (tag == "uos")
+            {
+                ui->tag_uos->show();
+                uosSupport = true;
+            }
+        }
     }
-    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport ,debianSupport);
+
+    if (!hasAmberTag)
+    {
+        notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport, debianSupport);
+    }
 }
+
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport, bool debianSupport)
 {
