@@ -25,15 +25,19 @@ void DownloadManager::startDownload(const QString &url, const QString &outputPat
 void DownloadManager::onAria2Progress()
 {
     QString output = m_aria2Process.readAllStandardOutput();
-    QRegularExpression regex(R"(Download Progress: (\d+)%.*)");
-    QRegularExpressionMatch match = regex.match(output);
+    QRegularExpression regex(R"(\((\d+)%\))");
+    QRegularExpressionMatchIterator i = regex.globalMatch(output);
 
-    if (match.hasMatch()) {
-        int progress = match.captured(1).toInt();
-        emit downloadProgress(progress); // 发送进度信号
-        qDebug() << "下载进度:" << progress << "%";
+    while (i.hasNext()) {
+        QRegularExpressionMatch match = i.next();
+        if (match.hasMatch()) {
+            int progress = match.captured(1).toInt();
+            emit downloadProgress(progress); // 发送进度信号
+            qDebug() << "下载进度:" << progress << "%";
+        }
     }
 }
+
 
 void DownloadManager::onAria2Finished(int exitCode, QProcess::ExitStatus exitStatus)
 {
