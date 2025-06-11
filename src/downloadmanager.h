@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QProcess>
 #include <QRegularExpression>
-
 class DownloadManager : public QObject
 {
     Q_OBJECT

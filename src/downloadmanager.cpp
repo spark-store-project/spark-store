@@ -35,15 +35,30 @@ void DownloadManager::startDownload(const QString &appName)
 
 void DownloadManager::onProcessReadyRead()
 {
-    QByteArray output = m_process->readAllStandardOutput();
-    QString outputStr = QString::fromUtf8(output);
+    static QString buffer;  // 缓存未处理的输出
+    buffer += QString::fromUtf8(m_process->readAllStandardOutput());
 
-    QRegularExpressionMatch match = m_progressRegex.match(outputStr);
-    if (match.hasMatch()) {
-        int progress = match.captured(1).toInt();
-        emit downloadProgress(progress);
+    const QStringList lines = buffer.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
+
+    for (const QString &line : lines) {
+        QRegularExpressionMatch match = m_progressRegex.match(line);
+        if (match.hasMatch()) {
+            int progress = match.captured(1).toInt();
+            qDebug() << "匹配进度:" << progress << "% => " << line;
+            emit downloadProgress(progress);
+        } else {
+            // qDebug() << "未匹配行:" << line;
+        }
+    }
+
+    // 如果最后不是完整的一行，保留最后一部分
+    if (!buffer.endsWith('\n') && !buffer.endsWith('\r')) {
+        buffer = lines.last();
+    } else {
+        buffer.clear();
     }
 }
+
 
 void DownloadManager::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
