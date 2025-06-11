@@ -1,13 +1,14 @@
 #!/bin/bash
-dpkg -s "$1" > /dev/null
-RET="$?"
-    if [[ "$RET" != "0" ]] &&[[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中
 readonly ACE_ENVIRONMENTS=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
     "deepin23-run:amber-ce-deepin23"
     "sid-run:amber-ce-sid"
 )
+dpkg -s "$1" > /dev/null
+RET="$?"
+if [[ "$RET" != "0" ]] &&[[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中
+
 
 
 for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do

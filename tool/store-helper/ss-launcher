@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # ===== ACE环境配置 =====
-declare -a ace_commands_order=(
+readonly ACE_ENVIRONMENTS=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
     "deepin23-run:amber-ce-deepin23"
+    "sid-run:amber-ce-sid"
 )
 
 # ===== 日志和函数 =====
@@ -72,7 +73,7 @@ function launch_app() {
 # ===== ACE环境执行器 =====
 function ace_runner() {
     local command_type=$1 package_name=$2
-    for ace_entry in "${ace_commands_order[@]}"; do
+    for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
         local ace_cmd=${ace_entry%%:*}
         command -v "$ace_cmd" >/dev/null || continue
         

@@ -151,24 +151,25 @@ void AppIntoPage::openUrl(const QUrl &url)
             {
                 isInstalled = true;
 
-                QProcess isUpdate;
-                isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
-                                                           << "--show" << info["Pkgname"].toString());
-                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
-                QString localVersion = isUpdate.readAllStandardOutput();
-                localVersion.replace("'", "");
+                // QProcess isUpdate;
+                // isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
+                //                                            << "--show" << info["Pkgname"].toString());
+                // isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                // QString localVersion = isUpdate.readAllStandardOutput();
+                // localVersion.replace("'", "");
 
-                isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
-                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
-                if (isUpdate.exitCode() == 0 && isUpdate.exitStatus() == QProcess::NormalExit)
-                {
-                    isUpdated = true;
-                }
-                else
-                {
-                    isUpdated = false;
-                }
-                isUpdate.close();
+                // isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
+                // isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                // if (isUpdate.exitCode() == 0 && isUpdate.exitStatus() == QProcess::NormalExit)
+                // {
+                //     isUpdated = true;
+                // }
+                // else
+                // {
+                //     isUpdated = false;
+                // }
+                // isUpdate.close();
+                isUpdated = true; //去掉直接点击升级的功能
             }
             else
             {
@@ -586,11 +587,11 @@ void AppIntoPage::on_pushButton_3_clicked()
         uninstall.waitForFinished(-1);
         uninstall.close();
 
-        QProcess check;
-        check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-        check.waitForFinished(-1);
+        // QProcess check;
+        // check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
+        // check.waitForFinished(-1);
 
-        if (check.exitCode() != 0 || check.exitStatus() != QProcess::NormalExit)
+        if (uninstall.exitCode() != 0 || uninstall.exitStatus() != QProcess::NormalExit)
         {
             ui->downloadButton->setText(tr("Download and Install"));
             ui->pushButton_3->hide();
@@ -601,7 +602,7 @@ void AppIntoPage::on_pushButton_3_clicked()
         ui->downloadButton->setEnabled(true);
         ui->pushButton_3->setEnabled(true);
 
-        check.close();
+        // check.close();
     });
 }
 
