@@ -80,7 +80,7 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     painter->setPen(QColor("#AAAAAA"));
     painter->drawText(descRect, Qt::TextWordWrap,
                     //   QString("更新说明：%1\n包大小：%2").arg(description, size));
-                    QString("包大小：%1").arg(size));
+                    QString("包大小：%1 MB").arg(QString::number(size.toDouble() / (1024 * 1024), 'f', 2)));
 
     if (m_isDownloading) {
         // 进度条
