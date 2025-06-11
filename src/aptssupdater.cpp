@@ -381,9 +381,14 @@ QJsonArray aptssUpdater::getUpdateInfoAsJson()
         }
         
         // 在构建JSON对象时添加新字段（在jsonObj中添加）：
-        jsonObj["download_url"] = packageInfo[packageName]["url"];
+        if (packageInfo[packageName].contains("url")) {
+            jsonObj["download_url"] = packageInfo[packageName]["url"];
+            qDebug() << "生成的下载 URL:" << packageInfo[packageName]["url"]; // 检查生成的 URL
+        } else {
+            qWarning() << "未找到下载 URL，包名:" << packageName;
+            jsonObj["download_url"] = ""; // 设置为空字符串以避免崩溃
+        }
         jsonObj["sha512"] = packageInfo[packageName]["sha512"];
-        
         jsonArray.append(jsonObj);
     }
     qDebug()<<jsonArray;

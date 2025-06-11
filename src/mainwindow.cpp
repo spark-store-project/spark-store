@@ -151,7 +151,12 @@ void MainWindow::checkUpdates()
     aptssUpdater updater;
     QJsonArray updateInfo = updater.getUpdateInfoAsJson();
     m_model->setUpdateData(updateInfo);
-    
+
+    for (const auto &item : updateInfo) {
+        QJsonObject obj = item.toObject();
+        qDebug() << "模型设置的包名:" << obj["package"].toString();
+        qDebug() << "模型设置的下载 URL:" << obj["download_url"].toString(); // 检查模型数据
+    }
 }
 
 MainWindow::~MainWindow()

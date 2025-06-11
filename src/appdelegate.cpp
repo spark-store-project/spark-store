@@ -5,6 +5,7 @@
 #include <QProgressBar>
 #include <QPushButton>
 #include <QApplication> // 包含 QApplication 头文件
+#include <QDir> // 添加 QDir 头文件
 
 AppDelegate::AppDelegate(QObject *parent) : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this))
 {
@@ -128,23 +129,32 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QS
             // 取消按钮区域
             QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
             if (cancelButtonRect.contains(mouseEvent->pos())) {
-                // 修正方法调用，假设 DownloadManager 有 killProcess 方法
-                if (m_downloadManager->isRunning()) { 
-                    m_downloadManager->killProcess(); 
-                    m_isDownloading = false;
-                    emit updateDisplay(); // 触发重绘
-                }
+                // 修正方法调用，假设 DownloadManager 有 cancelDownload 方法
+                m_downloadManager->cancelDownload(); 
+                m_isDownloading = false;
+                emit updateDisplay(); // 触发重绘
                 return true;
             }
         } else {
             // 更新按钮区域
             QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
             if (buttonRect.contains(mouseEvent->pos())) {
-                // 修改这里：使用Qt::UserRole +1获取包名
                 QString packageName = index.data(Qt::UserRole + 1).toString();
+                QString downloadUrl = index.data(Qt::UserRole + 7).toString();
+
+                qDebug() << "从模型中获取的包名:" << packageName;
+                qDebug() << "从模型中获取的下载 URL:" << downloadUrl; // 检查模型中是否正确传递 URL
+
+                if (downloadUrl.isEmpty()) {
+                    qWarning() << "下载 URL 为空，无法开始下载，包名:" << packageName;
+                    return false;
+                }
+
+                QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
+
                 m_isDownloading = true;
                 m_progress = 0;
-                m_downloadManager->startDownload(packageName);
+                m_downloadManager->startDownload(downloadUrl, outputPath);
                 emit updateDisplay(); // 触发重绘
                 return true;
             }

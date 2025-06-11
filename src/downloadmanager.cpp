@@ -1,80 +1,68 @@
 #include "downloadmanager.h"
-#include <QDebug> // 包含 QDebug 头文件
+#include <QFile>
+#include <QDebug>
 
-DownloadManager::DownloadManager(QObject *parent) : QObject(parent), m_process(new QProcess(this))
+DownloadManager::DownloadManager(QObject *parent) : QObject(parent) {}
+
+void DownloadManager::startDownload(const QString &url, const QString &outputPath)
 {
-    m_progressRegex = QRegularExpression(R"(\((\d+)%\))");
-    connect(m_process, &QProcess::readyReadStandardOutput, this, &DownloadManager::onProcessReadyRead);
-    connect(m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &DownloadManager::onProcessFinished);
+    qDebug() << "接收到的下载 URL:" << url; // 检查 URL 是否正确传递
+
+    // 验证 URL 是否包含协议
+    QUrl metalinkUrl(url + ".metalink");
+    if (!metalinkUrl.isValid() || metalinkUrl.scheme().isEmpty()) {
+        qWarning() << "无效的 URL:" << metalinkUrl.toString();
+        emit downloadFinished(false);
+        return;
+    }
+
+    QNetworkRequest request(metalinkUrl);
+    m_reply = m_networkManager.get(request);
+
+    connect(m_reply, &QNetworkReply::downloadProgress, this, &DownloadManager::onDownloadProgress);
+    connect(m_reply, &QNetworkReply::finished, this, &DownloadManager::onDownloadFinished);
+
+    // 保存路径
+    m_reply->setProperty("outputPath", outputPath);
 }
 
-DownloadManager::~DownloadManager()
+void DownloadManager::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 {
-    if (m_process->state() == QProcess::Running) {
-        m_process->kill();
-        // 原代码
-        // m_process->waitForFinished();
-        
-        // 修改后增加超时处理
-        if (!m_process->waitForFinished(5000)) {
-            qWarning() << "进程终止超时";
-        }
+    if (bytesTotal > 0) {
+        int progress = static_cast<int>((bytesReceived * 100) / bytesTotal);
+        emit downloadProgress(progress);
     }
 }
 
-void DownloadManager::startDownload(const QString &appName)
+void DownloadManager::onDownloadFinished()
 {
-    // 输出开始下载的日志
-    QString program = "aptss";
-    QStringList arguments;
-    arguments << "download" << "--print-uris" << appName;
-    
-    qDebug() << "执行命令:" << program << arguments.join(" ");
-    m_process->start(program, arguments);
-}
-
-void DownloadManager::onProcessReadyRead()
-{
-    static QString buffer;  // 缓存未处理的输出
-    buffer += QString::fromUtf8(m_process->readAllStandardOutput());
-
-    const QStringList lines = buffer.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
-
-    for (const QString &line : lines) {
-        QRegularExpressionMatch match = m_progressRegex.match(line);
-        if (match.hasMatch()) {
-            int progress = match.captured(1).toInt();
-            qDebug() << "匹配进度:" << progress << "% => " << line;
-            emit downloadProgress(progress);
+    if (m_reply->error() == QNetworkReply::NoError) {
+        QString outputPath = m_reply->property("outputPath").toString();
+        QFile file(outputPath);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(m_reply->readAll());
+            file.close();
+            qDebug() << "文件已保存到路径:" << outputPath; // 输出保存路径
+            emit downloadFinished(true);
         } else {
-            // qDebug() << "未匹配行:" << line;
+            qWarning() << "无法保存文件到路径:" << outputPath;
+            emit downloadFinished(false);
         }
-    }
-
-    // 如果最后不是完整的一行，保留最后一部分
-    if (!buffer.endsWith('\n') && !buffer.endsWith('\r')) {
-        buffer = lines.last();
     } else {
-        buffer.clear();
+        qWarning() << "下载失败:" << m_reply->errorString();
+        emit downloadFinished(false);
     }
+
+    m_reply->deleteLater();
+    m_reply = nullptr;
 }
 
-
-void DownloadManager::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void DownloadManager::cancelDownload()
 {
-    bool success = (exitStatus == QProcess::NormalExit && exitCode == 0);
-    emit downloadFinished(success);
-}
-
-bool DownloadManager::isRunning() const
-{
-    return m_process->state() == QProcess::Running;
-}
-
-void DownloadManager::killProcess()
-{
-    if (m_process->state() == QProcess::Running) {
-        m_process->kill();
-        m_process->waitForFinished();
+    if (m_reply) {
+        m_reply->abort(); // 取消当前下载
+        m_reply->deleteLater();
+        m_reply = nullptr;
+        emit downloadFinished(false); // 发送下载失败信号
     }
 }

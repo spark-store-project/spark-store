@@ -20,7 +20,7 @@ public:
     void setUpdateData(const QJsonArray &data);
 
 private:
-    QJsonArray m_data;
+    QList<QVariantMap> m_data; // 修改类型为 QList<QVariantMap>
 };
 
 #endif // APPLISTMODEL_H
