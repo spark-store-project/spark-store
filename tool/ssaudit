@@ -2,7 +2,7 @@
 # 初始化常量和全局变量
 readonly SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
 readonly SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
-# ACE环境配置 - 修改此数组即可添加或删除支持的环境
+# ACE环境配置 - 修改此数组即可添加或删除支持的环境——记得修改 store-helper 里的 uninstaller check-is-installed 和 ss-launcher
 readonly ACE_ENVIRONMENTS=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
@@ -13,6 +13,27 @@ readonly ACE_ENVIRONMENTS_FOR_AUTOINSTALL=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
 )
+function get_current_user() {
+    # 优先通过 who 命令获取用户
+    local user
+    user=$(who | awk '{print $1}' | head -n 1 2>/dev/null)
+
+    # 如果 who 无输出，则通过 loginctl 获取
+    if [[ -z "$user" ]]; then
+        user=$(loginctl list-sessions --no-legend 2>/dev/null | awk '{print $3}' | head -n 1)
+    fi
+
+    # 返回最终结果（可能为空）
+    echo "${user}"
+}
+
+function zenity() {
+    local user=$(get_current_user)
+    local uid=$(id -u "$user")
+    sudo -u "$user" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/"$uid"/bus zenity "$@"
+}
+
+
 # 全局变量初始化（位于 parse_args 前）
 ACE_PARAMS=()
 
@@ -45,7 +66,7 @@ case $(arch) in
 esac
 # 帮助函数
 function show_help() {
-    echo "Spark Store Audit script. 星火商店审核脚本"
+    echo "Spark Store audit script. 星火商店审核脚本"
     echo "用法: $0 [选项] <deb路径>"
     echo "选项:"
     echo "  -h, --help                   显示帮助信息"
@@ -257,6 +278,7 @@ function install_in_ace_env() {
     local ace_cmd="$1"
     local deb_path="$2"
     local ace_env_pkg="${3#*:}"
+    
     if [ "$IS_ACE_ENV" != "" ]; then
         echo "无法在ACE中安装ACE包"
         return 1
@@ -268,13 +290,15 @@ function install_in_ace_env() {
     echo "----------------------------------------"
     echo "正在尝试使用 $ace_cmd 环境安装..."
     echo "----------------------------------------"
-    
+        $ace_cmd "ensure_aptss_exist"
+
     # 首先尝试dry-run测试
-    if ! $ace_cmd "ensure_aptss_exist && aptss install --dry-run '$deb_path'"; then
+    if ! $ace_cmd "aptss install --dry-run '$deb_path'"; then
         echo "初始dry-run测试失败，尝试更新后重试..."
         $ace_cmd "aptss update"
         if ! $ace_cmd "aptss install --dry-run '$deb_path'"; then
             echo "dry-run测试仍然失败，放弃安装"
+            echo "OMG_IT_GOES_WRONG"
             return 1
         fi
     fi
@@ -319,7 +343,7 @@ function auto_try_install() {
         return 0
     fi
     
-    # 如果主机安装失败且不在强制本地模式，尝试ACE环境
+    # 如果主机安装失败，并非在ACE内运行且不在强制本地模式，尝试ACE环境
     if [ "$FORCE_NATIVE" -eq 0 ] || [ "$IS_ACE_ENV" = "" ]; then
         for ace_entry in "${ACE_ENVIRONMENTS_FOR_AUTOINSTALL[@]}"; do
             local ace_cmd=${ace_entry%%:*}
@@ -395,7 +419,9 @@ function lock_file() {
 }
 
 function unlock_file() {
+    if [ -e "$1" ];then    
     chattr -i "$1"
+    fi
 }
 
 # 主安装流程
@@ -418,18 +444,8 @@ function main_install() {
     lock_file "$DEBPATH"
     
 #    hash_check "$DEBPATH"
-#    
-#    if [ -z "$IS_SHA512SUM_CHECKED" ]; then
-#        echo "尝试更新仓库信息重新校验"
-#        aptss ssupdate
-#        hash_check "$DEBPATH"
-#        if [ -z "$IS_SHA512SUM_CHECKED" ]; then
-#            echo -e "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
-#            zenity --info --icon-name=spark-store --height 270 --width 500 --text "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
-#            echo "OMG-IT-GOES-WRONG"
-#            exit 1
-#        fi
-#    fi
+    
+
     
     package_name=$(dpkg-deb -f "$DEBPATH" Package)
     local install_success=1

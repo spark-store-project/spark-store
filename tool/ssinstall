@@ -13,6 +13,27 @@ readonly ACE_ENVIRONMENTS_FOR_AUTOINSTALL=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
 )
+function get_current_user() {
+    # 优先通过 who 命令获取用户
+    local user
+    user=$(who | awk '{print $1}' | head -n 1 2>/dev/null)
+
+    # 如果 who 无输出，则通过 loginctl 获取
+    if [[ -z "$user" ]]; then
+        user=$(loginctl list-sessions --no-legend 2>/dev/null | awk '{print $3}' | head -n 1)
+    fi
+
+    # 返回最终结果（可能为空）
+    echo "${user}"
+}
+
+function zenity() {
+    local user=$(get_current_user)
+    local uid=$(id -u "$user")
+    sudo -u "$user" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/"$uid"/bus zenity "$@"
+}
+
+
 # 全局变量初始化（位于 parse_args 前）
 ACE_PARAMS=()
 
@@ -269,13 +290,15 @@ function install_in_ace_env() {
     echo "----------------------------------------"
     echo "正在尝试使用 $ace_cmd 环境安装..."
     echo "----------------------------------------"
-    
+        $ace_cmd "ensure_aptss_exist"
+
     # 首先尝试dry-run测试
-    if ! $ace_cmd "ensure_aptss_exist && aptss install --dry-run '$deb_path'"; then
+    if ! $ace_cmd "aptss install --dry-run '$deb_path'"; then
         echo "初始dry-run测试失败，尝试更新后重试..."
         $ace_cmd "aptss update"
         if ! $ace_cmd "aptss install --dry-run '$deb_path'"; then
             echo "dry-run测试仍然失败，放弃安装"
+            echo "OMG_IT_GOES_WRONG"
             return 1
         fi
     fi
