@@ -25,7 +25,7 @@ function scan_desktop_file_log() {
     while IFS= read -r path; do
         [ -z "$(grep 'NoDisplay=true' "$path")" ] && {
             log.info "Found valid desktop file: $path"
-            desktop_file_path="$path"
+            export desktop_file_path="$path"
             return 0
         }
     done < <(dpkg -L "$package_name" 2>/dev/null | grep -E '/usr/share/applications/.*\.desktop$|/opt/apps/.*/entries/applications/.*\.desktop$')
@@ -34,7 +34,7 @@ function scan_desktop_file_log() {
     while IFS= read -r path; do
         [ -z "$(grep 'NoDisplay=true' "$path")" ] && {
             log.info "Found deepin desktop file: $path"
-            desktop_file_path="$path"
+            export desktop_file_path="$path"
             return 0
         }
     done < <(find /opt/apps/$package_name -path '*/entries/applications/*.desktop' 2>/dev/null)
@@ -61,28 +61,59 @@ function launch_app() {
     # 提取并净化Exec命令
     exec_command=$(grep -m1 '^Exec=' "$DESKTOP_FILE_PATH" | cut -d= -f2- | sed 's/%.//g')
     [ -z "$exec_command" ] && return 1
+    [ ! -z "$IS_ACE_ENV" ] && HOST_PREFIX="host-spawn"
+    exec_command="${HOST_PREFIX} $exec_command"
     log.info "Launching: $exec_command"
-    # 图形环境启动优化
-    if [ -n "$DISPLAY" ]; then
-        nohup env DISPLAY=$DISPLAY XAUTHORITY=${XAUTHORITY:-~/.Xauthority} ${SHELL:-bash} -c "$exec_command" >/dev/null 2>&1 &
-    else
-        nohup ${SHELL:-bash} -c "$exec_command" >/dev/null 2>&1 &
-    fi
+    ${SHELL:-bash} -c " $exec_command"  &
+
 }
+
+# 导出函数以便在ACE环境中使用
+export -f launch_app scan_desktop_file scan_desktop_file_log log.info log.warn log.debug log.error
 
 # ===== ACE环境执行器 =====
 function ace_runner() {
-    local command_type=$1 package_name=$2
+    local action=$1
+    local target=$2
+    
     for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
         local ace_cmd=${ace_entry%%:*}
-        command -v "$ace_cmd" >/dev/null || continue
+        local ace_env=${ace_entry#*:}
         
-        log.info "Checking in $ace_cmd environment..."
-        if output=$($ace_cmd "$0" "$command_type" "$package_name" 2>/dev/null); then
-            [ "$command_type" = "list" ] && echo "$output"
-            exit 0
+        if ! command -v "$ace_cmd" >/dev/null; then
+            log.debug "$ace_cmd not found, skipping..."
+            continue
         fi
+        
+        log.info "Attempting in $ace_env environment..."
+        
+        case "$action" in
+        check)
+            if "$ace_cmd" scan_desktop_file_log "$target"; then
+                log.info "Found desktop file in $ace_env"
+                return 0
+            fi
+            ;;
+        list)
+            local result
+            if result=$("$ace_cmd"  scan_desktop_file "$target"); then
+                echo "$result"
+                return 0
+            fi
+            ;;
+        launch|start)
+"$ace_cmd"  scan_desktop_file_log "$target"
+            if desktop_path=$("$ace_cmd"  scan_desktop_file_log "$target"); then
+                log.info "Launching from $ace_env..."
+                "$ace_cmd"  launch_app $("$ace_cmd"  scan_desktop_file "$target")
+                return 0
+            fi
+            ;;
+        esac
+        
+        log.debug "Attempt in $ace_env failed"
     done
+    
     return 1
 }
 
@@ -100,7 +131,7 @@ check)
     else
         # 非ACE环境下执行ACE环境扫描
         [ -z "$IS_ACE_ENV" ] && ace_runner check "$2"
-        exit 1
+        exit $?
     fi
     ;;
 
@@ -112,7 +143,7 @@ list)
     else
         # 非ACE环境下执行ACE环境扫描
         [ -z "$IS_ACE_ENV" ] && ace_runner list "$2"
-        exit 1
+        exit $?
     fi
     ;;
 
@@ -123,7 +154,7 @@ launch|start)
     else
         # 非ACE环境下通过ACE环境启动
         [ -z "$IS_ACE_ENV" ] && ace_runner launch "$2"
-        exit 1
+        exit $?
     fi
     ;;
 *)
