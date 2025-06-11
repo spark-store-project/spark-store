@@ -1,10 +1,82 @@
 #!/bin/bash
 # ===== ACE环境配置 =====
-declare -a ace_commands_order=(
+
+readonly ACE_ENVIRONMENTS=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
     "deepin23-run:amber-ce-deepin23"
+    "sid-run:amber-ce-sid"
 )
+# 生成ACE环境参数帮助信息
+function generate_ace_help() {
+    local help_text=""
+    for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+        local ace_param="--${ace_entry#*:}"
+        help_text+="  $ace_param          使用${ace_entry%%:*} ACE容器卸载\n"
+    done
+    echo -e  "$help_text"
+}
+# 帮助函数
+function show_help() {
+    echo "Spark Store Uninstall script. 星火商店卸载脚本"
+    echo "用法: $0 [选项] 包名"
+    echo "选项:"
+    echo "  -h, --help                   显示帮助信息"
+    echo "  --delete-after-install       安装成功后删除软件包"
+    echo "  --no-create-desktop-entry    不创建桌面快捷方式"
+    echo "  --force-create-desktop-entry 强制创建桌面快捷方式"
+    echo "$(generate_ace_help)"
+    echo "  --native                     只在主机卸载，不使用ACE容器"
+}
+
+
+# 参数解析
+function parse_args() {
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -h|--help)
+        show_help
+        exit 0
+        ;;
+      --delete-after-install)
+        DELETE_AFTER_INSTALL="1"
+        shift
+        ;;
+      --native)
+        FORCE_NATIVE="1"
+        shift
+        ;;
+      --no-create-desktop-entry)
+        NO_CREATE_DESKTOP="1"
+        shift
+        ;;
+      --force-create-desktop-entry)
+        FORCE_CREATE_DESKTOP="1"
+        shift
+        ;;
+      *)
+        # 检查是否为ACE环境参数
+        local is_ace_param=0
+        for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+          local ace_param="--${ace_entry#*:}"
+          if [ "$1" = "$ace_param" ]; then
+            # 将ACE环境命令名加入数组
+            ACE_PARAMS+=("${ace_entry%%:*}")
+            is_ace_param=1
+            shift
+            break
+          fi
+        done
+
+        # 如果不是ACE环境参数，则视为包名
+        if [ "$is_ace_param" -eq 0 ]; then
+          PACKAGE_NAME="$1"
+          shift
+        fi
+        ;;
+    esac
+  done
+}
 
 # ===== 日志和函数 =====
 [ -f /opt/durapps/spark-store/bin/bashimport/log.amber ] && \
@@ -15,40 +87,104 @@ declare -a ace_commands_order=(
     log.debug() { echo "DEBUG: $*"; }
 }
 
-dpkg -s "$1" > /dev/null
-RET="$?"
-if [[ "$RET" == "0" ]] ;then
-apt autopurge $1 -y
+# 初始化变量
+FORCE_NATIVE=0
+ACE_PARAMS=()
+PACKAGE_NAME=""
+uninstall_success=0
+
+# 解析参数
+parse_args "$@"
+
+if [ -z "$PACKAGE_NAME" ]; then
+    log.error "请指定要卸载的包名"
+    exit 1
+fi
+
+# 尝试在本地卸载
+try_native_uninstall() {
+    if [ "$FORCE_NATIVE" -eq 1 ] || [ ${#ACE_PARAMS[@]} -eq 0 ]; then
+        echo "----------------------------------------"
+        echo "正在检查本地环境中的安装..."
+        echo "----------------------------------------"
+        
+        dpkg -s "$PACKAGE_NAME" > /dev/null
+        RET="$?"
+        if [[ "$RET" == "0" ]]; then
+            echo "----------------------------------------"
+            echo "在本地环境中找到了安装"
+            echo "----------------------------------------"
+            apt autopurge "$PACKAGE_NAME" -y
+            uninstall_success=1
+            return 0
+        else
+            echo "----------------------------------------"
+            echo "在本地环境中未能找到安装"
+            echo "----------------------------------------"
+        fi
+    fi
+    return 1
+}
+
+# 尝试在ACE环境中卸载
+try_ace_uninstall() {
+    local ace_cmd="$1"
+    if command -v "$ace_cmd" >/dev/null 2>&1; then
+        echo "----------------------------------------"
+        echo "正在检查 $ace_cmd 环境的安装..."
+        echo "----------------------------------------"
+        
+        $ace_cmd dpkg -l | grep "^ii  $PACKAGE_NAME " > /dev/null
+        try_run_ret="$?"
+        
+        if [ "$try_run_ret" -eq 0 ]; then
+            echo "----------------------------------------"
+            echo "在 $ace_cmd 环境中找到了安装"
+            echo "----------------------------------------"
+            $ace_cmd apt autopurge "$PACKAGE_NAME" -y
+            uninstall_success=1
+            return 0
+        else
+            echo "----------------------------------------"
+            echo "在 $ace_cmd 环境中未能找到安装"
+            echo "----------------------------------------"
+        fi
+    fi
+    return 1
+}
+
+# 主卸载逻辑
+if [ $FORCE_NATIVE -eq 1 ] && [ ${#ACE_PARAMS[@]} -eq 0 ]; then
+    # 只有 --native 参数时，只尝试本地卸载
+    try_native_uninstall || exit $?
+elif [ $FORCE_NATIVE -eq 0 ] && [ ${#ACE_PARAMS[@]} -gt 0 ]; then
+    # 只有 ACE 参数时，只尝试指定的 ACE 环境卸载
+    for ace_param in "${ACE_PARAMS[@]}"; do
+        try_ace_uninstall "$ace_param"
+    done
+elif [ $FORCE_NATIVE -eq 1 ] && [ ${#ACE_PARAMS[@]} -gt 0 ]; then
+    # 同时有 --native 和 ACE 参数时，先尝试本地卸载，再尝试 ACE 环境卸载
+    try_native_uninstall
+    for ace_param in "${ACE_PARAMS[@]}"; do
+        try_ace_uninstall "$ace_param"
+    done
 else
+    # 无参数时，先尝试本地卸载，再尝试所有 ACE 环境卸载
+    try_native_uninstall
+    
+    for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+        ace_cmd=${ace_entry%%:*}
+        if command -v "$ace_cmd" >/dev/null 2>&1; then
+            try_ace_uninstall "$ace_cmd"
+        fi
+    done
+fi
 
-for ace_entry in "${ace_commands_order[@]}"; do
-            ace_cmd=${ace_entry%%:*}
-            if command -v "$ace_cmd" >/dev/null 2>&1; then
-                echo "----------------------------------------"
-                echo "正在检查 $ace_cmd 环境的安装..."
-                echo "----------------------------------------"
-                
-                # 在ACE环境中执行安装检测
-                $ace_cmd dpkg -l | grep "^ii  $1 " > /dev/null
-                try_run_ret="$?"
-                
+if [ $uninstall_success -eq 0 ]; then
+    echo "----------------------------------------"
+    echo "在所有指定的环境中未能找到安装，退出"
+    echo "----------------------------------------"
+    exit 1
+fi
 
-                # 最终检测结果处理
-                if [ "$try_run_ret" -eq 0 ]; then
-                    echo "----------------------------------------"
-                    echo "在 $ace_cmd 环境中找到了安装"
-                    echo "----------------------------------------"
-                    $ace_cmd apt autopurge $1 -y
-                else
-                    echo "----------------------------------------"
-                    echo "在 $ace_cmd 环境中未能找到安装，继续查找"
-                    echo "----------------------------------------"
-                fi
-            fi
-        done
-                    echo "----------------------------------------"
-                    echo "所有已安装的 ACE 环境中未能找到安装，退出"
-                    echo "----------------------------------------"
-                    exit "$RET"
-     fi
-exit "$RET"
+exit 0
