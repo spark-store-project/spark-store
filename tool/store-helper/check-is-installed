@@ -1,14 +1,17 @@
 #!/bin/bash
+readonly ACE_ENVIRONMENTS=(
+    "bookworm-run:amber-ce-bookworm"
+    "trixie-run:amber-ce-trixie"
+    "deepin23-run:amber-ce-deepin23"
+    "sid-run:amber-ce-sid"
+)
 dpkg -s "$1" > /dev/null
 RET="$?"
-    if [[ "$RET" != "0" ]] &&[[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中
-        # 定义按顺序尝试的ACE环境（命令:推荐安装包）
-        declare -a ace_commands_order=(
-            "bookworm-run:amber-ce-bookworm"
-            "trixie-run:amber-ce-trixie"
-            "deepin23-run:amber-ce-deepin23"
-        )
-for ace_entry in "${ace_commands_order[@]}"; do
+if [[ "$RET" != "0" ]] &&[[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中
+
+
+
+for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
             ace_cmd=${ace_entry%%:*}
             if command -v "$ace_cmd" >/dev/null 2>&1; then
                 echo "----------------------------------------"

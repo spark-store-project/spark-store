@@ -217,10 +217,10 @@ void DownloadItem::slotAsyncInstall(int t)
     }
 
     QProcess isInstall;
-    isInstall.start("dpkg", QStringList() << "-s" << pkgName);
-    isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
-    int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
-    if (error == 0 && !haveError)
+    // isInstall.start("dpkg", QStringList() << "-s" << pkgName);
+    // isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
+    // int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
+    if ( !haveError)
     {
         ui->pushButton_install->hide();
         Utils::sendNotification("spark-store", tr("Spark Store"), ui->label->text() + " " + tr("Installation complete."));
@@ -252,5 +252,5 @@ void DownloadItem::slotAsyncInstall(int t)
     ui->widget_spinner->hide();
     DownloadItem::isInstall = false;
 
-    emit finished(error == 0 && !haveError && !notRoot);
+    emit finished(!haveError && !notRoot);
 }
