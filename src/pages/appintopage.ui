@@ -385,8 +385,8 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>184</width>
-               <height>20</height>
+               <width>20</width>
+               <height>37</height>
               </size>
              </property>
             </spacer>
@@ -468,14 +468,71 @@
             </widget>
            </item>
            <item>
+            <widget class="QLabel" name="tag_native">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app can only be installed natively&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app can only be installed natively&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/native.svg</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="tag_amber_ce_bookworm">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian12 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian12 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/amber-ce-bookworm.svg</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="tag_amber_ce_trixie">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian13 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian13 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/amber-ce-trixie.svg</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer_5">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>184</width>
-               <height>20</height>
+               <width>20</width>
+               <height>37</height>
               </size>
              </property>
             </spacer>
@@ -718,7 +775,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>524</width>
+           <width>482</width>
            <height>601</height>
           </rect>
          </property>
