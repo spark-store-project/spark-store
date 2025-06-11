@@ -410,48 +410,49 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
     bool debianSupport = false;
     bool hasAmberTag = false;
 
+    // First pass: Check if any Amber tags exist
     foreach (const QString &tag, tagList)
     {
-        if (tag.isEmpty()) {
-            continue;
-        }
-        else if (tag == "community")
+        if (tag == "amber-ce-bookworm" || tag == "amber-ce-trixie")
         {
-            ui->tag_community->show();
-        }
-        else if (tag == "dtk5")
-        {
-            ui->tag_dtk5->show();
-        }
-        else if (tag == "dwine2")
-        {
-            ui->tag_dwine2->show();
-        }
-        else if (tag == "dwine5")
-        {
-            ui->tag_dwine5->show();
-        }
-        else if (tag == "a2d")
-        {
-            ui->tag_a2d->show();
-        }
-        else if (tag == "native")
-        {
-            ui->tag_native->show();
-        }
-        else if (tag == "amber-ce-bookworm")
-        {
-            ui->tag_amber_ce_bookworm->show();
             hasAmberTag = true;
+            break;  // No need to continue checking
         }
-        else if (tag == "amber-ce-trixie")
-        {
-            ui->tag_amber_ce_trixie->show();
-            hasAmberTag = true;
-        }
-        else if (!hasAmberTag)  // Only process distro tags if we haven't found an amber tag
-        {
+    }
 
+    // Second pass: Apply tags based on whether we have Amber tags
+    foreach (const QString &tag, tagList)
+    {
+        if (tag.isEmpty())
+            continue;
+
+        if (tag == "native")
+            ui->tag_native->show();
+
+        else if (tag == "community")
+            ui->tag_community->show();
+
+        else if (tag == "dtk5")
+            ui->tag_dtk5->show();
+
+        else if (tag == "dwine2")
+            ui->tag_dwine2->show();
+
+        else if (tag == "dwine5")
+            ui->tag_dwine5->show();
+
+        else if (tag == "a2d")
+            ui->tag_a2d->show();
+
+        else if (tag == "amber-ce-bookworm")
+            ui->tag_amber_ce_bookworm->show();
+
+        else if (tag == "amber-ce-trixie")
+            ui->tag_amber_ce_trixie->show();
+
+        // Only process distro tags if there are no Amber tags
+        else if (!hasAmberTag)
+        {
             if (tag == "debian")
             {
                 ui->tag_debian->show();
@@ -476,10 +477,9 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
     }
 
     if (!hasAmberTag)
-    {
         notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport, debianSupport);
-    }
 }
+
 
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport, bool debianSupport)
