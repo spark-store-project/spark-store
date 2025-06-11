@@ -2,7 +2,7 @@
 # 初始化常量和全局变量
 readonly SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
 readonly SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
-# ACE环境配置 - 修改此数组即可添加或删除支持的环境
+# ACE环境配置 - 修改此数组即可添加或删除支持的环境——记得修改 store-helper 里的 uninstaller 和 ss-launcher
 readonly ACE_ENVIRONMENTS=(
     "bookworm-run:amber-ce-bookworm"
     "trixie-run:amber-ce-trixie"
