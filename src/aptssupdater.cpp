@@ -67,49 +67,46 @@ QStringList aptssUpdater::getUpdateablePackages()
 
 QStringList aptssUpdater::getPackageSizes()
 {
-    QStringList packageSizes;
+    QStringList packageDetails;
     QProcess process;
 
-    // 使用绝对路径 + 自动输入N跳过交互
-    QString command = R"(echo N | /opt/durapps/spark-store/bin/aptss upgrade --assume-no)";
-
-    process.start("bash", QStringList() << "-c" << command);
-    if (!process.waitForFinished()) {
-        qWarning() << "获取包大小失败：进程未完成";
-        return packageSizes;
-    }
-
-    QString output = process.readAllStandardOutput() + process.readAllStandardError();
-
-    // 清理颜色控制字符（ANSI 转义序列）
-    output.remove(QRegularExpression(R"(\x1B\[[0-9;]*[a-zA-Z])"));  // \x1B is ESC
-
-    QStringList lines = output.split('\n', Qt::SkipEmptyParts);
-
-    // 从 packageName 获取包名
+    // 获取可更新包名列表
     QStringList updateablePackages;
     for (const QString &pkgInfo : packageName) {
-        QString pkgName = pkgInfo.section(":", 0, 0).trimmed();
-        updateablePackages << pkgName;
+        updateablePackages << pkgInfo.section(":", 0, 0).trimmed();
     }
 
-    // 匹配 [apt-fast xx:xx:xx] 行，提取内容
-    QRegularExpression sizeLineRegex(R"(\[apt-fast [^\]]+\](\S+)\s+\S+\s+(\d+(\.\d+)?[KMG]?iB))");
+    foreach (const QString &packageName, updateablePackages) {
+        // 构建新命令（包含包名参数）
+        QString command = QString("apt download %1 --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
+                                  "-o Dir::Etc::sourcelist=\"/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list\" "
+                                  "-o Dir::Etc::sourceparts=\"/dev/null\"").arg(packageName);
 
-    for (const QString &line : lines) {
-        QRegularExpressionMatch match = sizeLineRegex.match(line.trimmed());
+        process.start("bash", QStringList() << "-c" << command);
+        if (!process.waitForFinished()) {
+            qWarning() << "获取包信息失败：" << packageName;
+            continue;
+        }
+
+        QString output = process.readAllStandardOutput();
+        // 使用正则匹配所有信息
+        // 调整正则表达式匹配分组
+        QRegularExpression regex(R"('([^']+)'\s+(\S+)\s+(\d+)\s+SHA512:([^\s]+))");  // 分组1:URL 分组2:文件名 分组3:大小 分组4:SHA512
+        QRegularExpressionMatch match = regex.match(output);
+
         if (match.hasMatch()) {
-            QString name = match.captured(1);
-            QString size = match.captured(2);
-
-            if (updateablePackages.contains(name)) {
-                packageSizes << QString("%1: %2").arg(name, size);
-            }
+            QString url = match.captured(1);
+            QString fileName = match.captured(2);
+            QString size = match.captured(3);
+            QString sha512 = match.captured(4);
+            
+            // 调整字段顺序：包名 | 大小 | URL | SHA512
+            packageDetails << QString("%1: %2|%3|%4").arg(packageName, size, url, sha512);
         }
     }
 
-    qDebug() << "包大小列表：" << packageSizes;
-    return packageSizes;
+    qDebug() << "完整包信息：" << packageDetails;
+    return packageDetails;
 }
 
 
@@ -325,12 +322,17 @@ QJsonArray aptssUpdater::getUpdateInfoAsJson()
         }
     }
     
-    // 解析包大小信息
+    // 解析包详细信息（新增部分）
     for (const QString &sizeInfo : sizes) {
         QStringList parts = sizeInfo.split(": ");
         if (parts.size() == 2) {
             QString packageName = parts[0];
-            packageInfo[packageName]["size"] = parts[1];
+            QStringList details = parts[1].split("|");
+            if (details.size() == 3) {  // 现在包含大小|URL|SHA512
+                packageInfo[packageName]["size"] = details[0];
+                packageInfo[packageName]["url"] = details[1];
+                packageInfo[packageName]["sha512"] = details[2];
+            }
         }
     }
     
@@ -377,6 +379,10 @@ QJsonArray aptssUpdater::getUpdateInfoAsJson()
         if (packageInfo[packageName].contains("size")) {
             jsonObj["size"] = packageInfo[packageName]["size"];
         }
+        
+        // 在构建JSON对象时添加新字段（在jsonObj中添加）：
+        jsonObj["download_url"] = packageInfo[packageName]["url"];
+        jsonObj["sha512"] = packageInfo[packageName]["sha512"];
         
         jsonArray.append(jsonObj);
     }
