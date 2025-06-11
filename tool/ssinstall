@@ -279,8 +279,8 @@ function install_in_ace_env() {
     local deb_path="$2"
     local ace_env_pkg="${3#*:}"
     
-    if [ "$IS_ACE_ENV" != "" ]; then
-        echo "无法在ACE中安装ACE包"
+    if [ "$IS_ACE_ENV" != "" ] ||  command -v termux-chroot; then
+        echo "无法在ACE/termux/小小电脑中安装ACE包"
         return 1
     fi
     if ! ensure_ace_env "$ace_env_pkg"; then
@@ -345,7 +345,7 @@ function auto_try_install() {
     fi
     
     # 如果主机安装失败，并非在ACE内运行且不在强制本地模式，尝试ACE环境
-    if [ "$FORCE_NATIVE" -eq 0 ] || [ "$IS_ACE_ENV" = "" ]; then
+    if [ "$FORCE_NATIVE" -eq 0 ] && [ "$IS_ACE_ENV" = "" ] && ! command -v termux-chroot; then
         for ace_entry in "${ACE_ENVIRONMENTS_FOR_AUTOINSTALL[@]}"; do
             local ace_cmd=${ace_entry%%:*}
             local ace_env_pkg=${ace_entry#*:}
