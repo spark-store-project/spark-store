@@ -9,17 +9,22 @@
 
 AppDelegate::AppDelegate(QObject *parent) : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this))
 {
-    connect(m_downloadManager, &DownloadManager::downloadProgress, this, [this](int progress) {
-        m_progress = progress;
-        emit updateDisplay(); // 触发重绘
+    connect(m_downloadManager, &DownloadManager::downloadProgress, this, [this](const QString &packageName, int progress) {
+        if (m_downloads.contains(packageName)) {
+            m_downloads[packageName].progress = progress;
+            emit updateDisplay(); // 触发重绘
+        }
     });
-    connect(m_downloadManager, &DownloadManager::downloadFinished, this, [this](bool success) {
-        m_isDownloading = false;
-        emit updateDisplay(); // 触发重绘
-        if (success) {
-            qDebug() << "下载完成";
-        } else {
-            qDebug() << "下载失败";
+    
+    connect(m_downloadManager, &DownloadManager::downloadFinished, this, [this](const QString &packageName, bool success) {
+        if (m_downloads.contains(packageName)) {
+            m_downloads[packageName].isDownloading = false;
+            emit updateDisplay(); // 触发重绘
+            if (success) {
+                qDebug() << "下载完成:" << packageName;
+            } else {
+                qDebug() << "下载失败:" << packageName;
+            }
         }
     });
 }
@@ -83,33 +88,27 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
                     //   QString("更新说明：%1\n包大小：%2").arg(description, size));
                     QString("包大小：%1 MB").arg(QString::number(size.toDouble() / (1024 * 1024), 'f', 2)));
 
-    if (m_isDownloading) {
-        // 进度条
+    QString packageName = index.data(Qt::UserRole + 1).toString();
+    bool isDownloading = m_downloads.contains(packageName) && m_downloads[packageName].isDownloading;
+    int progress = m_downloads.value(packageName, DownloadInfo{0, false}).progress;
+    if (isDownloading) {
+        // 进度条区域
         QRect progressRect(rect.right() - 180, rect.top() + (rect.height() - 20) / 2, 100, 20);
         QStyleOptionProgressBar progressBarOption;
         progressBarOption.rect = progressRect;
         progressBarOption.minimum = 0;
         progressBarOption.maximum = 100;
-        progressBarOption.progress = m_progress;
-        progressBarOption.text = QString("%1%").arg(m_progress);
+        progressBarOption.progress = progress;
+        progressBarOption.text = QString("%1%").arg(progress);
         progressBarOption.textVisible = true;
         QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
-
-        // 取消按钮
-        QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
-        QStyleOptionButton cancelButtonOption;
-        cancelButtonOption.rect = cancelButtonRect;
-        cancelButtonOption.text = "取消";
-        cancelButtonOption.state |= QStyle::State_Enabled;
-        QApplication::style()->drawControl(QStyle::CE_PushButton, &cancelButtonOption, painter);
     } else {
-        // 更新按钮
-        QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor("#267AFF"));
-        painter->drawRoundedRect(buttonRect, 6, 6);
-        painter->setPen(Qt::white);
-        painter->drawText(buttonRect, Qt::AlignCenter, "更新");
+        // 新增：绘制更新按钮
+        QStyleOptionButton buttonOption;
+        buttonOption.rect = QRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+        buttonOption.text = "更新";
+        buttonOption.state = QStyle::State_Enabled;
+        QApplication::style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter);
     }
 
     painter->restore();
@@ -125,46 +124,30 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QS
     if (event->type() == QEvent::MouseButtonRelease) {
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
         QRect rect = option.rect;
-        if (m_isDownloading) {
+        QString packageName = index.data(Qt::UserRole + 1).toString();
+
+        if (m_downloads.contains(packageName) && m_downloads[packageName].isDownloading) {
             // 取消按钮区域
             QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
             if (cancelButtonRect.contains(mouseEvent->pos())) {
-                m_isDownloading = false;
-                emit updateDisplay(); // 触发重绘
+                m_downloadManager->cancelDownload(packageName);
+                m_downloads.remove(packageName);
+                emit updateDisplay();
                 return true;
             }
         } else {
             // 更新按钮区域
             QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
             if (buttonRect.contains(mouseEvent->pos())) {
-                QString packageName = index.data(Qt::UserRole + 1).toString();
                 QString downloadUrl = index.data(Qt::UserRole + 7).toString();
                 QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
 
-                m_isDownloading = true;
-                m_progress = 0;
-
-                connect(m_downloadManager, &DownloadManager::downloadProgress, this, [this](int progress) {
-                    m_progress = progress;
-                    emit updateDisplay(); // 更新界面显示
-                });
-
-                connect(m_downloadManager, &DownloadManager::downloadFinished, this, [this](bool success) {
-                    m_isDownloading = false;
-                    emit updateDisplay(); // 更新界面显示
-                    if (success) {
-                        qDebug() << "下载完成";
-                    } else {
-                        qDebug() << "下载失败";
-                    }
-                });
-
-                m_downloadManager->startDownload(downloadUrl, outputPath);
-                emit updateDisplay(); // 触发重绘
+                m_downloads[packageName] = {0, true};
+                m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
+                emit updateDisplay();
                 return true;
             }
         }
-        qDebug() << "点击了第" << index.row() << "行";
     }
     return QStyledItemDelegate::editorEvent(event, model, option, index);
 }

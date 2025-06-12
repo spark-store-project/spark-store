@@ -11,18 +11,16 @@ class DownloadManager : public QObject
     Q_OBJECT
 public:
     explicit DownloadManager(QObject *parent = nullptr);
-    void startDownload(const QString &url, const QString &outputPath);
+    void startDownload(const QString &packageName, const QString &url, const QString &outputPath); // 修改参数列表
+    void cancelDownload(const QString &packageName); // 移动到public区域
 
 signals:
-    void downloadProgress(int progress); // 下载进度信号
-    void downloadFinished(bool success); // 下载完成信号
-
-private slots:
-    void onAria2Progress(); // 处理 aria2 的进度
-    void onAria2Finished(int exitCode, QProcess::ExitStatus exitStatus); // 处理 aria2 完成事件
+    void downloadProgress(const QString &packageName, int progress);
+    void downloadFinished(const QString &packageName, bool success);
 
 private:
-    QProcess m_aria2Process; // 用于运行 aria2 的进程
+    QHash<QString, QProcess*> m_processes;  // 移除旧的m_aria2Process
+    // 移除旧的onAria2Progress和onAria2Finished声明
 };
 
 #endif // DOWNLOADMANAGER_H

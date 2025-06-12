@@ -23,9 +23,13 @@ signals:
     void updateDisplay(); // 声明更新显示的信号
 
 private:
-    DownloadManager *m_downloadManager; // 声明下载管理器指针
-    int m_progress = 0; // 声明下载进度
-    bool m_isDownloading = false; // 声明下载状态
+    struct DownloadInfo {
+        int progress = 0;
+        bool isDownloading = false;
+    };
+    QHash<QString, DownloadInfo> m_downloads; // 使用包名作为键的下载状态
+    DownloadManager *m_downloadManager;
+
 };
 
 #endif // APPDELEGATE_H
