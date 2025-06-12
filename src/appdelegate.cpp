@@ -1,98 +1,89 @@
 #include "appdelegate.h"
 #include <QIcon>
 #include <QDebug>
-#include "downloadmanager.h"
+#include <QApplication>
+#include <QDir>
 #include <QProgressBar>
 #include <QPushButton>
-#include <QApplication> // 包含 QApplication 头文件
-#include <QDir> // 添加 QDir 头文件
+#include <QPainter>
+#include <QMouseEvent>
 
-AppDelegate::AppDelegate(QObject *parent) : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this))
-{
-    connect(m_downloadManager, &DownloadManager::downloadProgress, this, [this](const QString &packageName, int progress) {
-        if (m_downloads.contains(packageName)) {
-            m_downloads[packageName].progress = progress;
-            emit updateDisplay(); // 触发重绘
-        }
-    });
-    
-    connect(m_downloadManager, &DownloadManager::downloadFinished, this, [this](const QString &packageName, bool success) {
+AppDelegate::AppDelegate(QObject *parent)
+    : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this)) {
+
+    connect(m_downloadManager, &DownloadManager::downloadFinished, this,
+            [this](const QString &packageName, bool success) {
         if (m_downloads.contains(packageName)) {
             m_downloads[packageName].isDownloading = false;
-            emit updateDisplay(); // 触发重绘
-            if (success) {
-                qDebug() << "下载完成:" << packageName;
-            } else {
-                qDebug() << "下载失败:" << packageName;
-            }
+            emit updateDisplay(packageName);
+            qDebug() << (success ? "下载完成:" : "下载失败:") << packageName;
+        }
+    });
+
+    connect(m_downloadManager, &DownloadManager::downloadProgress, this,
+            [this](const QString &packageName, int progress) {
+        if (m_downloads.contains(packageName)) {
+            m_downloads[packageName].progress = progress;
+            qDebug()<<progress;
+            emit updateDisplay(packageName); // 实时刷新进度条
         }
     });
 }
-void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
+
+void AppDelegate::setModel(QAbstractItemModel *model) {
+    m_model = model;
+}
+
+void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
     painter->save();
 
-    // 绘制背景
-    if (option.state & QStyle::State_Selected) {
+    if (option.state & QStyle::State_Selected)
         painter->fillRect(option.rect, option.palette.highlight());
-    } else {
-        painter->fillRect(option.rect, QColor("#F3F4F6")); 
-    }
+    else
+        painter->fillRect(option.rect, QColor("#F3F4F6"));
 
-    // 设置字体
     QFont boldFont = option.font;
     boldFont.setBold(true);
-
     QFont normalFont = option.font;
 
-    // 数据
     QString name = index.data(Qt::DisplayRole).toString();
     QString currentVersion = index.data(Qt::UserRole + 2).toString();
     QString newVersion = index.data(Qt::UserRole + 3).toString();
     QString iconPath = index.data(Qt::UserRole + 4).toString();
     QString size = index.data(Qt::UserRole + 5).toString();
-    QString description = index.data(Qt::UserRole + 6).toString(); // 假设额外说明文本
+    QString description = index.data(Qt::UserRole + 6).toString();
 
-    // 区域定义
     QRect rect = option.rect;
-    int margin = 10;
-    int spacing = 6;
-    int iconSize = 40;
+    int margin = 10, spacing = 6, iconSize = 40;
 
-    // 图标
     QRect iconRect(rect.left() + margin, rect.top() + (rect.height() - iconSize) / 2, iconSize, iconSize);
     QIcon(iconPath).paint(painter, iconRect);
 
-    // 文本起点
     int textX = iconRect.right() + margin;
-    int textWidth = rect.width() - textX - 100; // 留出按钮区域
+    int textWidth = rect.width() - textX - 100;
 
-    // 绘制应用名称
     QRect nameRect(textX, rect.top() + margin, textWidth, 20);
     painter->setFont(boldFont);
-    painter->setPen(QColor("#333333")); // 改为深色，确保清晰
-    painter->drawText(nameRect, Qt::AlignLeft | Qt::AlignVCenter, name); // 绘制应用名称
+    painter->setPen(QColor("#333333"));
+    painter->drawText(nameRect, Qt::AlignLeft | Qt::AlignVCenter, name);
 
-    // 绘制版本信息
     QRect versionRect(textX, nameRect.bottom() + spacing, textWidth, 20);
     painter->setFont(normalFont);
-    painter->setPen(QColor("#888888")); // 使用浅灰色，保持对比
+    painter->setPen(QColor("#888888"));
     painter->drawText(versionRect, Qt::AlignLeft | Qt::AlignVCenter,
                       QString("当前版本: %1 → 新版本: %2").arg(currentVersion, newVersion));
 
-    // 描述行
     QRect descRect(textX, versionRect.bottom() + spacing, textWidth, 40);
     painter->setFont(normalFont);
     painter->setPen(QColor("#AAAAAA"));
     painter->drawText(descRect, Qt::TextWordWrap,
-                    //   QString("更新说明：%1\n包大小：%2").arg(description, size));
-                    QString("包大小：%1 MB").arg(QString::number(size.toDouble() / (1024 * 1024), 'f', 2)));
+                      QString("包大小：%1 MB").arg(QString::number(size.toDouble() / (1024 * 1024), 'f', 2)));
 
     QString packageName = index.data(Qt::UserRole + 1).toString();
     bool isDownloading = m_downloads.contains(packageName) && m_downloads[packageName].isDownloading;
     int progress = m_downloads.value(packageName, DownloadInfo{0, false}).progress;
+
     if (isDownloading) {
-        // 进度条区域
         QRect progressRect(rect.right() - 180, rect.top() + (rect.height() - 20) / 2, 100, 20);
         QStyleOptionProgressBar progressBarOption;
         progressBarOption.rect = progressRect;
@@ -103,7 +94,6 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         progressBarOption.textVisible = true;
         QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
     } else {
-        // 新增：绘制更新按钮
         QStyleOptionButton buttonOption;
         buttonOption.rect = QRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
         buttonOption.text = "更新";
@@ -114,29 +104,26 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     painter->restore();
 }
 
-QSize AppDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    return QSize(option.rect.width(), 110); // 每行高度 110
+QSize AppDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
+    return QSize(option.rect.width(), 110);
 }
 
-bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
-{
+bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
+                              const QStyleOptionViewItem &option, const QModelIndex &index) {
     if (event->type() == QEvent::MouseButtonRelease) {
-        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
         QRect rect = option.rect;
         QString packageName = index.data(Qt::UserRole + 1).toString();
 
         if (m_downloads.contains(packageName) && m_downloads[packageName].isDownloading) {
-            // 取消按钮区域
             QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
             if (cancelButtonRect.contains(mouseEvent->pos())) {
                 m_downloadManager->cancelDownload(packageName);
                 m_downloads.remove(packageName);
-                emit updateDisplay();
+                emit updateDisplay(packageName);
                 return true;
             }
         } else {
-            // 更新按钮区域
             QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
             if (buttonRect.contains(mouseEvent->pos())) {
                 QString downloadUrl = index.data(Qt::UserRole + 7).toString();
@@ -144,10 +131,11 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QS
 
                 m_downloads[packageName] = {0, true};
                 m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
-                emit updateDisplay();
+                emit updateDisplay(packageName);
                 return true;
             }
         }
     }
+
     return QStyledItemDelegate::editorEvent(event, model, option, index);
 }

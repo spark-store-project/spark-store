@@ -18,7 +18,15 @@ MainWindow::MainWindow(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout(ui->appWidget);
     layout->addWidget(listView);
     layout->setContentsMargins(0, 0, 0, 0);
-
+    connect(m_delegate, &AppDelegate::updateDisplay, this, [=](const QString &packageName) {
+        for (int i = 0; i < m_model->rowCount(); ++i) {
+            QModelIndex index = m_model->index(i);
+            if (index.data(Qt::UserRole + 1).toString() == packageName) {
+                m_model->dataChanged(index, index); // 刷新该行
+                break;
+            }
+        }
+    });
     checkUpdates();
     initStyle();
 }
