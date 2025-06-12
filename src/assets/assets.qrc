@@ -44,6 +44,7 @@
         <file>icon/light/text.svg</file>
         <file>icon/light/update.svg</file>
         <file>icon/logo.svg</file>
+        <file>icon/sparky.png</file>
         <file>json/features.json</file>
         <file>tags/a2d_full.svg</file>
         <file>tags/a2d.png</file>
@@ -72,15 +73,18 @@
         <file>tags/uos_full.svg</file>
         <file>tags/uos.png</file>
         <file>tags/uos.svg</file>
-        <file>translations/qtwebengine_zh.qm</file>
-        <file>icon/sparky.png</file>
         <file>tags/amber-ce-bookworm_full.svg</file>
+        <file>tags/amber-ce-bookworm.png</file>
         <file>tags/amber-ce-bookworm.svg</file>
         <file>tags/amber-ce-sid_full.svg</file>
+        <file>tags/amber-ce-sid.png</file>
         <file>tags/amber-ce-sid.svg</file>
         <file>tags/amber-ce-trixie_full.svg</file>
+        <file>tags/amber-ce-trixie.png</file>
         <file>tags/amber-ce-trixie.svg</file>
         <file>tags/native_full.svg</file>
+        <file>tags/native.png</file>
         <file>tags/native.svg</file>
+        <file>translations/qtwebengine_zh.qm</file>
     </qresource>
 </RCC>
