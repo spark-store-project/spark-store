@@ -238,6 +238,9 @@ void AppIntoPage::clear()
     ui->tag_native->hide();
     ui->tag_amber_ce_bookworm->hide();
     ui->tag_amber_ce_trixie->hide();
+    ui->tag_amber_ce_sid->hide();
+    ui->tag_amber_ce_deepin23->hide();
+
     ui->icon->clear();
     ui->title->clear();
     ui->version->clear();
@@ -413,12 +416,13 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
     // First pass: Check if any Amber tags exist
     foreach (const QString &tag, tagList)
     {
-        if (tag == "amber-ce-bookworm" || tag == "amber-ce-trixie")
+        if (tag.startsWith("amber-ce-"))
         {
             hasAmberTag = true;
             break;  // No need to continue checking
         }
     }
+
 
     // Second pass: Apply tags based on whether we have Amber tags
     foreach (const QString &tag, tagList)
@@ -449,6 +453,12 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
 
         else if (tag == "amber-ce-trixie")
             ui->tag_amber_ce_trixie->show();
+
+        else if (tag == "amber-ce-deepin23")
+            ui->tag_amber_ce_deepin23->show();
+
+        else if (tag == "amber-ce-sid")
+            ui->tag_amber_ce_sid->show();
 
         // Only process distro tags if there are no Amber tags
         else if (!hasAmberTag)
