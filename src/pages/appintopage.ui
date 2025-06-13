@@ -385,14 +385,20 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>184</width>
-               <height>20</height>
+               <width>13</width>
+               <height>37</height>
               </size>
              </property>
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="tag_ubuntu">
+            <widget class="CustomLabel" name="tag_ubuntu">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -411,7 +417,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_uos">
+            <widget class="CustomLabel" name="tag_uos">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -430,7 +442,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_deepin">
+            <widget class="CustomLabel" name="tag_deepin">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -449,7 +467,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_debian">
+            <widget class="CustomLabel" name="tag_debian">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -468,14 +492,139 @@
             </widget>
            </item>
            <item>
+            <widget class="CustomLabel" name="tag_native">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app can only be installed natively&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app can only be installed natively&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/native.png</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="CustomLabel" name="tag_amber_ce_bookworm">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian12 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian12 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/amber-ce-bookworm.png</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="CustomLabel" name="tag_amber_ce_trixie">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian13 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian13 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/amber-ce-trixie.png</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="CustomLabel" name="tag_amber_ce_sid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian SID ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian SID ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/amber-ce-sid.png</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="CustomLabel" name="tag_amber_ce_deepin23">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to deepin23 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to deepin23 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../assets/assets.qrc">:/tags/amber-ce-deepin.png</pixmap>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer_5">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>184</width>
-               <height>20</height>
+               <width>18</width>
+               <height>37</height>
               </size>
              </property>
             </spacer>
@@ -498,7 +647,13 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="tag_a2d">
+            <widget class="CustomLabel" name="tag_a2d">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -517,7 +672,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_community">
+            <widget class="CustomLabel" name="tag_community">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -536,7 +697,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_dtk5">
+            <widget class="CustomLabel" name="tag_dtk5">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -555,7 +722,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_dwine2">
+            <widget class="CustomLabel" name="tag_dwine2">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -574,7 +747,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="tag_dwine5">
+            <widget class="CustomLabel" name="tag_dwine5">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -718,7 +897,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>524</width>
+           <width>482</width>
            <height>601</height>
           </rect>
          </property>
@@ -1452,6 +1631,13 @@ QListWidget::item::selected
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomLabel</class>
+   <extends>QLabel</extends>
+   <header>widgets/common/customlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../assets/assets.qrc"/>
  </resources>

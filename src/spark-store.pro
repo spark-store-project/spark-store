@@ -47,6 +47,7 @@ SOURCES += \
         utils/utils.cpp \
         utils/widgetanimation.cpp \
         widgets/base/basewidgetopacity.cpp \
+        widgets/common/customlabel.cpp \
         widgets/common/downloaditem.cpp \
         widgets/common/progressbutton.cpp \
         widgets/common/smoothlistwidget.cpp \
@@ -73,6 +74,7 @@ HEADERS += \
         utils/utils.h \
         utils/widgetanimation.h \
         widgets/base/basewidgetopacity.h \
+        widgets/common/customlabel.h \
         widgets/common/downloaditem.h \
         widgets/common/progressbutton.h \
         widgets/common/smoothlistwidget.h \

@@ -198,7 +198,7 @@ void Utils::setQPAPlatform()
     // }
     else
     {
-        qputenv("QT_QPA_PLATFORM", "dxcb");
+        qputenv("QT_QPA_PLATFORM", "dxcb;xcb");
     }
 }
 

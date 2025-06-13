@@ -37,6 +37,8 @@ if [ "$(id -u)" != "0" ] ; then
 fi
 
 		aptss install "${@:2}" --only-upgrade  2>&1 | tee /tmp/spark-store-app-upgrade-log.txt
+        sed -i '1i--------------------------------------------------------------' /tmp/spark-store-app-upgrade-log.txt
+        sed -i '1i更新失败可能是由于系统版本过低，您可先【卸载】此应用后再在商店【安装】此应用来尝试修复此问题，商店会在安装时尝试自动解决问题。若仍无法解决，请按照指引进行反馈' /tmp/spark-store-app-upgrade-log.txt
 		chmod 777 /tmp/spark-store-app-upgrade-log.txt
 		IS_UPGRADE_ERROR=`cat /tmp/spark-store-app-upgrade-log.txt | grep "Package manager quit with exit code."`
 		echo "$IS_UPGRADE_ERROR" > /tmp/spark-store-app-upgrade-status.txt
