@@ -86,5 +86,8 @@
         <file>tags/native.png</file>
         <file>tags/native.svg</file>
         <file>translations/qtwebengine_zh.qm</file>
+        <file>tags/amber-ce-deepin_full.svg</file>
+        <file>tags/amber-ce-deepin.svg</file>
+        <file>tags/amber-ce-deepin.png</file>
     </qresource>
 </RCC>
