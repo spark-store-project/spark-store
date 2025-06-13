@@ -93,6 +93,13 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         progressBarOption.text = QString("%1%").arg(progress);
         progressBarOption.textVisible = true;
         QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
+        QStyleOptionButton cancelOption;
+        cancelOption.rect = QRect(progressRect.right() + 10, rect.top() + (rect.height() - 30) / 2, 70, 30);
+        cancelOption.text = "取消";
+        cancelOption.palette.setColor(QPalette::Button, QColor("#ff4444"));
+        cancelOption.palette.setColor(QPalette::ButtonText, Qt::white);
+        cancelOption.state = QStyle::State_Enabled;
+        QApplication::style()->drawControl(QStyle::CE_PushButton, &cancelOption, painter);
     } else {
         QStyleOptionButton buttonOption;
         buttonOption.rect = QRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
