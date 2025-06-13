@@ -175,8 +175,16 @@ void DownloadItem::slotAsyncInstall(int t)
     switch (t)
     {
     case 0:
-        installer.start("pkexec", QStringList() << "/usr/local/bin/ssinstall"
-                                                << "/tmp/spark-store/" + ui->label_filename->text().toUtf8() << "--delete-after-install");
+        {
+            QStringList args;
+            args << "/usr/local/bin/ssinstall"
+                 << "/tmp/spark-store/" + ui->label_filename->text().toUtf8();
+            if (!installExtraArg.isEmpty()) {
+                args << installExtraArg;
+            }
+            args << "--delete-after-install";
+            installer.start("pkexec", args);
+        }
         break;
     case 1:
         installer.start("deepin-deb-installer", QStringList() << "/tmp/spark-store/" + ui->label_filename->text().toUtf8());
@@ -208,11 +216,11 @@ void DownloadItem::slotAsyncInstall(int t)
         }
     }
 
-    QProcess isInstall;
-    isInstall.start("dpkg", QStringList() << "-s" << pkgName);
-    isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
-    int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
-    if (error == 0 && !haveError)
+    // QProcess isInstall;
+    // isInstall.start("dpkg", QStringList() << "-s" << pkgName);
+    // isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
+    // int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();
+    if ( !haveError)
     {
         ui->pushButton_install->hide();
         Utils::sendNotification("spark-store", tr("Spark Store"), ui->label->text() + " " + tr("Installation complete."));
@@ -244,8 +252,5 @@ void DownloadItem::slotAsyncInstall(int t)
     ui->widget_spinner->hide();
     DownloadItem::isInstall = false;
 
-    installer.deleteLater();
-    isInstall.deleteLater();
-
-    emit finished(error == 0 && !haveError && !notRoot);
+    emit finished(!haveError && !notRoot);
 }

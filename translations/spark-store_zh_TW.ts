@@ -24,63 +24,58 @@
         <translation>下載次數</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="409"/>
-        <location filename="../src/pages/appintopage.ui" line="412"/>
+        <location filename="../src/pages/appintopage.ui" line="441"/>
+        <location filename="../src/pages/appintopage.ui" line="444"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 23&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; {23&lt;?}</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/appintopage.ui" line="528"/>
+        <location filename="../src/pages/appintopage.ui" line="531"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app is developed by community user,we give this tag to honor those who contribute to the Linux Ecology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这款应用是社区开发者开发的，我们为社区开发者颁发这款勋章以表彰他们对Linux生态的贡献&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="447"/>
-        <location filename="../src/pages/appintopage.ui" line="450"/>
+        <location filename="../src/pages/appintopage.ui" line="422"/>
+        <location filename="../src/pages/appintopage.ui" line="425"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to UOS home 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持UOS家庭版 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="466"/>
-        <location filename="../src/pages/appintopage.ui" line="469"/>
+        <location filename="../src/pages/appintopage.ui" line="566"/>
+        <location filename="../src/pages/appintopage.ui" line="569"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A deepin-wine2 app. Spark Store will automatically configure the wine kit for you.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>这是一款 deepin-wine2 应用。星火商店会为你自动配置wine环境</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="472"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine2-small.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="485"/>
-        <location filename="../src/pages/appintopage.ui" line="488"/>
+        <location filename="../src/pages/appintopage.ui" line="547"/>
+        <location filename="../src/pages/appintopage.ui" line="550"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is a  DTK5 app,which means it would have better effect on Deepin Desktop Environment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这是一款DTK5应用，请使用深度桌面环境来获得最完美的体验&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="504"/>
-        <location filename="../src/pages/appintopage.ui" line="507"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持deepin 20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="523"/>
-        <location filename="../src/pages/appintopage.ui" line="526"/>
+        <location filename="../src/pages/appintopage.ui" line="509"/>
+        <location filename="../src/pages/appintopage.ui" line="512"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An Appimage to deb app.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;这是一款Appimage转制应用.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="611"/>
+        <location filename="../src/pages/appintopage.ui" line="644"/>
         <source>Share</source>
         <translation>Spk共享链接</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="618"/>
+        <location filename="../src/pages/appintopage.ui" line="651"/>
         <source>APP Feedback</source>
         <translation>軟件錯誤回報</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1074"/>
+        <location filename="../src/pages/appintopage.ui" line="1107"/>
         <source>Description</source>
         <translation>軟體詳細資料</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="910"/>
+        <location filename="../src/pages/appintopage.ui" line="943"/>
         <source>Screen capture</source>
         <translation>軟體演示</translation>
     </message>
@@ -89,99 +84,60 @@
         <location filename="../src/pages/appintopage.cpp" line="210"/>
         <location filename="../src/pages/appintopage.cpp" line="351"/>
         <location filename="../src/pages/appintopage.cpp" line="396"/>
-        <location filename="../src/pages/appintopage.cpp" line="575"/>
+        <location filename="../src/pages/appintopage.cpp" line="590"/>
         <source>Download and Install</source>
         <translation>下載並安裝</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="415"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/community.svg&quot; height=30 width=30 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="428"/>
-        <location filename="../src/pages/appintopage.ui" line="431"/>
+        <location filename="../src/pages/appintopage.ui" line="403"/>
+        <location filename="../src/pages/appintopage.ui" line="406"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;支持Ubuntu 22.04&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="434"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/ubuntu.png&quot; width=30 height=30 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="453"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/uos-authorize.svg&quot; height=30 width=30 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="491"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/logo_icon.svg&quot; height=30 width=30 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="510"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/deepin.svg&quot; height=30 width=30 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="529"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/a2d.png&quot;height=30 width=30 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="542"/>
-        <location filename="../src/pages/appintopage.ui" line="545"/>
+        <location filename="../src/pages/appintopage.ui" line="585"/>
+        <location filename="../src/pages/appintopage.ui" line="588"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Wine app.Spark Store will automatically configure the wine kit for you&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>这是一款 Wine 应用。星火商店会为你自动配置wine环境</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="548"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/dwine5.svg&quot; height=30 width=30 /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="555"/>
+        <location filename="../src/pages/appintopage.ui" line="460"/>
+        <location filename="../src/pages/appintopage.ui" line="463"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to Debian Stable&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="558"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tags/debian.svg&quot; height=&quot;30&quot; width=&quot;30&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/appintopage.ui" line="773"/>
+        <location filename="../src/pages/appintopage.ui" line="806"/>
         <source>Introduction</source>
         <translation>軟體介紹</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1167"/>
+        <location filename="../src/pages/appintopage.ui" line="1200"/>
         <source>Update</source>
         <translation>更新时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1196"/>
+        <location filename="../src/pages/appintopage.ui" line="1229"/>
         <source>Contributor</source>
         <translation>投稿用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1203"/>
+        <location filename="../src/pages/appintopage.ui" line="1236"/>
         <source>Pkgname</source>
         <translation>软件包名</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1309"/>
+        <location filename="../src/pages/appintopage.ui" line="1342"/>
         <source>Author</source>
         <translation>软件作者</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1345"/>
+        <location filename="../src/pages/appintopage.ui" line="1378"/>
         <source>Size</source>
         <translation>软件大小</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.ui" line="1381"/>
+        <location filename="../src/pages/appintopage.ui" line="1414"/>
         <source>Website</source>
         <translation>软件官网</translation>
     </message>
@@ -260,18 +216,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="578"/>
         <location filename="../src/pages/appintopage.cpp" line="593"/>
+        <location filename="../src/pages/appintopage.cpp" line="608"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="578"/>
+        <location filename="../src/pages/appintopage.cpp" line="593"/>
         <source>Uninstall succeeded</source>
         <translation>卸载成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/appintopage.cpp" line="593"/>
+        <location filename="../src/pages/appintopage.cpp" line="608"/>
         <source>The URL has been copied to the clipboard</source>
         <translation>链接已复制到剪贴板</translation>
     </message>
@@ -359,9 +315,9 @@
         <translation>下載完成.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="218"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="226"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="245"/>
         <source>Spark Store</source>
         <translation>星火应用商店</translation>
     </message>
@@ -372,32 +328,32 @@
         <translation>正在安裝</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="218"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="226"/>
         <source>Installation complete.</source>
         <translation>安裝完成.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="219"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="220"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="227"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="228"/>
         <source>Finish</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="227"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="235"/>
         <source>Retry</source>
         <translation>重试</translation>
-    </message>
-    <message>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="229"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="230"/>
-        <location filename="../src/widgets/common/downloaditem.cpp" line="231"/>
-        <source>Error happened in dpkg progress , please check the install info or try to reinstall.</source>
-        <translation>安裝出現錯誤，請檢查安裝詳情或嘗試重新安裝。</translation>
     </message>
     <message>
         <location filename="../src/widgets/common/downloaditem.cpp" line="237"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="238"/>
         <location filename="../src/widgets/common/downloaditem.cpp" line="239"/>
+        <source>Error happened in dpkg progress , please check the install info or try to reinstall.</source>
+        <translation>安裝出現錯誤，請檢查安裝詳情或嘗試重新安裝。</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="245"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="246"/>
+        <location filename="../src/widgets/common/downloaditem.cpp" line="247"/>
         <source>dpkg progress had been aborted, please check the install info or try to reinstall.</source>
         <translation>安裝被中止，請檢查安裝詳情或嘗試重新安裝。</translation>
     </message>

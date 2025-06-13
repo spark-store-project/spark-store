@@ -1,8 +1,8 @@
-spark-store (4.7.0) UNRELEASED; urgency=medium
+spark-store (4.8.0) UNRELEASED; urgency=medium
 
-  * aptss 第二、三阶段加速
-  * 修复部分应用无法启动的问题
-  * 支持使用 ACE deepin23 trixie
+  * ssinstall重写，支持安装到ACE和自动安装到ACE，支持只允许安装到本地
+  * 商店支持展示ACE标识，支持识别 native amber-ce-bookworm amber-ce-trixie amber-ce-sid amber-ce-deepin23
+  * 投稿器支持新版spec
   
  -- shenmo <shenmo@spark-app.store>  Tue, 24 Sep 2024 11:27:08 +0800
 

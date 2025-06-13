@@ -151,24 +151,25 @@ void AppIntoPage::openUrl(const QUrl &url)
             {
                 isInstalled = true;
 
-                QProcess isUpdate;
-                isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
-                                                           << "--show" << info["Pkgname"].toString());
-                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
-                QString localVersion = isUpdate.readAllStandardOutput();
-                localVersion.replace("'", "");
+                // QProcess isUpdate;
+                // isUpdate.start("dpkg-query", QStringList() << "--showformat='${Version}'"
+                //                                            << "--show" << info["Pkgname"].toString());
+                // isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                // QString localVersion = isUpdate.readAllStandardOutput();
+                // localVersion.replace("'", "");
 
-                isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
-                isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
-                if (isUpdate.exitCode() == 0 && isUpdate.exitStatus() == QProcess::NormalExit)
-                {
-                    isUpdated = true;
-                }
-                else
-                {
-                    isUpdated = false;
-                }
-                isUpdate.close();
+                // isUpdate.start("dpkg", QStringList() << "--compare-versions" << localVersion << "ge" << info["Version"].toString());
+                // isUpdate.waitForFinished(180 * 1000); // 默认超时 3 分钟
+                // if (isUpdate.exitCode() == 0 && isUpdate.exitStatus() == QProcess::NormalExit)
+                // {
+                //     isUpdated = true;
+                // }
+                // else
+                // {
+                //     isUpdated = false;
+                // }
+                // isUpdate.close();
+                isUpdated = true; //去掉直接点击升级的功能
             }
             else
             {
@@ -234,6 +235,12 @@ void AppIntoPage::clear()
     ui->tag_debian->hide();
     ui->tag_ubuntu->hide();
     ui->tag_community->hide();
+    ui->tag_native->hide();
+    ui->tag_amber_ce_bookworm->hide();
+    ui->tag_amber_ce_trixie->hide();
+    ui->tag_amber_ce_sid->hide();
+    ui->tag_amber_ce_deepin23->hide();
+
     ui->icon->clear();
     ui->title->clear();
     ui->version->clear();
@@ -404,52 +411,86 @@ void AppIntoPage::setAppinfoTags(const QStringList &tagList)
     bool deepinSupport = false;
     bool uosSupport = false;
     bool debianSupport = false;
+    bool hasAmberTag = false;
+
+    // First pass: Check if any Amber tags exist
     foreach (const QString &tag, tagList)
     {
-        if (tag == "community")
+        if (tag.startsWith("amber-ce-"))
         {
-            ui->tag_community->show();
-        }
-        else if (tag == "debian")
-        {
-            ui->tag_debian->show();
-            debianSupport = true;
-        }
-        else if (tag == "ubuntu")
-        {
-            ui->tag_ubuntu->show();
-            ubuntuSupport = true;
-        }
-        else if (tag == "deepin")
-        {
-            ui->tag_deepin->show();
-            deepinSupport = true;
-        }
-        else if (tag == "uos")
-        {
-            ui->tag_uos->show();
-            uosSupport = true;
-
-        }
-        else if (tag == "dtk5")
-        {
-            ui->tag_dtk5->show();
-        }
-        else if (tag == "dwine2")
-        {
-            ui->tag_dwine2->show();
-        }
-        else if (tag == "dwine5")
-        {
-            ui->tag_dwine5->show();
-        }
-        else if (tag == "a2d")
-        {
-            ui->tag_a2d->show();
+            hasAmberTag = true;
+            break;  // No need to continue checking
         }
     }
-    notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport ,debianSupport);
+
+
+    // Second pass: Apply tags based on whether we have Amber tags
+    foreach (const QString &tag, tagList)
+    {
+        if (tag.isEmpty())
+            continue;
+
+        if (tag == "native")
+            ui->tag_native->show();
+
+        else if (tag == "community")
+            ui->tag_community->show();
+
+        else if (tag == "dtk5")
+            ui->tag_dtk5->show();
+
+        else if (tag == "dwine2")
+            ui->tag_dwine2->show();
+
+        else if (tag == "dwine5")
+            ui->tag_dwine5->show();
+
+        else if (tag == "a2d")
+            ui->tag_a2d->show();
+
+        else if (tag == "amber-ce-bookworm")
+            ui->tag_amber_ce_bookworm->show();
+
+        else if (tag == "amber-ce-trixie")
+            ui->tag_amber_ce_trixie->show();
+
+        else if (tag == "amber-ce-deepin23")
+            ui->tag_amber_ce_deepin23->show();
+
+        else if (tag == "amber-ce-sid")
+            ui->tag_amber_ce_sid->show();
+
+        // Only process distro tags if there are no Amber tags
+        else if (!hasAmberTag)
+        {
+            if (tag == "debian")
+            {
+                ui->tag_debian->show();
+                debianSupport = true;
+            }
+            else if (tag == "ubuntu")
+            {
+                ui->tag_ubuntu->show();
+                ubuntuSupport = true;
+            }
+            else if (tag == "deepin")
+            {
+                ui->tag_deepin->show();
+                deepinSupport = true;
+            }
+            else if (tag == "uos")
+            {
+                ui->tag_uos->show();
+                uosSupport = true;
+            }
+        }
+    }
+
+    if (!hasAmberTag)
+        notifyUserUnsupportedTags(ubuntuSupport, deepinSupport, uosSupport, debianSupport);
 }
+
+
 
 void AppIntoPage::notifyUserUnsupportedTags(bool ubuntuSupport, bool deepinSupport, bool uosSupport, bool debianSupport)
 {
@@ -536,7 +577,27 @@ void AppIntoPage::on_downloadButton_clicked()
 
     emit clickedDownloadBtn();
 
-    DownloadItem *item = dw->addItem(info["Name"].toString(), info["Filename"].toString(), info["Pkgname"].toString(), iconpixmap, downloadUrl);
+    // 处理 tags，设置 installExtraArg
+    QString installExtraArg;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    QStringList taglist = info["Tags"].toString().split(";", Qt::SkipEmptyParts);
+#else
+    QStringList taglist = info["Tags"].toString().split(";", QString::SkipEmptyParts);
+#endif
+    if (taglist.contains("native")) {
+        installExtraArg = "--native";
+    } else if (taglist.contains("amber-ce-bookworm")) {
+        installExtraArg = "--amber-ce-bookworm";
+    } else if (taglist.contains("amber-ce-trixie")) {
+        installExtraArg = "--amber-ce-trixie";
+    } else if (taglist.contains("amber-ce-sid")) {
+        installExtraArg = "--amber-ce-sid";
+    } else if (taglist.contains("amber-ce-deepin23")) {
+        installExtraArg = "--amber-ce-deepin23";
+    }
+
+    DownloadItem *item = dw->addItem(info["Name"].toString(), info["Filename"].toString(), info["Pkgname"].toString(),
+                                     iconpixmap, downloadUrl, installExtraArg);
     if (item == nullptr)
     {
         return;
@@ -566,11 +627,11 @@ void AppIntoPage::on_pushButton_3_clicked()
         uninstall.waitForFinished(-1);
         uninstall.close();
 
-        QProcess check;
-        check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
-        check.waitForFinished(-1);
+        // QProcess check;
+        // check.start("dpkg", QStringList() << "-s" << info["Pkgname"].toString().toLower());
+        // check.waitForFinished(-1);
 
-        if (check.exitCode() != 0 || check.exitStatus() != QProcess::NormalExit)
+        if (uninstall.exitCode() != 0 || uninstall.exitStatus() != QProcess::NormalExit)
         {
             ui->downloadButton->setText(tr("Download and Install"));
             ui->pushButton_3->hide();
@@ -581,7 +642,7 @@ void AppIntoPage::on_pushButton_3_clicked()
         ui->downloadButton->setEnabled(true);
         ui->pushButton_3->setEnabled(true);
 
-        check.close();
+        // check.close();
     });
 }
 

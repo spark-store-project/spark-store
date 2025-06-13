@@ -1,83 +1,170 @@
 #!/bin/bash
-SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
-SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
-source /opt/durapps/spark-store/bin/bashimport/transhell.amber
+# 初始化常量和全局变量
+readonly SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
+readonly SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
+# ACE环境配置 - 修改此数组即可添加或删除支持的环境——记得修改 store-helper 里的 uninstaller check-is-installed 和 ss-launcher
+readonly ACE_ENVIRONMENTS=(
+    "bookworm-run:amber-ce-bookworm"
+    "trixie-run:amber-ce-trixie"
+    "deepin23-run:amber-ce-deepin23"
+    "sid-run:amber-ce-sid"
+)
+readonly ACE_ENVIRONMENTS_FOR_AUTOINSTALL=(
+    "bookworm-run:amber-ce-bookworm"
+    "trixie-run:amber-ce-trixie"
+)
+function get_current_user() {
+    # 优先通过 who 命令获取用户
+    local user
+    user=$(who | awk '{print $1}' | head -n 1 2>/dev/null)
 
-load_transhell_debug
-export DEBIAN_FRONTEND=noninteractive
+    # 如果 who 无输出，则通过 loginctl 获取
+    if [[ -z "$user" ]]; then
+        user=$(loginctl list-sessions --no-legend 2>/dev/null | awk '{print $3}' | head -n 1)
+    fi
 
-trap 'unlock_file $DEBPATH' EXIT
-case $(arch) in
-   x86_64)
-	STORE_URL="store"
-	;;
-   aarch64)
-	STORE_URL="aarch64-store"
-	;;
-   loongarch64)
-   	STORE_URL="loong64-store"
-   	STORE_LIST_URL="-loong64"
-   	;;
-esac
-
-echo "Spark Store Install script. 星火商店安装脚本"
-
-function pkexec_as_current_user() {
-    local user=$(who | awk '{print $1}' | head -n 1)
-    local uid=$(id -u "$user")
-    sudo -u "$user" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/"$uid"/bus pkexec "$@"
+    # 返回最终结果（可能为空）
+    echo "${user}"
 }
-function create_desktop_file() {
-	local user=$(who | awk '{print $1}' | head -n 1)
-	if [ -e $(sudo -u "$user" xdg-user-dir)/.config/spark-union/spark-store/ssshell-config-do-not-create-desktop ];then
-	echo "It is configured that do not create desktop file. Give up"
-	else
-	exec_create_desktop_file
-	fi
-}
-function exec_create_desktop_file() {
-    local user=$(who | awk '{print $1}' | head -n 1)
-    for desktop_file_path in $(dpkg -L "$package_name" |grep /usr/share/applications/ | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
-	echo $desktop_file_path is checked and will be installed to desktop
-        sudo -u "$user" cp "$desktop_file_path" "$(sudo -u "$user" xdg-user-dir DESKTOP)/"
-	fi
-    done
-	for desktop_file_path in $(dpkg -L "$package_name" |grep /opt/apps/$package_name/entries/applications | awk '/\.desktop$/ {print}'); do
-	if [ "$(cat $desktop_file_path | grep NoDisplay=true)" = "" ];then
-	echo $desktop_file_path is checked and will be installed to desktop
-        chmod +x $desktop_file_path
-        sudo -u "$user" cp "$desktop_file_path" "$(sudo -u "$user" xdg-user-dir DESKTOP)/"
-	fi
-    done
-
-
-}
-
 
 function zenity() {
-    local user=$(who | awk '{print $1}' | head -n 1)
+    local user=$(get_current_user)
     local uid=$(id -u "$user")
     sudo -u "$user" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/"$uid"/bus zenity "$@"
 }
 
-function hash_check() {
-    if [ ! -e "/var/lib/aptss/lists/${SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL}_${STORE_URL}_Packages" ] && \
-       [ ! -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ] && \
-       [ ! -e "/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store_${STORE_URL}_Packages" ]; then
-        echo "接收星火仓库软件信息中..."
-        aptss ssupdate
-    fi
 
+# 全局变量初始化（位于 parse_args 前）
+ACE_PARAMS=()
+
+# 生成ACE环境参数帮助信息
+function generate_ace_help() {
+    local help_text=""
+    for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+        local ace_param="--${ace_entry#*:}"
+        help_text+="  $ace_param          使用${ace_entry%%:*} ACE容器安装\n"
+    done
+    echo -e  "$help_text"
+}
+source /opt/durapps/spark-store/bin/bashimport/transhell.amber
+# 脚本工作变量
+DELETE_AFTER_INSTALL="0"
+DEBPATH=""
+FORCE_ACE_ENV=""
+FORCE_NATIVE="0"
+NO_CREATE_DESKTOP="0"
+FORCE_CREATE_DESKTOP="0"
+
+# 加载翻译和调试
+load_transhell_debug
+export DEBIAN_FRONTEND=noninteractive
+# 根据架构设置仓库URL
+case $(arch) in
+    x86_64) STORE_URL="store" ;;
+    aarch64) STORE_URL="aarch64-store" ;;
+    loongarch64) STORE_URL="loong64-store" ;;
+esac
+# 帮助函数
+function show_help() {
+    echo "Spark Store Install script. 星火商店安装脚本"
+    echo "用法: $0 [选项] <deb路径>"
+    echo "选项:"
+    echo "  -h, --help                   显示帮助信息"
+    echo "  --delete-after-install       安装成功后删除软件包"
+    echo "  --no-create-desktop-entry    不创建桌面快捷方式"
+    echo "  --force-create-desktop-entry 强制创建桌面快捷方式"
+    echo "$(generate_ace_help)"
+    echo "  --native                     只在主机安装，不使用ACE容器"
+}
+# 参数解析
+function parse_args() {
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -h|--help)
+        show_help
+        exit 0
+        ;;
+      --delete-after-install)
+        DELETE_AFTER_INSTALL="1"
+        shift
+        ;;
+      --native)
+        FORCE_NATIVE="1"
+        shift
+        ;;
+      --no-create-desktop-entry)
+        NO_CREATE_DESKTOP="1"
+        shift
+        ;;
+      --force-create-desktop-entry)
+        FORCE_CREATE_DESKTOP="1"
+        shift
+        ;;
+      *)
+        # 检查是否为ACE环境参数
+        local is_ace_param=0
+        for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+          local ace_param="--${ace_entry#*:}"
+          if [ "$1" = "$ace_param" ]; then
+            # 将ACE环境命令名加入数组
+            ACE_PARAMS+=("${ace_entry%%:*}")
+            is_ace_param=1
+            shift
+            break
+          fi
+        done
+
+        # 如果不是ACE环境参数，则视为DEB路径
+        if [ "$is_ace_param" -eq 0 ]; then
+          DEBPATH="$1"
+          shift
+        fi
+        ;;
+    esac
+  done
+}
+
+
+# 验证当前用户
+function validate_user() {
+    if [ "$(id -u)" != "0" ]; then
+        echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
+        echo "OMG-IT-GOES-WRONG"
+        exit 1
+    fi
+}
+
+# 验证文件存在或尝试下载
+function validate_or_download_file() {
+    if [ ! -f "$1" ]; then
+        echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST},Trying to redownload"
+        aptss update
+        FILEPATH=$(dirname "$1")
+        FILENAME=$(basename "$1")
+        PACKAGE_NAME=$(echo "$FILENAME" | sed -r 's/^([^_]+)_.*$/\1/')
+        VERSION=$(echo "$FILENAME" | sed -r 's/^[^_]+_([^_]+)_.*$/\1/')
+        pushd "${FILEPATH}" >/dev/null || exit 1
+        aptss download "${PACKAGE_NAME}"
+        popd >/dev/null || exit 1
+        
+        if [ ! -f "$1" ]; then
+            echo "OMG-IT-GOES-WRONG"
+            exit 1
+        fi
+    fi
+}
+
+# 哈希校验
+function hash_check() {
+    local PACKAGES_DATA_PATH=""
+    
+    # 检查可能的仓库位置
     if [ -e "/var/lib/aptss/lists/${SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL}_${STORE_URL}_Packages" ]; then
         PACKAGES_DATA_PATH="/var/lib/aptss/lists/${SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL}_${STORE_URL}_Packages"
-        echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是星火域名仓库配置"
     elif [ -e "/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages" ]; then
         PACKAGES_DATA_PATH="/var/lib/aptss/lists/d.store.deepinos.org.cn_${STORE_URL}_Packages"
-        echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是d域名单目录仓库配置"
     else
         PACKAGES_DATA_PATH="/var/lib/aptss/lists/mirrors.sdu.edu.cn_spark-store-repository_${STORE_URL}_Packages"
-        echo "星火仓库的Packages位置为 $PACKAGES_DATA_PATH，是SDU镜像仓库配置"
     fi
 
     echo "正在运行包验证..."
@@ -85,31 +172,19 @@ function hash_check() {
 
     DEB_SHA512SUM=$(sha512sum "$1" | cut -d ' ' -f 1)
     unset IS_SHA512SUM_CHECKED
-    IS_SHA512SUM_CHECKED=$(cat "$PACKAGES_DATA_PATH" | grep "$DEB_SHA512SUM")
+    IS_SHA512SUM_CHECKED=$(grep -F "$DEB_SHA512SUM" "$PACKAGES_DATA_PATH")
 }
 
-function lock_file(){
-chattr +i "$1"
-}
-
-function unlock_file(){
-chattr -i "$1"
-}
-
-function ensure_aptss_exist(){
-
-    if command -v aptss &>/dev/null; then
-        aptss update
-    else
+# 确保aptss存在
+function ensure_aptss_exist() {
+    if ! command -v aptss &>/dev/null; then
         local deb_file="/tmp/spark-store-console-in-container_latest_all.deb"
         
-        # Download package
         if ! wget -O "$deb_file" "https://amber-ce-resource.spark-app.store/store/depends/spark-store-console-in-container_latest_all.deb"; then
             echo "下载 .deb 安装包失败" >&2
             return 1
         fi
 
-        # Install package
         if ! apt install -y "$deb_file"; then
             echo "安装 .deb 包失败" >&2
             rm -f "$deb_file"
@@ -117,7 +192,6 @@ function ensure_aptss_exist(){
         fi
         rm -f "$deb_file"
 
-        # Verify installation
         if ! command -v aptss &>/dev/null; then
             echo "成功安装但未找到 aptss 命令" >&2
             return 1
@@ -125,162 +199,334 @@ function ensure_aptss_exist(){
     fi
 }
 export -f ensure_aptss_exist
-####################################
 
-if [ $# -eq 0 ]; then
-    echo "没有接收到参数，退出"
-    echo "用法：$0 deb路径"
-    echo "OMG-IT-GOES-WRONG"
-    exit
-fi
-
-
-
-if [ "$(id -u)" != "0" ]; then
-    echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
-    echo "OMG-IT-GOES-WRONG"
-    exit 1
-fi
-
-if [ ! -f "$1" ]; then
-    echo "${TRANSHELL_CONTENT_FILE_NOT_EXIST},Trying to redownload"
-    FILEPATH=$(dirname "$1")
-    FILENAME=$(basename "$1")
-    PACKAGE_NAME=$(echo "$FILENAME" | sed -r 's/^([^_]+)_.*$/\1/')
-    VERSION=$(echo "$FILENAME" | sed -r 's/^[^_]+_([^_]+)_.*$/\1/')
-    pushd ${FILEPATH}
-    aptss download ${PACKAGE_NAME}
-    popd
-    if [ ! -f "$1" ]; then
-    	echo "OMG-IT-GOES-WRONG"
-    	exit 1
-    else
-    	DEBPATH=$(realpath "$1")
+# 确保ACE环境存在
+function ensure_ace_env() {
+    local ace_env_pkg="${1}"
+    
+    if ! dpkg -l "$ace_env_pkg" &>/dev/null; then
+        echo "ACE环境$ace_env_pkg未安装，正在尝试安装..."
+        zenity --info --text="首次使用$ace_env_pkg环境，重启或注销桌面后才能在启动器中展示，不影响应用启动。安装将在后台继续。" --title="ACE环境安装" &
+        if ! aptss install -y "$ace_env_pkg"; then
+            echo "安装$ace_env_pkg失败"
+            return 1
+        fi
     fi
+    return 0
+}
+export user=$(who | awk '{print $1}' | head -n 1)
+# 在桌面创建快捷方式
+function create_desktop_file() {
+    # 如果明确要求不要创建或明确要创建，则跳过配置文件检查
+    if [ "$NO_CREATE_DESKTOP" -eq 1 ]; then
+        echo "根据参数要求，跳过创建桌面快捷方式"
+        return
+    fi
+    
+    if [ "$FORCE_CREATE_DESKTOP" -eq 0 ]; then
+        if [ -e "$(sudo -u "$user" xdg-user-dir)/.config/spark-union/spark-store/ssshell-config-do-not-create-desktop" ]; then
+            echo "根据配置要求，跳过创建桌面快捷方式"
+            return
+        fi
+    fi
+    
+    exec_create_desktop_file
+}
+export CURRENT_USER_DIR_DESKTOP=$(sudo -u "$user" xdg-user-dir DESKTOP)
+function exec_create_desktop_file() {
+    local desktop_files=()
+    
+    # 收集所有桌面文件
+    desktop_files+=($(dpkg -L "$package_name" | grep '/usr/share/applications/.*\.desktop$'))
+    desktop_files+=($(dpkg -L "$package_name" | grep '/opt/apps/'"$package_name"'/entries/applications/.*\.desktop$'))
+    
+    for desktop_file_path in "${desktop_files[@]}"; do
+        if [ "$FORCE_CREATE_DESKTOP" -eq 1 ] || [ -z "$(grep 'NoDisplay=true' "$desktop_file_path")" ]; then
+            echo "$desktop_file_path is checked and will be installed to desktop"
+            chmod +x "$desktop_file_path"
+            sudo -u "$user" cp "$desktop_file_path" "${CURRENT_USER_DIR_DESKTOP}"
+        fi
+    done
+}
+export -f exec_create_desktop_file
+
+# 在ACE环境中创建桌面快捷方式
+function create_desktop_in_ace() {
+    local ace_cmd="$1"
+    local package_name="$2"
+    
+    # 如果明确要求不要创建，则直接返回
+    if [ "$NO_CREATE_DESKTOP" -eq 1 ]; then
+        echo "根据参数要求，跳过在ACE中创建桌面快捷方式"
+        return 0
+    fi
+    
+    # 如果是强制创建，或者没有配置禁止创建
+    if [ "$FORCE_CREATE_DESKTOP" -eq 1 ] || ! $ace_cmd "[ -e ~/.config/spark-union/spark-store/ssshell-config-do-not-create-desktop ]"; then
+        echo "在ACE环境中创建桌面快捷方式..."
+        export -f exec_create_desktop_file 
+        export package_name
+        export FORCE_CREATE_DESKTOP
+        $ace_cmd "exec_create_desktop_file"
     else
-    DEBPATH=$(realpath "$1")
-fi
+        echo "根据ACE环境中的配置，跳过创建桌面快捷方式"
+    fi
+}
 
-lock_file "$DEBPATH"
+# 在指定ACE环境中安装
+function install_in_ace_env() {
+    local ace_cmd="$1"
+    local deb_path="$2"
+    local ace_env_pkg="${3#*:}"
+    
+    if [ "$IS_ACE_ENV" != "" ] ||  command -v termux-chroot; then
+        echo "无法在ACE/termux/小小电脑中安装ACE包"
+        return 1
+    fi
+    if ! ensure_ace_env "$ace_env_pkg"; then
+        return 1
+    fi
+    
+    echo "----------------------------------------"
+    echo "正在尝试使用 $ace_cmd 环境安装..."
+    echo "----------------------------------------"
+        $ace_cmd "ensure_aptss_exist"
 
-hash_check "$DEBPATH"
+    # 首先尝试dry-run测试
+    if ! $ace_cmd "aptss install --dry-run '$deb_path'"; then
+        echo "初始dry-run测试失败，尝试更新后重试..."
+        $ace_cmd "aptss update"
+        if ! $ace_cmd "aptss install --dry-run '$deb_path'"; then
+            echo "dry-run测试仍然失败，放弃安装"
+            echo "OMG_IT_GOES_WRONG"
+            return 1
+        fi
+    fi
+    
+    # dry-run成功后执行实际安装
+    $ace_cmd "aptss install store.spark-app.app-runtime-base --no-install-recommends -yfq"
+    if $ace_cmd "dpkg -i '$deb_path' || aptss install '$deb_path' -yfq"; then
+        return 0
+    else
+        return 1
+    fi
+}
 
-if [ -z "$IS_SHA512SUM_CHECKED" ]; then
-    echo "尝试更新仓库信息重新校验"
-    aptss ssupdate
-    hash_check "$DEBPATH"
-	if [ -z "$IS_SHA512SUM_CHECKED" ]; then
-	echo -e "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
-	zenity --info --icon-name=spark-store --height 270 --width 500 --text "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
-	echo  "OMG-IT-GOES-WRONG"
-	exit 1
-	fi
-fi
+# 在主机安装
+function install_in_host() {
+    local deb_path="$1"
+    
+    # 首先尝试dry-run测试
+    if ! aptss install --dry-run "$deb_path"; then
+        echo "初始dry-run测试失败，尝试更新后重试..."
+        aptss update
+        if ! aptss install --dry-run "$deb_path"; then
+            echo "dry-run测试仍然失败，放弃安装"
+            return 1
+        fi
+    fi
+    
+    # dry-run成功后执行实际安装
+    if dpkg -i "$deb_path" || aptss install "$deb_path" -yfq; then
+        return 0
+    else
+        return 1
+    fi
+}
 
-if [ ! -z "$IS_SHA512SUM_CHECKED" ]; then
-    echo "校验成功，开始安装"
-    echo "----------------------------------------------------------------------------------"
-package_name=$(dpkg-deb -f "$DEBPATH" Package)
-echo "Package name is $package_name"
-try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
-try_run_ret="$?"
-# 安装失败后进行 aptss 刷新，随后尝试在主机安装
-if [ "$try_run_ret" -ne 0 ]; then
-    aptss update
-    try_run_output=$(/opt/durapps/spark-store/bin/update-upgrade/ss-do-upgrade-worker.sh test-install-app "$DEBPATH")
-    try_run_ret="$?"
-fi
-
-if [ "$try_run_ret" -ne 0 ]; then ## 若安装检测仍然失败
-    if [[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中
-        # 定义按顺序尝试的ACE环境（命令:推荐安装包）
-        declare -a ace_commands_order=(
-            "bookworm-run:amber-ce-bookworm"
-            "trixie-run:amber-ce-trixie"
-            "deepin23-run:amber-ce-deepin23"
-        )
-        
-        success=false
-        recommendation_msg=""
-        # 收集所有推荐信息
-        for ace_entry in "${ace_commands_order[@]}"; do
-            recommendation_msg+="您可安装 ${ace_entry%%:*} 兼容环境后重试: ${ace_entry#*:}\n"
-        done
-
-        # 按顺序尝试每个ACE环境
-        for ace_entry in "${ace_commands_order[@]}"; do
-            ace_cmd=${ace_entry%%:*}
-            if command -v "$ace_cmd" >/dev/null 2>&1; then
-                echo "----------------------------------------"
-                echo "正在尝试使用 $ace_cmd 环境安装..."
-                echo "----------------------------------------"
-                
-                # 在ACE环境中执行安装检测
-                $ace_cmd ensure_aptss_exist
-                try_run_output=$($ace_cmd aptss install --dry-run "$DEBPATH" 2>&1)
-                try_run_ret="$?"
-                
-                # 如果首次检测失败则更新后重试
-                if [ "$try_run_ret" -ne 0 ]; then
-                    $ace_cmd aptss update
-                    try_run_output=$($ace_cmd aptss install --dry-run "$DEBPATH" 2>&1)
-                    try_run_ret="$?"
-                fi
-
-                # 最终检测结果处理
-                if [ "$try_run_ret" -eq 0 ]; then
-                    echo "----------------------------------------"
-                    echo "在 $ace_cmd 环境中预检成功，开始安装..."
-                    echo "----------------------------------------"
-                    $ace_cmd 'dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf'
-                    success=true
-                    break # 跳出循环
-                else
-                    echo "----------------------------------------"
-                    echo "在 $ace_cmd 环境中安装预检失败，错误信息："
-                    echo -e "${try_run_output}"
-                    echo "----------------------------------------"
+# 自动尝试在各种环境中安装
+function auto_try_install() {
+    local deb_path="$1"
+    
+    # 首先尝试在主机安装
+    if install_in_host "$deb_path"; then
+        create_desktop_file
+        return 0
+    fi
+    
+    # 如果主机安装失败，并非在ACE内运行且不在强制本地模式，尝试ACE环境
+    if [ "$FORCE_NATIVE" -eq 0 ] && [ "$IS_ACE_ENV" = "" ] && ! command -v termux-chroot; then
+        for ace_entry in "${ACE_ENVIRONMENTS_FOR_AUTOINSTALL[@]}"; do
+            local ace_cmd=${ace_entry%%:*}
+            local ace_env_pkg=${ace_entry#*:}
+            
+            # 确保ACE环境存在
+            if ensure_ace_env "$ace_env_pkg"; then
+                if install_in_ace_env "$ace_cmd" "$deb_path" "$ace_env_pkg"; then
+                    # 在ACE环境中创建桌面快捷方式
+                    create_desktop_in_ace "$ace_cmd" "$package_name"
+                    return 0
                 fi
             fi
         done
-
-        if ! $success; then
-            echo "OMG-IT-GOES-WRONG"
-            echo -e "${try_run_output}"
-            echo -e "所有ACE环境尝试失败，推荐安装以下任一兼容环境:\n${recommendation_msg}"
-            exit "$try_run_ret"
+    fi
+    
+    return 1
+}
+# 清理安装后的文件
+function post_install_cleanup() {
+    local success=$1
+    local deb_path="$2"
+    local package_name="$3"
+    
+    if [ "$success" -eq 0 ] && [ "$DELETE_AFTER_INSTALL" -eq "1" ]; then
+        # 检查是否安装在主机
+        if [ "$FORCE_NATIVE" -eq 1 ] || [ -n "$FORCE_ACE_ENV" ]; then
+            if [ "$FORCE_NATIVE" -eq 1 ]; then
+                if dpkg -s "$package_name" >/dev/null 2>&1; then
+                    echo "软件包已在主机安装：$package_name"
+                    create_desktop_file
+                    unlock_file "$deb_path"
+                    rm "$deb_path"
+                    echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
+                else
+                    echo "软件包未在主机安装：$package_name"
+                    echo "安装异常！抛出错误"
+                    echo "OMG-IT-GOES-WRONG"
+                    exit 1
+                fi
+            else
+                # ACE环境中安装的情况，不检查主机dpkg数据库
+                echo "软件包已在ACE环境安装：$package_name"
+                unlock_file "$deb_path"
+                rm "$deb_path"
+                echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
+            fi
+        else
+            # 自动模式下，如果ACE安装成功也会走到这里
+            echo "软件包已安装：$package_name"
+            unlock_file "$deb_path"
+            rm "$deb_path"
+            echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
         fi
-    else # 已经在ACE环境中仍失败直接退出
-        echo "OMG-IT-GOES-WRONG"
-        echo -e "${try_run_output}"
-        exit "$try_run_ret"
+    else
+        echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
+        if [ "$FORCE_NATIVE" -eq 1 ] && ! dpkg -s "$package_name" >/dev/null 2>&1; then
+            echo "软件包未在主机安装：$package_name"
+            echo "安装异常！抛出错误"
+            echo "OMG-IT-GOES-WRONG"
+            exit 1
+        elif [ -n "$FORCE_ACE_ENV" ] && ! command -v "$FORCE_ACE_ENV" >/dev/null 2>&1; then
+            echo "指定的ACE环境不可用"
+            echo "OMG-IT-GOES-WRONG"
+            exit 1
+        fi
     fi
-else ## 如果主机安装检测成功
-    dpkg -i "$DEBPATH" || aptss install "$DEBPATH" -yf 
-fi
+}
 
-### 退出阶段保持不变 ###
-if [ "$?" = "0" ] && [ "$2" = "--delete-after-install" ]; then
-    if dpkg -s "$package_name" >/dev/null 2>&1; then
-        echo "软件包已安装：$package_name"
-        create_desktop_file
-        unlock_file $DEBPATH
-        rm "$DEBPATH"
-        echo "${TRANSHELL_CONTENT_DEB_IS_DELETED}"
-    else
-        echo "软件包未安装：$package_name"
-        echo "安装异常！抛出错误"
-        echo "OMG-IT-GOES-WRONG"
+# 文件锁定/解锁函数
+function lock_file() {
+    chattr +i "$1"
+}
+
+function unlock_file() {
+    if [ -e "$1" ];then    
+    chattr -i "$1"
     fi
-else
-    echo "${TRANSHELL_CONTENT_WILL_NOT_DELETE_DEB}"
-    if dpkg -s "$package_name" >/dev/null 2>&1; then
-        echo "软件包已安装：$package_name"
-        create_desktop_file
-    else
-        echo "软件包未安装：$package_name"
-        echo "安装异常！抛出错误"
+}
+
+# 主安装流程
+function main_install() {
+    parse_args "$@"
+
+    if [ -z "$DEBPATH" ]; then
+        echo "没有接收到参数，退出"
+        show_help
         echo "OMG-IT-GOES-WRONG"
+        exit 1
     fi
-fi
-fi
+    
+    # 设置退出时的文件解锁
+    trap 'unlock_file $DEBPATH' EXIT
+    validate_user
+    validate_or_download_file "$DEBPATH"
+    
+    DEBPATH=$(realpath "$DEBPATH")
+    lock_file "$DEBPATH"
+    
+    hash_check "$DEBPATH"
+    
+    if [ -z "$IS_SHA512SUM_CHECKED" ]; then
+        echo "尝试更新仓库信息重新校验"
+        aptss ssupdate
+        hash_check "$DEBPATH"
+        if [ -z "$IS_SHA512SUM_CHECKED" ]; then
+            echo -e "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
+            zenity --info --icon-name=spark-store --height 270 --width 500 --text "$TRANSHELL_CONTENT_HASH_CHECK_FAILED"
+            echo "OMG-IT-GOES-WRONG"
+            exit 1
+        fi
+    fi
+    
+    package_name=$(dpkg-deb -f "$DEBPATH" Package)
+    local install_success=1
+ if [ "$FORCE_NATIVE" -eq 1 ] || [ "$IS_ACE_ENV" = "1" ]; then
+    # 优先使用主机安装，忽略所有ACE参数
+    echo "忽略ACE，使用主机安装 $package_name"
+    install_in_host "$DEBPATH"
+    install_success=$?
+    # 安装成功后在主机创建桌面快捷方式
+    if [ "$install_success" -eq 0 ]; then
+      create_desktop_file
+    fi
+
+  elif [ ${#ACE_PARAMS[@]} -gt 0 ] && [ "$IS_ACE_ENV" != "" ]; then
+    # 用户指定了一个或多个ACE环境，且未要求原生安装
+    echo "使用ACE环境安装，已指定环境: ${ACE_PARAMS[*]}"
+
+    # 查找第一个已安装的ACE环境
+    chosen_env=""
+    for env_cmd in "${ACE_PARAMS[@]}"; do
+      if command -v "$env_cmd" >/dev/null 2>&1; then
+        chosen_env="$env_cmd"
+        break
+      fi
+    done
+    # 如果没有安装任何环境，则使用第一个指定的环境
+    if [ -z "$chosen_env" ]; then
+      chosen_env="${ACE_PARAMS[0]}"
+      echo "未发现已安装的ACE环境，准备安装 $chosen_env..."
+      # 查找对应的ACE环境软件包名
+      for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+        if [ "${ace_entry%%:*}" = "$chosen_env" ]; then
+          ace_pkg="${ace_entry#*:}"
+          break
+        fi
+      done
+      # 安装ACE环境（示例使用aptss工具，可根据实际情况调整）
+      aptss install "$ace_pkg" -y
+    fi
+
+    # 再次确认ACE环境命令是否可用
+    if command -v "$chosen_env" >/dev/null 2>&1; then
+      # 查找软件包名（仅首次查找即可）
+      for ace_entry in "${ACE_ENVIRONMENTS[@]}"; do
+        if [ "${ace_entry%%:*}" = "$chosen_env" ]; then
+          ace_pkg="${ace_entry#*:}"
+          break
+        fi
+      done
+      echo "在 ACE 环境 $chosen_env 中安装 $package_name"
+      install_in_ace_env "$chosen_env" "$DEBPATH" "$ace_pkg"
+      install_success=$?
+      if [ "$install_success" -eq 0 ]; then
+        create_desktop_in_ace "$chosen_env" "$package_name"
+      fi
+    else
+      echo "指定的ACE环境 $chosen_env 不可用"
+      echo "OMG-IT-GOES-WRONG"
+      exit 1
+    fi
+
+  else
+    # 未指定ACE环境和--native，使用自动安装逻辑（先主机再ACE）
+    echo "自动选择安装方式"
+    auto_try_install "$DEBPATH"
+    install_success=$?
+  fi
+
+  post_install_cleanup "$install_success" "$DEBPATH" "$package_name"
+}
+
+# 执行主函数
+main_install "$@"

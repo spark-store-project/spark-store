@@ -1,6 +1,6 @@
 #  星火应用商店
 [![star](https://gitee.com/spark-store-project/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/stargazers)  [![fork](https://gitee.com/spark-store-project/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/members)
-
+![star](https://gitcode.com/spark-store-project/spark-store/star/badge.svg)
 
 
 ## 简介
