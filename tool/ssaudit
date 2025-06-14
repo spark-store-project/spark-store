@@ -458,7 +458,7 @@ function main_install() {
       create_desktop_file
     fi
 
-  elif [ ${#ACE_PARAMS[@]} -gt 0 ] && [ "$IS_ACE_ENV" != "" ]; then
+  elif [ ${#ACE_PARAMS[@]} -gt 0 ] && [ "$IS_ACE_ENV" = "" ]; then
     # 用户指定了一个或多个ACE环境，且未要求原生安装
     echo "使用ACE环境安装，已指定环境: ${ACE_PARAMS[*]}"
 
