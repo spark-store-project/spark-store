@@ -177,13 +177,12 @@ void DownloadItem::slotAsyncInstall(int t)
     case 0:
         {
             QStringList args;
-            args << "/usr/local/bin/ssinstall"
-                 << "/tmp/spark-store/" + ui->label_filename->text().toUtf8();
+            args << "/tmp/spark-store/" + ui->label_filename->text().toUtf8();
             if (!installExtraArg.isEmpty()) {
                 args << installExtraArg;
             }
             args << "--delete-after-install";
-            installer.start("pkexec", args);
+            installer.start("/usr/local/bin/ssinstall", args);
         }
         break;
     case 1:

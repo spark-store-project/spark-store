@@ -128,9 +128,8 @@ function parse_args() {
 # 验证当前用户
 function validate_user() {
     if [ "$(id -u)" != "0" ]; then
-        echo "${TRANSHELL_CONTENT_PLEASE_RUN_AS_ROOT}"
-        echo "OMG-IT-GOES-WRONG"
-        exit 1
+        pkexec DISPLAY=$DISPLAY "$0" "$@"
+        exit $?
     fi
 }
 
