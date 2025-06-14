@@ -482,7 +482,7 @@ function main_install() {
         fi
       done
       # 安装ACE环境（示例使用aptss工具，可根据实际情况调整）
-      aptss install "$ace_pkg" -y
+      ensure_ace_env "$ace_pkg" -y
     fi
 
     # 再次确认ACE环境命令是否可用
