@@ -105,6 +105,10 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         buttonOption.rect = QRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
         buttonOption.text = "更新";
         buttonOption.state = QStyle::State_Enabled;
+        QPalette palette = buttonOption.palette;
+        palette.setColor(QPalette::Button, QColor("#e9effd"));  // 背景色
+        palette.setColor(QPalette::ButtonText, QColor("#2563EB"));  // 文字颜色
+        buttonOption.palette = palette;
         QApplication::style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter);
     }
 
