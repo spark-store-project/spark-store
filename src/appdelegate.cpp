@@ -101,15 +101,15 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         cancelOption.state = QStyle::State_Enabled;
         QApplication::style()->drawControl(QStyle::CE_PushButton, &cancelOption, painter);
     } else {
-        QStyleOptionButton buttonOption;
-        buttonOption.rect = QRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
-        buttonOption.text = "更新";
-        buttonOption.state = QStyle::State_Enabled;
-        QPalette palette = buttonOption.palette;
-        palette.setColor(QPalette::Button, QColor("#e9effd"));  // 背景色
-        palette.setColor(QPalette::ButtonText, QColor("#2563EB"));  // 文字颜色
-        buttonOption.palette = palette;
-        QApplication::style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter);
+        // 修改后的更新按钮绘制代码
+        QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(QColor("#e9effd"));  // 背景色
+        painter->drawRoundedRect(buttonRect, 4, 4);  // 圆角矩形
+        
+        painter->setPen(QColor("#2563EB"));  // 文字颜色
+        painter->setFont(option.font);
+        painter->drawText(buttonRect, Qt::AlignCenter, "更新");
     }
 
     painter->restore();
