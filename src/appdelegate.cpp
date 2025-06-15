@@ -84,7 +84,7 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     int progress = m_downloads.value(packageName, DownloadInfo{0, false}).progress;
 
     if (isDownloading) {
-        QRect progressRect(rect.right() - 180, rect.top() + (rect.height() - 20) / 2, 100, 20);
+        QRect progressRect(rect.right() - 270, rect.top() + (rect.height() - 20) / 2, 150, 20);
         QStyleOptionProgressBar progressBarOption;
         progressBarOption.rect = progressRect;
         progressBarOption.minimum = 0;
