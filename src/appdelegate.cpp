@@ -104,14 +104,25 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         painter->setFont(option.font);
         painter->drawText(buttonRect, Qt::AlignCenter, "取消");
     } else {
+        QString packageName = index.data(Qt::UserRole + 1).toString();
+        bool isDownloaded = m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading;
+        
         QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
         painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor("#e9effd"));  // 背景色
-        painter->drawRoundedRect(buttonRect, 4, 4);  // 圆角矩形
         
-        painter->setPen(QColor("#2563EB"));  // 文字颜色
-        painter->setFont(option.font);
-        painter->drawText(buttonRect, Qt::AlignCenter, "更新");
+        if (isDownloaded) {
+            // 下载完成状态
+            painter->setBrush(QColor("#10B981"));  // 绿色背景
+            painter->drawRoundedRect(buttonRect, 4, 4);
+            painter->setPen(Qt::white);
+            painter->drawText(buttonRect, Qt::AlignCenter, "下载完成");
+        } else {
+            // 更新按钮状态
+            painter->setBrush(QColor("#e9effd"));  // 背景色
+            painter->drawRoundedRect(buttonRect, 4, 4);
+            painter->setPen(QColor("#2563EB"));  // 文字颜色
+            painter->drawText(buttonRect, Qt::AlignCenter, "更新");
+        }
     }
 
     painter->restore();
