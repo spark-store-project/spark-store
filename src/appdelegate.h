@@ -20,6 +20,7 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     bool editorEvent(QEvent *event, QAbstractItemModel *model,
                      const QStyleOptionViewItem &option, const QModelIndex &index) override;
+    void startDownloadForAll(); // 新增：批量下载所有应用
 
 signals:
     void updateDisplay(const QString &packageName);

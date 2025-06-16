@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     listView->setModel(m_model);
     listView->setItemDelegate(m_delegate);
 
+    // 新增：确保 delegate 拥有 model 指针
+    m_delegate->setModel(m_model);
+
     // 设置 QListView 填充 ui->appWidget
     QVBoxLayout *layout = new QVBoxLayout(ui->appWidget);
     layout->addWidget(listView);
@@ -27,6 +30,13 @@ MainWindow::MainWindow(QWidget *parent)
             }
         }
     });
+
+    // 新增：点击“更新全部”按钮批量下载
+    connect(ui->updatePushButton, &QPushButton::clicked, this, [=](){
+        qDebug()<<"更新全部按钮被点击";
+        m_delegate->startDownloadForAll();
+    });
+
     checkUpdates();
     initStyle();
 }

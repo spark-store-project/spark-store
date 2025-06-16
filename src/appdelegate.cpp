@@ -163,3 +163,18 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
 
     return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
+
+void AppDelegate::startDownloadForAll() {
+    if (!m_model) return;
+    for (int row = 0; row < m_model->rowCount(); ++row) {
+        QModelIndex index = m_model->index(row, 0);
+        QString packageName = index.data(Qt::UserRole + 1).toString();
+        if (m_downloads.contains(packageName) && m_downloads[packageName].isDownloading)
+            continue; // 跳过正在下载的
+        QString downloadUrl = index.data(Qt::UserRole + 7).toString();
+        QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
+        m_downloads[packageName] = {0, true};
+        m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
+        emit updateDisplay(packageName);
+    }
+}
