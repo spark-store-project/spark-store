@@ -9,14 +9,16 @@
 #include <QMouseEvent>
 
 AppDelegate::AppDelegate(QObject *parent)
-    : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this)) {
-
+    : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this)), m_installProcess(nullptr) {
     connect(m_downloadManager, &DownloadManager::downloadFinished, this,
             [this](const QString &packageName, bool success) {
         if (m_downloads.contains(packageName)) {
             m_downloads[packageName].isDownloading = false;
             emit updateDisplay(packageName);
             qDebug() << (success ? "下载完成:" : "下载失败:") << packageName;
+            if (success) {
+                enqueueInstall(packageName);
+            }
         }
     });
 
@@ -28,6 +30,7 @@ AppDelegate::AppDelegate(QObject *parent)
             emit updateDisplay(packageName); // 实时刷新进度条
         }
     });
+    m_spinnerTimer.start();
 }
 
 void AppDelegate::setModel(QAbstractItemModel *model) {
@@ -82,6 +85,8 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     QString packageName = index.data(Qt::UserRole + 1).toString();
     bool isDownloading = m_downloads.contains(packageName) && m_downloads[packageName].isDownloading;
     int progress = m_downloads.value(packageName, DownloadInfo{0, false}).progress;
+    bool isInstalled = m_downloads.value(packageName).isInstalled;
+    bool isInstalling = m_downloads.value(packageName).isInstalling;
 
     if (isDownloading) {
         QRect progressRect(rect.right() - 270, rect.top() + (rect.height() - 20) / 2, 150, 20);
@@ -103,24 +108,37 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         painter->setPen(Qt::white);  // 白色文字
         painter->setFont(option.font);
         painter->drawText(buttonRect, Qt::AlignCenter, "取消");
+    } else if (isInstalling) {
+        // 安装中：显示转圈和文字
+        QRect spinnerRect(option.rect.right() - 80, option.rect.top() + (option.rect.height() - 30) / 2, 30, 30);
+        int angle = (m_spinnerTimer.elapsed() / 10) % 360;
+        QPen pen(QColor("#2563EB"), 3);
+        painter->setPen(pen);
+        painter->setRenderHint(QPainter::Antialiasing, true);
+        QRectF arcRect = spinnerRect.adjusted(3, 3, -3, -3);
+        painter->drawArc(arcRect, angle * 16, 120 * 16); // 120度弧
+
+        QRect textRect(option.rect.right() - 120, option.rect.top() + (option.rect.height() - 30) / 2, 110, 30);
+        painter->setPen(QColor("#2563EB"));
+        painter->setFont(option.font);
+        painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, "正在安装中");
     } else {
-        QString packageName = index.data(Qt::UserRole + 1).toString();
-        bool isDownloaded = m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading;
-        
-        QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+        QRect buttonRect(option.rect.right() - 80, option.rect.top() + (option.rect.height() - 30) / 2, 70, 30);
         painter->setPen(Qt::NoPen);
-        
-        if (isDownloaded) {
-            // 下载完成状态
-            painter->setBrush(QColor("#10B981"));  // 绿色背景
+        if (isInstalled) {
+            painter->setBrush(QColor("#10B981"));
+            painter->drawRoundedRect(buttonRect, 4, 4);
+            painter->setPen(Qt::white);
+            painter->drawText(buttonRect, Qt::AlignCenter, "已安装");
+        } else if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
+            painter->setBrush(QColor("#10B981"));
             painter->drawRoundedRect(buttonRect, 4, 4);
             painter->setPen(Qt::white);
             painter->drawText(buttonRect, Qt::AlignCenter, "下载完成");
         } else {
-            // 更新按钮状态
-            painter->setBrush(QColor("#e9effd"));  // 背景色
+            painter->setBrush(QColor("#e9effd"));
             painter->drawRoundedRect(buttonRect, 4, 4);
-            painter->setPen(QColor("#2563EB"));  // 文字颜色
+            painter->setPen(QColor("#2563EB"));
             painter->drawText(buttonRect, Qt::AlignCenter, "更新");
         }
     }
@@ -169,12 +187,89 @@ void AppDelegate::startDownloadForAll() {
     for (int row = 0; row < m_model->rowCount(); ++row) {
         QModelIndex index = m_model->index(row, 0);
         QString packageName = index.data(Qt::UserRole + 1).toString();
-        if (m_downloads.contains(packageName) && m_downloads[packageName].isDownloading)
-            continue; // 跳过正在下载的
+        if (m_downloads.contains(packageName) && (m_downloads[packageName].isDownloading || m_downloads[packageName].isInstalled))
+            continue; // 跳过正在下载或已安装的
         QString downloadUrl = index.data(Qt::UserRole + 7).toString();
         QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
-        m_downloads[packageName] = {0, true};
+        m_downloads[packageName] = {0, true, false};
         m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
         emit updateDisplay(packageName);
     }
+}
+
+// 新增：安装队列相关实现
+void AppDelegate::enqueueInstall(const QString &packageName) {
+    m_installQueue.enqueue(packageName);
+    if (!m_isInstalling) {
+        startNextInstall();
+    }
+}
+
+void AppDelegate::startNextInstall() {
+    if (m_installQueue.isEmpty()) {
+        m_isInstalling = false;
+        m_installingPackage.clear();
+        return;
+    }
+    m_isInstalling = true;
+    QString packageName = m_installQueue.dequeue();
+    m_installingPackage = packageName;
+    m_downloads[packageName].isInstalling = true;
+    emit updateDisplay(packageName);
+
+    // 查找 /tmp 下以包名开头的 .deb 文件
+    QDir tempDir(QDir::tempPath());
+    QStringList debs = tempDir.entryList(QStringList() << QString("%1_*.deb").arg(packageName), QDir::Files);
+    QString debPath;
+    if (!debs.isEmpty()) {
+        debPath = tempDir.absoluteFilePath(debs.first());
+    } else {
+        debs = tempDir.entryList(QStringList() << QString("%1*.deb").arg(packageName), QDir::Files);
+        if (!debs.isEmpty()) {
+            debPath = tempDir.absoluteFilePath(debs.first());
+        }
+    }
+
+    if (debPath.isEmpty()) {
+        qWarning() << "未找到deb文件，包名:" << packageName;
+        m_downloads[packageName].isInstalling = false;
+        emit updateDisplay(packageName);
+        m_installingPackage.clear();
+        startNextInstall();
+        return;
+    }
+
+    m_installProcess = new QProcess(this);
+    connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName]() {
+        QByteArray out = m_installProcess->readAllStandardOutput();
+        QString text = QString::fromLocal8Bit(out);
+        qDebug().noquote() << text;
+        // 检查“软件包已安装”关键字
+        if (text.contains(QStringLiteral("软件包已安装"))) {
+            m_downloads[packageName].isInstalling = false;
+            m_downloads[packageName].isInstalled = true;
+            emit updateDisplay(packageName);
+        }
+    });
+    connect(m_installProcess, &QProcess::readyReadStandardError, this, [this]() {
+        QByteArray err = m_installProcess->readAllStandardError();
+        qDebug().noquote() << QString::fromLocal8Bit(err);
+    });
+    connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            this, [this, packageName](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
+        // 若未检测到“软件包已安装”，此处兜底
+        if (!m_downloads[packageName].isInstalled) {
+            m_downloads[packageName].isInstalling = false;
+        }
+        emit updateDisplay(packageName);
+        m_installProcess->deleteLater();
+        m_installProcess = nullptr;
+        m_installingPackage.clear();
+        startNextInstall();
+    });
+
+    // 注意参数顺序：deb路径在前，--no-create-desktop-entry在后
+    QStringList args;
+    args << debPath << "--no-create-desktop-entry";
+    m_installProcess->start("ssinstall", args);
 }
