@@ -2,6 +2,9 @@
 #include "./ui_mainwindow.h"
 #include <QProcess>
 #include <QMessageBox>
+#include <QProgressDialog>
+#include <QtConcurrent> // 新增
+#include <QFutureWatcher> // 新增
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,40 +12,57 @@ MainWindow::MainWindow(QWidget *parent)
     , m_model(new AppListModel(this))
     , m_delegate(new AppDelegate(this))
 {
-    runAptssUpgrade(); 
+    QProgressDialog *progressDialog = new QProgressDialog("正在与服务器通信，获取更新信息中...", QString(), 0, 0, this);
+    progressDialog->setWindowModality(Qt::ApplicationModal);
+    progressDialog->setCancelButton(nullptr);
+    progressDialog->setWindowTitle("请稍候");
+    progressDialog->setMinimumDuration(0);
+    progressDialog->setWindowFlags(progressDialog->windowFlags() & ~Qt::WindowCloseButtonHint); // 禁用关闭按钮
+    progressDialog->show();
+    //异步执行runAptssUpgrade
+    QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
+    connect(watcher, &QFutureWatcher<void>::finished, this, [=]() {
+        progressDialog->close();
+        progressDialog->deleteLater();
+        watcher->deleteLater();
+        ui->setupUi(this);
 
-    ui->setupUi(this);
+        // 创建 QListView 并设置父控件为 ui->appWidget
+        listView = new QListView(ui->appWidget);
+        listView->setModel(m_model);
+        listView->setItemDelegate(m_delegate);
 
-    // 创建 QListView 并设置父控件为 ui->appWidget
-    listView = new QListView(ui->appWidget);
-    listView->setModel(m_model);
-    listView->setItemDelegate(m_delegate);
+        // 新增：确保 delegate 拥有 model 指针
+        m_delegate->setModel(m_model);
 
-    // 新增：确保 delegate 拥有 model 指针
-    m_delegate->setModel(m_model);
-
-    // 设置 QListView 填充 ui->appWidget
-    QVBoxLayout *layout = new QVBoxLayout(ui->appWidget);
-    layout->addWidget(listView);
-    layout->setContentsMargins(0, 0, 0, 0);
-    connect(m_delegate, &AppDelegate::updateDisplay, this, [=](const QString &packageName) {
-        for (int i = 0; i < m_model->rowCount(); ++i) {
-            QModelIndex index = m_model->index(i);
-            if (index.data(Qt::UserRole + 1).toString() == packageName) {
-                m_model->dataChanged(index, index); // 刷新该行
-                break;
+        // 设置 QListView 填充 ui->appWidget
+        QVBoxLayout *layout = new QVBoxLayout(ui->appWidget);
+        layout->addWidget(listView);
+        layout->setContentsMargins(0, 0, 0, 0);
+        connect(m_delegate, &AppDelegate::updateDisplay, this, [=](const QString &packageName) {
+            for (int i = 0; i < m_model->rowCount(); ++i) {
+                QModelIndex index = m_model->index(i);
+                if (index.data(Qt::UserRole + 1).toString() == packageName) {
+                    m_model->dataChanged(index, index); // 刷新该行
+                    break;
+                }
             }
-        }
+        });
+
+        // 新增：点击“更新全部”按钮批量下载
+        connect(ui->updatePushButton, &QPushButton::clicked, this, [=](){
+            qDebug()<<"更新全部按钮被点击";
+            m_delegate->startDownloadForAll();
+        });
+
+        checkUpdates();
+        initStyle();
     });
 
-    // 新增：点击“更新全部”按钮批量下载
-    connect(ui->updatePushButton, &QPushButton::clicked, this, [=](){
-        qDebug()<<"更新全部按钮被点击";
-        m_delegate->startDownloadForAll();
-    });
-
-    checkUpdates();
-    initStyle();
+    // 启动异步任务
+    watcher->setFuture(QtConcurrent::run([this](){
+        runAptssUpgrade();
+    }));
 }
 //初始化控件样式
 void MainWindow::initStyle()
