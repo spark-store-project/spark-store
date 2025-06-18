@@ -131,10 +131,12 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
             painter->setPen(Qt::white);
             painter->drawText(buttonRect, Qt::AlignCenter, "已安装");
         } else if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
+            // 下载完成，按钮绿色，样式不变
             painter->setBrush(QColor("#10B981"));
             painter->drawRoundedRect(buttonRect, 4, 4);
             painter->setPen(Qt::white);
             painter->drawText(buttonRect, Qt::AlignCenter, "下载完成");
+            // 不需要特殊处理样式，交互在 editorEvent 控制
         } else {
             painter->setBrush(QColor("#e9effd"));
             painter->drawRoundedRect(buttonRect, 4, 4);
@@ -168,6 +170,11 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
         } else {
             QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
             if (buttonRect.contains(mouseEvent->pos())) {
+                // 判断是否为“下载完成”状态，如果是则不响应点击
+                if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
+                    // “下载完成”状态，按钮失效，点击无效
+                    return false;
+                }
                 QString downloadUrl = index.data(Qt::UserRole + 7).toString();
                 QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
 
