@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QProcess>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     , m_model(new AppListModel(this))
     , m_delegate(new AppDelegate(this))
 {
+    runAptssUpgrade(); 
+
     ui->setupUi(this);
 
     // 创建 QListView 并设置父控件为 ui->appWidget
@@ -174,6 +178,24 @@ void MainWindow::checkUpdates()
         QJsonObject obj = item.toObject();
         qDebug() << "模型设置的包名:" << obj["package"].toString();
         qDebug() << "模型设置的下载 URL:" << obj["download_url"].toString(); // 检查模型数据
+    }
+}
+
+void MainWindow::runAptssUpgrade()
+{
+    QProcess process;
+    QStringList args;
+    args << "aptss" << "upgrade";
+    process.start("sudo", args);
+    if (!process.waitForStarted(5000)) {
+        QMessageBox::warning(this, "升级失败", "无法启动 sudo aptss upgrade。");
+        return;
+    }
+    process.write("n\n");
+    process.closeWriteChannel();
+    process.waitForFinished(-1);
+    if (process.exitCode() != 0) {
+        QMessageBox::warning(this, "升级失败", "执行 sudo aptss upgrade 失败，请检查系统环境。");
     }
 }
 

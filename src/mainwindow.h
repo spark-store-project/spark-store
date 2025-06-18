@@ -25,6 +25,7 @@ private:
     Ui::MainWindow *ui;
     void checkUpdates();
     void initStyle();
+    void runAptssUpgrade();
     AppListModel *m_model;
     AppDelegate *m_delegate;
     QListView *listView; // 声明 QListView 指针
