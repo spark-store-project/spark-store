@@ -191,7 +191,6 @@
              </property>
              <property name="font">
               <font>
-               <hintingpreference>PreferNoHinting</hintingpreference>
               </font>
              </property>
              <property name="layoutDirection">
