@@ -240,33 +240,72 @@ void AppDelegate::startNextInstall() {
     }
 
     m_installProcess = new QProcess(this);
-    connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName]() {
-        QByteArray out = m_installProcess->readAllStandardOutput();
-        QString text = QString::fromLocal8Bit(out);
-        qDebug().noquote() << text;
-        // 检查“软件包已安装”关键字
-        if (text.contains(QStringLiteral("软件包已安装"))) {
-            m_downloads[packageName].isInstalling = false;
-            m_downloads[packageName].isInstalled = true;
+
+    // 新增：准备安装日志文件
+    QString logPath = QString("/tmp/%1_install.log").arg(packageName);
+    QFile *logFile = new QFile(logPath, m_installProcess);
+    if (logFile->open(QIODevice::Append | QIODevice::Text)) {
+        // 设置权限为777
+        QFile::setPermissions(logPath, QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner |
+                                         QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup |
+                                         QFile::ReadOther | QFile::WriteOther | QFile::ExeOther);
+        connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName, logFile]() {
+            QByteArray out = m_installProcess->readAllStandardOutput();
+            logFile->write(out);
+            logFile->flush();
+            QString text = QString::fromLocal8Bit(out);
+            qDebug().noquote() << text;
+            // 检查“软件包已安装”关键字
+            if (text.contains(QStringLiteral("软件包已安装"))) {
+                m_downloads[packageName].isInstalling = false;
+                m_downloads[packageName].isInstalled = true;
+                emit updateDisplay(packageName);
+            }
+        });
+        connect(m_installProcess, &QProcess::readyReadStandardError, this, [this, logFile]() {
+            QByteArray err = m_installProcess->readAllStandardError();
+            logFile->write(err);
+            logFile->flush();
+            qDebug().noquote() << QString::fromLocal8Bit(err);
+        });
+        connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+                this, [this, packageName, logFile](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
+            if (logFile) logFile->close();
+            // 若未检测到“软件包已安装”，此处兜底
+            if (!m_downloads[packageName].isInstalled) {
+                m_downloads[packageName].isInstalling = false;
+            }
             emit updateDisplay(packageName);
-        }
-    });
-    connect(m_installProcess, &QProcess::readyReadStandardError, this, [this]() {
-        QByteArray err = m_installProcess->readAllStandardError();
-        qDebug().noquote() << QString::fromLocal8Bit(err);
-    });
-    connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-            this, [this, packageName](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
-        // 若未检测到“软件包已安装”，此处兜底
-        if (!m_downloads[packageName].isInstalled) {
-            m_downloads[packageName].isInstalling = false;
-        }
-        emit updateDisplay(packageName);
-        m_installProcess->deleteLater();
-        m_installProcess = nullptr;
-        m_installingPackage.clear();
-        startNextInstall();
-    });
+            m_installProcess->deleteLater();
+            m_installProcess = nullptr;
+            m_installingPackage.clear();
+            startNextInstall();
+        });
+    } else {
+        // 日志文件无法打开时，仍然要连接原有信号
+        connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName]() {
+            QByteArray out = m_installProcess->readAllStandardOutput();
+            QString text = QString::fromLocal8Bit(out);
+            qDebug().noquote() << text;
+            if (text.contains(QStringLiteral("软件包已安装"))) {
+                m_downloads[packageName].isInstalling = false;
+                m_downloads[packageName].isInstalled = true;
+                emit updateDisplay(packageName);
+            }
+        });
+        connect(m_installProcess, &QProcess::readyReadStandardError, this, [this]() {
+            QByteArray err = m_installProcess->readAllStandardError();
+            qDebug().noquote() << QString::fromLocal8Bit(err);
+        });
+        connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+                this, [this, packageName](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
+            emit updateDisplay(packageName);
+            m_installProcess->deleteLater();
+            m_installProcess = nullptr;
+            m_installingPackage.clear();
+            startNextInstall();
+        });
+    }
 
     // 注意参数顺序：deb路径在前，--no-create-desktop-entry在后
     QStringList args;
