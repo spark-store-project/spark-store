@@ -14,53 +14,41 @@ bool elevateToRoot() {
     QString program = QCoreApplication::applicationFilePath();
     qDebug() << "Current application path:" << program;
 
-    // 获取当前 DISPLAY 和 XAUTHORITY 环境变量
     QByteArray display = qgetenv("DISPLAY");
     QByteArray xauthority = qgetenv("XAUTHORITY");
-    qDebug() << "DISPLAY:" << display;
-    qDebug() << "XAUTHORITY:" << xauthority;
 
-    // 构造带环境变量的 pkexec 命令
     QStringList args;
     args << "env"
          << "DISPLAY=" + display
          << "XAUTHORITY=" + xauthority
          << program;
 
-    QProcess *process = new QProcess();
-    process->setProgram("pkexec");
-    process->setArguments(args);
+    QProcess process;
+    process.setProgram("pkexec");
+    process.setArguments(args);
 
     qDebug() << "Attempting to elevate using pkexec with arguments:" << args;
 
-    // 启动进程并等待完成
-    process->start();
-    // 等待 pkexec 完成，通常会弹出密码框
-    // 设置一个合理的超时时间，例如 30 秒
-    if (!process->waitForFinished(30000)) {
-        qDebug() << "pkexec process timed out.";
-        process->kill(); // 如果超时，终止进程
-        delete process;
+    process.start();
+    if (!process.waitForStarted(5000)) {
+        qDebug() << "Failed to start pkexec.";
         return false;
     }
 
-    int exitCode = process->exitCode();
-    QProcess::ExitStatus exitStatus = process->exitStatus();
+    // 阻塞等待提权进程退出（比如主程序窗口关闭）
+    if (!process.waitForFinished(-1)) {  // 等待直到新进程退出
+        qDebug() << "pkexec process waitForFinished failed.";
+        return false;
+    }
+
+    int exitCode = process.exitCode();
+    QProcess::ExitStatus exitStatus = process.exitStatus();
 
     qDebug() << "pkexec exit code:" << exitCode;
     qDebug() << "pkexec exit status:" << exitStatus;
-    qDebug() << "pkexec standard error:" << process->readAllStandardError();
+    qDebug() << "pkexec stderr:" << process.readAllStandardError();
 
-    // 检查 pkexec 是否成功
-    // pkexec 成功执行通常返回 0，或者如果用户取消授权，会返回非零值。
-    // 但是，如果 pkexec 本身执行失败（例如找不到命令），exitStatus 会是 CrashOrKilled
-    // 这里我们认为只要pkexec成功启动了，即使授权失败，也算pkexec命令执行成功了，
-    // 因为这表示pkexec本身是可用的。
-    // 只有当pkexec命令无法执行时，才认为是pkexec的问题
-    bool pkexecCommandExecuted = (exitStatus == QProcess::NormalExit && exitCode == 0);
-
-    delete process;
-    return pkexecCommandExecuted;
+    return (exitStatus == QProcess::NormalExit && exitCode == 0);
 }
 
 int main(int argc, char *argv[])
