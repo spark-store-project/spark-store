@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=spark-update-tool
-Comment=A Qt-based application for managing tasks and reminders
-Exec=/usr/bin/spark-update-tool
-Icon=/usr/share/spark-update-tool/img/momen.jpg
-Terminal=false
-Type=Application
-Categories=Utility;

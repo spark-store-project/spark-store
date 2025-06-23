@@ -1,2 +1,2 @@
 build/spark-update-tool /usr/bin/
-spark-update-tool.desktop /usr/share/applications
+debian/spark-update-tool.desktop /usr/share/applications
