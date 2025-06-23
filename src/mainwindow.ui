@@ -49,7 +49,7 @@
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -144,7 +144,7 @@
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -190,14 +190,13 @@
               </size>
              </property>
              <property name="font">
-              <font>
-              </font>
+              <font/>
              </property>
              <property name="layoutDirection">
-              <enum>Qt::LayoutDirection::LeftToRight</enum>
+              <enum>Qt::LeftToRight</enum>
              </property>
              <property name="sizeAdjustPolicy">
-              <enum>QComboBox::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
+              <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
              </property>
              <item>
               <property name="text">
@@ -224,30 +223,10 @@
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="widget_6" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>20</height>
-          </size>
-         </property>
-         <widget class="QRadioButton" name="radioButton">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>96</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>全选</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
         <widget class="QWidget" name="appWidget" native="true">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
