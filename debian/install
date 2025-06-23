@@ -1,2 +1,3 @@
 build/spark-update-tool /usr/bin/
 debian/spark-update-tool.desktop /usr/share/applications
+resources/spark-update-tool.svg /usr/share/icons/hicolor/scalable/apps/spark-update-tool.svg
