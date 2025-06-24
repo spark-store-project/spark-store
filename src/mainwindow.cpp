@@ -154,7 +154,7 @@ void MainWindow::initStyle()
     this->setStyleSheet("background-color: #F8FAFC;");
 
     // 添加滚动条样式
-    listView->setStyleSheet(R"(
+    this->setStyleSheet(R"(
         QScrollBar:vertical {
             background: #F3F4F6;
             width: 8px;
