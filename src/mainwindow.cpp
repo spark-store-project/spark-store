@@ -5,13 +5,16 @@
 #include <QProgressDialog>
 #include <QtConcurrent> // 新增
 #include <QFutureWatcher> // 新增
-
+#include <QIcon>
+#include <qicon.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_model(new AppListModel(this))
     , m_delegate(new AppDelegate(this))
 {
+    QIcon icon(":/resources/spark-update-tool.svg");
+    setWindowIcon(icon);
     QProgressDialog *progressDialog = new QProgressDialog("正在与服务器通信，获取更新信息中...", QString(), 0, 0, this);
     progressDialog->setWindowModality(Qt::ApplicationModal);
     progressDialog->setCancelButton(nullptr);
@@ -26,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
         progressDialog->deleteLater();
         watcher->deleteLater();
         ui->setupUi(this);
-
+        QIcon icon(":/resources/spark-update-tool.svg");
+        setWindowIcon(icon);
         // 创建 QListView 并设置父控件为 ui->appWidget
         listView = new QListView(ui->appWidget);
         listView->setModel(m_model);
