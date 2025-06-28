@@ -8,7 +8,7 @@
 #### 当前支持的 Linux 发行版
 - [x] GXDE OS
 - [x] Ubuntu
-- [ ] deepin
+- [x] deepin
 - [ ] Kylin
 
 #### 功能清单
