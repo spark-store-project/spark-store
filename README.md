@@ -18,6 +18,6 @@
 |应用包大小识别|使用 dkpg 完成|
 |获取应用 Icon|使用 QDesktopServices 完成|
 |支持 ACE 兼容环境| |
-|aptss||
+|多线程下载|采用aptss方案|
 #### 联系与反馈
 momen@momen.world
