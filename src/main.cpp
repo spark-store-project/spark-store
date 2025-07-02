@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     // QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 
     QApplication a(argc, argv);
-    QApplication::setWindowIcon(QIcon(":/resources/128*128/spark-update-tool.png"));
+    a.setWindowIcon(QIcon(":/resources/128*128/spark-update-tool.png"));
     if (!isRoot()) {
         qDebug() << "Not running as root. Attempting to elevate...";
         if (!elevateToRoot()) {
