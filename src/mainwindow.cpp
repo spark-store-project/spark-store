@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_model(new AppListModel(this))
     , m_delegate(new AppDelegate(this))
 {
-    QIcon icon(":/resources/spark-update-tool.svg");
+    QIcon icon(":/resources/128*128/spark-update-tool.png");
     setWindowIcon(icon);
     QProgressDialog *progressDialog = new QProgressDialog("正在与服务器通信，获取更新信息中...", QString(), 0, 0, this);
     progressDialog->setWindowModality(Qt::ApplicationModal);
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
         progressDialog->deleteLater();
         watcher->deleteLater();
         ui->setupUi(this);
-        QIcon icon(":/resources/spark-update-tool.svg");
+        QIcon icon(":/resources/128*128/spark-update-tool.png");
         setWindowIcon(icon);
         // 创建 QListView 并设置父控件为 ui->appWidget
         listView = new QListView(ui->appWidget);
