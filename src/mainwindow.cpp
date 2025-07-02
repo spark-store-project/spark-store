@@ -209,17 +209,17 @@ void MainWindow::runAptssUpgrade()
 {
     QProcess process;
     QStringList args;
-    args << "aptss" << "upgrade";
+    args << "sudo" <<"aptss" << "ssupdate";
     process.start("sudo", args);
     if (!process.waitForStarted(5000)) {
-        QMessageBox::warning(this, "升级失败", "无法启动 sudo aptss upgrade。");
+        QMessageBox::warning(this, "升级失败", "无法启动 sudo aptss ssupdate");
         return;
     }
     process.write("n\n");
     process.closeWriteChannel();
     process.waitForFinished(-1);
     if (process.exitCode() != 0) {
-        QMessageBox::warning(this, "升级失败", "执行 sudo aptss upgrade 失败，请检查系统环境。");
+        QMessageBox::warning(this, "升级失败", "执行 sudo aptss ssupdate 失败，请检查系统环境。");
     }
 }
 
