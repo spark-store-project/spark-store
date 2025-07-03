@@ -49,7 +49,7 @@
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -120,7 +120,7 @@
               <number>0</number>
              </property>
              <item>
-              <widget class="QPlainTextEdit" name="plainTextEdit">
+              <widget class="QPlainTextEdit" name="searchPlainTextEdit">
                <property name="minimumSize">
                 <size>
                  <width>200</width>
@@ -144,7 +144,7 @@
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -193,10 +193,10 @@
               <font/>
              </property>
              <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
+              <enum>Qt::LayoutDirection::LeftToRight</enum>
              </property>
              <property name="sizeAdjustPolicy">
-              <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+              <enum>QComboBox::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
              </property>
              <item>
               <property name="text">
