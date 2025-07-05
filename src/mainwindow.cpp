@@ -75,7 +75,7 @@ void MainWindow::initStyle()
     this->setWindowTitle("软件更新中心");
 
     //查询框样式
-    ui->plainTextEdit->setStyleSheet(R"(
+    ui->searchPlainTextEdit->setStyleSheet(R"(
         QPlainTextEdit {
             background-color: #FFFFFF;
             border: 1px solid #E5E7EB;
@@ -88,8 +88,8 @@ void MainWindow::initStyle()
         }
     )");
 
-    ui->plainTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->plainTextEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->searchPlainTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->searchPlainTextEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //筛选框样式
     ui->FilterComboBox->setStyleSheet(R"(
