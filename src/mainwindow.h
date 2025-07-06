@@ -6,6 +6,7 @@
 #include "applistmodel.h"
 #include "appdelegate.h"
 #include <QListView>
+#include <QJsonArray> // 添加头文件
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,5 +30,7 @@ private:
     AppListModel *m_model;
     AppDelegate *m_delegate;
     QListView *listView; // 声明 QListView 指针
+    QJsonArray m_allApps; // 新增：保存所有应用数据
+    void filterAppsByKeyword(const QString &keyword); // 新增：搜索过滤函数声明
 };
 #endif // MAINWINDOW_H
