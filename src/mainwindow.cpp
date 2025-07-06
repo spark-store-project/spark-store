@@ -66,6 +66,9 @@ MainWindow::MainWindow(QWidget *parent)
             filterAppsByKeyword(keyword);
         });
         initStyle();
+
+        // 确保搜索框内容为空，placeholder 能显示
+        ui->searchPlainTextEdit->clear();
     });
 
     // 启动异步任务
@@ -89,6 +92,9 @@ void MainWindow::initStyle()
             padding-bottom: 8px;
             font-size: 9px;
             line-height: 1.4;
+            color: #9CA3AF;
+        }
+        QPlainTextEdit[placeholderText]:empty {
             color: #9CA3AF;
         }
     )");
