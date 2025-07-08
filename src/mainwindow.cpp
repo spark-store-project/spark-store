@@ -60,7 +60,15 @@ MainWindow::MainWindow(QWidget *parent)
         });
 
         checkUpdates();
+        // 新增：监听搜索框文本变化
+        connect(ui->searchPlainTextEdit, &QPlainTextEdit::textChanged, this, [=]() {
+            QString keyword = ui->searchPlainTextEdit->toPlainText();
+            filterAppsByKeyword(keyword);
+        });
         initStyle();
+
+        // 确保搜索框内容为空，placeholder 能显示
+        ui->searchPlainTextEdit->clear();
     });
 
     // 启动异步任务
@@ -75,7 +83,7 @@ void MainWindow::initStyle()
     this->setWindowTitle("软件更新中心");
 
     //查询框样式
-    ui->plainTextEdit->setStyleSheet(R"(
+    ui->searchPlainTextEdit->setStyleSheet(R"(
         QPlainTextEdit {
             background-color: #FFFFFF;
             border: 1px solid #E5E7EB;
@@ -86,10 +94,13 @@ void MainWindow::initStyle()
             line-height: 1.4;
             color: #9CA3AF;
         }
+        QPlainTextEdit[placeholderText]:empty {
+            color: #9CA3AF;
+        }
     )");
 
-    ui->plainTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->plainTextEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->searchPlainTextEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->searchPlainTextEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //筛选框样式
     ui->FilterComboBox->setStyleSheet(R"(
@@ -196,6 +207,7 @@ void MainWindow::checkUpdates()
 {
     aptssUpdater updater;
     QJsonArray updateInfo = updater.getUpdateInfoAsJson();
+    m_allApps = updateInfo; // 保存所有应用数据
     m_model->setUpdateData(updateInfo);
 
     for (const auto &item : updateInfo) {
@@ -203,6 +215,27 @@ void MainWindow::checkUpdates()
         qDebug() << "模型设置的包名:" << obj["package"].toString();
         qDebug() << "模型设置的下载 URL:" << obj["download_url"].toString(); // 检查模型数据
     }
+}
+
+// 新增：根据关键字过滤应用
+void MainWindow::filterAppsByKeyword(const QString &keyword)
+{
+    if (keyword.trimmed().isEmpty()) {
+        m_model->setUpdateData(m_allApps);
+        return;
+    }
+    QJsonArray filtered;
+    for (const auto &item : m_allApps) {
+        QJsonObject obj = item.toObject();
+        // 可根据需要匹配更多字段
+        QString name = obj.value("name").toString();
+        QString package = obj.value("package").toString();
+        if (name.contains(keyword, Qt::CaseInsensitive) ||
+            package.contains(keyword, Qt::CaseInsensitive)) {
+            filtered.append(item);
+        }
+    }
+    m_model->setUpdateData(filtered);
 }
 
 void MainWindow::runAptssUpgrade()
