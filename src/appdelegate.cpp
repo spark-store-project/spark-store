@@ -7,9 +7,6 @@
 #include <QPushButton>
 #include <QPainter>
 #include <QMouseEvent>
-#include <QProcess> // 确保 QProcess 头文件已包含
-#include <QFile>    // 确保 QFile 头文件已包含
-#include <QQueue>   // 确保 QQueue 头文件已包含
 
 AppDelegate::AppDelegate(QObject *parent)
     : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this)), m_installProcess(nullptr) {
@@ -57,7 +54,7 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     QString newVersion = index.data(Qt::UserRole + 3).toString();
     QString iconPath = index.data(Qt::UserRole + 4).toString();
     QString size = index.data(Qt::UserRole + 5).toString();
-    // QString description = index.data(Qt::UserRole + 6).toString(); // description 未使用
+    QString description = index.data(Qt::UserRole + 6).toString();
 
     QRect rect = option.rect;
     int margin = 10, spacing = 6, iconSize = 40;
@@ -87,7 +84,7 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
 
     QString packageName = index.data(Qt::UserRole + 1).toString();
     bool isDownloading = m_downloads.contains(packageName) && m_downloads[packageName].isDownloading;
-    int progress = m_downloads.value(packageName, DownloadInfo{0, false, false, false}).progress; // 确保 DownloadInfo 有默认构造或匹配的初始化
+    int progress = m_downloads.value(packageName, DownloadInfo{0, false}).progress;
     bool isInstalled = m_downloads.value(packageName).isInstalled;
     bool isInstalling = m_downloads.value(packageName).isInstalling;
 
@@ -174,17 +171,14 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
             QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
             if (buttonRect.contains(mouseEvent->pos())) {
                 // 判断是否为“下载完成”状态，如果是则不响应点击
-                // 同时也要判断是否为“已安装”状态，如果是也不响应点击
-                if ((m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) ||
-                    (m_downloads.contains(packageName) && m_downloads[packageName].isInstalled)) {
-                    // “下载完成”或“已安装”状态，按钮失效，点击无效
+                if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
+                    // “下载完成”状态，按钮失效，点击无效
                     return false;
                 }
                 QString downloadUrl = index.data(Qt::UserRole + 7).toString();
                 QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
 
-                // 假设 DownloadInfo 结构体的构造函数或聚合初始化方式支持四个成员
-                m_downloads[packageName] = {0, true, false, false}; // progress, isDownloading, isInstalling, isInstalled
+                m_downloads[packageName] = {0, true};
                 m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
                 emit updateDisplay(packageName);
                 return true;
@@ -200,16 +194,11 @@ void AppDelegate::startDownloadForAll() {
     for (int row = 0; row < m_model->rowCount(); ++row) {
         QModelIndex index = m_model->index(row, 0);
         QString packageName = index.data(Qt::UserRole + 1).toString();
-        // 确保跳过正在下载、正在安装或已安装的
-        if (m_downloads.contains(packageName) &&
-            (m_downloads[packageName].isDownloading ||
-             m_downloads[packageName].isInstalling ||
-             m_downloads[packageName].isInstalled)) {
-            continue;
-        }
+        if (m_downloads.contains(packageName) && (m_downloads[packageName].isDownloading || m_downloads[packageName].isInstalled))
+            continue; // 跳过正在下载或已安装的
         QString downloadUrl = index.data(Qt::UserRole + 7).toString();
         QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
-        m_downloads[packageName] = {0, true, false, false}; // progress, isDownloading, isInstalling, isInstalled
+        m_downloads[packageName] = {0, true, false};
         m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
         emit updateDisplay(packageName);
     }
@@ -251,9 +240,6 @@ void AppDelegate::startNextInstall() {
     if (debPath.isEmpty()) {
         qWarning() << "未找到deb文件，包名:" << packageName;
         m_downloads[packageName].isInstalling = false;
-        // 如果找不到deb文件，也应该根据情况处理是已安装还是未安装
-        // 这里只是简单地设置为未安装，并更新显示
-        m_downloads[packageName].isInstalled = false; // 确保如果未找到文件则不显示已安装
         emit updateDisplay(packageName);
         m_installingPackage.clear();
         startNextInstall();
@@ -276,7 +262,12 @@ void AppDelegate::startNextInstall() {
             logFile->flush();
             QString text = QString::fromLocal8Bit(out);
             qDebug().noquote() << text;
-            // 尽管此处可以检查关键字，但最终的安装状态应由进程退出码决定
+            // 检查“软件包已安装”关键字
+            if (text.contains(QStringLiteral("软件包已安装"))) {
+                m_downloads[packageName].isInstalling = false;
+                m_downloads[packageName].isInstalled = true;
+                emit updateDisplay(packageName);
+            }
         });
         connect(m_installProcess, &QProcess::readyReadStandardError, this, [this, logFile]() {
             QByteArray err = m_installProcess->readAllStandardError();
@@ -285,28 +276,17 @@ void AppDelegate::startNextInstall() {
             qDebug().noquote() << QString::fromLocal8Bit(err);
         });
         connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, [this, packageName, logFile](int exitCode, QProcess::ExitStatus exitStatus) {
+                this, [this, packageName, logFile](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
             if (logFile) logFile->close();
-
-            // === 关键修改 ===
-            // 检查进程是否正常退出且退出码为0，这通常表示成功
-            if (exitStatus == QProcess::NormalExit && exitCode == 0) {
-                m_downloads[packageName].isInstalled = true; // 安装成功，设置为已安装
-                qDebug() << "安装成功:" << packageName;
-            } else {
-                // 安装失败或异常退出
-                m_downloads[packageName].isInstalled = false; // 确保不是已安装状态
-                qWarning() << "安装失败或异常退出:" << packageName << "Exit Code:" << exitCode << "Exit Status:" << exitStatus;
+            // 若未检测到“软件包已安装”，此处兜底
+            if (!m_downloads[packageName].isInstalled) {
+                m_downloads[packageName].isInstalling = false;
             }
-            // === 关键修改结束 ===
-
-            m_downloads[packageName].isInstalling = false; // 安装过程结束
-            emit updateDisplay(packageName); // 更新UI显示
-
+            emit updateDisplay(packageName);
             m_installProcess->deleteLater();
             m_installProcess = nullptr;
             m_installingPackage.clear();
-            startNextInstall(); // 处理队列中的下一个安装任务
+            startNextInstall();
         });
     } else {
         // 日志文件无法打开时，仍然要连接原有信号
@@ -314,25 +294,18 @@ void AppDelegate::startNextInstall() {
             QByteArray out = m_installProcess->readAllStandardOutput();
             QString text = QString::fromLocal8Bit(out);
             qDebug().noquote() << text;
-            // 同样，这里的关键字检查不是最可靠的
+            if (text.contains(QStringLiteral("软件包已安装"))) {
+                m_downloads[packageName].isInstalling = false;
+                m_downloads[packageName].isInstalled = true;
+                emit updateDisplay(packageName);
+            }
         });
         connect(m_installProcess, &QProcess::readyReadStandardError, this, [this]() {
             QByteArray err = m_installProcess->readAllStandardError();
             qDebug().noquote() << QString::fromLocal8Bit(err);
         });
         connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, [this, packageName](int exitCode, QProcess::ExitStatus exitStatus) {
-            // === 关键修改 (与上面相同) ===
-            if (exitStatus == QProcess::NormalExit && exitCode == 0) {
-                m_downloads[packageName].isInstalled = true;
-                qDebug() << "安装成功 (无日志文件):" << packageName;
-            } else {
-                m_downloads[packageName].isInstalled = false;
-                qWarning() << "安装失败或异常退出 (无日志文件):" << packageName << "Exit Code:" << exitCode << "Exit Status:" << exitStatus;
-            }
-            // === 关键修改结束 ===
-
-            m_downloads[packageName].isInstalling = false;
+                this, [this, packageName](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
             emit updateDisplay(packageName);
             m_installProcess->deleteLater();
             m_installProcess = nullptr;
@@ -346,4 +319,3 @@ void AppDelegate::startNextInstall() {
     args << debPath << "--no-create-desktop-entry";
     m_installProcess->start("ssinstall", args);
 }
-
