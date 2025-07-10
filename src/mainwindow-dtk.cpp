@@ -552,11 +552,11 @@ void MainWindow::on_pushButton_14_clicked()
         if (!upgradeStatus.exists())
         {
             QString appPath;
-            
+
             // 开发环境路径（构建目录）
             #ifdef QT_DEBUG
-                appPath = QCoreApplication::applicationDirPath() + 
-                        "/../spark-update-tool/spark-update-tool";
+                appPath = QCoreApplication::applicationDirPath() +
+                        "/spark-update-tool/spark-update-tool";
             #else
                 // 安装后路径（系统PATH）
                 appPath = QStandardPaths::findExecutable("spark-update-tool");
@@ -569,8 +569,8 @@ void MainWindow::on_pushButton_14_clicked()
 
             QProcess *process = new QProcess(this);
             process->start(appPath, {"--silent"});
-            
-            connect(process, QOverload<int>::of(&QProcess::finished), 
+
+            connect(process, QOverload<int>::of(&QProcess::finished),
                 [=](int exitCode) {
                     if (exitCode == 0) {
                         qDebug() << "Update check successful";
