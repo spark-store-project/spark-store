@@ -48,14 +48,23 @@ https://github.com/spark-store-project/spark-store
 
 ## 目录
 
-- [阅读版权声明](#阅读版权声明)
-- [确定您的系统架构](#确定你的系统架构)
-- [系统支持与安装指引](#系统支持与安装指引)
-  - [对于 deepin / UOS 用户](#对于deepin用户)
-  - [对于 Ubuntu 用户](#对于ubuntu用户)
-  - [对于 Debian 用户](#对于debian用户)
-- [常见问题（FAQ）](#常见问题faq)
-- [联系与反馈](#联系与反馈)
+- [星火应用商店](#星火应用商店)
+  - [简介](#简介)
+  - [关于团队协作](#关于团队协作)
+  - [目录](#目录)
+  - [阅读版权声明](#阅读版权声明)
+  - [确定你的系统架构](#确定你的系统架构)
+  - [系统支持与安装指引](#系统支持与安装指引)
+    - [对于 deepin 用户](#对于-deepin-用户)
+      - [对于 deepin 用户](#对于-deepin-用户-1)
+    - [对于 Ubuntu 用户](#对于-ubuntu-用户)
+      - [对于 Ubuntu 20.04 用户](#对于-ubuntu-2004-用户)
+      - [对于 Ubuntu 22.04 及更高版本的 Ubuntu 用户](#对于-ubuntu-2204-及更高版本的-ubuntu-用户)
+    - [对于 Debian 用户](#对于-debian-用户)
+      - [对于 Debian 11 用户](#对于-debian-11-用户)
+      - [对于 Debian 12+ 用户](#对于-debian-12-用户)
+  - [常见问题（FAQ）](#常见问题faq)
+  - [联系与反馈](#联系与反馈)
 
 ---
 
@@ -103,6 +112,9 @@ https://github.com/spark-store-project/spark-store
     cd ~/Downloads
     sudo apt install ./spark-store*.deb
     ```
+2. **使用更新器**
+    您可以在应用商店左下角找到更新按钮，点击并输入密码即可。
+
 
 ### 对于 Ubuntu 用户
 
