@@ -1,3 +1,9 @@
+spark-store (4.8.1~test1) UNRELEASED; urgency=medium
+
+  * 添加全新的更新器
+  * 替换了新版更新器的polkit policy
+ -- momen <vmomenv@gmail.com>  Tue, 15 Jul 2025 01:03:08 +0800
+
 spark-store (4.8.0) UNRELEASED; urgency=medium
 
   * ssinstall重写，支持安装到ACE和自动安装到ACE，支持只允许安装到本地
