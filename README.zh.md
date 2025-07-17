@@ -113,7 +113,7 @@ https://github.com/spark-store-project/spark-store
     sudo apt install ./spark-store*.deb
     ```
 2. **使用更新器**
-    您可以在应用商店左下角找到更新按钮，点击并输入密码即可。
+    您可以在应用商店左下角找到更新按钮，点击即可查看更新列表。
 
 
 ### 对于 Ubuntu 用户
