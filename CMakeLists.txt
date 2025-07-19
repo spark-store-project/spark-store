@@ -9,44 +9,58 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network Concurrent)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Concurrent)
 
-find_package(Qt5 REQUIRED COMPONENTS Widgets Network Concurrent)
-
-
-find_package(Qt5 REQUIRED COMPONENTS Widgets Network Concurrent Core Gui)
-
-# 定义所有项目源文件，现在无需条件判断
 set(PROJECT_SOURCES
-    src/main.cpp
-    src/mainwindow.cpp
-    src/mainwindow.h
-    src/mainwindow.ui
-    src/aptssupdater.h src/aptssupdater.cpp
-    src/icons.qrc
-    src/appdelegate.h src/appdelegate.cpp
-    src/applistmodel.h src/applistmodel.cpp
-    src/downloadmanager.h src/downloadmanager.cpp
+        src/main.cpp
+        src/mainwindow.cpp
+        src/mainwindow.h
+        src/mainwindow.ui
 )
 
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(spark-update-tool
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES}
+        src/aptssupdater.h  src/aptssupdater.cpp
+        src/icons.qrc
+        src/appdelegate.h src/appdelegate.cpp
+        src/applistmodel.h src/applistmodel.cpp
+        src/downloadmanager.h src/downloadmanager.cpp
+    )
+# Define target properties for Android with Qt 6 as:
+#    set_property(TARGET spark-update-tool APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
+# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+else()
+    if(ANDROID)
+        add_library(spark-update-tool SHARED
+            ${PROJECT_SOURCES}
+        )
+# Define properties for Android with Qt 5 after find_package() calls as:
+#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+    else()
+        add_executable(spark-update-tool
+            ${PROJECT_SOURCES}
+        )
+    endif()
+endif()
 
-add_executable(spark-update-tool
-    ${PROJECT_SOURCES}
-)
+target_link_libraries(spark-update-tool PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Concurrent)
 
-target_link_libraries(spark-update-tool PRIVATE
-    Qt5::Widgets
-    Qt5::Network
-    Qt5::Concurrent
-    Qt5::Core
-    Qt5::Gui
-)
-
-
+# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
+# If you are developing for iOS or macOS you should consider setting an
+# explicit, fixed bundle identifier manually though.
+if(${QT_VERSION} VERSION_LESS 6.1.0)
+  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.spark-update-tool)
+endif()
 set_target_properties(spark-update-tool PROPERTIES
-    # ${BUNDLE_ID_OPTION} # 如果上面取消注释，这里也取消注释
+    ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
 )
 
 include(GNUInstallDirs)
@@ -56,3 +70,6 @@ install(TARGETS spark-update-tool
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_finalize_executable(spark-update-tool)
+endif()
