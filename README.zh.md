@@ -186,7 +186,7 @@ https://github.com/spark-store-project/spark-store
 
 对于高级用户，如需自定义配置 aptss config，请参阅 [aptss 软件仓库](https://gitee.com/GXDE-OS/aptss)。
 
-对于星火更新器，请参阅
+对于星火更新器，请参阅[Spark-Update-Tool](https://gitee.com/spark-store-project/Spark-Update-Tool)
 
 
 ---
