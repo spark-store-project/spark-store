@@ -1,0 +1,7 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: spark-update-tool
+Source: https://gitee.com/spark-store-project/Spark-Update-Tool
+
+Files: *
+Copyright: 2025, momen <vmomenv@gmail.com>
+License: GPL-3.0+
