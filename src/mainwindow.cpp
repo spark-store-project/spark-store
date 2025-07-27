@@ -75,6 +75,12 @@ MainWindow::MainWindow(QWidget *parent)
     watcher->setFuture(QtConcurrent::run([this](){
         runAptssUpgrade();
     }));
+    QScreen *screen = QGuiApplication::screenAt(QCursor::pos());
+    if (!screen) screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int x = screenGeometry.x() + (screenGeometry.width() - this->width()) / 2;
+    int y = screenGeometry.y() + (screenGeometry.height() - this->height()) / 2;
+    this->move(x, y);
 }
 //初始化控件样式
 void MainWindow::initStyle()
