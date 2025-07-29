@@ -1,4 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+<<<<<<< HEAD
 Upstream-Name: spark-store
 Source: https://gitee.com/spark-store-project/spark-store
 
@@ -20,3 +21,11 @@ License: GPL-3+
  along with this program. If not, see <http://www.gnu.org/licenses/>
  .
  On Debian systems, the complete text of the GNU General
+=======
+Upstream-Name: spark-update-tool
+Source: https://gitee.com/spark-store-project/Spark-Update-Tool
+
+Files: *
+Copyright: 2025, momen <vmomenv@gmail.com>
+License: GPL-3.0+
+>>>>>>> update-tool/dev

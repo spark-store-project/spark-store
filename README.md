@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Spark Store
 [![star](https://gitee.com/spark-store-project/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/stargazers)  [![fork](https://gitee.com/spark-store-project/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/members)
 ![star](https://gitcode.com/spark-store-project/spark-store/star/badge.svg)
@@ -177,3 +178,20 @@ For advanced users requiring custom aptss config configuration, please refer to 
 - Our QQ Discussion Group: 872690351 and 865927727;
 - If you or your organization requires commercial support, please leave a message for consultation.
 ---
+=======
+### Spark Update Tool
+#### Introduction
+
+Welcome to Spark Software Updater. Use this tool to update applications on your Linux system.
+This version is specifically designed for Linux distributions with Qt6 support.
+Please run under root privileges (recommended: use `sudo`).
+#### Currently Supported Linux Distributions
+- [x] GXDE OS
+- [x] Ubuntu
+- [x] deepin
+- [ ] Kylin
+
+
+#### Contact & Feedback
+momen@momen.world
+>>>>>>> update-tool/dev

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 spark-store (4.8.0) UNRELEASED; urgency=medium
 
   * ssinstall重写，支持安装到ACE和自动安装到ACE，支持只允许安装到本地
@@ -792,3 +793,10 @@ spark-store (3.2.4~test1) stable; urgency=medium
   * 客户端更新时不关闭免密码登录
   * U
   
+=======
+spark-update-tool (1.0.0) unstable; urgency=low
+
+  * Initial release.
+
+ -- momen <vmomenv@gmail.com>  Wed, 18 Jun 2025 00:00:00 +0000
+>>>>>>> update-tool/dev

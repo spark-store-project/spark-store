@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+build
+.vscode
+.cache
+CMakeLists.txt.user
+CMakeLists.txt.user.*
+obj-x86_64-linux-gnu
+>>>>>>> update-tool/dev
 # C++ objects and libs
 *.slo
 *.lo
@@ -6,7 +15,10 @@
 *.la
 *.lai
 *.so
+<<<<<<< HEAD
 *.so.*
+=======
+>>>>>>> update-tool/dev
 *.dll
 *.dylib
 
@@ -29,12 +41,21 @@ ui_*.h
 *.jsc
 Makefile*
 *build-*
+<<<<<<< HEAD
 *.qm
 *.prl
+=======
+>>>>>>> update-tool/dev
 
 # Qt unit tests
 target_wrapper.*
 
+<<<<<<< HEAD
+=======
+# Qt qm files
+translations/*.qm
+
+>>>>>>> update-tool/dev
 # QtCreator
 *.autosave
 
@@ -44,6 +65,7 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
+<<<<<<< HEAD
 
 # QtCreator 4.8< compilation database
 compile_commands.json
@@ -63,3 +85,15 @@ debian/spark-store
 build
 obj-*
 .vscode
+=======
+build
+
+# Debian dpkg-buildpackage
+debian/*.debhelper*
+debian/files
+debian/*.substvars
+debian/spark-update-tool
+
+.vscode/*
+src/spark-update-tool
+>>>>>>> update-tool/dev
