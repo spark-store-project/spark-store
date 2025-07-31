@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Source: spark-store
 Maintainer: shenmo <shenmo@spark-app.store>
 Section: utils
@@ -37,18 +36,3 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  lsb-release,
 Description: Spark Store
  A community powered app store, based on DTK.
-=======
-Source: spark-update-tool
-Section: utils
-Priority: optional
-Maintainer: momen <vmomenv@gmail.com>
-Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.6
-Homepage: https://gitee.com/spark-store-project/Spark-Update-Tool
-
-Package: spark-update-tool
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Spark Update Tool
- 星火应用商店更新组件。This package provides the Spark Update Tool. It includes features for checking for updates, downloading, and applying them seamlessly.
->>>>>>> update-tool/dev
