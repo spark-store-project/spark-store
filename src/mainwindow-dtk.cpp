@@ -14,6 +14,8 @@
 #include <QDesktopServices>
 #include <QAbstractButton>
 #include <QtConcurrent>
+#include <qlogging.h>
+#include <qprocess.h>
 #include <unistd.h>
 
 #include <backend/ThemeChecker.h>
@@ -522,5 +524,16 @@ void MainWindow::notify(QObject *receiver, QEvent *event)
 
 void MainWindow::on_pushButton_14_clicked()
 {
-
+    QString appPath;
+    appPath = QCoreApplication::applicationDirPath() + "/spark-update-tool/spark-update-tool";
+    if(appPath.isEmpty())
+    {
+        qWarning() << "Spark Update Tool not found!";
+        return;
+    }
+    QProcess *process = new QProcess(this);
+    QString program = "pkexec";
+    QStringList arguments;
+    arguments << appPath << "--silent";
+    process->start(program, arguments);
 }
