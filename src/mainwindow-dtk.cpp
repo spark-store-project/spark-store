@@ -529,7 +529,7 @@ void MainWindow::on_pushButton_14_clicked()
     appPath = QCoreApplication::applicationDirPath() ;
     QDir dir(appPath);
     dir.cdUp();
-    appPath = dir.absolutePath();
+    appPath = dir.absolutePath()+"/spark-update-tool/spark-update-tool";
     qDebug() << "Spark Update Tool Path: " << appPath;
     if(appPath.isEmpty())
     {
@@ -539,6 +539,6 @@ void MainWindow::on_pushButton_14_clicked()
     QProcess *process = new QProcess(this);
     QString program = "pkexec";
     QStringList arguments;
-    arguments << appPath << "--silent";
+    arguments << appPath <<"--silent";
     process->start(program, arguments);
 }
