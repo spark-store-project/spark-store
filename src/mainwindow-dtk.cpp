@@ -16,6 +16,7 @@
 #include <QtConcurrent>
 #include <qlogging.h>
 #include <qprocess.h>
+#include <system_error>
 #include <unistd.h>
 
 #include <backend/ThemeChecker.h>
@@ -525,7 +526,11 @@ void MainWindow::notify(QObject *receiver, QEvent *event)
 void MainWindow::on_pushButton_14_clicked()
 {
     QString appPath;
-    appPath = QCoreApplication::applicationDirPath() + "/spark-update-tool/spark-update-tool";
+    appPath = QCoreApplication::applicationDirPath() ;
+    QDir dir(appPath);
+    dir.cdUp();
+    appPath = dir.absolutePath();
+    qDebug() << "Spark Update Tool Path: " << appPath;
     if(appPath.isEmpty())
     {
         qWarning() << "Spark Update Tool not found!";
