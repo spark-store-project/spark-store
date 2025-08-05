@@ -63,3 +63,4 @@ debian/spark-store
 build
 obj-*
 .vscode
+.cache
