@@ -1,4 +1,4 @@
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Concurrent Network Svg WebEngineWidgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Concurrent Network Svg WebEngineWidgets Concurrent)
 find_package(Dtk6 REQUIRED COMPONENTS Core Gui Widget)
 
 include(src.cmake)

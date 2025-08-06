@@ -546,6 +546,7 @@ void MainWindow::on_pushButton_14_clicked()
         QString program = "pkexec";
         QStringList arguments;
         arguments << appPath << "--silent";
+        QProcess *process = new QProcess(this);
         process->start(program, arguments);
     #endif
 
