@@ -125,7 +125,7 @@ void DownloadItem::install(int t)
         ui->label_2->setText(tr("Installing"));
         ui->label_2->setToolTip(tr("Installing"));
 
-        QtConcurrent::run([=]()
+        auto future = QtConcurrent::run([=]()
         {
             slotAsyncInstall(t);
         });
