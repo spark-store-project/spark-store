@@ -437,7 +437,7 @@ void MainWindow::initTmpDir()
 
     if (info.isWritable() == false)
     {
-        QtConcurrent::run([=]
+        auto future = QtConcurrent::run([=]
                           {
             sleep(3);
             auto upgradeP = new QProcess();
