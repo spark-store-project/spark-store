@@ -1,6 +1,12 @@
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Concurrent Network Svg WebEngineWidgets Concurrent)
 find_package(Dtk6 REQUIRED COMPONENTS Core Gui Widget)
 
+# 添加构建时间宏
+string(TIMESTAMP BUILD_DATE "%Y.%m.%d" UTC)
+string(TIMESTAMP BUILD_TIME "%H:%M:%S" UTC)
+add_definitions(-DBUILD_DATE="${BUILD_DATE}")
+add_definitions(-DBUILD_TIME="${BUILD_TIME}")
+
 include(src.cmake)
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES} ${QRC_FILE})

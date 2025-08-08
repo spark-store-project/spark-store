@@ -110,11 +110,13 @@ int main(int argc, char *argv[])
     signal(SIGSEGV, crashHandler);  // 注册SIGSEGV处理函数
 
 
-    // Get build time
-    static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
-    static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
-    buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
-
+    // // Get build time
+    // static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
+    // static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
+    // buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
+    
+    //在cmakelist.txt中设置 buildDateTime
+    QString buildDateTime = QString("%1-%2").arg(QString(BUILD_DATE)).arg(QString(BUILD_TIME));
 
     // NOTE: 提前设置组织名称和应用名称，避免配置文件位置错误
     DApplication::setOrganizationName("spark-union");
