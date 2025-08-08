@@ -109,7 +109,7 @@ SettingsPage::~SettingsPage()
 
 void SettingsPage::on_pushButton_updateServer_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
                       {
         ui->pushButton_updateServer->setEnabled(false);
 
@@ -208,7 +208,7 @@ quint64 SettingsPage::dirFileSize(const QString &path)
 
 void SettingsPage::on_pushButton_updateApt_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
                       {
         ui->pushButton_updateApt->setEnabled(false);
         ui->label_aptserver->setText(tr("Updating, please wait..."));
@@ -222,7 +222,7 @@ void SettingsPage::on_pushButton_updateApt_clicked()
 
 void SettingsPage::on_pushButton_clear_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
                       {
         ui->pushButton_clear->setEnabled(false);
 
@@ -240,7 +240,7 @@ void SettingsPage::on_pushButton_clear_clicked()
 
 void SettingsPage::on_pushButton_clearWebCache_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
     {
         QString localDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/QtWebEngine";
         qDebug() << localDataLocation;
