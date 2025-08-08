@@ -41,7 +41,7 @@ bool checkMeatlink(QString metaUrl)
         metaStatus.remove();
     }
     QString cmd = QString("curl -I -s --connect-timeout 5 %1 -w  %{http_code}  |tail -n1 > /tmp/spark-store/metaStatus.txt").arg(metaUrl);
-    system(cmd.toUtf8().data());
+    [[maybe_unused]] int ret = system(cmd.toUtf8().data());//不这样写就会-Wunused-variable 警告导致无法打包
     if (metaStatus.open(QFile::ReadOnly) && QString(metaStatus.readAll()).toUtf8() == "200")
     {
         metaStatus.remove();
@@ -94,7 +94,7 @@ void DownloadController::startDownload(const QString &url)
         return;
     }
 
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
     {
         QString metaUrl = url + ".metalink";
         qDebug() << "metalink" << metaUrl;
@@ -272,7 +272,7 @@ void DownloadController::stopDownload()
 
     // 实现下载进程退出
     QString killCmd = QString("kill -9 %1").arg(pidNumber);
-    system(killCmd.toUtf8());
+    [[maybe_unused]] int ret = system(killCmd.toUtf8());
     qDebug() << "kill aria2!";
     pidNumber = -1;
 }
