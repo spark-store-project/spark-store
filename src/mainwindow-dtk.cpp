@@ -545,7 +545,7 @@ void MainWindow::on_pushButton_14_clicked()
         appPath = QStandardPaths::findExecutable("spark-update-tool");
         QString program = "pkexec";
         QStringList arguments;
-        arguments << appPath << "--silent";
+        arguments << appPath;
         QProcess *process = new QProcess(this);
         process->start(program, arguments);
     #endif
