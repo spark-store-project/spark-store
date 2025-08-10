@@ -526,29 +526,34 @@ void MainWindow::notify(QObject *receiver, QEvent *event)
 void MainWindow::on_pushButton_14_clicked()
 {
     QString appPath;
-    #ifdef QT_DEBUG
-        appPath = QCoreApplication::applicationDirPath() ;
-        QDir dir(appPath);
-        dir.cdUp();
-        appPath = dir.absolutePath()+"/spark-update-tool/spark-update-tool";
-        qDebug() << "Spark Update Tool Path: " << appPath;
-        if(appPath.isEmpty())
-        {
-            qWarning() << "Spark Update Tool not found!";
-            return;
-        }
-        QProcess *process = new QProcess(this);
-        QStringList arguments;
-        arguments << appPath <<"--silent";
-        process->start(appPath, {"--silent"});
-    #else
+    // #ifdef QT_DEBUG
+    //     appPath = QCoreApplication::applicationDirPath() ;
+    //     QDir dir(appPath);
+    //     dir.cdUp();
+    //     appPath = dir.absolutePath()+"/spark-update-tool/spark-update-tool";
+    //     qDebug() << "Spark Update Tool Path: " << appPath;
+    //     if(appPath.isEmpty())
+    //     {
+    //         qWarning() << "Spark Update Tool not found!";
+    //         return;
+    //     }
+    //     QProcess *process = new QProcess(this);
+    //     QStringList arguments;
+    //     arguments << appPath <<"--silent";
+    //     process->start(appPath, {"--silent"});
+    // #else
+    //     appPath = QStandardPaths::findExecutable("spark-update-tool");
+    //     QString program = "pkexec";
+    //     QStringList arguments;
+    //     arguments << appPath;
+    //     QProcess *process = new QProcess(this);
+    //     process->start(program, arguments);
+    // #endif
         appPath = QStandardPaths::findExecutable("spark-update-tool");
         QString program = "pkexec";
         QStringList arguments;
         arguments << appPath;
         QProcess *process = new QProcess(this);
         process->start(program, arguments);
-    #endif
-
 
 }
