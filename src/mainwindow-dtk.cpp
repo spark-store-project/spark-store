@@ -551,7 +551,7 @@ void MainWindow::on_pushButton_14_clicked()
     // #endif
         appPath = QStandardPaths::findExecutable("spark-update-tool");
         qDebug() << "Spark Update Tool Path: " << appPath;
-        QString program = "sudo";
+        QString program = "pkexec";
         QStringList arguments;
         arguments << appPath;
         QProcess *process = new QProcess(this);
