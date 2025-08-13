@@ -14,6 +14,7 @@ AppDelegate::AppDelegate(QObject *parent)
             [this](const QString &packageName, bool success) {
         if (m_downloads.contains(packageName)) {
             m_downloads[packageName].isDownloading = false;
+            m_downloads[packageName].isInstalled = true;
             emit updateDisplay(packageName);
             qDebug() << (success ? "下载完成:" : "下载失败:") << packageName;
             if (success) {
