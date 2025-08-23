@@ -204,14 +204,13 @@ export -f ensure_aptss_exist
 function ensure_ace_env() {
     local ace_env_pkg="${1}"
     
-    if ! dpkg -l "$ace_env_pkg" &>/dev/null; then
-        echo "ACE环境$ace_env_pkg未安装，正在尝试安装..."
+
+        echo "ACE环境$ace_env_pkg正在尝试安装..."
         zenity --info --text="首次使用$ace_env_pkg环境，重启或注销桌面后才能在启动器中展示，不影响应用启动。安装将在后台继续。" --title="ACE环境安装" &
         if ! aptss install -y "$ace_env_pkg"; then
             echo "安装$ace_env_pkg失败"
             return 1
         fi
-    fi
     return 0
 }
 export user=$(who | awk '{print $1}' | head -n 1)
