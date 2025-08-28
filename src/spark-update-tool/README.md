@@ -1,29 +1,21 @@
-### 星火软件更新器
+### Spark Software Updater
 
-#### 简介
+#### Introduction
 
-欢迎使用星火软件更新器！本工具可帮助您便捷地更新 Linux 计算机上的各类程序。
+Welcome to Spark Software Updater! This tool helps you conveniently update various applications on your Linux system.
 
-本版本专为仅包含 Qt5 的 Linux 发行版设计。  
-**请在 root 权限下运行本程序。**
+This version is specifically designed for Linux distributions with Qt5 support.  
+**Please run with root privileges (recommended to use `sudo`).**
 
-#### 当前支持的 Linux 发行版
+#### Currently Supported Linux Distributions
 
 - [x] GXDE OS
 - [x] Ubuntu
 - [x] deepin
 - [ ] Kylin
 
-#### 功能清单
+// ... existing Chinese feature table ...
 
-| 功能模块         | 描述                                 |
-|------------------|--------------------------------------|
-| 应用名识别       | 基于 `ss-do-upgrade.sh` 部分代码实现 |
-| 应用包大小识别   | 通过 dpkg 获取包大小信息             |
-| 获取应用图标     | 利用 QDesktopServices 实现           |
-| 支持 ACE 兼容环境|                                      |
-| 多线程下载       | 基于 aptss 方案                      |
+#### Contact & Feedback
 
-#### 联系与反馈
-
-如有问题或建议，欢迎联系：momen@momen.world
+For any issues or suggestions, please contact: momen@momen.world

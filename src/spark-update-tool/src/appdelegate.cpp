@@ -12,14 +12,14 @@ AppDelegate::AppDelegate(QObject *parent)
     : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this)), m_installProcess(nullptr) {
     connect(m_downloadManager, &DownloadManager::downloadFinished, this,
             [this](const QString &packageName, bool success) {
-        if (m_downloads.contains(packageName)) {
-            m_downloads[packageName].isDownloading = false;
-            emit updateDisplay(packageName);
-            qDebug() << (success ? "下载完成:" : "下载失败:") << packageName;
-            if (success) {
-                enqueueInstall(packageName);
-            }
-        }
+                if (m_downloads.contains(packageName)) {
+                    m_downloads[packageName].isDownloading = false;
+                    emit updateDisplay(packageName);
+                    qDebug() << (success ? "下载完成:" : "下载失败:") << packageName;
+                    if (success) {
+                        enqueueInstall(packageName); 
+                    }
+                }
     });
 
     connect(m_downloadManager, &DownloadManager::downloadProgress, this,
@@ -276,18 +276,19 @@ void AppDelegate::startNextInstall() {
             qDebug().noquote() << QString::fromLocal8Bit(err);
         });
         connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, [this, packageName, logFile](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
-            if (logFile) logFile->close();
-            // 若未检测到“软件包已安装”，此处兜底
-            if (!m_downloads[packageName].isInstalled) {
-                m_downloads[packageName].isInstalling = false;
-            }
-            emit updateDisplay(packageName);
-            m_installProcess->deleteLater();
-            m_installProcess = nullptr;
-            m_installingPackage.clear();
-            startNextInstall();
-        });
+                this, [this, packageName, logFile](int exitCode, QProcess::ExitStatus status) {
+                    if (logFile) logFile->close();
+                    m_downloads[packageName].isInstalling = false;
+                    if (exitCode == 0) {
+                        m_downloads[packageName].isInstalled = true;  // 安装成功
+                    }
+                    emit updateDisplay(packageName);
+                    m_installProcess->deleteLater();
+                    m_installProcess = nullptr;
+                    m_installingPackage.clear();
+                    startNextInstall();
+                });
+
     } else {
         // 日志文件无法打开时，仍然要连接原有信号
         connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName]() {
