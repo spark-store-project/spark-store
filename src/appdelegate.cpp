@@ -23,7 +23,6 @@ AppDelegate::AppDelegate(QObject *parent)
         }
     });
 
-
     connect(m_downloadManager, &DownloadManager::downloadProgress, this,
             [this](const QString &packageName, int progress) {
         if (m_downloads.contains(packageName)) {
@@ -290,7 +289,6 @@ void AppDelegate::startNextInstall() {
             m_installingPackage.clear();
             startNextInstall();
         });
-
     } else {
         // 日志文件无法打开时，仍然要连接原有信号
         connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName]() {
