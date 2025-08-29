@@ -43,14 +43,23 @@ If you have software packages to submit, please [click here to contribute](https
 
 ## Table of Contents
 
-- [Read the Copyright Notice](#read-the-copyright-notice)
-- [Determine Your System Architecture](#determine-your-system-architecture)
-- [System Support and Installation Instructions](#system-support-and-installation-instructions)
-  - [For deepin Users](#for-deepin-users)
-  - [For Ubuntu Users](#for-ubuntu-users)
-  - [For Debian Users](#for-debian-users)
-- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
-- [Contact and Feedback](#contact-and-feedback)
+- [Spark Store](#spark-store)
+  - [Introduction](#introduction)
+  - [About Team Collaboration](#about-team-collaboration)
+  - [Table of Contents](#table-of-contents)
+  - [Read the Copyright Notice](#read-the-copyright-notice)
+  - [Determine Your System Architecture](#determine-your-system-architecture)
+  - [System Support and Installation Instructions](#system-support-and-installation-instructions)
+    - [For deepin Users](#for-deepin-users)
+      - [For deepin Users](#for-deepin-users-1)
+    - [For Ubuntu Users](#for-ubuntu-users)
+      - [For Ubuntu 20.04 Users](#for-ubuntu-2004-users)
+      - [For Ubuntu 22.04 and Newer Ubuntu Versions](#for-ubuntu-2204-and-newer-ubuntu-versions)
+    - [For Debian Users](#for-debian-users)
+      - [For Debian 11 Users](#for-debian-11-users)
+      - [For Debian 12+ Users](#for-debian-12-users)
+  - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+  - [Contact and Feedback](#contact-and-feedback)
 
 ---
 
