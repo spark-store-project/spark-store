@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>../resources/down_arrow.svg</file>
-        <file>../resources/default_icon.svg</file>
-        <file>../resources/spark-update-tool.svg</file>
-        <file>../resources/128*128/spark-update-tool.png</file>
-    </qresource>
-</RCC>

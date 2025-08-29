@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=Spark Update Tool
-Comment=A Qt-based application for managing and updating software
-Exec=spark-update-tool
-Icon=spark-update-tool
-Terminal=false
-Type=Application
-Categories=Utility;
