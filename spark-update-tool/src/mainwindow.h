@@ -7,7 +7,7 @@
 #include "appdelegate.h"
 #include <QListView>
 #include <QJsonArray> // 添加头文件
-
+#include <QScreen>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

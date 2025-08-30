@@ -41,3 +41,4 @@ include(GNUInstallDirs)
 
 add_subdirectory(src)
 add_subdirectory(translations)
+add_subdirectory(spark-update-tool)

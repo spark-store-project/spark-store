@@ -1,4 +1,15 @@
-<<<<<<< HEAD
+spark-store (4.8.1~test2) UNRELEASED; urgency=medium
+
+  * 修复了更新器安装完成后显示下载完成的bug
+
+ -- momen <vmomenv@gmail.com>  Fri, 29 Aug 2025 01:03:08 +0800
+  
+spark-store (4.8.1~test1) UNRELEASED; urgency=medium
+
+  * 添加全新的更新器
+  * 替换了新版更新器的polkit policy
+ -- momen <vmomenv@gmail.com>  Tue, 15 Jul 2025 01:03:08 +0800
+  
 spark-store (4.8.0) UNRELEASED; urgency=medium
 
   * ssinstall重写，支持安装到ACE和自动安装到ACE，支持只允许安装到本地
@@ -793,10 +804,3 @@ spark-store (3.2.4~test1) stable; urgency=medium
   * 客户端更新时不关闭免密码登录
   * U
   
-=======
-spark-update-tool (1.0.0) unstable; urgency=low
-
-  * Initial release.
-
- -- momen <vmomenv@gmail.com>  Wed, 18 Jun 2025 00:00:00 +0000
->>>>>>> update-tool/dev

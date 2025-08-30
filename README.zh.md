@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #  星火应用商店
 [![star](https://gitee.com/spark-store-project/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/stargazers)  [![fork](https://gitee.com/spark-store-project/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/members)
 ![star](https://gitcode.com/spark-store-project/spark-store/star/badge.svg)
@@ -201,30 +200,3 @@ https://github.com/spark-store-project/spark-store
 - 若您和您的组织需要寻求商业支持，请留言咨询。
 
 ---
-=======
-### 星火软件更新器
-#### 简介
-
-欢迎使用星火软件更新器，您可以使用此更新器更新位于您 Linux 计算机的程序。
-此版本专为有qt6的Linux发行版所使用。
-请在root环境下运行。
-#### 当前支持的 Linux 发行版
-- [x] GXDE OS
-- [x] Ubuntu
-- [x] deepin
-- [ ] Kylin
-
-#### 功能清单
-
-| 功能模块         | 描述                                 |
-|------------------|--------------------------------------|
-| 应用名识别       | 基于 `ss-do-upgrade.sh` 部分代码实现 |
-| 应用包大小识别   | 通过 dpkg 获取包大小信息             |
-| 获取应用图标     | 利用 QDesktopServices 实现           |
-| 支持 ACE 兼容环境|                                      |
-| 多线程下载       | 基于 aptss 方案                      |
-
-如您已安装星火应用商店，则会附带本程序。
-#### 联系与反馈
-momen@momen.world
->>>>>>> update-tool/dev

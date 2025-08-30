@@ -163,7 +163,10 @@ void Application::loadTranslator()
 
     if (QLocale::system().language() == QLocale::Chinese) {
         QTranslator *webengineTranslator = new QTranslator(this);
-        webengineTranslator->load(QLocale(QLocale::Chinese), "qtwebengine", "_", ":/translations");
+        bool loaded = webengineTranslator->load(QLocale(QLocale::Chinese), "qtwebengine", "_", ":/translations");
+        if (!loaded) {
+            qWarning() << "Failed to load webengine translator";
+        }
         installTranslator(webengineTranslator);
     }
 }

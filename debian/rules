@@ -1,6 +1,5 @@
 #!/usr/bin/make -f
 
-<<<<<<< HEAD
 include /usr/share/dpkg/default.mk
 
 export QT_SELECT = qt6
@@ -35,10 +34,3 @@ override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--warnings=0 --exclude=opt/durapps/spark-store/bin/ss-feedback/
 override_dh_strip:
 	dh_strip --exclude=opt/durapps/spark-store/bin/ss-feedback/
-=======
-%:
-	dh $@
-
-override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX=/usr
->>>>>>> update-tool/dev

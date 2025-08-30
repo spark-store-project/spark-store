@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Spark Store
 [![star](https://gitee.com/spark-store-project/spark-store/badge/star.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/stargazers)  [![fork](https://gitee.com/spark-store-project/spark-store/badge/fork.svg?theme=gvp)](https://gitee.com/spark-store-project/spark-store/members)
 ![star](https://gitcode.com/spark-store-project/spark-store/star/badge.svg)
@@ -44,14 +43,23 @@ If you have software packages to submit, please [click here to contribute](https
 
 ## Table of Contents
 
-- [Read the Copyright Notice](#read-the-copyright-notice)
-- [Determine Your System Architecture](#determine-your-system-architecture)
-- [System Support and Installation Instructions](#system-support-and-installation-instructions)
-  - [For deepin Users](#for-deepin-users)
-  - [For Ubuntu Users](#for-ubuntu-users)
-  - [For Debian Users](#for-debian-users)
-- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
-- [Contact and Feedback](#contact-and-feedback)
+- [Spark Store](#spark-store)
+  - [Introduction](#introduction)
+  - [About Team Collaboration](#about-team-collaboration)
+  - [Table of Contents](#table-of-contents)
+  - [Read the Copyright Notice](#read-the-copyright-notice)
+  - [Determine Your System Architecture](#determine-your-system-architecture)
+  - [System Support and Installation Instructions](#system-support-and-installation-instructions)
+    - [For deepin Users](#for-deepin-users)
+      - [For deepin Users](#for-deepin-users-1)
+    - [For Ubuntu Users](#for-ubuntu-users)
+      - [For Ubuntu 20.04 Users](#for-ubuntu-2004-users)
+      - [For Ubuntu 22.04 and Newer Ubuntu Versions](#for-ubuntu-2204-and-newer-ubuntu-versions)
+    - [For Debian Users](#for-debian-users)
+      - [For Debian 11 Users](#for-debian-11-users)
+      - [For Debian 12+ Users](#for-debian-12-users)
+  - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+  - [Contact and Feedback](#contact-and-feedback)
 
 ---
 
@@ -178,20 +186,3 @@ For advanced users requiring custom aptss config configuration, please refer to 
 - Our QQ Discussion Group: 872690351 and 865927727;
 - If you or your organization requires commercial support, please leave a message for consultation.
 ---
-=======
-### Spark Update Tool
-#### Introduction
-
-Welcome to Spark Software Updater. Use this tool to update applications on your Linux system.
-This version is specifically designed for Linux distributions with Qt6 support.
-Please run under root privileges (recommended: use `sudo`).
-#### Currently Supported Linux Distributions
-- [x] GXDE OS
-- [x] Ubuntu
-- [x] deepin
-- [ ] Kylin
-
-
-#### Contact & Feedback
-momen@momen.world
->>>>>>> update-tool/dev

@@ -616,7 +616,7 @@ void AppIntoPage::on_downloadButton_clicked()
 
 void AppIntoPage::on_pushButton_3_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
     {
         ui->downloadButton->setEnabled(false);
         ui->pushButton_3->setEnabled(false);
