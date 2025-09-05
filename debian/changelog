@@ -1,4 +1,4 @@
-spark-store (4.8.1~test2) UNRELEASED; urgency=medium
+spark-store (4.8.1) UNRELEASED; urgency=medium
 
   * 修复更新器安装软件完成后仍然显示下载完成的问题
   
