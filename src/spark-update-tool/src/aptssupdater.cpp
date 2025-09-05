@@ -24,7 +24,7 @@ QStringList aptssUpdater::getUpdateablePackages()
     }
 
     QString output = process.readAllStandardOutput();
-    QStringList lines = output.split('\n', Qt::SkipEmptyParts);
+    QStringList lines = output.split('\n', QString::SkipEmptyParts);
 
     // 创建临时文件
     QTemporaryFile tempFile;
@@ -131,7 +131,7 @@ QStringList aptssUpdater::getDesktopAppNames()
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
         dpkgProcess.waitForFinished();
-        QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
+        QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', QString::SkipEmptyParts);
 
         // 先检查常规应用目录
         QStringList regularDesktopFiles = files.filter("/usr/share/applications/");
@@ -237,7 +237,7 @@ QStringList aptssUpdater::getPackageIcons()
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
         dpkgProcess.waitForFinished();
-        QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
+        QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', QString::SkipEmptyParts);
         
         // 查找.desktop文件
         QStringList desktopFiles = files.filter(QRegularExpression("/(usr/share|opt/apps)/.*\\.desktop$"));
