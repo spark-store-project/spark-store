@@ -20,6 +20,13 @@ shopt -s nullglob
 # third argument are piped to stderr.
 
 THREADS=$(nproc 2>/dev/null || echo 4)
+
+# Set color variables.
+cGreen='\e[0;32m'
+cRed='\e[0;31m'
+cBlue='\e[0;34m'
+endColor='\e[0m'
+
 msg(){
   msg_options=()
   case "$2" in
@@ -36,6 +43,51 @@ msg(){
     echo -e "${msg_options[@]}" "${aptfast_prefix}${beginColor}$1${endColor}" >&2
   fi
 }
+msg_already_running()
+{
+  msg "Other aptss is running.  Waited $timer senconds..." "normal"
+  msg "有其他的aptss正在运行。已经等待了$timer秒" "normal"
+}
+
+# Check if a lock file exists.
+#if [ -f "$LCK_FILE.lock" ]; then
+#  msg_already_running
+#  exit 1
+#fi
+
+LCK_FD=99
+# create the lock file and lock it, die on failure
+_create_lock()
+{
+    eval "exec $LCK_FD>\"$LCK_FILE.lock\""
+
+    # 设置 trap 来清理资源
+    trap "cleanup_aptfast" EXIT
+    trap "cleanup_aptfast; exit 1" INT TERM
+
+    timer=0
+    max_wait=180  # 最大等待时间为180秒（3分钟）
+
+    until $(flock -xn $LCK_FD); do
+        msg_already_running
+        sleep 1
+        let timer+=1
+
+        if [ $timer -ge $max_wait ]; then
+            echo "timeout"
+            exit 1
+        fi
+    done
+
+    unset timer
+}
+
+# unlock and remove the lock file
+_remove_lock()
+{
+    flock -u "$LCK_FD" 2>/dev/null
+    rm -f "$LCK_FILE.lock"
+}
 
 # Search for known options and decide if root privileges are needed.
 root=$#
@@ -44,6 +96,7 @@ for argument in "$@"; do
   case "$argument" in
     upgrade | full-upgrade | install | dist-upgrade | build-dep)
       option="install"
+      _create_lock
       ;;
     clean | autoclean)
       option="clean"
@@ -122,7 +175,7 @@ LCK_FILE="/tmp/apt-fast-in-container.lock"
 else
 LCK_FILE="/tmp/apt-fast.lock"
 fi
-LCK_FD=99
+
 
 # Set default package manager, APT cache, temporary download dir,
 # temporary download list file, and maximal parallel downloads
@@ -145,11 +198,9 @@ if [ -f "$NETRC" ]; then
 fi
 APTAUTHFILES+=("$NETRCDIR"*)
 
-if [ "$IS_ACE_ENV" != "" ];then
-DLLIST="/tmp/apt-fast-in-container.list"
-else
-DLLIST="/tmp/apt-fast.list"
-fi
+LISTTEMP=$(mktemp -d)
+DLLIST="${LISTTEMP}/apt-fast.list"
+
 
 
 
@@ -164,11 +215,7 @@ MIRRORS=()
 aptfast_prefix=
 # aptfast_prefix="$(date '+%b %_d %T.%N') apt-fast: "
 
-# Set color variables.
-cGreen='\e[0;32m'
-cRed='\e[0;31m'
-cBlue='\e[0;34m'
-endColor='\e[0m'
+
 
 # Set timout value for apt-fast download confirmation dialog.
 # Value is in seconds.
@@ -240,51 +287,7 @@ if [ ! -t 1 ]; then
 fi
 
 
-msg_already_running()
-{
-  msg "Other aptss is running.  Waited $timer senconds..." "normal"
-  msg "有其他的aptss正在运行。已经等待了$timer秒" "normal"
-}
 
-# Check if a lock file exists.
-#if [ -f "$LCK_FILE.lock" ]; then
-#  msg_already_running
-#  exit 1
-#fi
-
-
-# create the lock file and lock it, die on failure
-_create_lock()
-{
-    eval "exec $LCK_FD>\"$LCK_FILE.lock\""
-
-    # 设置 trap 来清理资源
-    trap "cleanup_aptfast" EXIT
-    trap "cleanup_aptfast; exit 1" INT TERM
-
-    timer=0
-    max_wait=180  # 最大等待时间为180秒（3分钟）
-
-    until $(flock -xn $LCK_FD); do
-        msg_already_running
-        sleep 1
-        let timer+=1
-
-        if [ $timer -ge $max_wait ]; then
-            echo "timeout"
-            exit 1
-        fi
-    done
-
-    unset timer
-}
-
-# unlock and remove the lock file
-_remove_lock()
-{
-    flock -u "$LCK_FD" 2>/dev/null
-    rm -f "$LCK_FILE.lock"
-}
 
 # Move download file away so missing permissions won't stop usage.
 CLEANUP_STATE=0
@@ -294,7 +297,7 @@ cleanup_dllist()
   then
     if ! mv -- "$DLLIST{,.old}" 2>/dev/null
     then
-      if ! rm -f -- "$DLLIST" 2>/dev/null
+      if ! rm -fr -- "${LISTTEMP}" 2>/dev/null
       then
         msg "Could not clean up download list file." "warning"
         msg "无法清除下载列表文件." "warning"
@@ -608,7 +611,7 @@ display_downloadfile(){
 
 # Create and insert a PID number to lockfile.
 
-_create_lock
+
 
 # Make sure aria2c (in general first parameter from _DOWNLOADER) is available.
 CMD="$(echo "$_DOWNLOADER" | sed 's/^\s*\([^ ]\+\).*$/\1/')"
