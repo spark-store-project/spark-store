@@ -67,7 +67,7 @@ void DataCollectorAndUploader::collectData()
 
     // Initialize a network request
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QUrl url("https://status.deepinos.org.cn/upload");
+    QUrl url("https://status.spark-app.store/upload");
 
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");

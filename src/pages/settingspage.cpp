@@ -8,7 +8,7 @@
 #include <QDebug>
 
 #define TMP_PATH "/tmp/spark-store"
-#define DEFAULT_SERVER_URL "https://cdn.d.store.deepinos.org.cn/"
+#define DEFAULT_SERVER_URL "https://cdn-d.spark-app.store/"
 
 
 bool SettingsPage::needUncompatibleNotification = true;
