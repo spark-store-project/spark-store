@@ -1,4 +1,5 @@
 #include "applistmodel.h"
+#include <QDebug>
 
 AppListModel::AppListModel(QObject *parent) : QAbstractListModel(parent) {}
 
