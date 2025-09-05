@@ -41,7 +41,7 @@ case "$1" in
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/local/bin/ss-apt-fast
 
 		ln -s -f /opt/durapps/spark-store/bin/aptss /usr/bin/aptss
-
+		ln -sf /usr/lib/qt5/bin/spark-update-tool /usr/bin/spark-update-tool
 
 
 		# Install key
