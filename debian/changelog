@@ -1,4 +1,4 @@
-spark-store (4.8.1) UNRELEASED; urgency=medium
+spark-store (4.8.1-1) UNRELEASED; urgency=medium
 
   * 修复了更新器安装完成后显示下载完成的bug
 
