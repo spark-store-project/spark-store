@@ -1,6 +1,7 @@
-spark-store (4.8.1) UNRELEASED; urgency=medium
+spark-store (4.8.1-1) UNRELEASED; urgency=medium
 
   * 修复更新器安装软件完成后仍然显示下载完成的问题
+  * 修复一些aptss锁定失败bug
   
  -- momen <vmomenv@gmail.com>  Tue, 28 Aug 2025 01:03:08 +0800
 
