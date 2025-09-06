@@ -55,6 +55,36 @@ msg_already_running()
 #  exit 1
 #fi
 
+# Move download file away so missing permissions won't stop usage.
+CLEANUP_STATE=0
+cleanup_dllist()
+{
+  if [ -f "$DLLIST" ]
+  then
+    if ! mv -- "$DLLIST{,.old}" 2>/dev/null
+    then
+      if ! rm -fr -- "${LISTTEMP}" 2>/dev/null
+      then
+        msg "Could not clean up download list file." "warning"
+        msg "无法清除下载列表文件." "warning"
+        CLEANUP_STATE=1
+      fi
+    fi
+  fi
+}
+
+cleanup_aptfast()
+{
+  local last_exit_code=$?
+  [ "$CLEANUP_STATE" -eq 0 ] && CLEANUP_STATE=$last_exit_code
+  cleanup_dllist
+  _remove_lock
+}
+
+exit_cleanup_state()
+{
+  exit $CLEANUP_STATE
+}
 LCK_FD=99
 # create the lock file and lock it, die on failure
 _create_lock()
@@ -289,36 +319,6 @@ fi
 
 
 
-# Move download file away so missing permissions won't stop usage.
-CLEANUP_STATE=0
-cleanup_dllist()
-{
-  if [ -f "$DLLIST" ]
-  then
-    if ! mv -- "$DLLIST{,.old}" 2>/dev/null
-    then
-      if ! rm -fr -- "${LISTTEMP}" 2>/dev/null
-      then
-        msg "Could not clean up download list file." "warning"
-        msg "无法清除下载列表文件." "warning"
-        CLEANUP_STATE=1
-      fi
-    fi
-  fi
-}
-
-cleanup_aptfast()
-{
-  local last_exit_code=$?
-  [ "$CLEANUP_STATE" -eq 0 ] && CLEANUP_STATE=$last_exit_code
-  cleanup_dllist
-  _remove_lock
-}
-
-exit_cleanup_state()
-{
-  exit $CLEANUP_STATE
-}
 
 # decode url string
 # translates %xx but must not convert '+' in spaces
