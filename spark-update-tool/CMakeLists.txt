@@ -17,17 +17,21 @@ set(PROJECT_SOURCES
         src/mainwindow.cpp
         src/mainwindow.h
         src/mainwindow.ui
+        src/aptssupdater.h
+        src/aptssupdater.cpp
+        src/appdelegate.h    # 添加这一行
+        src/appdelegate.cpp  # 添加这一行
+        src/applistmodel.h
+        src/applistmodel.cpp
+        src/downloadmanager.h
+        src/downloadmanager.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(spark-update-tool
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        src/aptssupdater.h  src/aptssupdater.cpp
         src/icons.qrc
-        src/appdelegate.h src/appdelegate.cpp
-        src/applistmodel.h src/applistmodel.cpp
-        src/downloadmanager.h src/downloadmanager.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET spark-update-tool APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
