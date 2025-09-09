@@ -5,7 +5,7 @@
 #include <QJsonArray>
 // 添加 QJsonObject 头文件
 #include <QJsonObject>
-
+#include <QDebug>
 class AppListModel : public QAbstractListModel
 {
     Q_OBJECT
