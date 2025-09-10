@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QFile>
 
 AppDelegate::AppDelegate(QObject *parent)
     : QStyledItemDelegate(parent), m_downloadManager(new DownloadManager(this)), m_installProcess(nullptr) {
@@ -31,7 +32,11 @@ AppDelegate::AppDelegate(QObject *parent)
             emit updateDisplay(packageName); // 实时刷新进度条
         }
     });
-    m_spinnerTimer.start();
+    // m_spinnerTimer.start(); // 移除这行
+
+    // 新增：初始化和连接 QTimer
+    m_spinnerUpdateTimer.setInterval(20); // 刷新间隔，可以调整
+    connect(&m_spinnerUpdateTimer, &QTimer::timeout, this, &AppDelegate::updateSpinner);
 }
 
 void AppDelegate::setModel(QAbstractItemModel *model) {
@@ -100,24 +105,23 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         progressBarOption.textVisible = true;
         QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
         
-        // 修改后的取消按钮绘制代码
         QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
         painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor("#ff4444"));  // 红色背景
-        painter->drawRoundedRect(buttonRect, 4, 4);  // 圆角矩形
+        painter->setBrush(QColor("#ff4444"));
+        painter->drawRoundedRect(buttonRect, 4, 4);
         
-        painter->setPen(Qt::white);  // 白色文字
+        painter->setPen(Qt::white);
         painter->setFont(option.font);
         painter->drawText(buttonRect, Qt::AlignCenter, "取消");
     } else if (isInstalling) {
-        // 安装中：显示转圈和文字
         QRect spinnerRect(option.rect.right() - 80, option.rect.top() + (option.rect.height() - 30) / 2, 30, 30);
-        int angle = (m_spinnerTimer.elapsed() / 10) % 360;
+        
+        // 修改：使用 m_spinnerAngle
         QPen pen(QColor("#2563EB"), 3);
         painter->setPen(pen);
         painter->setRenderHint(QPainter::Antialiasing, true);
         QRectF arcRect = spinnerRect.adjusted(3, 3, -3, -3);
-        painter->drawArc(arcRect, angle * 16, 120 * 16); // 120度弧
+        painter->drawArc(arcRect, m_spinnerAngle * 16, 120 * 16); // 120度弧
 
         QRect textRect(option.rect.right() - 120, option.rect.top() + (option.rect.height() - 30) / 2, 110, 30);
         painter->setPen(QColor("#2563EB"));
@@ -132,12 +136,10 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
             painter->setPen(Qt::white);
             painter->drawText(buttonRect, Qt::AlignCenter, "已安装");
         } else if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
-            // 下载完成，按钮绿色，样式不变
             painter->setBrush(QColor("#10B981"));
             painter->drawRoundedRect(buttonRect, 4, 4);
             painter->setPen(Qt::white);
             painter->drawText(buttonRect, Qt::AlignCenter, "下载完成");
-            // 不需要特殊处理样式，交互在 editorEvent 控制
         } else {
             painter->setBrush(QColor("#e9effd"));
             painter->drawRoundedRect(buttonRect, 4, 4);
@@ -171,9 +173,7 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
         } else {
             QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
             if (buttonRect.contains(mouseEvent->pos())) {
-                // 判断是否为“下载完成”状态，如果是则不响应点击
                 if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
-                    // “下载完成”状态，按钮失效，点击无效
                     return false;
                 }
                 QString downloadUrl = index.data(Qt::UserRole + 7).toString();
@@ -196,7 +196,7 @@ void AppDelegate::startDownloadForAll() {
         QModelIndex index = m_model->index(row, 0);
         QString packageName = index.data(Qt::UserRole + 1).toString();
         if (m_downloads.contains(packageName) && (m_downloads[packageName].isDownloading || m_downloads[packageName].isInstalled))
-            continue; // 跳过正在下载或已安装的
+            continue;
         QString downloadUrl = index.data(Qt::UserRole + 7).toString();
         QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
         m_downloads[packageName] = {0, true, false};
@@ -205,7 +205,6 @@ void AppDelegate::startDownloadForAll() {
     }
 }
 
-// 新增：安装队列相关实现
 void AppDelegate::enqueueInstall(const QString &packageName) {
     m_installQueue.enqueue(packageName);
     if (!m_isInstalling) {
@@ -217,15 +216,16 @@ void AppDelegate::startNextInstall() {
     if (m_installQueue.isEmpty()) {
         m_isInstalling = false;
         m_installingPackage.clear();
+        m_spinnerUpdateTimer.stop(); // 新增：停止定时器
         return;
     }
     m_isInstalling = true;
     QString packageName = m_installQueue.dequeue();
     m_installingPackage = packageName;
     m_downloads[packageName].isInstalling = true;
+    m_spinnerUpdateTimer.start(); // 新增：启动定时器
     emit updateDisplay(packageName);
 
-    // 查找 /tmp 下以包名开头的 .deb 文件
     QDir tempDir(QDir::tempPath());
     QStringList debs = tempDir.entryList(QStringList() << QString("%1_*.deb").arg(packageName), QDir::Files);
     QString debPath;
@@ -249,11 +249,9 @@ void AppDelegate::startNextInstall() {
 
     m_installProcess = new QProcess(this);
 
-    // 新增：准备安装日志文件
     QString logPath = QString("/tmp/%1_install.log").arg(packageName);
     QFile *logFile = new QFile(logPath, m_installProcess);
     if (logFile->open(QIODevice::Append | QIODevice::Text)) {
-        // 设置权限为777
         QFile::setPermissions(logPath, QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner |
                                          QFile::ReadGroup | QFile::WriteGroup | QFile::ExeGroup |
                                          QFile::ReadOther | QFile::WriteOther | QFile::ExeOther);
@@ -263,7 +261,6 @@ void AppDelegate::startNextInstall() {
             logFile->flush();
             QString text = QString::fromLocal8Bit(out);
             qDebug().noquote() << text;
-            // 检查“软件包已安装”关键字
             if (text.contains(QStringLiteral("软件包已安装"))) {
                 m_downloads[packageName].isInstalling = false;
                 m_downloads[packageName].isInstalled = true;
@@ -281,7 +278,7 @@ void AppDelegate::startNextInstall() {
             if (logFile) logFile->close();
             m_downloads[packageName].isInstalling = false;
             if (exitCode == 0) { 
-                m_downloads[packageName].isInstalled = true;  // 安装成功
+                m_downloads[packageName].isInstalled = true;
             }
             emit updateDisplay(packageName);
             m_installProcess->deleteLater();
@@ -290,7 +287,6 @@ void AppDelegate::startNextInstall() {
             startNextInstall();
         });
     } else {
-        // 日志文件无法打开时，仍然要连接原有信号
         connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName]() {
             QByteArray out = m_installProcess->readAllStandardOutput();
             QString text = QString::fromLocal8Bit(out);
@@ -315,8 +311,13 @@ void AppDelegate::startNextInstall() {
         });
     }
 
-    // 注意参数顺序：deb路径在前，--no-create-desktop-entry在后
     QStringList args;
     args << debPath << "--no-create-desktop-entry";
     m_installProcess->start("ssinstall", args);
+}
+
+// 新增槽函数，用于更新旋转角度并触发刷新
+void AppDelegate::updateSpinner() {
+    m_spinnerAngle = (m_spinnerAngle + 10) % 360; // 每次增加10度
+    emit updateDisplay(m_installingPackage); // 仅刷新当前正在安装的项
 }

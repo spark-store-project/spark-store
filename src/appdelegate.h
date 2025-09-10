@@ -5,13 +5,15 @@
 #include <QQueue>
 #include <QProcess>
 #include <QElapsedTimer>
+#include <QTimer> 
+
 #include "downloadmanager.h"
 
 struct DownloadInfo {
     int progress = 0;
     bool isDownloading = false;
     bool isInstalled = false;
-    bool isInstalling = false; // 新增：标记是否正在安装
+    bool isInstalling = false;
 };
 
 class AppDelegate : public QStyledItemDelegate {
@@ -30,6 +32,9 @@ public:
 signals:
     void updateDisplay(const QString &packageName);
 
+private slots:
+    void updateSpinner(); // 新增槽函数
+
 private:
     DownloadManager *m_downloadManager;
     QHash<QString, DownloadInfo> m_downloads;
@@ -38,8 +43,11 @@ private:
     QQueue<QString> m_installQueue;
     bool m_isInstalling = false;
     QProcess *m_installProcess = nullptr;
-    QString m_installingPackage; // 当前正在安装的包名
-    QElapsedTimer m_spinnerTimer; // 用于转圈动画
+    QString m_installingPackage;
+    QElapsedTimer m_spinnerTimer;
+
+    QTimer m_spinnerUpdateTimer; // 新增定时器
+    int m_spinnerAngle = 0; // 新增角度变量
 
     void enqueueInstall(const QString &packageName);
     void startNextInstall();
