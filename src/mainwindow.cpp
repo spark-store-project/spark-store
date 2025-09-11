@@ -258,7 +258,7 @@ void MainWindow::runAptssUpgrade()
     process.closeWriteChannel();
     process.waitForFinished(-1);
     if (process.exitCode() != 0) {
-        QMessageBox::warning(this, "升级失败", "执行 sudo aptss ssupdate 失败，请检查系统环境。");
+        QMessageBox::warning(this, "升级失败", "执行 sudo aptss ssupdate 失败，请检查系统环境或稍后再试。");
     }
 }
 
