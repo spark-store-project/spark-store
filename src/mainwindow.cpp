@@ -261,7 +261,11 @@ void MainWindow::runAptssUpgrade()
         QMessageBox::warning(this, "升级失败", "执行 sudo aptss ssupdate 失败，请检查系统环境或稍后再试。");
     }
 }
+void MainWindow::closeEvent(QCloseEvent *event)
+{
 
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "确认关闭", "正在更新，是否确认关闭窗口？", QMessageBox::Yes | QMessageBox::No);
+}
 MainWindow::~MainWindow()
 {
     delete ui;
