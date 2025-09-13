@@ -264,7 +264,7 @@ void MainWindow::runAptssUpgrade()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 
-        QMessageBox::StandardButton reply = QMessageBox::question(this, "确认关闭", "正在更新，是否确认关闭窗口？", QMessageBox::Yes | QMessageBox::No);
+    QMessageBox::StandardButton reply = QMessageBox::question(this, "确认关闭", "正在更新，是否确认关闭窗口？", QMessageBox::Yes | QMessageBox::No);
 }
 MainWindow::~MainWindow()
 {
