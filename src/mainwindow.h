@@ -24,7 +24,9 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event) override;  
-    
+private slots:
+    // ⬅️ 声明一个槽函数，它将接收来自Updater的信号
+    void handleUpdateFinished(bool success); 
 private:
     Ui::MainWindow *ui;
     void checkUpdates();
