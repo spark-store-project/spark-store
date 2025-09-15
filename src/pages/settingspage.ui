@@ -365,7 +365,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="pushButton_exportLog">
                   <property name="text">
                    <string>Export</string>
                   </property>
