@@ -79,12 +79,17 @@ cleanup_aptfast()
   [ "$CLEANUP_STATE" -eq 0 ] && CLEANUP_STATE=$last_exit_code
   cleanup_dllist
   _remove_lock
+  # 添加删除临时目录的逻辑
+  if [ -n "$LISTTEMP" ] && [ -d "$LISTTEMP" ]; then
+    rm -rf "$LISTTEMP"
+  fi
 }
-
 exit_cleanup_state()
 {
+  cleanup_aptfast
   exit $CLEANUP_STATE
 }
+
 LCK_FD=99
 # create the lock file and lock it, die on failure
 _create_lock()
