@@ -71,7 +71,7 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-131</y>
+           <y>-434</y>
            <width>666</width>
            <height>1270</height>
           </rect>
@@ -401,7 +401,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Safe Mode</string>
+                <string>Disable Safe Mode</string>
                </property>
               </widget>
              </item>
@@ -411,14 +411,14 @@
                 <item>
                  <widget class="QLabel" name="label_15">
                   <property name="text">
-                   <string>close the Web Sandbox</string>
+                   <string>Disable the webEngine sandbox feature.</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_2">
+                 <widget class="QCheckBox" name="checkBox_disableSandbox">
                   <property name="text">
-                   <string>ON</string>
+                   <string>Disable</string>
                   </property>
                  </widget>
                 </item>
