@@ -1,3 +1,8 @@
+spark-store (4.8.2~test1) UNRELEASED; urgency=medium
+
+  * 增加导出日志功能。
+ -- momen <vmomenv@gmail.com>  Tur, 18 Sep 2025 01:03:08 +0800
+
 spark-store (4.8.1-1) UNRELEASED; urgency=medium
 
   * 修复了更新器安装完成后显示下载完成的bug
