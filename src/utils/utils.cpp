@@ -261,3 +261,18 @@ QJsonObject Utils::parseFeatureJsonFile()
 
     return jsonDoc.object();
 }
+
+/**
+ * @brief Utils::shouldDisableWebEngineSandbox 检查是否应关闭webengine沙箱
+ * @return bool true: 配置文件中设置了关闭沙箱 false: 未设置或设置为false
+ */
+bool Utils::shouldDisableWebEngineSandbox()
+{
+    // WARNING: 请在 组织名称 和 应用程序名称 初始化完成后调用
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    
+    // 检查配置文件中[webengine]部分的noSandbox配置项
+    // 如果配置存在且值为true，则返回true；否则返回false
+    qDebug()<<"shaxiang"<<config.value("webengine/noSandbox", false).toBool();
+    return config.value("webengine/noSandbox", false).toBool();
+}

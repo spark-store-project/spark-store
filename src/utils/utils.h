@@ -18,6 +18,7 @@ public:
     static void setQPAPlatform();
     static void checkUOSDeveloperMode();
     static QJsonObject parseFeatureJsonFile();
+    static bool shouldDisableWebEngineSandbox(); // 新增函数声明
 };
 
 #endif // UTILS_H
