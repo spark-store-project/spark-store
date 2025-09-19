@@ -153,6 +153,10 @@ int main(int argc, char *argv[])
 #if defined __sw_64__ || __loongarch__
     chromium_flags.append("--no-sandbox");
 #endif
+    // 如果配置文件中设置了关闭沙箱，则添加no-sandbox标志
+    if (Utils::shouldDisableWebEngineSandbox()) {
+        chromium_flags.append("--no-sandbox");
+    }
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", chromium_flags.join(" ").toUtf8());
 
     /**
