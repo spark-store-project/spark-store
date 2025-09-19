@@ -648,32 +648,34 @@
     <message>
         <location filename="../src/pages/settingspage.ui" line="353"/>
         <source>Log</source>
-        <translation type="unfinished"></translation>
+        <translation>导出日志</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="363"/>
         <source>Export Logs:/tmp/spark-store</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>导出日志到:/tmp/spark-store</translatorcomment>
+        <translation>导出日志到:/tmp/spark-store</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="370"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>导出</translatorcomment>
+        <translation>导出</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="404"/>
         <source>Disable Safe Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>禁用安全模式</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="414"/>
         <source>Disable the webEngine sandbox feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>禁用WebEngine沙箱功能。</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="421"/>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>禁用</translation>
     </message>
     <message>
         <location filename="../src/pages/settingspage.ui" line="455"/>
