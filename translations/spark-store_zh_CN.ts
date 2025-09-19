@@ -35,31 +35,35 @@
         <location filename="../src/pages/appintopage.ui" line="512"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app can only be installed natively&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translatorcomment>该应用只能在本机原生环境中安装</translatorcomment>
-        <translation type="unfinished">该应用只能在本机原生环境中安装</translation>
+        <translation>该应用只能在本机原生环境中安装</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="534"/>
         <location filename="../src/pages/appintopage.ui" line="537"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian12 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>此应用将会被安装到ACE Debian12兼容环境</translatorcomment>
+        <translation>此应用将会被安装到ACE Debian12兼容环境</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="559"/>
         <location filename="../src/pages/appintopage.ui" line="562"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian13 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>此应用将会被安装到ACE Debian13兼容环境</translatorcomment>
+        <translation>此应用将会被安装到ACE Debian13兼容环境</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="584"/>
         <location filename="../src/pages/appintopage.ui" line="587"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to debian SID ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>此应用将会被安装到ACE Debian SID兼容环境</translatorcomment>
+        <translation>此应用将会被安装到ACE Debian SID兼容环境</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="609"/>
         <location filename="../src/pages/appintopage.ui" line="612"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app will be installed to deepin23 ACE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>此应用将会被安装到ACE Deepin 23兼容环境</translatorcomment>
+        <translation>此应用将会被安装到ACE Deepin 23兼容环境</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="689"/>
@@ -535,7 +539,8 @@
     <message>
         <location filename="../src/application.cpp" line="40"/>
         <source>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;An appstore powered by community&lt;/span&gt;&lt;br/&gt;&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;Sparky is our mascot, designed by &lt;a href=&apos;https://tai3.cn/&apos;&gt;Tyson Tan&lt;/a&gt;&lt;/span&gt;&lt;br/&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;由社区打造的应用商店&lt;/span&gt;&lt;br/&gt;&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;Sparky 是我们的吉祥物。设计源于 &lt;a href=&apos;https://tai3.cn/&apos;&gt;Tyson Tan&lt;/a&gt;&lt;/span&gt;&lt;br/&gt;</translatorcomment>
+        <translation>&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;由社区打造的应用商店&lt;/span&gt;&lt;br/&gt;&lt;span style=&apos; font-size:10pt;font-weight:60;&apos;&gt;Sparky 是我们的吉祥物。设计源于&lt;a href=&apos;https://tai3.cn/&apos;&gt;Tyson Tan&lt;/a&gt;&lt;/span&gt;&lt;br/&gt;</translation>
     </message>
     <message>
         <location filename="../src/application.cpp" line="147"/>
