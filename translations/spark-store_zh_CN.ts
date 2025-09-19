@@ -27,13 +27,15 @@
         <location filename="../src/pages/appintopage.ui" line="459"/>
         <location filename="../src/pages/appintopage.ui" line="462"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capable to deepin 23&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>兼容 Deepin 23</translatorcomment>
+        <translation>兼容 Deepin 23</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="509"/>
         <location filename="../src/pages/appintopage.ui" line="512"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This app can only be installed natively&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>该应用只能在本机原生环境中安装</translatorcomment>
+        <translation type="unfinished">该应用只能在本机原生环境中安装</translation>
     </message>
     <message>
         <location filename="../src/pages/appintopage.ui" line="534"/>
