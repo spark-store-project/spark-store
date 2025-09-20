@@ -317,6 +317,6 @@ void AppDelegate::startNextInstall() {
 
     // 注意参数顺序：deb路径在前，--no-create-desktop-entry在后
     QStringList args;
-    args << debPath << "--no-create-desktop-entry";
+    args << debPath << "--no-create-desktop-entry" << "--delete-after-install";
     m_installProcess->start("ssinstall", args);
 }
