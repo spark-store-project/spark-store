@@ -1,7 +1,9 @@
 spark-store (4.8.2~test1) UNRELEASED; urgency=medium
 
-  * 增加导出日志功能。
- -- momen <vmomenv@gmail.com>  Tur, 18 Sep 2025 01:03:08 +0800
+  * 添加WebEngine沙箱禁用选项，在设置页面新增复选框以允许用户在需要时关闭沙箱功能
+  * 实现设置持久化，将沙箱禁用状态保存到配置文件并在应用启动时读取
+
+ -- momen <vmomenv@gmail.com>
 
 spark-store (4.8.1-1) UNRELEASED; urgency=medium
 
