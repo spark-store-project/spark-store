@@ -679,17 +679,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="214"/>
+        <location filename="../src/pages/settingspage.cpp" line="220"/>
         <source>Updating, please wait...</source>
         <translation>Mise à jour en cours, veuillez patienter...</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="236"/>
+        <location filename="../src/pages/settingspage.cpp" line="242"/>
         <source>Spark Store</source>
         <translation>Le Spark store</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="236"/>
+        <location filename="../src/pages/settingspage.cpp" line="242"/>
         <source>Temporary cache was cleaned</source>
         <translation>Cache temporaire nettoyé</translation>
     </message>
