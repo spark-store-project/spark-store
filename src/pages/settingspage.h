@@ -32,6 +32,8 @@ private slots:
 
     void on_checkBox_clicked(bool checked);
 
+    void on_checkBox_disableSandbox_clicked(bool checked);
+
 public:
     static bool needUncompatibleNotification;
 

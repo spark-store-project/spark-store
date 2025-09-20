@@ -98,8 +98,14 @@ void SettingsPage::initConfig()
     }
     configCanSave = true; // 　防止触发保存配置信号
 
+    // 在现有代码后添加初始化checkBox_disableSandbox的状态
     needUncompatibleNotification = config.value("other/uncompatibleNotification", needUncompatibleNotification).toBool();
     ui->checkBox->setChecked(needUncompatibleNotification);
+
+    // 新增：从config.ini读取webengine/noSandbox配置并设置复选框状态
+    bool disableSandbox = config.value("webengine/noSandbox", false).toBool();
+    ui->checkBox_disableSandbox->setChecked(disableSandbox);
+
 }
 
 SettingsPage::~SettingsPage()
@@ -259,5 +265,13 @@ void SettingsPage::on_checkBox_clicked(bool checked)
     needUncompatibleNotification = checked;
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
     config.setValue("other/uncompatibleNotification", needUncompatibleNotification);
+    config.sync();
+}
+
+// 添加checkBox_disableSandbox的点击事件处理函数
+void SettingsPage::on_checkBox_disableSandbox_clicked(bool checked)
+{
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    config.setValue("webengine/noSandbox", checked);
     config.sync();
 }
