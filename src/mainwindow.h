@@ -24,9 +24,7 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event) override;  
-private slots:
-    // ⬅️ 声明一个槽函数，它将接收来自Updater的信号
-    void handleUpdateFinished(bool success); 
+
 private:
     Ui::MainWindow *ui;
     void checkUpdates();
@@ -37,5 +35,8 @@ private:
     QListView *listView; // 声明 QListView 指针
     QJsonArray m_allApps; // 新增：保存所有应用数据
     void filterAppsByKeyword(const QString &keyword); // 新增：搜索过滤函数声明
+    
+private slots:
+    void handleUpdateFinished(bool success); // 新增：处理更新完成的槽函数
 };
 #endif // MAINWINDOW_H

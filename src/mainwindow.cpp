@@ -266,6 +266,20 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     QMessageBox::StandardButton reply = QMessageBox::question(this, "确认关闭", "正在更新，是否确认关闭窗口？", QMessageBox::Yes | QMessageBox::No);
 }
+void MainWindow::handleUpdateFinished(bool success)
+{
+    if (success) {
+        // 更新成功时的处理逻辑
+        QMessageBox::information(this, "更新完成", "软件更新已成功完成！");
+    } else {
+        // 更新失败时的处理逻辑
+        QMessageBox::warning(this, "更新失败", "软件更新过程中出现错误，请稍后再试。");
+    }
+    
+    // 刷新应用列表
+    checkUpdates();
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
