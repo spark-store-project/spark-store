@@ -33,6 +33,9 @@ private slots:
     void on_checkBox_clicked(bool checked);
 
     void on_checkBox_disableSandbox_clicked(bool checked);
+    
+    // 添加导出日志按钮的槽函数声明
+    void on_pushButton_exportLog_clicked();
 
 public:
     static bool needUncompatibleNotification;

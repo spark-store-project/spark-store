@@ -10,6 +10,10 @@
 #include <QFile>
 #include <QUuid>
 #include <QJsonDocument>
+#include <QDateTime>
+#include <QDir>
+#include <QFile>
+#include <QTextStream>
 
 #define UOSDeveloperModeFile "/var/lib/deepin/developer-mode/enabled"
 
@@ -275,4 +279,104 @@ bool Utils::shouldDisableWebEngineSandbox()
     // 如果配置存在且值为true，则返回true；否则返回false
     qDebug()<<"shaxiang"<<config.value("webengine/noSandbox", false).toBool();
     return config.value("webengine/noSandbox", false).toBool();
+}
+
+// 日志相关静态变量
+static QFile *logFile = nullptr;
+static QString logFilePath;
+
+// 初始化日志系统
+void Utils::initLogger()
+{
+    // 确保日志目录存在
+    QString logDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir dir;
+    if (!dir.exists(logDir)) {
+        dir.mkpath(logDir);
+    }
+    
+    // 设置日志文件路径
+    QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss");
+    logFilePath = logDir + QString("/spark-store_%1.log").arg(timestamp);
+    
+    // 打开日志文件
+    logFile = new QFile(logFilePath);
+    if (!logFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Failed to open log file:" << logFilePath;
+        delete logFile;
+        logFile = nullptr;
+        return;
+    }
+    
+    // 写入日志头信息
+    writeLog("INFO", "Logger initialized");
+    writeLog("INFO", QString("Application started at %1").arg(
+             QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")));
+}
+
+// 写入日志
+void Utils::writeLog(const QString &level, const QString &message)
+{
+    if (!logFile || !logFile->isOpen()) {
+        return;
+    }
+    
+    QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
+    QString logEntry = QString("[%1] [%2] %3\n").arg(timestamp).arg(level).arg(message);
+    
+    QTextStream out(logFile);
+    out << logEntry;
+    logFile->flush();
+    
+    // 同时输出到控制台，便于调试
+    if (level == "ERROR") {
+        qCritical() << logEntry.trimmed();
+    } else if (level == "WARNING") {
+        qWarning() << logEntry.trimmed();
+    } else {
+        qDebug() << logEntry.trimmed();
+    }
+}
+
+// 导出日志
+bool Utils::exportLogs(const QString &targetPath)
+{
+    // 确保目标目录存在
+    QDir dir;
+    if (!dir.exists(targetPath)) {
+        if (!dir.mkpath(targetPath)) {
+            writeLog("ERROR", QString("Failed to create target directory: %1").arg(targetPath));
+            return false;
+        }
+    }
+    
+    // 关闭当前日志文件，便于复制
+    if (logFile && logFile->isOpen()) {
+        logFile->close();
+    }
+    
+    // 复制日志文件到目标位置
+    QString targetLogPath = targetPath + QString("/spark-store_log_export_%1.log").arg(
+                           QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
+    
+    bool success = QFile::copy(logFilePath, targetLogPath);
+    
+    if (success) {
+        writeLog("INFO", QString("Logs exported to: %1").arg(targetLogPath));
+    } else {
+        writeLog("ERROR", QString("Failed to export logs to: %1").arg(targetLogPath));
+    }
+    
+    // 重新打开日志文件继续记录
+    if (logFile && !logFile->isOpen()) {
+        logFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+    }
+    
+    return success;
+}
+
+// 获取日志文件路径
+QString Utils::getLogFilePath()
+{
+    return logFilePath;
 }

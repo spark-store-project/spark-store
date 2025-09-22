@@ -6,6 +6,7 @@
 #include <QSettings>
 #include <QtConcurrent>
 #include <QDebug>
+#include <QMessageBox>
 
 #define TMP_PATH "/tmp/spark-store"
 #define DEFAULT_SERVER_URL "https://cdn-d.spark-app.store/"
@@ -22,6 +23,9 @@ SettingsPage::SettingsPage(QWidget *parent)
 
     configCanSave = false;
     initConfig();
+    
+    // 连接导出日志按钮的点击信号
+    connect(ui->pushButton_exportLog, &QPushButton::clicked, this, &SettingsPage::on_pushButton_exportLog_clicked);
 }
 
 void SettingsPage::setTheme(bool dark)
@@ -32,7 +36,7 @@ void SettingsPage::setTheme(bool dark)
     }
     else
     {
-        // 亮色模式
+        // ���色模式
         this->setStyleSheet("#frame{background-color: #ffffff;border-radius:14px;border:1px solid rgb(229,229,229);}");
     }
 }
@@ -274,4 +278,33 @@ void SettingsPage::on_checkBox_disableSandbox_clicked(bool checked)
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
     config.setValue("webengine/noSandbox", checked);
     config.sync();
+}
+
+// 添加导出日志按钮的点击事件处理函数
+void SettingsPage::on_pushButton_exportLog_clicked()
+{
+    auto future = QtConcurrent::run([=]() {
+        // 禁用按钮防止重复点击
+        QMetaObject::invokeMethod(ui->pushButton_exportLog, "setEnabled", Qt::QueuedConnection, Q_ARG(bool, false));
+        
+        QString targetPath = QString::fromUtf8(TMP_PATH);
+        bool success = Utils::exportLogs(targetPath);
+        
+        // 显示导出结果通知
+        QString message;
+        if (success) {
+            message = tr("Logs exported successfully to: %1").arg(targetPath);
+            Utils::writeLog("INFO", "User exported logs via settings page");
+        } else {
+            message = tr("Failed to export logs");
+            Utils::writeLog("ERROR", "User failed to export logs via settings page");
+        }
+        
+        // 在主线程显示消息框
+        QMetaObject::invokeMethod(this, [message, this]() {
+            QMessageBox::information(this, tr("Export Logs"), message);
+            // 重新启用按钮
+            ui->pushButton_exportLog->setEnabled(true);
+        }, Qt::QueuedConnection);
+    });
 }
