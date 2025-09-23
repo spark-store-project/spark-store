@@ -361,6 +361,14 @@ bool Utils::exportLogs(const QString &targetPath)
     
     bool success = QFile::copy(logFilePath, targetLogPath);
     
+    // 额外检查：即使QFile::copy返回false，也要检查目标文件是否实际存在且大小合理
+    if (!success) {
+        QFileInfo targetFileInfo(targetLogPath);
+        if (targetFileInfo.exists() && targetFileInfo.size() > 0) {
+            success = true;
+        }
+    }
+    
     if (success) {
         writeLog("INFO", QString("Logs exported to: %1").arg(targetLogPath));
     } else {
