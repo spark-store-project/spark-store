@@ -280,10 +280,10 @@ void SettingsPage::on_checkBox_disableSandbox_clicked(bool checked)
     config.sync();
 }
 
-// 添加导出日志按钮的点击事件处理函数
+// 修改导出日志按钮的点击事件处理函数
 void SettingsPage::on_pushButton_exportLog_clicked()
 {
-    auto future = QtConcurrent::run([=]() {
+    auto future = QtConcurrent::run([=]() {        
         // 禁用按钮防止重复点击
         QMetaObject::invokeMethod(ui->pushButton_exportLog, "setEnabled", Qt::QueuedConnection, Q_ARG(bool, false));
         
@@ -302,7 +302,8 @@ void SettingsPage::on_pushButton_exportLog_clicked()
         
         // 在主线程显示消息框
         QMetaObject::invokeMethod(this, [message, this]() {
-            QMessageBox::information(this, tr("Export Logs"), message);
+            // 使用系统通知代替QMessageBox弹窗，避免重复通知
+            Utils::sendNotification("spark-store", tr("Export Logs"), message);
             // 重新启用按钮
             ui->pushButton_exportLog->setEnabled(true);
         }, Qt::QueuedConnection);
