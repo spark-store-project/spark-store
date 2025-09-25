@@ -24,8 +24,8 @@ SettingsPage::SettingsPage(QWidget *parent)
     configCanSave = false;
     initConfig();
     
-    // 连接导出日志按钮的点击信号
-    connect(ui->pushButton_exportLog, &QPushButton::clicked, this, &SettingsPage::on_pushButton_exportLog_clicked);
+    // 移除了手动连接导出日志按钮的点击信号
+    // connect(ui->pushButton_exportLog, &QPushButton::clicked, this, &SettingsPage::on_pushButton_exportLog_clicked);
 }
 
 void SettingsPage::setTheme(bool dark)
@@ -283,29 +283,25 @@ void SettingsPage::on_checkBox_disableSandbox_clicked(bool checked)
 // 修改导出日志按钮的点击事件处理函数
 void SettingsPage::on_pushButton_exportLog_clicked()
 {
-    auto future = QtConcurrent::run([=]() {        
-        // 禁用按钮防止重复点击
-        QMetaObject::invokeMethod(ui->pushButton_exportLog, "setEnabled", Qt::QueuedConnection, Q_ARG(bool, false));
-        
-        QString targetPath = QString::fromUtf8(TMP_PATH);
-        bool success = Utils::exportLogs(targetPath);
-        
-        // 显示导出结果通知
-        QString message;
-        if (success) {
-            message = tr("Logs exported successfully to: %1").arg(targetPath);
-            Utils::writeLog("INFO", "User exported logs via settings page");
-        } else {
-            message = tr("Failed to export logs");
-            Utils::writeLog("ERROR", "User failed to export logs via settings page");
-        }
-        
-        // 在主线程显示消息框
-        QMetaObject::invokeMethod(this, [message, this]() {
-            // 使用系统通知代替QMessageBox弹窗，避免重复通知
-            Utils::sendNotification("spark-store", tr("Export Logs"), message);
-            // 重新启用按钮
-            ui->pushButton_exportLog->setEnabled(true);
-        }, Qt::QueuedConnection);
-    });
+    // 禁用按钮防止重复点击
+    ui->pushButton_exportLog->setEnabled(false);
+    
+    QString targetPath = QString::fromUtf8(TMP_PATH);
+    bool success = Utils::exportLogs(targetPath);
+    
+    // 显示导出结果通知
+    QString message;
+    if (success) {
+        message = tr("Logs exported successfully to: %1").arg(targetPath);
+        Utils::writeLog("INFO", "User exported logs via settings page");
+    } else {
+        message = tr("Failed to export logs");
+        Utils::writeLog("ERROR", "User failed to export logs via settings page");
+    }
+    
+    // 只发送一次系统通知
+    Utils::sendNotification("spark-store", tr("Export Logs"), message);
+    
+    // 重新启用按钮
+    ui->pushButton_exportLog->setEnabled(true);
 }
