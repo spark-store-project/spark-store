@@ -1,3 +1,8 @@
+spark-update-tool (1.0.1) unstable; urgency=low
+
+  * 修复窗口调整大小时的错误
+
+ -- momen <vmomenv@gmail.com>  Wed, 18 Jun 2025 00:00:00 +0000
 spark-update-tool (1.0.0) unstable; urgency=low
 
   * Initial release.
