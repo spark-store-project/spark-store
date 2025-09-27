@@ -285,6 +285,39 @@ bool Utils::shouldDisableWebEngineSandbox()
 static QFile *logFile = nullptr;
 static QString logFilePath;
 
+// 自定义消息处理器，捕获所有Qt日志输出
+void customMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QByteArray localMsg = msg.toLocal8Bit();
+    QString level;
+    
+    switch (type) {
+    case QtDebugMsg:
+        level = "DEBUG";
+        fprintf(stderr, "DEBUG: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtInfoMsg:
+        level = "INFO";
+        fprintf(stderr, "INFO: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtWarningMsg:
+        level = "WARNING";
+        fprintf(stderr, "WARNING: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtCriticalMsg:
+        level = "ERROR";
+        fprintf(stderr, "ERROR: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        break;
+    case QtFatalMsg:
+        level = "FATAL";
+        fprintf(stderr, "FATAL: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        abort();
+    }
+    
+    // 写入到日志文件
+    Utils::writeLog(level, msg);
+}
+
 // 初始化日志系统
 void Utils::initLogger()
 {
@@ -307,6 +340,9 @@ void Utils::initLogger()
         logFile = nullptr;
         return;
     }
+    
+    // 安装自定义消息处理器，捕获所有Qt日志输出
+    qInstallMessageHandler(customMessageHandler);
     
     // 写入日志头信息
     writeLog("INFO", "Logger initialized");
@@ -341,11 +377,16 @@ void Utils::writeLog(const QString &level, const QString &message)
 // 导出日志
 bool Utils::exportLogs(const QString &targetPath)
 {
+    QString exportPath = targetPath;
+    if (exportPath.isEmpty()) {
+        exportPath = "/tmp/spark-store";
+    }
+    
     // 确保目标目录存在
     QDir dir;
-    if (!dir.exists(targetPath)) {
-        if (!dir.mkpath(targetPath)) {
-            writeLog("ERROR", QString("Failed to create target directory: %1").arg(targetPath));
+    if (!dir.exists(exportPath)) {
+        if (!dir.mkpath(exportPath)) {
+            writeLog("ERROR", QString("Failed to create target directory: %1").arg(exportPath));
             return false;
         }
     }
@@ -356,8 +397,8 @@ bool Utils::exportLogs(const QString &targetPath)
     }
     
     // 复制日志文件到目标位置
-    QString targetLogPath = targetPath + QString("/spark-store_log_export_%1.log").arg(
-                           QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss"));
+    QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss");
+    QString targetLogPath = exportPath + QString("/spark-store_full_log_%1.log").arg(timestamp);
     
     bool success = QFile::copy(logFilePath, targetLogPath);
     
@@ -370,7 +411,23 @@ bool Utils::exportLogs(const QString &targetPath)
     }
     
     if (success) {
-        writeLog("INFO", QString("Logs exported to: %1").arg(targetLogPath));
+        writeLog("INFO", QString("All logs (INFO, DEBUG, WARNING, ERROR) exported to: %1").arg(targetLogPath));
+        
+        // 同时创建一个简单的导出报告
+        QString reportPath = exportPath + QString("/export_report_%1.txt").arg(timestamp);
+        QFile reportFile(reportPath);
+        if (reportFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream out(&reportFile);
+            out << "Spark Store Log Export Report\n";
+            out << "================================\n";
+            out << "Export Time: " << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << "\n";
+            out << "Target Directory: " << exportPath << "\n";
+            out << "Log File: " << targetLogPath << "\n";
+            out << "Original Log: " << logFilePath << "\n";
+            out << "Log Levels: INFO, DEBUG, WARNING, ERROR, FATAL\n";
+            out << "Status: SUCCESS\n";
+            reportFile.close();
+        }
     } else {
         writeLog("ERROR", QString("Failed to export logs to: %1").arg(targetLogPath));
     }

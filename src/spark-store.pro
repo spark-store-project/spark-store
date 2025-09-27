@@ -27,8 +27,8 @@ VERSION = $$BUILD_VERSION
 isEmpty(VERSION): VERSION = 4.0.0
 DEFINES += APP_VERSION=\\\"'$${VERSION}'\\\"
 DEFINES += APP_BRANCH=\\\"'$$system(git symbolic-ref --short -q HEAD)'\\\"
-# Disable qWarning / qDebug output in Release
-#CONFIG(release, debug | release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
+# Enable all log outputs in both Debug and Release modes
+# We want to capture all logs (INFO, DEBUG, WARNING, ERROR) for export to /tmp/spark-store
 
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dtkcore dtkgui dtkwidget

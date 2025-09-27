@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QJsonObject>
 #include <QString>
+#include <QMessageLogContext>
+#include <QtGlobal>
 
 class Utils
 {
