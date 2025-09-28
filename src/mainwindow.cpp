@@ -55,9 +55,20 @@ MainWindow::MainWindow(QWidget *parent)
 
         // 新增：点击“更新全部”按钮批量下载
         connect(ui->updatePushButton, &QPushButton::clicked, this, [=](){
-            qDebug()<<"更新全部按钮被点击";
-            m_delegate->startDownloadForAll();
+            qDebug()<<"更新按钮被点击";
+            if (m_delegate->getSelectedPackages().isEmpty()) {
+                // 没有选中任何应用，更新全部
+                m_delegate->startDownloadForAll();
+            } else {
+                // 有选中应用，更新选中
+                m_delegate->startDownloadForSelected();
+                m_delegate->clearSelection();
+                updateButtonText();
+            }
         });
+        
+        // 新增：监听选择变化
+        connect(m_delegate, &AppDelegate::updateDisplay, this, &MainWindow::handleSelectionChanged);
 
         checkUpdates();
         // 新增：监听搜索框文本变化
@@ -283,4 +294,19 @@ void MainWindow::handleUpdateFinished(bool success)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+// 新增：更新按钮文本
+void MainWindow::updateButtonText() {
+    int selectedCount = m_delegate->getSelectedPackages().size();
+    if (selectedCount > 0) {
+        ui->updatePushButton->setText(QString("更新选中(%1)").arg(selectedCount));
+    } else {
+        ui->updatePushButton->setText("更新全部");
+    }
+}
+
+// 新增：处理选择变化
+void MainWindow::handleSelectionChanged() {
+    updateButtonText();
 }

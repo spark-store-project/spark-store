@@ -51,6 +51,24 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     else
         painter->fillRect(option.rect, QColor("#F3F4F6"));
 
+    // 绘制复选框
+    QString packageName = index.data(Qt::UserRole + 1).toString();
+    bool isSelected = m_selectedPackages.contains(packageName);
+    
+    QRect checkboxRect(option.rect.left() + 10, option.rect.top() + (option.rect.height() - 20) / 2, 20, 20);
+    
+    // 绘制复选框边框
+    painter->setPen(QColor("#888888"));
+    painter->setBrush(Qt::NoBrush);
+    painter->drawRect(checkboxRect);
+    
+    // 如果选中，绘制勾选标记
+    if (isSelected) {
+        painter->setPen(QPen(QColor("#2563EB"), 2));
+        painter->setBrush(QColor("#2563EB"));
+        painter->drawRect(checkboxRect.adjusted(4, 4, -4, -4));
+    }
+
     QFont boldFont = option.font;
     boldFont.setBold(true);
     QFont normalFont = option.font;
@@ -65,7 +83,8 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     QRect rect = option.rect;
     int margin = 10, spacing = 6, iconSize = 40;
 
-    QRect iconRect(rect.left() + margin, rect.top() + (rect.height() - iconSize) / 2, iconSize, iconSize);
+    // 调整图标位置，为复选框留出空间
+    QRect iconRect(rect.left() + 40, rect.top() + (rect.height() - iconSize) / 2, iconSize, iconSize);
     QIcon(iconPath).paint(painter, iconRect);
 
     int textX = iconRect.right() + margin;
@@ -88,7 +107,6 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     painter->drawText(descRect, Qt::TextWordWrap,
                       QString("包大小：%1 MB").arg(QString::number(size.toDouble() / (1024 * 1024), 'f', 2)));
 
-    QString packageName = index.data(Qt::UserRole + 1).toString();
     bool isDownloading = m_downloads.contains(packageName) && m_downloads[packageName].isDownloading;
     int progress = m_downloads.value(packageName, DownloadInfo{0, false}).progress;
     bool isInstalled = m_downloads.value(packageName).isInstalled;
@@ -161,6 +179,18 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
         QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
         QRect rect = option.rect;
         QString packageName = index.data(Qt::UserRole + 1).toString();
+
+        // 检查是否点击了复选框
+        QRect checkboxRect(rect.left() + 10, rect.top() + (rect.height() - 20) / 2, 20, 20);
+        if (checkboxRect.contains(mouseEvent->pos())) {
+            if (m_selectedPackages.contains(packageName)) {
+                m_selectedPackages.remove(packageName);
+            } else {
+                m_selectedPackages.insert(packageName);
+            }
+            emit updateDisplay(packageName);
+            return true;
+        }
 
         if (m_downloads.contains(packageName) && m_downloads[packageName].isDownloading) {
             QRect cancelButtonRect(rect.right() - 70, rect.top() + (rect.height() - 20) / 2, 60, 20);
@@ -320,4 +350,37 @@ void AppDelegate::startNextInstall() {
 void AppDelegate::updateSpinner() {
     m_spinnerAngle = (m_spinnerAngle + 10) % 360; // 每次增加10度
     emit updateDisplay(m_installingPackage); // 仅刷新当前正在安装的项
+}
+
+// 新增：更新选中应用的方法
+void AppDelegate::startDownloadForSelected() {
+    if (!m_model) return;
+    for (int row = 0; row < m_model->rowCount(); ++row) {
+        QModelIndex index = m_model->index(row, 0);
+        QString packageName = index.data(Qt::UserRole + 1).toString();
+        
+        // 只下载选中的应用
+        if (m_selectedPackages.contains(packageName)) {
+            if (m_downloads.contains(packageName) && (m_downloads[packageName].isDownloading || m_downloads[packageName].isInstalled))
+                continue;
+            QString downloadUrl = index.data(Qt::UserRole + 7).toString();
+            QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
+            m_downloads[packageName] = {0, true, false};
+            m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
+            emit updateDisplay(packageName);
+        }
+    }
+}
+
+// 复选框相关方法实现
+void AppDelegate::setSelectedPackages(const QSet<QString> &selected) {
+    m_selectedPackages = selected;
+}
+
+QSet<QString> AppDelegate::getSelectedPackages() const {
+    return m_selectedPackages;
+}
+
+void AppDelegate::clearSelection() {
+    m_selectedPackages.clear();
 }

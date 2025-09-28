@@ -28,6 +28,12 @@ public:
     bool editorEvent(QEvent *event, QAbstractItemModel *model,
                      const QStyleOptionViewItem &option, const QModelIndex &index) override;
     void startDownloadForAll();
+    void startDownloadForSelected();
+    
+    // 复选框相关方法
+    void setSelectedPackages(const QSet<QString> &selected);
+    QSet<QString> getSelectedPackages() const;
+    void clearSelection();
 
 signals:
     void updateDisplay(const QString &packageName);
@@ -40,6 +46,9 @@ private:
     DownloadManager *m_downloadManager;
     QHash<QString, DownloadInfo> m_downloads;
     QAbstractItemModel *m_model = nullptr;
+    
+    // 复选框相关成员变量
+    QSet<QString> m_selectedPackages;
 
     QQueue<QString> m_installQueue;
     bool m_isInstalling = false;

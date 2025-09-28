@@ -35,8 +35,10 @@ private:
     QListView *listView; // 声明 QListView 指针
     QJsonArray m_allApps; // 新增：保存所有应用数据
     void filterAppsByKeyword(const QString &keyword); // 新增：搜索过滤函数声明
+    void updateButtonText(); // 新增：更新按钮文本
     
 private slots:
     void handleUpdateFinished(bool success); // 新增：处理更新完成的槽函数
+    void handleSelectionChanged(); // 新增：处理选择变化的槽函数
 };
 #endif // MAINWINDOW_H
