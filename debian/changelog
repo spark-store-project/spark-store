@@ -1,3 +1,14 @@
+spark-store (4.8.2) UNRELEASED; urgency=medium
+
+  * 更新软件主图标
+  * 软件更新器更新成功后删除软件包
+  * 修复：首次安装ACE环境情况下无法正确配置ACE中aptss的问题
+  * 修复：使用aptss后在/tmp下留下垃圾的问题
+  
+ -- momen <vmomenv@gmail.com>  Tue, 28 Aug 2025 01:03:08 +0800
+
+
+
 spark-store (4.8.1-1) UNRELEASED; urgency=medium
 
   * 修复了更新器安装完成后显示下载完成的bug
