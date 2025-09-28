@@ -178,6 +178,7 @@ function hash_check() {
 # 确保aptss存在
 function ensure_aptss_exist() {
     if ! command -v aptss &>/dev/null; then
+        apt update
         local deb_file="/tmp/spark-store-console-in-container_latest_all.deb"
         
         if ! wget -O "$deb_file" "https://amber-ce-resource.spark-app.store/store/depends/spark-store-console-in-container_latest_all.deb"; then
