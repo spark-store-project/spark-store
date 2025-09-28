@@ -1,9 +1,13 @@
-spark-store (4.8.2~test1) UNRELEASED; urgency=medium
+spark-store (4.8.2) UNRELEASED; urgency=medium
 
-  * 添加WebEngine沙箱禁用选项，在设置页面新增复选框以允许用户在需要时关闭沙箱功能
-  * 实现设置持久化，将沙箱禁用状态保存到配置文件并在应用启动时读取
+  * 更新软件主图标
+  * 软件更新器更新成功后删除软件包
+  * 修复：首次安装ACE环境情况下无法正确配置ACE中aptss的问题
+  * 修复：使用aptss后在/tmp下留下垃圾的问题
+  
+ -- momen <vmomenv@gmail.com>  Tue, 28 Aug 2025 01:03:08 +0800
 
- -- momen <vmomenv@gmail.com>
+
 
 spark-store (4.8.1-1) UNRELEASED; urgency=medium
 
