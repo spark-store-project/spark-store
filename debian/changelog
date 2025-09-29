@@ -1,3 +1,9 @@
+spark-update-tool (1.0.2) unstable; urgency=low
+
+  * 添加复选框，选择多个包更新
+  * 修复缩放问题
+
+ -- momen <vmomenv@gmail.com>  Mon, 29 Sep 2025 00:00:00 +0000
 spark-update-tool (1.0.1) unstable; urgency=low
 
   * 修复窗口调整大小时的错误
