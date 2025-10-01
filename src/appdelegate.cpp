@@ -123,14 +123,14 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         progressBarOption.textVisible = true;
         QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
         
-        QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+        QRect cancelButtonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
         painter->setPen(Qt::NoPen);
         painter->setBrush(QColor("#ff4444"));
-        painter->drawRoundedRect(buttonRect, 4, 4);
+        painter->drawRoundedRect(cancelButtonRect, 4, 4);
         
         painter->setPen(Qt::white);
         painter->setFont(option.font);
-        painter->drawText(buttonRect, Qt::AlignCenter, "取消");
+        painter->drawText(cancelButtonRect, Qt::AlignCenter, "取消");
     } else if (isInstalling) {
         QRect spinnerRect(option.rect.right() - 80, option.rect.top() + (option.rect.height() - 30) / 2, 30, 30);
         
@@ -146,23 +146,32 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         painter->setFont(option.font);
         painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, "正在安装中");
     } else {
-        QRect buttonRect(option.rect.right() - 80, option.rect.top() + (option.rect.height() - 30) / 2, 70, 30);
+        // 绘制忽略按钮
+        QRect ignoreButtonRect(option.rect.right() - 160, option.rect.top() + (option.rect.height() - 30) / 2, 70, 30);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(QColor("#F3F4F6"));
+        painter->drawRoundedRect(ignoreButtonRect, 4, 4);
+        painter->setPen(QColor("#6B7280"));
+        painter->drawText(ignoreButtonRect, Qt::AlignCenter, "忽略");
+
+        // 绘制更新按钮
+        QRect updateButtonRect(option.rect.right() - 80, option.rect.top() + (option.rect.height() - 30) / 2, 70, 30);
         painter->setPen(Qt::NoPen);
         if (isInstalled) {
             painter->setBrush(QColor("#10B981"));
-            painter->drawRoundedRect(buttonRect, 4, 4);
+            painter->drawRoundedRect(updateButtonRect, 4, 4);
             painter->setPen(Qt::white);
-            painter->drawText(buttonRect, Qt::AlignCenter, "已安装");
+            painter->drawText(updateButtonRect, Qt::AlignCenter, "已安装");
         } else if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
             painter->setBrush(QColor("#10B981"));
-            painter->drawRoundedRect(buttonRect, 4, 4);
+            painter->drawRoundedRect(updateButtonRect, 4, 4);
             painter->setPen(Qt::white);
-            painter->drawText(buttonRect, Qt::AlignCenter, "下载完成");
+            painter->drawText(updateButtonRect, Qt::AlignCenter, "下载完成");
         } else {
             painter->setBrush(QColor("#e9effd"));
-            painter->drawRoundedRect(buttonRect, 4, 4);
+            painter->drawRoundedRect(updateButtonRect, 4, 4);
             painter->setPen(QColor("#2563EB"));
-            painter->drawText(buttonRect, Qt::AlignCenter, "更新");
+            painter->drawText(updateButtonRect, Qt::AlignCenter, "更新");
         }
     }
 
@@ -201,8 +210,17 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                 return true;
             }
         } else {
-            QRect buttonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
-            if (buttonRect.contains(mouseEvent->pos())) {
+            // 检查是否点击了忽略按钮
+            QRect ignoreButtonRect(rect.right() - 160, rect.top() + (rect.height() - 30) / 2, 70, 30);
+            if (ignoreButtonRect.contains(mouseEvent->pos())) {
+                QString currentVersion = index.data(Qt::UserRole + 2).toString();
+                emit ignoreApp(packageName, currentVersion);
+                return true;
+            }
+
+            // 检查是否点击了更新按钮
+            QRect updateButtonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+            if (updateButtonRect.contains(mouseEvent->pos())) {
                 if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
                     return false;
                 }

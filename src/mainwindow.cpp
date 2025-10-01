@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , m_model(new AppListModel(this))
     , m_delegate(new AppDelegate(this))
+    , m_ignoreConfig(new IgnoreConfig(this))
 {
     QIcon icon(":/resources/128*128/spark-update-tool.png");
     setWindowIcon(icon);
@@ -52,6 +53,9 @@ MainWindow::MainWindow(QWidget *parent)
                 }
             }
         });
+
+        // 连接忽略应用信号
+        connect(m_delegate, &AppDelegate::ignoreApp, this, &MainWindow::onIgnoreApp);
 
         // 新增：点击“更新全部”按钮批量下载
         connect(ui->updatePushButton, &QPushButton::clicked, this, [=](){
@@ -309,4 +313,21 @@ void MainWindow::updateButtonText() {
 // 新增：处理选择变化
 void MainWindow::handleSelectionChanged() {
     updateButtonText();
+}
+
+// 新增：处理忽略应用的槽函数
+void MainWindow::onIgnoreApp(const QString &packageName, const QString &version) {
+    // 将应用添加到忽略配置中
+    m_ignoreConfig->addIgnoredApp(packageName, version);
+    
+    // 从模型中移除被忽略的应用
+    QJsonArray filteredApps;
+    for (const auto &item : m_allApps) {
+        QJsonObject obj = item.toObject();
+        if (obj["package"].toString() != packageName) {
+            filteredApps.append(item);
+        }
+    }
+    m_allApps = filteredApps;
+    m_model->setUpdateData(filteredApps);
 }

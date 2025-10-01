@@ -38,6 +38,7 @@ public:
 signals:
     void updateDisplay(const QString &packageName);
     void updateFinished(bool success); //传递是否完成更新
+    void ignoreApp(const QString &packageName, const QString &version); // 新增：忽略应用信号
 
 private slots:
     void updateSpinner(); // 新增槽函数
