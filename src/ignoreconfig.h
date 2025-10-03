@@ -25,6 +25,9 @@ public:
     // 获取所有被忽略的应用
     QSet<QPair<QString, QString>> getIgnoredApps() const;
     
+    // 输出所有被忽略的应用到 qDebug
+    void printIgnoredApps() const;
+    
     // 保存配置到文件
     bool saveConfig();
     

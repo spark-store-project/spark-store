@@ -4,12 +4,23 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <unistd.h>  // for geteuid
 
 IgnoreConfig::IgnoreConfig(QObject *parent)
     : QObject(parent)
 {
     // 设置配置文件路径
-    QString configDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    QString configDir;
+    
+    // 检查是否以 root 权限运行
+    if (geteuid() == 0) {
+        // 以 root 权限运行，使用 root 的配置目录
+        configDir = "/root/.config";
+    } else {
+        // 普通用户，使用标准配置目录
+        configDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    }
+    
     QDir dir(configDir);
     if (!dir.exists()) {
         dir.mkpath(".");
@@ -25,6 +36,9 @@ IgnoreConfig::IgnoreConfig(QObject *parent)
     
     // 加载现有配置
     loadConfig();
+    
+    // 输出忽略列表到 qDebug
+    printIgnoredApps();
 }
 
 void IgnoreConfig::addIgnoredApp(const QString &packageName, const QString &version)
@@ -55,6 +69,21 @@ bool IgnoreConfig::isAppIgnored(const QString &packageName, const QString &versi
 QSet<QPair<QString, QString>> IgnoreConfig::getIgnoredApps() const
 {
     return m_ignoredApps;
+}
+
+void IgnoreConfig::printIgnoredApps() const
+{
+    qDebug() << "=== 忽略的应用列表 ===";
+    qDebug() << "配置文件路径:" << m_configFilePath;
+    
+    if (m_ignoredApps.isEmpty()) {
+        qDebug() << "没有忽略的应用";
+    } else {
+        for (const auto &app : m_ignoredApps) {
+            qDebug() << "忽略的应用:" << app.first << "版本:" << app.second;
+        }
+    }
+    qDebug() << "====================";
 }
 
 bool IgnoreConfig::saveConfig()
