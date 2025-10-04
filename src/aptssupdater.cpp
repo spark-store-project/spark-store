@@ -18,8 +18,9 @@ QStringList aptssUpdater::getUpdateablePackages()
     QString command = R"(env LANGUAGE=en_US /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" | awk 'NR>1')";
     
     process.start("bash", QStringList() << "-c" << command);
-    if (!process.waitForFinished()) {
-        qWarning() << "Process failed to finish.";
+    if (!process.waitForFinished(30000)) { // 30秒超时
+        qWarning() << "Process failed to finish within 30 seconds.";
+        process.kill();
         return packageDetails;
     }
 
@@ -83,8 +84,9 @@ QStringList aptssUpdater::getPackageSizes()
                                   "-o Dir::Etc::sourceparts=\"/dev/null\"").arg(packageName);
 
         process.start("bash", QStringList() << "-c" << command);
-        if (!process.waitForFinished()) {
-            qWarning() << "获取包信息失败：" << packageName;
+        if (!process.waitForFinished(30000)) { // 30秒超时
+            qWarning() << "获取包信息失败：" << packageName << "（超时）";
+            process.kill();
             continue;
         }
 
@@ -130,7 +132,11 @@ QStringList aptssUpdater::getDesktopAppNames()
         
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
-        dpkgProcess.waitForFinished();
+        if (!dpkgProcess.waitForFinished(30000)) { // 30秒超时
+            qWarning() << "获取包文件列表失败：" << packageName << "（超时）";
+            dpkgProcess.kill();
+            continue;
+        }
         QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
 
         // 先检查常规应用目录
@@ -236,7 +242,11 @@ QStringList aptssUpdater::getPackageIcons()
         
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
-        dpkgProcess.waitForFinished();
+        if (!dpkgProcess.waitForFinished(30000)) { // 30秒超时
+            qWarning() << "获取包文件列表失败：" << packageName << "（超时）";
+            dpkgProcess.kill();
+            continue;
+        }
         QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
         
         // 查找.desktop文件
@@ -394,5 +404,3 @@ QJsonArray aptssUpdater::getUpdateInfoAsJson()
     qDebug()<<jsonArray;
     return jsonArray;
 }
-
-

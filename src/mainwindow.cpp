@@ -271,7 +271,14 @@ void MainWindow::runAptssUpgrade()
     }
     process.write("n\n");
     process.closeWriteChannel();
-    process.waitForFinished(-1);
+    
+    // 设置超时时间，避免无限等待
+    if (!process.waitForFinished(30000)) { // 30秒超时
+        qDebug() << "aptss ssupdate 执行超时";
+        process.kill(); // 强制终止进程
+        return;
+    }
+    
     if (process.exitCode() != 0) {
         QMessageBox::warning(this, "升级失败", "执行 sudo aptss ssupdate 失败，请检查系统环境或稍后再试。");
     }
