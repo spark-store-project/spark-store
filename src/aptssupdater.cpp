@@ -69,7 +69,6 @@ QStringList aptssUpdater::getUpdateablePackages()
 QStringList aptssUpdater::getPackageSizes()
 {
     QStringList packageDetails;
-    QProcess process;
 
     // 获取可更新包名列表
     QStringList updateablePackages;
@@ -78,6 +77,8 @@ QStringList aptssUpdater::getPackageSizes()
     }
 
     foreach (const QString &packageName, updateablePackages) {
+        QProcess process;  // 在循环内部创建新的QProcess实例
+        
         // 构建新命令（包含包名参数）
         QString command = QString("apt download %1 --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
                                   "-o Dir::Etc::sourcelist=\"/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list\" "
@@ -118,7 +119,6 @@ QStringList aptssUpdater::getPackageSizes()
 QStringList aptssUpdater::getDesktopAppNames()
 {
     QStringList appNames;
-    QProcess dpkgProcess;
     
     // 获取当前系统语言环境
     QString lang = QLocale().name().replace("_", "-");
@@ -127,6 +127,8 @@ QStringList aptssUpdater::getDesktopAppNames()
     QStringList packages = packageName;
     
     foreach (const QString &package, packages) {
+        QProcess dpkgProcess;  // 在循环内部创建新的QProcess实例
+        
         QString packageName = package.split(":")[0];
         QString finalName = packageName; // 默认使用包名
         
@@ -231,12 +233,13 @@ bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QString &a
 QStringList aptssUpdater::getPackageIcons()
 {
     QStringList packageIcons;
-    QProcess dpkgProcess;
     
     // 遍历所有可更新包
     QStringList packages = packageName;
     
     foreach (const QString &package, packages) {
+        QProcess dpkgProcess;  // 在循环内部创建新的QProcess实例
+        
         QString packageName = package.split(":")[0];
         QString iconPath = ":/resources/default_icon.svg"; // 默认图标
         

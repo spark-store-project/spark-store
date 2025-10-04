@@ -7,6 +7,7 @@
 #include <QFutureWatcher> // 新增
 #include <QIcon>
 #include <qicon.h>
+#include <unistd.h>     // for geteuid
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -262,11 +263,18 @@ void MainWindow::filterAppsByKeyword(const QString &keyword)
 void MainWindow::runAptssUpgrade()
 {
     QProcess process;
-    QStringList args;
-    args << "sudo" <<"aptss" << "ssupdate";
-    process.start("sudo", args);
+    
+    // 检查是否已经是root用户，如果是则直接执行命令，否则使用sudo
+    if (geteuid() == 0) {
+        // root用户直接执行
+        process.start("aptss", QStringList() << "ssupdate");
+    } else {
+        // 非root用户使用sudo
+        process.start("sudo", QStringList() << "aptss" << "ssupdate");
+    }
+    
     if (!process.waitForStarted(5000)) {
-        QMessageBox::warning(this, "升级失败", "无法启动 sudo aptss ssupdate");
+        QMessageBox::warning(this, "升级失败", "无法启动 aptss ssupdate");
         return;
     }
     process.write("n\n");
@@ -280,7 +288,7 @@ void MainWindow::runAptssUpgrade()
     }
     
     if (process.exitCode() != 0) {
-        QMessageBox::warning(this, "升级失败", "执行 sudo aptss ssupdate 失败，请检查系统环境或稍后再试。");
+        QMessageBox::warning(this, "升级失败", "执行 aptss ssupdate 失败，请检查系统环境或稍后再试。");
     }
 }
 void MainWindow::closeEvent(QCloseEvent *event)
