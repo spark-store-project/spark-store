@@ -14,8 +14,25 @@ IgnoreConfig::IgnoreConfig(QObject *parent)
     
     // 检查是否以 root 权限运行
     if (geteuid() == 0) {
-        // 以 root 权限运行，使用 root 的配置目录
-        configDir = "/root/.config";
+        // 首先检查是否有 SUDO_USER_HOME 环境变量（表示是通过 pkexec 提权的普通用户）
+        QByteArray sudoUserHomeEnv = qgetenv("SUDO_USER_HOME");
+        if (!sudoUserHomeEnv.isEmpty()) {
+            // 通过 pkexec 提权的普通用户，使用原用户的配置目录
+            QString sudoUserHomePath = QString::fromLocal8Bit(sudoUserHomeEnv);
+            configDir = sudoUserHomePath + "/.config";
+        } else {
+            // 获取实际的 HOME 目录来判断是真正的 root 用户还是其他方式提权的用户
+            QByteArray homeEnv = qgetenv("HOME");
+            QString homePath = QString::fromLocal8Bit(homeEnv);
+            
+            if (homePath == "/root") {
+                // 真正的 root 用户，使用 /root/.config
+                configDir = "/root/.config";
+            } else {
+                // 其他方式提权的用户，使用 HOME 目录下的配置
+                configDir = homePath + "/.config";
+            }
+        }
     } else {
         // 普通用户，使用标准配置目录
         configDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
