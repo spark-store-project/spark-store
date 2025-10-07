@@ -43,5 +43,6 @@ private slots:
     void handleUpdateFinished(bool success); // 新增：处理更新完成的槽函数
     void handleSelectionChanged(); // 新增：处理选择变化的槽函数
     void onIgnoreApp(const QString &packageName, const QString &version); // 新增：处理忽略应用的槽函数
+    void onUnignoreApp(const QString &packageName); // 新增：处理取消忽略应用
 };
 #endif // MAINWINDOW_H

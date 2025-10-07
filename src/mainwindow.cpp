@@ -55,8 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
             }
         });
 
-        // 连接忽略应用信号
-        connect(m_delegate, &AppDelegate::ignoreApp, this, &MainWindow::onIgnoreApp);
+        // 连接应用委托的信号
+    connect(m_delegate, &AppDelegate::ignoreApp, this, &MainWindow::onIgnoreApp);
+    connect(m_delegate, &AppDelegate::unignoreApp, this, &MainWindow::onUnignoreApp);
 
         // 新增：点击“更新全部”按钮批量下载
         connect(ui->updatePushButton, &QPushButton::clicked, this, [=](){
@@ -229,12 +230,42 @@ void MainWindow::checkUpdates()
 {
     aptssUpdater updater;
     QJsonArray updateInfo = updater.getUpdateInfoAsJson();
-    m_allApps = updateInfo; // 保存所有应用数据
-    m_model->setUpdateData(updateInfo);
-
+    
+    // 分离正常应用和忽略应用
+    QJsonArray normalApps;
+    QJsonArray ignoredApps;
+    
     for (const auto &item : updateInfo) {
         QJsonObject obj = item.toObject();
-        qDebug() << "模型设置的包名:" << obj["package"].toString();
+        QString packageName = obj["package"].toString();
+        QString currentVersion = obj["current_version"].toString();
+        
+        // 检查应用是否被忽略
+        if (m_ignoreConfig->isAppIgnored(packageName, currentVersion)) {
+            // 标记为忽略状态
+            obj["ignored"] = true;
+            ignoredApps.append(obj);
+        } else {
+            obj["ignored"] = false;
+            normalApps.append(obj);
+        }
+    }
+    
+    // 合并数组：正常应用在前，忽略应用在后
+    QJsonArray finalApps;
+    for (const auto &item : normalApps) {
+        finalApps.append(item);
+    }
+    for (const auto &item : ignoredApps) {
+        finalApps.append(item);
+    }
+    
+    m_allApps = finalApps; // 保存所有应用数据
+    m_model->setUpdateData(finalApps);
+
+    for (const auto &item : finalApps) {
+        QJsonObject obj = item.toObject();
+        qDebug() << "模型设置的包名:" << obj["package"].toString() << "忽略状态:" << obj["ignored"].toBool();
         qDebug() << "模型设置的下载 URL:" << obj["download_url"].toString(); // 检查模型数据
     }
 }
@@ -246,7 +277,11 @@ void MainWindow::filterAppsByKeyword(const QString &keyword)
         m_model->setUpdateData(m_allApps);
         return;
     }
-    QJsonArray filtered;
+    
+    // 分离正常应用和忽略应用
+    QJsonArray normalApps;
+    QJsonArray ignoredApps;
+    
     for (const auto &item : m_allApps) {
         QJsonObject obj = item.toObject();
         // 可根据需要匹配更多字段
@@ -254,9 +289,25 @@ void MainWindow::filterAppsByKeyword(const QString &keyword)
         QString package = obj.value("package").toString();
         if (name.contains(keyword, Qt::CaseInsensitive) ||
             package.contains(keyword, Qt::CaseInsensitive)) {
-            filtered.append(item);
+            
+            // 检查是否为忽略状态
+            if (obj.value("ignored").toBool()) {
+                ignoredApps.append(item);
+            } else {
+                normalApps.append(item);
+            }
         }
     }
+    
+    // 合并数组：正常应用在前，忽略应用在后
+    QJsonArray filtered;
+    for (const auto &item : normalApps) {
+        filtered.append(item);
+    }
+    for (const auto &item : ignoredApps) {
+        filtered.append(item);
+    }
+    
     m_model->setUpdateData(filtered);
 }
 
@@ -335,14 +386,37 @@ void MainWindow::onIgnoreApp(const QString &packageName, const QString &version)
     // 将应用添加到忽略配置中
     m_ignoreConfig->addIgnoredApp(packageName, version);
     
-    // 从模型中移除被忽略的应用
-    QJsonArray filteredApps;
+    // 更新模型中应用的状态，而不是移除
+    QJsonArray updatedApps;
     for (const auto &item : m_allApps) {
         QJsonObject obj = item.toObject();
-        if (obj["package"].toString() != packageName) {
-            filteredApps.append(item);
+        if (obj["package"].toString() == packageName) {
+            obj["ignored"] = true; // 标记为忽略状态
         }
+        updatedApps.append(obj);
     }
-    m_allApps = filteredApps;
-    m_model->setUpdateData(filteredApps);
+    m_allApps = updatedApps;
+    
+    // 重新排序：正常应用在前，忽略应用在后
+    checkUpdates();
+}
+
+// 新增：处理取消忽略应用的槽函数
+void MainWindow::onUnignoreApp(const QString &packageName) {
+    // 从忽略配置中移除应用
+    m_ignoreConfig->removeIgnoredApp(packageName);
+    
+    // 更新模型中应用的状态
+    QJsonArray updatedApps;
+    for (const auto &item : m_allApps) {
+        QJsonObject obj = item.toObject();
+        if (obj["package"].toString() == packageName) {
+            obj["ignored"] = false; // 标记为非忽略状态
+        }
+        updatedApps.append(obj);
+    }
+    m_allApps = updatedApps;
+    
+    // 重新排序：正常应用在前，忽略应用在后
+    checkUpdates();
 }

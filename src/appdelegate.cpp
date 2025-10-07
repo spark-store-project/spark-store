@@ -46,6 +46,9 @@ void AppDelegate::setModel(QAbstractItemModel *model) {
 void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
     painter->save();
 
+    // 检查是否为忽略状态
+    bool isIgnored = index.data(Qt::UserRole + 8).toBool();
+
     if (option.state & QStyle::State_Selected)
         painter->fillRect(option.rect, option.palette.highlight());
     else
@@ -58,12 +61,13 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     QRect checkboxRect(option.rect.left() + 10, option.rect.top() + (option.rect.height() - 20) / 2, 20, 20);
     
     // 绘制复选框边框
-    painter->setPen(QColor("#888888"));
+    QColor checkboxColor = isIgnored ? QColor("#CCCCCC") : QColor("#888888");
+    painter->setPen(checkboxColor);
     painter->setBrush(Qt::NoBrush);
     painter->drawRect(checkboxRect);
     
     // 如果选中，绘制勾选标记
-    if (isSelected) {
+    if (isSelected && !isIgnored) {
         painter->setPen(QPen(QColor("#2563EB"), 2));
         painter->setBrush(QColor("#2563EB"));
         painter->drawRect(checkboxRect.adjusted(4, 4, -4, -4));
@@ -85,25 +89,42 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
 
     // 调整图标位置，为复选框留出空间
     QRect iconRect(rect.left() + 40, rect.top() + (rect.height() - iconSize) / 2, iconSize, iconSize);
-    QIcon(iconPath).paint(painter, iconRect);
+    
+    // 如果是忽略状态，绘制灰色图标
+    if (isIgnored) {
+        // 创建灰度效果
+        QPixmap originalPixmap = QIcon(iconPath).pixmap(iconSize, iconSize);
+        QPixmap grayPixmap(originalPixmap.size());
+        grayPixmap.fill(Qt::transparent);
+        QPainter grayPainter(&grayPixmap);
+        grayPainter.setOpacity(0.3); // 设置透明度使其变灰
+        grayPainter.drawPixmap(0, 0, originalPixmap);
+        grayPainter.end();
+        painter->drawPixmap(iconRect, grayPixmap);
+    } else {
+        QIcon(iconPath).paint(painter, iconRect);
+    }
 
     int textX = iconRect.right() + margin;
     int textWidth = rect.width() - textX - 100;
 
     QRect nameRect(textX, rect.top() + margin, textWidth, 20);
     painter->setFont(boldFont);
-    painter->setPen(QColor("#333333"));
+    QColor nameColor = isIgnored ? QColor("#999999") : QColor("#333333");
+    painter->setPen(nameColor);
     painter->drawText(nameRect, Qt::AlignLeft | Qt::AlignVCenter, name);
 
     QRect versionRect(textX, nameRect.bottom() + spacing, textWidth, 20);
     painter->setFont(normalFont);
-    painter->setPen(QColor("#888888"));
+    QColor versionColor = isIgnored ? QColor("#AAAAAA") : QColor("#888888");
+    painter->setPen(versionColor);
     painter->drawText(versionRect, Qt::AlignLeft | Qt::AlignVCenter,
                       QString("当前版本: %1 → 新版本: %2").arg(currentVersion, newVersion));
 
     QRect descRect(textX, versionRect.bottom() + spacing, textWidth, 40);
     painter->setFont(normalFont);
-    painter->setPen(QColor("#AAAAAA"));
+    QColor descColor = isIgnored ? QColor("#CCCCCC") : QColor("#AAAAAA");
+    painter->setPen(descColor);
     painter->drawText(descRect, Qt::TextWordWrap,
                       QString("包大小：%1 MB").arg(QString::number(size.toDouble() / (1024 * 1024), 'f', 2)));
 
@@ -112,7 +133,21 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     bool isInstalled = m_downloads.value(packageName).isInstalled;
     bool isInstalling = m_downloads.value(packageName).isInstalling;
 
-    if (isDownloading) {
+    // 如果是忽略状态，显示"已忽略"文本和"取消忽略"按钮
+    if (isIgnored) {
+        QRect ignoredTextRect(rect.right() - 170, rect.top() + (rect.height() - 30) / 2, 80, 30);
+        painter->setPen(QColor("#999999"));
+        painter->setFont(option.font);
+        painter->drawText(ignoredTextRect, Qt::AlignCenter, "已忽略");
+        
+        // 绘制取消忽略按钮
+        QRect unignoreButtonRect(rect.right() - 80, rect.top() + (rect.height() - 30) / 2, 70, 30);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(QColor("#F3F4F6"));
+        painter->drawRoundedRect(unignoreButtonRect, 4, 4);
+        painter->setPen(QColor("#6B7280"));
+        painter->drawText(unignoreButtonRect, Qt::AlignCenter, "取消忽略");
+    } else if (isDownloading) {
         QRect progressRect(rect.right() - 270, rect.top() + (rect.height() - 20) / 2, 150, 20);
         QStyleOptionProgressBar progressBarOption;
         progressBarOption.rect = progressRect;
@@ -188,6 +223,18 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
         QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
         QRect rect = option.rect;
         QString packageName = index.data(Qt::UserRole + 1).toString();
+        
+        // 检查是否为忽略状态，如果是则只允许取消忽略按钮的交互
+        bool isIgnored = index.data(Qt::UserRole + 8).toBool();
+        if (isIgnored) {
+            QRect unignoreButtonRect(option.rect.right() - 80, option.rect.top() + (option.rect.height() - 30) / 2, 70, 30);
+            if (unignoreButtonRect.contains(mouseEvent->pos())) {
+                // 发送取消忽略信号
+                emit unignoreApp(packageName);
+                return true;
+            }
+            return true; // 消耗其他事件，不允许其他交互
+        }
 
         // 检查是否点击了复选框
         QRect checkboxRect(rect.left() + 10, rect.top() + (rect.height() - 20) / 2, 20, 20);

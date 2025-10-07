@@ -32,6 +32,8 @@ QVariant AppListModel::data(const QModelIndex &index, int role) const
         return map.value("description");
     case Qt::UserRole + 7: // 下载 URL
         return map.value("download_url"); // 返回下载 URL
+    case Qt::UserRole + 8: // 忽略状态
+        return map.value("ignored");
     default:
         return QVariant();
     }
@@ -52,11 +54,21 @@ void AppListModel::setUpdateData(const QJsonArray &updateInfo)
         map["icon"] = obj["icon"].toString();
         map["size"] = obj["size"].toString();
         map["download_url"] = obj["download_url"].toString(); // 确保设置下载 URL
+        map["ignored"] = obj["ignored"].toBool(); // 设置忽略状态
         m_data.append(map); // 添加到 QList<QVariantMap>
 
-        qDebug() << "设置到模型的包名:" << map["package"].toString();
+        qDebug() << "设置到模型的包名:" << map["package"].toString() << "忽略状态:" << map["ignored"].toBool();
         qDebug() << "设置到模型的下载 URL:" << map["download_url"].toString(); // 检查设置的数据
     }
 
     endResetModel();
+}
+
+bool AppListModel::isAppIgnored(const QModelIndex &index) const
+{
+    if (!index.isValid() || index.row() >= m_data.size())
+        return false;
+    
+    const QVariantMap &map = m_data.at(index.row());
+    return map.value("ignored").toBool();
 }
