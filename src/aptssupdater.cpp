@@ -79,14 +79,8 @@ QStringList aptssUpdater::getPackageSizes()
     foreach (const QString &packageName, updateablePackages) {
         QProcess process;  // 在循环内部创建新的QProcess实例
         
-        // 设置环境变量确保在root权限下也能正确执行
-        QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-        env.insert("HOME", "/tmp");  // 设置HOME环境变量
-        env.insert("LANGUAGE", "en_US");  // 设置语言环境
-        process.setProcessEnvironment(env);
-        
-        // 使用apt-cache show获取包信息，包括大小
-        QString command = QString("apt-cache show %1 -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
+        // 构建新命令（包含包名参数）
+        QString command = QString("apt download %1 --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
                                   "-o Dir::Etc::sourcelist=\"/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list\" "
                                   "-o Dir::Etc::sourceparts=\"/dev/null\"").arg(packageName);
 
@@ -98,38 +92,19 @@ QStringList aptssUpdater::getPackageSizes()
         }
 
         QString output = process.readAllStandardOutput();
-        QString errorOutput = process.readAllStandardError();
-        
-        // 如果有错误输出，打印出来以便调试
-        if (!errorOutput.isEmpty()) {
-            qWarning() << "apt-cache show命令错误输出：" << errorOutput;
-        }
-        
-        // 解析apt-cache show的输出获取包大小
-        QStringList lines = output.split('\n');
-        QString size;
-        QString filename;
-        QString sha512;
-        
-        for (const QString &line : lines) {
-            if (line.startsWith("Size:")) {
-                size = line.mid(6).trimmed();  // 跳过"Size:"前缀
-            } else if (line.startsWith("Filename:")) {
-                filename = line.mid(10).trimmed();  // 跳过"Filename:"前缀
-            } else if (line.startsWith("SHA512:")) {
-                sha512 = line.mid(8).trimmed();  // 跳过"SHA512:"前缀
-            }
-        }
-        
-        // 构造下载URL
-        QString url = "http://sucdn.jerrywang.top/sparkstore/" + filename;
-        
-        // 如果获取到大小信息，则添加到结果中
-        if (!size.isEmpty()) {
+        // 使用正则匹配所有信息
+        // 调整正则表达式匹配分组
+        QRegularExpression regex(R"('([^']+)'\s+(\S+)\s+(\d+)\s+SHA512:([^\s]+))");  // 分组1:URL 分组2:文件名 分组3:大小 分组4:SHA512
+        QRegularExpressionMatch match = regex.match(output);
+
+        if (match.hasMatch()) {
+            QString url = match.captured(1);
+            QString fileName = match.captured(2);
+            QString size = match.captured(3);
+            QString sha512 = match.captured(4);
+            
             // 调整字段顺序：包名 | 大小 | URL | SHA512
             packageDetails << QString("%1: %2|%3|%4").arg(packageName, size, url, sha512);
-        } else {
-            qWarning() << "无法获取包大小信息：" << packageName;
         }
     }
 
