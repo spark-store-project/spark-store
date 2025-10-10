@@ -1,6 +1,3 @@
-#!/bin/bash
-# We use sudo twice to avoid ACE bug here 
-# https://gitee.com/amber-ce/amber-ce-bookworm/commit/43e1a1599ede474b37e41aa10c53fd8afc4d35a1
 
 #!/bin/bash
 # We use sudo twice to avoid ACE bug here 
@@ -13,6 +10,12 @@ function zenity_prompt() {
         $(command -v zenity) "$@"
     fi
 }
+
+if [ "${IS_ACE_ENV}" = "" ]; then
+echo "检测为非ACE环境，直接提权"
+pkexec "$@"
+exit $?
+fi
 
 # 检查sudo是否需要密码
 if sudo -n true 2>/dev/null; then
