@@ -5,7 +5,8 @@
 #include <QQueue>
 #include <QProcess>
 #include <QElapsedTimer>
-#include <QTimer> 
+#include <QTimer>
+#include <QSet>
 
 #include "downloadmanager.h"
 
