@@ -35,6 +35,10 @@ public:
     void setSelectedPackages(const QSet<QString> &selected);
     QSet<QString> getSelectedPackages() const;
     void clearSelection();
+    
+    // 获取下载状态信息
+    const QHash<QString, DownloadInfo>& getDownloads() const;
+
 
 signals:
     void updateDisplay(const QString &packageName);

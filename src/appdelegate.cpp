@@ -449,3 +449,8 @@ QSet<QString> AppDelegate::getSelectedPackages() const {
 void AppDelegate::clearSelection() {
     m_selectedPackages.clear();
 }
+
+// 实现获取下载状态信息的方法
+const QHash<QString, DownloadInfo>& AppDelegate::getDownloads() const {
+    return m_downloads;
+}

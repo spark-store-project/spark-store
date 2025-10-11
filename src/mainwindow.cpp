@@ -344,8 +344,31 @@ void MainWindow::runAptssUpgrade()
 }
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-
-    QMessageBox::StandardButton reply = QMessageBox::question(this, "确认关闭", "正在更新，是否确认关闭窗口？", QMessageBox::Yes | QMessageBox::No);
+    // 检查是否正在进行更新
+    bool isUpdating = false;
+    
+    // 通过AppDelegate检查是否有正在下载或安装的应用
+    const QHash<QString, DownloadInfo>& downloads = m_delegate->getDownloads();
+    for (auto it = downloads.constBegin(); it != downloads.constEnd(); ++it) {
+        if (it.value().isDownloading || it.value().isInstalling) {
+            isUpdating = true;
+            break;
+        }
+    }
+    
+    // 如果正在更新，才显示确认对话框
+    if (isUpdating) {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "确认关闭", "正在更新，是否确认关闭窗口？", QMessageBox::Yes | QMessageBox::No);
+        
+        if (reply == QMessageBox::Yes) {
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        // 如果没有更新，直接关闭窗口
+        event->accept();
+    }
 }
 void MainWindow::handleUpdateFinished(bool success)
 {
