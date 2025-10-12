@@ -80,7 +80,7 @@ QStringList aptssUpdater::getPackageSizes()
         QProcess process;  // 在循环内部创建新的QProcess实例
         
         // 构建新命令（包含包名参数）
-        QString command = QString("apt download %1 --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
+        QString command = QString("/usr/bin/apt download %1 --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
                                   "-o Dir::Etc::sourcelist=\"/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list\" "
                                   "-o Dir::Etc::sourceparts=\"/dev/null\"").arg(packageName);
 
