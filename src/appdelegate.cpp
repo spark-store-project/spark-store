@@ -369,11 +369,20 @@ void AppDelegate::startNextInstall() {
             qDebug().noquote() << QString::fromLocal8Bit(err);
         });
         connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, [this, packageName, logFile](int exitCode, QProcess::ExitStatus status) {
+                this, [this, packageName, logFile, debPath](int exitCode, QProcess::ExitStatus status) {
             if (logFile) logFile->close();
             m_downloads[packageName].isInstalling = false;
             if (exitCode == 0) { 
                 m_downloads[packageName].isInstalled = true;
+                
+                // 安装成功后删除deb包
+                if (QFile::exists(debPath)) {
+                    if (QFile::remove(debPath)) {
+                        qDebug() << "已删除deb包:" << debPath;
+                    } else {
+                        qWarning() << "删除deb包失败:" << debPath;
+                    }
+                }
             }
             emit updateDisplay(packageName);
             m_installProcess->deleteLater();
@@ -382,13 +391,23 @@ void AppDelegate::startNextInstall() {
             startNextInstall();
         });
     } else {
-        connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName]() {
+        connect(m_installProcess, &QProcess::readyReadStandardOutput, this, [this, packageName, debPath]() {
             QByteArray out = m_installProcess->readAllStandardOutput();
             QString text = QString::fromLocal8Bit(out);
             qDebug().noquote() << text;
             if (text.contains(QStringLiteral("软件包已安装"))) {
                 m_downloads[packageName].isInstalling = false;
                 m_downloads[packageName].isInstalled = true;
+                
+                // 安装成功后删除deb包
+                if (QFile::exists(debPath)) {
+                    if (QFile::remove(debPath)) {
+                        qDebug() << "已删除deb包:" << debPath;
+                    } else {
+                        qWarning() << "删除deb包失败:" << debPath;
+                    }
+                }
+                
                 emit updateDisplay(packageName);
             }
         });
@@ -397,7 +416,16 @@ void AppDelegate::startNextInstall() {
             qDebug().noquote() << QString::fromLocal8Bit(err);
         });
         connect(m_installProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, [this, packageName](int /*exitCode*/, QProcess::ExitStatus /*status*/) {
+                this, [this, packageName, debPath](int exitCode, QProcess::ExitStatus /*status*/) {
+            // 如果通过退出码判断安装成功，也删除deb包
+            if (exitCode == 0 && QFile::exists(debPath)) {
+                if (QFile::remove(debPath)) {
+                    qDebug() << "已删除deb包:" << debPath;
+                } else {
+                    qWarning() << "删除deb包失败:" << debPath;
+                }
+            }
+            
             emit updateDisplay(packageName);
             m_installProcess->deleteLater();
             m_installProcess = nullptr;
