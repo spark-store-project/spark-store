@@ -90,10 +90,16 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     // 调整图标位置，为复选框留出空间
     QRect iconRect(rect.left() + 40, rect.top() + (rect.height() - iconSize) / 2, iconSize, iconSize);
     
+    // 检查图标路径是否存在，如果不存在则使用默认图标
+    QString finalIconPath = iconPath;
+    if (iconPath.isEmpty() || !QFile::exists(iconPath)) {
+        finalIconPath = ":/resources/default_icon.svg";
+    }
+    
     // 如果是忽略状态，绘制灰色图标
     if (isIgnored) {
         // 创建灰度效果
-        QPixmap originalPixmap = QIcon(iconPath).pixmap(iconSize, iconSize);
+        QPixmap originalPixmap = QIcon(finalIconPath).pixmap(iconSize, iconSize);
         QPixmap grayPixmap(originalPixmap.size());
         grayPixmap.fill(Qt::transparent);
         QPainter grayPainter(&grayPixmap);
@@ -102,7 +108,7 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         grayPainter.end();
         painter->drawPixmap(iconRect, grayPixmap);
     } else {
-        QIcon(iconPath).paint(painter, iconRect);
+        QIcon(finalIconPath).paint(painter, iconRect);
     }
 
     int textX = iconRect.right() + margin;
