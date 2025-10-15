@@ -277,12 +277,33 @@ bool AppDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                 if (m_downloads.contains(packageName) && !m_downloads[packageName].isDownloading) {
                     return false;
                 }
-                QString downloadUrl = index.data(Qt::UserRole + 7).toString();
-                QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
+                
+                // 检查/tmp目录下是否已经存在deb包
+                QDir tempDir(QDir::tempPath());
+                QStringList debs = tempDir.entryList(QStringList() << QString("%1_*.deb").arg(packageName), QDir::Files);
+                QString debPath;
+                if (!debs.isEmpty()) {
+                    debPath = tempDir.absoluteFilePath(debs.first());
+                } else {
+                    debs = tempDir.entryList(QStringList() << QString("%1*.deb").arg(packageName), QDir::Files);
+                    if (!debs.isEmpty()) {
+                        debPath = tempDir.absoluteFilePath(debs.first());
+                    }
+                }
+                
+                // 如果存在deb包，直接进行安装
+                if (!debPath.isEmpty() && QFile::exists(debPath)) {
+                    qDebug() << "发现已存在的deb包，直接进行安装:" << debPath;
+                    enqueueInstall(packageName);
+                } else {
+                    // 否则触发下载流程
+                    QString downloadUrl = index.data(Qt::UserRole + 7).toString();
+                    QString outputPath = QString("%1/%2.metalink").arg(QDir::tempPath(), packageName);
 
-                m_downloads[packageName] = {0, true};
-                m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
-                emit updateDisplay(packageName);
+                    m_downloads[packageName] = {0, true};
+                    m_downloadManager->startDownload(packageName, downloadUrl, outputPath);
+                    emit updateDisplay(packageName);
+                }
                 return true;
             }
         }
