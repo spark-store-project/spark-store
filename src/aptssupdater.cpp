@@ -248,6 +248,7 @@ QStringList aptssUpdater::getPackageIcons()
         if (!dpkgProcess.waitForFinished(30000)) { // 30秒超时
             qWarning() << "获取包文件列表失败：" << packageName << "（超时）";
             dpkgProcess.kill();
+            packageIcons << QString("%1: %2").arg(packageName, iconPath);
             continue;
         }
         QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
@@ -278,6 +279,7 @@ QStringList aptssUpdater::getPackageIcons()
                             foreach (const QString &path, iconPaths) {
                                 if (QFile::exists(path)) {
                                     iconPath = path;
+                                    qDebug() << "找到图标文件:" << path;
                                     break;
                                 }
                             }
@@ -285,6 +287,7 @@ QStringList aptssUpdater::getPackageIcons()
                             // 已经是绝对路径
                             if (QFile::exists(iconName)) {
                                 iconPath = iconName;
+                                qDebug() << "使用绝对路径图标文件:" << iconName;
                             }
                         }
                         break;
@@ -296,9 +299,13 @@ QStringList aptssUpdater::getPackageIcons()
         
         // 如果.desktop中没有找到图标，尝试直接查找包中的图标文件
         if (iconPath == ":/resources/default_icon.svg") {
+            qDebug() << "未在.desktop文件中找到图标，尝试直接查找包中的图标文件";
             QStringList iconFiles = files.filter(QRegularExpression("/(usr/share/pixmaps|usr/share/icons|opt/apps/.*/entries/icons)/.*\\.(png|svg)$"));
             if (!iconFiles.isEmpty()) {
                 iconPath = iconFiles.first();
+                qDebug() << "从包中找到图标文件:" << iconPath;
+            } else {
+                qDebug() << "未在包中找到图标文件，使用默认图标";
             }
         }
         

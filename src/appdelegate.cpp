@@ -92,7 +92,17 @@ void AppDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     
     // 检查图标路径是否存在，如果不存在则使用默认图标
     QString finalIconPath = iconPath;
+    qDebug() << "原始图标路径:" << iconPath;
     if (iconPath.isEmpty() || !QFile::exists(iconPath)) {
+        finalIconPath = ":/resources/default_icon.svg";
+        qDebug() << "图标文件不存在，使用默认图标:" << finalIconPath;
+    } else {
+        qDebug() << "使用图标文件:" << finalIconPath;
+    }
+    
+    // 额外检查资源文件是否存在
+    if (finalIconPath.startsWith(":/") && QIcon(finalIconPath).isNull()) {
+        qDebug() << "资源图标无法加载，使用备用默认图标";
         finalIconPath = ":/resources/default_icon.svg";
     }
     
