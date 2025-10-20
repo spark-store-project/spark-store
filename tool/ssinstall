@@ -59,11 +59,45 @@ FORCE_CREATE_DESKTOP="0"
 load_transhell_debug
 export DEBIAN_FRONTEND=noninteractive
 # 根据架构设置仓库URL
+if [[ "$IS_APM_ENV" = "" ]] ;then
 case $(arch) in
-    x86_64) STORE_URL="store" ;;
-    aarch64) STORE_URL="aarch64-store" ;;
-    loongarch64) STORE_URL="loong64-store" ;;
+  x86_64 | i686 | i386)
+	STORE_URL="store"
+	STORE_LIST_URL=""
+	;;
+   aarch64)
+	STORE_URL="aarch64-store"
+	STORE_LIST_URL="-aarch64"
+	;;
+   loongarch64)
+   	STORE_URL="loong64-store"
+   	STORE_LIST_URL="-loong64"
+   	;;
+   riscv64)
+   	STORE_URL="riscv64-store"
+   	STORE_LIST_URL="-riscv64"
+   	;;
 esac
+else
+case $(arch) in
+   x86_64 | i686 | i386)
+	STORE_URL="amd64-apm"
+	STORE_LIST_URL=""
+	;;
+   aarch64)
+	STORE_URL="aarch64-apm"
+	STORE_LIST_URL="-aarch64"
+	;;
+   loongarch64)
+   	STORE_URL="loong64-apm"
+   	STORE_LIST_URL="-loong64"
+   	;;
+   riscv64)
+   	STORE_URL="riscv64-apm"
+   	STORE_LIST_URL="-riscv64"
+   	;;
+esac
+fi
 # 帮助函数
 function show_help() {
     echo "Spark Store Install script. 星火商店安装脚本"
