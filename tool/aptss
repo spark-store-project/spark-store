@@ -2,11 +2,19 @@
 
 SPARK_DOWNLOAD_SERVER_URL="https://d.spark-app.store/"
 SPARK_DOWNLOAD_SERVER_URL_NO_PROTOCOL="d.spark-app.store"
+
+if [[ "$IS_APM_ENV" = "" ]] ;then
+UPSTREAM_CATOGARY="sparkstore"
+else
+UPSTREAM_CATOGARY="apm"
+fi
+
 source /opt/durapps/spark-store/bin/bashimport/transhell.amber
 source /opt/durapps/spark-store/bin/bashimport/log.amber
 load_transhell
 
-case `arch` in
+if [[ "$IS_APM_ENV" = "" ]] ;then
+case $(arch) in
    x86_64 | i686 | i386)
 	STORE_URL="store"
 	STORE_LIST_URL=""
@@ -24,6 +32,27 @@ case `arch` in
    	STORE_LIST_URL="-riscv64"
    	;;
 esac
+else
+case $(arch) in
+   x86_64 | i686 | i386)
+	STORE_URL="amd64-apm"
+	STORE_LIST_URL=""
+	;;
+   aarch64)
+	STORE_URL="aarch64-apm"
+	STORE_LIST_URL="-aarch64"
+	;;
+   loongarch64)
+   	STORE_URL="loong64-apm"
+   	STORE_LIST_URL="-loong64"
+   	;;
+   riscv64)
+   	STORE_URL="riscv64-apm"
+   	STORE_LIST_URL="-riscv64"
+   	;;
+esac
+fi
+
 SS_APT_FAST="/opt/durapps/spark-store/bin/apt-fast/ss-apt-fast"
 
 
@@ -32,8 +61,8 @@ is_empty_dir(){
 }
 
 function update_list(){
-curl --progress-bar -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list "${SPARK_DOWNLOAD_SERVER_URL}/sparkstore${STORE_LIST_URL}.list"
-log.info "sparkstore${STORE_LIST_URL}.list update done"  
+curl --progress-bar -o  /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/aptss.list "${SPARK_DOWNLOAD_SERVER_URL}/${UPSTREAM_CATOGARY}${STORE_LIST_URL}.list"
+log.info "${UPSTREAM_CATOGARY}${STORE_LIST_URL}.list update done"   
 }
 
 function update_conf(){
@@ -110,7 +139,7 @@ echo
 update_list
 update_conf
  
-/usr/bin/apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list"
+/usr/bin/apt update -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0" -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/aptss.list"
 
 #只更新星火源
 
