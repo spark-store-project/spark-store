@@ -36,11 +36,11 @@ else
 case $(arch) in
    x86_64 | i686 | i386)
 	STORE_URL="amd64-apm"
-	STORE_LIST_URL=""
+	STORE_LIST_URL="-amd64"
 	;;
    aarch64)
-	STORE_URL="aarch64-apm"
-	STORE_LIST_URL="-aarch64"
+	STORE_URL="arm64-apm"
+	STORE_LIST_URL="-arm64"
 	;;
    loongarch64)
    	STORE_URL="loong64-apm"
