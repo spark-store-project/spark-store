@@ -120,11 +120,6 @@ int main(int argc, char *argv[])
     
     //在cmakelist.txt中设置 buildDateTime
     QString buildDateTime = QString("%1-%2").arg(QString(BUILD_DATE)).arg(QString(BUILD_TIME));
-    Utils::writeLog("INFO", QString("Build datetime: %1").arg(buildDateTime));
-
-    // NOTE: 提前设置组织名称和应用名称，避免配置文件位置错误
-    DApplication::setOrganizationName("spark-union");
-    DApplication::setApplicationName("spark-store");
     Application::checkAppConfigLocation(); // 检查 ~/.config/spark-union/spark-store 文件夹是否存在
 
     // 初始化 config.ini 配置文件
