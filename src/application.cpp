@@ -89,12 +89,25 @@ void Application::checkAppConfigLocation()
 void Application::setBuildDateTime(const QString &buildDateTime)
 {
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    
+    // 确保 UUID 存在
+    if (!config.contains("info/uuid")) {
+        QUuid uuid = QUuid::createUuid();
+        config.setValue("info/uuid", uuid.toString());
+    }
+    
+    QString currentUuid = config.value("info/uuid").toString();
+
     if (config.value("build/version").toString() != QString(APP_VERSION)) {
         qDebug() << "Spark Store has been updated!";
 
         config.setValue("build/version", QString(APP_VERSION));
         config.setValue("build/branch", QString(APP_BRANCH));
         config.setValue("build/time", buildDateTime);
+        
+        // 恢复原有的 UUID
+        config.setValue("info/uuid", currentUuid);
+        
         config.sync();
     }
 
