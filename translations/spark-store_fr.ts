@@ -679,19 +679,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="220"/>
+        <location filename="../src/pages/settingspage.cpp" line="224"/>
         <source>Updating, please wait...</source>
         <translation>Mise à jour en cours, veuillez patienter...</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="242"/>
+        <location filename="../src/pages/settingspage.cpp" line="246"/>
         <source>Spark Store</source>
         <translation>Le Spark store</translation>
     </message>
     <message>
-        <location filename="../src/pages/settingspage.cpp" line="242"/>
+        <location filename="../src/pages/settingspage.cpp" line="246"/>
         <source>Temporary cache was cleaned</source>
         <translation>Cache temporaire nettoyé</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.cpp" line="295"/>
+        <source>Logs exported successfully to: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.cpp" line="298"/>
+        <source>Failed to export logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/settingspage.cpp" line="303"/>
+        <source>Export Logs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
