@@ -241,7 +241,7 @@ QStringList aptssUpdater::getPackageIcons()
         QProcess dpkgProcess;  // 在循环内部创建新的QProcess实例
         
         QString packageName = package.split(":")[0];
-        QString iconPath = ":/resources/default_icon.svg"; // 默认图标
+        QString iconPath = ":/resources/default_icon.png"; // 默认图标
         
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
@@ -298,7 +298,7 @@ QStringList aptssUpdater::getPackageIcons()
         }
         
         // 如果.desktop中没有找到图标，尝试直接查找包中的图标文件
-        if (iconPath == ":/resources/default_icon.svg") {
+        if (iconPath == ":/resources/default_icon.png") {
             qDebug() << "未在.desktop文件中找到图标，尝试直接查找包中的图标文件";
             QStringList iconFiles = files.filter(QRegularExpression("/(usr/share/pixmaps|usr/share/icons|opt/apps/.*/entries/icons)/.*\\.(png|svg)$"));
             if (!iconFiles.isEmpty()) {
