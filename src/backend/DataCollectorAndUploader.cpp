@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <QCoreApplication>
 
 DataCollectorAndUploader::DataCollectorAndUploader(QObject *parent) : QObject(parent)
 {
@@ -27,11 +28,17 @@ void DataCollectorAndUploader::collectData()
     QString architecture;
 
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    QString version = config.value("build/version").toString();
+    QString version = QString(APP_VERSION); // 使用编译时定义的版本号
     QString uuid = config.value("info/uuid").toString();
 
-    // Read /etc/os-release file
-    QFile osReleaseFile("/etc/os-release");
+    // 根据环境变量选择 os-release 文件路径
+    QString osReleasePath = "/etc/os-release";
+    if (qEnvironmentVariableIsSet("IS_ACE_ENV") && qgetenv("IS_ACE_ENV") == "1") {
+        osReleasePath = "/host/etc/os-release";
+    }
+
+    // Read os-release file
+    QFile osReleaseFile(osReleasePath);
     if (osReleaseFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&osReleaseFile);
         while (!in.atEnd()) {
@@ -44,7 +51,7 @@ void DataCollectorAndUploader::collectData()
         }
         osReleaseFile.close();
     } else {
-        qWarning() << "Could not open /etc/os-release file";
+        qWarning() << "Could not open os-release file:" << osReleasePath;
     }
 
     // Execute uname -m to get the architecture
