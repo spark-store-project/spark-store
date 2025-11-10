@@ -458,7 +458,17 @@ get_uris(){
     msg "Failed to create tmp dir" "warning"
     msg "无法创建临时目录" "warning"
     exit 1
+
+  
   }
+
+cleanup_tmpdir() {
+  if [ -n "$tmpdir" ] && [ -d "$tmpdir" ]; then
+    rm -rf "$tmpdir"
+  fi
+}
+trap cleanup_tmpdir EXIT
+  
   ## --print-uris format is:
   # 'fileurl' filename filesize checksum_hint:filechecksum
   # 修改：process_package函数增加第二个参数表示当前线程的临时输出文件
@@ -580,6 +590,9 @@ get_uris(){
       rm -f "$thread_file"
     fi
   done
+   # 清理临时目录
+  cleanup_tmpdir
+  trap - EXIT  # 移除临时目录的陷阱
 
   # 合并显示信息
   if [ -f "$tmpdir/display" ]; then
