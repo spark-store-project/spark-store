@@ -5,7 +5,7 @@
 #include <QJsonArray>
 // 添加 QJsonObject 头文件
 #include <QJsonObject>
-
+#include <QDebug>
 class AppListModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -18,6 +18,9 @@ public:
 
     // 设置更新数据
     void setUpdateData(const QJsonArray &data);
+    
+    // 获取忽略状态
+    bool isAppIgnored(const QModelIndex &index) const;
 
 private:
     QList<QVariantMap> m_data; // 修改类型为 QList<QVariantMap>

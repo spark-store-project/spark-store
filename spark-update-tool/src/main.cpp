@@ -16,11 +16,13 @@ bool elevateToRoot() {
 
     QByteArray display = qgetenv("DISPLAY");
     QByteArray xauthority = qgetenv("XAUTHORITY");
+    QByteArray home = qgetenv("HOME");  // 获取原始用户的 HOME 目境变量
 
     QStringList args;
     args << "env"
          << "DISPLAY=" + display
          << "XAUTHORITY=" + xauthority
+         << "SUDO_USER_HOME=" + home  // 传递原始用户的 HOME 路径
          << program;
 
     QProcess process;

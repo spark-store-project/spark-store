@@ -18,8 +18,9 @@ QStringList aptssUpdater::getUpdateablePackages()
     QString command = R"(env LANGUAGE=en_US /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" | awk 'NR>1')";
     
     process.start("bash", QStringList() << "-c" << command);
-    if (!process.waitForFinished()) {
-        qWarning() << "Process failed to finish.";
+    if (!process.waitForFinished(30000)) { // 30秒超时
+        qWarning() << "Process failed to finish within 30 seconds.";
+        process.kill();
         return packageDetails;
     }
 
@@ -68,7 +69,6 @@ QStringList aptssUpdater::getUpdateablePackages()
 QStringList aptssUpdater::getPackageSizes()
 {
     QStringList packageDetails;
-    QProcess process;
 
     // 获取可更新包名列表
     QStringList updateablePackages;
@@ -77,14 +77,17 @@ QStringList aptssUpdater::getPackageSizes()
     }
 
     foreach (const QString &packageName, updateablePackages) {
+        QProcess process;  // 在循环内部创建新的QProcess实例
+        
         // 构建新命令（包含包名参数）
         QString command = QString("/usr/bin/apt download %1 --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
                                   "-o Dir::Etc::sourcelist=\"/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list\" "
                                   "-o Dir::Etc::sourceparts=\"/dev/null\"").arg(packageName);
 
         process.start("bash", QStringList() << "-c" << command);
-        if (!process.waitForFinished()) {
-            qWarning() << "获取包信息失败：" << packageName;
+        if (!process.waitForFinished(30000)) { // 30秒超时
+            qWarning() << "获取包信息失败：" << packageName << "（超时）";
+            process.kill();
             continue;
         }
 
@@ -116,7 +119,6 @@ QStringList aptssUpdater::getPackageSizes()
 QStringList aptssUpdater::getDesktopAppNames()
 {
     QStringList appNames;
-    QProcess dpkgProcess;
     
     // 获取当前系统语言环境
     QString lang = QLocale().name().replace("_", "-");
@@ -125,12 +127,18 @@ QStringList aptssUpdater::getDesktopAppNames()
     QStringList packages = packageName;
     
     foreach (const QString &package, packages) {
+        QProcess dpkgProcess;  // 在循环内部创建新的QProcess实例
+        
         QString packageName = package.split(":")[0];
         QString finalName = packageName; // 默认使用包名
         
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
-        dpkgProcess.waitForFinished();
+        if (!dpkgProcess.waitForFinished(30000)) { // 30秒超时
+            qWarning() << "获取包文件列表失败：" << packageName << "（超时）";
+            dpkgProcess.kill();
+            continue;
+        }
         QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
 
         // 先检查常规应用目录
@@ -225,18 +233,24 @@ bool aptssUpdater::checkDesktopFiles(const QStringList &desktopFiles, QString &a
 QStringList aptssUpdater::getPackageIcons()
 {
     QStringList packageIcons;
-    QProcess dpkgProcess;
     
     // 遍历所有可更新包
     QStringList packages = packageName;
     
     foreach (const QString &package, packages) {
+        QProcess dpkgProcess;  // 在循环内部创建新的QProcess实例
+        
         QString packageName = package.split(":")[0];
-        QString iconPath = ":/resources/default_icon.svg"; // 默认图标
+        QString iconPath = ":/resources/default_icon.png"; // 默认图标
         
         // 获取包文件列表
         dpkgProcess.start("dpkg", QStringList() << "-L" << packageName);
-        dpkgProcess.waitForFinished();
+        if (!dpkgProcess.waitForFinished(30000)) { // 30秒超时
+            qWarning() << "获取包文件列表失败：" << packageName << "（超时）";
+            dpkgProcess.kill();
+            packageIcons << QString("%1: %2").arg(packageName, iconPath);
+            continue;
+        }
         QStringList files = QString(dpkgProcess.readAllStandardOutput()).split('\n', Qt::SkipEmptyParts);
         
         // 查找.desktop文件
@@ -265,6 +279,7 @@ QStringList aptssUpdater::getPackageIcons()
                             foreach (const QString &path, iconPaths) {
                                 if (QFile::exists(path)) {
                                     iconPath = path;
+                                    qDebug() << "找到图标文件:" << path;
                                     break;
                                 }
                             }
@@ -272,6 +287,7 @@ QStringList aptssUpdater::getPackageIcons()
                             // 已经是绝对路径
                             if (QFile::exists(iconName)) {
                                 iconPath = iconName;
+                                qDebug() << "使用绝对路径图标文件:" << iconName;
                             }
                         }
                         break;
@@ -282,10 +298,14 @@ QStringList aptssUpdater::getPackageIcons()
         }
         
         // 如果.desktop中没有找到图标，尝试直接查找包中的图标文件
-        if (iconPath == ":/resources/default_icon.svg") {
+        if (iconPath == ":/resources/default_icon.png") {
+            qDebug() << "未在.desktop文件中找到图标，尝试直接查找包中的图标文件";
             QStringList iconFiles = files.filter(QRegularExpression("/(usr/share/pixmaps|usr/share/icons|opt/apps/.*/entries/icons)/.*\\.(png|svg)$"));
             if (!iconFiles.isEmpty()) {
                 iconPath = iconFiles.first();
+                qDebug() << "从包中找到图标文件:" << iconPath;
+            } else {
+                qDebug() << "未在包中找到图标文件，使用默认图标";
             }
         }
         
@@ -394,5 +414,3 @@ QJsonArray aptssUpdater::getUpdateInfoAsJson()
     qDebug()<<jsonArray;
     return jsonArray;
 }
-
-
