@@ -590,10 +590,6 @@ trap cleanup_tmpdir EXIT
       rm -f "$thread_file"
     fi
   done
-   # 清理临时目录
-  cleanup_tmpdir
-  trap - EXIT  # 移除临时目录的陷阱
-
   # 合并显示信息
   if [ -f "$tmpdir/display" ]; then
     DOWNLOAD_DISPLAY+="\n$(cat "$tmpdir/display")"
