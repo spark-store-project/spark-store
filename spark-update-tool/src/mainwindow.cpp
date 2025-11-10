@@ -7,11 +7,13 @@
 #include <QFutureWatcher> // 新增
 #include <QIcon>
 #include <qicon.h>
+#include <unistd.h>     // for geteuid
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_model(new AppListModel(this))
     , m_delegate(new AppDelegate(this))
+    , m_ignoreConfig(new IgnoreConfig(this))
 {
     QIcon icon(":/resources/128*128/spark-update-tool.png");
     setWindowIcon(icon);
@@ -53,11 +55,26 @@ MainWindow::MainWindow(QWidget *parent)
             }
         });
 
+        // 连接应用委托的信号
+    connect(m_delegate, &AppDelegate::ignoreApp, this, &MainWindow::onIgnoreApp);
+    connect(m_delegate, &AppDelegate::unignoreApp, this, &MainWindow::onUnignoreApp);
+
         // 新增：点击“更新全部”按钮批量下载
         connect(ui->updatePushButton, &QPushButton::clicked, this, [=](){
-            qDebug()<<"更新全部按钮被点击";
-            m_delegate->startDownloadForAll();
+            qDebug()<<"更新按钮被点击";
+            if (m_delegate->getSelectedPackages().isEmpty()) {
+                // 没有选中任何应用，更新全部
+                m_delegate->startDownloadForAll();
+            } else {
+                // 有选中应用，更新选中
+                m_delegate->startDownloadForSelected();
+                m_delegate->clearSelection();
+                updateButtonText();
+            }
         });
+        
+        // 新增：监听选择变化
+        connect(m_delegate, &AppDelegate::updateDisplay, this, &MainWindow::handleSelectionChanged);
 
         checkUpdates();
         // 新增：监听搜索框文本变化
@@ -213,12 +230,42 @@ void MainWindow::checkUpdates()
 {
     aptssUpdater updater;
     QJsonArray updateInfo = updater.getUpdateInfoAsJson();
-    m_allApps = updateInfo; // 保存所有应用数据
-    m_model->setUpdateData(updateInfo);
-
+    
+    // 分离正常应用和忽略应用
+    QJsonArray normalApps;
+    QJsonArray ignoredApps;
+    
     for (const auto &item : updateInfo) {
         QJsonObject obj = item.toObject();
-        qDebug() << "模型设置的包名:" << obj["package"].toString();
+        QString packageName = obj["package"].toString();
+        QString currentVersion = obj["current_version"].toString();
+        
+        // 检查应用是否被忽略
+        if (m_ignoreConfig->isAppIgnored(packageName, currentVersion)) {
+            // 标记为忽略状态
+            obj["ignored"] = true;
+            ignoredApps.append(obj);
+        } else {
+            obj["ignored"] = false;
+            normalApps.append(obj);
+        }
+    }
+    
+    // 合并数组：正常应用在前，忽略应用在后
+    QJsonArray finalApps;
+    for (const auto &item : normalApps) {
+        finalApps.append(item);
+    }
+    for (const auto &item : ignoredApps) {
+        finalApps.append(item);
+    }
+    
+    m_allApps = finalApps; // 保存所有应用数据
+    m_model->setUpdateData(finalApps);
+
+    for (const auto &item : finalApps) {
+        QJsonObject obj = item.toObject();
+        qDebug() << "模型设置的包名:" << obj["package"].toString() << "忽略状态:" << obj["ignored"].toBool();
         qDebug() << "模型设置的下载 URL:" << obj["download_url"].toString(); // 检查模型数据
     }
 }
@@ -230,7 +277,11 @@ void MainWindow::filterAppsByKeyword(const QString &keyword)
         m_model->setUpdateData(m_allApps);
         return;
     }
-    QJsonArray filtered;
+    
+    // 分离正常应用和忽略应用
+    QJsonArray normalApps;
+    QJsonArray ignoredApps;
+    
     for (const auto &item : m_allApps) {
         QJsonObject obj = item.toObject();
         // 可根据需要匹配更多字段
@@ -238,31 +289,157 @@ void MainWindow::filterAppsByKeyword(const QString &keyword)
         QString package = obj.value("package").toString();
         if (name.contains(keyword, Qt::CaseInsensitive) ||
             package.contains(keyword, Qt::CaseInsensitive)) {
-            filtered.append(item);
+            
+            // 检查是否为忽略状态
+            if (obj.value("ignored").toBool()) {
+                ignoredApps.append(item);
+            } else {
+                normalApps.append(item);
+            }
         }
     }
+    
+    // 合并数组：正常应用在前，忽略应用在后
+    QJsonArray filtered;
+    for (const auto &item : normalApps) {
+        filtered.append(item);
+    }
+    for (const auto &item : ignoredApps) {
+        filtered.append(item);
+    }
+    
     m_model->setUpdateData(filtered);
 }
 
 void MainWindow::runAptssUpgrade()
 {
     QProcess process;
-    QStringList args;
-    args << "sudo" <<"aptss" << "ssupdate";
-    process.start("sudo", args);
+    
+    // 检查是否已经是root用户，如果是则直接执行命令，否则使用sudo
+    if (geteuid() == 0) {
+        // root用户直接执行
+        process.start("aptss", QStringList() << "ssupdate");
+    } else {
+        // 非root用户使用sudo
+        process.start("sudo", QStringList() << "aptss" << "ssupdate");
+    }
+    
     if (!process.waitForStarted(5000)) {
-        QMessageBox::warning(this, "升级失败", "无法启动 sudo aptss ssupdate");
+        QMessageBox::warning(this, "升级失败", "无法启动 aptss ssupdate");
         return;
     }
     process.write("n\n");
     process.closeWriteChannel();
-    process.waitForFinished(-1);
-    if (process.exitCode() != 0) {
-        QMessageBox::warning(this, "升级失败", "执行 sudo aptss ssupdate 失败，请检查系统环境。");
+    
+    // 设置超时时间，避免无限等待
+    if (!process.waitForFinished(30000)) { // 30秒超时
+        qDebug() << "aptss ssupdate 执行超时";
+        process.kill(); // 强制终止进程
+        return;
     }
+    
+    if (process.exitCode() != 0) {
+        QMessageBox::warning(this, "升级失败", "执行 aptss ssupdate 失败，请检查系统环境或稍后再试。");
+    }
+}
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    // 检查是否正在进行更新
+    bool isUpdating = false;
+    
+    // 通过AppDelegate检查是否有正在下载或安装的应用
+    const QHash<QString, DownloadInfo>& downloads = m_delegate->getDownloads();
+    for (auto it = downloads.constBegin(); it != downloads.constEnd(); ++it) {
+        if (it.value().isDownloading || it.value().isInstalling) {
+            isUpdating = true;
+            break;
+        }
+    }
+    
+    // 如果正在更新，才显示确认对话框
+    if (isUpdating) {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "确认关闭", "正在更新，是否确认关闭窗口？", QMessageBox::Yes | QMessageBox::No);
+        
+        if (reply == QMessageBox::Yes) {
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        // 如果没有更新，直接关闭窗口
+        event->accept();
+    }
+}
+void MainWindow::handleUpdateFinished(bool success)
+{
+    if (success) {
+        // 更新成功时的处理逻辑
+        QMessageBox::information(this, "更新完成", "软件更新已成功完成！");
+    } else {
+        // 更新失败时的处理逻辑
+        QMessageBox::warning(this, "更新失败", "软件更新过程中出现错误，请稍后再试。");
+    }
+    
+    // 刷新应用列表
+    checkUpdates();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+// 新增：更新按钮文本
+void MainWindow::updateButtonText() {
+    int selectedCount = m_delegate->getSelectedPackages().size();
+    if (selectedCount > 0) {
+        ui->updatePushButton->setText(QString("更新选中(%1)").arg(selectedCount));
+    } else {
+        ui->updatePushButton->setText("更新全部");
+    }
+}
+
+// 新增：处理选择变化
+void MainWindow::handleSelectionChanged() {
+    updateButtonText();
+}
+
+// 新增：处理忽略应用的槽函数
+void MainWindow::onIgnoreApp(const QString &packageName, const QString &version) {
+    // 将应用添加到忽略配置中
+    m_ignoreConfig->addIgnoredApp(packageName, version);
+    
+    // 更新模型中应用的状态，而不是移除
+    QJsonArray updatedApps;
+    for (const auto &item : m_allApps) {
+        QJsonObject obj = item.toObject();
+        if (obj["package"].toString() == packageName) {
+            obj["ignored"] = true; // 标记为忽略状态
+        }
+        updatedApps.append(obj);
+    }
+    m_allApps = updatedApps;
+    
+    // 重新排序：正常应用在前，忽略应用在后
+    checkUpdates();
+}
+
+// 新增：处理取消忽略应用的槽函数
+void MainWindow::onUnignoreApp(const QString &packageName) {
+    // 从忽略配置中移除应用
+    m_ignoreConfig->removeIgnoredApp(packageName);
+    
+    // 更新模型中应用的状态
+    QJsonArray updatedApps;
+    for (const auto &item : m_allApps) {
+        QJsonObject obj = item.toObject();
+        if (obj["package"].toString() == packageName) {
+            obj["ignored"] = false; // 标记为非忽略状态
+        }
+        updatedApps.append(obj);
+    }
+    m_allApps = updatedApps;
+    
+    // 重新排序：正常应用在前，忽略应用在后
+    checkUpdates();
 }
