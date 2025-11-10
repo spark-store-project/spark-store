@@ -26,6 +26,7 @@ case "$1" in
 
 		#  Remove the sources.list file
 		rm -f /etc/apt/sources.list.d/sparkstore.list
+        rm -f /opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list
 
 		# Check if /usr/local/bin existed
 		mkdir -p /usr/local/bin
