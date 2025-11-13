@@ -74,7 +74,7 @@ until ! echo $updatetext | grep -q "E:"; do
     retry_count=$((retry_count + 1))
 done
 
-update_app_number=$(env LANGUAGE=en_US /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" 2>/dev/null | grep -c upgradable)
+update_app_number=$(env LANGUAGE=en_US /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist="/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/aptss.list" -o Dir::Etc::sourceparts="/dev/null" -o APT::Get::List-Cleanup="0" 2>/dev/null | grep -c upgradable)
 
 if [ "$update_app_number" -le 0 ]; then
     exit 0
