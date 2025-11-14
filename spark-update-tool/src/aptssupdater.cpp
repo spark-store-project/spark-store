@@ -81,7 +81,7 @@ QStringList aptssUpdater::getPackageSizes()
         
         // 构建新命令（包含包名参数）
         QString command = QString("/usr/bin/apt download %1 --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf "
-                                  "-o Dir::Etc::sourcelist=\"/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/sparkstore.list\" "
+                                  "-o Dir::Etc::sourcelist=\"/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/aptss.list\" "
                                   "-o Dir::Etc::sourceparts=\"/dev/null\"").arg(packageName);
 
         process.start("bash", QStringList() << "-c" << command);
