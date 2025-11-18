@@ -125,7 +125,7 @@ void DownloadItem::install(int t)
         ui->label_2->setText(tr("Installing"));
         ui->label_2->setToolTip(tr("Installing"));
 
-        QtConcurrent::run([=]()
+        auto future = QtConcurrent::run([=]()
         {
             slotAsyncInstall(t);
         });
@@ -158,7 +158,7 @@ void DownloadItem::on_pushButton_3_clicked()
     output_w->setMinimumHeight(600);
     output_w->setAttribute(Qt::WA_TranslucentBackground);
     output_w->setTitle(ui->label->text());
-    output_w->layout()->setMargin(20);
+    output_w->layout()->setContentsMargins(20, 20, 20, 20);
     output_w->layout()->addWidget(textbrowser);
     output_w->show();
 }
@@ -216,7 +216,7 @@ void DownloadItem::slotAsyncInstall(int t)
         }
     }
 
-    // QProcess isInstall;
+    QProcess isInstall;
     // isInstall.start("dpkg", QStringList() << "-s" << pkgName);
     // isInstall.waitForFinished(180 * 1000); // 默认超时 3 分钟
     // int error = QString::fromStdString(isInstall.readAllStandardError().toStdString()).length();

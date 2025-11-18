@@ -25,7 +25,6 @@ Application::Application(int &argc, char **argv)
     if (!DPlatformWindowHandle::pluginVersion().isEmpty()) {
         setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);
     }
-    setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     setQuitOnLastWindowClosed(false); // 启用托盘图标时，关闭窗口程序仍然运行
 
@@ -177,7 +176,10 @@ void Application::loadTranslator()
 
     if (QLocale::system().language() == QLocale::Chinese) {
         QTranslator *webengineTranslator = new QTranslator(this);
-        webengineTranslator->load(QLocale(QLocale::Chinese), "qtwebengine", "_", ":/translations");
+        bool loaded = webengineTranslator->load(QLocale(QLocale::Chinese), "qtwebengine", "_", ":/translations");
+        if (!loaded) {
+            qWarning() << "Failed to load webengine translator";
+        }
         installTranslator(webengineTranslator);
     }
 }

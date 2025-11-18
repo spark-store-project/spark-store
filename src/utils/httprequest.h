@@ -6,7 +6,6 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QEventLoop>
-#include <QTextCodec>
 class HttpRequest : public QObject
 {
     Q_OBJECT

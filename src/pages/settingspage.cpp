@@ -6,6 +6,7 @@
 #include <QSettings>
 #include <QtConcurrent>
 #include <QDebug>
+#include <QMessageBox>
 
 #define TMP_PATH "/tmp/spark-store"
 #define DEFAULT_SERVER_URL "https://cdn-d.spark-app.store/"
@@ -22,6 +23,9 @@ SettingsPage::SettingsPage(QWidget *parent)
 
     configCanSave = false;
     initConfig();
+    
+    // 移除了手动连接导出日志按钮的点击信号
+    // connect(ui->pushButton_exportLog, &QPushButton::clicked, this, &SettingsPage::on_pushButton_exportLog_clicked);
 }
 
 void SettingsPage::setTheme(bool dark)
@@ -32,7 +36,7 @@ void SettingsPage::setTheme(bool dark)
     }
     else
     {
-        // 亮色模式
+        // ���色模式
         this->setStyleSheet("#frame{background-color: #ffffff;border-radius:14px;border:1px solid rgb(229,229,229);}");
     }
 }
@@ -98,8 +102,14 @@ void SettingsPage::initConfig()
     }
     configCanSave = true; // 　防止触发保存配置信号
 
+    // 在现有代码后添加初始化checkBox_disableSandbox的状态
     needUncompatibleNotification = config.value("other/uncompatibleNotification", needUncompatibleNotification).toBool();
     ui->checkBox->setChecked(needUncompatibleNotification);
+
+    // 新增：从config.ini读取webengine/noSandbox配置并设置复选框状态
+    bool disableSandbox = config.value("webengine/noSandbox", false).toBool();
+    ui->checkBox_disableSandbox->setChecked(disableSandbox);
+
 }
 
 SettingsPage::~SettingsPage()
@@ -109,7 +119,7 @@ SettingsPage::~SettingsPage()
 
 void SettingsPage::on_pushButton_updateServer_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
                       {
         ui->pushButton_updateServer->setEnabled(false);
 
@@ -134,7 +144,7 @@ void SettingsPage::on_pushButton_updateServer_clicked()
         ui->comboBox_server->setCurrentIndex(0); });
 }
 
-void SettingsPage::on_comboBox_server_currentIndexChanged(const QString &arg1)
+void SettingsPage::on_comboBox_server_currentTextChanged(const QString &arg1)
 {
     SparkAPI::setServerUrl(arg1); // 服务器信息更新
     qDebug() << arg1;
@@ -208,7 +218,7 @@ quint64 SettingsPage::dirFileSize(const QString &path)
 
 void SettingsPage::on_pushButton_updateApt_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
                       {
         ui->pushButton_updateApt->setEnabled(false);
         ui->label_aptserver->setText(tr("Updating, please wait..."));
@@ -222,7 +232,7 @@ void SettingsPage::on_pushButton_updateApt_clicked()
 
 void SettingsPage::on_pushButton_clear_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
                       {
         ui->pushButton_clear->setEnabled(false);
 
@@ -240,7 +250,7 @@ void SettingsPage::on_pushButton_clear_clicked()
 
 void SettingsPage::on_pushButton_clearWebCache_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
     {
         QString localDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/QtWebEngine";
         qDebug() << localDataLocation;
@@ -260,4 +270,38 @@ void SettingsPage::on_checkBox_clicked(bool checked)
     QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
     config.setValue("other/uncompatibleNotification", needUncompatibleNotification);
     config.sync();
+}
+
+// 添加checkBox_disableSandbox的点击事件处理函数
+void SettingsPage::on_checkBox_disableSandbox_clicked(bool checked)
+{
+    QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
+    config.setValue("webengine/noSandbox", checked);
+    config.sync();
+}
+
+// 修改导出日志按钮的点击事件处理函数
+void SettingsPage::on_pushButton_exportLog_clicked()
+{
+    // 禁用按钮防止重复点击
+    ui->pushButton_exportLog->setEnabled(false);
+    
+    QString targetPath = QString::fromUtf8(TMP_PATH);
+    bool success = Utils::exportLogs(targetPath);
+    
+    // 显示导出结果通知
+    QString message;
+    if (success) {
+        message = tr("Logs exported successfully to: %1").arg(targetPath);
+        Utils::writeLog("INFO", "User exported logs via settings page");
+    } else {
+        message = tr("Failed to export logs");
+        Utils::writeLog("ERROR", "User failed to export logs via settings page");
+    }
+    
+    // 只发送一次系统通知
+    Utils::sendNotification("spark-store", tr("Export Logs"), message);
+    
+    // 重新启用按钮
+    ui->pushButton_exportLog->setEnabled(true);
 }

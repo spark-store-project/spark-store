@@ -27,8 +27,8 @@ VERSION = $$BUILD_VERSION
 isEmpty(VERSION): VERSION = 4.0.0
 DEFINES += APP_VERSION=\\\"'$${VERSION}'\\\"
 DEFINES += APP_BRANCH=\\\"'$$system(git symbolic-ref --short -q HEAD)'\\\"
-# Disable qWarning / qDebug output in Release
-#CONFIG(release, debug | release): DEFINES += QT_NO_WARNING_OUTPUT QT_NO_DEBUG_OUTPUT
+# Enable all log outputs in both Debug and Release modes
+# We want to capture all logs (INFO, DEBUG, WARNING, ERROR) for export to /tmp/spark-store
 
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dtkcore dtkgui dtkwidget
@@ -47,13 +47,13 @@ SOURCES += \
         utils/utils.cpp \
         utils/widgetanimation.cpp \
         widgets/base/basewidgetopacity.cpp \
-        widgets/common/customlabel.cpp \
         widgets/common/downloaditem.cpp \
         widgets/common/progressbutton.cpp \
         widgets/common/smoothlistwidget.cpp \
         widgets/common/smoothscrollbar.cpp \
         widgets/common/webenginepage.cpp \
         widgets/common/webengineview.cpp \
+        widgets/common/customlabel.cpp \
         widgets/big_image.cpp \
         widgets/downloadlistwidget.cpp \
         application.cpp \
@@ -74,13 +74,13 @@ HEADERS += \
         utils/utils.h \
         utils/widgetanimation.h \
         widgets/base/basewidgetopacity.h \
-        widgets/common/customlabel.h \
         widgets/common/downloaditem.h \
         widgets/common/progressbutton.h \
         widgets/common/smoothlistwidget.h \
         widgets/common/smoothscrollbar.h \
         widgets/common/webenginepage.h \
         widgets/common/webengineview.h \
+        widgets/common/customlabel.h \
         widgets/big_image.h \
         widgets/downloadlistwidget.h \
         application.h \

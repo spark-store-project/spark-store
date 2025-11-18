@@ -5,9 +5,10 @@
 #include "aptssupdater.h"
 #include "applistmodel.h"
 #include "appdelegate.h"
+#include "ignoreconfig.h"
 #include <QListView>
 #include <QJsonArray> // 添加头文件
-
+#include <QScreen>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+    void closeEvent(QCloseEvent *event) override;  
+
 private:
     Ui::MainWindow *ui;
     void checkUpdates();
@@ -29,8 +33,16 @@ private:
     void runAptssUpgrade();
     AppListModel *m_model;
     AppDelegate *m_delegate;
+    IgnoreConfig *m_ignoreConfig; // 新增：忽略配置管理
     QListView *listView; // 声明 QListView 指针
     QJsonArray m_allApps; // 新增：保存所有应用数据
     void filterAppsByKeyword(const QString &keyword); // 新增：搜索过滤函数声明
+    void updateButtonText(); // 新增：更新按钮文本
+    
+private slots:
+    void handleUpdateFinished(bool success); // 新增：处理更新完成的槽函数
+    void handleSelectionChanged(); // 新增：处理选择变化的槽函数
+    void onIgnoreApp(const QString &packageName, const QString &version); // 新增：处理忽略应用的槽函数
+    void onUnignoreApp(const QString &packageName); // 新增：处理取消忽略应用
 };
 #endif // MAINWINDOW_H

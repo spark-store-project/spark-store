@@ -12,7 +12,6 @@
 #include <execinfo.h>
 
 #include <DSysInfo>
-#include <DApplicationSettings>
 
 #include <QDate>
 #include <QProcessEnvironment>
@@ -109,17 +108,18 @@ int main(int argc, char *argv[])
 {
     // 崩溃处理
     signal(SIGSEGV, crashHandler);  // 注册SIGSEGV处理函数
+    
+    // 初始化日志系统
+    Utils::initLogger();
+    Utils::writeLog("INFO", "Application starting...");
 
-
-    // Get build time
-    static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
-    static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
-    buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
-
-
-    // NOTE: 提前设置组织名称和应用名称，避免配置文件位置错误
-    DApplication::setOrganizationName("spark-union");
-    DApplication::setApplicationName("spark-store");
+     // Get build time
+     static const QDate buildDate = QLocale(QLocale::English).toDate(QString(__DATE__).replace("  ", " 0"), "MMM dd yyyy");
+     static const QTime buildTime = QTime::fromString(__TIME__, "hh:mm:ss");
+     buildDateTime = buildDate.toString("yyyy.MM.dd") + "-" + buildTime.toString("hh:mm:ss");
+    
+    //在cmakelist.txt中设置 buildDateTime
+//    QString buildDateTime = QString("%1-%2").arg(QString(BUILD_DATE)).arg(QString(BUILD_TIME));
     Application::checkAppConfigLocation(); // 检查 ~/.config/spark-union/spark-store 文件夹是否存在
 
     // 初始化 config.ini 配置文件
@@ -129,9 +129,11 @@ int main(int argc, char *argv[])
     DataCollectorAndUploader uploader;
     QObject::connect(&uploader, &DataCollectorAndUploader::uploadSuccessful, [](){
         qDebug() << "Data uploaded successfully";
+        Utils::writeLog("INFO", "Data uploaded successfully");
     });
     QObject::connect(&uploader, &DataCollectorAndUploader::uploadFailed, [](QString error){
         qDebug() << "Upload failed with error: " << error;
+        Utils::writeLog("ERROR", QString("Upload failed with error: %1").arg(error));
     });
 
     uploader.collectAndUploadData();
@@ -152,6 +154,10 @@ int main(int argc, char *argv[])
 #if defined __sw_64__ || __loongarch__
     chromium_flags.append("--no-sandbox");
 #endif
+    // 如果配置文件中设置了关闭沙箱，则添加no-sandbox标志
+    if (Utils::shouldDisableWebEngineSandbox()) {
+        chromium_flags.append("--no-sandbox");
+    }
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", chromium_flags.join(" ").toUtf8());
 
     /**
@@ -162,13 +168,6 @@ int main(int argc, char *argv[])
         qputenv("QMLSCENE_DEVICE", "softwarecontext");
         DApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     }
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    // 开启 Hidpi 支持
-    qDebug() << "Enable HiDPI Support.";
-    DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    DApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 
     // 强制使用 DTK 平台插件
     QVector<char *> fakeArgs(argc + 2);
@@ -191,8 +190,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    DApplicationSettings settings; // 定义 DApplicationSettings，自动保存主题设置
-
     MainWindow w;
     a.setMainWindow(&w); // 设置应用程序主窗口，用于初始化关于对话框
 
@@ -206,5 +203,10 @@ int main(int argc, char *argv[])
     }
     w.show();
 
+    // 在程序结束前关闭日志文件 - 修复变量名并移到return前
+    QObject::connect(&a, &QApplication::aboutToQuit, []() {
+        Utils::writeLog("INFO", "Application shutting down");
+    });
+    
     return a.exec();
 }

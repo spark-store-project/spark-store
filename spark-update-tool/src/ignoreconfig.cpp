@@ -1,0 +1,148 @@
+#include "ignoreconfig.h"
+#include <QStandardPaths>
+#include <QDir>
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
+#include <unistd.h>  // for geteuid
+
+IgnoreConfig::IgnoreConfig(QObject *parent)
+    : QObject(parent)
+{
+    // 设置配置文件路径
+    QString configDir;
+    
+    // 检查是否以 root 权限运行
+    if (geteuid() == 0) {
+        // 首先检查是否有 SUDO_USER_HOME 环境变量（表示是通过 pkexec 提权的普通用户）
+        QByteArray sudoUserHomeEnv = qgetenv("SUDO_USER_HOME");
+        if (!sudoUserHomeEnv.isEmpty()) {
+            // 通过 pkexec 提权的普通用户，使用原用户的配置目录
+            QString sudoUserHomePath = QString::fromLocal8Bit(sudoUserHomeEnv);
+            configDir = sudoUserHomePath + "/.config";
+        } else {
+            // 获取实际的 HOME 目录来判断是真正的 root 用户还是其他方式提权的用户
+            QByteArray homeEnv = qgetenv("HOME");
+            QString homePath = QString::fromLocal8Bit(homeEnv);
+            
+            if (homePath == "/root") {
+                // 真正的 root 用户，使用 /root/.config
+                configDir = "/root/.config";
+            } else {
+                // 其他方式提权的用户，使用 HOME 目录下的配置
+                configDir = homePath + "/.config";
+            }
+        }
+    } else {
+        // 普通用户，使用标准配置目录
+        configDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    }
+    
+    QDir dir(configDir);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+    m_configFilePath = dir.filePath("spark-update-tool/ignored_apps.conf");
+    
+    // 确保目录存在
+    QFileInfo fileInfo(m_configFilePath);
+    QDir configDirPath = fileInfo.dir();
+    if (!configDirPath.exists()) {
+        configDirPath.mkpath(".");
+    }
+    
+    // 加载现有配置
+    loadConfig();
+    
+    // 输出忽略列表到 qDebug
+    printIgnoredApps();
+}
+
+void IgnoreConfig::addIgnoredApp(const QString &packageName, const QString &version)
+{
+    m_ignoredApps.insert(qMakePair(packageName, version));
+    saveConfig();
+}
+
+void IgnoreConfig::removeIgnoredApp(const QString &packageName)
+{
+    // 移除所有该包名的版本
+    auto it = m_ignoredApps.begin();
+    while (it != m_ignoredApps.end()) {
+        if (it->first == packageName) {
+            it = m_ignoredApps.erase(it);
+        } else {
+            ++it;
+        }
+    }
+    saveConfig();
+}
+
+bool IgnoreConfig::isAppIgnored(const QString &packageName, const QString &version) const
+{
+    return m_ignoredApps.contains(qMakePair(packageName, version));
+}
+
+QSet<QPair<QString, QString>> IgnoreConfig::getIgnoredApps() const
+{
+    return m_ignoredApps;
+}
+
+void IgnoreConfig::printIgnoredApps() const
+{
+    qDebug() << "=== 忽略的应用列表 ===";
+    qDebug() << "配置文件路径:" << m_configFilePath;
+    
+    if (m_ignoredApps.isEmpty()) {
+        qDebug() << "没有忽略的应用";
+    } else {
+        for (const auto &app : m_ignoredApps) {
+            qDebug() << "忽略的应用:" << app.first << "版本:" << app.second;
+        }
+    }
+    qDebug() << "====================";
+}
+
+bool IgnoreConfig::saveConfig()
+{
+    QFile file(m_configFilePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "无法打开配置文件进行写入:" << m_configFilePath;
+        return false;
+    }
+
+    QTextStream out(&file);
+    for (const auto &app : m_ignoredApps) {
+        out << app.first << "|" << app.second << "\n";
+    }
+    file.close();
+    return true;
+}
+
+bool IgnoreConfig::loadConfig()
+{
+    QFile file(m_configFilePath);
+    if (!file.exists()) {
+        // 配置文件不存在，这是正常的，返回true表示没有错误
+        return true;
+    }
+    
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "无法打开配置文件进行读取:" << m_configFilePath;
+        return false;
+    }
+
+    m_ignoredApps.clear();
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        if (!line.isEmpty()) {
+            QStringList parts = line.split('|');
+            if (parts.size() == 2) {
+                m_ignoredApps.insert(qMakePair(parts[0], parts[1]));
+            }
+        }
+    }
+    file.close();
+    return true;
+}

@@ -168,7 +168,7 @@ void DownloadListWidget::httpFinished() // 完成下载
     isdownload = false;
     isBusy = false;
 
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
     {
         while (downloaditemlist[nowDownload - 1]->readyInstall() == -1) // 安装当前应用，堵塞安装，后面的下载suspend
         {

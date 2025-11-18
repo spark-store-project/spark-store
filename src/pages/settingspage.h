@@ -22,7 +22,7 @@ public:
 private slots:
     void on_pushButton_updateServer_clicked();
 
-    void on_comboBox_server_currentIndexChanged(const QString &arg1);
+    void on_comboBox_server_currentTextChanged(const QString &arg1);
 
     void on_pushButton_updateApt_clicked();
 
@@ -31,6 +31,11 @@ private slots:
     void on_pushButton_clearWebCache_clicked();
 
     void on_checkBox_clicked(bool checked);
+
+    void on_checkBox_disableSandbox_clicked(bool checked);
+    
+    // 添加导出日志按钮的槽函数声明
+    void on_pushButton_exportLog_clicked();
 
 public:
     static bool needUncompatibleNotification;

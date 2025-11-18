@@ -80,9 +80,9 @@ INSTALLS += \
         polkit-1 
 #   暂时不添加
 
-SUBDIRS += src/spark-update-tool
+SUBDIRS += spark-update-tool
 
-spark-update-tool.subdir = src/spark-update-tool
-spark-update-tool.file = src/spark-update-tool/spark-update-tool.pro
+spark-update-tool.subdir = spark-update-tool
+spark-update-tool.file = spark-update-tool/spark-update-tool.pro
 spark-update-tool.target = spark-update-tool
 spark-update-tool.depends = spark-store

@@ -1,14 +1,16 @@
 #include "customlabel.h"
+
 #include <QGuiApplication>
 
-CustomLabel::CustomLabel(QWidget *parent, Qt::WindowFlags f)
+CustomLabel::CustomLabel(QWidget *parent,
+                         Qt::WindowFlags f)
     : QLabel(parent, f)
 {
 }
 
 QPixmap CustomLabel::pixmap() const
 {
-    const QPixmap *p = QLabel::pixmap();
+    const QPixmap* p = QLabel::pixmap();
     return p ? *p : QPixmap();
 }
 

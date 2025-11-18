@@ -14,6 +14,9 @@
 #include <QDesktopServices>
 #include <QAbstractButton>
 #include <QtConcurrent>
+#include <qlogging.h>
+#include <qprocess.h>
+#include <system_error>
 #include <unistd.h>
 
 #include <backend/ThemeChecker.h>
@@ -345,7 +348,7 @@ void MainWindow::refreshTheme(bool isDarkMode)
     ui->applistpage->setTheme(isDarkMode);
     ui->applistpage_1->setTheme(isDarkMode);
     ui->appintopage->setTheme(isDarkMode);
-    ui->settingspage->setTheme(isDarkMode);
+    ui->settingspage->setTheme(isDarkMode); 
 }
 
 void MainWindow::initConnections()
@@ -434,7 +437,7 @@ void MainWindow::initTmpDir()
 
     if (info.isWritable() == false)
     {
-        QtConcurrent::run([=]
+        auto future = QtConcurrent::run([=]
                           {
             sleep(3);
             auto upgradeP = new QProcess();
@@ -522,72 +525,36 @@ void MainWindow::notify(QObject *receiver, QEvent *event)
 
 void MainWindow::on_pushButton_14_clicked()
 {
-    /**
-     * NOTE: No need to judget developmode status
-     */
-    // Check UOS
-    // QSettings config(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/config.ini", QSettings::IniFormat);
-    // if (config.contains("UOS/EnableDeveloperMode") && !config.value("UOS/EnableDeveloperMode").toBool())
-    if (false)
-    {
-        qDebug() << "UOS Developer Mode has not been enabled!";
-        QtConcurrent::run([=]
-                          {
-            auto upgradeP = new QProcess();
-            upgradeP->startDetached("zenity", QStringList() << "--info"
-                                                            << "--text"
-                                                            << "UOS开发者模式未开启，相关功能被禁用"
-                                                            << "--title"
-                                                            << "功能禁用提示"
-                                                            << "--width"
-                                                            << "360"
-                                                            );
-            upgradeP->waitForStarted();
-            upgradeP->waitForFinished(30);
-            upgradeP->deleteLater(); });
-    }
-    else
-    {
-        QFile upgradeStatus("/tmp/spark-store/upgradeStatus.txt");
-        if (!upgradeStatus.exists())
-        {
-                QString appPath;
+    QString appPath;
+    // #ifdef QT_DEBUG
+    //     appPath = QCoreApplication::applicationDirPath() ;
+    //     QDir dir(appPath);
+    //     dir.cdUp();
+    //     appPath = dir.absolutePath()+"/spark-update-tool/spark-update-tool";
+    //     qDebug() << "Spark Update Tool Path: " << appPath;
+    //     if(appPath.isEmpty())
+    //     {
+    //         qWarning() << "Spark Update Tool not found!";
+    //         return;
+    //     }
+    //     QProcess *process = new QProcess(this);
+    //     QStringList arguments;
+    //     arguments << appPath <<"--silent";
+    //     process->start(appPath, {"--silent"});
+    // #else
+    //     appPath = QStandardPaths::findExecutable("spark-update-tool");
+    //     QString program = "pkexec";
+    //     QStringList arguments;
+    //     arguments << appPath;
+    //     QProcess *process = new QProcess(this);
+    //     process->start(program, arguments);
+    // #endif
+        appPath = QStandardPaths::findExecutable("spark-update-tool");
+        qDebug() << "Spark Update Tool Path: " << appPath;
+        QString program = "pkexec";
+        QStringList arguments;
+        arguments << appPath;
+        QProcess *process = new QProcess(this);
+        process->start(program, arguments);
 
-    // 判断路径：开发环境 vs 安装后
-        #ifdef QT_DEBUG
-            appPath = QCoreApplication::applicationDirPath() +
-                    "/spark-update-tool/spark-update-tool";
-        #else
-            appPath = QStandardPaths::findExecutable("spark-update-tool");
-        #endif
-
-            if (appPath.isEmpty()) {
-                qWarning() << "spark-update-tool not found!";
-                return;
-            }
-
-            QProcess *process = new QProcess(this);
-
-        #ifdef QT_DEBUG
-            // 开发模式：直接运行本地构建的更新器
-            process->start(appPath, {"--silent"});
-        #else
-            // 安装模式：使用 pkexec 提权运行系统路径下的 spark-update-tool
-            QString program = "pkexec";
-            QStringList arguments;
-            arguments << appPath << "--silent";
-            process->start(program, arguments);
-        #endif
-
-            QObject::connect(process, QOverload<int>::of(&QProcess::finished),
-                [process](int exitCode) {
-                    if (exitCode == 0) {
-                        qDebug() << "Update check successful";
-                    } else {
-                        qWarning() << "Update check failed with exit code:" << exitCode;
-                    }
-                    process->deleteLater();
-                });
-                }
-            }
 }

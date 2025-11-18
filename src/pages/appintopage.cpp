@@ -75,6 +75,7 @@ void AppIntoPage::openUrl(const QUrl &url)
         iconRequest.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
         iconRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
 
+
         iconManager->get(iconRequest);
         QObject::connect(iconManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
         {
@@ -96,8 +97,8 @@ void AppIntoPage::openUrl(const QUrl &url)
             QNetworkAccessManager *manager = new QNetworkAccessManager(this);
             request.setUrl(QUrl(imgUrl));
             request.setHeader(QNetworkRequest::UserAgentHeader, m_userAgent);
-            request.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
             request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+            request.setHeader(QNetworkRequest::ContentTypeHeader, "charset='utf-8'");
             manager->get(request);
             QObject::connect(manager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply)
                 {
@@ -617,7 +618,7 @@ void AppIntoPage::on_downloadButton_clicked()
 
 void AppIntoPage::on_pushButton_3_clicked()
 {
-    QtConcurrent::run([=]()
+    auto future = QtConcurrent::run([=]()
     {
         ui->downloadButton->setEnabled(false);
         ui->pushButton_3->setEnabled(false);
@@ -659,3 +660,4 @@ void AppIntoPage::on_updateButton_clicked()
     QString feedbackURL = "https://bbs.spark-app.store/";
     QProcess::startDetached("xdg-open", QStringList{feedbackURL});
 }
+

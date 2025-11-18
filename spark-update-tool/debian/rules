@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+
+# 声明兼容性级别
+export DH_VERBOSE=1
+
+%:
+	dh $@ --buildsystem=cmake
+
+# 确保使用CMake进行配置
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX=/usr
+
+# 确保使用CMake进行构建
+override_dh_auto_build:
+	dh_auto_build
+
+# 确保使用CMake进行安装
+override_dh_auto_install:
+	dh_auto_install
+
+# 确保使用CMake进行清理
+override_dh_auto_clean:
+	dh_auto_clean
+
+# 确保使用CMake进行依赖解析
+override_dh_shlibdeps:
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info

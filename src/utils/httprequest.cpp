@@ -41,8 +41,7 @@ QString HttpRequest::postRequest(QString url, QString jsondata)
     QEventLoop eventLoop;
     connect(naManager, SIGNAL(finished(QNetworkReply *)), &eventLoop, SLOT(quit()));
     eventLoop.exec();
-    QTextCodec *codec = QTextCodec::codecForName("utf8");
-    QString strReply = codec->toUnicode(reply->readAll());
+    QString strReply(reply->readAll());
     reply->deleteLater();
     return strReply;
 }

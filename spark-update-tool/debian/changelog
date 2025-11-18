@@ -1,0 +1,23 @@
+spark-update-tool (1.0.3) unstable; urgency=low
+
+  * 修复默认图标加载失败的问题
+  * 修复更新器在安装阶段强制关闭窗口后再次更新无法安装软件包的问题。
+
+ -- momen <vmomenv@gmail.com>  Fri, 17 Oct 2025 00:00:00 +0000
+spark-update-tool (1.0.2) unstable; urgency=low
+
+  * 添加复选框，选择多个包更新
+  * 修复缩放问题
+  * 添加忽略应用功能
+
+ -- momen <vmomenv@gmail.com>  Mon, 29 Sep 2025 00:00:00 +0000
+spark-update-tool (1.0.1) unstable; urgency=low
+
+  * 修复窗口调整大小时的错误
+
+ -- momen <vmomenv@gmail.com>  Wed, 18 Jun 2025 00:00:00 +0000
+spark-update-tool (1.0.0) unstable; urgency=low
+
+  * Initial release.
+
+ -- momen <vmomenv@gmail.com>  Wed, 18 Jun 2025 00:00:00 +0000

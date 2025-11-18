@@ -1,5 +1,4 @@
-# spark-update-tool.pro
-QT       += core gui widgets network concurrent
+QT += core gui widgets network concurrent
 TARGET = spark-update-tool
 TEMPLATE = app
 
@@ -8,9 +7,8 @@ CONFIG += c++17
 
 # Enable auto features (uic, moc, rcc)
 CONFIG += qt warn_on release
-QT_CONFIG += no-pkg-config
 
-# Version info (replace with your actual version)
+# Version info
 VERSION = 0.1.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
@@ -21,14 +19,16 @@ SOURCES += \
     src/aptssupdater.cpp \
     src/appdelegate.cpp \
     src/applistmodel.cpp \
-    src/downloadmanager.cpp
+    src/downloadmanager.cpp \
+    src/ignoreconfig.cpp
 
 HEADERS += \
     src/mainwindow.h \
     src/aptssupdater.h \
     src/appdelegate.h \
     src/applistmodel.h \
-    src/downloadmanager.h
+    src/downloadmanager.h \
+    src/ignoreconfig.h
 
 FORMS += \
     src/mainwindow.ui
@@ -36,13 +36,14 @@ FORMS += \
 RESOURCES += \
     src/icons.qrc
 
-# macOS bundle properties (optional)
-macx {
-    QMAKE_INFO_PLIST = Info.plist
-    ICON = resources/spark-update-tool.icns
-    BUNDLE_IDENTIFIER = org.spark.store.update-tool
+# Linux-specific settings
+unix:!macx {
+    # Installation paths for Linux
+    target.path = $$[QT_INSTALL_BINS]
+    INSTALLS += target
+    
+    # Additional Linux specific configurations if needed
+    QMAKE_CXXFLAGS += -Wall -Wextra
 }
 
-# Installation paths (matches CMake install)
-target.path = $$[QT_INSTALL_BINS]
-INSTALLS += target
+# Remove Windows and macOS specific sections since we're focusing on Linux
