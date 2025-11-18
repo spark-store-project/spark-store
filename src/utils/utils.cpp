@@ -277,7 +277,7 @@ bool Utils::shouldDisableWebEngineSandbox()
     
     // 检查配置文件中[webengine]部分的noSandbox配置项
     // 如果配置存在且值为true，则返回true；否则返回false
-    qDebug()<<"shaxiang"<<config.value("webengine/noSandbox", false).toBool();
+    qDebug()<<"sandbox is set to"<<config.value("webengine/noSandbox", false).toBool();
     return config.value("webengine/noSandbox", false).toBool();
 }
 
