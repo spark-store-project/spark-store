@@ -1,13 +1,13 @@
 import pino from "pino";
 
 import {
+  APM_STORE_BASE_URL,
   APM_STORE_STATS_BASE_URL,
   currentApp,
   currentAppSparkInstalled,
   currentAppApmInstalled,
   showApmInstallDialog,
 } from "../global/storeConfig";
-import { APM_STORE_BASE_URL } from "../global/storeConfig";
 import { downloads, getNextDownloadId } from "../global/downloadStatus";
 
 import {
@@ -99,6 +99,11 @@ export const handleInstall = async (
     )
     .then((response) => {
       logger.info("下载次数统计已发送，状态:", response.data);
+    })
+    // 统计上报失败不应影响安装，但也必须消费掉 rejection：
+    // 否则网络异常/超时会变成未处理的 promise rejection（渲染端没有全局兜底）。
+    .catch((error: unknown) => {
+      logger.warn(`下载次数统计发送失败（忽略）: ${String(error)}`);
     });
   return download;
 };
@@ -108,64 +113,6 @@ export const handleRetry = (download_: DownloadItem) => {
   download_.retry = true;
   // Send to main process to start download
   window.ipcRenderer.send("queue-install", JSON.stringify(download_));
-};
-
-export const handleUpgrade = async (app: App) => {
-  if (!app.pkgname) return;
-
-  // APM 应用：在创建下载任务前检查 APM 是否可用
-  if (app.origin === "apm") {
-    const hasApm = await window.ipcRenderer.invoke("check-apm-available");
-    if (!hasApm) {
-      showApmInstallDialog.value = true;
-      return;
-    }
-  }
-
-  if (
-    downloads.value.find(
-      (d) => d.pkgname === app.pkgname && d.origin === app.origin,
-    )
-  ) {
-    logger.info(`任务已存在，忽略重复添加: ${app.pkgname} (${app.origin})`);
-    return;
-  }
-
-  const arch = window.apm_store.arch || "amd64";
-  const finalArch = app.origin === "spark" ? `${arch}-store` : `${arch}-apm`;
-  const downloadId = getNextDownloadId();
-
-  const download: DownloadItem = {
-    id: downloadId,
-    name: app.name,
-    pkgname: app.pkgname,
-    version: app.version,
-    icon: `${APM_STORE_BASE_URL}/${finalArch}/${app.category}/${app.pkgname}/icon.png`,
-    status: "queued",
-    progress: 0,
-    downloadedSize: 0,
-    totalSize: 0,
-    speed: 0,
-    timeRemaining: 0,
-    startTime: Date.now(),
-    logs: [{ time: Date.now(), message: "开始更新..." }],
-    source: "APM Update",
-    retry: false,
-    upgradeOnly: true,
-    origin: app.origin,
-  };
-
-  downloads.value.push(download);
-  window.ipcRenderer.send("queue-install", JSON.stringify(download));
-};
-
-export const handleRemove = (appObj?: App) => {
-  const targetApp = appObj || currentApp.value;
-  if (!targetApp?.pkgname) return;
-  window.ipcRenderer.send("remove-installed", {
-    pkgname: targetApp.pkgname,
-    origin: targetApp.origin,
-  });
 };
 
 window.ipcRenderer.on("remove-complete", (_event, log: DownloadResult) => {
@@ -221,7 +168,9 @@ window.ipcRenderer.on("install-complete", (_event, log: DownloadResult) => {
   if (downloadObj) {
     // 更新中心来源的任务用「更新」语义，其余（普通安装）用「安装」语义，
     // 避免把安装结果误报为「下载完成」。
-    const isUpdate = (downloadObj.source ?? "").toLowerCase().includes("update");
+    const isUpdate = (downloadObj.source ?? "")
+      .toLowerCase()
+      .includes("update");
     const doneLabel = isUpdate ? "更新完成" : "安装完成";
     const failVerb = isUpdate ? "更新失败" : "安装失败";
 
@@ -242,12 +191,13 @@ window.ipcRenderer.on("install-complete", (_event, log: DownloadResult) => {
         time: Date.now(),
         message: `${failVerb}: ${reason}`,
       });
+
+      // 兜底：主进程检测到未安装 APM 时会直接失败并转发 trigger-apm-install-dialog。
+      // 渲染端这里再识别一次该失败原因，确保「未安装 APM」永远不会静默失败——
+      // 即使主进程事件在弹窗挂载前丢失，也能就地弹出 APM 安装引导。
+      if (downloadObj.origin === "apm" && reason.includes("未安装 APM")) {
+        showApmInstallDialog.value = true;
+      }
     }
   }
-});
-
-window.ipcRenderer.on("queue-install", (_event, payload: unknown) => {
-  const serializedPayload =
-    typeof payload === "string" ? payload : JSON.stringify(payload);
-  window.ipcRenderer.send("queue-install", serializedPayload);
 });

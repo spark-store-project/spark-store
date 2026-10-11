@@ -70,27 +70,6 @@ export function watchDownloadsChange(cb: (pkgname: string) => void) {
   );
 }
 
-export function useDownloadItemStatus(
-  pkgname?: ComputedRef<string | undefined>,
-) {
-  const status: ComputedRef<DownloadItemStatus | undefined> = computed(() => {
-    const name = unref(pkgname);
-    if (!name) return;
-    const task = downloads.value.find((d) => d.pkgname === name);
-    if (!task) return;
-    return task.status;
-  });
-
-  const isCompleted = computed(() => {
-    return status.value === "completed";
-  });
-
-  return {
-    status,
-    isCompleted,
-  };
-}
-
 export function useInstallFeedback(pkgname?: ComputedRef<string | undefined>) {
   const installFeedback = computed(() => {
     const name = unref(pkgname);

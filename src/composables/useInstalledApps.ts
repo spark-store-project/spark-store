@@ -34,12 +34,24 @@ import {
   getEffectiveStoreFilter,
 } from "../modules/storeFilter";
 import { cloudItemKey, cloudPackageKey } from "../modules/appListSync";
-import { removeDownloadItem } from "../global/downloadStatus";
 
+// 运行时类型守卫（重构前在 App.vue 中校验完整字段，拆分时被削弱成只查
+// pkgname/origin，导致字段残缺的行会带着 undefined 流入已安装列表与云端
+// 同步条目）。主进程 list-installed 始终按下方结构回传，逐字段校验即可。
 const isInstalledAppInfo = (value: unknown): value is InstalledAppInfo => {
-  if (!value || typeof value !== "object") return false;
-  const v = value as Record<string, unknown>;
-  return typeof v.pkgname === "string" && typeof v.origin === "string";
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Partial<InstalledAppInfo>;
+  return (
+    typeof v.pkgname === "string" &&
+    typeof v.name === "string" &&
+    typeof v.version === "string" &&
+    typeof v.arch === "string" &&
+    (v.origin === "spark" || v.origin === "apm") &&
+    typeof v.flags === "string" &&
+    typeof v.isDependency === "boolean" &&
+    // icon 为可选字段，需显式校验类型，避免非字符串值进入下游 app.icon || ""
+    (typeof v.icon === "string" || v.icon === undefined)
+  );
 };
 
 const LIST_INSTALLED_TIMEOUT_MS = 15000;
@@ -269,6 +281,7 @@ const refreshFavoriteInstalledApps = async (): Promise<void> => {
   }
 
   const refreshedApps: App[] = [];
+  const refreshedOrigins: Array<"spark" | "apm"> = [];
   await Promise.all(
     origins.map(async (origin) => {
       const pkgnameList =
@@ -283,6 +296,10 @@ const refreshFavoriteInstalledApps = async (): Promise<void> => {
       });
       if (!result?.success) return;
 
+      // 仅「查询成功」的来源才算已刷新：来源禁用/包管理器缺失时返回
+      // success:false，此时若仍从列表里剔除该来源的已知应用，会让已安装
+      // 列表凭空少掉一整类应用（与云端同步丢数据同源）。
+      refreshedOrigins.push(origin);
       const appList = Array.isArray(result?.apps) ? result.apps : [];
       for (const rawApp of appList) {
         // 运行时类型守卫：避免后端字段缺失时下游访问 undefined
@@ -299,7 +316,7 @@ const refreshFavoriteInstalledApps = async (): Promise<void> => {
   installedApps.value = [
     ...installedApps.value.filter(
       (app) =>
-        !origins.includes(app.origin) &&
+        !refreshedOrigins.includes(app.origin) &&
         !refreshedKeys.has(`${app.origin}:${app.pkgname}`),
     ),
     ...refreshedApps,
@@ -309,7 +326,9 @@ const refreshFavoriteInstalledApps = async (): Promise<void> => {
 const requestUninstall = (app: App) => {
   uninstallTargetApp.value = app;
   showUninstallModal.value = true;
-  removeDownloadItem(app.pkgname);
+  // 注意：不要在此处移除下载记录。卸载尚未确认/完成，提前移除会导致
+  // 用户取消卸载也丢失记录；实际移除由 remove-complete 成功后统一处理
+  // （见 App.vue handleRemoveComplete），与重构前的语义一致。
 };
 
 const openInstalledModal = () => {

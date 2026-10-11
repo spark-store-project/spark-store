@@ -211,15 +211,34 @@ export const createUpdateCenterService = (
     open: refresh,
     refresh,
     async ignore(payload) {
-      const entries = await loadIgnored();
-      entries.add(createIgnoreKey(payload.packageName, payload.newVersion));
-      await saveIgnored(entries);
+      try {
+        const entries = await loadIgnored();
+        entries.add(createIgnoreKey(payload.packageName, payload.newVersion));
+        await saveIgnored(entries);
+      } catch (error) {
+        // 写入失败（配置目录不可写等）此前会以未处理的 rejection 冒泡到渲染端，
+        // 既不刷新列表也不给出任何提示，用户看到「点了没反应」。
+        // 这里收敛为一条 warning，让界面明确告知失败原因。
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`[UpdateCenter] 保存忽略列表失败:`, error);
+        applyWarning(`保存忽略列表失败: ${message}`);
+        return emit();
+      }
       await refresh();
     },
     async unignore(payload) {
-      const entries = await loadIgnored();
-      entries.delete(createIgnoreKey(payload.packageName, payload.newVersion));
-      await saveIgnored(entries);
+      try {
+        const entries = await loadIgnored();
+        entries.delete(
+          createIgnoreKey(payload.packageName, payload.newVersion),
+        );
+        await saveIgnored(entries);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`[UpdateCenter] 保存忽略列表失败:`, error);
+        applyWarning(`保存忽略列表失败: ${message}`);
+        return emit();
+      }
       await refresh();
     },
     async start(tasks) {

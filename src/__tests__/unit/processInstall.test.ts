@@ -1,37 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-describe("processInstall queue forwarding", () => {
+describe("processInstall", () => {
+  // 注：原先此处的「queue-install 事件回灌」用例已删除——
+  // 该渲染端监听器对应的主进程 webContents.send("queue-install") 生产者在
+  // 更新中心改为直接调用 addInstallTask 后即被移除（b5c5ab04），
+  // 监听器成为孤儿代码，已一并清理。
   beforeEach(() => {
     vi.resetModules();
-  });
-
-  it("forwards update-center queue-install events back to the main install queue", async () => {
-    const handlers = new Map<string, (...args: unknown[]) => void>();
-    const send = vi.fn();
-    const on = vi.fn(
-      (channel: string, handler: (...args: unknown[]) => void) => {
-        handlers.set(channel, handler);
-      },
-    );
-
-    Object.assign(window.ipcRenderer, {
-      on,
-      send,
-      invoke: vi.fn(),
-    });
-
-    await import("@/modules/processInstall");
-
-    const payload = JSON.stringify({
-      id: 7,
-      pkgname: "spark-weather",
-      origin: "spark",
-      upgradeOnly: true,
-    });
-
-    handlers.get("queue-install")?.({}, payload);
-
-    expect(send).toHaveBeenCalledWith("queue-install", payload);
   });
 
   it("allocates install ids after existing update tasks", async () => {

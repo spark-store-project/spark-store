@@ -202,6 +202,12 @@ const refreshInstalledSyncCandidates = async (
   }
 
   const refreshedApps: App[] = [];
+  // 只记录「查询成功」的来源：list-installed 在来源被启动参数禁用或对应
+  // 包管理器不可用时会返回 success:false（而非 reject）。若仍把它算作已刷新，
+  // mergeInstalledApps 会按「该来源已刷新」丢弃本地已知记录，随后
+  // syncInstalledAppsToAccount 会把这份不完整列表 PUT/me/app-list 覆盖到账号，
+  // 造成云端应用列表静默丢数据。
+  const refreshedOrigins: Array<"spark" | "apm"> = [];
   await Promise.all(
     origins.map(async (origin) => {
       const pkgnameList =
@@ -216,6 +222,7 @@ const refreshInstalledSyncCandidates = async (
       });
       if (!result?.success) return;
 
+      refreshedOrigins.push(origin);
       const appList = Array.isArray(result?.apps) ? result.apps : [];
       for (const rawApp of appList) {
         // 运行时类型守卫：避免后端字段缺失时下游访问 undefined
@@ -233,7 +240,7 @@ const refreshInstalledSyncCandidates = async (
   syncCandidateApps.value = mergeInstalledApps(
     syncCandidateApps.value,
     refreshedApps,
-    origins,
+    refreshedOrigins,
   );
   return true;
 };

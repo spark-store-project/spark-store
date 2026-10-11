@@ -75,6 +75,11 @@ export {
   currentApp,
   currentAppSparkInstalled,
   currentAppApmInstalled,
+  // APM 安装引导弹窗开关必须与 modules/processInstall 写入的 ref 同源，
+  // 故同样从 storeConfig 再导出。历史上此处重复 `ref(false)` 声明过一份，
+  // 导致 processInstall 置位 true 后 App.vue 读到的仍是另一实例，
+  // APM 未安装时点安装什么都不会发生（弹窗静默不显示）。
+  showApmInstallDialog,
 } from "../global/storeConfig";
 export const showModal = ref(false);
 export const showPreview = ref(false);
@@ -139,7 +144,6 @@ export const showUninstallModal = ref(false);
 export const uninstallTargetApp: Ref<App | null> = ref(null);
 export const showAboutModal = ref(false);
 export const showSettingsModal = ref(false);
-export const showApmInstallDialog = ref(false);
 
 // 可用来源 computed（供 storeFilter 相关判断复用）
 export const availableSources = computed(() => ({

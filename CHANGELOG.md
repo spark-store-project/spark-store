@@ -16,6 +16,22 @@
    - `openDownloadedApp` 的 IPC 调用补充 `.catch` 错误处理。
 
 7. **应用详情默认展开已安装版本**：打开应用详情时，若本地只安装了 Spark / APM 中的某一版本，则默认展开该已装来源（例如 WeChat 默认 APM，但本机只装 Spark 版时默认展开 Spark）；若两版都已安装，则按优先级/标签策略展示。
+8. **修复 APM 未安装时点「安装」静默无反应**：`showApmInstallDialog` 此前在 `src/composables/useAppState.ts` 被重复声明为独立的 `ref`，而 `src/modules/processInstall.ts` 置位的是 `src/global/storeConfig.ts` 中的另一份实例，导致 APM 未安装时点击 APM 应用的「安装」既不弹出引导弹窗、也不会创建下载任务（界面毫无反应）。现统一从 `storeConfig` 再导出同一实例，并在 `install-complete` 兜底识别「未安装 APM」失败原因，保证任何路径下都不会静默失败。新增回归测试 `src/__tests__/unit/ApmInstallDialog.test.ts`。
+9. **同类「接线断裂」问题全量排查与修复**（源自 `d7bdcf36` 拆分 composables 时留下的半成品改动）：
+    - **应用下载排行永远为空**：`loadRanking()` 在 `loadApps()` 尚未填充 `apps` 时就被调用，命中 `if (apps.value.length === 0) return` 后直接空跑且永不重试。现改为在 `loadApps` resolve 之后再触发。
+    - **详情页卸载后按钮状态不刷新**：卸载成功回调在拆分时丢了「刷新详情页安装状态」分支，详情弹窗会继续显示「打开/卸载」（应用实际已卸载，点「打开」会启动不存在的包）。现于编排层 `handleUninstallSuccess` 补回。
+    - **重试已取消的任务会永久卡在「下载中」**：取消后重试复用同一任务 id，旧任务仍在退出流程中，其 `finally` 会 `tasks.delete(id)` 删掉新任务，新任务再也不会进入安装阶段。现已对 3 处 `tasks.delete` 加身份校验（`tasks.get(id) === task`）。
+    - **卸载失败可能让主进程崩溃且看不到原因**：`remove-installed` 的 `spawn` 没有 `error` 监听（spawn 失败时只触发 `error` 不触发 `close`，且主进程无全局兜底），也未消费 stderr（写满管道会阻塞包管理器，失败原因全部丢失）。现补齐 `error`/`stderr` 处理并统一收敛为一次 `remove-complete`。
+    - **云端应用列表静默丢数据**：某来源 `list-installed` 返回 `success:false`（来源被启动参数禁用 / 包管理器缺失）时，仍被当作「已刷新」，`mergeInstalledApps` 会丢弃该来源的本地已知记录，随后把不完整列表上传覆盖账号。现只统计真正查询成功的来源（已安装列表合并同样修正）。
+    - **忽略更新的写入失败无任何反馈**：`saveIgnored` 抛错会变成未处理的 rejection，列表不刷新、条目也不标记「已忽略」。现收敛为界面 warning。
+    - **下载次数统计上报失败产生未处理 rejection**：补 `.catch`，仅记录 warn 不影响安装。
+    - **`isInstalledAppInfo` 运行时校验被削弱**：拆分时只剩 `pkgname`/`origin` 两项检查，字段残缺的行会带着 `undefined` 流入已安装列表与云端同步条目。现恢复完整字段校验。
+
+10. **清理重构遗留的孤儿代码**：
+    - 删除四个已成孤儿的组件：`AppDetailPage.vue`、`AccountQuickMenu.vue`、`TopActions.vue`、`update-center/UpdateCenterCloseConfirm.vue`（均无任何引用，也不进入构建产物），连同仅覆盖它们的 `AppDetailPage.test.ts`。
+    - App.vue 的 `handleRemoveComplete` 由空实现恢复为「卸载成功后移除下载队列残留记录」；`onUnmounted` 补回 `rootAbortController.abort()` 与 `updateCenterStore.unbind()`。
+    - 删除孤儿 IPC 处理器 `list-upgradable`（及仅其使用的 `parseUpgradableList`）、`show-apm-install-dialog`（前端早已改用 Vue 弹窗）、`uninstall-installed`（与在用的 `remove-installed` 重复）。
+    - 删除孤儿渲染端代码：`handleUpgrade`、`handleRemove`、`useDownloadItemStatus`，以及已无生产者的 `queue-install` 渲染端回灌监听器（其主进程 `webContents.send` 生产者在 `b5c5ab04` 已移除）。
 
 相关提交：`1d9d25d6`、`c75938aa`、`39a358bb`、`51473cac`、`cf0e72ff`、`b0d60737`、`d3705ed4`。
 

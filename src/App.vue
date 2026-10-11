@@ -237,7 +237,7 @@
       :show="showUninstallModal"
       :app="uninstallTargetApp"
       @close="closeUninstallModal"
-      @success="onUninstallSuccess"
+      @success="handleUninstallSuccess"
     />
 
     <ApmInstallConfirmModal
@@ -534,6 +534,9 @@ import {
   registerCheckAppInstalled,
   registerRequestUninstall,
 } from "./composables/useDownloads";
+// 下载队列条目维护：卸载完成后需要按包名移除残留记录
+import { removeDownloadItem } from "./global/downloadStatus";
+import { rootAbortController } from "./composables/useHttp";
 
 const logger = pino();
 
@@ -889,6 +892,18 @@ const closeUninstallModal = () => {
   uninstallTargetApp.value = null;
 };
 
+// 卸载成功：刷新已安装列表，并刷新仍打开的详情弹窗安装状态。
+// 卸载确认弹窗会叠在详情弹窗之上，详情弹窗此时的「打开/卸载」按钮取自
+// currentAppSparkInstalled / currentAppApmInstalled；不刷新就会继续显示
+// 「打开/卸载」（应用其实已卸载，点「打开」会去启动一个不存在的包）。
+// 该分支在 App.vue 拆分为 composables 时曾被漏掉，这里在编排层统一补回。
+const handleUninstallSuccess = () => {
+  onUninstallSuccess();
+  if (showModal.value && currentApp.value) {
+    checkAppInstalled(currentApp.value);
+  }
+};
+
 const closeApmInstallDialog = () => {
   showApmInstallDialog.value = false;
 };
@@ -1047,13 +1062,20 @@ const handleDeepLinkSearch = (
   }
 };
 
+// 卸载完成：移除下载队列中已完成的记录。
+// 重构自 App.vue 时该分支一度被掏空成空实现（且注释误称由 useDownloads 处理），
+// 而 useDownloads 从不调用 removeDownloadItem，导致从详情页卸载后队列记录长期残留。
 const handleRemoveComplete = (
   _event: IpcRendererEvent,
   payload: import("./global/typedefinition").ChannelPayload,
 ) => {
-  const pkgname = currentApp.value?.pkgname;
+  // 优先用主进程回传的包名（精确），旧版主进程未回传时退回当前详情应用。
+  const pkgname =
+    (typeof payload.pkgname === "string" ? payload.pkgname : "") ||
+    currentApp.value?.pkgname ||
+    "";
   if (payload.success && pkgname) {
-    // 由 useDownloads 内部维护 pendingDownloadRecords；此处仅关闭详情态
+    removeDownloadItem(pkgname);
   }
 };
 
@@ -1109,13 +1131,15 @@ onMounted(async () => {
   await Promise.all([loadHome(), preloadHomeListApps()]);
 
   // 全量应用后台加载（不阻塞首页推荐）：首个分类成功即关闭首屏遮罩，
-  // 增量渲染，排行稍后由 loadRanking 刷新。
+  // 增量渲染；全量加载完成后再刷新排行榜，确保 spark/apm 应用均已就绪。
+  // 注意：loadApps 内部首个 await 前 apps 仍为空，loadRanking 开头有
+  // `if (apps.value.length === 0) return`，若与之并发调用会直接空跑返回，
+  // 导致下载排行永久停留在空状态，故必须在其 resolve 之后再触发。
   void loadApps(() => {
     loading.value = false; // 首屏：已有部分应用即可显示
+  }).then(() => {
+    void loadRanking();
   });
-
-  // 全量应用加载完成后再刷新排行榜，确保 spark/apm 应用均已就绪
-  loadRanking();
 
   // 其余分类入口预加载（用户点击分类时才需要，延后）
   preloadSidebarTabApps().then(() => {
@@ -1152,6 +1176,10 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
+  // 取消仍在进行的目录/详情请求，避免组件销毁后回调写入已卸载状态
+  rootAbortController.abort();
+  // 解除更新中心 IPC 状态监听（bind 在 onMounted 中注册）
+  updateCenterStore.unbind();
   // 清理窗口尺寸防抖定时器，防止组件销毁后仍触发 IPC 保存调用
   if (saveBoundsTimer) clearTimeout(saveBoundsTimer);
   // 停止仍挂起的"等待 loading 完成后执行一次"的 watcher，避免泄漏

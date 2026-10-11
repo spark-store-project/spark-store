@@ -267,41 +267,6 @@ const checkSparkAvailable = async (): Promise<boolean> => {
   return found;
 };
 
-const parseUpgradableList = (output: string) => {
-  const apps: Array<{
-    pkgname: string;
-    newVersion: string;
-    currentVersion: string;
-    raw: string;
-  }> = [];
-  const lines = output.split("\n");
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) continue;
-    if (trimmed.startsWith("Listing")) continue;
-    if (trimmed.startsWith("[INFO]")) continue;
-    if (trimmed.includes("=") && !trimmed.includes("/")) continue;
-
-    if (!trimmed.includes("/")) continue;
-
-    const tokens = trimmed.split(/\s+/);
-    if (tokens.length < 2) continue;
-    const pkgToken = tokens[0];
-    const pkgname = pkgToken.split("/")[0];
-    const newVersion = tokens[1] || "";
-    const currentMatch = trimmed.match(
-      /\[(?:upgradable from|from):\s*([^\]\s]+)\]/i,
-    );
-    const currentToken = tokens[5] || "";
-    const currentVersion =
-      currentMatch?.[1] || currentToken.replace("[", "").replace("]", "");
-
-    if (!pkgname) continue;
-    apps.push({ pkgname, newVersion, currentVersion, raw: trimmed });
-  }
-  return apps;
-};
-
 /**
  * 将任务加入安装/下载队列。被 IPC 监听与更新中心等内部模块共享使用。
  * 入队前会执行包名、文件名、metalinkUrl 的校验，并检查重复任务。
@@ -662,7 +627,7 @@ ipcMain.on("cancel-install", (event, id) => {
     // 由对应的阶段处理器在 finally 中清理计数器与队列
   } else {
     // 排队中的任务（未开始执行）：直接清理并调度
-    tasks.delete(id);
+    if (tasks.get(id) === task) tasks.delete(id);
     processNextDownload();
     processNextInstall();
   }
@@ -914,7 +879,10 @@ async function runDownloadPhase(task: InstallTask) {
         }),
       });
     }
-    tasks.delete(id);
+    // 身份校验后再删除：重试会用同一 id 覆盖 tasks 中的条目，
+    // 若此时旧任务（取消后仍在退出的进程）的清理流程把它删掉，
+    // 新任务就会从队列中消失，安装阶段永远不会被调度（界面卡在下载中）。
+    if (tasks.get(id) === task) tasks.delete(id);
   } finally {
     activeDownloadCount--;
     processNextDownload();
@@ -1080,7 +1048,8 @@ async function runInstallPhase(task: InstallTask) {
       });
     }
   } finally {
-    tasks.delete(id);
+    // 同上：重试复用 id 时，旧任务的 finally 不得删除新任务
+    if (tasks.get(id) === task) tasks.delete(id);
     installIdle = true;
     processNextInstall();
     processNextDownload();
@@ -1186,20 +1155,19 @@ ipcMain.on("remove-installed", async (_event, payload) => {
     env: process.env,
   });
   let output = "";
-
-  child.stdout.on("data", (data) => {
-    const chunk = data.toString();
-    output += chunk;
-    webContents.send("remove-progress", chunk);
-  });
-
-  child.on("close", (code) => {
+  let stderrOutput = "";
+  // spawn 失败（如 pkexec 与 shell-caller.sh 都不存在）只会触发 'error'，
+  // 不会触发 'close'；且没有全局 uncaughtException 兜底，缺少该监听会让
+  // 主进程直接抛出未捕获异常。这里统一收敛为一次 remove-complete。
+  let settled = false;
+  const finishRemove = (code: number | null, message: string) => {
+    if (settled) return;
+    settled = true;
     const success = code === 0;
-    // 拼接json消息
     const messageJSONObj = {
-      message: success ? "卸载完成" : `卸载失败，退出码 ${code}`,
+      message,
       stdout: output,
-      stderr: "",
+      stderr: stderrOutput,
     };
 
     if (success) {
@@ -1215,7 +1183,31 @@ ipcMain.on("remove-installed", async (_event, payload) => {
       exitCode: code,
       message: JSON.stringify(messageJSONObj),
       origin: origin,
+      // 回传包名，渲染端据此精确移除下载队列中对应的残留记录，
+      // 而不必依赖「当前详情应用」这类可能已切换的界面状态。
+      pkgname: pkgname,
     } satisfies ChannelPayload);
+  };
+
+  child.stdout?.on("data", (data) => {
+    const chunk = data.toString();
+    output += chunk;
+    webContents.send("remove-progress", chunk);
+  });
+
+  // 必须消费 stderr：否则输出较多时管道写满会阻塞包管理器进程，
+  // 且失败原因（权限/依赖错误）会全部丢失，界面只能显示「退出码 N」。
+  child.stderr?.on("data", (data) => {
+    stderrOutput += data.toString();
+  });
+
+  child.on("error", (err) => {
+    logger.error(`remove-installed spawn 失败: ${err.message}`);
+    finishRemove(-1, `卸载失败: ${err.message}`);
+  });
+
+  child.on("close", (code) => {
+    finishRemove(code, code === 0 ? "卸载完成" : `卸载失败，退出码 ${code}`);
   });
 });
 
@@ -1477,24 +1469,6 @@ ipcMain.handle(
   },
 );
 
-ipcMain.handle("list-upgradable", async () => {
-  const { code, stdout, stderr } = await runCommandCapture("apm", [
-    "list",
-    "--upgradable",
-  ]);
-  if (code !== 0) {
-    logger.error(`list-upgradable failed: ${stderr || stdout}`);
-    return {
-      success: false,
-      message: stderr || stdout || `list-upgradable failed with code ${code}`,
-      apps: [],
-    };
-  }
-
-  const apps = parseUpgradableList(stdout);
-  return { success: true, apps };
-});
-
 ipcMain.handle("check-apm-available", async () => {
   return await checkApmAvailable();
 });
@@ -1502,58 +1476,6 @@ ipcMain.handle("check-apm-available", async () => {
 ipcMain.handle("check-spark-available", async () => {
   return await checkSparkAvailable();
 });
-
-// 显示 APM 安装对话框（在点击安装按钮时提前检查）
-// 前端已改为 Vue 弹窗，此后端处理仅作为兜底
-ipcMain.handle("show-apm-install-dialog", async (event) => {
-  const webContents = event.sender;
-  webContents.send("trigger-apm-install-dialog");
-  return { success: false, cancelled: true };
-});
-
-ipcMain.handle(
-  "uninstall-installed",
-  async (
-    _event,
-    payload: unknown,
-  ): Promise<{ success: boolean; message?: string }> => {
-    const parsed = parseAppPayload(payload);
-    if (!parsed) {
-      logger.warn("uninstall-installed invalid payload");
-      return { success: false, message: "invalid payload" };
-    }
-    const { pkgname, origin } = parsed;
-
-    const superUserCmd = await checkSuperUserCommand();
-    const execCommand = superUserCmd || SHELL_CALLER_PATH;
-    const execParams = superUserCmd ? [SHELL_CALLER_PATH] : [];
-
-    if (origin === "apm") {
-      execParams.push("apm", "remove", "-y", pkgname);
-    } else {
-      execParams.push("aptss", "remove", "-y", pkgname);
-    }
-
-    const { code, stdout, stderr } = await runCommandCapture(
-      execCommand,
-      execParams,
-    );
-    const success = code === 0;
-
-    if (success) {
-      logger.info(`卸载完成: ${pkgname}`);
-    } else {
-      logger.error(`卸载失败: ${pkgname} ${stderr || stdout}`);
-    }
-
-    return {
-      success,
-      message: success
-        ? "卸载完成"
-        : stderr || stdout || `卸载失败，退出码 ${code}`,
-    };
-  },
-);
 
 interface LaunchAppPayload {
   pkgname: string;
