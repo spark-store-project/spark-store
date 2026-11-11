@@ -69,7 +69,8 @@ export interface DownloadItem {
     "More": "VSCode是一款非常牛逼的编辑器",
     "Tags": "community;ubuntu;deepin;uos;debian",
     "img_urls": "[\"https://cdn.d.store.deepinos.org.cn/store/development/code/screen_1.png\",\"https://cdn.d.store.deepinos.org.cn/store/development/code/screen_2.png\",\"https://cdn.d.store.deepinos.org.cn/store/development/code/screen_3.png\",\"https://cdn.d.store.deepinos.org.cn/store/development/code/screen_4.png\",\"https://cdn.d.store.deepinos.org.cn/store/development/code/screen_5.png\"]",
-    "icons": "https://cdn.d.store.deepinos.org.cn/store/development/code/icon.png"
+    "icons": "https://cdn.d.store.deepinos.org.cn/store/development/code/icon.png",
+    "DownloadTimes": 12345
  */
 export interface AppJson {
   // 原始数据
@@ -87,6 +88,8 @@ export interface AppJson {
   Tags: string;
   img_urls: string; // 注意：部分 json 里可能是字符串形式的数组
   icons: string;
+  /** 下载次数，由服务器注入到 app.json / applist.json；可能缺失或为字符串数字 */
+  DownloadTimes?: number | string;
 }
 
 export interface App {
@@ -117,7 +120,7 @@ export interface App {
   viewingOrigin?: "spark" | "apm"; // Currently viewed origin inside the app modal
   forceViewingOrigin?: boolean; // true 表示 viewingOrigin 为父组件显式指定（如从已安装页按特定来源打开），优先级高于用户标签策略；未设置或 false 时由标签策略决定默认展示
   origins?: Array<"spark" | "apm">; // 实际安装来源集合（同时以 APM 与 Spark 安装时含两项）
-  downloadCount?: number; // 下载量（用于下载排行，由 download-times.txt 解析）
+  downloadCount?: number; // 下载量（用于下载排行，取自 applist.json / app.json 的 DownloadTimes 字段）
 }
 
 export interface UpdateAppItem {

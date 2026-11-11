@@ -23,7 +23,7 @@
 
 | 字段 | 来源 | 结论 |
 |------|------|------|
-| `app.downloadCount` | 现有 `apmRanking` / `sparkRanking`（`App.vue` 1164–1250，异步逐应用拉 `download-times.txt`） | ✅ 直接复用，无需新增请求 |
+| `app.downloadCount` | 现有 `apmRanking` / `sparkRanking`（由 `applist.json` 的 `DownloadTimes` 直接映射，无额外请求） | ✅ 直接复用，无需新增请求 |
 | `app.update` | `App.vue:886` 由 `appJson.Update` 映射，格式 `"2026-01-26 17:34:15"`，同格式可直接 `localeCompare` 倒序 | ✅ 列表已含，可直接排序 |
 | `app.contributor` | `App.vue:884` 由 `appJson.Contributor` 映射 | ✅ 列表已含，无需详情请求 |
 

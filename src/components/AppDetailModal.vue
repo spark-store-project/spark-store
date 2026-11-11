@@ -580,6 +580,7 @@ import {
   tagPriorityStrategyRef,
   type TagPriorityStrategy,
 } from "../global/tagPriority";
+import { parseDownloadTimes } from "../modules/ranking";
 // 评论功能暂时关闭
 // import { buildReviewAppKey, buildReviewTags } from "../modules/appIdentity";
 import type { App, AppReview, ReviewTags } from "../global/typedefinition";
@@ -846,28 +847,38 @@ const iconPath = computed(() => {
 // });
 
 const downloadCount = ref<string>("");
+// 请求序号：快速切换应用/来源时丢弃过期响应，避免旧应用的下载量覆盖新应用
+let downloadCountRequest = 0;
 
-// 监听 app 变化，获取新app的下载量
+// 监听 app 变化，解析新 app 的下载量。
+// 优先使用目录数据（applist.json）已携带的 downloadCount；
+// 仅当缺失（例如已安装页的兜底 App）才回退读取 app.json 的 DownloadTimes，
+// 两者都不再请求 download-times.txt。
 watch(
   () => displayApp.value,
   async (newApp) => {
-    if (newApp) {
-      downloadCount.value = "";
-      try {
-        const arch = window.apm_store.arch || "amd64";
-        const finalArch =
-          newApp.origin === "spark" ? `${arch}-store` : `${arch}-apm`;
-        const url = `${APM_STORE_BASE_URL}/${finalArch}/${newApp.category}/${newApp.pkgname}/download-times.txt`;
-        const resp = await axios.get(url, { responseType: "text" });
-        if (resp.status === 200) {
-          downloadCount.value = String(resp.data).trim();
-        } else {
-          downloadCount.value = "N/A";
-          throw new Error(`Unexpected response status: ${resp.status}`);
-        }
-      } catch (e) {
-        console.error("Failed to fetch download count", e);
-      }
+    const seq = ++downloadCountRequest;
+    downloadCount.value = "";
+    if (!newApp) return;
+    if (typeof newApp.downloadCount === "number") {
+      downloadCount.value = String(newApp.downloadCount);
+      return;
+    }
+    try {
+      const arch = window.apm_store.arch || "amd64";
+      const finalArch =
+        newApp.origin === "spark" ? `${arch}-store` : `${arch}-apm`;
+      const url = `${APM_STORE_BASE_URL}/${finalArch}/${encodeURIComponent(
+        newApp.category,
+      )}/${encodeURIComponent(newApp.pkgname)}/app.json`;
+      const resp = await axios.get(url);
+      if (seq !== downloadCountRequest) return;
+      const count = parseDownloadTimes(
+        (resp.data as { DownloadTimes?: unknown } | null)?.DownloadTimes,
+      );
+      if (count !== undefined) downloadCount.value = String(count);
+    } catch (e) {
+      console.error("Failed to read download count from app.json", e);
     }
   },
   { immediate: true },

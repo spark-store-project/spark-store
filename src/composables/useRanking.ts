@@ -1,8 +1,9 @@
 /**
  * useRanking —— 首页区域（links + 推荐列表入口）与下载排行榜数据。
  *
- * 从原 App.vue 原样搬移（loadHome / loadRanking / fetchDownloadCount / 缓存逻辑 /
- * publishRanking），逻辑零改动。
+ * 下载量直接复用目录接口（applist.json）携带的 `DownloadTimes` 字段，
+ * 由 normalizeAppJson 映射为 `App.downloadCount`，不再逐个应用请求
+ * download-times.txt（数千个应用意味着数千次额外请求）。
  *
  * 共享状态（apps / homeLinks / apmRanking / sparkRanking / rankingLoading /
  * homeLoading / homeError / storeFilter）来自 useAppState 单例。
@@ -18,119 +19,32 @@ import {
   rankingLoading,
   storeFilter,
 } from "./useAppState";
-import { rootAbortController } from "./useHttp";
 import { APM_STORE_BASE_URL } from "../global/storeConfig";
 
-const DOWNLOAD_COUNT_CACHE_KEY = "spark-store:download-counts:v1";
-const DOWNLOAD_COUNT_CACHE_TTL_MS = 60 * 60 * 1000; // 1 小时
-
-interface CachedCount {
-  count: number;
-  ts: number;
-}
-
-const downloadCountCache = new Map<string, CachedCount>();
-
-const cacheKey = (app: App) => `${app.origin}:${app.category}:${app.pkgname}`;
-
-const loadCacheFromStorage = () => {
-  try {
-    const raw = localStorage.getItem(DOWNLOAD_COUNT_CACHE_KEY);
-    if (!raw) return;
-    const data = JSON.parse(raw) as Record<string, CachedCount>;
-    const now = Date.now();
-    for (const [k, v] of Object.entries(data)) {
-      if (now - v.ts < DOWNLOAD_COUNT_CACHE_TTL_MS) {
-        downloadCountCache.set(k, v);
-      }
-    }
-  } catch {
-    // ignore corrupted cache
-  }
-};
-
-const saveCacheToStorage = () => {
-  try {
-    const obj: Record<string, CachedCount> = {};
-    downloadCountCache.forEach((v, k) => {
-      obj[k] = v;
-    });
-    localStorage.setItem(DOWNLOAD_COUNT_CACHE_KEY, JSON.stringify(obj));
-  } catch {
-    // ignore quota errors
-  }
-};
-
-const fetchDownloadCount = async (app: App): Promise<number> => {
-  const key = cacheKey(app);
-  const cached = downloadCountCache.get(key);
-  if (cached) return cached.count;
-  const arch = window.apm_store.arch || "amd64";
-  const finalArch = app.origin === "spark" ? `${arch}-store` : `${arch}-apm`;
-  try {
-    const resp = await fetch(
-      `${APM_STORE_BASE_URL}/${finalArch}/${app.category}/${app.pkgname}/download-times.txt`,
-      { signal: rootAbortController.signal },
-    );
-    if (!resp.ok) return 0;
-    const text = (await resp.text()).trim();
-    const n = parseInt(text, 10);
-    const count = Number.isFinite(n) ? n : 0;
-    downloadCountCache.set(key, { count, ts: Date.now() });
-    return count;
-  } catch {
-    return 0;
-  }
-};
-
 const publishRanking = (results: App[]) => {
+  // 浅拷贝榜单条目，避免榜单与目录 apps 共享同一对象被下游误改
   apmRanking.value = results
     .filter((a) => a.origin === "apm")
     .sort((x, y) => (y.downloadCount || 0) - (x.downloadCount || 0))
-    .slice(0, 10);
+    .slice(0, 10)
+    .map((a) => ({ ...a }));
   sparkRanking.value = results
     .filter((a) => a.origin === "spark")
     .sort((x, y) => (y.downloadCount || 0) - (x.downloadCount || 0))
-    .slice(0, 10);
+    .slice(0, 10)
+    .map((a) => ({ ...a }));
 };
 
-let rankingGeneration = 0;
-
-const loadRanking = async () => {
+/**
+ * 下载排行：下载量已在 applist.json 加载阶段随应用写入，此处仅做排序与发布，
+ * 不发起任何网络请求。必须在 loadApps 完成（apps 已填充）之后调用。
+ */
+const loadRanking = () => {
   if (apps.value.length === 0) return;
-  const gen = ++rankingGeneration;
   rankingLoading.value = true;
-  const all = apps.value.slice();
-  const CONCURRENCY = 15;
-  const results: App[] = [];
-  for (let i = 0; i < all.length; i += CONCURRENCY) {
-    if (gen !== rankingGeneration) {
-      saveCacheToStorage();
-      return;
-    }
-    const batch = all.slice(i, i + CONCURRENCY);
-    const settled = await Promise.all(
-      batch.map(async (app) => ({
-        ...app,
-        downloadCount: await fetchDownloadCount(app),
-      })),
-    );
-    results.push(...settled);
-    // 边拉边发：每批完成后立即发布增量排名
-    if (gen === rankingGeneration) publishRanking(results);
-  }
-  if (gen !== rankingGeneration) {
-    saveCacheToStorage();
-    return;
-  }
+  publishRanking(apps.value);
   rankingLoading.value = false;
-  saveCacheToStorage();
 };
-
-// 启动时即加载本地缓存（无需等待 apps），二次启动首屏即可见缓存排行
-loadCacheFromStorage();
-
-// 排行榜在 loadApps 全量完成后（onMounted）触发一次，确保 spark/apm 应用均已就绪
 
 const loadHome = async () => {
   homeLoading.value = true;

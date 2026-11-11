@@ -34,6 +34,7 @@ import {
   buildReviewTags,
 } from "../modules/appIdentity";
 import { loadFavoriteMetadataForDetail } from "./useFavorites";
+import { parseDownloadTimes } from "../modules/ranking";
 import { axiosInstance } from "./useHttp";
 import type { ReviewTags } from "../global/typedefinition";
 import type { Ref } from "vue";
@@ -107,6 +108,8 @@ const fetchAppFromStore = async (
       category,
       origin,
       currentStatus: "not-installed",
+      // app.json 同样携带下载次数，避免详情页再单独请求 download-times.txt
+      downloadCount: parseDownloadTimes(appJson.DownloadTimes),
     };
   } catch (e) {
     // 组件卸载/详情关闭触发 abort 时静默返回，避免刷 AbortError 日志

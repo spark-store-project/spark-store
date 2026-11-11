@@ -8,6 +8,21 @@ import type { App } from "../global/typedefinition";
 /** 榜单统一条数（需求确认：10 条） */
 export const TOP_N = 10;
 
+/**
+ * 解析服务器在 app.json / applist.json 中注入的 `DownloadTimes` 字段。
+ * 该字段正常为数字，但历史数据/第三方镜像也可能是字符串甚至缺失，
+ * 统一收敛为「非负整数」；无法解析时返回 undefined，交由调用方决定是否回退。
+ */
+export function parseDownloadTimes(raw: unknown): number | undefined {
+  const n =
+    typeof raw === "number"
+      ? raw
+      : typeof raw === "string" && raw.trim() !== ""
+        ? Number(raw.trim())
+        : NaN;
+  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : undefined;
+}
+
 /** 更新荣耀榜取「最近更新」应用的窗口大小（用于聚合这部分贡献者） */
 export const RECENT_UPDATE_WINDOW = 30;
 

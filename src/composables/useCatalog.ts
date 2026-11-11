@@ -27,6 +27,7 @@ import {
 } from "./useAppState";
 import { axiosInstance, fetchWithRetry, rootAbortController } from "./useHttp";
 import { loadPriorityConfig, APM_STORE_BASE_URL } from "../global/storeConfig";
+import { parseDownloadTimes } from "../modules/ranking";
 
 export const loadCategories = async () => {
   try {
@@ -179,6 +180,8 @@ export const normalizeAppJson = (
   category: category,
   origin: origin,
   currentStatus: "not-installed" as const,
+  // 下载量由 applist.json 直接携带，无需再逐个请求 download-times.txt
+  downloadCount: parseDownloadTimes(appJson.DownloadTimes),
 });
 
 export const loadTabCategories = async () => {
