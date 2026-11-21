@@ -9,6 +9,7 @@ import pino from "pino";
 import { ChannelPayload } from "../../typedefinition";
 import axios from "axios";
 import { findExecutable, SUPER_USER_COMMAND_CANDIDATES } from "./superuser";
+import { findApmEntriesApplicationsPath } from "./apm-paths";
 
 const logger = pino({ name: "install-manager" });
 
@@ -1219,7 +1220,6 @@ ipcMain.handle(
   ) => {
     const { origin, pkgnameList } = payload;
     const storeFilter = getStoreFilterFromArgv();
-    const apmBasePath = "/var/lib/apm/apm/files/ace-env/var/lib/apm";
 
     if (!isOriginEnabled(storeFilter, origin)) {
       return {
@@ -1396,11 +1396,11 @@ ipcMain.handle(
         // 从桌面文件获取应用名称和图标
         let appName = pkgname;
         let icon = "";
-        const pkgPath = path.join(apmBasePath, pkgname);
-        const entriesPath = path.join(pkgPath, "entries", "applications");
-        const hasEntries = fs.existsSync(entriesPath);
+        // 新布局 /var/lib/apm/<pkg> 优先，旧 ACE 布局兜底
+        const entriesPath = findApmEntriesApplicationsPath(pkgname);
+        const hasEntries = entriesPath !== null;
 
-        if (hasEntries) {
+        if (entriesPath) {
           try {
             const desktopFiles = fs.readdirSync(entriesPath);
             logger.debug(
@@ -1425,7 +1425,7 @@ ipcMain.handle(
             logger.warn(`Failed to read desktop file for ${pkgname}: ${e}`);
           }
         } else {
-          logger.debug(`No entries path for ${pkgname}: ${entriesPath}`);
+          logger.debug(`No entries path for ${pkgname}`);
         }
 
         installedApps.push({

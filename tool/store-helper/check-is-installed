@@ -5,6 +5,17 @@ readonly ACE_ENVIRONMENTS=(
     "deepin23-run:amber-ce-deepin23"
     "sid-run:amber-ce-sid"
 )
+
+# APM 2.0 原生安装的包不在 dpkg 数据库里，先查 apm list
+if command -v apm >/dev/null 2>&1; then
+    if apm list --installed 2>/dev/null |
+        sed 's/\x1b\[[0-9;]*m//g' |
+        cut -d/ -f1 |
+        grep -Fxq -- "$1"; then
+        exit 0
+    fi
+fi
+
 dpkg -s "$1" 2>/dev/null | grep -q 'Status: install ok installed' > /dev/null 2>&1
 RET="$?"
 if [[ "$RET" != "0" ]] && [[ "$IS_ACE_ENV" == "" ]];then ## 如果未在ACE环境中

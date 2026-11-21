@@ -146,6 +146,24 @@ describe("update-center icons", () => {
     ).toEqual({ localIcon: iconPath });
   });
 
+  it("resolves APM 2.0 icons from /var/lib/apm before legacy ACE path", async () => {
+    const pkgname = "spark-notes";
+    const desktopDirectory = `/var/lib/apm/${pkgname}/entries/applications`;
+    const desktopPath = `${desktopDirectory}/${pkgname}.desktop`;
+    const iconPath = `/var/lib/apm/${pkgname}/entries/icons/hicolor/48x48/apps/${pkgname}.png`;
+    const { resolveApmIcon } = await loadIconsModule({
+      directories: {
+        [desktopDirectory]: [`${pkgname}.desktop`],
+      },
+      files: {
+        [desktopPath]: `[Desktop Entry]\nName=Spark Notes\nIcon=${pkgname}\n`,
+        [iconPath]: "png",
+      },
+    });
+
+    expect(resolveApmIcon(pkgname)).toBe(iconPath);
+  });
+
   it("checks later APM desktop entries when the first one has no usable icon", async () => {
     const pkgname = "spark-player";
     const desktopDirectory = `/var/lib/apm/apm/files/ace-env/var/lib/apm/${pkgname}/entries/applications`;

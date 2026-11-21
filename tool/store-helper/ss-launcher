@@ -21,6 +21,20 @@ readonly ACE_ENVIRONMENTS=(
 function scan_desktop_file_log() {
     unset desktop_file_path
     local package_name=$1
+    # APM 2.0 新布局优先，旧 ACE 布局兜底
+    local root desktop_dir path
+    for root in /var/lib/apm /var/lib/apm/apm/files/ace-env/var/lib/apm; do
+        desktop_dir="$root/$package_name/entries/applications"
+        [ -d "$desktop_dir" ] || continue
+        while IFS= read -r path; do
+            [ -z "$(grep 'NoDisplay=true' "$path" 2>/dev/null)" ] && {
+                log.info "Found valid APM desktop file: $path"
+                export desktop_file_path="$path"
+                return 0
+            }
+        done < <(find "$desktop_dir" -name '*.desktop' -type f 2>/dev/null)
+    done
+
     # 标准desktop文件检测
     while IFS= read -r path; do
         [ -z "$(grep 'NoDisplay=true' "$path")" ] && {
@@ -43,6 +57,16 @@ function scan_desktop_file_log() {
 
 function scan_desktop_file() {
     local package_name=$1 result=""
+    # APM 2.0 新布局优先，旧 ACE 布局兜底
+    local root desktop_dir path
+    for root in /var/lib/apm /var/lib/apm/apm/files/ace-env/var/lib/apm; do
+        desktop_dir="$root/$package_name/entries/applications"
+        [ -d "$desktop_dir" ] || continue
+        while IFS= read -r path; do
+            [ -z "$(grep 'NoDisplay=true' "$path" 2>/dev/null)" ] && result+="$path,"
+        done < <(find "$desktop_dir" -name '*.desktop' -type f 2>/dev/null)
+    done
+
     # 标准结果收集
     while IFS= read -r path; do
         [ -z "$(grep 'NoDisplay=true' "$path")" ] && result+="$path,"

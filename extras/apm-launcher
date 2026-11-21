@@ -6,13 +6,25 @@ log.warn()  { echo "WARN: $*"; }
 log.error() { echo "ERROR: $*"; }
 log.debug() { :; }  # APM 场景下可禁用 debug 日志
 
+# APM 2.0 新布局优先，旧 ACE 布局兜底
+function apm_desktop_dir() {
+    local pkg_name="$1" root desktop_dir
+    for root in /var/lib/apm /var/lib/apm/apm/files/ace-env/var/lib/apm; do
+        desktop_dir="${root}/${pkg_name}/entries/applications"
+        if [ -d "$desktop_dir" ]; then
+            printf '%s\n' "$desktop_dir"
+            return 0
+        fi
+    done
+    return 1
+}
+
 # ===== APM 专用桌面文件扫描（单文件）=====
 function scan_apm_desktop_log() {
     unset desktop_file_path
     local pkg_name="$1"
-    local desktop_dir="/var/lib/apm/apm/files/ace-env/var/lib/apm/${pkg_name}/entries/applications"
-
-    [ -d "$desktop_dir" ] || return 1
+    local desktop_dir
+    desktop_dir="$(apm_desktop_dir "$pkg_name")" || return 1
 
     while IFS= read -r -d '' path; do
         [ -f "$path" ] || continue
@@ -29,10 +41,10 @@ function scan_apm_desktop_log() {
 # ===== APM 专用桌面文件扫描（多文件列表）=====
 function scan_apm_desktop_list() {
     local pkg_name="$1"
-    local desktop_dir="/var/lib/apm/apm/files/ace-env/var/lib/apm/${pkg_name}/entries/applications"
+    local desktop_dir
     local result=""
 
-    [ -d "$desktop_dir" ] || { echo ""; return; }
+    desktop_dir="$(apm_desktop_dir "$pkg_name")" || { echo ""; return; }
 
     while IFS= read -r -d '' path; do
         [ -f "$path" ] || continue
@@ -58,7 +70,7 @@ function launch_app() {
 }
 
 # 导出函数供 ACE 环境调用
-export -f launch_app scan_apm_desktop_log scan_apm_desktop_list log.info log.error
+export -f apm_desktop_dir launch_app scan_apm_desktop_log scan_apm_desktop_list log.info log.error
 
 # ===== 主逻辑 =====
 [ $# -lt 2 ] && {

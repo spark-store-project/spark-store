@@ -1,6 +1,17 @@
 #!/bin/bash
-# 检查包是否已安装
+# 检查包是否已安装（APM 2.0 原生安装 / dpkg 安装）
 # 返回 0 表示已安装，非 0 表示未安装
 
-dpkg -s "$1" 2>/dev/null | grep -q 'Status: install ok installed'
+# APM 2.0：apm list --installed 的输出形如 pkg/repo,...；先按包名精确匹配
+if command -v apm >/dev/null 2>&1; then
+    if apm list --installed 2>/dev/null |
+        sed 's/\x1b\[[0-9;]*m//g' |
+        cut -d/ -f1 |
+        grep -Fxq -- "$1"; then
+        exit 0
+    fi
+fi
+
+# 旧版 dpkg / ACE 环境检查
+dpkg -s "$1" 2>/dev/null | grep -q 'Status: install ok installed' > /dev/null 2>&1
 exit $?

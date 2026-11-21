@@ -3,8 +3,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 import type { UpdateCenterItem } from "./types";
+import { APM_PACKAGE_ROOTS } from "../apm-paths";
 
-const APM_BASE_PATH = "/var/lib/apm/apm/files/ace-env/var/lib/apm";
+const APM_BASE_PATHS = APM_PACKAGE_ROOTS;
 const REMOTE_ICON_BASE_URL = "https://erotica.spark-app.store";
 
 const trimTrailingSlashes = (value: string): string =>
@@ -102,7 +103,7 @@ export const resolveDesktopIcon = (pkgname: string): string => {
 };
 
 export const resolveApmIcon = (pkgname: string): string => {
-  const apmRoots = [APM_BASE_PATH, "/opt/apps"];
+  const apmRoots = [...APM_BASE_PATHS, "/opt/apps"];
 
   for (const apmRoot of apmRoots) {
     const desktopDirectory = path.join(

@@ -108,6 +108,21 @@ try_native_uninstall() {
         echo "正在检查本地环境中的安装..."
         echo "----------------------------------------"
         
+        # APM 2.0 原生安装的包不在 dpkg 数据库里，优先按 APM 卸载
+        if command -v apm >/dev/null 2>&1 &&
+            apm list --installed 2>/dev/null |
+                sed 's/\x1b\[[0-9;]*m//g' |
+                cut -d/ -f1 |
+                grep -Fxq -- "$PACKAGE_NAME"; then
+            echo "----------------------------------------"
+            echo "在本地 APM 环境中找到了安装"
+            echo "----------------------------------------"
+            if apm remove -y "$PACKAGE_NAME"; then
+                uninstall_success=1
+                return 0
+            fi
+        fi
+
         dpkg -s "$PACKAGE_NAME" > /dev/null
         RET="$?"
         if [[ "$RET" == "0" ]]; then
