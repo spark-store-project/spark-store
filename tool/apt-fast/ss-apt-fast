@@ -270,6 +270,22 @@ VERBOSE_OUTPUT=
 # Download command.
 _DOWNLOADER='aria2c --no-conf -c -j ${_MAXNUM} -x ${_MAXCONPERSRV} -s ${_SPLITCON} -i ${DLLIST} --min-split-size=${_MINSPLITSZ} --stream-piece-selector=${_PIECEALGO} --connect-timeout=60 --timeout=600 -m0'
 
+APTSS_PROGRESS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/ss-apt-fast-progress"
+
+download_packages() { # download-dir
+    local download_dir="${1:-$PWD}" rc
+    if [ -t 1 ] && [ -x "$APTSS_PROGRESS" ]; then
+        APTF_MAXNUM="$_MAXNUM" APTF_MAXCONN="$_MAXCONPERSRV" \
+        APTF_SPLIT="$_SPLITCON" APTF_MINSPLIT="$_MINSPLITSZ" \
+        APTF_PIECEALGO="$_PIECEALGO" \
+            "$APTSS_PROGRESS" "$DLLIST" "$download_dir"
+        rc=$?
+        [ "$rc" -ne 2 ] && return "$rc"
+    fi
+    # 没有 TTY 或 RPC 初始化失败时保持原来的 aria2c 行为
+    eval "$_DOWNLOADER"
+}
+
 # 定义默认的配置文件列表（按加载顺序排列）
 CONFIG_FILES=(
     "/tmp/aptss-conf/apt-fast.conf"  # 原始配置文件位置
@@ -756,7 +772,7 @@ if [ "$option" == "install" ]; then
 
         cd "$DLDIR" &>/dev/null || { msg; msg "Not able to change into download directory." "warning"; CLEANUP_STATE=1; exit; }
 
-        eval "${_DOWNLOADER}"  # execute downloadhelper command
+        download_packages "$DLDIR"  # execute downloadhelper command
         if [ "$(find "$DLDIR" -printf . | wc -c)" -gt 1 ]; then
 
           # Delete incomplete/corrupted downloaded files, if any: Not recursive, as we don't expect any dirs to exist within $DLDIR.
@@ -808,7 +824,7 @@ elif [ "$option" == "download" ]; then
 
   if [ -f "$DLLIST" ] && [ "$(wc -l "$DLLIST" | cut -d' ' -f1)" -gt 1 ]; then
     display_downloadfile
-    eval "${_DOWNLOADER}"
+    download_packages "$PWD"
   fi
 
   # different problem resolving for aptitude
@@ -828,7 +844,7 @@ elif [ "$option" == "source" ]; then
 
   if [ -f "$DLLIST" ] && [ "$(wc -l "$DLLIST" | cut -d' ' -f1)" -gt 1 ]; then
     display_downloadfile
-    eval "${_DOWNLOADER}"
+    download_packages "$PWD"
   fi
   # We use APT manager here to provide more verbose output. This method is
   # slightly slower then extractiong packages manually after download but also

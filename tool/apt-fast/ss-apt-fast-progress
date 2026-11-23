@@ -1,0 +1,290 @@
+#!/bin/bash
+# Single-line aria2 progress renderer for aptss.
+# Usage: ss-apt-fast-progress <DLLIST> <DLDIR>
+# Exit codes: 0 success, 1 download error, 2 setup failure (caller should fall back).
+
+DLLIST="${1:-}"
+DLDIR="${2:-.}"
+[ -n "$DLLIST" ] && [ -f "$DLLIST" ] || exit 2
+[ -t 2 ] || exit 2
+command -v aria2c >/dev/null 2>&1 || exit 2
+command -v curl >/dev/null 2>&1 || exit 2
+
+MAXNUM="${APTF_MAXNUM:-5}"
+MAXCONN="${APTF_MAXCONN:-10}"
+SPLIT="${APTF_SPLIT:-8}"
+MINSPLIT="${APTF_MINSPLIT:-1M}"
+PIECEALGO="${APTF_PIECEALGO:-default}"
+
+case "${MAXNUM}" in '' | *[!0-9]*) MAXNUM=5 ;; esac
+case "${MAXCONN}" in '' | *[!0-9]*) MAXCONN=10 ;; esac
+case "${SPLIT}" in '' | *[!0-9]*) SPLIT=8 ;; esac
+[ "$MAXNUM" -ge 1 ] || MAXNUM=5
+[ "$MAXCONN" -ge 1 ] || MAXCONN=10
+[ "$SPLIT" -ge 1 ] || SPLIT=8
+
+json_escape() {
+    printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+}
+
+free_port() {
+    local p i
+    for i in $(seq 1 30); do
+        p=$(( (RANDOM % 40000) + 20000 ))
+        if ! (exec 3<>"/dev/tcp/127.0.0.1/$p") 2>/dev/null; then
+            printf '%s\n' "$p"
+            return 0
+        fi
+    done
+    printf '6800\n'
+}
+
+rpc() { # port secret method extra
+    local port="$1" secret="$2" method="$3" extra="${4:-}"
+    curl --noproxy '*' -fsS --max-time 3 \
+        -H 'Content-Type: application/json' \
+        -d "{\"jsonrpc\":\"2.0\",\"id\":\"aptss\",\"method\":\"$method\",\"params\":[\"token:$secret\"$extra]}" \
+        "http://127.0.0.1:$port/jsonrpc" 2>/dev/null
+}
+
+json_field() {
+    printf '%s' "$1" | sed -n 's/.*"'"$2"'":"\([^"]*\)".*/\1/p'
+}
+
+human() {
+    awk -v s="${1:-0}" 'BEGIN {
+        split("B KiB MiB GiB TiB", u, " "); i = 1
+        while (s >= 1024 && i < 5) { s /= 1024; i++ }
+        printf (i == 1 ? "%.0f %s" : "%.1f %s"), s, u[i]
+    }'
+}
+
+term_cols() {
+    local c="${COLUMNS:-}"
+    if [ -z "$c" ] && command -v tput >/dev/null 2>&1; then
+        c="$(tput cols 2>/dev/null || true)"
+    fi
+    case "$c" in '' | *[!0-9]*) c=80 ;; esac
+    [ "$c" -ge 40 ] 2>/dev/null || c=80
+    printf '%s\n' "$c"
+}
+
+# Parse aria2 input-format DLLIST into jobs.
+declare -a JOB_URIS=() JOB_OUT=() JOB_CHECKSUM=() JOB_NUMURLS=()
+cur_uris=""
+cur_out=""
+cur_checksum=""
+
+flush_job() {
+    [ -n "$cur_uris" ] || return 0
+    JOB_URIS+=("$cur_uris")
+    JOB_OUT+=("$cur_out")
+    JOB_CHECKSUM+=("$cur_checksum")
+    local n=0 u
+    while IFS= read -r u; do
+        [ -n "$u" ] && n=$((n + 1))
+    done <<< "$cur_uris"
+    JOB_NUMURLS+=("$n")
+    cur_uris=""
+    cur_out=""
+    cur_checksum=""
+}
+
+while IFS= read -r line || [ -n "$line" ]; do
+    line="${line%$'\r'}"
+    case "$line" in
+        '' | '#'*) continue ;;
+        ' '* | $'\t'*)
+            opt="${line#"${line%%[![:space:]]*}"}"
+            case "$opt" in
+                out=*) cur_out="${opt#out=}" ;;
+                checksum=*) cur_checksum="${opt#checksum=}" ;;
+            esac
+            ;;
+        *)
+            flush_job
+            cur_uris="${line//$'\t'/$'\n'}"
+            ;;
+    esac
+done < "$DLLIST"
+flush_job
+
+JOB_TOTAL="${#JOB_URIS[@]}"
+[ "$JOB_TOTAL" -gt 0 ] || exit 2
+
+LOG="$(mktemp "${TMPDIR:-/tmp}/aptss-progress.XXXXXX" 2>/dev/null || echo /dev/null)"
+PORT="$(free_port)"
+SECRET="aptss${RANDOM}${RANDOM}$$"
+aria2c --no-conf --enable-rpc=true --rpc-listen-all=false \
+    --rpc-listen-port="$PORT" --rpc-secret="$SECRET" \
+    --max-concurrent-downloads="$MAXNUM" --summary-interval=0 \
+    --console-log-level=error --file-allocation=none \
+    --dir="$DLDIR" >/dev/null 2>>"$LOG" &
+RPC_PID=$!
+cleanup() {
+    kill "$RPC_PID" 2>/dev/null || true
+    wait "$RPC_PID" 2>/dev/null || true
+    [ "${LOG:-/dev/null}" != "/dev/null" ] && rm -f -- "$LOG"
+    printf '\033[?25h' >&2 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
+
+ok=0
+for i in $(seq 1 50); do
+    if rpc "$PORT" "$SECRET" aria2.getVersion "" >/dev/null; then
+        ok=1
+        break
+    fi
+    kill -0 "$RPC_PID" 2>/dev/null || break
+    sleep 0.1
+done
+if [ "$ok" != "1" ]; then
+    exit 2
+fi
+
+declare -a GIDS=()
+for idx in "${!JOB_URIS[@]}"; do
+    urls_json=""
+    while IFS= read -r u; do
+        [ -n "$u" ] || continue
+        [ -n "$urls_json" ] && urls_json+=","
+        urls_json+="\"$(json_escape "$u")\""
+    done <<< "${JOB_URIS[$idx]}"
+    out="${JOB_OUT[$idx]}"
+    [ -n "$out" ] || out="$(basename "${JOB_URIS[$idx]%%$'\n'*}")"
+    out_e="$(json_escape "$out")"
+    dir_e="$(json_escape "$DLDIR")"
+    opts="{\"dir\":\"$dir_e\",\"out\":\"$out_e\",\"split\":\"$SPLIT\",\"max-connection-per-server\":\"$MAXCONN\",\"min-split-size\":\"$MINSPLIT\",\"stream-piece-selector\":\"$PIECEALGO\",\"continue\":\"true\",\"max-tries\":\"0\",\"connect-timeout\":\"60\",\"timeout\":\"600\""
+    if [ -n "${JOB_CHECKSUM[$idx]}" ]; then
+        opts+=",\"checksum\":\"$(json_escape "${JOB_CHECKSUM[$idx]}")\""
+    fi
+    opts+="}"
+    resp="$(rpc "$PORT" "$SECRET" aria2.addUri ",[$urls_json],$opts")" || exit 2
+    gid="$(json_field "$resp" result)"
+    [ -n "$gid" ] || exit 2
+    GIDS+=("$gid")
+done
+
+printf '\033[?25l' >&2
+
+case "${LANGUAGE:-${LANG:-}}" in
+    zh*) SRV_LABEL="源"; CONN_LABEL="连"; DONE_LABEL="完成"; FAIL_LABEL="失败" ;;
+    *) SRV_LABEL="srv"; CONN_LABEL="conn"; DONE_LABEL="done"; FAIL_LABEL="failed" ;;
+esac
+
+declare -a STAT COMP TASK_TOTAL SPEED CONNS SERVERS
+for i in "${!GIDS[@]}"; do
+    STAT[i]=""
+    COMP[i]=0
+    TASK_TOTAL[i]=0
+    SPEED[i]=0
+    CONNS[i]=0
+    SERVERS[i]=0
+done
+
+render() { # idx done
+    local idx="$1" is_done="$2" label="$3"
+    local cols max_len pct=0 pct_s bar_width bar empty filled empty_n
+    local got_h total_h speed_h sizes suffix line
+    local srv="${SERVERS[$idx]:-0}" conn="${CONNS[$idx]:-0}"
+    [ "$srv" -eq 0 ] 2>/dev/null && srv="${JOB_NUMURLS[$idx]:-1}"
+    local got="${COMP[$idx]:-0}" total="${TASK_TOTAL[$idx]:-0}"
+    local speed="${SPEED[$idx]:-0}"
+    case "$got" in '' | *[!0-9]*) got=0 ;; esac
+    case "$total" in '' | *[!0-9]*) total=0 ;; esac
+    [ "$total" -gt 0 ] && pct=$((got * 100 / total))
+    [ "$pct" -gt 100 ] && pct=100
+    [ "${#label}" -gt 18 ] && label="${label:0:17}…"
+    got_h="$(human "$got")"
+    if [ "$total" -gt 0 ]; then
+        total_h="$(human "$total")"
+        if [ "${got_h##* }" = "${total_h##* }" ]; then
+            sizes="${got_h% *}/${total_h}"
+        else
+            sizes="${got_h}/${total_h}"
+        fi
+        pct_s="${pct}%"
+    else
+        sizes="${got_h}/?"
+        pct_s="--%"
+    fi
+    speed_h="$(human "$speed")"
+    suffix="${SRV_LABEL}${srv} ${CONN_LABEL}${conn}"
+    if [ "$is_done" = "1" ]; then suffix+=" ${DONE_LABEL}"; fi
+    if [ "$is_done" = "2" ]; then suffix+=" ${FAIL_LABEL}"; fi
+
+    cols="$(term_cols)"
+    max_len=$((cols - 6))
+    [ "$max_len" -lt 40 ] && max_len=40
+    local task_no=$((idx + 1))
+    line="[${task_no}/${JOB_TOTAL}] ${label} ${pct_s}  ${sizes}  ${speed_h}/s  ${suffix}"
+    bar_width=$((max_len - ${#line} - 4))
+    [ "$bar_width" -gt 20 ] && bar_width=20
+    [ "$bar_width" -lt 8 ] && bar_width=0
+    if [ "$bar_width" -gt 0 ]; then
+        filled=$((pct * bar_width / 100))
+        [ "$filled" -gt "$bar_width" ] && filled="$bar_width"
+        empty_n=$((bar_width - filled))
+        printf -v bar '%*s' "$filled" ''
+        bar="${bar// /█}"
+        printf -v empty '%*s' "$empty_n" ''
+        empty="${empty// /░}"
+        line="[${task_no}/${JOB_TOTAL}] ${label} ${pct_s} [${bar}${empty}] ${sizes}  ${speed_h}/s  ${suffix}"
+    fi
+    [ "${#line}" -gt "$max_len" ] && line="${line:0:$max_len}"
+    printf '\r\033[K\033[36m%s\033[0m' "$line" >&2
+}
+
+declare -a DONE_FLAG
+last_idx=""
+last_label=""
+while :; do
+    done_count=0
+    current=-1
+    current_label=""
+    for i in "${!GIDS[@]}"; do
+        resp="$(rpc "$PORT" "$SECRET" aria2.tellStatus ",\"${GIDS[$i]}\",[\"completedLength\",\"totalLength\",\"downloadSpeed\",\"connections\",\"numServers\",\"status\"]")" || break
+        st="$(json_field "$resp" status)"
+        [ -n "$st" ] || continue
+        STAT[i]="$st"
+        COMP[i]="$(json_field "$resp" completedLength)"; COMP[i]="${COMP[i]:-0}"
+        TASK_TOTAL[i]="$(json_field "$resp" totalLength)"; TASK_TOTAL[i]="${TASK_TOTAL[i]:-0}"
+        SPEED[i]="$(json_field "$resp" downloadSpeed)"; SPEED[i]="${SPEED[i]:-0}"
+        CONNS[i]="$(json_field "$resp" connections)"; CONNS[i]="${CONNS[i]:-0}"
+        SERVERS[i]="$(json_field "$resp" numServers)"; SERVERS[i]="${SERVERS[i]:-0}"
+        case "$st" in
+            complete | error | removed) done_count=$((done_count + 1)) ;;
+            *)
+                if [ "$current" -lt 0 ]; then
+                    current=$i
+                    label="${JOB_OUT[$i]}"
+                    [ -n "$label" ] || label="task$i"
+                    label="${label##*/}"
+                    label="${label%.deb}"
+                    label="${label%%_*}"
+                    current_label="$label"
+                fi
+                ;;
+        esac
+    done
+
+    if [ "$current" -ge 0 ]; then
+        render "$current" 0 "$current_label"
+        last_idx="$current"
+        last_label="$current_label"
+    fi
+    [ "$done_count" -ge "$JOB_TOTAL" ] && break
+    sleep 0.2
+done
+
+failed=0
+for st in "${STAT[@]}"; do
+    case "$st" in complete) ;; *) failed=1 ;; esac
+done
+if [ "$failed" = "0" ]; then
+    [ -n "$last_idx" ] && render "$last_idx" 1 "$last_label"
+    printf '\n\033[?25h' >&2
+    exit 0
+fi
+printf '\n\033[?25h' >&2
+exit 1
