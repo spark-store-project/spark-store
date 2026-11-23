@@ -1,4 +1,4 @@
-spark-store (5.3.4) UNRELEASED; urgency=medium
+spark-store (5.3.4-1) UNRELEASED; urgency=medium
 
   * 兼容 APM 2.0 原生安装路径的已安装检测、图标解析、启动与卸载。
 
