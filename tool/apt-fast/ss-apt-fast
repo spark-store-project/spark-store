@@ -274,7 +274,7 @@ APTSS_PROGRESS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/ss-apt-fast-progre
 
 download_packages() { # download-dir
     local download_dir="${1:-$PWD}" rc
-    if [ -t 1 ] && [ -x "$APTSS_PROGRESS" ]; then
+    if { [ -t 1 ] || [ "${APTSS_PROGRESS_FORMAT:-}" = "json" ]; } && [ -x "$APTSS_PROGRESS" ]; then
         APTF_MAXNUM="$_MAXNUM" APTF_MAXCONN="$_MAXCONPERSRV" \
         APTF_SPLIT="$_SPLITCON" APTF_MINSPLIT="$_MINSPLITSZ" \
         APTF_PIECEALGO="$_PIECEALGO" \

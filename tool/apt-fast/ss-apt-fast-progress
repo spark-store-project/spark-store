@@ -6,7 +6,9 @@
 DLLIST="${1:-}"
 DLDIR="${2:-.}"
 [ -n "$DLLIST" ] && [ -f "$DLLIST" ] || exit 2
-[ -t 2 ] || exit 2
+JSON_MODE=0
+[ "${APTSS_PROGRESS_FORMAT:-}" = "json" ] && JSON_MODE=1
+[ "$JSON_MODE" = "1" ] || [ -t 2 ] || exit 2
 command -v aria2c >/dev/null 2>&1 || exit 2
 command -v curl >/dev/null 2>&1 || exit 2
 
@@ -125,7 +127,7 @@ cleanup() {
     kill "$RPC_PID" 2>/dev/null || true
     wait "$RPC_PID" 2>/dev/null || true
     [ "${LOG:-/dev/null}" != "/dev/null" ] && rm -f -- "$LOG"
-    printf '\033[?25h' >&2 2>/dev/null || true
+    [ "${JSON_MODE:-0}" = "1" ] || printf '\033[?25h' >&2 2>/dev/null || true
 }
 trap cleanup EXIT INT TERM
 
@@ -165,7 +167,7 @@ for idx in "${!JOB_URIS[@]}"; do
     GIDS+=("$gid")
 done
 
-printf '\033[?25l' >&2
+[ "$JSON_MODE" = "1" ] || printf '\033[?25l' >&2
 
 case "${LANGUAGE:-${LANG:-}}" in
     zh*) SRV_LABEL="源"; CONN_LABEL="连"; DONE_LABEL="完成"; FAIL_LABEL="失败" ;;
@@ -209,6 +211,13 @@ render() { # idx done
         pct_s="--%"
     fi
     speed_h="$(human "$speed")"
+    local task_no=$((idx + 1))
+    if [ "$JSON_MODE" = "1" ]; then
+        # 控制中心读取的机器可读进度；数据来自 aria2 RPC
+        printf '#APM_PROGRESS {"task":%s,"tasks":%s,"percent":%s,"speed":%s,"speed_human":"%s/s","servers":%s,"connections":%s,"done":%s}\n' \
+            "$task_no" "$JOB_TOTAL" "$pct" "$speed" "$speed_h" "$srv" "$conn" "$is_done"
+        return
+    fi
     suffix="${SRV_LABEL}${srv} ${CONN_LABEL}${conn}"
     if [ "$is_done" = "1" ]; then suffix+=" ${DONE_LABEL}"; fi
     if [ "$is_done" = "2" ]; then suffix+=" ${FAIL_LABEL}"; fi
@@ -216,7 +225,6 @@ render() { # idx done
     cols="$(term_cols)"
     max_len=$((cols - 6))
     [ "$max_len" -lt 40 ] && max_len=40
-    local task_no=$((idx + 1))
     line="[${task_no}/${JOB_TOTAL}] ${label} ${pct_s}  ${sizes}  ${speed_h}/s  ${suffix}"
     bar_width=$((max_len - ${#line} - 4))
     [ "$bar_width" -gt 20 ] && bar_width=20
@@ -281,10 +289,17 @@ failed=0
 for st in "${STAT[@]}"; do
     case "$st" in complete) ;; *) failed=1 ;; esac
 done
+if [ -z "$last_idx" ] && [ "$JOB_TOTAL" -gt 0 ]; then
+    last_idx=0
+    last_label="${JOB_OUT[0]}"
+    last_label="${last_label##*/}"
+    last_label="${last_label%.deb}"
+    last_label="${last_label%%_*}"
+fi
 if [ "$failed" = "0" ]; then
     [ -n "$last_idx" ] && render "$last_idx" 1 "$last_label"
-    printf '\n\033[?25h' >&2
+    [ "$JSON_MODE" = "1" ] || printf '\n\033[?25h' >&2
     exit 0
 fi
-printf '\n\033[?25h' >&2
+[ "$JSON_MODE" = "1" ] || printf '\n\033[?25h' >&2
 exit 1
