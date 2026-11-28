@@ -1,3 +1,12 @@
+spark-store (5.3.5) UNRELEASED; urgency=medium
+
+  * 兼容 APM 2.0 的更新检查：元数据查询改用原生 `apm download --print-uris`
+    并兼容其无 SHA512 的输出格式，APM 更新项继续走 Metalink 先下载后
+    `apm ssinstall`；同时清理更新通知脚本中的 amber-pm-debug 调用，
+    避免新版 APM 下无法列出可更新项。
+
+ -- shenmo <shenmo@spark-app.store>  Sat, 28 Nov 2026 12:55:00 +0800
+
 spark-store (5.3.4-1) UNRELEASED; urgency=medium
 
   * 兼容 APM 2.0 原生安装路径的已安装检测、图标解析、启动与卸载。

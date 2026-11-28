@@ -251,22 +251,11 @@ if [ "$has_apm" -eq 1 ]; then
         IFS_OLD="$IFS"
         IFS=$'\n'
 
+        # APM 2.0 起为原生包管理：amber-pm-debug 已移除，
+        # `apm list --upgradable` 本身已过滤 hold 与同版本项，无需再用 dpkg 复核。
         for line in $PKG_LIST; do
             PKG_NAME=$(echo "$line" | awk -F ' ' '{print $1}')
             PKG_NEW_VER=$(echo "$line" | awk -F ' ' '{print $2}')
-            PKG_CUR_VER=$(echo "$line" | awk -F ' ' '{print $3}')
-
-            amber-pm-debug dpkg --compare-versions "$PKG_NEW_VER" le "$PKG_CUR_VER"
-            if [ $? -eq 0 ]; then
-                apm_update_count=$((apm_update_count - 1))
-                continue
-            fi
-
-            PKG_STA=$(amber-pm-debug dpkg-query -W -f='${db:Status-Want}' "$PKG_NAME")
-            if [ "$PKG_STA" = "hold" ]; then
-                apm_update_count=$((apm_update_count - 1))
-                continue
-            fi
 
             if [ -n "${ignored_apps["$PKG_NAME|$PKG_NEW_VER"]}" ]; then
                 apm_update_count=$((apm_update_count - 1))

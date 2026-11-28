@@ -17,12 +17,20 @@ describe("update-center query", () => {
       "",
     ].join("\n");
 
+    // 同版本项也保留：aptss 已判定其为 upgradable，应信任上游判断。
     expect(parseAptssUpgradableOutput(output)).toEqual([
       {
         pkgname: "spark-weather",
         source: "aptss",
         currentVersion: "1.9.0",
         nextVersion: "2.0.0",
+        arch: "amd64",
+      },
+      {
+        pkgname: "spark-same",
+        source: "aptss",
+        currentVersion: "1.0.0",
+        nextVersion: "1.0.0",
         arch: "amd64",
       },
     ]);
@@ -82,6 +90,18 @@ describe("update-center query", () => {
       fileName: "spark-weather_2.0.0_amd64.deb",
       size: 123456,
       sha512: "deadbeef",
+    });
+  });
+
+  it("parses apm print-uris output without SHA512 and strips target directory", () => {
+    const output =
+      "'https://d.spark-app.store/amd64-apm/tools/spark-weather/spark-weather_3.0.0_amd64.deb' ./spark-weather_3.0.0_amd64.deb 123456";
+
+    expect(parsePrintUrisOutput(output)).toEqual({
+      downloadUrl:
+        "https://d.spark-app.store/amd64-apm/tools/spark-weather/spark-weather_3.0.0_amd64.deb",
+      fileName: "spark-weather_3.0.0_amd64.deb",
+      size: 123456,
     });
   });
 
@@ -286,6 +306,13 @@ describe("update-center query", () => {
         nextVersion: "5.0.0",
         arch: "arm64",
       },
+      {
+        pkgname: "spark-same",
+        source: "apm",
+        currentVersion: "1.0.0",
+        nextVersion: "1.0.0",
+        arch: "arm64",
+      },
     ]);
   });
 
@@ -297,10 +324,12 @@ describe("update-center query", () => {
       "",
     ].join("\n");
 
+    // APM 2.0 起输出形如 "<pkg>/<repo>,now <version> <arch> [installed...]"，
+    // 无索引时则是 "<pkg>/now <version> <arch> [installed,local]"。
     const apmInstalledOutput = [
       "Listing...",
-      "spark-weather/main,stable 3.0.0 amd64 [installed]",
-      "spark-player/main 1.0.0 amd64 [installed,automatic]",
+      "spark-weather/main,now 3.0.0 amd64 [installed]",
+      "spark-player/now 1.0.0 amd64 [installed,automatic]",
       "",
     ].join("\n");
 

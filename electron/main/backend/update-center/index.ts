@@ -71,12 +71,11 @@ const DPKG_QUERY_INSTALLED_COMMAND = {
   ],
 };
 
+// APM 2.0 起不再有 amber-pm-debug/apt，但原生 `apm download --print-uris`
+// 仍会输出 "'<url>' <目标路径> <大小>"，可直接用于更新中心的「先下载后安装」。
 const getApmPrintUrisCommand = (pkgname: string) => ({
   command: "bash",
-  args: [
-    "-lc",
-    `amber-pm-debug /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf download ${pkgname} --print-uris`,
-  ],
+  args: ["-lc", `env LANGUAGE=en_US apm download ${pkgname} --print-uris`],
 });
 
 const getAptssPrintUrisCommand = (pkgname: string) => ({
@@ -624,7 +623,9 @@ export const runSystemUpdateSources = async (
     const aptssAvailable =
       whichResult.code === 0 && whichResult.stdout.trim().length > 0;
     if (aptssAvailable) {
-      logger.debug("[UpdateCenter] Running: pkexec shell-caller aptss ssupdate");
+      logger.debug(
+        "[UpdateCenter] Running: pkexec shell-caller aptss ssupdate",
+      );
       const superUserCmd = await findExecutable(
         SUPER_USER_COMMAND_CANDIDATES[0],
       );

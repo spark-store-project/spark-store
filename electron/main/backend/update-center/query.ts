@@ -6,7 +6,9 @@ import type {
   UpdateSource,
 } from "./types";
 
-const PRINT_URIS_PATTERN = /'([^']+)'\s+(\S+)\s+(\d+)\s+SHA512:([^\s]+)/;
+// apt 输出为 "'<url>' <文件名> <大小> SHA512:<hash>"；
+// APM 2.0 的 `apm download --print-uris` 输出为 "'<url>' <路径> <大小>"（无 SHA512）。
+const PRINT_URIS_PATTERN = /'([^']+)'\s+(\S+)\s+(\d+)(?:\s+SHA512:(\S+))?/;
 const APM_INSTALLED_PATTERN = /^(\S+)\/\S+(?:,\S+)?\s+\S+\s+\S+\s+\[[^\]]+\]$/;
 const CURRENT_VERSION_PATTERN = /\[(?:upgradable from|from):\s*([^\]\s]+)\]/i;
 
@@ -308,14 +310,16 @@ export const parsePrintUrisOutput = (
     return null;
   }
 
-  const [, rawDownloadUrl, fileName, size, sha512] = match;
+  const [, rawDownloadUrl, rawFileName, size, sha512] = match;
   // Clean up the URL: remove backticks and extra spaces
   const downloadUrl = rawDownloadUrl.replace(/[`'"]/g, "").trim();
+  // APM 的 print-uris 会给出 "./dir/file.deb" 形式的目标路径，这里只保留文件名。
+  const fileName = rawFileName.split("/").filter(Boolean).pop() ?? rawFileName;
   return {
     downloadUrl,
     fileName,
     size: Number(size),
-    sha512,
+    ...(sha512 ? { sha512 } : {}),
   };
 };
 
