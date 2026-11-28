@@ -10,14 +10,26 @@ type RemoteStoreResponse =
   | Record<string, unknown>
   | Array<Record<string, unknown>>;
 
+// update-center 会间接引入 install-manager，后者在模块顶层注册 IPC；
+// 在纯 Node 测试环境中 mock 掉 electron 即可，无需真实 Electron 运行时。
+vi.mock("electron", () => ({
+  ipcMain: {
+    on: vi.fn(),
+    handle: vi.fn(),
+    removeHandler: vi.fn(),
+    removeAllListeners: vi.fn(),
+  },
+  BrowserWindow: {
+    getAllWindows: () => [],
+  },
+  WebContents: class {},
+}));
+
 const APTSS_LIST_UPGRADABLE_KEY =
   "bash -lc env LANGUAGE=en_US /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf list --upgradable -o Dir::Etc::sourcelist=/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/aptss.list -o Dir::Etc::sourceparts=/dev/null -o APT::Get::List-Cleanup=0 | awk 'NR>1'";
 
 const DPKG_QUERY_INSTALLED_KEY =
   "dpkg-query -W -f=${Package}\t${db:Status-Want} ${db:Status-Status} ${db:Status-Eflag}\n";
-
-const APM_PRINT_URIS_KEY =
-  "bash -lc amber-pm-debug /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf download spark-weather --print-uris";
 
 const APTSS_WEATHER_PRINT_URIS_KEY =
   "bash -lc /usr/bin/apt download spark-weather --print-uris -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf -o Dir::Etc::sourcelist=/opt/durapps/spark-store/bin/apt-fast-conf/sources.list.d/aptss.list -o Dir::Etc::sourceparts=/dev/null";
@@ -27,6 +39,7 @@ const APTSS_NOTES_PRINT_URIS_KEY =
 
 const WHICH_APTSS_KEY = "which aptss";
 const WHICH_APM_KEY = "which apm";
+const APT_MARK_SHOWHOLD_KEY = "apt-mark showhold";
 
 const loadUpdateCenterModule = async (
   remoteStore: Record<string, RemoteStoreResponse>,
@@ -107,7 +120,7 @@ afterEach(() => {
 });
 
 describe("update-center load items", () => {
-  it("enriches apm migration items with download metadata and remote fallback icons", async () => {
+  it("keeps apm migration items without legacy print-uris metadata and uses remote fallback icons", async () => {
     const commandResults = new Map<string, CommandResult>([
       [
         WHICH_APTSS_KEY,
@@ -133,6 +146,7 @@ describe("update-center load items", () => {
           stderr: "",
         },
       ],
+      [APT_MARK_SHOWHOLD_KEY, { code: 0, stdout: "", stderr: "" }],
       [
         "apm list --upgradable",
         {
@@ -154,15 +168,6 @@ describe("update-center load items", () => {
         {
           code: 0,
           stdout: "",
-          stderr: "",
-        },
-      ],
-      [
-        APM_PRINT_URIS_KEY,
-        {
-          code: 0,
-          stdout:
-            "'https://example.invalid/spark-weather_3.0.0_amd64.deb' spark-weather_3.0.0_amd64.deb 123456 SHA512:deadbeef",
           stderr: "",
         },
       ],
@@ -215,10 +220,6 @@ describe("update-center load items", () => {
       name: "Spark Weather",
       remoteIcon:
         "https://erotica.spark-app.store/amd64-apm/tools/spark-weather/icon.png",
-      downloadUrl: "https://example.invalid/spark-weather_3.0.0_amd64.deb",
-      fileName: "spark-weather_3.0.0_amd64.deb",
-      size: 123456,
-      sha512: "deadbeef",
       isMigration: true,
       migrationSource: "aptss",
       migrationTarget: "apm",
@@ -243,6 +244,14 @@ describe("update-center load items", () => {
 
         if (key === WHICH_APTSS_KEY) {
           return { code: 0, stdout: "/usr/bin/aptss\n", stderr: "" };
+        }
+
+        if (key === APT_MARK_SHOWHOLD_KEY) {
+          return { code: 0, stdout: "", stderr: "" };
+        }
+
+        if (key === APT_MARK_SHOWHOLD_KEY) {
+          return { code: 0, stdout: "", stderr: "" };
         }
 
         if (key === WHICH_APM_KEY) {
@@ -324,6 +333,10 @@ describe("update-center load items", () => {
 
       if (key === WHICH_APTSS_KEY) {
         return { code: 0, stdout: "/usr/bin/aptss\n", stderr: "" };
+      }
+
+      if (key === APT_MARK_SHOWHOLD_KEY) {
+        return { code: 0, stdout: "", stderr: "" };
       }
 
       if (key === WHICH_APM_KEY) {
@@ -431,6 +444,14 @@ describe("update-center load items", () => {
           return { code: 0, stdout: "/usr/bin/aptss\n", stderr: "" };
         }
 
+        if (key === APT_MARK_SHOWHOLD_KEY) {
+          return { code: 0, stdout: "", stderr: "" };
+        }
+
+        if (key === APT_MARK_SHOWHOLD_KEY) {
+          return { code: 0, stdout: "", stderr: "" };
+        }
+
         if (key === WHICH_APM_KEY) {
           return { code: 127, stdout: "", stderr: "apm: command not found" };
         }
@@ -505,6 +526,10 @@ describe("update-center load items", () => {
     const runCommand = vi.fn(async (command: string, args: string[]) => {
       const key = `${command} ${args.join(" ")}`;
 
+      if (key === APT_MARK_SHOWHOLD_KEY) {
+        return { code: 0, stdout: "", stderr: "" };
+      }
+
       if (key === WHICH_APM_KEY) {
         return { code: 0, stdout: "/usr/bin/apm\n", stderr: "" };
       }
@@ -521,18 +546,6 @@ describe("update-center load items", () => {
         return {
           code: 0,
           stdout: "",
-          stderr: "",
-        };
-      }
-
-      if (
-        key ===
-        "bash -lc amber-pm-debug /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf download spark-clock --print-uris"
-      ) {
-        return {
-          code: 0,
-          stdout:
-            "'https://example.invalid/spark-clock_2.0.0_amd64.deb' spark-clock_2.0.0_amd64.deb 1234 SHA512:feedface",
           stderr: "",
         };
       }
@@ -594,6 +607,10 @@ describe("update-center load items", () => {
             "'https://example.invalid/spark-notes_2.0.0_amd64.deb' spark-notes_2.0.0_amd64.deb 654321 SHA512:beadfeed",
           stderr: "",
         };
+      }
+
+      if (key === APT_MARK_SHOWHOLD_KEY) {
+        return { code: 0, stdout: "", stderr: "" };
       }
 
       throw new Error(`Unexpected command ${key}`);

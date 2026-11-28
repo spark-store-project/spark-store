@@ -35,6 +35,8 @@
     - 删除孤儿 IPC 处理器 `list-upgradable`（及仅其使用的 `parseUpgradableList`）、`show-apm-install-dialog`（前端早已改用 Vue 弹窗）、`uninstall-installed`（与在用的 `remove-installed` 重复）。
     - 删除孤儿渲染端代码：`handleUpgrade`、`handleRemove`、`useDownloadItemStatus`，以及已无生产者的 `queue-install` 渲染端回灌监听器（其主进程 `webContents.send` 生产者在 `b5c5ab04` 已移除）。
 
+11. **适配 APM 2.0 的更新检查**：APM 2.0 起为原生包管理，不再提供 `amber-pm-debug` 与 apt 环境，旧的 `print-uris` 元数据查询会失败并导致更新中心静默丢弃全部 APM 更新项。现移除该查询，APM 更新项直接交由 `apm install -y`（含下载、校验与安装）处理；更新通知脚本同步移除 `amber-pm-debug` 的版本/hold 复核，改由 `apm list --upgradable` 直接给出可更新列表。
+
 相关提交：`1d9d25d6`、`c75938aa`、`39a358bb`、`51473cac`、`cf0e72ff`、`b0d60737`、`d3705ed4`。
 
 ## [1.1.1](https://github.com/elysia-best/apm-app-store/compare/v1.1.0...v1.1.1) (2026-02-17)

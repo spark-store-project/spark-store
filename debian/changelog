@@ -1,3 +1,11 @@
+spark-store (5.3.5) UNRELEASED; urgency=medium
+
+  * 兼容 APM 2.0 的更新检查：移除已废弃的 amber-pm-debug 元数据查询，
+    APM 更新项直接交给原生 apm install 处理；同时清理更新通知脚本中的
+    amber-pm-debug 调用，避免新版 APM 下无法列出可更新项。
+
+ -- shenmo <shenmo@spark-app.store>  Sat, 28 Nov 2026 12:55:00 +0800
+
 spark-store (5.3.4-1) UNRELEASED; urgency=medium
 
   * 兼容 APM 2.0 原生安装路径的已安装检测、图标解析、启动与卸载。

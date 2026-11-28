@@ -17,12 +17,20 @@ describe("update-center query", () => {
       "",
     ].join("\n");
 
+    // 同版本项也保留：aptss 已判定其为 upgradable，应信任上游判断。
     expect(parseAptssUpgradableOutput(output)).toEqual([
       {
         pkgname: "spark-weather",
         source: "aptss",
         currentVersion: "1.9.0",
         nextVersion: "2.0.0",
+        arch: "amd64",
+      },
+      {
+        pkgname: "spark-same",
+        source: "aptss",
+        currentVersion: "1.0.0",
+        nextVersion: "1.0.0",
         arch: "amd64",
       },
     ]);
@@ -286,6 +294,13 @@ describe("update-center query", () => {
         nextVersion: "5.0.0",
         arch: "arm64",
       },
+      {
+        pkgname: "spark-same",
+        source: "apm",
+        currentVersion: "1.0.0",
+        nextVersion: "1.0.0",
+        arch: "arm64",
+      },
     ]);
   });
 
@@ -297,10 +312,12 @@ describe("update-center query", () => {
       "",
     ].join("\n");
 
+    // APM 2.0 起输出形如 "<pkg>/<repo>,now <version> <arch> [installed...]"，
+    // 无索引时则是 "<pkg>/now <version> <arch> [installed,local]"。
     const apmInstalledOutput = [
       "Listing...",
-      "spark-weather/main,stable 3.0.0 amd64 [installed]",
-      "spark-player/main 1.0.0 amd64 [installed,automatic]",
+      "spark-weather/main,now 3.0.0 amd64 [installed]",
+      "spark-player/now 1.0.0 amd64 [installed,automatic]",
       "",
     ].join("\n");
 

@@ -71,14 +71,6 @@ const DPKG_QUERY_INSTALLED_COMMAND = {
   ],
 };
 
-const getApmPrintUrisCommand = (pkgname: string) => ({
-  command: "bash",
-  args: [
-    "-lc",
-    `amber-pm-debug /usr/bin/apt -c /opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf download ${pkgname} --print-uris`,
-  ],
-});
-
 const getAptssPrintUrisCommand = (pkgname: string) => ({
   command: "bash",
   args: [
@@ -123,42 +115,6 @@ const getCommandError = (
   }
 
   return `${label} failed: ${result.stderr || result.stdout || `exit code ${result.code}`}`;
-};
-
-const loadApmItemMetadata = async (
-  item: UpdateCenterItem,
-  runCommand: UpdateCenterCommandRunner,
-): Promise<
-  | { item: UpdateCenterItem; warning?: undefined }
-  | { item: null; warning: string }
-> => {
-  const printUrisCommand = getApmPrintUrisCommand(item.pkgname);
-  const metadataResult = await runCommand(
-    printUrisCommand.command,
-    printUrisCommand.args,
-  );
-  const commandError = getCommandError(
-    `apm metadata query for ${item.pkgname}`,
-    metadataResult,
-  );
-  if (commandError) {
-    return { item: null, warning: commandError };
-  }
-
-  const metadata = parsePrintUrisOutput(metadataResult.stdout);
-  if (!metadata) {
-    return {
-      item: null,
-      warning: `apm metadata query for ${item.pkgname} returned no package metadata`,
-    };
-  }
-
-  return {
-    item: {
-      ...item,
-      ...metadata,
-    },
-  };
 };
 
 const loadAptssItemMetadata = async (
@@ -217,22 +173,6 @@ const loadAptssItemMetadata = async (
       ...item,
       ...metadata,
     },
-  };
-};
-
-const enrichApmItems = async (
-  items: UpdateCenterItem[],
-  runCommand: UpdateCenterCommandRunner,
-): Promise<UpdateCenterLoadItemsResult> => {
-  const results = await Promise.all(
-    items.map((item) => loadApmItemMetadata(item, runCommand)),
-  );
-
-  return {
-    items: results.flatMap((result) => (result.item ? [result.item] : [])),
-    warnings: results.flatMap((result) =>
-      result.warning ? [result.warning] : [],
-    ),
   };
 };
 
@@ -476,26 +416,20 @@ export const loadUpdateCenterItems = async (
     aptssAvailable ? enrichItemCategories(aptssItems) : Promise.resolve([]),
     apmEnabled ? enrichItemCategories(apmItems) : Promise.resolve([]),
   ]);
-  const [enrichedAptssItems, enrichedApmItems] = await Promise.all([
-    aptssAvailable
-      ? enrichAptssItems(categorizedAptssItems, runCommand)
-      : Promise.resolve({ items: [], warnings: [] }),
-    apmEnabled
-      ? enrichApmItems(categorizedApmItems, runCommand)
-      : Promise.resolve({ items: [], warnings: [] }),
-  ]);
+  const enrichedAptssItems = aptssAvailable
+    ? await enrichAptssItems(categorizedAptssItems, runCommand)
+    : { items: [], warnings: [] };
   logger.debug(
     `[UpdateCenter] enrichedAptssItems: count=${enrichedAptssItems.items.length}, warnings=${enrichedAptssItems.warnings.length}`,
     enrichedAptssItems.warnings,
   );
-  logger.debug(
-    `[UpdateCenter] enrichedApmItems: count=${enrichedApmItems.items.length}, warnings=${enrichedApmItems.warnings.length}`,
-    enrichedApmItems.warnings,
-  );
 
+  // APM 2.0 起包管理为原生实现（不再有 amber-pm-debug / apt 环境），
+  // 也不再提供 apt 风格的 print-uris 元数据；更新项直接交给 `apm install -y` 处理，
+  // 由 APM 自身完成下载、校验与安装，避免因元数据缺失被静默过滤。
   const mergedItems = mergeUpdateSources(
     enrichItemIcons(enrichedAptssItems.items),
-    enrichItemIcons(enrichedApmItems.items),
+    enrichItemIcons(categorizedApmItems),
     installedSources,
   );
   logger.debug(
@@ -511,11 +445,7 @@ export const loadUpdateCenterItems = async (
 
   return {
     items: heldItems,
-    warnings: [
-      ...warnings,
-      ...enrichedAptssItems.warnings,
-      ...enrichedApmItems.warnings,
-    ],
+    warnings: [...warnings, ...enrichedAptssItems.warnings],
   };
 };
 
@@ -624,7 +554,9 @@ export const runSystemUpdateSources = async (
     const aptssAvailable =
       whichResult.code === 0 && whichResult.stdout.trim().length > 0;
     if (aptssAvailable) {
-      logger.debug("[UpdateCenter] Running: pkexec shell-caller aptss ssupdate");
+      logger.debug(
+        "[UpdateCenter] Running: pkexec shell-caller aptss ssupdate",
+      );
       const superUserCmd = await findExecutable(
         SUPER_USER_COMMAND_CANDIDATES[0],
       );
